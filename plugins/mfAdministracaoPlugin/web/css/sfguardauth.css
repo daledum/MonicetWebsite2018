@@ -1,0 +1,206 @@
+@CHARSET "UTF-8";
+body, html {
+  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  font-family: Tahoma;
+  padding-top: 20px;
+  color: #727272;
+}
+.box {
+  width: 974px; /* valor definido no yui para o id #doc4 do yui */
+  margin: 0 auto;
+  text-align: left;
+  height: 100%;
+}
+#header, #main, #footer {
+  width: 100%;
+}
+#header {
+  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  height: 80px;
+}
+#header .box {
+  background: #5785c3 url('../images/sfguardauth/header_box_bg.jpg') repeat-x top left;
+  position: relative;
+}
+#header .box .ne {
+  background: transparent url('../images/sfguardauth/nw.jpg') no-repeat top left;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+}
+#header .box .nw {
+  background: transparent url('../images/sfguardauth/ne.jpg') no-repeat top right;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+}
+#main {
+  background: #4d545e url('../images/sfguardauth/main_bg.jpg') repeat-y top center;
+  height: 378px;
+}
+#main .box {
+  background-color: #474e59;
+  border-top: 2px solid #3465b0;
+  border-bottom: 2px solid #5784c2;
+  color: #ffffff;
+  padding: 0;
+  position: relative;
+  top: -4px;
+  height: 382px;
+}
+#main .logo {
+  float: left;
+  width: 520px;
+  background-color: transparent;
+  text-align: center;
+  margin: 25px 0 0 15px;
+}
+#main .logo p {
+  margin: 5px 10px;
+  text-align: justify;
+  font-size: 12px;
+}
+#main .vbar {
+  float: left;
+  width: 2px;
+  height: 332px;
+  position: relative;
+  left: 6px;
+  top: 24px;
+  background-color: #3667b1;
+}
+#main .form {
+  float: right;
+  background-color: transparent;
+  position: relative;
+  right: 60px;
+  top: 30px;
+}
+#main .form .form_row {
+  margin-bottom: 15px;
+}
+#main .form .form_row.right {
+  text-align: right;
+  position: relative;
+  right: 0;
+  *left: 90px;
+}
+#main .form .textbox {
+  border: 2px solid #666666;
+  background-color: #e0e0e0;
+  font-size: 16px;
+  height: 22px;
+  width: 300px;
+}
+#main .form .textbox:focus {
+  border: 2px solid #3667b1;
+  background-color: #e6e6e6;
+}
+#main .form .button {
+  background: #222222 url('../images/sfguardauth/button_bg.jpg') repeat top left;
+  color: #e8e8e8;
+  border: 1px solid #676767;
+  font-size: 15px;
+  padding: 4px 12px;
+}
+#main .form h1 {
+  color: #4a78bc;
+  font-size: 20px;
+  text-align: right;
+}
+#main .form h2 {
+  color: #9f9f9f;
+  font-size: 16px;
+  text-align: right;
+}
+#main .form label {
+  color: #d8d8d8;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+}
+#main .form form {
+  position: relative;
+  right: 0px;
+  top: 20px;
+}
+#main .form li {
+  padding-left: 14px;
+  background: transparent url('../images/sfguardauth/arrow.jpg') no-repeat left 50%;
+}
+#footer {
+  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  height: 35px;
+  clear: both;
+  display: block;
+  margin-top: 2px; 
+}
+#footer .box {
+  background: #6088c6 url('../images/sfguardauth/footer_box_bg.jpg') repeat-x;
+  border-top: 2px solid #3465b0;
+  color: #cccccc;
+  text-align: right;
+  position: relative;
+}
+#footer .morfose {
+  position: absolute;
+  top: 7px;
+  right: 20px;	
+}
+#footer .box .se {
+  background: transparent url('../images/sfguardauth/sw.jpg') no-repeat bottom left;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+}
+#footer .box .sw {
+  background: transparent url('../images/sfguardauth/se.jpg') no-repeat bottom right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  z-index: 100;
+}
+#footer a:link, #footer a:visited {
+  color: #eeeeee;	
+}
+#footer a:hover, #footer a:active {
+  color: #444444; 
+}
+a {
+  outline: none;
+}
+a:link, a:visited {
+	color: #4a78bc;
+  text-decoration: none;
+}
+a:hover, a:active {
+  color: #dddddd;
+}
+.error {
+  color: #d95050;
+  background-color: #4c535e;
+  padding: 7px;
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-weight: normal;
+}
+.alert {
+  margin: 20px 0;	
+}
+.clear {
+  clear: both;
+  display: block;
+  height: 0;
+  line-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}

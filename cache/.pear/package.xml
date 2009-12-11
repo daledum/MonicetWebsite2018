@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.0" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>mfAdministracaoPlugin</name>
+ <channel>pear.morfose.net</channel>
+ <summary>Administration area for symfony</summary>
+ <description>A plugin to customize the administration area of symfony and the sfGuardPlugin</description>
+ <lead>
+  <name>Tito Miguel Costa</name>
+  <user>titomiguelcosta</user>
+  <email>titomiguelcosta@morfose.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-11-27</date>
+ <time>17:52:54</time>
+ <version>
+  <release>1.4.0</release>
+  <api>1.4.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+ <notes>
+First version of the plugin for symfony 1.4
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <file baseinstalldir="/" md5sum="7c5a78feea554044f40083cb61a7b7a3" name="data/extra/mfAdminLayout.php" role="data" />
+   <file baseinstalldir="/" md5sum="bafa102b81d416c0e370c640cc58053b" name="data/extra/sfGuardLayout.php" role="data" />
+   <file baseinstalldir="/" md5sum="1ec9ea8427390cef85176240bc42c237" name="data/generator/sfPropelModule/mfAdmin/parts/actionsConfiguration.php" role="data" />
+   <file baseinstalldir="/" md5sum="5cf9a2cd92b17ac9db2cda2ab36b2990" name="data/generator/sfPropelModule/mfAdmin/parts/batchAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="79df2d7c3c2f1624927a4d9bae899237" name="data/generator/sfPropelModule/mfAdmin/parts/configuration.php" role="data" />
+   <file baseinstalldir="/" md5sum="26918838d523b529d9f774e791cac59d" name="data/generator/sfPropelModule/mfAdmin/parts/createAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="71592cb8c346fcb39dda67f256607d7e" name="data/generator/sfPropelModule/mfAdmin/parts/deleteAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="a4fab933268d1601bfff828871f054e9" name="data/generator/sfPropelModule/mfAdmin/parts/editAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="016f58afcb4da451f6e67d722afa4308" name="data/generator/sfPropelModule/mfAdmin/parts/fieldsConfiguration.php" role="data" />
+   <file baseinstalldir="/" md5sum="3a52a8dbd20482a492e56e36052aee90" name="data/generator/sfPropelModule/mfAdmin/parts/filterAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="dac3f99dc0c36f9303cb53d13ae1a68a" name="data/generator/sfPropelModule/mfAdmin/parts/filtersAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="7564d38b2c3e3a8a7bd1499963bf6719" name="data/generator/sfPropelModule/mfAdmin/parts/indexAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="1b71611241c98d237ea3f5ee9a182a7c" name="data/generator/sfPropelModule/mfAdmin/parts/newAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="13d89b11be96576aa99973df646ab89d" name="data/generator/sfPropelModule/mfAdmin/parts/paginationAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="8fda80b47580529a279bae7cc19d749a" name="data/generator/sfPropelModule/mfAdmin/parts/paginationConfiguration.php" role="data" />
+   <file baseinstalldir="/" md5sum="a9bae228542e7e1ce75b7c4324c33a8a" name="data/generator/sfPropelModule/mfAdmin/parts/processFormAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="8ade070b3ccc1dfa4774e29decd395b6" name="data/generator/sfPropelModule/mfAdmin/parts/sortingAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="f5e373a03619af21adfa43810254a726" name="data/generator/sfPropelModule/mfAdmin/parts/sortingConfiguration.php" role="data" />
+   <file baseinstalldir="/" md5sum="c84db41835784f11f39fab41e99ed5db" name="data/generator/sfPropelModule/mfAdmin/parts/updateAction.php" role="data" />
+   <file baseinstalldir="/" md5sum="88118f3964f7bac529eeecdc9e3bb130" name="data/generator/sfPropelModule/mfAdmin/skeleton/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c3af4501a3d1204659cfc4b145d7ded5" name="data/generator/sfPropelModule/mfAdmin/skeleton/config/generator.yml" role="data" />
+   <file baseinstalldir="/" md5sum="2d7be4a30042180d67305fbd48465d2a" name="data/generator/sfPropelModule/mfAdmin/skeleton/config/view.yml" role="data" />
+   <file baseinstalldir="/" md5sum="309c0483ab4497478a86a180e40812c9" name="data/generator/sfPropelModule/mfAdmin/skeleton/lib/configuration.php" role="data" />
+   <file baseinstalldir="/" md5sum="9d57da10056b82d056122cabbe0ee699" name="data/generator/sfPropelModule/mfAdmin/skeleton/lib/helper.php" role="data" />
+   <file baseinstalldir="/" md5sum="42849d07d02ec57dc1a7fb8a7b195245" name="data/generator/sfPropelModule/mfAdmin/template/actions/actions.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="5beff65b4a918a22233c14e76daf5e05" name="data/generator/sfPropelModule/mfAdmin/template/lib/helper.php" role="data" />
+   <file baseinstalldir="/" md5sum="0ab434424fa623c4aaed92cee26c8615" name="data/generator/sfPropelModule/mfAdmin/template/templates/editSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="790641346f7d70ad99e61f1c8c156b7f" name="data/generator/sfPropelModule/mfAdmin/template/templates/indexSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="7cf10176bf6674b5b87020ced44f7777" name="data/generator/sfPropelModule/mfAdmin/template/templates/newSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="71b21d3cd2131d3d32b783174891ab1e" name="data/generator/sfPropelModule/mfAdmin/template/templates/_assets.php" role="data" />
+   <file baseinstalldir="/" md5sum="0a0d1b2a3f79ffcb2fec5fc18226dffa" name="data/generator/sfPropelModule/mfAdmin/template/templates/_filters.php" role="data" />
+   <file baseinstalldir="/" md5sum="33fcd5a00b8ec6902a71c706349128e7" name="data/generator/sfPropelModule/mfAdmin/template/templates/_filters_field.php" role="data" />
+   <file baseinstalldir="/" md5sum="94e347aa4ca12085b20ee8c417cf66af" name="data/generator/sfPropelModule/mfAdmin/template/templates/_flashes.php" role="data" />
+   <file baseinstalldir="/" md5sum="07f1414be21a5cfedcb1e8371efb6a90" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form.php" role="data" />
+   <file baseinstalldir="/" md5sum="3dd90db4f733cd0c86dafbe9ada2e7bc" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form_actions.php" role="data" />
+   <file baseinstalldir="/" md5sum="3bb69da77dfb581e80afd9970bfd1044" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form_field.php" role="data" />
+   <file baseinstalldir="/" md5sum="05789a626aa80a6827405c797d15e181" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form_fieldset.php" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form_footer.php" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="data/generator/sfPropelModule/mfAdmin/template/templates/_form_header.php" role="data" />
+   <file baseinstalldir="/" md5sum="c8319bc7bf655d70b7fce63b26b180cd" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list.php" role="data" />
+   <file baseinstalldir="/" md5sum="e51f6b544f919fcb400662d89e419975" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_actions.php" role="data" />
+   <file baseinstalldir="/" md5sum="656110778b87bdae5b0a12ffba2883b8" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_batch_actions.php" role="data" />
+   <file baseinstalldir="/" md5sum="52e2ef8ef603182dc52433caf4f7f9f8" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_field_boolean.php" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_footer.php" role="data" />
+   <file baseinstalldir="/" md5sum="d41d8cd98f00b204e9800998ecf8427e" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_header.php" role="data" />
+   <file baseinstalldir="/" md5sum="f0504d51265dd3c6dc2b22cea2cddbed" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_td_actions.php" role="data" />
+   <file baseinstalldir="/" md5sum="cc867a9d827e62829ae861203000b689" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_td_batch_actions.php" role="data" />
+   <file baseinstalldir="/" md5sum="a91a139000b62798387b303882951cf9" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_td_stacked.php" role="data" />
+   <file baseinstalldir="/" md5sum="ad955e6b002df097355ece1ca15de1d3" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_td_tabular.php" role="data" />
+   <file baseinstalldir="/" md5sum="0baf9abe1924ee373ec85e2986ce669c" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_th_stacked.php" role="data" />
+   <file baseinstalldir="/" md5sum="5789cee8b7198f1343d155aedc4fb703" name="data/generator/sfPropelModule/mfAdmin/template/templates/_list_th_tabular.php" role="data" />
+   <file baseinstalldir="/" md5sum="99b620ded32f188af57c06a617f25bdf" name="data/generator/sfPropelModule/mfAdmin/template/templates/_pagination.php" role="data" />
+   <file baseinstalldir="/" md5sum="346f1f9e3a4fa6811ddae7a857051299" name="i18n/messages.pt.xml" role="data" />
+   <file baseinstalldir="/" md5sum="19fea5ebd32babcc6d0d401aebbecf91" name="i18n/sf_admin.pt.xml" role="data" />
+   <file baseinstalldir="/" md5sum="8c537e8749a0211c37e184403654a3dd" name="i18n/sf_guard.pt.xml" role="data" />
+   <file baseinstalldir="/" md5sum="0fa58f5eb9837aa05beabf21469aaa80" name="lib/helper/mfAdministracaoHelper.php" role="data" />
+   <file baseinstalldir="/" md5sum="f3f9af4709c2cfbfe207ab957b419ca5" name="lib/task/mfAdministracaoDeployguardTask.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="e36b4fe1863052e849fcb8fac7bba95e" name="lib/task/mfAdministracaoGenerateadminTask.class.php" role="data" />
+   <file baseinstalldir="/" md5sum="c24464b2d3ef59a8cfb4158fe047bf7c" name="modules/sfGuardAuth/config/view.yml" role="data" />
+   <file baseinstalldir="/" md5sum="da2ea896cac3f783ea5097ae2e5372f1" name="modules/sfGuardAuth/templates/secureSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="883f3529a368c24421abdaa80f1fc6a6" name="modules/sfGuardAuth/templates/signinSuccess.php" role="data" />
+   <file baseinstalldir="/" md5sum="6fe357e5bbdb6ad19eb17a57eb97fc83" name="modules/sfGuardAuth/templates/_login_links.php" role="data" />
+   <file baseinstalldir="/" md5sum="e144f105d7a24891df17f6c7c1f30c8a" name="web/css/default.css" role="data" />
+   <file baseinstalldir="/" md5sum="9b39c143c1362e5c8feefd4f119f2ee8" name="web/css/ie6fix.css" role="data" />
+   <file baseinstalldir="/" md5sum="1030d269b1fb45c80ec645b55c9d306b" name="web/css/layout.css" role="data" />
+   <file baseinstalldir="/" md5sum="2162df6e1ab29d6d2e5cc3748dac9bcc" name="web/css/resetfontsgrids.css" role="data" />
+   <file baseinstalldir="/" md5sum="e941744c03794164c7d455392262ffa8" name="web/css/sfguardauth.css" role="data" />
+   <file baseinstalldir="/" md5sum="e3d1c6a359094150bba24d77a656bc98" name="web/css/blueprint/ie.css" role="data" />
+   <file baseinstalldir="/" md5sum="95abcb5aea2a2aa269db9d014d950605" name="web/css/blueprint/print.css" role="data" />
+   <file baseinstalldir="/" md5sum="12f3091dab2800495b3ee0764c6049ac" name="web/css/blueprint/screen.css" role="data" />
+   <file baseinstalldir="/" md5sum="483e352d6d2ced6b9b9d7143388693c8" name="web/images/favicon.ico" role="data" />
+   <file baseinstalldir="/" md5sum="3da884e67a76e655765c4e16f0a70478" name="web/images/logo_administracao.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="2e4b74565e886647790ec22232a8821d" name="web/images/icons/asc.png" role="data" />
+   <file baseinstalldir="/" md5sum="e60e0d971881f11ceaaab4e4537a0121" name="web/images/icons/default.png" role="data" />
+   <file baseinstalldir="/" md5sum="ccc2bb04728b3b781a7e0073f4d9a738" name="web/images/icons/delete.png" role="data" />
+   <file baseinstalldir="/" md5sum="2e8c79e752eb71355aff18d8a1f0d5d4" name="web/images/icons/desc.png" role="data" />
+   <file baseinstalldir="/" md5sum="f887290481e06f355794883291fe6034" name="web/images/icons/edit.png" role="data" />
+   <file baseinstalldir="/" md5sum="3f13845773aed05f0d17c3a4934f9e3e" name="web/images/icons/error.png" role="data" />
+   <file baseinstalldir="/" md5sum="c86d0012bac5201e7de3f629dd79d5f8" name="web/images/icons/first.png" role="data" />
+   <file baseinstalldir="/" md5sum="d57b70dfef7c943c967775bfc2d3667c" name="web/images/icons/last.png" role="data" />
+   <file baseinstalldir="/" md5sum="57b863dddd29bf6c65753327ad3f6507" name="web/images/icons/list.png" role="data" />
+   <file baseinstalldir="/" md5sum="c7e09c835e3103c6c0ce10544a7ca9a6" name="web/images/icons/logout.png" role="data" />
+   <file baseinstalldir="/" md5sum="9ed419c9e0974d0b768e2e5ac93d4911" name="web/images/icons/new.png" role="data" />
+   <file baseinstalldir="/" md5sum="c5c43e04ad7775ebae782853088aba2a" name="web/images/icons/next.png" role="data" />
+   <file baseinstalldir="/" md5sum="cfba176463fbc5a395b5132f79cb384c" name="web/images/icons/previous.png" role="data" />
+   <file baseinstalldir="/" md5sum="07ba5affbd6b9813006888bb166404e2" name="web/images/icons/tick.png" role="data" />
+   <file baseinstalldir="/" md5sum="632fad6abf5c71a534227b162e6884db" name="web/images/layout/bd_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="f382107cd3f2fac3cbf18e9d9e7c2399" name="web/images/layout/bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="4db4e7d79f3e79fc8efc1c002e53cc8c" name="web/images/layout/bt_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="11189ed2feca4aaca7f317e533600431" name="web/images/layout/bt_se.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="1fb0a766b5b7ada4a64864d6fcc6ee6f" name="web/images/layout/bt_sw.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="e73a137da5bec94d5bdec8937691de1f" name="web/images/layout/button_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="7bd77d51495848c2d9439c92583be426" name="web/images/layout/dv_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="3e4785b911c764544855a7bd98e9468b" name="web/images/layout/ft_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="8c4deb5bf384593f3b3a2794df4343cf" name="web/images/layout/h1_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="868f1be8743c98496efa2e8b4045a3da" name="web/images/layout/h2_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="f382107cd3f2fac3cbf18e9d9e7c2399" name="web/images/layout/hd_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="b8a73f9a7a72c4e7a60bbfb07ee012d5" name="web/images/layout/hd_ct_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="d1b086b0c9f44991f26f4f8c1d362ae8" name="web/images/layout/main_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="3ff190c656e7bb84b278207ce84f3037" name="web/images/layout/menu_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="5f3a72284ef4c4cc850224275fe9949a" name="web/images/layout/menu_box_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="5f3a72284ef4c4cc850224275fe9949a" name="web/images/layout/menu_ct_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="6f34a9eba60ea8d2cb58f699eb7dabee" name="web/images/layout/menu_ct_bg.png" role="data" />
+   <file baseinstalldir="/" md5sum="9ee1a4de68059b77c9ec58d81b9d8d9d" name="web/images/layout/menu_item_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="ac930c47b368cfcc515d0c477badc94f" name="web/images/layout/menu_item_bg_active.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="35676db1af4937c378d5728d9c5ee126" name="web/images/layout/menu_item_bg_hover.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="581717fde7d17536462dda86a974082f" name="web/images/layout/menu_item_separator.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="029fb01ac592d6c14f7990a51e2fb64d" name="web/images/layout/menu_sw.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="d2bb0afeab396df573c14219a2296e10" name="web/images/layout/th_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="dd57867aa9dde7da83d06808a02abdc1" name="web/images/layout/user_bg.png" role="data" />
+   <file baseinstalldir="/" md5sum="73b6a03bff7267ba9dd2fa48723575d0" name="web/images/sfguardauth/arrow.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="e73a137da5bec94d5bdec8937691de1f" name="web/images/sfguardauth/button_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="5c219c0189191441eacf62704cf871ff" name="web/images/sfguardauth/footer_box_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="f382107cd3f2fac3cbf18e9d9e7c2399" name="web/images/sfguardauth/header_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="b8a73f9a7a72c4e7a60bbfb07ee012d5" name="web/images/sfguardauth/header_box_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="32a1f37a8048c1e7c4074b17eb70f703" name="web/images/sfguardauth/logo_login.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="cf9249287e7136953e58bf61b1c4440e" name="web/images/sfguardauth/main_bg.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="ab441b7730535ff87acc8e892b387be2" name="web/images/sfguardauth/ne.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="4c05ad7d165cc59a323f3cf164e8e60b" name="web/images/sfguardauth/nw.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="47bb20265ad4217be79f1348b3942c11" name="web/images/sfguardauth/se.jpg" role="data" />
+   <file baseinstalldir="/" md5sum="2bb4c5a2471bd98b7040198b294d1895" name="web/images/sfguardauth/sw.jpg" role="data" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>1.4.0</release>
+    <api>1.4.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2009-11-27</date>
+   <license uri="http://www.opensource.org/licenses/mit-license.html">MIT</license>
+   <notes>
+First version of the plugin for symfony 1.4
+   </notes>
+  </release>
+ </changelog>
+</package>
