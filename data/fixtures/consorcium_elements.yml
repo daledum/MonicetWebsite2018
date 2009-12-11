@@ -1,0 +1,68 @@
+ConsorciumElement:
+  consorcium_cirn:
+    name: "CIRN"
+    logotype: ~
+    link: ~
+    
+  consorcium_futurismo:
+    name: "Futurismo"
+    logotype: ""
+    link: "http://www.azoreswhales.com/"
+    
+  consorcium_terra_azul:
+    name: "Terra Azul"
+    logotype: ""
+    link: ""
+  
+  consorcium_picos_de_ventura:
+    name: "Picos de Ventura"
+    logotype: ""
+    link: ""
+
+ConsorciumElementI18n:
+  consorcium_cirn_en:
+    id: consorcium_cirn
+    culture: en
+    description: |
+      en sada sd xc zx c as da sd w r ef dsf ds fd  vxc v xcv cxv cx
+  consorcium_cirn_pt:
+    id: consorcium_cirn
+    culture: pt
+    description: |
+      pt dsadsad asd as d asd asd
+      
+  consorcium_futurismo_en:
+    id: consorcium_futurismo
+    culture: en
+    description: |
+      pt dsadsad asd as d asd asd
+  
+  consorcium_futurismo_pt:
+    id: consorcium_futurismo
+    culture: pt
+    description: |
+      pt dsadsad asd as d asd asd
+  
+  consorcium_terra_azul_en:
+    id: consorcium_terra_azul
+    culture: en
+    description: |
+      pt dsadsad asd as d asd asd
+  
+  consorcium_terra_azul_pt:
+    id: consorcium_terra_azul
+    culture: pt
+    description: |
+      pt dsadsad asd as d asd asd    
+
+  consorcium_picos_de_ventura_en:
+    id: consorcium_picos_de_ventura
+    culture: en
+    description: |
+      pt dsadsad asd as d asd asd
+  
+  consorcium_picos_de_ventura_pt:
+    id: consorcium_picos_de_ventura
+    culture: pt
+    description: |
+      pt dsadsad asd as d asd asd

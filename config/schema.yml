@@ -1,0 +1,22 @@
+propel:
+  news_article:
+    id:            ~
+    is_published:  { type: boolean, required: true, default: 0 }
+    created_at:    ~
+    updated_at:    ~
+  news_article_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: news_article, foreignReference: id }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
+    headline:      { type: varchar(255), required: true }
+    body:          { type: longvarchar, required: true }
+  consorcium_element:
+    id:            ~
+    name:          { type: varchar(255), required: true }
+    logotype:      { type: varchar(255), required: false }
+    link:          { type: varchar(500), required: false }
+    created_at:    ~
+    updated_at:    ~
+  consorcium_element_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: consorcium_element, foreignReference: id }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
+    description:   { type: longvarchar, required: false }
