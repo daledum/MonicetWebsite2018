@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2009-12-11T11:47:31Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit id="1">
+        <source>English</source>
+        <target>Inglês</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Portuguese</source>
+        <target>Português</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>Home</source>
+        <target>Início</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>Background</source>
+        <target>??</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>Objectives</source>
+        <target>Objectivos</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>Team and Partners</source>
+        <target>Equipa e Parceiros</target>
+      </trans-unit>
+      <trans-unit id="7">
+        <source>Consorcium</source>
+        <target>Consórcio</target>
+      </trans-unit>
+      <trans-unit id="8">
+        <source>Consultants</source>
+        <target>Consultores</target>
+      </trans-unit>
+      <trans-unit id="9">
+        <source>Support</source>
+        <target>Apoios</target>
+      </trans-unit>
+      <trans-unit id="10">
+        <source>developed by</source>
+        <target>desenvolvido por</target>
+      </trans-unit>
+      <trans-unit id="11">
+        <source>see all</source>
+        <target>ver todas</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
