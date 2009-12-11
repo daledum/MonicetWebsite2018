@@ -1,0 +1,3 @@
+all:
+  stylesheets: [-*, /mfAdministracaoPlugin/css/resetfontsgrids, /mfAdministracaoPlugin/css/sfguardauth]
+  layout: sfGuardLayout

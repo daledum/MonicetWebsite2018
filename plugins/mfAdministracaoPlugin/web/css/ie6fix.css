@@ -1,0 +1,43 @@
+#main {
+  height: 390px !important;
+}
+#main .box {
+  height: 390px !important;
+  top: 0 !important;
+}
+#footer {
+  height: 30px !important;
+  margin-top: 0 !important;
+}
+#footer .box {
+  top: -2px !important;
+  border-bottom: none !important;
+}
+#bottom {
+  height: 30px !important;
+  margin-top: 0 !important;
+}
+#bottom .box {
+  top: -2px !important;
+}
+#header .box .info {
+  padding: 8px 0 0 !important;
+}
+#header .box .info .text {
+  display: inline !important;
+}
+#header .box .logout {
+  padding: 8px 0 0 !important;
+}
+#header .box .logout .text {
+  display: inline !important;
+}
+table.admin a.button_show {
+  padding: 5px 6px 0 26px !important;
+  margin: 0 0 0 6px !important;
+}
+
+#main .box .content .form_row {
+  padding: 5px 5px 0 !important;
+  height: 15px !important;
+}
