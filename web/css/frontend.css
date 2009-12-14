@@ -34,14 +34,10 @@ body {
 
 #_ul_languages {
     float: right;
+    display: inline;
     padding-bottom: 2px;
     margin-right: 8px;
-}
-
-#_ul_languages li {
-    display: inline;
-    width: 45px;
-    margin-left: 2px;
+    width: 50px;
 }
 
 #_div_en_language {
