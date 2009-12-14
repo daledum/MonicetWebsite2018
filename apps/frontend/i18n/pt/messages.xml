@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2009-12-14T10:09:27Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2009-12-14T17:40:59Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -18,7 +18,7 @@
       </trans-unit>
       <trans-unit id="4">
         <source>Background</source>
-        <target>??</target>
+        <target>Fundamentos</target>
       </trans-unit>
       <trans-unit id="5">
         <source>Objectives</source>
@@ -54,7 +54,7 @@
       </trans-unit>
       <trans-unit id="13">
         <source>read more </source>
-        <target>ler mais</target>
+        <target>ler mais </target>
       </trans-unit>
       <trans-unit id="14">
         <source>first</source>
@@ -63,6 +63,46 @@
       <trans-unit id="15">
         <source>last</source>
         <target>última</target>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Cetaceans are top predators and, as such, a key element of the ocean environment. They have also been shown to be highly developed animals, living in complex societies and exhibiting a wide range of behaviours. In spite of their importance for the ecological balance of life in the sea, they have a long history of direct over-exploitation and competition with human fishing activities which have resulted in the present heightened conservation concerns. To make matters worse, only for a handful of species are the basic facts of biology and ecology known in any detail. For the large majority of the species of whales and dolphins we do not know how many there are (nor how many there were), how are their societies build, what do they feed on, where do they come from, where do they go.</source>
+        <target>Os cetáceos são predadores de topo e, como tal, elementos chave do ambiente oceânico. Sabe-se também que são animais altamente desenvolvidos, vivendo em sociedades complexas e exibindo um leque muito alargado de comportamentos. Apesar da sua importância para o equilíbrio ecológico da vida no mar, os cetáceos têm uma longa história de sobre-exploração e de competição com as actividades pesqueiras, as quais levaram à actual preocupação generalizada com a respectiva conservação. Porém, só para algumas espécies são conhecidos os factos mais básicos da respectiva biologia ou ecologia. Para a grande maioria das espécies de baleias e golfinhos não sabemos quantos são (nem quantos foram), como são construuídas as suas sociedades, de que se alimentam, de onde vêm e para onde vão.</target>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>The ecological importance of cetaceans, and the attraction that many people feel for their high intelligence, have combined to provide these animals with some degree of legal protection and, at the same time, have stimulated the growth of a branch of the tourist industry dedicated solely to their observation in the wild. Whale and dolphin watching activities are growing world-wide and are a major source of income for the Azorean economy. Whale watching in the Azores is regulated and there are no indications that at its current level it is having any biologically significant effect on the well-being of the cetacean populations that it targets. However, such key parameters as the size, geographical distribution, migratory routes and status remain unknown for any species. It is important to measure these variables to be able to show that the Azorean industry is truly sustainable and being conducted to the highest possible standards. This is as important for the public perception and the image of the activity as it is for biological management.</source>
+        <target>A importância ecológica dos cetáceos, e a atracção que muitas pessoas sentem pela sua elevada inteligência, combinaram-se para lhes proporcionar algum grau de protecção legal e, ao mesmo tempo, estimularam o crescimento de um ramo da indústria turística dedicado apenas à observação destes animais no estado selvagem. As actividades de observação de cetáceos continuam a crescer em termos mundiais e são uma fonte importante de divisas na economia açoriana. A actividade nos Açores é regulamentada legalmente, e não existem indicações de que afecte de forma significativa o bem-estar dos animais. Contudo não se conhecem para nenhuma espécie parâmetros essenciais como o efectivo populacional, a distribuição geográfica, as vias migratórias e o estatuto de conservação. É importante medir estas variáveis para poder mostrar que a indústria açoriana é sustentável e está a ser orientada por padrões de qualidade elevados. Isto é tão importante para a percepção pública da actividade como para a conservação das espécies.</target>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>The biologists that often work as second skippers and guides on Azorean whale watching vessels should have a key role in this process. They are the ideal people to collect the initial data and ensure that it is stored and archived correctly. Some of this could be done during the season, but it should also be possible to employ them to carry out this work in the winter months. Ideally, these data will generate worthwhile scientific projects for the biologists and help them to develop research careers within the industry, potentially providing a more fulfilling career path for these key workers within the whale watching industry.</source>
+        <target>Os biólogos que muitas vezes trabalham como timoneiros ou guias nas embarcações de observação de cetáceos devem ter um papel fulcral neste processo. Eles são as pessoas ideais para recolher os dados e assegurar que eles são arquivados de forma correcta. Algum deste trabalho pode ser efectuado durante a época alta, mas poderia ser possível empregar algumas pessoas para o fazer durante os meses de inverno. Idealmente, estes dados serão a base de projectos cientificamente válidos, ajudando estes biólogos a desenvolver carreiras de investigação inseridos na indústria e providenciando-lhes uma carreira mais compensadora.</target>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>In this context, a group of the leading Azorean companies have decided to join hands to develop protocols for data collection which will provide the necessary data while remaining consistent with the constraints and requirements of the whale watching activities. The collected information will be stored in custom-built databases, easy to manage but powerful enough to hold the long term data series required for the industry needs, for monitoring the marine environment, to maximise the quality of the client’s experience, and to promote the reputation of the Azores as a premier whale watching location.</source>
+        <target>Neste contexto, um grupo das principais empresas dos Açores decidiu estabelecer um consórcio com o fim de desenvolver protocolos para recolha de dados que sejam cientificamente válidos mas sejam consistentes com os constrangimentos da operação comercial. A informação será armazenada em bases de dados a desenvolver igualmente durante este projecto, que serão fáceis de gerir mas ao mesmo tempo suficientemente poderosas para armazenar as séries temporais necessárias à actividade empresarial, à maximização da experiência dos clientes, à monitorização do ambiente marinho e à promoção da reputação dos Açores como um destino turístico de primeira qualidade para a observação de cetáceos.</target>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>&lt;acronym&gt;MONICET&lt;/acronym&gt; is a research project aimed at developing the methodologies and the infrastucture to build a long term database of cetacean sightings from commercial operations in the Azores. It is based on a consortium of 3 companies and one research center, and supported by the Azores Government.</source>
+        <target>&lt;acronym&gt;MONICET&lt;/acronym&gt; é um projecto de investigação destinado a estabelecer as metodologias e a criar a infraestrutura necessária para a construção de uma base de dados a longo prazo das observações de cetáceos feitas pelos operadores comerciais nos Açores. É baseado num consórcio de 3 companhias e um centro de investigação universitário, apoiado pelo Governo dos Açores.</target>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>The project is based on a consortium between 3 whale-watching companies and the regional research center &lt;acronym&gt;CIRN&lt;/acronym&gt;, with the support of external consultants. The expansion of the team to include other companies and researchers is planned and is seen as essential to reach the goal of building a truly regional and long-term database.</source>
+        <target>O projecto originou-se num consórcio entre 3 empresas de observação de cetáceos e o centro de investigação &lt;acronym&gt;CIRN&lt;/acronym&gt;, com o apoio de consultores externos. A expansão da equipa a outras empresas e investigadores está planeada e é vista como essencial para atingir o objectivo de construir uma base de dados verdadeiramente regional e de longo prazo.</target>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Development of a &lt;b&gt;standard methodology for data collection at sea&lt;/b&gt;, from the whale-watching vessels, that will be simple to apply in the normal commercial operation conditions but also maximizes the scientific value of the data collected, namely by allowing the quantification of the observation effort.</source>
+        <target>Desenvolvimento de &lt;b&gt;metodologia padrão para a recolha de dados de avistamentos no mar&lt;/b&gt; a partir das embarcações, que seja simples de usar nas condições de operação comercial mas maximize o valor científico dos dados recolhidos, nomeadamente permitindo a quantificação do esforço de observação.</target>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Development of a &lt;b&gt;standard methodology for data collection from the whale-watching lookouts&lt;/b&gt;, with the same requisites as above, including the geographic location of the sightings.</source>
+        <target>Desenvolvimento de &lt;b&gt;metodologia padrão para a recolha de dados dos avistamentos de terra&lt;/b&gt;, a partir das vigias, com os requisitos anteriores, incluindo a georeferenciação dos avistamentos.</target>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Creation of a &lt;b&gt;database of the sightings&lt;/b&gt; information collected by the companies from both land and sea observations.</source>
+        <target>Criação de &lt;b&gt;uma base de dados da informação recolhida&lt;/b&gt; pelas empresas do consórcio nos avistamentos no mar e a partir de terra.</target>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Developement of a &lt;b&gt;website&lt;/b&gt; with dynamic links to the database, to allow data entering and retrieval by the consortium members and for general public information.</source>
+        <target>Criação de um &lt;b&gt;sítio na internet&lt;/b&gt;, com ligação dinâmica às base de dados dos avistamentos, para introdução e consulta dos dados pelos participantes no consórcio e para informação ao público em geral.</target>
       </trans-unit>
     </body>
   </file>

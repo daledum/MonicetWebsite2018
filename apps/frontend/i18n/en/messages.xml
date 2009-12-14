@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2009-12-11T19:05:35Z" product-name="messages">
+  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2009-12-14T17:40:57Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -50,6 +50,58 @@
       </trans-unit>
       <trans-unit id="12">
         <source>News</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="13">
+        <source>read more </source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="14">
+        <source>first</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="15">
+        <source>last</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="16">
+        <source>Cetaceans are top predators and, as such, a key element of the ocean environment. They have also been shown to be highly developed animals, living in complex societies and exhibiting a wide range of behaviours. In spite of their importance for the ecological balance of life in the sea, they have a long history of direct over-exploitation and competition with human fishing activities which have resulted in the present heightened conservation concerns. To make matters worse, only for a handful of species are the basic facts of biology and ecology known in any detail. For the large majority of the species of whales and dolphins we do not know how many there are (nor how many there were), how are their societies build, what do they feed on, where do they come from, where do they go.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="17">
+        <source>The ecological importance of cetaceans, and the attraction that many people feel for their high intelligence, have combined to provide these animals with some degree of legal protection and, at the same time, have stimulated the growth of a branch of the tourist industry dedicated solely to their observation in the wild. Whale and dolphin watching activities are growing world-wide and are a major source of income for the Azorean economy. Whale watching in the Azores is regulated and there are no indications that at its current level it is having any biologically significant effect on the well-being of the cetacean populations that it targets. However, such key parameters as the size, geographical distribution, migratory routes and status remain unknown for any species. It is important to measure these variables to be able to show that the Azorean industry is truly sustainable and being conducted to the highest possible standards. This is as important for the public perception and the image of the activity as it is for biological management.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="18">
+        <source>The biologists that often work as second skippers and guides on Azorean whale watching vessels should have a key role in this process. They are the ideal people to collect the initial data and ensure that it is stored and archived correctly. Some of this could be done during the season, but it should also be possible to employ them to carry out this work in the winter months. Ideally, these data will generate worthwhile scientific projects for the biologists and help them to develop research careers within the industry, potentially providing a more fulfilling career path for these key workers within the whale watching industry.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="19">
+        <source>In this context, a group of the leading Azorean companies have decided to join hands to develop protocols for data collection which will provide the necessary data while remaining consistent with the constraints and requirements of the whale watching activities. The collected information will be stored in custom-built databases, easy to manage but powerful enough to hold the long term data series required for the industry needs, for monitoring the marine environment, to maximise the quality of the client’s experience, and to promote the reputation of the Azores as a premier whale watching location.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="20">
+        <source>&lt;acronym&gt;MONICET&lt;/acronym&gt; is a research project aimed at developing the methodologies and the infrastucture to build a long term database of cetacean sightings from commercial operations in the Azores. It is based on a consortium of 3 companies and one research center, and supported by the Azores Government.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="21">
+        <source>The project is based on a consortium between 3 whale-watching companies and the regional research center &lt;acronym&gt;CIRN&lt;/acronym&gt;, with the support of external consultants. The expansion of the team to include other companies and researchers is planned and is seen as essential to reach the goal of building a truly regional and long-term database.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="22">
+        <source>Development of a &lt;b&gt;standard methodology for data collection at sea&lt;/b&gt;, from the whale-watching vessels, that will be simple to apply in the normal commercial operation conditions but also maximizes the scientific value of the data collected, namely by allowing the quantification of the observation effort.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="23">
+        <source>Development of a &lt;b&gt;standard methodology for data collection from the whale-watching lookouts&lt;/b&gt;, with the same requisites as above, including the geographic location of the sightings.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="24">
+        <source>Creation of a &lt;b&gt;database of the sightings&lt;/b&gt; information collected by the companies from both land and sea observations.</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="25">
+        <source>Developement of a &lt;b&gt;website&lt;/b&gt; with dynamic links to the database, to allow data entering and retrieval by the consortium members and for general public information.</source>
         <target/>
       </trans-unit>
     </body>

@@ -1,5 +1,5 @@
 <p class="content">The project is based on a consorcium between Whale Watching companies and the CIRN, with the colaboraion of external consultants. The expansion of the team to include other companies and researchers is welcome.</p>
-<ul id="_ul_team" class="content">
+<ul class="_ul_base content">
     <li><span class="team_key_item">Consorcium</span>
 	    <ul>
 		    <li><acronym>CIRN</acronym>- Centro de Investigação de Recursos Naturais dos Açores</li>

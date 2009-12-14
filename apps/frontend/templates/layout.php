@@ -14,8 +14,11 @@
 	    <div id="_div_page">
 	        <div id="_div_main">
 	            <div id="_ul_languages">
+	            <?php if($sf_user->getCulture() == "pt"): ?> 
 	               <div id="_div_en_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=en'); ?></div>
+	            <?php else: ?>
 	               <div id="_div_pt_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=pt'); ?></div>
+	            <?php endif ?>
 	            </div>
 	            <div id="_div_main_left">
 	                <ul id="_ul_main_menu">

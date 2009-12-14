@@ -202,12 +202,12 @@ a:hover {
     padding: 12px;
 }
 
-#_ul_team li {
+._ul_base li {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-#_ul_team > li {
+._ul_base > li {
     margin-top: 20px;
 }
 
