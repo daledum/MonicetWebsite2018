@@ -44,6 +44,30 @@ body {
     margin-left: 2px;
 }
 
+#_div_en_language {
+    background-image: url("/images/en.png");
+}
+
+#_div_en_language:hover {
+    background-image: url("/images/en_hover.png");
+}
+
+#_div_pt_language {
+    background-image: url("/images/pt.png");
+}
+
+#_div_pt_language:hover {
+    background-image: url("/images/pt_hover.png");
+}
+
+#_div_en_language, #_div_pt_language {
+    width: 20px;
+    height: 14px;
+    margin-left: 4px;
+    display: inline;
+    float: right;
+}
+
 #_div_main {
     width: 974px;
     height: 400px;

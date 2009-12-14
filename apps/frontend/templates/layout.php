@@ -7,16 +7,19 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+    <script type="javascript">
+        _ul_languages
+    </script>
   </head>
   <body>
     <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
 	        <div id="_div_main">
-	            <ul id="_ul_languages">
-	               <li><?php echo link_to('<img alt="en" title="' . __('English') . '" src="/images/en.png"/>', 'language/change?sf_culture=en'); ?></li>
-	               <li><?php echo link_to('<img alt="pt" title="' . __('Portuguese') . '" src="/images/pt.png"/>', 'language/change?sf_culture=pt'); ?></li>
-	            </ul>
+	            <div id="_ul_languages">
+	               <div id="_div_en_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=en'); ?></div>
+	               <div id="_div_pt_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=pt'); ?></div>
+	            </div>
 	            <div id="_div_main_left">
 	                <ul id="_ul_main_menu">
 	                    <li><?php echo link_to(__('Home'), 'home/index'); ?></li>
