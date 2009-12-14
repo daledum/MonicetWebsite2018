@@ -38,7 +38,7 @@ class newsActions extends sfActions
     */
   	$criteria = new Criteria();
     $criteria->add(NewsArticlePeer::IS_PUBLISHED, true);
-    $pager = new sfPropelPager('NewsArticle', 1);
+    $pager = new sfPropelPager('NewsArticle', 10);
     $pager->setCriteria($criteria);
     $pager->setPage($this->getRequestParameter('page', 1));
     $pager->init();
