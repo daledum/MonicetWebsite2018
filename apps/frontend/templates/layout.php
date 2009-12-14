@@ -9,6 +9,7 @@
     <?php include_javascripts() ?>
   </head>
   <body>
+    <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
 	        <div id="_div_main">
@@ -17,7 +18,7 @@
 	               <li><?php echo link_to('<img alt="pt" title="' . __('Portuguese') . '" src="/images/pt.png"/>', 'language/change?sf_culture=pt'); ?></li>
 	            </ul>
 	            <div id="_div_main_left">
-	                <ul id="_ul_main_menu" style="list-style-type: disc;">
+	                <ul id="_ul_main_menu">
 	                    <li><?php echo link_to(__('Home'), 'home/index'); ?></li>
 	                    <li><?php echo link_to(__('Background'), 'background/index'); ?></li>
 	                    <li><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>

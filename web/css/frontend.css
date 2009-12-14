@@ -194,3 +194,28 @@ a:hover {
 .team_key_item {
     font-weight: bold;
 }
+
+._p_article_headline {
+    color: #2d606d;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+._p_article_date {
+    font-size: 10px;
+    color: #707070;
+    margin: 8px;
+}
+
+._p_article_body {
+    color: #2d606d;
+    text-align: justify;
+    margin: 5px 20px;
+    line-height: 18px;
+}
+
+._p_news_pages_navigation {
+    text-align: center;
+    color: #2d606d;
+}

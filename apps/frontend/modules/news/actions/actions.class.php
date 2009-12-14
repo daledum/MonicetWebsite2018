@@ -18,4 +18,30 @@ class newsActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   }
+  
+  public function executeShow(sfWebRequest $request)
+  {
+  	$criteria = new Criteria();
+  	$criteria->addAnd(NewsArticlePeer::IS_PUBLISHED, true);
+  	$criteria->addAnd(NewsArticlePeer::ID, $request->getParameter('article'));
+  	
+    $this->article = NewsArticlePeer::doSelectOne($criteria);
+  }
+  
+  public function executeAll(sfWebRequest $request)
+  {
+  	/*
+    $criteria = new Criteria();
+    $criteria->addAnd(NewsArticlePeer::IS_PUBLISHED, true);
+    
+    $this->articles = NewsArticlePeer::doSelect($criteria);
+    */
+  	$criteria = new Criteria();
+    $criteria->add(NewsArticlePeer::IS_PUBLISHED, true);
+    $pager = new sfPropelPager('NewsArticle', 1);
+    $pager->setCriteria($criteria);
+    $pager->setPage($this->getRequestParameter('page', 1));
+    $pager->init();
+    $this->pager = $pager;
+  }
 }

@@ -1,5 +1,6 @@
 propel:
   news_article:
+    _attributes:   { isI18N: true, i18nTable: news_article_i18n }
     id:            ~
     is_published:  { type: boolean, required: true, default: 0 }
     created_at:    ~

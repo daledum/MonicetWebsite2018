@@ -140,5 +140,6 @@
 	<buildpathentry kind="src" path="plugins/sfGuardPlugin/modules/sfGuardUser/lib"/>
 	<buildpathentry kind="src" path="test/bootstrap"/>
 	<buildpathentry kind="src" path="web"/>
+	<buildpathentry kind="src" path="lib/model"/>
 	<buildpathentry kind="con" path="org.eclipse.php.core.LANGUAGE"/>
 </buildpath>

@@ -40,5 +40,14 @@ abstract class BaseNewsArticleForm extends BaseFormPropel
     return 'NewsArticle';
   }
 
+  public function getI18nModelName()
+  {
+    return 'NewsArticleI18n';
+  }
+
+  public function getI18nFormClass()
+  {
+    return 'NewsArticleI18nForm';
+  }
 
 }

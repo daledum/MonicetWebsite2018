@@ -1,6 +1,6 @@
 <ul id="_ul_recent_news">
     <?php foreach($recent_articles as $article): ?>
-    <li><?php echo link_to($article->getId(), 'news/show?article=' . $article->getId()); ?></li>
+    <li><?php echo link_to($article->getHeadline(), 'news/show?article=' . $article->getId()); ?></li>
     <?php endforeach ?>
 </ul>
 

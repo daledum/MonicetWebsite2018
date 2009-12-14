@@ -9,7 +9,7 @@ default:
     title:        monicet
     #description:  symfony project
     #keywords:     symfony, project
-    language:     en
+    language:     en, pt
     #robots:       index, follow
 
   stylesheets:    [reset-min.css, main.css, frontend.css]
