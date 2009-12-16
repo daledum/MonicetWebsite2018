@@ -130,11 +130,11 @@ body {
     text-align: right;
     font-weight: bold;
     font-size: 12px;
-    margin: 27px 11px 0 0;
+    padding: 27px 11px 0 0;
 }
 
 #_ul_main_menu li {
-    margin-bottom: 16px;
+    height: 30px;
 }
 
 #_ul_consorcium {

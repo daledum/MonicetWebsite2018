@@ -2,7 +2,7 @@
 <?php foreach($articles as $article): ?>
 <p class="_p_article_headline"><?php echo link_to($article->getHeadline(), 'news/show?article=' . $article->getId()); ?></p>
 <p class="_p_article_date"><?php echo $article->getUpdatedAt(); ?></p>
-<p class="_p_article_body"><?php echo nl2br(substr($article->getBody(), 0, 300)) ?> ... <?php echo link_to(__('read more ') . ' &raquo', 'news/show?article=' . $article->getId()); ?></p>
+<p class="_p_article_body"><?php echo nl2br(substr($article->getBody(), 0, 300)) ?> ... <?php echo link_to(__('read more ') . ' &raquo;', 'news/show?article=' . $article->getId()); ?></p>
 <br /><br />
 <?php endforeach; ?>
 
@@ -11,7 +11,7 @@
 <?php foreach ($pager->getResults() as $article): ?>
 <p class="_p_article_headline"><?php echo link_to($article->getHeadline(), 'news/show?article=' . $article->getId()); ?></p>
 <p class="_p_article_date"><?php echo $article->getUpdatedAt(); ?></p>
-<p class="_p_article_body"><?php echo nl2br(substr($article->getBody(), 0, 300)) ?> ... <?php echo link_to(__('read more ') . ' &raquo', 'news/show?article=' . $article->getId()); ?></p>
+<p class="_p_article_body"><?php echo nl2br(substr($article->getBody(), 0, 300)) ?> ... <?php echo link_to(__('read more ') . ' &raquo;', 'news/show?article=' . $article->getId()); ?></p>
 <br /><br />
 <?php endforeach ?>
 

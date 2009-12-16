@@ -4,4 +4,4 @@
     <?php endforeach ?>
 </ul>
 
-<p id="_p_see_all_news"><?php echo link_to(__('see all') . '&raquo', 'news/all'); ?></p>
+<p id="_p_see_all_news"><?php echo link_to(__('see all') . '&raquo;', 'news/all'); ?></p>
