@@ -17,6 +17,14 @@ body {
     padding-top: 203px;
 }
 
+#_img_logo_transparent {
+    position: absolute;
+    top: 93px;
+    left: 483px;
+    width: 461px;
+    height: 81px;
+}
+
 #_div_background {
     height: 720px;
     background-image: url("/images/frontend/bg_gradient.png");
