@@ -44,5 +44,14 @@ abstract class BaseConsorciumElementForm extends BaseFormPropel
     return 'ConsorciumElement';
   }
 
+  public function getI18nModelName()
+  {
+    return 'ConsorciumElementI18n';
+  }
+
+  public function getI18nFormClass()
+  {
+    return 'ConsorciumElementI18nForm';
+  }
 
 }

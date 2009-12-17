@@ -11,6 +11,7 @@ propel:
     headline:      { type: varchar(255), required: true }
     body:          { type: longvarchar, required: true }
   consorcium_element:
+    _attributes:   { isI18N: true, i18nTable: consorcium_element_i18n }
     id:            ~
     name:          { type: varchar(255), required: true }
     logotype:      { type: varchar(255), required: false }
