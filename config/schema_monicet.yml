@@ -61,13 +61,13 @@ propel:
       id:               ~
       description:      { type: varchar(255), required: true }
       
-   group:
+   specie_group:
       id:               ~
       name:             { type: varchar(255), required: true }
    
    specie:
       id:               ~
-      group_id:         { type: integer, foreignTable: group_id, foreignReference: id, required: true }
+      specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true }
       code:             { type: varchar(10), required: true }
       name:             { type: varchar(255), required: true }
 
