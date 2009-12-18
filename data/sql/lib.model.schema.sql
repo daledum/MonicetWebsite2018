@@ -14,9 +14,11 @@ CREATE TABLE `news_article`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`is_published` TINYINT default 0 NOT NULL,
+	`slug` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `news_article_U_1` (`slug`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -51,9 +53,11 @@ CREATE TABLE `consorcium_element`
 	`name` VARCHAR(255)  NOT NULL,
 	`logotype` VARCHAR(255),
 	`link` VARCHAR(500),
+	`slug` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `consorcium_element_U_1` (`slug`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

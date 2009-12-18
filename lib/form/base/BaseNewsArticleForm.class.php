@@ -17,6 +17,7 @@ abstract class BaseNewsArticleForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
       'is_published' => new sfWidgetFormInputCheckbox(),
+      'slug'         => new sfWidgetFormInputText(),
       'created_at'   => new sfWidgetFormDateTime(),
       'updated_at'   => new sfWidgetFormDateTime(),
     ));
@@ -24,9 +25,14 @@ abstract class BaseNewsArticleForm extends BaseFormPropel
     $this->setValidators(array(
       'id'           => new sfValidatorPropelChoice(array('model' => 'NewsArticle', 'column' => 'id', 'required' => false)),
       'is_published' => new sfValidatorBoolean(),
+      'slug'         => new sfValidatorString(array('max_length' => 255)),
       'created_at'   => new sfValidatorDateTime(array('required' => false)),
       'updated_at'   => new sfValidatorDateTime(array('required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'NewsArticle', 'column' => array('slug')))
+    );
 
     $this->widgetSchema->setNameFormat('news_article[%s]');
 

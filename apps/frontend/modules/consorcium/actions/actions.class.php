@@ -22,12 +22,13 @@ class consorciumActions extends sfActions
   
   public function executeShow(sfWebRequest $request)
   {
-  	$criteria = new Criteria();
-    
-  	$criteria->add(ConsorciumElementPeer::ID, $request->getParameter('partner'));
-    $criteria->addJoin(ConsorciumElementI18nPeer::ID, ConsorciumElementPeer::ID);
-    $criteria->add(ConsorciumElementI18nPeer::CULTURE, $this->getUser()->getCulture());
-    
-    $this->element = ConsorciumElementPeer::doSelectOne($criteria);
+//  	$criteria = new Criteria();
+//    
+//  	$criteria->add(ConsorciumElementPeer::ID, $request->getParameter('partner'));
+//    $criteria->addJoin(ConsorciumElementI18nPeer::ID, ConsorciumElementPeer::ID);
+//    $criteria->add(ConsorciumElementI18nPeer::CULTURE, $this->getUser()->getCulture());
+//    
+//    $this->element = ConsorciumElementPeer::doSelectOne($criteria);
+    $this->element = $this->getRoute()->getObject();
   }
 }

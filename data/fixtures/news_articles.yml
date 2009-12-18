@@ -1,15 +1,19 @@
 NewsArticle:
   first_article:
     is_published:  True
+    slug: "news_article_h1_en"
     
   second_article:
     is_published:  True
+    slug: "news_article_h2_en"
     
   third_article:
     is_published:  True
+    slug: "news_article_h3_en"
     
   fourth_article:
     is_published:  True
+    slug: "news_article_h4_en"
 
 NewsArticleI18n:
   first_article_en:

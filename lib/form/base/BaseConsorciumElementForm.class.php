@@ -19,6 +19,7 @@ abstract class BaseConsorciumElementForm extends BaseFormPropel
       'name'       => new sfWidgetFormInputText(),
       'logotype'   => new sfWidgetFormInputText(),
       'link'       => new sfWidgetFormInputText(),
+      'slug'       => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
@@ -28,9 +29,14 @@ abstract class BaseConsorciumElementForm extends BaseFormPropel
       'name'       => new sfValidatorString(array('max_length' => 255)),
       'logotype'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'link'       => new sfValidatorString(array('max_length' => 500, 'required' => false)),
+      'slug'       => new sfValidatorString(array('max_length' => 255)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'ConsorciumElement', 'column' => array('slug')))
+    );
 
     $this->widgetSchema->setNameFormat('consorcium_element[%s]');
 

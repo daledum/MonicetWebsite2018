@@ -29,4 +29,17 @@ class NewsArticle extends BaseNewsArticle {
 		parent::__construct();
 	}
 
+	public function getSlug()
+	{
+	  return mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en')));
+	}
+	
+	public function setHeadline($headline, $culture = null)
+	{
+	  parent::setHeadline($headline, $culture);
+	 
+	  $this->setSlug($this->getSlug());
+	  return $this;
+	}
+
 } // NewsArticle

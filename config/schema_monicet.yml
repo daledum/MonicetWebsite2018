@@ -1,0 +1,82 @@
+propel:
+   company:
+      id:               ~
+      name:             { type: varchar(255), required: true }
+      base_latitude:    { type: varchar(45), required: true }
+      base_longitude:   { type: varchar(45), required: true }
+
+   guide:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
+      name:             { type: varchar(255), required: true }
+
+   skipper:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
+      name:             { type: varchar(255), required: true }
+
+   vessel:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
+      name:             { type: varchar(255), required: true }
+
+   general_info:
+      id:               ~
+      vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: true }
+      skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: true }
+      guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: true }
+      base_latitude:    { type: varchar(45), required: true }
+      base_longitude:   { type: varchar(45), required: true }
+      date:             { type: date, required: true }
+      
+   visibility:
+      id:               ~
+      description:      { type: varchar(255), required: true }
+   
+   sea_state:
+      id:
+      description:      { type: varchar(255), required: true }
+      
+   code:
+      id:               ~
+      acronym:          { type: varchar(10), required: true }
+      description:      { type: varchar(255), required: true }
+      
+   record:
+      id:               ~
+      code_id:          { type: integer, foreignTable: code, foreignReference: id, required: true }
+      visibility_id:    { type: integer, foreignTable: visibility, foreignReference: id, required: true }
+      sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true }
+      general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true }
+      time:             { type: time, required: true }
+      latitude:         { type: varchar(255), required: true }
+      longitude:        { type: varchar(255), required: true }
+      comments:         { type: longvarchar, required: false }
+      
+   association:
+      id:               ~
+      description:      { type: varchar(255), required: true }
+   
+   behaviour:
+      id:               ~
+      description:      { type: varchar(255), required: true }
+      
+   group:
+      id:               ~
+      name:             { type: varchar(255), required: true }
+   
+   specie:
+      id:               ~
+      group_id:         { type: integer, foreignTable: group_id, foreignReference: id, required: true }
+      code:             { type: varchar(10), required: true }
+      name:             { type: varchar(255), required: true }
+
+   sighting:
+      id:               ~
+      record_id:        { type: integer, foreignTable: record, foreignReference: id, required: true }
+      specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true }
+      behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true }
+      association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true }
+      adults:           { type: integer, required: true }
+      juveniles:        { type: integer, required: true }
+      cubs:             { type: integer, required: true }

@@ -6,6 +6,28 @@ homepage:
   url:   /
   param: { module: home, action: index }
 
+news_all:
+  url:      /:sf_culture/news/all
+  param:    { module: news, action: all }
+
+news:
+  url:      /:sf_culture/news/:slug
+  class:    sfPropelRoute
+  param:    { module: news, action: show }
+  options:  { model: NewsArticle, type: object }
+
+consorcium:
+  url:      /:sf_culture/consorcium/:slug
+  class:    sfPropelRoute
+  param:    { module: consorcium, action: show }
+  options:  { model: ConsorciumElement, type: object }
+
+change_language:
+  url:   /change_language
+  param: { module: language, action: changeLanguage }
+  requirements:
+    sf_culture: (?:pt|en)
+    
 # generic rules
 # please, remove them by adding more specific rules
 default_index:
@@ -14,11 +36,3 @@ default_index:
 
 default:
   url:   /:sf_culture/:module/:action/*
-
-
-
-change_language:
-  url:   /change_language
-  param: { module: language, action: changeLanguage }
-  requirements:
-    sf_culture: (?:pt|en)

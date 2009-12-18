@@ -34,6 +34,6 @@ all:
     # Enable the database manager
     use_database:           true
     
-    default_culture:        pt
+    default_culture:        en
     i18n:                   on
     standard_helpers:       [Partial, Cache, I18N]

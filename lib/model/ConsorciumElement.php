@@ -18,4 +18,17 @@
  */
 class ConsorciumElement extends BaseConsorciumElement {
 
+    public function getSlug()
+    {
+      return mfText::stripText($this->getName());
+    }
+    
+    public function setName($name)
+    {
+      parent::setName($name);
+     
+      $this->setSlug(mfText::stripText($name));
+      return $this;
+    }
+	
 } // ConsorciumElement
