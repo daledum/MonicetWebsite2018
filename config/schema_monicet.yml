@@ -28,20 +28,20 @@ propel:
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       date:             { type: date, required: true }
-      
+
    visibility:
       id:               ~
       description:      { type: varchar(255), required: true }
-   
+
    sea_state:
       id:
       description:      { type: varchar(255), required: true }
-      
+
    code:
       id:               ~
       acronym:          { type: varchar(10), required: true }
       description:      { type: varchar(255), required: true }
-      
+
    record:
       id:               ~
       code_id:          { type: integer, foreignTable: code, foreignReference: id, required: true }
@@ -52,19 +52,19 @@ propel:
       latitude:         { type: varchar(255), required: true }
       longitude:        { type: varchar(255), required: true }
       comments:         { type: longvarchar, required: false }
-      
+
    association:
       id:               ~
       description:      { type: varchar(255), required: true }
-   
+
    behaviour:
       id:               ~
       description:      { type: varchar(255), required: true }
-      
+
    specie_group:
       id:               ~
       name:             { type: varchar(255), required: true }
-   
+
    specie:
       id:               ~
       specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true }

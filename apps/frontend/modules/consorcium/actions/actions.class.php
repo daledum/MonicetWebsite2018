@@ -17,7 +17,9 @@ class consorciumActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(ConsorciumElementPeer::ID);
+    $this->consorcium_elements = ConsorciumElementPeer::doSelect($c);
   }
   
   public function executeShow(sfWebRequest $request)

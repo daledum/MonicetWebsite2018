@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2009-12-14T17:40:59Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2010-01-04T12:14:17Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -103,6 +103,14 @@
       <trans-unit id="25">
         <source>Developement of a &lt;b&gt;website&lt;/b&gt; with dynamic links to the database, to allow data entering and retrieval by the consortium members and for general public information.</source>
         <target>Criação de um &lt;b&gt;sítio na internet&lt;/b&gt;, com ligação dinâmica às base de dados dos avistamentos, para introdução e consulta dos dados pelos participantes no consórcio e para informação ao público em geral.</target>
+      </trans-unit>
+      <trans-unit id="26">
+        <source>The project is based on a consortium between 3 whale-watching companies and the regional research center CIRN, with the support of external consultants. The expansion of the team to include other companies and researchers is planned and is seen as essential to reach the goal of building a truly regional and long-term database.</source>
+        <target>O projecto originou-se num consórcio entre 3 empresas de observação de cetáceos e o centro de investigação CIRN, com o apoio de consultores externos. A expansão da equipa a outras empresas e investigadores está planeada e é vista como essencial para atingir o objectivo de construir uma base de dados verdadeiramente regional e de longo prazo.</target>
+      </trans-unit>
+      <trans-unit id="27">
+        <source>Local researchers:</source>
+        <target>Investigadores</target>
       </trans-unit>
     </body>
   </file>
