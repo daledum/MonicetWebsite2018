@@ -4,14 +4,12 @@
 # # 
 # # See documentation for your ORM's *:data-load task for more information.
 # 
-# User:
-#   fabien:
-#     username: fabien
-#     password: changeme
-#     name:     Fabien Potencier
-#     email:    fabien.potencier@symfony-project.com
-#   kris:
-#     username: Kris.Wallsmith
-#     password: changeme
-#     name:     Kris Wallsmith
-#     email:    kris.wallsmith@symfony-project.com
+sfGuardUser:
+  morfose:
+    username: morfose
+    password: 1234567
+    is_super_admin: true
+  monicet:
+    username: monicet
+    password: monisete
+    is_super_admin: true

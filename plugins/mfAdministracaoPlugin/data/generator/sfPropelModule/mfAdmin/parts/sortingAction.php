@@ -40,5 +40,5 @@
 
   protected function isValidSortColumn($column)
   {
-    return in_array($column, BasePeer::getFieldnames('<?php echo $this->getModelClass() ?>', BasePeer::TYPE_FIELDNAME));
+    return in_array($column, <?php echo constant($this->getModelClass().'::PEER') ?>::getFieldNames(BasePeer::TYPE_FIELDNAME));
   }

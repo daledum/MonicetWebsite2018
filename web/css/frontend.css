@@ -17,6 +17,14 @@ body {
     padding-top: 203px;
 }
 
+#_img_logo_transparent {
+    position: absolute;
+    top: 93px;
+    left: 483px;
+    width: 461px;
+    height: 81px;
+}
+
 #_div_background {
     height: 720px;
     background-image: url("/images/frontend/bg_gradient.png");
@@ -34,14 +42,34 @@ body {
 
 #_ul_languages {
     float: right;
+    display: inline;
     padding-bottom: 2px;
     margin-right: 8px;
+    width: 50px;
 }
 
-#_ul_languages li {
+#_div_en_language {
+    background-image: url("/images/en.png");
+}
+
+#_div_en_language:hover {
+    background-image: url("/images/en_hover.png");
+}
+
+#_div_pt_language {
+    background-image: url("/images/pt.png");
+}
+
+#_div_pt_language:hover {
+    background-image: url("/images/pt_hover.png");
+}
+
+#_div_en_language, #_div_pt_language {
+    width: 20px;
+    height: 14px;
+    margin-left: 4px;
     display: inline;
-    width: 45px;
-    margin-left: 2px;
+    float: right;
 }
 
 #_div_main {
@@ -110,18 +138,18 @@ body {
     text-align: right;
     font-weight: bold;
     font-size: 12px;
-    margin: 27px 11px 0 0;
+    padding: 27px 11px 0 0;
 }
 
 #_ul_main_menu li {
-    margin-bottom: 16px;
+    height: 30px;
 }
 
 #_ul_consorcium {
     clear: both;
     padding-top: 10px;
-    margin-left: 175px;
-    width: 605px;
+    margin-left: 200px;
+    width: 560px;
     height: 40px;
     text-align: center;
 }
@@ -178,19 +206,124 @@ a:hover {
 .content {
     text-align: justify;
     line-height: 18px;
-    color: #2d606d;
+    color: #0c333d;
     padding: 12px;
 }
 
-#_ul_team li {
+h2 {
+    color: #2d606d;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+._ul_base li {
     list-style-type: disc;
     margin-left: 20px;
 }
 
-#_ul_team > li {
+._ul_base > li {
     margin-top: 20px;
 }
 
 .team_key_item {
     font-weight: bold;
+}
+
+._p_article_headline {
+    color: #2d606d;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+._p_article_date {
+    font-size: 10px;
+    color: #707070;
+    margin: 8px;
+}
+
+._p_article_body {
+    color: #2d606d;
+    text-align: justify;
+    margin: 5px 20px;
+    line-height: 18px;
+}
+
+._p_news_pages_navigation {
+    text-align: center;
+    color: #2d606d;
+}
+
+/* scroll */
+
+.jScrollPaneContainer {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.jScrollPaneTrack {
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background: #7dc1cf;
+}
+
+.jScrollPaneDrag {
+    position: absolute;
+    background: #2d606d;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.jScrollPaneDragTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.jScrollPaneDragBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+a.jScrollArrowUp {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    background-image: url("/images/frontend/arrow_up.png");
+    height: 9px;
+}
+
+a.jScrollArrowUp:hover {
+    background-image: url("/images/frontend/arrow_up_hover.png");
+}
+
+a.jScrollArrowDown {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    background-image: url("/images/frontend/arrow_down.png");
+    height: 9px;
+}
+
+a.jScrollArrowDown:hover {
+    background-image: url("/images/frontend/arrow_down_hover.png");
+}
+
+a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+    background-color: #f00;
 }

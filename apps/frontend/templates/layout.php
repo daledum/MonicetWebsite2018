@@ -9,15 +9,23 @@
     <?php include_javascripts() ?>
   </head>
   <body>
+    <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
+	        <img id="_img_logo_transparent" src="/images/frontend/logo_transparent.png" alt="" usemap="#logo_map"/>
+	        <map name="logo_map">
+                <area shape="rect" coords="0,0,461,81" href="http://www.monicet.net/" />
+            </map>
 	        <div id="_div_main">
-	            <ul id="_ul_languages">
-	               <li><?php echo link_to('<img alt="en" title="' . __('English') . '" src="/images/en.png"/>', 'language/change?sf_culture=en'); ?></li>
-	               <li><?php echo link_to('<img alt="pt" title="' . __('Portuguese') . '" src="/images/pt.png"/>', 'language/change?sf_culture=pt'); ?></li>
-	            </ul>
+	            <div id="_ul_languages">
+	            <?php if($sf_user->getCulture() == "pt"): ?> 
+	               <div id="_div_en_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=en'); ?></div>
+	            <?php else: ?>
+	               <div id="_div_pt_language"><?php echo link_to('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;','language/change?sf_culture=pt'); ?></div>
+	            <?php endif ?>
+	            </div>
 	            <div id="_div_main_left">
-	                <ul id="_ul_main_menu" style="list-style-type: disc;">
+	                <ul id="_ul_main_menu">
 	                    <li><?php echo link_to(__('Home'), 'home/index'); ?></li>
 	                    <li><?php echo link_to(__('Background'), 'background/index'); ?></li>
 	                    <li><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>

@@ -6,15 +6,18 @@ default:
     content-type: text/html
 
   metas:
-    #title:        symfony project
-    #description:  symfony project
-    #keywords:     symfony, project
-    #language:     en
-    #robots:       index, follow
+    title:        Área de administração monicet
+    description:  Área de administração do projecto monicet
+    keywords:     administração, monicet, cetáceos, morfose, baleias
+    language:     pt
+    robots:       index, follow
 
   stylesheets:    [main.css]
 
   javascripts:    []
 
+  components:
+    menu: [main, menu]
+  
   has_layout:     true
   layout:         layout

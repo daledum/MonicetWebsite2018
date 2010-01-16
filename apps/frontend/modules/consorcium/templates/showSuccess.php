@@ -1,11 +1,17 @@
+<h2><?php echo $element->getName(); ?></h2>
+<br />
+
 <?php if($element->getLogotype()): ?>
     <img title="<?php echo $element->getName(); ?>" alt="<?php echo $element->getName(); ?>" src="/images/consorcium/<?php echo $element->getLogotype(); ?>" />
+    <br />
+    <br />
 <?php endif ?>
-
-<p><?php echo $element->getName(); ?></p>
 
 <?php if($element->getLink()): ?>
-    <p><a href="<?php echo $element->getLink(); ?>"><?php echo $element->getLink(); ?></a></p>
+    <a href="<?php echo $element->getLink(); ?>"><?php echo $element->getLink(); ?></a>
+    <br />
 <?php endif ?>
 
-<p>description...</p>
+<?php if($element->getDescription()): ?>
+    <p class="content"><?php echo $element->getDescription(); ?></p>
+<?php endif ?>

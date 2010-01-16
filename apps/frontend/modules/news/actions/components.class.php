@@ -4,12 +4,15 @@ class newsComponents extends sfComponents
 {
   public function executeRecentNews()
   {
-    $c = new Criteria();
-    $c->addDescendingOrderByColumn(NewsArticlePeer::UPDATED_AT);
-    $c->addJoin(NewsArticleI18nPeer::ID, NewsArticlePeer::ID);
-    $c->add(NewsArticleI18nPeer::CULTURE, 'en');
-    $c->setLimit(4);
+    $criteria = new Criteria();
     
-    $this->recent_articles = NewsArticlePeer::doSelect($c);
+    $criteria->addJoin(NewsArticleI18nPeer::ID, NewsArticlePeer::ID);
+    $criteria->addAnd(NewsArticlePeer::IS_PUBLISHED, true);
+    $criteria->addAscendingOrderByColumn(NewsArticlePeer::UPDATED_AT);
+    $criteria->add(NewsArticleI18nPeer::CULTURE, $this->getUser()->getCulture());
+
+    $criteria->setLimit(4);
+    
+    $this->recent_articles = NewsArticlePeer::doSelect($criteria);
   }
 }
