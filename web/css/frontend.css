@@ -167,7 +167,7 @@ body {
     border-color: #3b8c9e;
     border-width: 1px;
     width: 100%;
-    height: 43px;
+    height: 46px;
 }
 
 #_div_footer p {
@@ -175,16 +175,18 @@ body {
     text-align: right;
     display: inline;
     float: right;
+    margin-top: 13px;
 }
 
 #_div_footer div {
     width: 974px;
-    margin: 13px auto;
+    margin: 3px auto;
 }
 
-#_ul_support, #_ul_support li {
+#_ul_support li {
     float: left;
     display: inline;
+    margin-right: 10px;
 }
 
 #_span_support {
@@ -192,6 +194,7 @@ body {
     float: left;
     font-weight: bold;
     color: #ffffff;
+    margin-top: 13px;
 }
 
 a, a:active, a:focus, a:link, a:visited {
