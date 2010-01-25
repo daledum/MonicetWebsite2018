@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           SeaState
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              SeaState
+    plural:                SeaStates
+    route_prefix:          sea_state
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

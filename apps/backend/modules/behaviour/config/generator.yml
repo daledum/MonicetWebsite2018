@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Behaviour
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Behaviour
+    plural:                Behaviours
+    route_prefix:          behaviour
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

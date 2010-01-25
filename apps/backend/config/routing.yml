@@ -1,10 +1,154 @@
+sighting:
+  class: sfPropelRouteCollection
+  options:
+    model:                Sighting
+    module:               sighting
+    prefix_path:          /sighting
+    column:               id
+    with_wildcard_routes: true
+
+specie:
+  class: sfPropelRouteCollection
+  options:
+    model:                Specie
+    module:               specie
+    prefix_path:          /specie
+    column:               id
+    with_wildcard_routes: true
+
+specie_group:
+  class: sfPropelRouteCollection
+  options:
+    model:                SpecieGroup
+    module:               specie_group
+    prefix_path:          /specie_group
+    column:               id
+    with_wildcard_routes: true
+
+behaviour:
+  class: sfPropelRouteCollection
+  options:
+    model:                Behaviour
+    module:               behaviour
+    prefix_path:          /behaviour
+    column:               id
+    with_wildcard_routes: true
+
+association:
+  class: sfPropelRouteCollection
+  options:
+    model:                Association
+    module:               association
+    prefix_path:          /association
+    column:               id
+    with_wildcard_routes: true
+
+record:
+  class: sfPropelRouteCollection
+  options:
+    model:                Record
+    module:               record
+    prefix_path:          /record
+    column:               id
+    with_wildcard_routes: true
+
+code:
+  class: sfPropelRouteCollection
+  options:
+    model:                Code
+    module:               code
+    prefix_path:          /code
+    column:               id
+    with_wildcard_routes: true
+
+sea_state:
+  class: sfPropelRouteCollection
+  options:
+    model:                SeaState
+    module:               sea_state
+    prefix_path:          /sea_state
+    column:               id
+    with_wildcard_routes: true
+
+visibility:
+  class: sfPropelRouteCollection
+  options:
+    model:                Visibility
+    module:               visibility
+    prefix_path:          /visibility
+    column:               id
+    with_wildcard_routes: true
+
+general_info:
+  class: sfPropelRouteCollection
+  options:
+    model:                GeneralInfo
+    module:               general_info
+    prefix_path:          /general_info
+    column:               id
+    with_wildcard_routes: true
+
+vessel:
+  class: sfPropelRouteCollection
+  options:
+    model:                Vessel
+    module:               vessel
+    prefix_path:          /vessel
+    column:               id
+    with_wildcard_routes: true
+
+skipper:
+  class: sfPropelRouteCollection
+  options:
+    model:                Skipper
+    module:               skipper
+    prefix_path:          /skipper
+    column:               id
+    with_wildcard_routes: true
+
+guide:
+  class: sfPropelRouteCollection
+  options:
+    model:                Guide
+    module:               guide
+    prefix_path:          /guide
+    column:               id
+    with_wildcard_routes: true
+
+company:
+  class: sfPropelRouteCollection
+  options:
+    model:                Company
+    module:               company
+    prefix_path:          /company
+    column:               id
+    with_wildcard_routes: true
+
+consorcium_element:
+  class: sfPropelRouteCollection
+  options:
+    model:                ConsorciumElement
+    module:               consorcium_element
+    prefix_path:          /consorcium_element
+    column:               id
+    with_wildcard_routes: true
+
+news_article:
+  class: sfPropelRouteCollection
+  options:
+    model:                NewsArticle
+    module:               news_article
+    prefix_path:          /news_article
+    column:               id
+    with_wildcard_routes: true
+
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 
 # default rules
 homepage:
   url:   /
-  param: { module: default, action: index }
+  param: { module: main, action: index }
 
 # generic rules
 # please, remove them by adding more specific rules

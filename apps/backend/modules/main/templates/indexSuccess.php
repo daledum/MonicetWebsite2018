@@ -1,0 +1,1 @@
+<p>Bem-vindo à área de administração do projecto monicet.</p>
