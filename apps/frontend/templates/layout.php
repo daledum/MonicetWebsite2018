@@ -51,8 +51,8 @@
         <div>
             <span id="_span_support"><?php echo __('Support'); ?>: &nbsp;</span>
             <ul id="_ul_support">
-                <li><a href="http://www.azores.gov.pt"><img alt="Governo Regional dos Açores" title="Governo Regional dos Açores" src="/images/logo-ga-130x40.jpg" /></a></li>
-                <li><a href="http://www.azores.gov.pt/Portal/pt/entidades/srcte/"><img alt="Secretaria Regional da Ciência, Tecnologia e Equipamentos" title="Secretaria Regional da Ciência, Tecnologia e Equipamentos" src="/images/logo-srcte-127x40.jpg" /></a></li>
+                <li><a href="http://www.azores.gov.pt"><img alt="Governo Regional dos Açores" title="Governo Regional dos Açores" src="/images/logo-ga-130x40.png" /></a></li>
+                <li><a href="http://www.azores.gov.pt/Portal/pt/entidades/srcte/"><img alt="Secretaria Regional da Ciência, Tecnologia e Equipamentos" title="Secretaria Regional da Ciência, Tecnologia e Equipamentos" src="/images/logo-srcte-127x40.png" /></a></li>
             </ul>
             <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2009</p>
         </div>
