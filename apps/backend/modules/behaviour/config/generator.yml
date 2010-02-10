@@ -10,11 +10,13 @@ generator:
     route_prefix:          behaviour
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        behaviour
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [description]
       filter:  ~
       form:    ~
       edit:    ~

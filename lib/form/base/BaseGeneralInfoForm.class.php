@@ -22,6 +22,8 @@ abstract class BaseGeneralInfoForm extends BaseFormPropel
       'base_latitude'  => new sfWidgetFormInputText(),
       'base_longitude' => new sfWidgetFormInputText(),
       'date'           => new sfWidgetFormDate(),
+      'created_at'     => new sfWidgetFormDateTime(),
+      'updated_at'     => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -32,6 +34,8 @@ abstract class BaseGeneralInfoForm extends BaseFormPropel
       'base_latitude'  => new sfValidatorString(array('max_length' => 45)),
       'base_longitude' => new sfValidatorString(array('max_length' => 45)),
       'date'           => new sfValidatorDate(),
+      'created_at'     => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('general_info[%s]');

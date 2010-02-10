@@ -12,5 +12,6 @@ class ConsorciumElementI18nFormFilter extends BaseConsorciumElementI18nFormFilte
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('consorcium_element');
   }
 }

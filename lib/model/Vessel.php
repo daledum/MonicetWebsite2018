@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Vessel extends BaseVessel {
-
+  public function __toString()
+  {
+    return $this->getName();
+  }
 } // Vessel

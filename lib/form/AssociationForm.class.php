@@ -12,5 +12,9 @@ class AssociationForm extends BaseAssociationForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('association');
+  	unset(
+  	  $this['created_at'], $this['updated_at']
+  	);
   }
 }

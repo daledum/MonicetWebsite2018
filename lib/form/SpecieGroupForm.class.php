@@ -12,5 +12,9 @@ class SpecieGroupForm extends BaseSpecieGroupForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('specie_group');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

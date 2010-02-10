@@ -12,5 +12,9 @@ class NewsArticleFormFilter extends BaseNewsArticleFormFilter
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('news_article');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

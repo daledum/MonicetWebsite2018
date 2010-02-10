@@ -12,5 +12,9 @@ class CompanyForm extends BaseCompanyForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('company');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

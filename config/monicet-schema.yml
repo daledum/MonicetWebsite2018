@@ -4,21 +4,29 @@ propel:
       name:             { type: varchar(255), required: true }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    guide:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
       name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    skipper:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
       name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    vessel:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
       name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    general_info:
       id:               ~
@@ -28,19 +36,27 @@ propel:
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       date:             { type: date, required: true }
+      created_at:       ~
+      updated_at:       ~
 
    visibility:
       id:               ~
       description:      { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    sea_state:
       id:
       description:      { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    code:
       id:               ~
       acronym:          { type: varchar(10), required: true }
       description:      { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    record:
       id:               ~
@@ -52,24 +68,34 @@ propel:
       latitude:         { type: varchar(255), required: true }
       longitude:        { type: varchar(255), required: true }
       comments:         { type: longvarchar, required: false }
+      created_at:       ~
+      updated_at:       ~
 
    association:
       id:               ~
       description:      { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    behaviour:
       id:               ~
       description:      { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    specie_group:
       id:               ~
       name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    specie:
       id:               ~
       specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true }
       code:             { type: varchar(10), required: true }
       name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
 
    sighting:
       id:               ~
@@ -80,3 +106,5 @@ propel:
       adults:           { type: integer, required: true }
       juveniles:        { type: integer, required: true }
       cubs:             { type: integer, required: true }
+      created_at:       ~
+      updated_at:       ~

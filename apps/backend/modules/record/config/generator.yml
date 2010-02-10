@@ -10,11 +10,13 @@ generator:
     route_prefix:          record
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        record
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [code, visibility, sea_state, time, comments]
       filter:  ~
       form:    ~
       edit:    ~

@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Specie extends BaseSpecie {
-
+  public function __toString()
+  {
+    return $this->getName();
+  }
 } // Specie

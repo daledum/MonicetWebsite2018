@@ -17,11 +17,15 @@ abstract class BaseVisibilityForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
       'description' => new sfWidgetFormInputText(),
+      'created_at'  => new sfWidgetFormDateTime(),
+      'updated_at'  => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'Visibility', 'column' => 'id', 'required' => false)),
       'description' => new sfValidatorString(array('max_length' => 255)),
+      'created_at'  => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'  => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('visibility[%s]');

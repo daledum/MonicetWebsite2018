@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Skipper extends BaseSkipper {
-
+  public function __toString()
+  {
+    return $this->getName();
+  }
 } // Skipper

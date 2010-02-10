@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company List</source>
+        <target>A listar as Empresas</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Company</source>
+        <target>A editar uma Empresa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Company</source>
+        <target>A adicionar nova Empresa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Companies</source>
+        <target>Empresas</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base latitude</source>
+        <target>Latitude base</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base longitude</source>
+        <target>Longitude base</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

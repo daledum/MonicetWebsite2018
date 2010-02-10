@@ -10,11 +10,13 @@ generator:
     route_prefix:          company
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        company
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [name, base_latitude, base_longitude]
       filter:  ~
       form:    ~
       edit:    ~

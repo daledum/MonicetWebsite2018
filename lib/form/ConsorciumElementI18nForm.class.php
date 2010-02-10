@@ -12,5 +12,6 @@ class ConsorciumElementI18nForm extends BaseConsorciumElementI18nForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('consorcium_element');
   }
 }

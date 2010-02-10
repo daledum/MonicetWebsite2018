@@ -4,6 +4,42 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
+#-- log
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `log`;
+
+
+CREATE TABLE `log`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`type` VARCHAR(255),
+	`message` TEXT(255),
+	`created_at` DATETIME,
+	PRIMARY KEY (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- option
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `option`;
+
+
+CREATE TABLE `option`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255)  NOT NULL,
+	`value` VARCHAR(255)  NOT NULL,
+	`initial` VARCHAR(255) default '',
+	`description` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `option_U_1` (`name`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- company
 #-----------------------------------------------------------------------------
 
@@ -16,6 +52,8 @@ CREATE TABLE `company`
 	`name` VARCHAR(255)  NOT NULL,
 	`base_latitude` VARCHAR(45)  NOT NULL,
 	`base_longitude` VARCHAR(45)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -31,6 +69,8 @@ CREATE TABLE `guide`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`company_id` INTEGER  NOT NULL,
 	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `guide_FI_1` (`company_id`),
 	CONSTRAINT `guide_FK_1`
@@ -50,6 +90,8 @@ CREATE TABLE `skipper`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`company_id` INTEGER  NOT NULL,
 	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `skipper_FI_1` (`company_id`),
 	CONSTRAINT `skipper_FK_1`
@@ -69,6 +111,8 @@ CREATE TABLE `vessel`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`company_id` INTEGER  NOT NULL,
 	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `vessel_FI_1` (`company_id`),
 	CONSTRAINT `vessel_FK_1`
@@ -92,6 +136,8 @@ CREATE TABLE `general_info`
 	`base_latitude` VARCHAR(45)  NOT NULL,
 	`base_longitude` VARCHAR(45)  NOT NULL,
 	`date` DATE  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `general_info_FI_1` (`vessel_id`),
 	CONSTRAINT `general_info_FK_1`
@@ -118,6 +164,8 @@ CREATE TABLE `visibility`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -132,6 +180,8 @@ CREATE TABLE `sea_state`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -147,6 +197,8 @@ CREATE TABLE `code`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`acronym` VARCHAR(10)  NOT NULL,
 	`description` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -168,6 +220,8 @@ CREATE TABLE `record`
 	`latitude` VARCHAR(255)  NOT NULL,
 	`longitude` VARCHAR(255)  NOT NULL,
 	`comments` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `record_FI_1` (`code_id`),
 	CONSTRAINT `record_FK_1`
@@ -198,6 +252,8 @@ CREATE TABLE `association`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -212,6 +268,8 @@ CREATE TABLE `behaviour`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`description` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -226,6 +284,8 @@ CREATE TABLE `specie_group`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
@@ -242,6 +302,8 @@ CREATE TABLE `specie`
 	`specie_group_id` INTEGER  NOT NULL,
 	`code` VARCHAR(10)  NOT NULL,
 	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `specie_FI_1` (`specie_group_id`),
 	CONSTRAINT `specie_FK_1`
@@ -266,6 +328,8 @@ CREATE TABLE `sighting`
 	`adults` INTEGER  NOT NULL,
 	`juveniles` INTEGER  NOT NULL,
 	`cubs` INTEGER  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	INDEX `sighting_FI_1` (`record_id`),
 	CONSTRAINT `sighting_FK_1`

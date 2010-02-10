@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Description</source>
+        <target>Descrição</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Behaviour List</source>
+        <target>A listar os Comportamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Behaviour</source>
+        <target>A editar um Comportamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Behaviour</source>
+        <target>A adicionar novo Comportamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Behaviours</source>
+        <target>Comportamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

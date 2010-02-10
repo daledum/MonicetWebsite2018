@@ -12,5 +12,9 @@ class GeneralInfoForm extends BaseGeneralInfoForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('general_info');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

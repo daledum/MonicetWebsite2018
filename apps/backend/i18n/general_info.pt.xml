@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>General info List</source>
+        <target>A listar as informações</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit General info</source>
+        <target>A editar Informação</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New General info</source>
+        <target>A adicionar nova Informação</target>
+      </trans-unit>
+      <trans-unit>
+        <source>General infos</source>
+        <target>Informações</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Vessel</source>
+        <target>Barco</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Skipper</source>
+        <target>Skipper</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Guide</source>
+        <target>Guia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base latitude</source>
+        <target>Latitude base</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base longitude</source>
+        <target>Longitude base</target>
+      </trans-unit>
+      <trans-unit>
+        <source>date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

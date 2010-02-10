@@ -10,11 +10,13 @@ generator:
     route_prefix:          sighting
     with_propel_route:     1
     actions_base_class:    sfActions
-
+    i18n_catalogue:        sighting
+    
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [record, specie, behaviour, association, adults, juveniles, cubs]
       filter:  ~
       form:    ~
       edit:    ~

@@ -19,6 +19,8 @@ abstract class BaseSpecieForm extends BaseFormPropel
       'specie_group_id' => new sfWidgetFormPropelChoice(array('model' => 'SpecieGroup', 'add_empty' => false)),
       'code'            => new sfWidgetFormInputText(),
       'name'            => new sfWidgetFormInputText(),
+      'created_at'      => new sfWidgetFormDateTime(),
+      'updated_at'      => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -26,6 +28,8 @@ abstract class BaseSpecieForm extends BaseFormPropel
       'specie_group_id' => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id')),
       'code'            => new sfValidatorString(array('max_length' => 10)),
       'name'            => new sfValidatorString(array('max_length' => 255)),
+      'created_at'      => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('specie[%s]');

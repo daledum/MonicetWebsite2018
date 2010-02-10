@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class SpecieGroup extends BaseSpecieGroup {
-
+  public function __toString()
+  {
+    return $this->getName();
+  }
 } // SpecieGroup

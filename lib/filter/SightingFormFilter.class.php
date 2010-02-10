@@ -12,5 +12,9 @@ class SightingFormFilter extends BaseSightingFormFilter
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('sighting');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

@@ -15,13 +15,17 @@ abstract class BaseSpecieGroupForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id'   => new sfWidgetFormInputHidden(),
-      'name' => new sfWidgetFormInputText(),
+      'id'         => new sfWidgetFormInputHidden(),
+      'name'       => new sfWidgetFormInputText(),
+      'created_at' => new sfWidgetFormDateTime(),
+      'updated_at' => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'   => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id', 'required' => false)),
-      'name' => new sfValidatorString(array('max_length' => 255)),
+      'id'         => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id', 'required' => false)),
+      'name'       => new sfValidatorString(array('max_length' => 255)),
+      'created_at' => new sfValidatorDateTime(array('required' => false)),
+      'updated_at' => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('specie_group[%s]');

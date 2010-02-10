@@ -12,5 +12,9 @@ class VisibilityFormFilter extends BaseVisibilityFormFilter
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('visibility');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

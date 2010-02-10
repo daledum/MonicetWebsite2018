@@ -10,11 +10,13 @@ generator:
     route_prefix:          general_info
     with_propel_route:     1
     actions_base_class:    sfActions
-
+    i18n_catalogue:        general_info
+    
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [vessel, skipper, guide, base_latitude, base_longitude, date]
       filter:  ~
       form:    ~
       edit:    ~
