@@ -1,15 +1,15 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Import
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2010-02-21T09:37:37.225812Z
-7200
-beberlei
+2010-03-02T17:59:20.368710Z
+7294
+jwage
 has-props
 
 
@@ -103,10 +103,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-f7c6673084d38f608eb28454b3d93080
-2009-11-12T20:14:33.941387Z
-6719
+2010-03-03T17:23:06.000000Z
+641fea6c6eaa96cf279b0e0b519ce3c3
+2010-03-02T00:53:50.342844Z
+7277
 jwage
 has-props
 
@@ -129,7 +129,7 @@ has-props
 
 
 
-33972
+34287
 
 Sqlite.php
 file
@@ -137,10 +137,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-82a50537a0c4a6a2dbcfce1de34a025e
-2009-10-12T17:40:41.504876Z
-6484
+2010-03-03T17:23:06.000000Z
+e3e27e2ac47d0a870ac7df47845ba48c
+2010-03-02T01:08:51.540924Z
+7280
 jwage
 has-props
 
@@ -163,7 +163,7 @@ has-props
 
 
 
-7153
+7295
 
 Mysql.php
 file
@@ -205,10 +205,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-6aade1596643902d05e4d04282a0d68d
-2009-10-12T17:40:41.504876Z
-6484
+2010-03-03T17:23:06.000000Z
+b08a6b355d1e7bf9826e38cb4824ed0a
+2010-03-01T23:45:38.562784Z
+7272
 jwage
 has-props
 
@@ -231,7 +231,7 @@ has-props
 
 
 
-7977
+8033
 
 Builder.php
 file
@@ -239,11 +239,11 @@ file
 
 
 
-2010-02-27T21:02:28.000000Z
-9d5a4fc924ed17f5815ffa2f13f55f46
-2010-02-21T09:37:37.225812Z
-7200
-beberlei
+2010-03-03T17:23:06.000000Z
+880a4e9a4b8c717aebab701149aad76e
+2010-03-02T17:59:20.368710Z
+7294
+jwage
 has-props
 
 
@@ -265,7 +265,7 @@ has-props
 
 
 
-40898
+41777
 
 Pgsql.php
 file

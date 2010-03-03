@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/!svn/ver/6883/branches/1.2/lib/Doctrine/Record
+/!svn/ver/7290/branches/1.2/lib/Doctrine/Record
 END
 Iterator.php
 K 25
@@ -19,7 +19,7 @@ Abstract.php
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/!svn/ver/6721/branches/1.2/lib/Doctrine/Record/Abstract.php
+/!svn/ver/7264/branches/1.2/lib/Doctrine/Record/Abstract.php
 END
 UnknownPropertyException.php
 K 25
@@ -43,5 +43,5 @@ Generator.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/!svn/ver/6775/branches/1.2/lib/Doctrine/Record/Generator.php
+/!svn/ver/7290/branches/1.2/lib/Doctrine/Record/Generator.php
 END

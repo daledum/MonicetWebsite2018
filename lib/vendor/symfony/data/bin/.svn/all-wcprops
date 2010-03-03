@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 37
-/!svn/ver/24079/branches/1.4/data/bin
+/!svn/ver/28348/branches/1.4/data/bin
 END
 sandbox_installer.php
 K 25
@@ -31,7 +31,7 @@ check_configuration.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/!svn/ver/23881/branches/1.4/data/bin/check_configuration.php
+/!svn/ver/28348/branches/1.4/data/bin/check_configuration.php
 END
 create_sandbox.sh
 K 25

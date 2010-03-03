@@ -10,11 +10,15 @@ generator:
     route_prefix:          news_article
     with_propel_route:     1
     actions_base_class:    sfActions
-
+    i18n_catalogue:        news_article
+    
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        peer_method:      doSelectWithI18n
+        display:          [headline, publish_date, enter_date, exit_date, is_published]
+        sort:             [published_date, desc]
       filter:  ~
       form:    ~
       edit:    ~

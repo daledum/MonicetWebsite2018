@@ -48,6 +48,11 @@ body {
     width: 50px;
 }
 
+.flag {
+   width: 20px;
+   height: 14px;	
+}
+
 #_div_en_language {
     background-image: url("/images/en.png");
 }

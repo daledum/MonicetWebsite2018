@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/!svn/ver/6840/branches/1.2/lib/Doctrine/Adapter/Statement
+/!svn/ver/7297/branches/1.2/lib/Doctrine/Adapter/Statement
 END
 Mock.php
 K 25
@@ -19,5 +19,5 @@ Oracle.php
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/!svn/ver/6840/branches/1.2/lib/Doctrine/Adapter/Statement/Oracle.php
+/!svn/ver/7297/branches/1.2/lib/Doctrine/Adapter/Statement/Oracle.php
 END

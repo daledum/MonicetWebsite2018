@@ -17,20 +17,34 @@
  * @package    lib.model
  */
 class NewsArticlePeer extends BaseNewsArticlePeer {
+	public static function getCriteria()
+	{
+		$user = sfContext::getInstance()->getUser();
+    $request = sfContext::getInstance()->getRequest();
+    
+		$criteria = NewsArticleQuery::create()
+		  ->filterByIsPublished(true)
+      ->add(NewsArticlePeer::ENTER_DATE, time(), Criteria::LESS_EQUAL)
+      ->addOr(NewsArticlePeer::ENTER_DATE, null, Criteria::ISNULL)
+      ->add(NewsArticlePeer::EXIT_DATE, time(), Criteria::GREATER_EQUAL)
+      ->addOr(NewsArticlePeer::EXIT_DATE, null, Criteria::ISNULL)
+      ->orderByPublishDate(Criteria::ASC)
+		  ->useNewsArticleI18nQuery()
+        ->filterByCulture($user->getCulture())
+      ->enduse();
+    return $criteria;
+	}
   public static function getPager()
-  { 
-  	$user = sfContext::getInstance()->getUser();
+  {   	
   	$request = sfContext::getInstance()->getRequest();
-  	
-  	$pager = NewsArticleQuery::create()->
-  	  useNewsArticleI18nQuery()->
-  	    filterByCulture($user->getCulture())->
-  	  enduser()->
-  	  filterByIsPublished(true)->
-  	  filterByEnterDate(array('max' => time()))->
-  	  filterByExitDate(array('min' => time()))->
-      orderByPublishedDate(Criteria::DESC)->
-      paginate($request->getRequestParameter('page', 1), 10);
-  	return $pager;
+  	$criteria = self::getCriteria();
+    return $criteria->paginate($request->getParameter('page', 1), 10);
+  }
+  public static function doSelectRecentNews()
+  {
+  	$criteria = self::getCriteria();
+    return $criteria->
+      limit(4)->
+      find();
   }
 } // NewsArticlePeer

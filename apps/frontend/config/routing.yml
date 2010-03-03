@@ -4,7 +4,13 @@
 # default rules
 homepage:
   url:   /
+  param: { module: home, action: language }
+
+language:
+  url:   /:sf_culture
   param: { module: home, action: index }
+  requirements:
+    sf_culture: (?:pt|en)
 
 news_all:
   url:      /:sf_culture/news/all
@@ -22,17 +28,6 @@ consorcium:
   param:    { module: consorcium, action: show }
   options:  { model: ConsorciumElement, type: object }
 
-change_language:
-  url:   /change_language
-  param: { module: language, action: changeLanguage }
-  requirements:
-    sf_culture: (?:pt|en)
-    
-# generic rules
-# please, remove them by adding more specific rules
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }
-
-default:
-  url:   /:sf_culture/:module/:action/*

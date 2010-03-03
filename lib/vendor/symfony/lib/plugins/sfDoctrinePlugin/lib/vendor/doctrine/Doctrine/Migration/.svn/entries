@@ -1,14 +1,14 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Migration
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2010-01-27T21:40:52.470165Z
-7067
+2010-03-01T22:57:14.739545Z
+7267
 jwage
 
 
@@ -202,10 +202,10 @@ file
 
 
 
-2010-02-27T21:02:28.000000Z
-b5ceff1c333c2bf950e85d65d4639b3f
-2010-01-27T21:40:52.470165Z
-7067
+2010-03-03T17:23:06.000000Z
+88d2a56a5faa2c4567761b7838292c60
+2010-03-01T22:57:14.739545Z
+7267
 jwage
 has-props
 
@@ -228,5 +228,5 @@ has-props
 
 
 
-16568
+16959
 

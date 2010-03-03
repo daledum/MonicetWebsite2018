@@ -1,15 +1,15 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2010-02-21T09:37:37.225812Z
-7200
-beberlei
+2010-03-02T19:13:01.593506Z
+7298
+jwage
 has-props
 
 
@@ -63,12 +63,6 @@ has-props
 
 4205
 
-Transaction
-dir
-
-Node
-dir
-
 Overloadable.php
 file
 
@@ -102,6 +96,12 @@ has-props
 
 
 1683
+
+Node
+dir
+
+Transaction
+dir
 
 Parser
 dir
@@ -208,40 +208,6 @@ has-props
 
 5103
 
-Relation.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-4cb2d94206868eabfa065a2c93587a60
-2009-11-17T20:07:47.709068Z
-6743
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-13359
-
 DataDict.php
 file
 
@@ -276,6 +242,40 @@ has-props
 
 1935
 
+Relation.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+4cb2d94206868eabfa065a2c93587a60
+2009-11-17T20:07:47.709068Z
+6743
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13359
+
 AuditLog
 dir
 
@@ -291,10 +291,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-03fc2d39c2b0e9265044911055869b4f
-2009-10-20T15:01:43.681306Z
-6543
+2010-03-03T17:23:06.000000Z
+5579ba1ce9d4979ae1b49d64c41928e6
+2010-03-02T01:17:05.639023Z
+7283
 jwage
 has-props
 
@@ -317,7 +317,7 @@ has-props
 
 
 
-12550
+12716
 
 Validator.php
 file
@@ -325,10 +325,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-2621d4b095e604ea5100e9b4e0ce3745
-2009-11-04T19:50:10.887571Z
-6669
+2010-03-03T17:23:06.000000Z
+c8425c86bc960464486927165278b8d0
+2010-03-02T18:26:48.845438Z
+7295
 jwage
 has-props
 
@@ -351,7 +351,7 @@ has-props
 
 
 
-7228
+7125
 
 Adapter
 dir
@@ -439,10 +439,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-7f314483dceadf69b9bb9df8dc3e5fc5
-2009-11-30T18:31:09.641952Z
-6825
+2010-03-03T17:23:06.000000Z
+b5041d13deb6eb4a288f5f4a6284bdf9
+2010-03-02T17:34:21.672814Z
+7292
 jwage
 has-props
 
@@ -465,7 +465,7 @@ has-props
 
 
 
-11377
+12046
 
 Query.php
 file
@@ -473,10 +473,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-5d7ace84e451dadc8a18ef5c1d01385c
-2009-11-23T22:27:26.909484Z
-6792
+2010-03-03T17:23:06.000000Z
+2857c993bfd182f261a19ad222bb31b9
+2010-03-01T21:34:37.975432Z
+7260
 jwage
 has-props
 
@@ -499,7 +499,7 @@ has-props
 
 
 
-83011
+83092
 
 Collection
 dir
@@ -587,9 +587,6 @@ has-props
 
 1896
 
-Data
-dir
-
 IntegrityMapper.php
 file
 
@@ -624,45 +621,14 @@ has-props
 
 6275
 
-Compiler
+Data
 dir
 
 View
 dir
 
-Transaction.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-594dea33ad2da8d3f0d0f13195c09864
-2009-10-12T17:40:41.504876Z
-6484
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-17493
+Compiler
+dir
 
 Node.php
 file
@@ -697,6 +663,40 @@ has-props
 
 
 6471
+
+Transaction.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+594dea33ad2da8d3f0d0f13195c09864
+2009-10-12T17:40:41.504876Z
+6484
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+17493
 
 Builder.php
 file
@@ -772,9 +772,6 @@ has-props
 
 4090
 
-Locking
-dir
-
 Configurable.php
 file
 
@@ -808,6 +805,9 @@ has-props
 
 
 13339
+
+Locking
+dir
 
 Table
 dir
@@ -889,44 +889,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-b0c1dde4186fdeafe2930f38276bae83
-2009-09-15T20:54:58.713029Z
-6369
-kriswallsmith
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-16692
-
-Import.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-67cb01debea777eab3df5ba006dfdd57
-2009-11-24T20:45:54.259662Z
-6802
+2010-03-03T17:23:06.000000Z
+336b3eb755a08555a7c24882ff82b72f
+2010-03-01T20:47:32.453546Z
+7251
 jwage
 has-props
 
@@ -949,7 +915,7 @@ has-props
 
 
 
-13236
+17016
 
 Null.php
 file
@@ -985,6 +951,40 @@ has-props
 
 1623
 
+Import.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+67cb01debea777eab3df5ba006dfdd57
+2009-11-24T20:45:54.259662Z
+6802
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+13236
+
 Util.php
 file
 
@@ -1018,6 +1018,9 @@ has-props
 
 
 1332
+
+Cli
+dir
 
 Export.php
 file
@@ -1053,13 +1056,16 @@ has-props
 
 55423
 
-Cli
-dir
-
 Manager
 dir
 
 Template
+dir
+
+Relation
+dir
+
+DataDict
 dir
 
 EventListener.php
@@ -1096,22 +1102,16 @@ has-props
 
 3831
 
-DataDict
-dir
-
-Relation
-dir
-
 Core.php
 file
 
 
 
 
-2009-12-11T15:41:06.000000Z
-a730a4958410dd8fd4342cc3bd8b50e2
-2009-12-07T22:02:51.691745Z
-6894
+2010-03-03T17:23:06.000000Z
+332864ee4c333d6a807a22c492c54ee2
+2010-03-01T22:57:14.739545Z
+7267
 jwage
 
 
@@ -1134,7 +1134,7 @@ jwage
 
 
 
-37807
+38087
 
 Migration.php
 file
@@ -1142,10 +1142,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-47ba0f6e65c29779c39fa2972ba84ec6
-2009-11-12T19:50:56.941101Z
-6717
+2010-03-03T17:23:06.000000Z
+b73b0977eec5358ac3297a22d4855496
+2010-03-02T16:56:49.800757Z
+7288
 jwage
 has-props
 
@@ -1168,7 +1168,7 @@ has-props
 
 
 
-16760
+16774
 
 Collection.php
 file
@@ -1630,10 +1630,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-43497e75d3f9b265f88981c636d2b2b2
-2009-11-24T21:30:38.539398Z
-6806
+2010-03-03T17:23:06.000000Z
+615e8d288b6462b0b29a69ddc6a9b208
+2010-03-02T19:13:01.593506Z
+7298
 jwage
 has-props
 
@@ -1656,7 +1656,7 @@ has-props
 
 
 
-87975
+88226
 
 Search
 dir
@@ -1670,10 +1670,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-acc71fb4dfc5d17637004e3baf60aad8
-2009-11-19T19:02:41.822453Z
-6775
+2010-03-03T17:23:06.000000Z
+07123889c2c0b1e8e65375d6847b3263
+2010-03-02T01:04:24.396231Z
+7279
 jwage
 has-props
 
@@ -1696,7 +1696,7 @@ has-props
 
 
 
-5100
+5262
 
 Event.php
 file
@@ -1741,10 +1741,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-f260b4b3a172712f5ce865de97f1541d
-2009-11-24T19:24:33.315330Z
-6799
+2010-03-03T17:23:06.000000Z
+f6ba0b55f9a12f63d5aca4769ef0f968
+2010-03-02T18:46:23.228715Z
+7296
 jwage
 has-props
 
@@ -1767,5 +1767,5 @@ has-props
 
 
 
-94216
+94726
 

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/!svn/ver/6799/branches/1.2/lib/Doctrine/Template/Listener
+/!svn/ver/7282/branches/1.2/lib/Doctrine/Template/Listener
 END
 SoftDelete.php
 K 25
@@ -13,7 +13,7 @@ Sluggable.php
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/!svn/ver/6799/branches/1.2/lib/Doctrine/Template/Listener/Sluggable.php
+/!svn/ver/7282/branches/1.2/lib/Doctrine/Template/Listener/Sluggable.php
 END
 Timestampable.php
 K 25

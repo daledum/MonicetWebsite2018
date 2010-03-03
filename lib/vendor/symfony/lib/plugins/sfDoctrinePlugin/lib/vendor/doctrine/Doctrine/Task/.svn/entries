@@ -1,7 +1,7 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Task
 http://doctrine.mirror.svn.symfony-project.com
 
@@ -128,40 +128,6 @@ has-props
 
 2876
 
-CreateTables.php
-file
-
-
-
-
-2009-12-11T15:41:05.000000Z
-cb50b562dabb06a95be86f57d9d9bf6d
-2009-10-12T17:40:41.504876Z
-6484
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1863
-
 Exception.php
 file
 
@@ -195,6 +161,40 @@ has-props
 
 
 1392
+
+CreateTables.php
+file
+
+
+
+
+2009-12-11T15:41:05.000000Z
+cb50b562dabb06a95be86f57d9d9bf6d
+2009-10-12T17:40:41.504876Z
+6484
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1863
 
 DumpData.php
 file
@@ -230,40 +230,6 @@ has-props
 
 2416
 
-GenerateMigration.php
-file
-
-
-
-
-2009-12-11T15:41:05.000000Z
-3b90052dd38cb0f55aaaf03757fbb079
-2009-10-12T17:40:41.504876Z
-6484
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2105
-
 GenerateModelsDb.php
 file
 
@@ -298,16 +264,16 @@ has-props
 
 2199
 
-LoadData.php
+GenerateMigration.php
 file
 
 
 
 
 2009-12-11T15:41:05.000000Z
-a37b900b359d06e3ba8ae4cae2a9a82c
-2009-11-16T20:13:01.830060Z
-6736
+3b90052dd38cb0f55aaaf03757fbb079
+2009-10-12T17:40:41.504876Z
+6484
 jwage
 has-props
 
@@ -330,7 +296,7 @@ has-props
 
 
 
-2126
+2105
 
 CreateDb.php
 file
@@ -366,16 +332,16 @@ has-props
 
 1990
 
-GenerateSql.php
+LoadData.php
 file
 
 
 
 
 2009-12-11T15:41:05.000000Z
-c528a90d7593efc2cc1363e09ac2cb92
-2009-10-12T17:40:41.504876Z
-6484
+a37b900b359d06e3ba8ae4cae2a9a82c
+2009-11-16T20:13:01.830060Z
+6736
 jwage
 has-props
 
@@ -398,7 +364,7 @@ has-props
 
 
 
-2376
+2126
 
 DropDb.php
 file
@@ -434,6 +400,40 @@ has-props
 
 2313
 
+GenerateSql.php
+file
+
+
+
+
+2009-12-11T15:41:05.000000Z
+c528a90d7593efc2cc1363e09ac2cb92
+2009-10-12T17:40:41.504876Z
+6484
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2376
+
 BuildAllReload.php
 file
 
@@ -468,40 +468,6 @@ has-props
 
 2382
 
-Dql.php
-file
-
-
-
-
-2009-12-11T15:41:05.000000Z
-90d75cd59392794cd09ff626033ff368
-2009-11-24T19:24:33.315330Z
-6799
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2686
-
 GenerateMigrationsDiff.php
 file
 
@@ -535,6 +501,40 @@ has-props
 
 
 2672
+
+Dql.php
+file
+
+
+
+
+2009-12-11T15:41:05.000000Z
+90d75cd59392794cd09ff626033ff368
+2009-11-24T19:24:33.315330Z
+6799
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2686
 
 GenerateModelsYaml.php
 file

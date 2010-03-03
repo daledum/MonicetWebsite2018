@@ -1,14 +1,14 @@
 10
 
 dir
-28316
+28369
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfDoctrinePlugin/lib
 http://svn.symfony-project.com
 
 
 
-2010-02-12T14:05:53.685842Z
-27942
+2010-03-02T20:44:00.559309Z
+28353
 Kris.Wallsmith
 has-props
 
@@ -35,10 +35,10 @@ dir
 validator
 dir
 
-debug
+generator
 dir
 
-generator
+debug
 dir
 
 routing
@@ -60,9 +60,6 @@ database
 dir
 
 cli
-dir
-
-mailer
 dir
 
 sfDoctrineException.class.php
@@ -98,6 +95,9 @@ has-props
 
 
 656
+
+mailer
+dir
 
 record
 dir

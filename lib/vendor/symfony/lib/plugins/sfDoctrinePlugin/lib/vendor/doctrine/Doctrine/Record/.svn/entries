@@ -1,14 +1,14 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Record
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-07T18:26:03.570405Z
-6883
+2010-03-02T17:21:39.878707Z
+7290
 jwage
 has-props
 
@@ -109,10 +109,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-ebdc08f977c0eb75f46037878af2da7a
-2009-11-12T20:47:47.440634Z
-6721
+2010-03-03T17:23:06.000000Z
+47a26741818473293097719ba1af9588
+2010-03-01T21:58:09.495821Z
+7264
 jwage
 has-props
 
@@ -135,7 +135,7 @@ has-props
 
 
 
-12495
+12239
 
 UnknownPropertyException.php
 file
@@ -245,10 +245,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-95e0f2d2e26b497f587bcd481db76ad8
-2009-11-19T19:02:41.822453Z
-6775
+2010-03-03T17:23:06.000000Z
+fd7af59c9d7968297da49e8b12b74ff5
+2010-03-02T17:21:39.878707Z
+7290
 jwage
 has-props
 
@@ -271,5 +271,5 @@ has-props
 
 
 
-13960
+14372
 

@@ -1,5 +1,10 @@
 <ul class="dropdown dropdown-horizontal">
-  <li><a href="#">Sítio web</a></li>
+  <li><a href="#">Sítio web</a>
+    <ul>
+      <li><?php echo link_to('Notícias', '@news_article') ?></li>
+      <li><?php echo link_to('Consórcios', '@consorcium_element') ?></li>
+    </ul>
+  </li>
   <li><a href="#">Administração</a>
     <ul>
       <li><?php echo link_to('Utilizadores', '@sf_guard_user') ?></li>

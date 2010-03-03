@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 49
-/!svn/ver/6834/branches/1.2/lib/Doctrine/Relation
+/!svn/ver/7250/branches/1.2/lib/Doctrine/Relation
 END
 Nest.php
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/!svn/ver/6834/branches/1.2/lib/Doctrine/Relation/Nest.php
+/!svn/ver/7250/branches/1.2/lib/Doctrine/Relation/Nest.php
 END
 Association.php
 K 25

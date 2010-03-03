@@ -1,15 +1,15 @@
 10
 
 dir
-7238
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Export
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-14T20:06:51.678016Z
-6946
-adrive
+2010-03-02T17:03:35.714327Z
+7289
+jwage
 
 
 
@@ -202,10 +202,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-7778629356209db6aa750e3776bc45a4
-2009-11-03T01:21:08.100363Z
-6624
+2010-03-03T17:23:06.000000Z
+520763f5c539899273c3864a42a265c6
+2010-03-02T17:03:35.714327Z
+7289
 jwage
 has-props
 
@@ -228,7 +228,7 @@ has-props
 
 
 
-32464
+32470
 
 Oracle.php
 file
@@ -270,10 +270,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-77ee7a430d5ecf324545009cb5d10a73
-2009-10-13T04:56:16.620682Z
-6498
+2010-03-03T17:23:06.000000Z
+4d08f11c2d082d7c8a57b9cba9d7433f
+2010-03-02T00:58:28.787088Z
+7278
 jwage
 has-props
 
@@ -296,5 +296,5 @@ has-props
 
 
 
-16773
+16894
 
