@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/task/project
 http://svn.symfony-project.com
 
 
 
-2009-12-01T19:38:44.140240Z
-24706
-fabien
+2010-02-03T19:39:44.707774Z
+27511
+FabianLange
 
 
 
@@ -273,11 +273,11 @@ file
 
 
 
-2009-12-11T15:40:17.000000Z
-aa803fbd7b628ce4b6b00323f5d26005
-2009-11-16T17:52:14.706630Z
-24039
-Kris.Wallsmith
+2010-02-27T21:01:53.000000Z
+24106842869b6d3b8cfc938893790642
+2010-02-03T19:39:44.707774Z
+27511
+FabianLange
 has-props
 
 
@@ -299,5 +299,5 @@ has-props
 
 
 
-4961
+4950
 

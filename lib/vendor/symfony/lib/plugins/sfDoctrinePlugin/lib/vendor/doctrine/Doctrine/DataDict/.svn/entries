@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7238
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/DataDict
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-11-24T21:14:51.290141Z
-6805
-jwage
+2010-01-29T03:35:10.542158Z
+7077
+hobodave
 has-props
 
 
@@ -134,11 +134,11 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-80aac3401ceed87acaa0a9708a422e20
-2009-11-24T21:14:51.290141Z
-6805
-jwage
+2010-02-27T21:02:28.000000Z
+599ba3a424c68e30e51bcadd492c5370
+2010-01-29T03:35:10.542158Z
+7077
+hobodave
 has-props
 
 
@@ -160,7 +160,7 @@ has-props
 
 
 
-21334
+21337
 
 Oracle.php
 file

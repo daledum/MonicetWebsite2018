@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/config/config
 http://svn.symfony-project.com
 
 
 
-2009-11-16T17:22:19.943601Z
-24034
-Kris.Wallsmith
+2010-01-19T10:14:08.746646Z
+26867
+fabien
 
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2009-12-11T15:40:22.000000Z
-b6503901883430a35271f290f906fc8c
-2009-09-22T07:53:42.551586Z
-22235
+2010-02-27T21:01:56.000000Z
+26d0bf8d716da09e596e4828b202364f
+2010-01-19T10:14:08.746646Z
+26867
 fabien
 has-props
 
@@ -58,7 +58,7 @@ has-props
 
 
 
-3090
+3091
 
 core_compile.yml
 file

@@ -5,12 +5,16 @@
     <table cellspacing="0">
       <thead>
         <tr>
-<?php if ($this->configuration->getValue('list.batch_actions')): ?>
+<?php if (count($actions=$this->configuration->getValue('list.batch_actions'))): ?>
+          [?php if( $sf_user->hasAtLeastOneCredential( <?php echo $this->asPhp(array_keys($this->configuration->getValue('list.batch_actions'))) ?>, $sf_context->getModuleName() ) ): ?]
           <th id="sf_admin_list_batch_actions"><input id="sf_admin_list_batch_checkbox" type="checkbox" onclick="checkAll();" /></th>
+          [?php endif; ?]
 <?php endif; ?>
           [?php include_partial('<?php echo $this->getModuleName() ?>/list_th_<?php echo $this->configuration->getValue('list.layout') ?>', array('sort' => $sort)) ?]
-<?php if ($this->configuration->getValue('list.object_actions')): ?>
+<?php if (count($actions=$this->configuration->getValue('list.object_actions')) ): ?>
+          [?php if( $sf_user->hasAtLeastOneCredential( <?php echo $this->asPhp(array_keys($this->configuration->getValue('list.object_actions'))) ?>, $sf_context->getModuleName() ) ): ?]
           <th id="sf_admin_list_th_actions">[?php echo __('Actions', array(), 'sf_admin') ?]</th>
+          [?php endif; ?]
 <?php endif; ?>
         </tr>
       </thead>

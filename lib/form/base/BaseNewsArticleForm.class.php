@@ -8,7 +8,6 @@
  * @package    monicet
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseNewsArticleForm extends BaseFormPropel
 {
@@ -18,6 +17,9 @@ abstract class BaseNewsArticleForm extends BaseFormPropel
       'id'           => new sfWidgetFormInputHidden(),
       'is_published' => new sfWidgetFormInputCheckbox(),
       'slug'         => new sfWidgetFormInputText(),
+      'enter_date'   => new sfWidgetFormDate(),
+      'exit_date'    => new sfWidgetFormDate(),
+      'publish_date' => new sfWidgetFormDate(),
       'created_at'   => new sfWidgetFormDateTime(),
       'updated_at'   => new sfWidgetFormDateTime(),
     ));
@@ -26,6 +28,9 @@ abstract class BaseNewsArticleForm extends BaseFormPropel
       'id'           => new sfValidatorPropelChoice(array('model' => 'NewsArticle', 'column' => 'id', 'required' => false)),
       'is_published' => new sfValidatorBoolean(),
       'slug'         => new sfValidatorString(array('max_length' => 255)),
+      'enter_date'   => new sfValidatorDate(array('required' => false)),
+      'exit_date'    => new sfValidatorDate(array('required' => false)),
+      'publish_date' => new sfValidatorDate(),
       'created_at'   => new sfValidatorDateTime(array('required' => false)),
       'updated_at'   => new sfValidatorDateTime(array('required' => false)),
     ));

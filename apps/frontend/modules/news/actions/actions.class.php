@@ -21,28 +21,10 @@ class newsActions extends sfActions
   
   public function executeShow(sfWebRequest $request)
   {
-//  	$criteria = new Criteria();
-//  	$criteria->addAnd(NewsArticlePeer::IS_PUBLISHED, true);
-//  	$criteria->addAnd(NewsArticlePeer::ID, $this->getRoute()->getParameters());
-//  	
-//    $this->article = NewsArticlePeer::doSelectOne($criteria);
     $this->article = $this->getRoute()->getObject();
   }
   
-  public function executeAll(sfWebRequest $request)
-  {
-  	/*
-    $criteria = new Criteria();
-    $criteria->addAnd(NewsArticlePeer::IS_PUBLISHED, true);
-    
-    $this->articles = NewsArticlePeer::doSelect($criteria);
-    */
-  	$criteria = new Criteria();
-    $criteria->add(NewsArticlePeer::IS_PUBLISHED, true);
-    $pager = new sfPropelPager('NewsArticle', 10);
-    $pager->setCriteria($criteria);
-    $pager->setPage($this->getRequestParameter('page', 1));
-    $pager->init();
-    $this->pager = $pager;
+  public function executeAll(sfWebRequest $request){
+    $this->pager = NewsArticlePeer::getPager();
   }
 }

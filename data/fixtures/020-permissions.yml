@@ -1,0 +1,72 @@
+sfGuardPermission:
+# permissoes genéricas
+  administrator:
+    name:           administrator
+    description:    global administrator
+  boss:
+    name:           boss
+    description:    administrator of a company
+  employee:
+    name:           employee
+    description:    regular worker
+# permissoes de módulo
+  # permissões de registo para todos
+  permission_association_all:
+    name:           association.*
+    description:    All association actions
+
+  permission_behaviour_all:
+    name:           behaviour.*
+    description:    All behaviour actions
+  
+  permission_code_all:
+    name:           code.*
+    description:    All behaviour actions
+  
+  permission_company_all:
+    name:           company.*
+    description:    All company actions
+  
+  permission_consorcium_all:
+    name:           consorcium_element.*
+    description:    All concorcium actions
+  
+  permission_general_info_all:
+    name:           general_info.*
+    description:    All general info actions
+  
+  permission_news_article_all:
+    name:           news_article.*
+    description:    All news actions
+  
+  permission_record_all:
+    name:           record.*
+    description:    All record actions
+  
+  permission_sea_state_all:
+    name:           sea_state.*
+    description:    All sea_state actions
+  
+  permission_sf_guard_user_all:
+    name:           utilizador.*
+    description:    All user actions
+  
+  permission_sighting_all:
+    name:           sighting.*
+    description:    All sighting actions
+
+  permission_specie_group_all:
+    name:           specie_group.*
+    description:    All specie group actions
+  
+  permission_specie_all:
+    name:           specie.*
+    description:    All specie actions
+  
+  permission_vessel_all:
+    name:           vessel.*
+    description:    All vessel actions
+  
+  permission_visibility_all:
+    name:           visibility.*
+    description:    All visibility actions

@@ -13,4 +13,21 @@ abstract class BaseFormPropel extends sfFormPropel
   public function setup()
   {
   }
+  public function unsetAllFieldsExcept($fields = array()) { 
+    $unsetFields = array_diff(array_keys($this->getWidgetSchema()->getFields()), $fields); 
+    foreach($unsetFields as $value){
+      // só deixa fazer apagar os campos que não estejam escondidos, devido aos ids
+      if ( ! $this->widgetSchema[$value]->isHidden() ){
+        unset($this[$value]);
+      }
+    }
+  }
+  public function unsetAllFields($fields = array()) {  
+    foreach($fields as $value){
+      // só deixa fazer apagar os campos que não estejam escondidos, devido aos ids
+      if ( ! $this->widgetSchema[$value]->isHidden() ){
+        unset($this[$value]);
+      }
+    }
+  }
 }

@@ -1,0 +1,8 @@
+propel:
+  _attributes:      { package: plugins.mfLogPlugin.lib.model }
+  mf_log:
+    _attributes:    { phpName: mfLog }
+    id:             ~
+    tipo:           { type: VARCHAR, size: 255 }
+    mensagem:       { type: longvarchar, required: true }
+    created_at:     ~

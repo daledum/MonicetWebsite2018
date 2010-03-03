@@ -17,5 +17,20 @@
  * @package    lib.model
  */
 class NewsArticlePeer extends BaseNewsArticlePeer {
-
+  public static function getPager()
+  { 
+  	$user = sfContext::getInstance()->getUser();
+  	$request = sfContext::getInstance()->getRequest();
+  	
+  	$pager = NewsArticleQuery::create()->
+  	  useNewsArticleI18nQuery()->
+  	    filterByCulture($user->getCulture())->
+  	  enduser()->
+  	  filterByIsPublished(true)->
+  	  filterByEnterDate(array('max' => time()))->
+  	  filterByExitDate(array('min' => time()))->
+      orderByPublishedDate(Criteria::DESC)->
+      paginate($request->getRequestParameter('page', 1), 10);
+  	return $pager;
+  }
 } // NewsArticlePeer

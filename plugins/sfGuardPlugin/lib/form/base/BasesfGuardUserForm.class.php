@@ -8,7 +8,6 @@
  * @package    ##PROJECT_NAME##
  * @subpackage form
  * @author     ##AUTHOR_NAME##
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BasesfGuardUserForm extends BaseFormPropel
 {
@@ -26,6 +25,8 @@ abstract class BasesfGuardUserForm extends BaseFormPropel
       'is_super_admin'                => new sfWidgetFormInputCheckbox(),
       'sf_guard_user_group_list'      => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'sfGuardGroup')),
       'sf_guard_user_permission_list' => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'sfGuardPermission')),
+      'mf_formulario_utilizador_list' => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'mfFormulario')),
+      'company_user_list'             => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'Company')),
     ));
 
     $this->setValidators(array(
@@ -40,6 +41,8 @@ abstract class BasesfGuardUserForm extends BaseFormPropel
       'is_super_admin'                => new sfValidatorBoolean(),
       'sf_guard_user_group_list'      => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'sfGuardGroup', 'required' => false)),
       'sf_guard_user_permission_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'sfGuardPermission', 'required' => false)),
+      'mf_formulario_utilizador_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'mfFormulario', 'required' => false)),
+      'company_user_list'             => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'Company', 'required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
@@ -85,6 +88,28 @@ abstract class BasesfGuardUserForm extends BaseFormPropel
       $this->setDefault('sf_guard_user_permission_list', $values);
     }
 
+    if (isset($this->widgetSchema['mf_formulario_utilizador_list']))
+    {
+      $values = array();
+      foreach ($this->object->getmfFormularioUtilizadors() as $obj)
+      {
+        $values[] = $obj->getFormularioId();
+      }
+
+      $this->setDefault('mf_formulario_utilizador_list', $values);
+    }
+
+    if (isset($this->widgetSchema['company_user_list']))
+    {
+      $values = array();
+      foreach ($this->object->getCompanyUsers() as $obj)
+      {
+        $values[] = $obj->getCompanyId();
+      }
+
+      $this->setDefault('company_user_list', $values);
+    }
+
   }
 
   protected function doSave($con = null)
@@ -93,6 +118,8 @@ abstract class BasesfGuardUserForm extends BaseFormPropel
 
     $this->savesfGuardUserGroupList($con);
     $this->savesfGuardUserPermissionList($con);
+    $this->savemfFormularioUtilizadorList($con);
+    $this->saveCompanyUserList($con);
   }
 
   public function savesfGuardUserGroupList($con = null)
@@ -160,6 +187,76 @@ abstract class BasesfGuardUserForm extends BaseFormPropel
         $obj = new sfGuardUserPermission();
         $obj->setUserId($this->object->getPrimaryKey());
         $obj->setPermissionId($value);
+        $obj->save();
+      }
+    }
+  }
+
+  public function savemfFormularioUtilizadorList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['mf_formulario_utilizador_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $c = new Criteria();
+    $c->add(mfFormularioUtilizadorPeer::UTILIZADOR_ID, $this->object->getPrimaryKey());
+    mfFormularioUtilizadorPeer::doDelete($c, $con);
+
+    $values = $this->getValue('mf_formulario_utilizador_list');
+    if (is_array($values))
+    {
+      foreach ($values as $value)
+      {
+        $obj = new mfFormularioUtilizador();
+        $obj->setUtilizadorId($this->object->getPrimaryKey());
+        $obj->setFormularioId($value);
+        $obj->save();
+      }
+    }
+  }
+
+  public function saveCompanyUserList($con = null)
+  {
+    if (!$this->isValid())
+    {
+      throw $this->getErrorSchema();
+    }
+
+    if (!isset($this->widgetSchema['company_user_list']))
+    {
+      // somebody has unset this widget
+      return;
+    }
+
+    if (null === $con)
+    {
+      $con = $this->getConnection();
+    }
+
+    $c = new Criteria();
+    $c->add(CompanyUserPeer::USER_ID, $this->object->getPrimaryKey());
+    CompanyUserPeer::doDelete($c, $con);
+
+    $values = $this->getValue('company_user_list');
+    if (is_array($values))
+    {
+      foreach ($values as $value)
+      {
+        $obj = new CompanyUser();
+        $obj->setUserId($this->object->getPrimaryKey());
+        $obj->setCompanyId($value);
         $obj->save();
       }
     }

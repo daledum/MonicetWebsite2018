@@ -1,14 +1,14 @@
 10
 
 dir
-6943
+7238
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Export
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-07T23:01:19.939202Z
-6896
+2009-12-14T20:06:51.678016Z
+6946
 adrive
 
 
@@ -236,10 +236,10 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-85a3e54e9009eaa9cf8406ddc5162faa
-2009-12-07T23:01:19.939202Z
-6896
+2010-02-27T21:02:28.000000Z
+5111a8e0816c59ce2566c1927944f3b3
+2009-12-14T20:06:51.678016Z
+6946
 adrive
 has-props
 
@@ -262,7 +262,7 @@ has-props
 
 
 
-25116
+25130
 
 Pgsql.php
 file

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 40
-/!svn/ver/23881/branches/1.4/lib/escaper
+/!svn/ver/27752/branches/1.4/lib/escaper
 END
 sfOutputEscaperObjectDecorator.class.php
 K 25
@@ -37,5 +37,5 @@ sfOutputEscaperArrayDecorator.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 80
-/!svn/ver/23881/branches/1.4/lib/escaper/sfOutputEscaperArrayDecorator.class.php
+/!svn/ver/27752/branches/1.4/lib/escaper/sfOutputEscaperArrayDecorator.class.php
 END

@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7238
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-09T21:07:16.942893Z
-6923
-kriswallsmith
+2010-02-21T09:37:37.225812Z
+7200
+beberlei
 has-props
 
 
@@ -63,6 +63,12 @@ has-props
 
 4205
 
+Transaction
+dir
+
+Node
+dir
+
 Overloadable.php
 file
 
@@ -96,12 +102,6 @@ has-props
 
 
 1683
-
-Node
-dir
-
-Transaction
-dir
 
 Parser
 dir
@@ -208,40 +208,6 @@ has-props
 
 5103
 
-DataDict.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-568e66cfabb8f51489dcb2fd182351cb
-2009-10-10T00:08:43.408249Z
-6479
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1935
-
 Relation.php
 file
 
@@ -275,6 +241,40 @@ has-props
 
 
 13359
+
+DataDict.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+568e66cfabb8f51489dcb2fd182351cb
+2009-10-10T00:08:43.408249Z
+6479
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1935
 
 AuditLog
 dir
@@ -365,11 +365,11 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-2289257672079eb2b8655b142f679653
-2009-11-24T19:24:33.315330Z
-6799
-jwage
+2010-02-27T21:02:28.000000Z
+aee9b7fd82bbc2e74de783d7d82c9c7b
+2010-01-14T16:55:33.469393Z
+7029
+guilhermeblanco
 has-props
 
 
@@ -391,7 +391,7 @@ has-props
 
 
 
-53332
+53310
 
 EventListener
 dir
@@ -587,6 +587,9 @@ has-props
 
 1896
 
+Data
+dir
+
 IntegrityMapper.php
 file
 
@@ -621,48 +624,11 @@ has-props
 
 6275
 
-Data
+Compiler
 dir
 
 View
 dir
-
-Compiler
-dir
-
-Node.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-9177bdadd2f91905e4b597bfba437e4e
-2009-06-10T18:43:12.496460Z
-5876
-piccoloprincipe
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6471
 
 Transaction.php
 file
@@ -697,6 +663,40 @@ has-props
 
 
 17493
+
+Node.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+9177bdadd2f91905e4b597bfba437e4e
+2009-06-10T18:43:12.496460Z
+5876
+piccoloprincipe
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6471
 
 Builder.php
 file
@@ -772,6 +772,9 @@ has-props
 
 4090
 
+Locking
+dir
+
 Configurable.php
 file
 
@@ -805,9 +808,6 @@ has-props
 
 
 13339
-
-Locking
-dir
 
 Table
 dir
@@ -917,40 +917,6 @@ has-props
 
 16692
 
-Null.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-5dc691a40ac735aaaa1521192cc3afeb
-2009-06-22T15:44:45.962479Z
-5901
-jwage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1623
-
 Import.php
 file
 
@@ -984,6 +950,40 @@ has-props
 
 
 13236
+
+Null.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+5dc691a40ac735aaaa1521192cc3afeb
+2009-06-22T15:44:45.962479Z
+5901
+jwage
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1623
 
 Util.php
 file
@@ -1019,20 +1019,17 @@ has-props
 
 1332
 
-Cli
-dir
-
 Export.php
 file
 
 
 
 
-2009-12-11T15:41:06.000000Z
-caa739a87315973ebaac4d4df6fe62b0
-2009-10-12T21:00:11.102796Z
-6491
-jwage
+2010-02-27T21:02:28.000000Z
+68e2020b998e7f7ff75afad31bfb1892
+2010-02-03T14:35:47.024309Z
+7103
+guilhermeblanco
 has-props
 
 
@@ -1054,18 +1051,15 @@ has-props
 
 
 
-55219
+55423
+
+Cli
+dir
 
 Manager
 dir
 
 Template
-dir
-
-Relation
-dir
-
-DataDict
 dir
 
 EventListener.php
@@ -1101,6 +1095,12 @@ has-props
 
 
 3831
+
+DataDict
+dir
+
+Relation
+dir
 
 Core.php
 file

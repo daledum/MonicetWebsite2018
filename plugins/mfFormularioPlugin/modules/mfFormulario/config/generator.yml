@@ -1,0 +1,22 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           mfFormulario
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              mfFormulario
+    plural:                mfFormularios
+    route_prefix:          mf_formulario
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display:           [regra, classe, campos, visivel, ao_editar, ao_criar]
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

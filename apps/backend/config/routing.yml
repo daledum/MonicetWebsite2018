@@ -1,3 +1,12 @@
+sf_guard_user:
+  class: sfPropelRouteCollection
+  options:
+    model:                sfGuardUser
+    module:               utilizador
+    prefix_path:          /utilizador
+    column:               id
+    with_wildcard_routes: true
+
 sighting:
   class: sfPropelRouteCollection
   options:
@@ -94,24 +103,6 @@ vessel:
     model:                Vessel
     module:               vessel
     prefix_path:          /vessel
-    column:               id
-    with_wildcard_routes: true
-
-skipper:
-  class: sfPropelRouteCollection
-  options:
-    model:                Skipper
-    module:               skipper
-    prefix_path:          /skipper
-    column:               id
-    with_wildcard_routes: true
-
-guide:
-  class: sfPropelRouteCollection
-  options:
-    model:                Guide
-    module:               guide
-    prefix_path:          /guide
     column:               id
     with_wildcard_routes: true
 

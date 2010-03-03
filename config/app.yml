@@ -1,6 +1,12 @@
 all:
   sf_guard_plugin:
-    #profile_class:           mfUtilizador
-    #profile_field_name:      user_id
+    profile_class:           User
+    profile_field_name:      user_id
     success_signin_url:      @homepage
-    success_signout_url:     @sf_guard_signin
+    success_signout_url:     @homepage
+  mfLog:
+    email:              true
+    email_to:
+      - titomiguelcosta@morfose.net
+    email_from:         no-reply@morfose.net
+    email_assunto:      monicet - lamentavelmente ocorreu uma excepção

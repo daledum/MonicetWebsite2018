@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfPropelPlugin/i18n
 http://svn.symfony-project.com
 
 
 
-2009-12-05T21:02:29.033258Z
-24976
+2009-12-16T13:08:00.328227Z
+25458
 FabianLange
 
 
@@ -604,40 +604,6 @@ bschussek
 
 5922
 
-sf_admin.hr.xml
-file
-
-
-
-
-2009-12-11T15:40:48.000000Z
-744d8bbf81a7a5586b3a549518462d9b
-2008-11-27T10:53:20.077847Z
-13399
-fabien
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4425
-
 sf_admin.nl.xml
 file
 
@@ -671,6 +637,40 @@ fabien
 
 
 3915
+
+sf_admin.hr.xml
+file
+
+
+
+
+2009-12-11T15:40:48.000000Z
+744d8bbf81a7a5586b3a549518462d9b
+2008-11-27T10:53:20.077847Z
+13399
+fabien
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4425
 
 sf_admin.pl.xml
 file
@@ -706,40 +706,6 @@ FabianLange
 
 5803
 
-sf_admin.hu.xml
-file
-
-
-
-
-2009-12-11T15:40:48.000000Z
-82479f87718ba53370fc786a1dd1bccc
-2008-11-27T10:53:20.077847Z
-13399
-fabien
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4579
-
 sf_admin.no.xml
 file
 
@@ -773,6 +739,40 @@ fabien
 
 
 3413
+
+sf_admin.hu.xml
+file
+
+
+
+
+2009-12-11T15:40:48.000000Z
+82479f87718ba53370fc786a1dd1bccc
+2008-11-27T10:53:20.077847Z
+13399
+fabien
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4579
 
 sf_admin.lt.xml
 file
@@ -876,40 +876,6 @@ fabien
 
 4448
 
-sf_admin.ca.xml
-file
-
-
-
-
-2009-12-11T15:40:48.000000Z
-6ae070eb3ed9e4b2000991108625e2cc
-2009-09-27T13:32:45.047376Z
-22490
-FabianLange
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-5122
-
 sf_admin.pt.xml
 file
 
@@ -944,17 +910,17 @@ fabien
 
 4549
 
-sf_admin.tr.xml
+sf_admin.ca.xml
 file
 
 
 
 
 2009-12-11T15:40:48.000000Z
-c10f070ff88308ab2c787c5fe002b64c
-2008-11-27T10:53:20.077847Z
-13399
-fabien
+6ae070eb3ed9e4b2000991108625e2cc
+2009-09-27T13:32:45.047376Z
+22490
+FabianLange
 
 
 
@@ -976,7 +942,41 @@ fabien
 
 
 
-4504
+5122
+
+sf_admin.tr.xml
+file
+
+
+
+
+2010-02-27T21:02:24.000000Z
+89ddfc4de40ed974a7f51261cb84f8fb
+2009-12-16T13:08:00.328227Z
+25458
+FabianLange
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5805
 
 sf_admin.ru.xml
 file

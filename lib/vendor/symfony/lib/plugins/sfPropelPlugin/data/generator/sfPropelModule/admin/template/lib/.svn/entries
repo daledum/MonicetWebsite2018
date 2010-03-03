@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfPropelPlugin/data/generator/sfPropelModule/admin/template/lib
 http://svn.symfony-project.com
 
 
 
-2009-11-19T16:37:50.587682Z
-24171
-Kris.Wallsmith
+2010-02-03T09:22:49.917680Z
+27479
+FabianLange
 
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2009-12-11T15:40:21.000000Z
-c7af3058973981448f04f72ae3d6e96d
-2009-11-19T16:37:50.587682Z
-24171
-Kris.Wallsmith
+2010-02-27T21:01:55.000000Z
+89062983760e74c3512a48888e3fb162
+2010-02-03T09:22:49.917680Z
+27479
+FabianLange
 has-props
 
 
@@ -58,5 +58,5 @@ has-props
 
 
 
-581
+501
 

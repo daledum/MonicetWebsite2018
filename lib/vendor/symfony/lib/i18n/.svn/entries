@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/i18n
 http://svn.symfony-project.com
 
 
 
-2009-11-30T23:49:47.071555Z
-24622
-FabianLange
+2010-01-15T15:28:37.247301Z
+26681
+fabien
 
 
 
@@ -25,40 +25,6 @@ FabianLange
 
 
 ee427ae8-e902-0410-961c-c3ed070cd9f9
-
-sfMessageFormat.class.php
-file
-
-
-
-
-2009-12-11T15:40:19.000000Z
-fa8c75acaa38670bef212caa6796d2e7
-2009-11-30T23:49:47.071555Z
-24622
-FabianLange
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6846
 
 sfMessageSource_XLIFF.class.php
 file
@@ -94,6 +60,40 @@ has-props
 
 11663
 
+sfMessageFormat.class.php
+file
+
+
+
+
+2009-12-11T15:40:19.000000Z
+fa8c75acaa38670bef212caa6796d2e7
+2009-11-30T23:49:47.071555Z
+24622
+FabianLange
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+6846
+
 sfCultureInfo.class.php
 file
 
@@ -128,17 +128,20 @@ has-props
 
 22283
 
+Gettext
+dir
+
 sfNumberFormat.class.php
 file
 
 
 
 
-2009-12-11T15:40:19.000000Z
-89682ace3ccba0f6335f81065b964ec0
-2009-11-12T11:07:44.003356Z
-23810
-Kris.Wallsmith
+2010-02-27T21:01:53.000000Z
+3bc397300f17bf51c4b76b0771d5c730
+2010-01-15T15:28:37.247301Z
+26681
+fabien
 has-props
 
 
@@ -160,10 +163,7 @@ has-props
 
 
 
-9338
-
-Gettext
-dir
+9078
 
 sfChoiceFormat.class.php
 file

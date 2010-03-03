@@ -1,3 +1,6 @@
 # Sqlfile -> Database map
 lib.model.schema.sql=propel
 plugins.sfGuardPlugin.lib.model.schema.sql=propel
+plugins.mfLogPlugin.lib.model.schema.sql=propel
+plugins.mfMenuPlugin.lib.model.schema.sql=propel
+plugins.mfFormularioPlugin.lib.model.schema.sql=propel

@@ -1,0 +1,117 @@
+mfMenu:
+  # menus principais
+  menu_sitio_web_administrator:
+    nome:               Sítio web
+    permissao_id:       administrator
+    menu_pai_id:        ~
+    posicao:            10
+  menu_administracao_administrator:
+    nome:               Administração
+    permissao_id:       administrator
+    menu_pai_id:        ~
+    posicao:            20
+  menu_administracao_mar_administrator:
+    nome:               Administração Mar
+    permissao_id:       administrator
+    menu_pai_id:        ~
+    posicao:            30
+  menu_registos_mar_administrator:
+    nome:               Registos Mar
+    permissao_id:       administrator
+    menu_pai_id:        ~
+    posicao:            40
+  # ToDo: opções do sítio web 
+  submenu_news_article_administrator:
+    nome:               Notícias
+    permissao_id:       administrator
+    menu_pai_id:        menu_sitio_web_administrator
+    rota:               news_article
+    posicao:            10 
+  submenu_consorcium_administrator:
+    nome:               Consórcio
+    permissao_id:       administrator
+    menu_pai_id:        menu_sitio_web_administrator
+    rota:               consorcium_element
+    posicao:            20
+  # submenus administração mar administrator
+  submenu_specie_group_administrator:
+    nome:               Grupos de espécies
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               specie_group
+    posicao:            10
+  submenu_specie_administrator:
+    nome:               Espécies
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               specie
+    posicao:            20
+  submenu_association_administrator:
+    nome:               Associações
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               association
+    posicao:            30
+  submenu_behaviour_administrator:
+    nome:               Comportamento
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               behaviour
+    posicao:            40
+  submenu_code_administrator:
+    nome:               Códigos
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               code
+    posicao:            50
+  submenu_sea_state_administrator:
+    nome:               Estados do mar
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               sea_state
+    posicao:            60
+  submenu_visibility_administrator:
+    nome:               Visibilidade
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               visibility
+    posicao:            70
+  submenu_vessel_admin:
+    nome:               Barcos
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               vessel
+    posicao:            80
+  
+  # submenus registo mar
+  submenu_record_administrator:
+    nome:               Registo               
+    permissao_id:       administrator
+    menu_pai_id:        menu_registos_mar_administrator
+    rota:               record
+    posicao:            10
+  submenu_sighting_administrator:
+    nome:               Avistamento               
+    permissao_id:       administrator
+    menu_pai_id:        menu_registos_mar_administrator
+    rota:               sighting
+    posicao:            20
+  submenu_general_info_administrator:
+    nome:               Saídas
+    permissao_id:       administrator
+    menu_pai_id:        menu_registos_mar_administrator
+    rota:               general_info
+    posicao:            30
+  # submenu de administração administrador
+  submenu_company_admin:
+    nome:               Empresas
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_administrator
+    rota:               company
+    posicao:            10
+  submenu_sf_guard_user_admin:
+    nome:               Utilizadores
+    permissao_id:       administrator
+    menu_pai_id:        menu_administracao_administrator
+    rota:               sf_guard_user
+    posicao:            20

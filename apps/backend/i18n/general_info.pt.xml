@@ -12,7 +12,7 @@
       </trans-unit>
       <trans-unit>
         <source>General info List</source>
-        <target>A listar as informações</target>
+        <target>A listar as Informações</target>
       </trans-unit>
       <trans-unit>
         <source>Edit General info</source>
@@ -40,15 +40,19 @@
       </trans-unit>
       <trans-unit>
         <source>Base latitude</source>
-        <target>Latitude base</target>
+        <target>Latitude</target>
       </trans-unit>
       <trans-unit>
         <source>Base longitude</source>
-        <target>Longitude base</target>
+        <target>Longitude</target>
       </trans-unit>
       <trans-unit>
-        <source>date</source>
+        <source>Date</source>
         <target>Data</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
         <source></source>

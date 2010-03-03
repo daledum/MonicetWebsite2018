@@ -1,19 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 37
-/!svn/ver/24615/branches/1.4/lib/test
+/!svn/ver/27845/branches/1.4/lib/test
 END
 sfTestFunctionalBase.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 68
-/!svn/ver/23922/branches/1.4/lib/test/sfTestFunctionalBase.class.php
+/!svn/ver/27845/branches/1.4/lib/test/sfTestFunctionalBase.class.php
 END
 sfTesterRequest.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 63
-/!svn/ver/23881/branches/1.4/lib/test/sfTesterRequest.class.php
+/!svn/ver/27845/branches/1.4/lib/test/sfTesterRequest.class.php
 END
 sfTesterMailer.class.php
 K 25
@@ -37,7 +37,7 @@ sfTesterResponse.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/!svn/ver/23922/branches/1.4/lib/test/sfTesterResponse.class.php
+/!svn/ver/27061/branches/1.4/lib/test/sfTesterResponse.class.php
 END
 sfTesterUser.class.php
 K 25

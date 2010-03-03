@@ -1,7 +1,7 @@
 10
 
 dir
-6943
+7238
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Validator
 http://doctrine.mirror.svn.symfony-project.com
 
@@ -60,40 +60,6 @@ has-props
 
 2130
 
-Notnull.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-12a4e73d6c2cecdf0498b6675b638051
-2009-06-02T15:10:46.063184Z
-5798
-piccoloprincipe
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1623
-
 Driver.php
 file
 
@@ -127,6 +93,40 @@ has-props
 
 
 3488
+
+Notnull.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+12a4e73d6c2cecdf0498b6675b638051
+2009-06-02T15:10:46.063184Z
+5798
+piccoloprincipe
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1623
 
 Range.php
 file
@@ -162,40 +162,6 @@ has-props
 
 1863
 
-Exception.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-b03d92381c58a23852106a3b11cd50c3
-2009-06-02T15:10:46.063184Z
-5798
-piccoloprincipe
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-2784
-
 Time.php
 file
 
@@ -230,14 +196,48 @@ has-props
 
 2385
 
-Htmlcolor.php
+Exception.php
 file
 
 
 
 
 2009-12-11T15:41:06.000000Z
-339354f1c9615ad3642680c2cedcd60d
+b03d92381c58a23852106a3b11cd50c3
+2009-06-02T15:10:46.063184Z
+5798
+piccoloprincipe
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2784
+
+Timestamp.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+8ebd1e7c9696a950987d1a109211bf80
 2009-10-09T20:41:28.040085Z
 6468
 jwage
@@ -262,7 +262,7 @@ has-props
 
 
 
-1787
+2146
 
 Country.php
 file
@@ -298,14 +298,14 @@ has-props
 
 10028
 
-Timestamp.php
+Htmlcolor.php
 file
 
 
 
 
 2009-12-11T15:41:06.000000Z
-8ebd1e7c9696a950987d1a109211bf80
+339354f1c9615ad3642680c2cedcd60d
 2009-10-09T20:41:28.040085Z
 6468
 jwage
@@ -330,7 +330,7 @@ has-props
 
 
 
-2146
+1787
 
 Creditcard.php
 file
@@ -434,40 +434,6 @@ has-props
 
 2551
 
-Notblank.php
-file
-
-
-
-
-2009-12-11T15:41:06.000000Z
-57d14e6b953e07984a62b87f6b85cf89
-2009-06-02T15:10:46.063184Z
-5798
-piccoloprincipe
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1723
-
 Ip.php
 file
 
@@ -501,6 +467,40 @@ has-props
 
 
 1699
+
+Notblank.php
+file
+
+
+
+
+2009-12-11T15:41:06.000000Z
+57d14e6b953e07984a62b87f6b85cf89
+2009-06-02T15:10:46.063184Z
+5798
+piccoloprincipe
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1723
 
 Future.php
 file

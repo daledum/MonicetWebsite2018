@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional
 http://svn.symfony-project.com
 
 
 
-2009-12-05T15:51:25.741235Z
-24972
+2010-02-24T23:42:54.503877Z
+28260
 Kris.Wallsmith
 
 
@@ -32,81 +32,10 @@ file
 
 
 
-2009-12-11T15:40:20.000000Z
-49be78ea9d7d5aa9e4b9fbc8632cdfc6
-2009-11-14T14:23:18.872848Z
-23912
-fabien
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-6804
-
-FormGeneratorTest.php
-file
-
-
-
-
-2009-12-11T15:40:20.000000Z
-439071f1e714116550faaaf12b9e94b7
-2009-11-23T21:45:03.892671Z
-24294
-Jonathan.Wage
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4431
-
-Ticket
-dir
-
-PagerTest.php
-file
-
-
-
-
-2009-12-11T15:40:20.000000Z
-41d31d00a18ae1267c7af1ed41cc0e09
-2009-11-12T11:07:44.003356Z
-23810
+2010-02-27T21:01:54.000000Z
+624f380fb30fceaaad7767d365198b65
+2010-02-24T23:42:54.503877Z
+28260
 Kris.Wallsmith
 has-props
 
@@ -129,7 +58,78 @@ has-props
 
 
 
-2291
+8931
+
+FormGeneratorTest.php
+file
+
+
+
+
+2010-02-27T21:01:54.000000Z
+a464575a5c7e0fd5bd58a3b2c1cc2b51
+2010-02-08T15:46:35.227110Z
+27742
+Kris.Wallsmith
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4678
+
+Ticket
+dir
+
+PagerTest.php
+file
+
+
+
+
+2010-02-27T21:01:54.000000Z
+8c20162bd2ec7157e2eb80b792bb5a8a
+2010-02-08T18:02:19.568173Z
+27747
+Kris.Wallsmith
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2468
 
 RouteTest.php
 file

@@ -1,0 +1,16 @@
+propel:
+  _attributes:      { package: plugins.mfFormularioPlugin.lib.model }
+  mf_formulario:
+    _attributes:    { phpName: mfFormulario }
+    id:             ~
+    regra:          { type: varchar, size: 255, required: true }
+    visivel:        { type: boolean, default: 1 }
+    ao_editar:      { type: boolean, default: 1 }
+    ao_criar:       { type: boolean, default: 1 }
+    observacoes:    { type: longvarchar, required: false }
+    created_at:     ~
+  
+  mf_formulario_utilizador:
+    _attributes:    { phpName: mfFormularioUtilizador }
+    formulario_id:  { type: INTEGER, required: true, primaryKey: true, foreignTable: mf_formulario, foreignReference: id, index: true }
+    utilizador_id:  { type: INTEGER, required: true, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, index: true }

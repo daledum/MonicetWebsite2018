@@ -1,0 +1,10 @@
+sfGuardUserPermission:
+  user_permission_administrator:
+    permission_id:           administrator
+    user_id:                 sf_monicet
+  user_permission_boss:
+    permission_id:           boss
+    user_id:                 sf_joao
+  user_permission_employee:
+    permission_id:           employee
+    user_id:                 sf_joana

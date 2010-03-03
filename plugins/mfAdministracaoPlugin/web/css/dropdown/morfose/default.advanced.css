@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+/** 
+ * MTV.com Advanced CSS Drop-Down Menu Theme
+ *
+ * @file		default.advanced.css
+ * @name		MTV.com
+ * @version		0.1
+ * @type		transitional
+ * @browsers	Windows: IE6+, Opera7+, Firefox1+
+ *				Mac OS: Safari2+, Firefox2+
+ *
+ * @link		http://www.lwis.net/
+ * @copyright	2008 Live Web Institute. All Rights Reserved.
+ *
+ */
+@import "default.css";
+
+	ul.dropdown li a {
+	 display: block;
+	}
+
+/* ------------- Override default */
+	ul.dropdown li {
+	 border-right: 1px solid #333;
+	 border-left: 1px solid #444;
+	}
+
+	ul.dropdown ul li.dir ul { /* POI, proposal */
+	 margin-top: -1px;
+	 margin-left: 0;
+	}
+
+	/* Proposals for Open */
+
+	ul.dropdown ul a.open,
+	ul.dropdown ul li:hover > a.dir {
+	 border: none;
+   background-image: url(images/comnav-arrowover.png);
+	}

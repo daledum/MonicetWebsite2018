@@ -39,6 +39,50 @@
         <target>Longitude base</target>
       </trans-unit>
       <trans-unit>
+        <source>Latitude base</source>
+        <target>Latitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Longitude base</source>
+        <target>Longitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Telephone</source>
+        <target>Telefone</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Mobile</source>
+        <target>Telemóvel</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Address</source>
+        <target>Morada</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Island</source>
+        <target>Ilha</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Council</source>
+        <target>Concelho</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Locality</source>
+        <target>Localidade</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company user list</source>
+        <target>Funcionários</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
         <source></source>
         <target></target>
       </trans-unit>

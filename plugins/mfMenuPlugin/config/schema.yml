@@ -1,0 +1,12 @@
+propel:
+  _attributes:        { package: plugins.mfMenuPlugin.lib.model }
+  mf_menu:
+    _attributes:      { phpName: mfMenu }
+    id:               ~
+    nome:             { type: varchar, size: 255, required: true, index: true }
+    menu_pai_id:      { type: integer, size: 11, foreignTable: mf_menu, foreignReference: id, required: false, onDelete: setnull }
+    rota:             { type: varchar, size: 255, required: false }
+    permissao_id:     { type: integer, foreignTable: sf_guard_permission, foreignReference: id, required: false, onDelete: cascade }
+    posicao:          { type: integer, size: 11, default: 0, required: false }
+    created_at:       ~
+    updated_at:       ~

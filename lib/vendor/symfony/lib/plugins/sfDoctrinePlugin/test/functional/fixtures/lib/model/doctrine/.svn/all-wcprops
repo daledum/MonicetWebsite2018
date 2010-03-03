@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 101
-/!svn/ver/24970/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine
 END
 CamelCaseTable.class.php
 K 25
@@ -117,17 +117,17 @@ svn:wc:ra_dav:version-url
 V 132
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/GroupPermissionTable.class.php
 END
-BlogAuthorTable.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 127
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/BlogAuthorTable.class.php
-END
 UniqueTestTable.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 127
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/UniqueTestTable.class.php
+END
+BlogAuthorTable.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/BlogAuthorTable.class.php
 END
 ModelWithNumberInColumnTable.class.php
 K 25
@@ -159,6 +159,12 @@ svn:wc:ra_dav:version-url
 V 122
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/Permission.class.php
 END
+ResourceType.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/ResourceType.class.php
+END
 FormGeneratorTest2.class.php
 K 25
 svn:wc:ra_dav:version-url
@@ -171,17 +177,17 @@ svn:wc:ra_dav:version-url
 V 130
 /!svn/ver/24294/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/FormGeneratorTest3.class.php
 END
-AuthorInheritanceConcrete.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 137
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/AuthorInheritanceConcrete.class.php
-END
 BlogArticleTable.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 128
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/BlogArticleTable.class.php
+END
+AuthorInheritanceConcrete.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/AuthorInheritanceConcrete.class.php
 END
 AttachmentTable.class.php
 K 25
@@ -194,6 +200,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 119
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/Profile.class.php
+END
+ResourceTypeTable.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine/ResourceTypeTable.class.php
 END
 ModelFromLinkedSchemaTable.class.php
 K 25

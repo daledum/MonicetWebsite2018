@@ -5,7 +5,8 @@ html, body {
 }
 
 a:link, a:visited {
-  color: #4688d2; 
+  color: #4688d2;
+  color: #5b8638;
   text-decoration: none;
   padding-bottom: 1px;
   outline: none !important;
@@ -15,6 +16,19 @@ a:hover, a:active {
   color: #333333;
 }
 
+.jqmWindow a:hover, .jqmWindow a:active {
+  color: #333333 !important;
+}
+
+a.jqmClose {
+  margin: 0 1px 0 0 !important;
+  padding: 5px 5px 3px 25px !important;
+  background: #dedede url('../images/icons/delete.png') no-repeat 5px center !important;
+  display: block;
+  border: 1px solid #d3d3d3;
+  height: 20px !important;
+  line-height: 20px !important;
+}
 .barra, h1, .sf_admin_actions {
   background: #eeeeee url('../images/layout/h1_bg.jpg') repeat-x top center !important;
   border-bottom: 1px solid #dcdcdc;
@@ -30,12 +44,12 @@ a:hover, a:active {
 }
 
 #hd {
-  background: #5785c3 url('../images/layout/hd_bg.jpg') repeat-y top center;
+  background: #89AB6F url('../images/layout/hd_bg.jpg') repeat-y top center;
   height: 150px;
 }
 
 #hd .ct {
-  background: #5785c3 url('../images/layout/hd_ct_bg.jpg') repeat-x top left;
+  background: #89AB6F url('../images/layout/hd_ct_bg.jpg') repeat-x top left;
   height: 130px;
   position: relative;
 }
@@ -54,12 +68,14 @@ a:hover, a:active {
   width: auto;
   color: #cccccc;
   border: 2px solid #275496;
+  border: 2px solid #5b8638;
   border-top: none;
 }
 
 #hd .administracao {
   padding-right: 10px;
   border-right: 2px solid #3667b1;
+  border-right: 2px solid #5b8638;
   margin-right: 3px;
   color: #dfdfdf;
 }
@@ -75,6 +91,7 @@ a:hover, a:active {
   text-align: center;
   background: #353535 url('../images/layout/menu_ct_bg.png') repeat top center;
   border: 2px solid #275496;
+  border: 2px solid #5b8638;
   border-top: none;
 }
 
@@ -99,8 +116,16 @@ a:hover, a:active {
   padding: 0 4px;
   border-top: 2px solid #275496;
   border-bottom: 2px solid #275496;
+  border-top: 2px solid #5b8638;
+  border-bottom: 2px solid #5b8638;
 }
-
+#menu ul li {
+  font-size: 14px;	
+}
+#menu ul ul li {
+  font-size: 13px;  
+}
+/*
 #menu ul {
 	padding: 0;
 	margin: 0;
@@ -131,7 +156,7 @@ a:hover, a:active {
 }
 
 #menu ul a:hover, #menu ul a:active {
-  background: red url('../images/layout/menu_item_bg_hover.jpg') repeat-x;
+  background: #000000 url('../images/layout/menu_item_bg_hover.jpg') repeat-x;
   color: #cccccc;
 }
 
@@ -139,7 +164,7 @@ a:hover, a:active {
   background-image: url('../images/layout/menu_item_bg_active.jpg');
   color: #cccccc;
 }
-
+*/
 #bd {
   background: #f2f2f2 url('../images/layout/bd_bg.jpg') repeat-x top center;
 }
@@ -156,7 +181,13 @@ a:hover, a:active {
   padding: 0 6px;
   border-top: 2px solid #275496;
   border-bottom: 2px solid #275496;
+  border-top: 2px solid #5b8638;
+  border-bottom: 2px solid #5b8638;
   color: #cccccc;
+}
+
+#ft a:hover, #ft a:active {
+  color: #ddd;
 }
 
 #dv {
@@ -184,7 +215,7 @@ a:hover, a:active {
 
 #dv .sw {
   left: 0;
-  background: red url('../images/layout/bt_sw.jpg') no-repeat bottom right;
+  background: transparent url('../images/layout/bt_sw.jpg') no-repeat bottom right;
   z-index: 0;
 }
 

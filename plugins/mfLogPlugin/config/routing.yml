@@ -1,0 +1,9 @@
+mf_log:
+  class: sfPropelRouteCollection
+  options:
+    model:                mfLog
+    module:               mfLog
+    prefix_path:          /log
+    column:               id
+    with_wildcard_routes: true
+    with_show:            true

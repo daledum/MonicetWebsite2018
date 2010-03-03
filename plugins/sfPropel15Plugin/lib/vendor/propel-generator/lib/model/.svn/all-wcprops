@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model
+END
+Inheritance.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/Inheritance.php
+END
+ConstraintNameGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/ConstraintNameGenerator.php
+END
+IDMethod.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/IDMethod.php
+END
+Column.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/Column.php
+END
+IdMethodParameter.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/IdMethodParameter.php
+END
+PhpNameGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/propel/!svn/ver/1514/branches/1.5/generator/lib/model/PhpNameGenerator.php
+END
+ColumnDefaultValue.php
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/ColumnDefaultValue.php
+END
+Behavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/Behavior.php
+END
+ForeignKey.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/ForeignKey.php
+END
+Database.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/Database.php
+END
+Unique.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/Unique.php
+END
+Index.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/propel/!svn/ver/1384/branches/1.5/generator/lib/model/Index.php
+END
+Domain.php
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/Domain.php
+END
+Rule.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/Rule.php
+END
+NameFactory.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/NameFactory.php
+END
+VendorInfo.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/VendorInfo.php
+END
+AppData.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/propel/!svn/ver/1541/branches/1.5/generator/lib/model/AppData.php
+END
+XMLElement.php
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/XMLElement.php
+END
+Validator.php
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/propel/!svn/ver/1347/branches/1.5/generator/lib/model/Validator.php
+END
+PropelTypes.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/propel/!svn/ver/1416/branches/1.5/generator/lib/model/PropelTypes.php
+END
+NameGenerator.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/NameGenerator.php
+END
+Table.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/propel/!svn/ver/1570/branches/1.5/generator/lib/model/Table.php
+END

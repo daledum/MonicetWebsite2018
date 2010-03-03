@@ -1,63 +1,65 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
 <xliff version="1.0">
-  <file orginal="global" source-language="en_US" datatype="plaintext">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header />
     <body>
-      <trans-unit>
+      <trans-unit id="1">
         <source>logout</source>
         <target>Terminar sessão</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>administration_area</source>
         <target>Área de administração</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>dont_have_permission</source>
         <target>Não tem permissão para visualizar esta página.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="4">
         <source>administration_area</source>
         <target>Área privada</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>autenticate</source>
         <target>Autenticação</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>username</source>
         <target>Utilizador</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="7">
         <source>password</source>
         <target>Senha</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="8">
         <source>cancel</source>
         <target>Cancelar</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="9">
         <source>enter</source>
         <target>Entrar</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="10">
         <source>recover_password</source>
         <target>Recuperar senha</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="11">
         <source>support</source>
         <target>Suporte</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="12">
         <source>developed_by</source>
         <target>desenvolvido por</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="13">
         <source>invalid_login</source>
         <target>Acesso inválido. Tente de novo.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="14">
         <source>credentials</source>
         <target>Credenciais</target>
       </trans-unit>
-      </body>
+    </body>
   </file>
 </xliff>

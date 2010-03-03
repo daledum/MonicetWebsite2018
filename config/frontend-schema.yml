@@ -4,6 +4,9 @@ propel:
     id:            ~
     is_published:  { type: boolean, required: true, default: 0 }
     slug:          { type: varchar(255), required: true, index: unique }
+    enter_date:    { type: date }
+    exit_date:     { type: date }
+    publish_date:  { type: date, required: true }
     created_at:    ~
     updated_at:    ~
   news_article_i18n:

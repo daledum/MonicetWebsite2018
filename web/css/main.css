@@ -1,0 +1,20 @@
+ul.footer li {
+  float: left;
+  padding: 0 10px;
+}
+ul.footer li a.creditos {
+  padding-left: 20px;
+  background: transparent url('/mfAdministracaoPlugin/images/icons/creditos.png') no-repeat center left;
+}
+ul.footer li a.contacto {
+  padding-left: 20px;
+  background: transparent url('/mfAdministracaoPlugin/images/icons/contactos.png') no-repeat center left;
+}
+fieldset fieldset {
+  border: 1px solid #ddd !important;
+  padding: 5px 10px !important;
+}
+fieldset fieldset legend {
+  margin: 0 10px;
+  padding: 0 4px;
+}

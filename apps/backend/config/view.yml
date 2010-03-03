@@ -11,9 +11,9 @@ default:
     language:     pt
     robots:       index, follow
 
-  stylesheets:    [main.css]
+  stylesheets:    [/mfAdministracaoPlugin/css/resetfontsgrids, /mfAdministracaoPlugin/css/layout, /mfAdministracaoPlugin/css/default, /mfAdministracaoPlugin/css/dropdown/dropdown, "/mfAdministracaoPlugin/css/dropdown/morfose/default.advanced.css", "jquery.modal.css", "jquery.tooltip.css", main]
 
-  javascripts:    []
+  javascripts:    ["jquery-1.4.min.js", "jquery.modal.js", "jquery.tooltip.js", main]
 
   components:
     menu:         [main, menu]

@@ -6,7 +6,6 @@
  * @package    monicet
  * @subpackage filter
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseSightingFormFilter extends BaseFormFilterPropel
 {
@@ -17,9 +16,12 @@ abstract class BaseSightingFormFilter extends BaseFormFilterPropel
       'specie_id'      => new sfWidgetFormPropelChoice(array('model' => 'Specie', 'add_empty' => true)),
       'behaviour_id'   => new sfWidgetFormPropelChoice(array('model' => 'Behaviour', 'add_empty' => true)),
       'association_id' => new sfWidgetFormPropelChoice(array('model' => 'Association', 'add_empty' => true)),
-      'adults'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'juveniles'      => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'cubs'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'adults'         => new sfWidgetFormFilterInput(),
+      'juveniles'      => new sfWidgetFormFilterInput(),
+      'cubs'           => new sfWidgetFormFilterInput(),
+      'total'          => new sfWidgetFormFilterInput(),
+      'num_vessels'    => new sfWidgetFormFilterInput(),
+      'description'    => new sfWidgetFormFilterInput(),
       'created_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
@@ -32,6 +34,9 @@ abstract class BaseSightingFormFilter extends BaseFormFilterPropel
       'adults'         => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'juveniles'      => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'cubs'           => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'total'          => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'num_vessels'    => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
+      'description'    => new sfValidatorPass(array('required' => false)),
       'created_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
@@ -59,6 +64,9 @@ abstract class BaseSightingFormFilter extends BaseFormFilterPropel
       'adults'         => 'Number',
       'juveniles'      => 'Number',
       'cubs'           => 'Number',
+      'total'          => 'Number',
+      'num_vessels'    => 'Number',
+      'description'    => 'Text',
       'created_at'     => 'Date',
       'updated_at'     => 'Date',
     );

@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/data/sql
 http://svn.symfony-project.com
 
 
 
-2009-12-05T14:28:15.157258Z
-24970
+2010-02-08T15:46:35.227110Z
+27742
 Kris.Wallsmith
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2009-12-11T15:40:20.000000Z
-7e0d7b1db1487a9d966ab165bc4a9b81
-2009-12-05T14:28:15.157258Z
-24970
+2010-02-27T21:01:54.000000Z
+4a5748f4c74588be3453cceac369adf5
+2010-02-08T15:46:35.227110Z
+27742
 Kris.Wallsmith
 
 
@@ -58,5 +58,5 @@ Kris.Wallsmith
 
 
 
-2576
+2658
 

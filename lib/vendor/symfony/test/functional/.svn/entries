@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28316
 http://svn.symfony-project.com/branches/1.4/test/functional
 http://svn.symfony-project.com
 
 
 
-2009-12-06T20:48:52.154761Z
-24992
+2010-02-08T20:51:02.851961Z
+27755
 Kris.Wallsmith
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-e917f4f139a9f551b432fbda54e2a0a9
-2009-11-14T13:44:52.794445Z
-23902
-fabien
+2010-02-27T21:01:53.000000Z
+7ae6df75453a193d500e2e802e299e50
+2010-02-08T20:51:02.851961Z
+27755
+Kris.Wallsmith
 has-props
 
 
@@ -58,7 +58,7 @@ has-props
 
 
 
-1120
+1467
 
 genericTest.php
 file

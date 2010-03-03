@@ -1,0 +1,6 @@
+all:
+  mfLog:
+    email:              false
+    email_to:           to@exemplo.com
+    email_from:         from@exemplo.com
+    email_assunto:      assunto

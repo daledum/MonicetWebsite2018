@@ -1,19 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 100
-/!svn/ver/24971/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine
-END
-BaseFormDoctrine.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 127
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/BaseFormDoctrine.class.php
-END
-AuthorForm.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 121
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/AuthorForm.class.php
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine
 END
 ArticleTranslationForm.class.php
 K 25
@@ -21,11 +9,23 @@ svn:wc:ra_dav:version-url
 V 133
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/ArticleTranslationForm.class.php
 END
-BlogAuthorForm.class.php
+AuthorForm.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/AuthorForm.class.php
+END
+BaseFormDoctrine.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/BaseFormDoctrine.class.php
+END
+UniqueTestForm.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 125
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/BlogAuthorForm.class.php
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/UniqueTestForm.class.php
 END
 BlogArticleTranslationForm.class.php
 K 25
@@ -33,11 +33,11 @@ svn:wc:ra_dav:version-url
 V 137
 /!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/BlogArticleTranslationForm.class.php
 END
-UniqueTestForm.class.php
+BlogAuthorForm.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 125
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/UniqueTestForm.class.php
+/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/BlogAuthorForm.class.php
 END
 FormGeneratorTestForm.class.php
 K 25
@@ -98,6 +98,12 @@ K 25
 svn:wc:ra_dav:version-url
 V 125
 /!svn/ver/24971/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/AttachmentForm.class.php
+END
+ResourceTypeForm.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/form/doctrine/ResourceTypeForm.class.php
 END
 GroupForm.class.php
 K 25

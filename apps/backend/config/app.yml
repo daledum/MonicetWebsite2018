@@ -2,4 +2,9 @@
 # http://www.symfony-project.org/reference/1_4/en/11-App
 
 # default values
-#all:
+all:
+  mfAdministracaoPlugin:
+    logo_src:     logo_monicet
+    logo_alt:     monicet
+    logo_width:   167
+    logo_height:  120

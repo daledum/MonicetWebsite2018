@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 71
-/!svn/ver/24604/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator
+/!svn/ver/27842/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator
 END
 sfDoctrineGenerator.class.php
 K 25
@@ -13,7 +13,7 @@ sfDoctrineFormGenerator.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 105
-/!svn/ver/24294/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator/sfDoctrineFormGenerator.class.php
+/!svn/ver/27842/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator/sfDoctrineFormGenerator.class.php
 END
 sfDoctrineColumn.class.php
 K 25
@@ -25,5 +25,5 @@ sfDoctrineFormFilterGenerator.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 111
-/!svn/ver/24294/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator/sfDoctrineFormFilterGenerator.class.php
+/!svn/ver/27842/branches/1.4/lib/plugins/sfDoctrinePlugin/lib/generator/sfDoctrineFormFilterGenerator.class.php
 END

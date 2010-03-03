@@ -1,0 +1,196 @@
+Visibility:
+   less_than_1_km:
+      description:        menos de 1 km
+   from_1_to_5_km:
+      description:        de 1 a 5 km
+   from_10_to_15_km:
+      description:        de 10 a 15 km
+   greater_than_15_km:
+      description:        de 15 km ou mais   
+
+SeaState:
+   sea_state_zero:
+      code:               sea_state_0
+      description:        "calmaria, mar espelhado"
+   sea_state_one:
+      code:               sea_state_1
+      description:        "pequenas rugas na superfície do mar"
+   sea_state_two:
+      code:               sea_state_2
+      description:        "ligeira ondulação sem rebentação (4-6 kts)"
+   sea_state_three:
+      code:               sea_state_3
+      description:        "ondulação até 1m, com alguns carneiros (7-10 kts)"
+   sea_state_four:
+      code:               sea_state_4
+      description:        "ondulação até 1.5m, carneiros frequentes (11-16 kts)"
+   sea_state_five:
+      code:               sea_state_5
+      description:        "ondulação até 2.5m, muitos carneiros (17-21 kts)"
+   sea_state_six:
+      code:               sea_state_6
+      description:        "ondas grandes até 3.5m, borrifos (22-27 kts)"
+
+Code:
+   code_i:
+      acronym:            I
+      description:        início
+   code_f:
+      acronym:            F
+      description:        fim
+   code_ia:
+      acronym:            IA
+      description:        início do avistamento
+   code_fa:
+      acronym:            FA
+      description:        fim do avistamento
+   code_r:
+      acronym:            R
+      description:        registo
+   code_ra:
+      acronym:            RA
+      description:        registo de avistamento
+
+Association:
+   nothing:
+      description:        nada
+   birds:
+      description:        pássaros
+   tuna:
+      description:        atum
+   sharks:
+      description:        jamantas ou tubarões
+   other_cet:
+      description:        outros cetáceos
+   others:
+      description:        outros animais
+
+Behaviour:
+   socialization:
+      description:        socialização
+   food:
+      description:        alimentação
+   travel:
+      description:        deslocação
+   rest:
+      description:        repouso
+
+SpecieGroup:
+   turtles:
+      name:               tartarugas
+   odontoceti:
+      name:               odontocetos
+   mysticeti:
+      name:               misticetos
+
+Specie:
+   specie_Sf:
+      specie_group_id:    odontoceti
+      code:               Sf
+      name:               Golfinho Pintado
+   specie_Tt:
+      specie_group_id: odontoceti
+      code: "Tt"
+      name: "Roaz"
+   specie_Sb:
+      specie_group_id: odontoceti
+      code: "Sb"
+      name: "Caldeirão"
+   specie_Gm:
+      specie_group_id: odontoceti
+      code: "Gm"
+      name: "Baleia Piloto"
+   specie_Dd:
+      specie_group_id: odontoceti
+      code: "Dd"
+      name: "Golfinho Comum"
+   specie_Sc:
+      specie_group_id: odontoceti
+      code: "Sc"
+      name: "Golfinho Riscado"
+   specie_Gg:
+      specie_group_id: odontoceti
+      code: "Gg"
+      name: "Golfinho de Riso"
+   specie_Pm:
+      specie_group_id: odontoceti
+      code: "Pm"
+      name: "Cachalote"
+   specie_Oo:
+      specie_group_id: odontoceti
+      code: "Oo"
+      name: "Orca"
+   specie_Pc:
+      specie_group_id: odontoceti
+      code: "Pc"
+      name: "Falsa Orca"
+   specie_Zp:
+      specie_group_id: odontoceti
+      code: "Zp"
+      name: "Baleia de Bico"
+   specie_Zc:
+      specie_group_id: odontoceti
+      code: "Zc"
+      name: "Zifio"
+   specie_Mb:
+      specie_group_id: odontoceti
+      code: "Mb"
+      name: "Baleia de Bico de Sowerby"
+   specie_Mm:
+      specie_group_id: odontoceti
+      code: "Mm"
+      name: "Baleia de Bico de True"
+   specie_Ha:
+      specie_group_id: odontoceti
+      code: "Ha"
+      name: "Botnihoso"
+   specie_Kb:
+      specie_group_id: odontoceti
+      code: "Kb"
+      name: "Cachalote Pigmeu"
+
+   specie_Bm:
+      specie_group_id: mysticeti
+      code: "Bm"
+      name: "Baleia Azul"
+   specie_Bp:
+      specie_group_id: mysticeti
+      code: "Bp"
+      name: "Rorqual Comum"
+   specie_Bb:
+      specie_group_id: mysticeti
+      code: "Bb"
+      name: "Baleia Sardinheira"   
+   specie_Mm:
+      specie_group_id: mysticeti
+      code: "Mm"
+      name: "Baleia de Bossa"
+   specie_Be:
+      specie_group_id: mysticeti
+      code: "Be"
+      name: "Baleia de Bryde"
+   specie_Ba:
+      specie_group_id: mysticeti
+      code: "Ba"
+      name: "Baleia Anã"
+      
+   specie_Cc:
+      specie_group_id: turtles
+      code: "Cc"
+      name: "Tartaruga-Careca"   
+   specie_Dc:
+      specie_group_id: turtles
+      code: "Dc"
+      name: "Tartaruga-de-Couro"
+   specie_Cm:
+      specie_group_id: turtles
+      code: "Cm"
+      name: "Tartaruga-Verde"
+   specie_Em:
+      specie_group_id: turtles
+      code: "Em"
+      name: "Tartaruga-de-Escamas"   
+   specie_Lk:
+      specie_group_id: turtles
+      code: "Lk"
+      name: "Tartaruga-de-Kemp"

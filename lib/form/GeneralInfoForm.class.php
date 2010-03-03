@@ -16,5 +16,6 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     unset(
       $this['created_at'], $this['updated_at']
     );
+    $this->widgetSchema['date']->setOption('format', '%year%-%month%-%day%');
   }
 }

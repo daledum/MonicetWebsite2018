@@ -1,0 +1,63 @@
+mfMenu:
+  # menus principais  
+  menu_administracao_boss:
+    nome:               Administração
+    permissao_id:       boss
+    menu_pai_id:        ~
+    posicao:            20
+  menu_administracao_mar_boss:
+    nome:               Administração Mar
+    permissao_id:       boss
+    menu_pai_id:        ~
+    posicao:            30
+  menu_registos_mar_boss:
+    nome:               Registos Mar
+    permissao_id:       boss
+    menu_pai_id:        ~
+    posicao:            40
+  
+  # submenus administração mar boss
+  submenu_specie_boss:
+    nome:               Espécies
+    permissao_id:       boss
+    menu_pai_id:        menu_administracao_mar_boss
+    rota:               specie
+    posicao:            20
+  # submenus registo mar
+  submenu_record_boss:
+    nome:               Registo               
+    permissao_id:       ~
+    menu_pai_id:        menu_registos_mar_boss
+    rota:               record
+    posicao:            10
+  submenu_sighting_boss:
+    nome:               Avistamento               
+    permissao_id:       boss
+    menu_pai_id:        menu_registos_mar_boss
+    rota:               sighting
+    posicao:            20
+  submenu_general_info_boss:
+    nome:               Saídas
+    permissao_id:       boss
+    menu_pai_id:        menu_registos_mar_boss
+    rota:               general_info
+    posicao:            30
+  # submenu de administração boss
+  submenu_company_boss:
+    nome:               Empresas
+    permissao_id:       boss
+    menu_pai_id:        menu_administracao_boss
+    rota:               company
+    posicao:            10
+  submenu_vessel_boss:
+    nome:               Barcos
+    permissao_id:       boss
+    menu_pai_id:        menu_administracao_boss
+    rota:               vessel
+    posicao:            20
+  submenu_vessel_boss:
+    nome:               Utilizadores
+    permissao_id:       boss
+    menu_pai_id:        menu_administracao_boss
+    rota:               sf_guard_user
+    posicao:            30

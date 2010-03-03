@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7238
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Import
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-11-30T17:27:49.820518Z
-6820
-jwage
+2010-02-21T09:37:37.225812Z
+7200
+beberlei
 has-props
 
 
@@ -239,11 +239,11 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-ba289e7aa5ea02be361368c1b7f80c8e
-2009-11-30T17:27:49.820518Z
-6820
-jwage
+2010-02-27T21:02:28.000000Z
+9d5a4fc924ed17f5815ffa2f13f55f46
+2010-02-21T09:37:37.225812Z
+7200
+beberlei
 has-props
 
 
@@ -265,7 +265,7 @@ has-props
 
 
 
-40169
+40898
 
 Pgsql.php
 file
