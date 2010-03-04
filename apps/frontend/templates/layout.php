@@ -40,7 +40,7 @@
 	                </div>
 	            </div>
 	            <div id="_div_main_recent_news">
-	               <p id="_div_main_recent_news_header"><?php echo __('News'); ?></p>
+	               <p id="_div_main_recent_news_header"><?php echo link_to(__('News'), '@news_all') ?></p>
 	               <?php include_component('news', 'recentNews') ?>
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>

@@ -1,15 +1,10 @@
 <h2><?php echo $element->getName(); ?></h2>
-<br />
-
-<?php if($element->getLogotype()): ?>
-    <img title="<?php echo $element->getName(); ?>" alt="<?php echo $element->getName(); ?>" src="/images/consorcium/<?php echo $element->getLogotype(); ?>" />
-    <br />
-    <br />
+<?php if($element->getLink()): ?>
+    <p><a href="<?php echo $element->getLink(); ?>" target="_blank"><?php echo $element->getLink() ?></a></p>
 <?php endif ?>
 
-<?php if($element->getLink()): ?>
-    <a href="<?php echo $element->getLink(); ?>"><?php echo $element->getLink(); ?></a>
-    <br />
+<?php if($element->getLogotype()): ?>
+    <?php echo image_tag('/uploads/consorcium/'.$element->getLogotype(), 'align=left vspace=5 hspace=5 alt_title='.$element->getName()) ?>
 <?php endif ?>
 
 <?php if($element->getDescription()): ?>

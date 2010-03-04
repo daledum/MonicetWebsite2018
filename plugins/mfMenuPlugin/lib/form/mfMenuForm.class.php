@@ -11,6 +11,7 @@ class mfMenuForm extends BasemfMenuForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('mf_menu');
   	unset( 
   	  $this['created_at'], $this['updated_at'] 
   	);
@@ -20,6 +21,21 @@ class mfMenuForm extends BasemfMenuForm
   	
   	$this->widgetSchema['rota'] = new sfWidgetFormChoice(array(
       'choices' => array_combine($routes, $routes)
+    ));
+    
+    $this->widgetSchema['menu_pai_id'] = new sfWidgetFormPropelChoice(array(
+      'model' => 'mfMenu', 
+      'add_empty' => true,
+      'order_by' => array('Nome', 'ASC'),
+      'multiple' => false,
+      'expanded' => false
+    ));
+    $this->widgetSchema['permissao_id'] = new sfWidgetFormPropelChoice(array(
+      'model' => 'sfGuardPermission', 
+      'add_empty' => true,
+      'order_by' => array('Name', 'ASC'),
+      'multiple' => false,
+      'expanded' => false
     ));
   }
 }

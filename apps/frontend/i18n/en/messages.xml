@@ -112,6 +112,14 @@
         <source>Local researchers:</source>
         <target/>
       </trans-unit>
+      <trans-unit id="28">
+        <source>ocorreu_erro_404</source>
+        <target>Ops, page not found.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>back_to_news</source>
+        <target>Back to news.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

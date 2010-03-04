@@ -6,7 +6,7 @@ homepage:
   url:   /
   param: { module: home, action: language }
 
-language:
+index:
   url:   /:sf_culture
   param: { module: home, action: index }
   requirements:

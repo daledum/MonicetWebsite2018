@@ -112,6 +112,14 @@
         <source>Local researchers:</source>
         <target>Investigadores</target>
       </trans-unit>
+      <trans-unit id="28">
+        <source>ocorreu_erro_404</source>
+        <target>Lamentamos, mas a página pretendida não existe.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>back_to_news</source>
+        <target>Regressar às notícias.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

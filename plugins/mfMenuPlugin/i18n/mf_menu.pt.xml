@@ -11,36 +11,28 @@
         <target>Campo inválido</target>
       </trans-unit>
       <trans-unit>
-        <source>Sea state List</source>
-        <target>A listar Estado do mar</target>
+        <source>MfMenu List</source>
+        <target>A listar os Menus</target>
       </trans-unit>
       <trans-unit>
-        <source>Edit Sea state</source>
-        <target>A editar Estado do mar</target>
+        <source>Edit MfMenu</source>
+        <target>A editar um Menu</target>
       </trans-unit>
       <trans-unit>
-        <source>New Sea state</source>
-        <target>A adicionar novo Estado do mar</target>
+        <source>New MfMenu</source>
+        <target>A adicionar novo Menu</target>
       </trans-unit>
       <trans-unit>
-        <source>Sea states</source>
-        <target>Estados do mar</target>
+        <source>Mf menu related by</source>
+        <target>Menu pai</target>
       </trans-unit>
       <trans-unit>
-        <source>Description</source>
-        <target>Descritivo</target>
+        <source>Sf guard permission</source>
+        <target>Permissão</target>
       </trans-unit>
       <trans-unit>
-        <source>Code</source>
-        <target>Código</target>
-      </trans-unit>
-      <trans-unit>
-        <source></source>
-        <target></target>
-      </trans-unit>
-      <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Posicao</source>
+        <target>Posição</target>
       </trans-unit>
       <trans-unit>
         <source></source>

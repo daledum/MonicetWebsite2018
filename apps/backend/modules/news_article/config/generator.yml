@@ -18,7 +18,7 @@ generator:
       list:
         peer_method:      doSelectWithI18n
         display:          [headline, publish_date, enter_date, exit_date, is_published]
-        sort:             [published_date, desc]
+        sort:             [publish_date, desc]
       filter:  ~
       form:    ~
       edit:    ~

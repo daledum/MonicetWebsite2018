@@ -10,12 +10,12 @@ generator:
     route_prefix:          mf_menu
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        mf_menu
 
     config:
       actions: ~
       fields:  ~
       list:
-        title:            A listar Menus
         display:          [nome, mfMenuRelatedById, rota, sfGuardPermission, posicao]
       filter:  ~
       form:    ~

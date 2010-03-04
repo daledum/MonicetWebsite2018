@@ -19,7 +19,7 @@
 class mfMenu extends BasemfMenu {
   public function __toString()
   {
-  	return $this->getNome();
+  	return $this->getNome() . ' - ' . $this->getsfGuardPermission();
   }
   public function getFilhosAsArray()
   {

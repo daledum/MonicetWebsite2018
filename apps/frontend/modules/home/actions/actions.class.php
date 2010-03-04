@@ -18,9 +18,14 @@ class homeActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   }
+  public function executeError404(sfWebRequest $request)
+  {
+  }
   public function executeLanguage(sfWebRequest $request)
   {
-  	$this->getUser()->setCulture(sfConfig::get('sf_default_culture'));
-  	$this->redirect('@language');
+  	if ( ! $this->getUser()->getCulture() ){
+  	  $this->getUser()->setCulture(sfConfig::get('sf_default_culture'));
+  	}
+  	$this->redirect('@index');
   }
 }

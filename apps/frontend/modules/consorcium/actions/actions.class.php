@@ -17,20 +17,11 @@ class consorciumActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(ConsorciumElementPeer::ID);
-    $this->consorcium_elements = ConsorciumElementPeer::doSelect($c);
+    $this->consorcium_elements = ConsorciumElementPeer::doSelectAll();
   }
   
   public function executeShow(sfWebRequest $request)
   {
-//  	$criteria = new Criteria();
-//    
-//  	$criteria->add(ConsorciumElementPeer::ID, $request->getParameter('partner'));
-//    $criteria->addJoin(ConsorciumElementI18nPeer::ID, ConsorciumElementPeer::ID);
-//    $criteria->add(ConsorciumElementI18nPeer::CULTURE, $this->getUser()->getCulture());
-//    
-//    $this->element = ConsorciumElementPeer::doSelectOne($criteria);
     $this->element = $this->getRoute()->getObject();
   }
 }
