@@ -16,7 +16,7 @@ generator:
       actions: ~
       fields:  ~
       list:
-        display:           [vessel, skipper, guide, base_latitude, base_longitude, date]
+        display:           [vessel, base_latitude, base_longitude, date]
       filter:  ~
       form:    ~
       edit:    ~
