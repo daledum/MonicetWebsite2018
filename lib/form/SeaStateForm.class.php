@@ -12,5 +12,9 @@ class SeaStateForm extends BaseSeaStateForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('sea_state');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

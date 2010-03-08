@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Guide extends BaseGuide {
-
+  public function __toString()
+  {
+    return $this->getName();
+  }
 } // Guide

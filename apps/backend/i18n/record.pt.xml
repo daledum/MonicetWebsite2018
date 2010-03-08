@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Record List</source>
+        <target>A listar Registo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Record</source>
+        <target>A editar Registo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Record</source>
+        <target>A adicionar novo Registo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Records</source>
+        <target>Registos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Code</source>
+        <target>Código</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Visibility</source>
+        <target>Visibilidade</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sea state</source>
+        <target>Estado do mar</target>
+      </trans-unit>
+      <trans-unit>
+        <source>General info</source>
+        <target>Informações</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Time</source>
+        <target>Horas</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Latitude</source>
+        <target>Latitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Longitude</source>
+        <target>Longitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Comments</source>
+        <target>Observações</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -18,12 +18,16 @@ abstract class BaseCodeForm extends BaseFormPropel
       'id'          => new sfWidgetFormInputHidden(),
       'acronym'     => new sfWidgetFormInputText(),
       'description' => new sfWidgetFormInputText(),
+      'created_at'  => new sfWidgetFormDateTime(),
+      'updated_at'  => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'Code', 'column' => 'id', 'required' => false)),
       'acronym'     => new sfValidatorString(array('max_length' => 10)),
       'description' => new sfValidatorString(array('max_length' => 255)),
+      'created_at'  => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'  => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('code[%s]');

@@ -12,5 +12,9 @@ class RecordForm extends BaseRecordForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('record');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

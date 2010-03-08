@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Visibility extends BaseVisibility {
-
+  public function __toString()
+  {
+    return $this->getDescription();
+  }
 } // Visibility

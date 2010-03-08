@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Record extends BaseRecord {
-
+  public function __toString()
+  {
+    return $this->getGeneralInfo()->getDate("Y-m-d").' / '.$this->getTime().' / '.$this->getCode()->getAcronym();
+  }
 } // Record

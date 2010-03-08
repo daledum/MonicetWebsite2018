@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class GeneralInfo extends BaseGeneralInfo {
-
+  public function __toString()
+  {
+    return $this->getId();
+  }
 } // GeneralInfo

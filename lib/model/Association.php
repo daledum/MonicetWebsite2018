@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Association extends BaseAssociation {
-
+  public function __toString()
+  {
+    return $this->getDescription();
+  }
 } // Association

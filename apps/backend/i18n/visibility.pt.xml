@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Visibility List</source>
+        <target>A listar Visibilidades</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Visibility</source>
+        <target>A editar uma Visibilidade</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Visibility</source>
+        <target>A adicionar nova Visibilidade</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Visibilities</source>
+        <target>Visibilidades</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Description</source>
+        <target>Descritivo</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

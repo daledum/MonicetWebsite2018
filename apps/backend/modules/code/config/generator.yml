@@ -10,11 +10,13 @@ generator:
     route_prefix:          code
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        code
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:          [acronym, description]
       filter:  ~
       form:    ~
       edit:    ~

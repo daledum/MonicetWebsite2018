@@ -23,6 +23,8 @@ abstract class BaseSightingForm extends BaseFormPropel
       'adults'         => new sfWidgetFormInputText(),
       'juveniles'      => new sfWidgetFormInputText(),
       'cubs'           => new sfWidgetFormInputText(),
+      'created_at'     => new sfWidgetFormDateTime(),
+      'updated_at'     => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
@@ -34,6 +36,8 @@ abstract class BaseSightingForm extends BaseFormPropel
       'adults'         => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'juveniles'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'cubs'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'created_at'     => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('sighting[%s]');

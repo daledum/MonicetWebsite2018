@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class Behaviour extends BaseBehaviour {
-
+  public function __toString()
+  {
+    return $this->getDescription();
+  }
 } // Behaviour

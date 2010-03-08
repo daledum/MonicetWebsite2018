@@ -12,5 +12,9 @@ class BehaviourForm extends BaseBehaviourForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('behaviour');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

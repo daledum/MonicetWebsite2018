@@ -17,5 +17,8 @@
  * @package    lib.model
  */
 class SeaState extends BaseSeaState {
-
+  public function __toString()
+  {
+    return $this->getDescription();
+  }
 } // SeaState

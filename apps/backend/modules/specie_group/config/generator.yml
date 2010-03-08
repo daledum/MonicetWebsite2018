@@ -10,11 +10,13 @@ generator:
     route_prefix:          specie_group
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        specie_group
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [name]
       filter:  ~
       form:    ~
       edit:    ~

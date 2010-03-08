@@ -30,8 +30,7 @@
 	                    <li><?php echo link_to(__('Background'), 'background/index'); ?></li>
 	                    <li><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>
 	                    <li><?php echo link_to(__('Team and Partners'), 'team/index'); ?></li>
-	                    <li><?php echo link_to(__('Consorcium'), 'consorcium/index'); ?></li>
-	                    <li><?php echo link_to(__('Consultants'), 'consultants/index'); ?></li>
+	                    <li><?php echo link_to(__('Contacts'), 'contacts/index'); ?></li>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">

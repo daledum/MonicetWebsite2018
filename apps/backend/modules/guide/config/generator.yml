@@ -10,11 +10,13 @@ generator:
     route_prefix:          guide
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        guide
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [company, name]
       filter:  ~
       form:    ~
       edit:    ~

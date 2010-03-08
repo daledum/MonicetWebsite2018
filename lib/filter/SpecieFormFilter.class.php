@@ -12,5 +12,9 @@ class SpecieFormFilter extends BaseSpecieFormFilter
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('specie');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

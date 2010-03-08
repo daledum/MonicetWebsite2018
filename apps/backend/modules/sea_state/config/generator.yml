@@ -10,11 +10,13 @@ generator:
     route_prefix:          sea_state
     with_propel_route:     1
     actions_base_class:    sfActions
-
+    i18n_catalogue:        sea_state
+    
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display:           [description]
       filter:  ~
       form:    ~
       edit:    ~

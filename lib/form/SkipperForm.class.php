@@ -12,5 +12,9 @@ class SkipperForm extends BaseSkipperForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('skipper');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

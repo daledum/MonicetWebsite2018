@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sighting List</source>
+        <target>A listar Avistamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Sighting</source>
+        <target>A editar um Avistamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Sighting</source>
+        <target>A adicionar novo Avistamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sightings</source>
+        <target>Avistamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Record</source>
+        <target>Registo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Specie</source>
+        <target>Espécie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Behaviour</source>
+        <target>Comportamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Association</source>
+        <target>Associação</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Adults</source>
+        <target>Adultos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Juveniles</source>
+        <target>Juvenis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Cubs</source>
+        <target>Crias</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

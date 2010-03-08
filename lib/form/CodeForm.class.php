@@ -12,5 +12,9 @@ class CodeForm extends BaseCodeForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('code');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

@@ -12,5 +12,9 @@ class VesselForm extends BaseVesselForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('vessel');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

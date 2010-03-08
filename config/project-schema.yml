@@ -1,0 +1,17 @@
+propel:
+  _attributes:    { package: lib.model }  
+  log:
+    _attributes:  { phpName: Log, idMethod: native }
+    id:           ~
+    type:         { type: varchar, size: 255 }
+    message:      { type: longvarchar, size: 255 }
+    created_at:   ~
+  option:
+    _attributes:  { phpName: Option, idMethod: native }
+    id:           { type: integer, required: true, autoIncrement: true, primaryKey: true }
+    name:         { type: varchar, size: 255, required: true,  index: unique }
+    value:        { type: varchar, size: 255, required: true }
+    initial:      { type: varchar, size: 255, required: false, default: "" }
+    description:  { type: longvarchar, required: false }
+    created_at:   { type: timestamp }
+    updated_at:   { type: timestamp }

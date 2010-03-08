@@ -12,5 +12,6 @@ class NewsArticleI18nForm extends BaseNewsArticleI18nForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('news_article');
   }
 }
