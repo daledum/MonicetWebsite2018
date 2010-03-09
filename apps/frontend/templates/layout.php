@@ -30,8 +30,7 @@
 	                    <li><?php echo link_to(__('Background'), 'background/index'); ?></li>
 	                    <li><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>
 	                    <li><?php echo link_to(__('Team and Partners'), 'team/index'); ?></li>
-	                    <li><?php echo link_to(__('Consorcium'), 'consorcium/index'); ?></li>
-	                    <li><?php echo link_to(__('Consultants'), 'consultants/index'); ?></li>
+	                    <li><?php echo link_to(__('Contacts'), 'contacts/index'); ?></li>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">
@@ -40,7 +39,7 @@
 	                </div>
 	            </div>
 	            <div id="_div_main_recent_news">
-	               <p id="_div_main_recent_news_header"><?php echo link_to(__('News'), '@news_all') ?></p>
+	               <p id="_div_main_recent_news_header"><a href="<?php echo url_for('@news_feeds'); ?>"><img src="/images/frontend/feed-icon-small.png" alt="rss"/></a>&nbsp;<?php echo link_to(__('News'), '@news_all') ?></p>
 	               <?php include_component('news', 'recentNews') ?>
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>

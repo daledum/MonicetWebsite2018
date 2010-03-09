@@ -211,6 +211,7 @@ CREATE TABLE `record`
 	`visibility_id` INTEGER  NOT NULL,
 	`sea_state_id` INTEGER  NOT NULL,
 	`general_info_id` INTEGER  NOT NULL,
+	`company_id` INTEGER  NOT NULL,
 	`time` TIME  NOT NULL,
 	`latitude` VARCHAR(255)  NOT NULL,
 	`longitude` VARCHAR(255)  NOT NULL,
@@ -233,7 +234,11 @@ CREATE TABLE `record`
 	INDEX `record_FI_4` (`general_info_id`),
 	CONSTRAINT `record_FK_4`
 		FOREIGN KEY (`general_info_id`)
-		REFERENCES `general_info` (`id`)
+		REFERENCES `general_info` (`id`),
+	INDEX `record_FI_5` (`company_id`),
+	CONSTRAINT `record_FK_5`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -399,6 +404,7 @@ CREATE TABLE `news_article`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`is_published` TINYINT default 0 NOT NULL,
 	`slug` VARCHAR(255)  NOT NULL,
+	`image` VARCHAR(1024),
 	`enter_date` DATE,
 	`exit_date` DATE,
 	`publish_date` DATE  NOT NULL,
@@ -463,6 +469,45 @@ CREATE TABLE `consorcium_element_i18n`
 	CONSTRAINT `consorcium_element_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `consorcium_element` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- team
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team`;
+
+
+CREATE TABLE `team`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`type` VARCHAR(255)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	`link` VARCHAR(1024),
+	`photo` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `team_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- team_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team_i18n`;
+
+
+CREATE TABLE `team_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`about` TEXT,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `team_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `team` (`id`)
 )Type=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

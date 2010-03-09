@@ -22,11 +22,29 @@ news:
   param:    { module: news, action: show }
   options:  { model: NewsArticle, type: object }
 
+news_feeds:
+  url:      /:sf_culture/feeds
+  param:    { module: feeds, action: latest }
+
 consorcium:
   url:      /:sf_culture/consorcium/:slug
   class:    sfPropelRoute
   param:    { module: consorcium, action: show }
   options:  { model: ConsorciumElement, type: object }
+
+team:
+  url:      /:sf_culture/team/:slug
+  class:    sfPropelRoute
+  param:    { module: team, action: show }
+  options:  { model: Team, type: object }
+
+contacts:
+  url:      /:sf_culture/contacts/submit
+  param:    { module: contacts, action: submit }
+
+contacts_sent:
+  url:      /:sf_culture/contacts/sent
+  param:    { module: contacts, action: sent }
 
 default_index:
   url:   /:sf_culture/:module

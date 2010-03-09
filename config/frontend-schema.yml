@@ -4,6 +4,7 @@ propel:
     id:            ~
     is_published:  { type: boolean, required: true, default: 0 }
     slug:          { type: varchar(255), required: true, index: unique }
+    image:         { type: varchar(1024), required: false}
     enter_date:    { type: date }
     exit_date:     { type: date }
     publish_date:  { type: date, required: true }
@@ -27,3 +28,17 @@ propel:
     id:            { type: integer, required: true, primaryKey: true, foreignTable: consorcium_element, foreignReference: id }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     description:   { type: longvarchar, required: false }
+  team:
+    _attributes:   { isI18N: true, i18nTable: team_i18n }
+    id:            ~
+    slug:          { type: varchar(255), required: true, index: unique }
+    type:          { type: varchar(255), required: true }
+    name:          { type: varchar(512), required: true }
+    link:          { type: varchar(1024), required: false }
+    photo:         { type: varchar(1024), required: false }
+    created_at:    ~
+    updated_at:    ~
+  team_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: team, foreignReference: id }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
+    about:         { type: longvarchar, required: false }

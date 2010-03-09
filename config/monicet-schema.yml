@@ -66,6 +66,7 @@ propel:
       visibility_id:    { type: integer, foreignTable: visibility, foreignReference: id, required: true }
       sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true }
       general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true }
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
       time:             { type: time, required: true }
       latitude:         { type: varchar(255), required: true }
       longitude:        { type: varchar(255), required: true }

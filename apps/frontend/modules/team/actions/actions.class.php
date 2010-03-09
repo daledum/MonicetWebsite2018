@@ -17,6 +17,20 @@ class teamActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    
+  	$this->consorcium_elements = ConsorciumElementPeer::doSelectAll();
+  	
+  	$c = new Criteria();
+	$c->add(TeamPeer::TYPE, 'investigador');
+	$c->addAscendingOrderByColumn(TeamPeer::NAME);
+  	
+  	$this->local_researchers = TeamPeer::doSelect($c);
+  	
+  	$c->add(TeamPeer::TYPE, 'consultor');
+  	$this->consultants = TeamPeer::doSelect($c);
+  }
+  
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->element = $this->getRoute()->getObject();
   }
 }

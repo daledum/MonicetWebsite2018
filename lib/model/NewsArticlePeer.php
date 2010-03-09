@@ -47,4 +47,11 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
       limit(4)->
       find();
   }
+  public static function doSelectFeedRecentNews()
+  {
+    $criteria = self::getCriteria();
+    return $criteria->
+      limit(10)->
+      find();
+  }
 } // NewsArticlePeer
