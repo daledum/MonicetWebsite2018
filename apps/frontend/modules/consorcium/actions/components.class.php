@@ -4,8 +4,6 @@ class consorciumComponents extends sfComponents
 {
   public function executeConsorciumElements()
   {
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(ConsorciumElementPeer::ID);
-    $this->consorcium_elements = ConsorciumElementPeer::doSelect($c);
+    $this->consorcium_elements = ConsorciumElementPeer::doSelectAll();
   }
 }

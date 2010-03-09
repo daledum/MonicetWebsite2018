@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Adapter/Statement
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-01T20:28:58.990956Z
-6840
-jkaziukenas
+2010-03-02T18:57:16.342455Z
+7297
+jwage
 
 
 
@@ -100,11 +100,11 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-a353b2db0a2a9978412e839dc7eb465c
-2009-12-01T20:28:58.990956Z
-6840
-jkaziukenas
+2010-03-03T17:23:06.000000Z
+329835cbdf330019c915a11b5221a2f9
+2010-03-02T18:57:16.342455Z
+7297
+jwage
 has-props
 
 
@@ -126,5 +126,5 @@ has-props
 
 
 
-24430
+24573
 

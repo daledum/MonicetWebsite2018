@@ -5,29 +5,29 @@
     <header />
     <body>
       <!-- Filters -->
-      <trans-unit>
+      <trans-unit id="1">
         <source>is empty</source>
         <target>Está vazio?</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="2">
         <source>from</source>
         <target>de</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="3">
         <source>to</source>
         <target>até</target>
       </trans-unit>
       
       <!-- Geral -->
-      <trans-unit>
+      <trans-unit id="4">
         <source>Required.</source>
         <target>Campo obrigatório.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="5">
         <source>Invalid.</source>
         <target>Campo inválido.</target>
       </trans-unit>
-      <trans-unit>
+      <trans-unit id="6">
         <source>"%value%" is not an integer.</source>
         <target>Campo inválido. "%value%" não é um número inteiro.</target>
       </trans-unit>

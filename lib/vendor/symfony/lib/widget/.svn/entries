@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/widget
 http://svn.symfony-project.com
 
 
 
-2009-12-04T20:42:16.098259Z
-24963
-FabianLange
+2010-02-08T15:07:33.327734Z
+27738
+Kris.Wallsmith
 
 
 
@@ -511,11 +511,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-4e6bd52387b4aa827a99bd0f8431272c
-2009-11-15T22:55:24.460319Z
-23994
-bschussek
+2010-02-27T21:01:53.000000Z
+3728fed7da1a42c6f289e21f5ccdc153
+2010-02-08T15:07:33.327734Z
+27738
+Kris.Wallsmith
 has-props
 
 
@@ -537,7 +537,7 @@ has-props
 
 
 
-4097
+4120
 
 sfWidgetFormSchemaForEach.class.php
 file
@@ -783,11 +783,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-e94cde4fcc1f23f6dbb8f3759dd817ba
-2009-11-15T22:55:24.460319Z
-23994
-bschussek
+2010-02-27T21:01:53.000000Z
+03c39fd6a463686684d6af37de5e4513
+2010-02-08T15:07:33.327734Z
+27738
+Kris.Wallsmith
 has-props
 
 
@@ -809,7 +809,7 @@ has-props
 
 
 
-3983
+4006
 
 sfWidgetFormTime.class.php
 file
@@ -919,11 +919,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-612a4d1d1237ec71b279e88a6103dc89
-2009-12-04T20:42:16.098259Z
-24963
-FabianLange
+2010-02-27T21:01:53.000000Z
+4e97fa4456c008a94dae89feae0c79a0
+2010-01-19T10:34:52.388422Z
+26870
+fabien
 has-props
 
 
@@ -945,7 +945,7 @@ has-props
 
 
 
-22951
+22962
 
 sfWidgetFormSchemaDecorator.class.php
 file

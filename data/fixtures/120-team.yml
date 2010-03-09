@@ -1,0 +1,115 @@
+Team:
+  team_neto:
+    type: "investigador"
+    name: "Ana Isabel Neto"
+    slug: "ana-neto"
+    photo: "ana-neto.jpg"
+    link: ""
+  team_azevedo:
+    type: "investigador"
+    name: "José Azevedo"
+    slug: "jose-azevedo"
+    photo: "jose-azevedo.jpg"
+    link: ""
+  team_fernandez:
+    type: "investigador"
+    name: "Marc Fernandez"
+    slug: "marc-fernandez"
+    photo: "marc-fernandez.jpg"
+    link: ""
+  team_evans:
+    type: "consultor"
+    name: "Peter Evans"
+    slug: "peter-evans"
+    photo: "peter-evans.jpg"
+    link: ""
+  team_soto:
+    type: "consultor"
+    name: "Natacha Aguilar Soto"
+    slug: "natacha-soto"
+    photo: "natacha-soto.jpg"
+    link: ""
+  team_carlson:
+    type: "consultor"
+    name: "Carole Carlson"
+    slug: "carole-carlson"
+    photo: "carole-carlson.jpg"
+    link: ""  
+  team_gordon:
+    type: "consultor"
+    name: "Jonathan Gordon"
+    slug: "jonathan-gordon"
+    photo: "jonathan-gordon.jpg"
+    link: ""  
+  team_oviedo:
+    type: "consultor"
+    name: "Lenin Oviedo"
+    slug: "lenin-oviedo"
+    photo: "lenin-oviedo.jpg"
+    link: ""  
+
+TeamI18n:
+  team_neto_en:
+    id: team_neto
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_neto_pt:
+    id: team_neto
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_azevedo_en:
+    id: team_azevedo
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_azevedo_pt:
+    id: team_azevedo
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_fernandez_en:
+    id: team_fernandez
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_fernandez_pt:
+    id: team_fernandez
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_evans_en:
+    id: team_evans
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_evans_pt:
+    id: team_evans
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_soto_en:
+    id: team_soto
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_soto_pt:
+    id: team_soto
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_carlson_en:
+    id: team_carlson
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_carlson_pt:
+    id: team_carlson
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_gordon_en:
+    id: team_gordon
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_gordon_pt:
+    id: team_gordon
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_oviedo_en:
+    id: team_oviedo
+    culture: en
+    about: "en - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "
+  team_oviedo_pt:
+    id: team_oviedo
+    culture: pt
+    about: "pt - dsdas d asd sa d asd sa d as das d sa d asd as das d asd sa dsa d sa das d asd as "

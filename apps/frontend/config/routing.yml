@@ -4,7 +4,13 @@
 # default rules
 homepage:
   url:   /
+  param: { module: home, action: language }
+
+index:
+  url:   /:sf_culture
   param: { module: home, action: index }
+  requirements:
+    sf_culture: (?:pt|en)
 
 news_all:
   url:      /:sf_culture/news/all
@@ -16,23 +22,30 @@ news:
   param:    { module: news, action: show }
   options:  { model: NewsArticle, type: object }
 
+news_feeds:
+  url:      /:sf_culture/feeds
+  param:    { module: feeds, action: latest }
+
 consorcium:
   url:      /:sf_culture/consorcium/:slug
   class:    sfPropelRoute
   param:    { module: consorcium, action: show }
   options:  { model: ConsorciumElement, type: object }
 
-change_language:
-  url:   /change_language
-  param: { module: language, action: changeLanguage }
-  requirements:
-    sf_culture: (?:pt|en)
-    
-# generic rules
-# please, remove them by adding more specific rules
+team:
+  url:      /:sf_culture/team/:slug
+  class:    sfPropelRoute
+  param:    { module: team, action: show }
+  options:  { model: Team, type: object }
+
+contacts:
+  url:      /:sf_culture/contacts/submit
+  param:    { module: contacts, action: submit }
+
+contacts_sent:
+  url:      /:sf_culture/contacts/sent
+  param:    { module: contacts, action: sent }
+
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }
-
-default:
-  url:   /:sf_culture/:module/:action/*

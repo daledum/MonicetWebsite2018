@@ -6,7 +6,6 @@
  * @package    ##PROJECT_NAME##
  * @subpackage filter
  * @author     ##AUTHOR_NAME##
- * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
 {
@@ -21,8 +20,10 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
       'last_login'                    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'is_active'                     => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'is_super_admin'                => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
-      'sf_guard_user_group_list'      => new sfWidgetFormPropelChoice(array('model' => 'sfGuardGroup', 'add_empty' => true)),
       'sf_guard_user_permission_list' => new sfWidgetFormPropelChoice(array('model' => 'sfGuardPermission', 'add_empty' => true)),
+      'sf_guard_user_group_list'      => new sfWidgetFormPropelChoice(array('model' => 'sfGuardGroup', 'add_empty' => true)),
+      'mf_formulario_utilizador_list' => new sfWidgetFormPropelChoice(array('model' => 'mfFormulario', 'add_empty' => true)),
+      'company_user_list'             => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -34,8 +35,10 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
       'last_login'                    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'is_active'                     => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'is_super_admin'                => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
-      'sf_guard_user_group_list'      => new sfValidatorPropelChoice(array('model' => 'sfGuardGroup', 'required' => false)),
       'sf_guard_user_permission_list' => new sfValidatorPropelChoice(array('model' => 'sfGuardPermission', 'required' => false)),
+      'sf_guard_user_group_list'      => new sfValidatorPropelChoice(array('model' => 'sfGuardGroup', 'required' => false)),
+      'mf_formulario_utilizador_list' => new sfValidatorPropelChoice(array('model' => 'mfFormulario', 'required' => false)),
+      'company_user_list'             => new sfValidatorPropelChoice(array('model' => 'Company', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('sf_guard_user_filters[%s]');
@@ -43,31 +46,6 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
     $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
 
     parent::setup();
-  }
-
-  public function addsfGuardUserGroupListColumnCriteria(Criteria $criteria, $field, $values)
-  {
-    if (!is_array($values))
-    {
-      $values = array($values);
-    }
-
-    if (!count($values))
-    {
-      return;
-    }
-
-    $criteria->addJoin(sfGuardUserGroupPeer::USER_ID, sfGuardUserPeer::ID);
-
-    $value = array_pop($values);
-    $criterion = $criteria->getNewCriterion(sfGuardUserGroupPeer::GROUP_ID, $value);
-
-    foreach ($values as $value)
-    {
-      $criterion->addOr($criteria->getNewCriterion(sfGuardUserGroupPeer::GROUP_ID, $value));
-    }
-
-    $criteria->add($criterion);
   }
 
   public function addsfGuardUserPermissionListColumnCriteria(Criteria $criteria, $field, $values)
@@ -95,6 +73,81 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
     $criteria->add($criterion);
   }
 
+  public function addsfGuardUserGroupListColumnCriteria(Criteria $criteria, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $criteria->addJoin(sfGuardUserGroupPeer::USER_ID, sfGuardUserPeer::ID);
+
+    $value = array_pop($values);
+    $criterion = $criteria->getNewCriterion(sfGuardUserGroupPeer::GROUP_ID, $value);
+
+    foreach ($values as $value)
+    {
+      $criterion->addOr($criteria->getNewCriterion(sfGuardUserGroupPeer::GROUP_ID, $value));
+    }
+
+    $criteria->add($criterion);
+  }
+
+  public function addmfFormularioUtilizadorListColumnCriteria(Criteria $criteria, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $criteria->addJoin(mfFormularioUtilizadorPeer::UTILIZADOR_ID, sfGuardUserPeer::ID);
+
+    $value = array_pop($values);
+    $criterion = $criteria->getNewCriterion(mfFormularioUtilizadorPeer::FORMULARIO_ID, $value);
+
+    foreach ($values as $value)
+    {
+      $criterion->addOr($criteria->getNewCriterion(mfFormularioUtilizadorPeer::FORMULARIO_ID, $value));
+    }
+
+    $criteria->add($criterion);
+  }
+
+  public function addCompanyUserListColumnCriteria(Criteria $criteria, $field, $values)
+  {
+    if (!is_array($values))
+    {
+      $values = array($values);
+    }
+
+    if (!count($values))
+    {
+      return;
+    }
+
+    $criteria->addJoin(CompanyUserPeer::USER_ID, sfGuardUserPeer::ID);
+
+    $value = array_pop($values);
+    $criterion = $criteria->getNewCriterion(CompanyUserPeer::COMPANY_ID, $value);
+
+    foreach ($values as $value)
+    {
+      $criterion->addOr($criteria->getNewCriterion(CompanyUserPeer::COMPANY_ID, $value));
+    }
+
+    $criteria->add($criterion);
+  }
+
   public function getModelName()
   {
     return 'sfGuardUser';
@@ -112,8 +165,10 @@ abstract class BasesfGuardUserFormFilter extends BaseFormFilterPropel
       'last_login'                    => 'Date',
       'is_active'                     => 'Boolean',
       'is_super_admin'                => 'Boolean',
-      'sf_guard_user_group_list'      => 'ManyKey',
       'sf_guard_user_permission_list' => 'ManyKey',
+      'sf_guard_user_group_list'      => 'ManyKey',
+      'mf_formulario_utilizador_list' => 'ManyKey',
+      'company_user_list'             => 'ManyKey',
     );
   }
 }

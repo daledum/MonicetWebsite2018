@@ -1,0 +1,10 @@
+mf_menu:
+  class: sfPropelRouteCollection
+  options:
+    model:                mfMenu
+    module:               mfMenu
+    prefix_path:          /menu
+    column:               id
+    with_wildcard_routes: true
+    with_show:            true
+    #object_actions:       { publish: put }

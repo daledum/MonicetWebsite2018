@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfPropelPlugin/test/unit
 http://svn.symfony-project.com
 
 
 
-2009-11-16T17:52:14.706630Z
-24039
+2010-02-12T13:31:30.838136Z
+27940
 Kris.Wallsmith
 
 
@@ -63,7 +63,13 @@ has-props
 
 5671
 
+form
+dir
+
 database
+dir
+
+validator
 dir
 
 debug

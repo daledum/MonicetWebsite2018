@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/config
 http://svn.symfony-project.com
 
 
 
-2009-12-04T20:39:41.720441Z
-24962
-FabianLange
+2010-03-03T14:46:07.750351Z
+28366
+fabien
 
 
 
@@ -66,11 +66,11 @@ file
 
 
 
-2009-12-11T15:40:22.000000Z
-cfaa87b5636634ce47d68338e15f7f8a
-2009-11-16T17:52:14.706630Z
-24039
-Kris.Wallsmith
+2010-02-27T21:01:56.000000Z
+ecd6d75cdf2ba8f5472575e612371984
+2010-01-26T13:38:49.545696Z
+27191
+FabianLange
 has-props
 
 
@@ -92,7 +92,7 @@ has-props
 
 
 
-16666
+16698
 
 sfViewConfigHandler.class.php
 file
@@ -338,10 +338,10 @@ file
 
 
 
-2009-12-11T15:40:22.000000Z
-7447285d8eebc972d38714cc079d5d0d
-2009-11-14T16:32:53.123081Z
-23932
+2010-03-03T17:22:45.000000Z
+0d08ecf75e4c5b16e949756fdb927d4b
+2010-03-03T14:46:07.750351Z
+28366
 fabien
 has-props
 
@@ -364,7 +364,7 @@ has-props
 
 
 
-3101
+3125
 
 sfRoutingConfigHandler.class.php
 file

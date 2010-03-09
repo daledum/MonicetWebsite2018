@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/!svn/ver/6840/branches/1.2/lib/Doctrine/Node
+/!svn/ver/7285/branches/1.2/lib/Doctrine/Node
 END
 AdjacencyList.php
 K 25
@@ -19,7 +19,7 @@ NestedSet.php
 K 25
 svn:wc:ra_dav:version-url
 V 59
-/!svn/ver/6840/branches/1.2/lib/Doctrine/Node/NestedSet.php
+/!svn/ver/7285/branches/1.2/lib/Doctrine/Node/NestedSet.php
 END
 Interface.php
 K 25

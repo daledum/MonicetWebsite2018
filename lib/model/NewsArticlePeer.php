@@ -17,5 +17,41 @@
  * @package    lib.model
  */
 class NewsArticlePeer extends BaseNewsArticlePeer {
-
+	public static function getCriteria()
+	{
+		$user = sfContext::getInstance()->getUser();
+    $request = sfContext::getInstance()->getRequest();
+    
+		$criteria = NewsArticleQuery::create()
+		  ->filterByIsPublished(true)
+      ->add(NewsArticlePeer::ENTER_DATE, time(), Criteria::LESS_EQUAL)
+      ->addOr(NewsArticlePeer::ENTER_DATE, null, Criteria::ISNULL)
+      ->add(NewsArticlePeer::EXIT_DATE, time(), Criteria::GREATER_EQUAL)
+      ->addOr(NewsArticlePeer::EXIT_DATE, null, Criteria::ISNULL)
+      ->orderByPublishDate(Criteria::ASC)
+		  ->useNewsArticleI18nQuery()
+        ->filterByCulture($user->getCulture())
+      ->enduse();
+    return $criteria;
+	}
+  public static function getPager()
+  {   	
+  	$request = sfContext::getInstance()->getRequest();
+  	$criteria = self::getCriteria();
+    return $criteria->paginate($request->getParameter('page', 1), 10);
+  }
+  public static function doSelectRecentNews()
+  {
+  	$criteria = self::getCriteria();
+    return $criteria->
+      limit(4)->
+      find();
+  }
+  public static function doSelectFeedRecentNews()
+  {
+    $criteria = self::getCriteria();
+    return $criteria->
+      limit(10)->
+      find();
+  }
 } // NewsArticlePeer

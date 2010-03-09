@@ -1,14 +1,14 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Validator
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-10-13T04:56:16.620682Z
-6498
+2010-03-02T01:11:15.344406Z
+7281
 jwage
 has-props
 
@@ -474,10 +474,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-3aae52394daaca62beccbc0d1ae9a140
-2009-10-09T20:41:28.040085Z
-6468
+2010-03-03T17:23:06.000000Z
+86a6177fab23f3bf1022ccf7d47ec014
+2010-03-02T01:11:15.344406Z
+7281
 jwage
 has-props
 
@@ -500,7 +500,7 @@ has-props
 
 
 
-1699
+1658
 
 Future.php
 file
@@ -712,10 +712,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-ac139801e192c36f1257d131d437f75b
-2009-10-09T20:41:28.040085Z
-6468
+2010-03-03T17:23:06.000000Z
+d99630624ac9dd63051ce3b1ec1f06b8
+2010-03-01T21:19:50.649980Z
+7254
 jwage
 has-props
 

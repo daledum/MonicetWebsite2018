@@ -19,6 +19,6 @@
 class Record extends BaseRecord {
   public function __toString()
   {
-    return $this->getGeneralInfo()->getDate("Y-m-d").' / '.$this->getTime().' / '.$this->getCode()->getAcronym();
+    return $this->getCode()->getAcronym(). '/'.$this->getTime().'/'.$this->getGeneralInfo()->getDate("Y-m-d");
   }
 } // Record

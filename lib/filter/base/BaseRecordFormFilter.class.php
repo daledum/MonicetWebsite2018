@@ -6,7 +6,6 @@
  * @package    monicet
  * @subpackage filter
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormFilterGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseRecordFormFilter extends BaseFormFilterPropel
 {
@@ -17,6 +16,7 @@ abstract class BaseRecordFormFilter extends BaseFormFilterPropel
       'visibility_id'   => new sfWidgetFormPropelChoice(array('model' => 'Visibility', 'add_empty' => true)),
       'sea_state_id'    => new sfWidgetFormPropelChoice(array('model' => 'SeaState', 'add_empty' => true)),
       'general_info_id' => new sfWidgetFormPropelChoice(array('model' => 'GeneralInfo', 'add_empty' => true)),
+      'company_id'      => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => true)),
       'time'            => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'latitude'        => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'longitude'       => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -30,6 +30,7 @@ abstract class BaseRecordFormFilter extends BaseFormFilterPropel
       'visibility_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Visibility', 'column' => 'id')),
       'sea_state_id'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'SeaState', 'column' => 'id')),
       'general_info_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'GeneralInfo', 'column' => 'id')),
+      'company_id'      => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Company', 'column' => 'id')),
       'time'            => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'latitude'        => new sfValidatorPass(array('required' => false)),
       'longitude'       => new sfValidatorPass(array('required' => false)),
@@ -58,6 +59,7 @@ abstract class BaseRecordFormFilter extends BaseFormFilterPropel
       'visibility_id'   => 'ForeignKey',
       'sea_state_id'    => 'ForeignKey',
       'general_info_id' => 'ForeignKey',
+      'company_id'      => 'ForeignKey',
       'time'            => 'Date',
       'latitude'        => 'Text',
       'longitude'       => 'Text',

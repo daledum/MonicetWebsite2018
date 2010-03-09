@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Query
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-09T21:07:16.942893Z
-6923
-kriswallsmith
+2010-03-02T16:54:15.332564Z
+7287
+jwage
 has-props
 
 
@@ -375,11 +375,11 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-4ccfec488e85f9365f621192316ae01f
-2009-07-14T13:04:49.442618Z
-6075
-romanb
+2010-03-03T17:23:06.000000Z
+f86f8e251b542c4528a6a0dd3d14d664
+2010-03-02T16:54:15.332564Z
+7287
+jwage
 has-props
 
 
@@ -401,7 +401,7 @@ has-props
 
 
 
-16150
+16368
 
 Where.php
 file

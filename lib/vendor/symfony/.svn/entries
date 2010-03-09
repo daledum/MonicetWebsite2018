@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4
 http://svn.symfony-project.com
 
 
 
-2009-12-10T20:06:45.978882Z
-25218
-Jonathan.Wage
+2010-03-03T14:46:07.750351Z
+28366
+fabien
 has-props
 
 
@@ -109,10 +109,10 @@ file
 
 
 
-2009-12-11T15:40:22.000000Z
-b4fb9a0a325a61d22cd8b84b8fa4abfc
-2009-12-08T13:43:56.573926Z
-25071
+2010-02-27T21:01:56.000000Z
+5e94d83acb3c6eac3a57213bb92ab99f
+2010-02-25T06:57:48.898995Z
+28265
 Kris.Wallsmith
 
 
@@ -135,7 +135,7 @@ Kris.Wallsmith
 
 
 
-14011
+17713
 
 COPYRIGHT
 file

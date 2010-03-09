@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfPropelPlugin/i18n
 http://svn.symfony-project.com
 
 
 
-2009-12-05T21:02:29.033258Z
-24976
+2009-12-16T13:08:00.328227Z
+25458
 FabianLange
 
 
@@ -950,11 +950,11 @@ file
 
 
 
-2009-12-11T15:40:48.000000Z
-c10f070ff88308ab2c787c5fe002b64c
-2008-11-27T10:53:20.077847Z
-13399
-fabien
+2010-02-27T21:02:24.000000Z
+89ddfc4de40ed974a7f51261cb84f8fb
+2009-12-16T13:08:00.328227Z
+25458
+FabianLange
 
 
 
@@ -976,7 +976,7 @@ fabien
 
 
 
-4504
+5805
 
 sf_admin.ru.xml
 file

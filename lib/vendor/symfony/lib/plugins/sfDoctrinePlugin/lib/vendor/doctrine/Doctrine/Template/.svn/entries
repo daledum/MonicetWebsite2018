@@ -1,14 +1,14 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Template
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-11-24T19:24:33.315330Z
-6799
+2010-03-02T01:14:21.959000Z
+7282
 jwage
 
 
@@ -205,10 +205,10 @@ file
 
 
 
-2009-12-11T15:41:06.000000Z
-fd14500350bc75d1170fcc3f27f26b31
-2009-10-13T23:29:18.706832Z
-6506
+2010-03-03T17:23:06.000000Z
+a35f7693ba49fe38ed35f886ea043a8d
+2010-03-01T21:15:10.181319Z
+7253
 jwage
 has-props
 
@@ -231,7 +231,7 @@ has-props
 
 
 
-4919
+4921
 
 Sluggable.php
 file

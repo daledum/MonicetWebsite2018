@@ -8,7 +8,6 @@
  * @package    monicet
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseRecordForm extends BaseFormPropel
 {
@@ -20,6 +19,7 @@ abstract class BaseRecordForm extends BaseFormPropel
       'visibility_id'   => new sfWidgetFormPropelChoice(array('model' => 'Visibility', 'add_empty' => false)),
       'sea_state_id'    => new sfWidgetFormPropelChoice(array('model' => 'SeaState', 'add_empty' => false)),
       'general_info_id' => new sfWidgetFormPropelChoice(array('model' => 'GeneralInfo', 'add_empty' => false)),
+      'company_id'      => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => false)),
       'time'            => new sfWidgetFormTime(),
       'latitude'        => new sfWidgetFormInputText(),
       'longitude'       => new sfWidgetFormInputText(),
@@ -34,6 +34,7 @@ abstract class BaseRecordForm extends BaseFormPropel
       'visibility_id'   => new sfValidatorPropelChoice(array('model' => 'Visibility', 'column' => 'id')),
       'sea_state_id'    => new sfValidatorPropelChoice(array('model' => 'SeaState', 'column' => 'id')),
       'general_info_id' => new sfValidatorPropelChoice(array('model' => 'GeneralInfo', 'column' => 'id')),
+      'company_id'      => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id')),
       'time'            => new sfValidatorTime(),
       'latitude'        => new sfValidatorString(array('max_length' => 255)),
       'longitude'       => new sfValidatorString(array('max_length' => 255)),

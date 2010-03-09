@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/!svn/ver/24976/branches/1.4/lib/plugins/sfPropelPlugin/i18n
+/!svn/ver/25458/branches/1.4/lib/plugins/sfPropelPlugin/i18n
 END
 sf_admin.ar.xml
 K 25
@@ -169,7 +169,7 @@ sf_admin.tr.xml
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/!svn/ver/23881/branches/1.4/lib/plugins/sfPropelPlugin/i18n/sf_admin.tr.xml
+/!svn/ver/25458/branches/1.4/lib/plugins/sfPropelPlugin/i18n/sf_admin.tr.xml
 END
 sf_admin.ru.xml
 K 25

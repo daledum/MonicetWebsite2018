@@ -1,3 +1,5 @@
+[?php if( $sf_user->hasModuleCredential( $sf_context->getModuleName(), 'filter' )): ?]
+
 [?php use_stylesheets_for_form($form) ?]
 [?php use_javascripts_for_form($form) ?]
 
@@ -35,3 +37,4 @@
     </table>
   </form>
 </div>
+[?php endif; ?]

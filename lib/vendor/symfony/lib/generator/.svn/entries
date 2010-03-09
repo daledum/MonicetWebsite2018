@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/generator
 http://svn.symfony-project.com
 
 
 
-2009-11-14T14:58:38.254908Z
-23922
+2009-12-16T13:08:43.921166Z
+25459
 fabien
 
 
@@ -168,10 +168,10 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-6c1efbf2028b5a18dc265ac8f890f062
-2009-10-19T16:37:13.540511Z
-23194
+2010-02-27T21:01:53.000000Z
+428f97e5ade5ab52ceabb1d8fc6158b1
+2009-12-16T13:08:43.921166Z
+25459
 fabien
 has-props
 
@@ -194,7 +194,7 @@ has-props
 
 
 
-13050
+13077
 
 sfModelGeneratorHelper.class.php
 file

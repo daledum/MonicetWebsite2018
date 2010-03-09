@@ -16,7 +16,7 @@
  * @subpackage debug
  * @author     Fabien Potencier <fabien.potencier@symfony-project.com>
  * @author     Jonathan H. Wage <jonwage@gmail.com>
- * @version    SVN: $Id: sfWebDebugPanelDoctrine.class.php 24993 2009-12-06 20:56:49Z Kris.Wallsmith $
+ * @version    SVN: $Id: sfWebDebugPanelDoctrine.class.php 28353 2010-03-02 20:44:00Z Kris.Wallsmith $
  */
 class sfWebDebugPanelDoctrine extends sfWebDebugPanel
 {
@@ -113,6 +113,7 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
       // interpolate parameters
       foreach ($params as $param)
       {
+        $param = htmlspecialchars($param, ENT_QUOTES, sfConfig::get('sf_charset'));
         $query = join(var_export(is_scalar($param) ? $param : (string) $param, true), explode('?', $query, 2));
       }
 
@@ -142,11 +143,11 @@ class sfWebDebugPanelDoctrine extends sfWebDebugPanel
       }
 
       $html[] = sprintf('
-        <li class="%s">
+        <li%s>
           <p class="sfWebDebugDatabaseQuery">%s</p>
           <div class="sfWebDebugDatabaseLogInfo">%ss, "%s" connection%s</div>
         </li>',
-        $event->slowQuery ? 'sfWebDebugWarning' : '',
+        $event->slowQuery ? ' class="sfWebDebugWarning"' : '',
         $query,
         number_format($event->getElapsedSecs(), 2),
         $conn->getName(),

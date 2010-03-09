@@ -1,0 +1,33 @@
+generator:
+  class:                    sfPropelGenerator
+  param:
+    model_class:            mfLog
+    theme:                  mfAdmin
+    non_verbose_templates:  true
+    with_show:              true
+    singular:               mfLog
+    plural:                 mfLogs
+    route_prefix:           mf_log
+    with_propel_route:      1
+    actions_base_class:     sfActions
+    i18n_catalogue:         mf_log
+
+    config:
+      actions: ~
+      fields:
+        mensagem:
+          credentials:      mfLog.mensagem
+      list:
+        display:            [tipo, mensagem, created_at]
+        title:              A listar logs
+        max_per_page:       20
+        sort:               [created_at, desc]
+        object_actions:
+          _edit:            ~
+          _delete:          ~
+      filter:  ~
+      form:                 ~
+      edit:
+        title:              A editar um log
+      new:
+        title:              A adicionar um novo log

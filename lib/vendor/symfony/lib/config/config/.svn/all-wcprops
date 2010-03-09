@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 46
-/!svn/ver/24034/branches/1.4/lib/config/config
+/!svn/ver/26867/branches/1.4/lib/config/config
 END
 factories.yml
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/!svn/ver/23881/branches/1.4/lib/config/config/factories.yml
+/!svn/ver/26867/branches/1.4/lib/config/config/factories.yml
 END
 core_compile.yml
 K 25

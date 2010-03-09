@@ -11,48 +11,48 @@
         <target>Campo inválido</target>
       </trans-unit>
       <trans-unit>
-        <source> List</source>
-        <target>A listar </target>
+        <source>News article List</source>
+        <target>A listar as Notícias</target>
       </trans-unit>
       <trans-unit>
-        <source>Edit </source>
-        <target>A editar </target>
+        <source>Edit News article</source>
+        <target>A editar uma Notícia</target>
       </trans-unit>
       <trans-unit>
-        <source>New </source>
-        <target>A adicionar novo </target>
+        <source>New News article</source>
+        <target>A adicionar nova Notícia</target>
       </trans-unit>
       <trans-unit>
-        <source>s</source>
-        <target></target>
+        <source>Is published</source>
+        <target>Está publicada</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Pt</source>
+        <target>Português</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>En</source>
+        <target>Inglês</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Body</source>
+        <target>Corpo</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Headline</source>
+        <target>Título</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Enter date</source>
+        <target>Data de entrada no site</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Exit date</source>
+        <target>Data de saída do site</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Publish date</source>
+        <target>Data de publicação</target>
       </trans-unit>
       <trans-unit>
         <source></source>

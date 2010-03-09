@@ -1,0 +1,52 @@
+10
+
+dir
+1587
+http://svn.phpdb.org/propel/branches/1.5/generator/lib
+http://svn.phpdb.org/propel
+
+
+
+2010-02-23T16:54:02.086600Z
+1579
+francois
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4126deef-30f4-0310-a2a2-883dd235dc3b
+
+behavior
+dir
+
+model
+dir
+
+task
+dir
+
+platform
+dir
+
+config
+dir
+
+builder
+dir
+
+reverse
+dir
+
+exception
+dir
+

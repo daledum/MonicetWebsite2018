@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2010-01-04T12:14:17Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2010-03-09T12:20:42Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -111,6 +111,38 @@
       <trans-unit id="27">
         <source>Local researchers:</source>
         <target>Investigadores</target>
+      </trans-unit>
+      <trans-unit id="28">
+        <source>ocorreu_erro_404</source>
+        <target>Lamentamos, mas a página pretendida não existe.</target>
+      </trans-unit>
+      <trans-unit id="29">
+        <source>back_to_news</source>
+        <target>Regressar às notícias.</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>Contacts</source>
+        <target>Contactos</target>
+      </trans-unit>
+      <trans-unit id="31">
+        <source>Subject</source>
+        <target>Assunto</target>
+      </trans-unit>
+      <trans-unit id="32">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="33">
+        <source>Message</source>
+        <target>Mensagem</target>
+      </trans-unit>
+      <trans-unit id="34">
+        <source>Your message was sent to the monicet administrator. Thank you for your contact.</source>
+        <target>A sua mensagem foi enviada para o administrador da Monicet. Obrigado pelo seu contacto.</target>
+      </trans-unit>
+      <trans-unit id="35">
+        <source>...</source>
+        <target>...</target>
       </trans-unit>
     </body>
   </file>

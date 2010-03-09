@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/View
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-06-02T15:10:46.063184Z
-5798
-piccoloprincipe
+2010-03-01T21:31:43.703342Z
+7259
+jwage
 has-props
 
 
@@ -32,11 +32,11 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-c75d56482d1b5e3612ee6868effde3aa
-2009-06-02T15:10:46.063184Z
-5798
-piccoloprincipe
+2010-03-03T17:23:06.000000Z
+a5469c5c58bc2da7d6d670fdb7cc2c57
+2010-03-01T21:31:43.703342Z
+7259
+jwage
 has-props
 
 
@@ -58,5 +58,5 @@ has-props
 
 
 
-1414
+1399
 

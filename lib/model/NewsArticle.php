@@ -28,17 +28,12 @@ class NewsArticle extends BaseNewsArticle {
 		// is where any default values for this object are set.
 		parent::__construct();
 	}
-
-	public function getSlug()
-	{
-	  return mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en')));
-	}
 	
 	public function setHeadline($headline, $culture = null)
 	{
 	  parent::setHeadline($headline, $culture);
 	 
-	  $this->setSlug($this->getSlug());
+	  $this->setSlug(mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en'))));
 	  return $this;
 	}
 

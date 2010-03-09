@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 49
-/!svn/ver/6799/branches/1.2/lib/Doctrine/Template
+/!svn/ver/7282/branches/1.2/lib/Doctrine/Template
 END
 Searchable.php
 K 25
@@ -37,7 +37,7 @@ Geographical.php
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/!svn/ver/6506/branches/1.2/lib/Doctrine/Template/Geographical.php
+/!svn/ver/7253/branches/1.2/lib/Doctrine/Template/Geographical.php
 END
 Sluggable.php
 K 25

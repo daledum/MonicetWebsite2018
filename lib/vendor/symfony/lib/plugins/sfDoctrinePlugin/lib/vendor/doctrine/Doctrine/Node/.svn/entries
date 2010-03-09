@@ -1,15 +1,15 @@
 10
 
 dir
-6943
+7305
 http://doctrine.mirror.svn.symfony-project.com/branches/1.2/lib/Doctrine/Node
 http://doctrine.mirror.svn.symfony-project.com
 
 
 
-2009-12-01T20:28:58.990956Z
-6840
-jkaziukenas
+2010-03-02T02:04:46.792332Z
+7285
+guilhermeblanco
 
 
 
@@ -100,11 +100,11 @@ file
 
 
 
-2009-12-11T15:41:05.000000Z
-feb9de18fef8a936303469ab91f9ecd9
-2009-12-01T20:28:58.990956Z
-6840
-jkaziukenas
+2010-03-03T17:23:06.000000Z
+25db8225b1af19c8282a71cbaac3a8c9
+2010-03-02T02:04:46.792332Z
+7285
+guilhermeblanco
 has-props
 
 
@@ -126,7 +126,7 @@ has-props
 
 
 
-39350
+39354
 
 Interface.php
 file

@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/!svn/ver/24593/branches/1.4/lib/task/generator
+/!svn/ver/27750/branches/1.4/lib/task/generator
 END
 sfGenerateAppTask.class.php
 K 25
@@ -13,7 +13,7 @@ sfGenerateTaskTask.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/!svn/ver/23881/branches/1.4/lib/task/generator/sfGenerateTaskTask.class.php
+/!svn/ver/27750/branches/1.4/lib/task/generator/sfGenerateTaskTask.class.php
 END
 sfGenerateModuleTask.class.php
 K 25
@@ -25,7 +25,7 @@ sfGenerateProjectTask.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 79
-/!svn/ver/23922/branches/1.4/lib/task/generator/sfGenerateProjectTask.class.php
+/!svn/ver/27211/branches/1.4/lib/task/generator/sfGenerateProjectTask.class.php
 END
 sfGeneratorBaseTask.class.php
 K 25

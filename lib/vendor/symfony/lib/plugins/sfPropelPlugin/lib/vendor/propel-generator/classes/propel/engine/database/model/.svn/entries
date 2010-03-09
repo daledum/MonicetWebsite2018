@@ -1,14 +1,14 @@
 10
 
 dir
-1354
-http://propel.mirror.svn.symfony-project.com/tags/1.4.0/generator/classes/propel/engine/database/model
+1591
+http://propel.mirror.svn.symfony-project.com/tags/1.4.1/generator/classes/propel/engine/database/model
 http://propel.mirror.svn.symfony-project.com
 
 
 
-2009-11-07T23:22:15.532680Z
-1295
+2010-01-12T18:02:08.715207Z
+1448
 francois
 
 
@@ -134,10 +134,10 @@ file
 
 
 
-2009-12-11T15:40:39.000000Z
-f3753fdf709907ea6975ec2656975596
-2009-11-07T23:22:15.532680Z
-1295
+2010-02-27T21:02:09.000000Z
+8bd4ea20dc0726aea2660b068fcd7f35
+2010-01-12T16:45:56.039275Z
+1447
 francois
 has-props
 
@@ -160,7 +160,7 @@ has-props
 
 
 
-32440
+32597
 
 IdMethodParameter.php
 file
@@ -304,10 +304,10 @@ file
 
 
 
-2009-12-11T15:40:39.000000Z
-c58cd84c2fea5db7470d6cf51f75d810
-2009-10-26T20:54:39.333354Z
-1262
+2010-02-27T21:02:09.000000Z
+b5d80aa461264c90f2a8bdf1860e91e9
+2010-01-12T18:02:08.715207Z
+1448
 francois
 has-props
 
@@ -330,7 +330,7 @@ has-props
 
 
 
-10730
+10794
 
 Database.php
 file

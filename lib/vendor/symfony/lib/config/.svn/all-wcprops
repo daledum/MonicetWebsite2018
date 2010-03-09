@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 39
-/!svn/ver/24962/branches/1.4/lib/config
+/!svn/ver/28366/branches/1.4/lib/config
 END
 sfAutoloadConfigHandler.class.php
 K 25
@@ -13,7 +13,7 @@ sfProjectConfiguration.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/!svn/ver/24039/branches/1.4/lib/config/sfProjectConfiguration.class.php
+/!svn/ver/27191/branches/1.4/lib/config/sfProjectConfiguration.class.php
 END
 sfViewConfigHandler.class.php
 K 25
@@ -61,7 +61,7 @@ sfGeneratorConfigHandler.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 74
-/!svn/ver/23932/branches/1.4/lib/config/sfGeneratorConfigHandler.class.php
+/!svn/ver/28366/branches/1.4/lib/config/sfGeneratorConfigHandler.class.php
 END
 sfRoutingConfigHandler.class.php
 K 25

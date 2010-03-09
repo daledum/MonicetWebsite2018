@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 38
-/!svn/ver/24533/branches/1.4/lib/addon
+/!svn/ver/27747/branches/1.4/lib/addon
 END
 sfPager.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 56
-/!svn/ver/24533/branches/1.4/lib/addon/sfPager.class.php
+/!svn/ver/27747/branches/1.4/lib/addon/sfPager.class.php
 END
 sfData.class.php
 K 25

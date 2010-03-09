@@ -11,10 +11,10 @@ body {
 
 #_div_page {
     width: 974px;
-    height: 517px;
+    height: 417px;
     background-image: url("/images/frontend/bg_monicet.png");
     margin: 0 auto;
-    padding-top: 203px;
+    padding-top: 175px;
 }
 
 #_img_logo_transparent {
@@ -26,7 +26,7 @@ body {
 }
 
 #_div_background {
-    height: 720px;
+    height: 613px;
     background-image: url("/images/frontend/bg_gradient.png");
     background-repeat: repeat-x;
 }
@@ -46,6 +46,39 @@ body {
     padding-bottom: 2px;
     margin-right: 8px;
     width: 50px;
+}
+
+input, textarea {
+    border: 1px solid #167b8b;
+    margin: 5px 10px;
+    padding: 5px 5px;
+    width: 400px;
+    color: #167b8b;
+}
+
+
+label {
+    font-weight: bold;
+    color: #167b8b;
+}
+
+textarea {
+    height: 120px;
+}
+
+button {
+    border: 1px solid #167b8b;
+    color: #167b8b;
+    font-weight: bold;
+    background-color: #dcedeb;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 5px 8px;
+}
+
+.flag {
+   width: 20px;
+   height: 14px;	
 }
 
 #_div_en_language {
@@ -138,7 +171,7 @@ body {
     text-align: right;
     font-weight: bold;
     font-size: 12px;
-    padding: 27px 11px 0 0;
+    padding: 25px 11px 0 0;
 }
 
 #_ul_main_menu li {
@@ -210,12 +243,19 @@ a:hover {
     text-align: justify;
     line-height: 18px;
     color: #0c333d;
-    padding: 12px;
+    padding: 5px;
 }
 
 h2 {
     color: #2d606d;
     font-size: 16px;
+    font-weight: bold;
+}
+
+h3 {
+    padding-top: 10px;
+    color: #2d606d;
+    font-size: 12px;
     font-weight: bold;
 }
 

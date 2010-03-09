@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 42
-/!svn/ver/23922/branches/1.4/lib/generator
+/!svn/ver/25459/branches/1.4/lib/generator
 END
 sfModelGeneratorConfiguration.class.php
 K 25
@@ -31,7 +31,7 @@ sfModelGenerator.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/!svn/ver/23881/branches/1.4/lib/generator/sfModelGenerator.class.php
+/!svn/ver/25459/branches/1.4/lib/generator/sfModelGenerator.class.php
 END
 sfModelGeneratorHelper.class.php
 K 25

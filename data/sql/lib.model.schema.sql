@@ -40,6 +40,124 @@ CREATE TABLE `option`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- news_article
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `news_article`;
+
+
+CREATE TABLE `news_article`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`is_published` TINYINT default 0 NOT NULL,
+	`slug` VARCHAR(255)  NOT NULL,
+	`image` VARCHAR(1024),
+	`enter_date` DATE,
+	`exit_date` DATE,
+	`publish_date` DATE  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `news_article_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- news_article_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `news_article_i18n`;
+
+
+CREATE TABLE `news_article_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`headline` VARCHAR(255)  NOT NULL,
+	`body` TEXT  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `news_article_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `news_article` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- consorcium_element
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `consorcium_element`;
+
+
+CREATE TABLE `consorcium_element`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255)  NOT NULL,
+	`logotype` VARCHAR(255),
+	`link` VARCHAR(500),
+	`slug` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `consorcium_element_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- consorcium_element_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `consorcium_element_i18n`;
+
+
+CREATE TABLE `consorcium_element_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` TEXT,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `consorcium_element_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `consorcium_element` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- team
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team`;
+
+
+CREATE TABLE `team`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`type` VARCHAR(255)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	`link` VARCHAR(1024),
+	`photo` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `team_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- team_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team_i18n`;
+
+
+CREATE TABLE `team_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`about` TEXT,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `team_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `team` (`id`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- company
 #-----------------------------------------------------------------------------
 
@@ -52,51 +170,42 @@ CREATE TABLE `company`
 	`name` VARCHAR(255)  NOT NULL,
 	`base_latitude` VARCHAR(45)  NOT NULL,
 	`base_longitude` VARCHAR(45)  NOT NULL,
+	`email` VARCHAR(255),
+	`url` VARCHAR(255),
+	`telephone` VARCHAR(255),
+	`mobile` VARCHAR(255),
+	`fax` VARCHAR(255),
+	`address` TEXT(255),
+	`island` VARCHAR(255),
+	`council` VARCHAR(255),
+	`locality` VARCHAR(255),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- guide
+#-- company_user
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `guide`;
+DROP TABLE IF EXISTS `company_user`;
 
 
-CREATE TABLE `guide`
+CREATE TABLE `company_user`
 (
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`company_id` INTEGER  NOT NULL,
-	`name` VARCHAR(255)  NOT NULL,
+	`user_id` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `guide_FI_1` (`company_id`),
-	CONSTRAINT `guide_FK_1`
+	PRIMARY KEY (`company_id`,`user_id`),
+	CONSTRAINT `company_user_FK_1`
 		FOREIGN KEY (`company_id`)
-		REFERENCES `company` (`id`)
-)Type=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- skipper
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `skipper`;
-
-
-CREATE TABLE `skipper`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`company_id` INTEGER  NOT NULL,
-	`name` VARCHAR(255)  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	INDEX `skipper_FI_1` (`company_id`),
-	CONSTRAINT `skipper_FK_1`
-		FOREIGN KEY (`company_id`)
-		REFERENCES `company` (`id`)
+		REFERENCES `company` (`id`),
+	INDEX `company_user_FI_2` (`user_id`),
+	CONSTRAINT `company_user_FK_2`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -146,11 +255,13 @@ CREATE TABLE `general_info`
 	INDEX `general_info_FI_2` (`skipper_id`),
 	CONSTRAINT `general_info_FK_2`
 		FOREIGN KEY (`skipper_id`)
-		REFERENCES `skipper` (`id`),
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE,
 	INDEX `general_info_FI_3` (`guide_id`),
 	CONSTRAINT `general_info_FK_3`
 		FOREIGN KEY (`guide_id`)
-		REFERENCES `guide` (`id`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -179,10 +290,12 @@ DROP TABLE IF EXISTS `sea_state`;
 CREATE TABLE `sea_state`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(255)  NOT NULL,
 	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `sea_state_U_1` (`code`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -216,6 +329,7 @@ CREATE TABLE `record`
 	`visibility_id` INTEGER  NOT NULL,
 	`sea_state_id` INTEGER  NOT NULL,
 	`general_info_id` INTEGER  NOT NULL,
+	`company_id` INTEGER  NOT NULL,
 	`time` TIME  NOT NULL,
 	`latitude` VARCHAR(255)  NOT NULL,
 	`longitude` VARCHAR(255)  NOT NULL,
@@ -238,7 +352,11 @@ CREATE TABLE `record`
 	INDEX `record_FI_4` (`general_info_id`),
 	CONSTRAINT `record_FK_4`
 		FOREIGN KEY (`general_info_id`)
-		REFERENCES `general_info` (`id`)
+		REFERENCES `general_info` (`id`),
+	INDEX `record_FI_5` (`company_id`),
+	CONSTRAINT `record_FK_5`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -325,9 +443,12 @@ CREATE TABLE `sighting`
 	`specie_id` INTEGER  NOT NULL,
 	`behaviour_id` INTEGER  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
-	`adults` INTEGER  NOT NULL,
-	`juveniles` INTEGER  NOT NULL,
-	`cubs` INTEGER  NOT NULL,
+	`adults` INTEGER default 0,
+	`juveniles` INTEGER default 0,
+	`cubs` INTEGER default 0,
+	`total` INTEGER,
+	`num_vessels` INTEGER default 0,
+	`description` VARCHAR(255),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -350,78 +471,43 @@ CREATE TABLE `sighting`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
-#-- news_article
+#-- user
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `news_article`;
+DROP TABLE IF EXISTS `user`;
 
 
-CREATE TABLE `news_article`
+CREATE TABLE `user`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`is_published` TINYINT default 0 NOT NULL,
-	`slug` VARCHAR(255)  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `news_article_U_1` (`slug`)
-)Type=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- news_article_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `news_article_i18n`;
-
-
-CREATE TABLE `news_article_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`headline` VARCHAR(255)  NOT NULL,
-	`body` TEXT  NOT NULL,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `news_article_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `news_article` (`id`)
-)Type=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- consorcium_element
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `consorcium_element`;
-
-
-CREATE TABLE `consorcium_element`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`user_id` INTEGER  NOT NULL,
 	`name` VARCHAR(255)  NOT NULL,
-	`logotype` VARCHAR(255),
-	`link` VARCHAR(500),
-	`slug` VARCHAR(255)  NOT NULL,
+	`lastname` VARCHAR(255)  NOT NULL,
+	`birthday` DATE,
+	`bi` VARCHAR(30),
+	`nif` VARCHAR(30),
+	`country` VARCHAR(255) default 'PT',
+	`island` VARCHAR(255),
+	`county` VARCHAR(255),
+	`locality` VARCHAR(255),
+	`address` VARCHAR(255),
+	`zipcode` VARCHAR(8),
+	`telephone` VARCHAR(30),
+	`mobile` VARCHAR(30),
+	`email` VARCHAR(255),
+	`url` VARCHAR(255),
+	`lang` VARCHAR(255) default 'pt',
+	`photo` VARCHAR(255),
+	`situation` VARCHAR(255),
+	`observations` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `consorcium_element_U_1` (`slug`)
-)Type=InnoDB;
-
-#-----------------------------------------------------------------------------
-#-- consorcium_element_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `consorcium_element_i18n`;
-
-
-CREATE TABLE `consorcium_element_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`description` TEXT,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `consorcium_element_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `consorcium_element` (`id`)
+	INDEX `user_FI_1` (`user_id`),
+	CONSTRAINT `user_FK_1`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 # This restores the fkey checks, after having unset them earlier

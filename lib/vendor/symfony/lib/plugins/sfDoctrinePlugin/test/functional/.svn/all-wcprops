@@ -1,25 +1,25 @@
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/!svn/ver/24972/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional
+/!svn/ver/28260/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional
 END
 AdminGenBrowser.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 99
-/!svn/ver/23912/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/AdminGenBrowser.class.php
+/!svn/ver/28260/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/AdminGenBrowser.class.php
 END
 FormGeneratorTest.php
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/!svn/ver/24294/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/FormGeneratorTest.php
+/!svn/ver/27742/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/FormGeneratorTest.php
 END
 PagerTest.php
 K 25
 svn:wc:ra_dav:version-url
 V 87
-/!svn/ver/23881/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/PagerTest.php
+/!svn/ver/27747/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/PagerTest.php
 END
 RouteTest.php
 K 25

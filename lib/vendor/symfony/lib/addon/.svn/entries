@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/addon
 http://svn.symfony-project.com
 
 
 
-2009-11-29T15:58:01.774223Z
-24533
+2010-02-08T18:02:19.568173Z
+27747
 Kris.Wallsmith
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2009-12-11T15:40:22.000000Z
-6c217cbe5881513e9560fa623910e17b
-2009-11-29T15:58:01.774223Z
-24533
+2010-02-27T21:01:56.000000Z
+c39193ad19f5149b365ededa41e46142
+2010-02-08T18:02:19.568173Z
+27747
 Kris.Wallsmith
 has-props
 
@@ -58,7 +58,7 @@ has-props
 
 
 
-10430
+10821
 
 sfData.class.php
 file

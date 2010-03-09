@@ -1,5 +1,8 @@
-./web/uploads
+./web/uploads/*
 ./config/database.yml
 ./config/propel.ini
 ./cache
 ./log
+./.buildpath
+./.project
+./.settings

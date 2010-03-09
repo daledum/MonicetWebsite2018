@@ -8,7 +8,6 @@
  * @package    monicet
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseSightingForm extends BaseFormPropel
 {
@@ -23,6 +22,9 @@ abstract class BaseSightingForm extends BaseFormPropel
       'adults'         => new sfWidgetFormInputText(),
       'juveniles'      => new sfWidgetFormInputText(),
       'cubs'           => new sfWidgetFormInputText(),
+      'total'          => new sfWidgetFormInputText(),
+      'num_vessels'    => new sfWidgetFormInputText(),
+      'description'    => new sfWidgetFormInputText(),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -33,9 +35,12 @@ abstract class BaseSightingForm extends BaseFormPropel
       'specie_id'      => new sfValidatorPropelChoice(array('model' => 'Specie', 'column' => 'id')),
       'behaviour_id'   => new sfValidatorPropelChoice(array('model' => 'Behaviour', 'column' => 'id')),
       'association_id' => new sfValidatorPropelChoice(array('model' => 'Association', 'column' => 'id')),
-      'adults'         => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'juveniles'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'cubs'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
+      'adults'         => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'juveniles'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'cubs'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'total'          => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'num_vessels'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'description'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));

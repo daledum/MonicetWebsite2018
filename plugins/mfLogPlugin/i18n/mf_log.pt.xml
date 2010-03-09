@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd" >
+<xliff version="1.0">
+  <file original="global" source-language="en" datatype="plaintext">
+    <header />
+    <body>
+      <!-- Geral -->
+      <trans-unit id="1">
+        <source>Required.</source>
+        <target>Campo obrigatório.</target>
+      </trans-unit>
+      <trans-unit id="2">
+        <source>Invalid.</source>
+        <target>Campo inválido.</target>
+      </trans-unit>
+      <trans-unit id="3">
+        <source>"%value%" is not an integer.</source>
+        <target>Campo inválido. "%value%" não é um número inteiro.</target>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>is empty</source>
+        <target>é nulo?</target>
+      </trans-unit>
+      <trans-unit id="5">
+        <source>from</source>
+        <target>de</target>
+      </trans-unit>
+      <trans-unit id="6">
+        <source>to</source>
+        <target>até</target>
+      </trans-unit>
+      
+      <!-- Filters -->
+      <trans-unit id="100">
+        <source>Created at</source>
+        <target>Data da ocorrência</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,8 @@
+mf_formulario:
+  class: sfPropelRouteCollection
+  options:
+    model:                mfFormulario
+    module:               mfFormulario
+    prefix_path:          /formulario
+    column:               id
+    with_wildcard_routes: true

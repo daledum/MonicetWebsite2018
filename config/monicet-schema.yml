@@ -4,20 +4,21 @@ propel:
       name:             { type: varchar(255), required: true }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
+      email:            { type: varchar, size: 255 }
+      url:              { type: varchar, size: 255 }
+      telephone:        { type: varchar, size: 255 }
+      mobile:           { type: varchar, size: 255 }
+      fax:              { type: varchar, size: 255 }
+      address:          { type: longvarchar, size: 255 }
+      island:           { type: varchar, size: 255 }
+      council:          { type: varchar, size: 255 }
+      locality:         { type: varchar, size: 255 }
       created_at:       ~
       updated_at:       ~
-
-   guide:
-      id:               ~
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
-      name:             { type: varchar(255), required: true }
-      created_at:       ~
-      updated_at:       ~
-
-   skipper:
-      id:               ~
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
-      name:             { type: varchar(255), required: true }
+  
+   company_user:
+      company_id:       { type: integer, primaryKey: true, foreignTable: company, foreignReference: id, required: true }
+      user_id:          { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
 
@@ -31,8 +32,8 @@ propel:
    general_info:
       id:               ~
       vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: true }
-      skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: true }
-      guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: true }
+      skipper_id:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      guide_id:         { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       date:             { type: date, required: true }
@@ -46,8 +47,9 @@ propel:
       updated_at:       ~
 
    sea_state:
-      id:
-      description:      { type: varchar(255), required: true }
+      id:               ~
+      code:             { type: varchar, size: 255, required: true, index: unique }
+      description:      { type: varchar, size: 255, required: true }
       created_at:       ~
       updated_at:       ~
 
@@ -104,13 +106,37 @@ propel:
       specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true }
       behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true }
       association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true }
-      adults:           { type: integer, required: true }
-      juveniles:        { type: integer, required: true }
-      cubs:             { type: integer, required: true }
+      adults:           { type: integer, default: 0, required: false }
+      juveniles:        { type: integer, default: 0, required: false }
+      cubs:             { type: integer, default: 0, required: false }
+      total:            { type: integer, required: false }
+      num_vessels:      { type: integer, default: 0, required: false }
+      description:      { type: varchar, size: 255, required: false }
       created_at:       ~
       updated_at:       ~
-   user:
-      id:               ~
-      sf_guard_user_id: { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true }
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
 
+   user:
+      _attributes:        { phpName: User }
+      id:                 ~
+      user_id:            { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      name:               { type: varchar, size: 255, required: true }
+      lastname:           { type: varchar, size: 255, required: true }
+      birthday:           { type: date }
+      bi:                 { type: varchar, size: 30 }
+      nif:                { type: varchar, size: 30 }
+      country:            { type: varchar, size: 255, default: 'PT' }
+      island:             { type: varchar, size: 255 }
+      county:             { type: varchar, size: 255 }
+      locality:           { type: varchar, size: 255 }
+      address:            { type: varchar, size: 255 }
+      zipcode:            { type: varchar, size: 8 }
+      telephone:          { type: varchar, size: 30 }
+      mobile:             { type: varchar, size: 30 }
+      email:              { type: varchar, size: 255 }
+      url:                { type: varchar, size: 255 }
+      lang:               { type: varchar, size: 255, default: 'pt' }
+      photo:              { type: varchar, size: 255 }
+      situation:          { type: varchar, size: 255 }
+      observations:       { type: longvarchar }
+      created_at:         ~
+      updated_at:         ~

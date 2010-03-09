@@ -1,0 +1,1 @@
+<p><?php echo __('ocorreu_erro_404') ?></p>

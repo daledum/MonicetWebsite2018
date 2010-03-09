@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+	ul.dropdown li {
+	 display: block;
+	 padding: 0 !important;
+	 height: 35px;
+	 line-height: 35px;
+	}
+
+	ul.dropdown *.dir {
+	 background-image: none;
+	 background-position: 100% 50%;
+	 background-repeat: no-repeat;
+	}
+
+		/* Non-first level */
+		ul.dropdown ul *.dir {
+		 background-image: url(images/nav-arrow-right.png);
+		 background-position: 100% 50%;
+		 background-repeat: no-repeat;
+		}
+
+		ul.dropdown ul ul *.dir {
+		 background-image: url(images/nav-arrow-right2.png);
+		}
+
+/*------------------------------------------------------------------------------------------------------/
+	@section	Base Drop-Down Styling  */
+
+		ul.dropdown li {
+		 background: #000 url('/mfAdministracaoPlugin/images/layout/menu_item_bg.jpg') repeat-x;
+		 color: #ddd;
+		}
+
+		ul.dropdown li:hover,
+		ul.dropdown li.hover {
+		  /*
+		  background-color: red !important;
+		  background-image: none;
+		  */
+		}
+    
+		/* Links */
+
+		ul.dropdown a:link,
+		ul.dropdown a:visited { 
+		 color: #4688d2;
+		 color: #5b8638;
+		 text-decoration: none;
+		 padding: 0 15px !important;
+		}
+		ul.dropdown a:hover {
+		 border: none;
+		 color: #ddd;
+		 margin: 0 !important;
+		}
+
+		ul.dropdown ul a.dir:hover { /* proposal */
+		 background-image: url(images/comnav-arrowon.png);
+		 color: #fff;
+		}
+
+		ul.dropdown a:active {
+		 color: #fff;
+		}
+
+		/* NON-FIRST LEVEL */
+		ul.dropdown ul {
+		 left: -2px;
+		 width: 250px;
+		 margin-top: 0;
+		 border-left: 2px solid #444;
+		}
+
+			ul.dropdown ul li {
+			 height: 32px;
+			 line-height: 32px;
+			 border: 1px solid #333;
+			 color: #ccc;
+			}
+			
+      ul.dropdown ul li:hover,
+      ul.dropdown ul li.hover {
+       background-color: #4A7ABC !important;
+      }
+
+		ul.dropdown ul ul {
+		 top: 0;
+		 left: 99.5%;
+		 margin-top: 0;
+		 border: none;
+		 font-weight: normal;
+		}
+		
+/* Mixed */
+ul.dropdown li a,
+ul.dropdown *.dir {
+ border: none;
+}

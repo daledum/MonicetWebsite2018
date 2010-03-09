@@ -8,7 +8,6 @@
  * @package    monicet
  * @subpackage form
  * @author     Your name here
- * @version    SVN: $Id: sfPropelFormGeneratedTemplate.php 24171 2009-11-19 16:37:50Z Kris.Wallsmith $
  */
 abstract class BaseSeaStateForm extends BaseFormPropel
 {
@@ -16,6 +15,7 @@ abstract class BaseSeaStateForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'          => new sfWidgetFormInputHidden(),
+      'code'        => new sfWidgetFormInputText(),
       'description' => new sfWidgetFormInputText(),
       'created_at'  => new sfWidgetFormDateTime(),
       'updated_at'  => new sfWidgetFormDateTime(),
@@ -23,10 +23,15 @@ abstract class BaseSeaStateForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'SeaState', 'column' => 'id', 'required' => false)),
+      'code'        => new sfValidatorString(array('max_length' => 255)),
       'description' => new sfValidatorString(array('max_length' => 255)),
       'created_at'  => new sfValidatorDateTime(array('required' => false)),
       'updated_at'  => new sfValidatorDateTime(array('required' => false)),
     ));
+
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'SeaState', 'column' => array('code')))
+    );
 
     $this->widgetSchema->setNameFormat('sea_state[%s]');
 

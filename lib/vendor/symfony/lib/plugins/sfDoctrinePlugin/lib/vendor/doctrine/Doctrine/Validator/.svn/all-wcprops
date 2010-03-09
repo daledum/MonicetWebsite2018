@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 50
-/!svn/ver/6498/branches/1.2/lib/Doctrine/Validator
+/!svn/ver/7281/branches/1.2/lib/Doctrine/Validator
 END
 Regexp.php
 K 25
@@ -9,17 +9,17 @@ svn:wc:ra_dav:version-url
 V 61
 /!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Regexp.php
 END
-Notnull.php
-K 25
-svn:wc:ra_dav:version-url
-V 62
-/!svn/ver/5900/branches/1.2/lib/Doctrine/Validator/Notnull.php
-END
 Driver.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
 /!svn/ver/6480/branches/1.2/lib/Doctrine/Validator/Driver.php
+END
+Notnull.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/5900/branches/1.2/lib/Doctrine/Validator/Notnull.php
 END
 Range.php
 K 25
@@ -27,23 +27,23 @@ svn:wc:ra_dav:version-url
 V 60
 /!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Range.php
 END
-Exception.php
-K 25
-svn:wc:ra_dav:version-url
-V 64
-/!svn/ver/5900/branches/1.2/lib/Doctrine/Validator/Exception.php
-END
 Time.php
 K 25
 svn:wc:ra_dav:version-url
 V 59
 /!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Time.php
 END
-Htmlcolor.php
+Exception.php
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Htmlcolor.php
+/!svn/ver/5900/branches/1.2/lib/Doctrine/Validator/Exception.php
+END
+Timestamp.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Timestamp.php
 END
 Country.php
 K 25
@@ -51,11 +51,11 @@ svn:wc:ra_dav:version-url
 V 62
 /!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Country.php
 END
-Timestamp.php
+Htmlcolor.php
 K 25
 svn:wc:ra_dav:version-url
 V 64
-/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Timestamp.php
+/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Htmlcolor.php
 END
 Creditcard.php
 K 25
@@ -75,17 +75,17 @@ svn:wc:ra_dav:version-url
 V 59
 /!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Past.php
 END
+Ip.php
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/!svn/ver/7281/branches/1.2/lib/Doctrine/Validator/Ip.php
+END
 Notblank.php
 K 25
 svn:wc:ra_dav:version-url
 V 63
 /!svn/ver/5900/branches/1.2/lib/Doctrine/Validator/Notblank.php
-END
-Ip.php
-K 25
-svn:wc:ra_dav:version-url
-V 57
-/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Ip.php
 END
 Future.php
 K 25
@@ -127,7 +127,7 @@ Email.php
 K 25
 svn:wc:ra_dav:version-url
 V 60
-/!svn/ver/6468/branches/1.2/lib/Doctrine/Validator/Email.php
+/!svn/ver/7254/branches/1.2/lib/Doctrine/Validator/Email.php
 END
 Nospace.php
 K 25

@@ -41,5 +41,10 @@ all:
     use_database:           true
     default_culture:        pt
     i18n:                   true
-    enabled_modules:        [default, sfGuardAuth]
+    enabled_modules:
+      - default
+      - mfFormulario
+      - mfLog
+      - mfMenu
+      - sfGuardAuth
     standard_helpers:       [Partial, Cache, I18N]

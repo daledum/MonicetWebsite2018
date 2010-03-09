@@ -1,15 +1,15 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/validator
 http://svn.symfony-project.com
 
 
 
-2009-12-01T00:19:33.871860Z
-24628
-Kris.Wallsmith
+2010-01-19T10:43:09.525881Z
+26871
+fabien
 
 
 
@@ -69,11 +69,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-4e37b197aadad7f2f280dcae05ebc31c
-2009-11-12T11:07:44.003356Z
-23810
-Kris.Wallsmith
+2010-02-27T21:01:53.000000Z
+10d4d17740013e394413338e4f1b4627
+2010-01-06T07:47:56.703611Z
+26264
+fabien
 has-props
 
 
@@ -95,7 +95,7 @@ has-props
 
 
 
-23846
+23910
 
 sfValidatorNumber.class.php
 file
@@ -817,11 +817,11 @@ file
 
 
 
-2009-12-11T15:40:16.000000Z
-00d14b769e1b5f56e8e0996b8514cfbc
-2009-12-01T00:19:33.871860Z
-24628
-Kris.Wallsmith
+2010-02-27T21:01:53.000000Z
+c604a601021d1e94b93c8aad32748e8c
+2010-01-19T10:43:09.525881Z
+26871
+fabien
 has-props
 
 
@@ -843,7 +843,7 @@ has-props
 
 
 
-7927
+7916
 
 sfValidatorFile.class.php
 file

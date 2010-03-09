@@ -1,14 +1,14 @@
 10
 
 dir
-25259
+28369
 http://svn.symfony-project.com/branches/1.4/lib/plugins/sfDoctrinePlugin/test/functional/fixtures/lib/model/doctrine
 http://svn.symfony-project.com
 
 
 
-2009-12-05T14:28:15.157258Z
-24970
+2010-02-08T15:46:35.227110Z
+27742
 Kris.Wallsmith
 
 
@@ -910,6 +910,40 @@ has-props
 
 127
 
+ResourceType.class.php
+file
+
+
+
+
+2010-02-27T21:01:54.000000Z
+5f0546169722650487d081b354ed84ec
+2010-02-08T15:46:35.227110Z
+27742
+Kris.Wallsmith
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+323
+
 FormGeneratorTest2.class.php
 file
 
@@ -1113,6 +1147,40 @@ has-props
 
 
 56
+
+ResourceTypeTable.class.php
+file
+
+
+
+
+2010-02-27T21:01:54.000000Z
+e399631c07c20697e306cf5abd9cd872
+2010-02-08T15:46:35.227110Z
+27742
+Kris.Wallsmith
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+58
 
 ModelFromLinkedSchemaTable.class.php
 file

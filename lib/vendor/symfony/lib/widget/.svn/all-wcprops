@@ -1,19 +1,19 @@
 K 25
 svn:wc:ra_dav:version-url
 V 39
-/!svn/ver/24963/branches/1.4/lib/widget
-END
-sfWidgetFormInputText.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 71
-/!svn/ver/23881/branches/1.4/lib/widget/sfWidgetFormInputText.class.php
+/!svn/ver/27738/branches/1.4/lib/widget
 END
 sfWidgetFormSelectMany.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 72
 /!svn/ver/23881/branches/1.4/lib/widget/sfWidgetFormSelectMany.class.php
+END
+sfWidgetFormInputText.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/!svn/ver/23881/branches/1.4/lib/widget/sfWidgetFormInputText.class.php
 END
 sfWidgetFormFilterInput.class.php
 K 25
@@ -33,29 +33,29 @@ svn:wc:ra_dav:version-url
 V 73
 /!svn/ver/23881/branches/1.4/lib/widget/sfWidgetFormInputHidden.class.php
 END
-sfWidgetFormDate.class.php
-K 25
-svn:wc:ra_dav:version-url
-V 66
-/!svn/ver/24605/branches/1.4/lib/widget/sfWidgetFormDate.class.php
-END
 sfWidgetFormTextarea.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 70
 /!svn/ver/23881/branches/1.4/lib/widget/sfWidgetFormTextarea.class.php
 END
-sfWidgetForm.class.php
+sfWidgetFormDate.class.php
 K 25
 svn:wc:ra_dav:version-url
-V 62
-/!svn/ver/24137/branches/1.4/lib/widget/sfWidgetForm.class.php
+V 66
+/!svn/ver/24605/branches/1.4/lib/widget/sfWidgetFormDate.class.php
 END
 sfWidgetFormSelect.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 68
 /!svn/ver/23994/branches/1.4/lib/widget/sfWidgetFormSelect.class.php
+END
+sfWidgetForm.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/!svn/ver/24137/branches/1.4/lib/widget/sfWidgetForm.class.php
 END
 sfWidgetFormSchemaFormatterList.class.php
 K 25
@@ -91,7 +91,7 @@ sfWidgetFormSelectCheckbox.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 76
-/!svn/ver/23994/branches/1.4/lib/widget/sfWidgetFormSelectCheckbox.class.php
+/!svn/ver/27738/branches/1.4/lib/widget/sfWidgetFormSelectCheckbox.class.php
 END
 sfWidgetFormSchemaForEach.class.php
 K 25
@@ -139,7 +139,7 @@ sfWidgetFormSelectRadio.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/!svn/ver/23994/branches/1.4/lib/widget/sfWidgetFormSelectRadio.class.php
+/!svn/ver/27738/branches/1.4/lib/widget/sfWidgetFormSelectRadio.class.php
 END
 sfWidgetFormTime.class.php
 K 25
@@ -163,7 +163,7 @@ sfWidgetFormSchema.class.php
 K 25
 svn:wc:ra_dav:version-url
 V 68
-/!svn/ver/24963/branches/1.4/lib/widget/sfWidgetFormSchema.class.php
+/!svn/ver/26870/branches/1.4/lib/widget/sfWidgetFormSchema.class.php
 END
 sfWidgetFormSchemaDecorator.class.php
 K 25

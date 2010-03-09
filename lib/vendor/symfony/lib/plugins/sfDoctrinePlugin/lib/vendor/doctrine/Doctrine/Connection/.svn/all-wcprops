@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 51
-/!svn/ver/6795/branches/1.2/lib/Doctrine/Connection
+/!svn/ver/7293/branches/1.2/lib/Doctrine/Connection
 END
 Mock.php
 K 25
@@ -19,7 +19,7 @@ Mssql.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/!svn/ver/6795/branches/1.2/lib/Doctrine/Connection/Mssql.php
+/!svn/ver/7293/branches/1.2/lib/Doctrine/Connection/Mssql.php
 END
 Sqlite.php
 K 25
@@ -43,7 +43,7 @@ Mysql.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/!svn/ver/6484/branches/1.2/lib/Doctrine/Connection/Mysql.php
+/!svn/ver/7268/branches/1.2/lib/Doctrine/Connection/Mysql.php
 END
 Oracle.php
 K 25
@@ -61,13 +61,13 @@ Pgsql.php
 K 25
 svn:wc:ra_dav:version-url
 V 61
-/!svn/ver/6026/branches/1.2/lib/Doctrine/Connection/Pgsql.php
+/!svn/ver/7268/branches/1.2/lib/Doctrine/Connection/Pgsql.php
 END
 UnitOfWork.php
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/!svn/ver/6690/branches/1.2/lib/Doctrine/Connection/UnitOfWork.php
+/!svn/ver/7291/branches/1.2/lib/Doctrine/Connection/UnitOfWork.php
 END
 Db2.php
 K 25

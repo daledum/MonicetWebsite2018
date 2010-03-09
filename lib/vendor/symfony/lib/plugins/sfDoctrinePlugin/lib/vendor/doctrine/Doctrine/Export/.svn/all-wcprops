@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 47
-/!svn/ver/6896/branches/1.2/lib/Doctrine/Export
+/!svn/ver/7289/branches/1.2/lib/Doctrine/Export
 END
 Exception.php
 K 25
@@ -37,17 +37,17 @@ Mysql.php
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/!svn/ver/6624/branches/1.2/lib/Doctrine/Export/Mysql.php
+/!svn/ver/7289/branches/1.2/lib/Doctrine/Export/Mysql.php
 END
 Oracle.php
 K 25
 svn:wc:ra_dav:version-url
 V 58
-/!svn/ver/6896/branches/1.2/lib/Doctrine/Export/Oracle.php
+/!svn/ver/6946/branches/1.2/lib/Doctrine/Export/Oracle.php
 END
 Pgsql.php
 K 25
 svn:wc:ra_dav:version-url
 V 57
-/!svn/ver/6498/branches/1.2/lib/Doctrine/Export/Pgsql.php
+/!svn/ver/7278/branches/1.2/lib/Doctrine/Export/Pgsql.php
 END

@@ -1,6 +1,6 @@
 <?php
 /*
- *  $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $
+ *  $Id: Builder.php 7294 2010-03-02 17:59:20Z jwage $
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -30,7 +30,7 @@
  * @link        www.phpdoctrine.org
  * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @since       1.0
- * @version     $Revision: 6820 $
+ * @version     $Revision: 7294 $
  * @author      Konsta Vesterinen <kvesteri@cc.hut.fi>
  * @author      Jukka Hassinen <Jukka.Hassinen@BrainAlliance.com>
  * @author      Nicolas Bérard-Nault <nicobn@php.net>
@@ -508,9 +508,25 @@ class Doctrine_Import_Builder extends Doctrine_Builder
      */
     public function buildColumns(array $columns)
     {
+        $manager = Doctrine_Manager::getInstance();
+        $refl = new ReflectionClass($this->_baseClassName);
+
         $build = null;
         foreach ($columns as $name => $column) {
             $columnName = isset($column['name']) ? $column['name']:$name;
+            if ($manager->getAttribute(Doctrine_Core::ATTR_AUTO_ACCESSOR_OVERRIDE)) {
+                $e = explode(' as ', $columnName);
+                $fieldName = isset($e[1]) ? $e[1] : $e[0];
+                $classified = Doctrine_Inflector::classify($fieldName);
+                $getter = 'get' . $classified;
+                $setter = 'set' . $classified;
+
+                if ($refl->hasMethod($getter) || $refl->hasMethod($setter)) {
+                    throw new Doctrine_Import_Exception(
+                        sprintf('When using the attribute ATTR_AUTO_ACCESSOR_OVERRIDE you cannot use the field name "%s" because it is reserved by Doctrine. You must choose another field name.', $fieldName)
+                    );
+                }
+            }
             $build .= "        ".'$this->hasColumn(\'' . $columnName . '\', \'' . $column['type'] . '\'';
 
             if ($column['length']) {
@@ -646,7 +662,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
         $ret[] = '@package    ' . $this->_phpDocPackage;
         $ret[] = '@subpackage ' . $this->_phpDocSubpackage;
         $ret[] = '@author     ' . $this->_phpDocName . ' <' . $this->_phpDocEmail . '>';
-        $ret[] = '@version    SVN: $Id: Builder.php 6820 2009-11-30 17:27:49Z jwage $';
+        $ret[] = '@version    SVN: $Id: Builder.php 7294 2010-03-02 17:59:20Z jwage $';
 
         $ret = ' * ' . implode(PHP_EOL . ' * ', $ret);
         $ret = ' ' . trim($ret);
@@ -725,7 +741,15 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     {
         // rewrite special case of actAs: [Behavior] which gave [0] => Behavior
         if (is_array($actAs) && isset($actAs[0]) && !is_array($actAs[0])) {
-            $actAs = array_flip($actAs);
+            $tmp = array();
+            foreach ($actAs as $key => $value) {
+                if (is_numeric($key)) {
+                    $tmp[(string)$value] = null;
+                } else {
+                    $tmp[$key] = $value;
+                }
+            }
+            $actAs = $tmp;
         }
 
         $build = '';
@@ -796,7 +820,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
             }
 
             $useOptions = ( ! empty($options) && isset($options['useOptions']) && $options['useOptions'] == true) 
-                ? '$this->getOptions()' : 'array()';
+                ? '$this->getTable()->getOptions()' : 'array()';
             $class = ( ! empty($options) && isset($options['class'])) ? $options['class'] : $name;
 
             $build .= "    \$this->addListener(new " . $class . "(" . $useOptions . "), '" . $name . "');" . PHP_EOL;
@@ -981,7 +1005,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
             }
 
             $baseClass = $definition;
-            $baseClass['className'] = $this->_baseClassPrefix . $baseClass['className'];
+            $baseClass['className'] = $this->_getBaseClassName($baseClass['className']);
             $baseClass['abstract'] = true;
             $baseClass['override_parent'] = false;
             $baseClass['is_base_class'] = true;
@@ -996,6 +1020,11 @@ class Doctrine_Import_Builder extends Doctrine_Builder
         } else {
             $this->writeDefinition($definition);
         }
+    }
+
+    protected function _getBaseClassName($className)
+    {
+        return $this->_baseClassPrefix . $className;
     }
 
     public function buildTableClassDefinition($className, $options = array())
@@ -1056,6 +1085,28 @@ class Doctrine_Import_Builder extends Doctrine_Builder
     }
 
     /**
+     * Return the file name of the class to be generated.
+     *
+     * @param string $originalClassName
+     * @param array $definition
+     * @return string
+     */
+    protected function _getFileName($originalClassName, $definition)
+    {
+        if ($this->_classPrefixFiles) {
+            $fileName = $definition['className'] . $this->_suffix;
+        } else {
+            $fileName = $originalClassName . $this->_suffix;
+        }
+
+        if ($this->_pearStyle) {
+            $fileName = str_replace('_', '/', $fileName);
+        }
+
+        return $fileName;
+    }
+
+    /**
      * writeDefinition
      *
      * @param array $options
@@ -1089,15 +1140,7 @@ class Doctrine_Import_Builder extends Doctrine_Builder
             $definitionCode = str_replace("'refClass' => '", "'refClass' => '$prefix", $definitionCode);
         }
 
-        if ($this->_classPrefixFiles) { 
-            $fileName = $definition['className'] . $this->_suffix; 
-        } else { 
-            $fileName = $originalClassName . $this->_suffix; 
-        }
-
-        if ($this->_pearStyle) {
-            $fileName = str_replace('_', '/', $fileName);
-        }
+        $fileName = $this->_getFileName($originalClassName, $definition);
 
         $packagesPath = $this->_packagesPath ? $this->_packagesPath:$this->_path;
 

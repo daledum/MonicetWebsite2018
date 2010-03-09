@@ -17,5 +17,10 @@
  * @package    lib.model
  */
 class ConsorciumElementPeer extends BaseConsorciumElementPeer {
-
+  public static function doSelectAll()
+  {
+  	$c = new Criteria();
+    $c->addAscendingOrderByColumn(ConsorciumElementPeer::NAME);
+    return self::doSelectWithI18n($c);
+  }
 } // ConsorciumElementPeer

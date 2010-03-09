@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 45
-/!svn/ver/24396/branches/1.4/test/unit/helper
+/!svn/ver/26681/branches/1.4/test/unit/helper
 END
 EscapingHelperTest.php
 K 25
@@ -61,5 +61,5 @@ NumberHelperTest.php
 K 25
 svn:wc:ra_dav:version-url
 V 66
-/!svn/ver/23881/branches/1.4/test/unit/helper/NumberHelperTest.php
+/!svn/ver/26681/branches/1.4/test/unit/helper/NumberHelperTest.php
 END

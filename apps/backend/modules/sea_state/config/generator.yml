@@ -16,7 +16,7 @@ generator:
       actions: ~
       fields:  ~
       list:
-        display:           [description]
+        display:           [code, description]
       filter:  ~
       form:    ~
       edit:    ~

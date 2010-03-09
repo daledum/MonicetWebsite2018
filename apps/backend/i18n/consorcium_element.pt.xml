@@ -51,8 +51,8 @@
         <target>Descritivo</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>remove the current file</source>
+        <target>Apagar imagem?</target>
       </trans-unit>
       <trans-unit>
         <source></source>
