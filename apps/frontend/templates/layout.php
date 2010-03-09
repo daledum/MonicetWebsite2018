@@ -9,7 +9,7 @@
     <?php include_javascripts() ?>
   </head>
   <body>
-    <!--  <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>-->
+    <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
 	        <img id="_img_logo_transparent" src="/images/frontend/logo_transparent.png" alt="" usemap="#logo_map"/>
