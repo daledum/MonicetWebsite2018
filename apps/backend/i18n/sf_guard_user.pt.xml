@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>Utilizador List</source>
-        <target>A listar os Utilizadores</target>
+        <target>A listar os utilizadores</target>
       </trans-unit>
       <trans-unit>
         <source>Edit Utilizador</source>
-        <target>A editar um Utilizador</target>
+        <target>A editar um utilizador</target>
       </trans-unit>
       <trans-unit>
         <source>New Utilizador</source>
-        <target>A adicionar novo Utilizador</target>
+        <target>A adicionar novo utilizador</target>
       </trans-unit>
       <trans-unit>
         <source>Username</source>

@@ -1,3 +1,12 @@
+team:
+  class: sfPropelRouteCollection
+  options:
+    model:                Team
+    module:               team
+    prefix_path:          /team
+    column:               id
+    with_wildcard_routes: true
+
 sf_guard_user:
   class: sfPropelRouteCollection
   options:

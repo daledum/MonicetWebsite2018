@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>Vessel List</source>
-        <target>A listar Barcos</target>
+        <target>A listar barcos</target>
       </trans-unit>
       <trans-unit>
         <source>Edit Vessel</source>
-        <target>A editar Barcos</target>
+        <target>A editar barcos</target>
       </trans-unit>
       <trans-unit>
         <source>New Vessel</source>
-        <target>A adicionar novo Barco</target>
+        <target>A adicionar novo barco</target>
       </trans-unit>
       <trans-unit>
         <source>Vessels</source>

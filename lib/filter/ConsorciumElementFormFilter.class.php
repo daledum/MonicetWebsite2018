@@ -14,7 +14,7 @@ class ConsorciumElementFormFilter extends BaseConsorciumElementFormFilter
   {
   	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('consorcium_element');
     unset(
-      $this['created_at'], $this['updated_at'], $this['slug']
+      $this['created_at'], $this['updated_at'], $this['slug'], $this['logotype']
     );
   }
 }

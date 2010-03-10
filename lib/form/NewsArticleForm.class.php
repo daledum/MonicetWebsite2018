@@ -20,6 +20,29 @@ class NewsArticleForm extends BaseNewsArticleForm
     $this->widgetSchema['exit_date']->setOption('format', '%year%-%month%-%day%');
     $this->widgetSchema['publish_date']->setOption('format', '%year%-%month%-%day%');
     
+    $this->widgetSchema['image'] = new sfWidgetFormInputFileEditable(array(
+      'is_image' => true,
+      'file_src' => sfConfig::get('sf_upload_dir').'/news/'.$this->getObject()->getImage(),
+      'edit_mode' => ! $this->getObject()->isNew()
+    ));
+    $this->validatorSchema['image'] = new sfValidatorFile(array(
+      'required' => false,
+      'path' => sfConfig::get('sf_upload_dir').'/news',
+      'mime_categories' => 'web_images',
+      'mime_type_guessers' => array(
+        array(new sfValidatorFile(), 'guessFromMimeContentType'),
+        array(new sfValidatorFile(), 'guessFromFileinfo'),
+        array(new sfValidatorFile(), 'guessFromFileBinary'),
+      )
+    ));
+    $this->validatorSchema['image_delete'] = new sfValidatorPass();
+    
+    if( $this->getObject()->isNew() ){
+    	$this->setDefaults(array(
+    	  'publish_date' => time()
+    	));
+    }
+
     $this->embedI18n(array('pt', 'en'));
   }
 }
