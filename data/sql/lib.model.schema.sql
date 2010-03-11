@@ -82,7 +82,8 @@ CREATE TABLE `company_user`
 	PRIMARY KEY (`company_id`,`user_id`),
 	CONSTRAINT `company_user_FK_1`
 		FOREIGN KEY (`company_id`)
-		REFERENCES `company` (`id`),
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE,
 	INDEX `company_user_FI_2` (`user_id`),
 	CONSTRAINT `company_user_FK_2`
 		FOREIGN KEY (`user_id`)
@@ -109,6 +110,7 @@ CREATE TABLE `vessel`
 	CONSTRAINT `vessel_FK_1`
 		FOREIGN KEY (`company_id`)
 		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -222,23 +224,28 @@ CREATE TABLE `record`
 	INDEX `record_FI_1` (`code_id`),
 	CONSTRAINT `record_FK_1`
 		FOREIGN KEY (`code_id`)
-		REFERENCES `code` (`id`),
+		REFERENCES `code` (`id`)
+		ON DELETE CASCADE,
 	INDEX `record_FI_2` (`visibility_id`),
 	CONSTRAINT `record_FK_2`
 		FOREIGN KEY (`visibility_id`)
-		REFERENCES `visibility` (`id`),
+		REFERENCES `visibility` (`id`)
+		ON DELETE CASCADE,
 	INDEX `record_FI_3` (`sea_state_id`),
 	CONSTRAINT `record_FK_3`
 		FOREIGN KEY (`sea_state_id`)
-		REFERENCES `sea_state` (`id`),
+		REFERENCES `sea_state` (`id`)
+		ON DELETE CASCADE,
 	INDEX `record_FI_4` (`general_info_id`),
 	CONSTRAINT `record_FK_4`
 		FOREIGN KEY (`general_info_id`)
-		REFERENCES `general_info` (`id`),
+		REFERENCES `general_info` (`id`)
+		ON DELETE CASCADE,
 	INDEX `record_FI_5` (`company_id`),
 	CONSTRAINT `record_FK_5`
 		FOREIGN KEY (`company_id`)
 		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -309,6 +316,7 @@ CREATE TABLE `specie`
 	CONSTRAINT `specie_FK_1`
 		FOREIGN KEY (`specie_group_id`)
 		REFERENCES `specie_group` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -337,19 +345,23 @@ CREATE TABLE `sighting`
 	INDEX `sighting_FI_1` (`record_id`),
 	CONSTRAINT `sighting_FK_1`
 		FOREIGN KEY (`record_id`)
-		REFERENCES `record` (`id`),
+		REFERENCES `record` (`id`)
+		ON DELETE CASCADE,
 	INDEX `sighting_FI_2` (`specie_id`),
 	CONSTRAINT `sighting_FK_2`
 		FOREIGN KEY (`specie_id`)
-		REFERENCES `specie` (`id`),
+		REFERENCES `specie` (`id`)
+		ON DELETE CASCADE,
 	INDEX `sighting_FI_3` (`behaviour_id`),
 	CONSTRAINT `sighting_FK_3`
 		FOREIGN KEY (`behaviour_id`)
-		REFERENCES `behaviour` (`id`),
+		REFERENCES `behaviour` (`id`)
+		ON DELETE CASCADE,
 	INDEX `sighting_FI_4` (`association_id`),
 	CONSTRAINT `sighting_FK_4`
 		FOREIGN KEY (`association_id`)
 		REFERENCES `association` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

@@ -17,14 +17,14 @@ propel:
       updated_at:       ~
   
    company_user:
-      company_id:       { type: integer, primaryKey: true, foreignTable: company, foreignReference: id, required: true }
+      company_id:       { type: integer, primaryKey: true, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       user_id:          { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
 
    vessel:
       id:               ~
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       name:             { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
@@ -62,11 +62,11 @@ propel:
 
    record:
       id:               ~
-      code_id:          { type: integer, foreignTable: code, foreignReference: id, required: true }
-      visibility_id:    { type: integer, foreignTable: visibility, foreignReference: id, required: true }
-      sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true }
-      general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true }
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true }
+      code_id:          { type: integer, foreignTable: code, foreignReference: id, required: true, onDelete: cascade }
+      visibility_id:    { type: integer, foreignTable: visibility, foreignReference: id, required: true, onDelete: cascade }
+      sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true, onDelete: cascade }
+      general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true, onDelete: cascade }
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       time:             { type: time, required: true }
       latitude:         { type: varchar(255), required: true }
       longitude:        { type: varchar(255), required: true }
@@ -94,7 +94,7 @@ propel:
 
    specie:
       id:               ~
-      specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true }
+      specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true, onDelete: cascade }
       code:             { type: varchar(10), required: true }
       name:             { type: varchar(255), required: true }
       created_at:       ~
@@ -102,10 +102,10 @@ propel:
 
    sighting:
       id:               ~
-      record_id:        { type: integer, foreignTable: record, foreignReference: id, required: true }
-      specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true }
-      behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true }
-      association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true }
+      record_id:        { type: integer, foreignTable: record, foreignReference: id, required: true, onDelete: cascade }
+      specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true, onDelete: cascade }
+      behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true, onDelete: cascade }
+      association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true, onDelete: cascade }
       adults:           { type: integer, default: 0, required: false }
       juveniles:        { type: integer, default: 0, required: false }
       cubs:             { type: integer, default: 0, required: false }

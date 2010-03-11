@@ -34,6 +34,7 @@ class UserPeer extends BaseUserPeer {
   		  'sighting.*',
   		  'specie_group.*',
   		  'specie.*',
+  		  'team.*',
   		  'vessel.*',
   		  'visibility.*'
   		);

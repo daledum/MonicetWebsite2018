@@ -63,6 +63,10 @@ sfGuardPermission:
     name:           specie.*
     description:    All specie actions
   
+  permission_team_all:
+    name:           team.*
+    description:    All team actions
+  
   permission_vessel_all:
     name:           vessel.*
     description:    All vessel actions
