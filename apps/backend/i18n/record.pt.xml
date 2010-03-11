@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>Record List</source>
-        <target>A listar Registo</target>
+        <target>A listar registo</target>
       </trans-unit>
       <trans-unit>
         <source>Edit Record</source>
-        <target>A editar Registo</target>
+        <target>A editar registo</target>
       </trans-unit>
       <trans-unit>
         <source>New Record</source>
-        <target>A adicionar novo Registo</target>
+        <target>A adicionar novo registo</target>
       </trans-unit>
       <trans-unit>
         <source>Records</source>

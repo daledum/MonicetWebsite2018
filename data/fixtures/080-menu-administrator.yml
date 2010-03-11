@@ -20,7 +20,7 @@ mfMenu:
     permissao_id:       administrator
     menu_pai_id:        ~
     posicao:            40
-  # ToDo: opções do sítio web 
+  # opções do sítio web 
   submenu_news_article_administrator:
     nome:               Notícias
     permissao_id:       administrator
@@ -33,6 +33,12 @@ mfMenu:
     menu_pai_id:        menu_sitio_web_administrator
     rota:               consorcium_element
     posicao:            20
+  submenu_team_administrator:
+    nome:               Equipa
+    permissao_id:       administrator
+    menu_pai_id:        menu_sitio_web_administrator
+    rota:               team
+    posicao:            30
   # submenus administração mar administrator
   submenu_specie_group_administrator:
     nome:               Grupos de espécies
@@ -102,6 +108,7 @@ mfMenu:
     menu_pai_id:        menu_registos_mar_administrator
     rota:               general_info
     posicao:            30
+  
   # submenu de administração administrador
   submenu_company_admin:
     nome:               Empresas

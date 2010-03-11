@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>Code List</source>
-        <target>A listar os Códigos</target>
+        <target>A listar os códigos</target>
       </trans-unit>
       <trans-unit>
         <source>Code Edit</source>
-        <target>A editar um Código</target>
+        <target>A editar um código</target>
       </trans-unit>
       <trans-unit>
         <source>New Code</source>
-        <target>A adicionar novo Código</target>
+        <target>A adicionar novo código</target>
       </trans-unit>
       <trans-unit>
         <source>Codes</source>

@@ -63,7 +63,20 @@ label {
 }
 
 textarea {
-    height: 120px;
+    height: 100px;
+}
+
+.success {
+    color: #2fa0b1;
+    font-weight: bold;
+    background-image: url('/mfAdministracaoPlugin/images/icons/tick.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    padding: 5px 20px;
+}
+
+.error_list {
+    color: red;
 }
 
 button {

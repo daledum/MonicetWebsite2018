@@ -3,6 +3,7 @@
     <ul>
       <li><?php echo link_to('Notícias', '@news_article') ?></li>
       <li><?php echo link_to('Consórcios', '@consorcium_element') ?></li>
+      <li><?php echo link_to('Equipa', '@team') ?></li>
     </ul>
   </li>
   <li><a href="#">Administração</a>

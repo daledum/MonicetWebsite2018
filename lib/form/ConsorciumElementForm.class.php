@@ -32,6 +32,7 @@ class ConsorciumElementForm extends BaseConsorciumElementForm
 	      array(new sfValidatorFile(), 'guessFromFileBinary'),
       )
     ));
+    $this->validatorSchema['logotype_delete'] = new sfValidatorPass();
     
     $this->validatorSchema['link'] = new sfValidatorUrl();
     

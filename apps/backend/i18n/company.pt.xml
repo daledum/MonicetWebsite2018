@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>Company List</source>
-        <target>A listar as Empresas</target>
+        <target>A listar as empresas</target>
       </trans-unit>
       <trans-unit>
         <source>Edit Company</source>
-        <target>A editar uma Empresa</target>
+        <target>A editar uma empresa</target>
       </trans-unit>
       <trans-unit>
         <source>New Company</source>
-        <target>A adicionar nova Empresa</target>
+        <target>A adicionar nova empresa</target>
       </trans-unit>
       <trans-unit>
         <source>Companies</source>

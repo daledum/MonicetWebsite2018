@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Team List</source>
+        <target>A listar os membros da equipa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Team</source>
+        <target>A editar um membro da equipa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Team</source>
+        <target>A adicionar novo membro à equipa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Team</source>
+        <target>Equipa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Image</source>
+        <target>Imagem</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Link</source>
+        <target>URL</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pt</source>
+        <target>Português</target>
+      </trans-unit>
+      <trans-unit>
+        <source>En</source>
+        <target>English</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Description</source>
+        <target>Descritivo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>remove the current file</source>
+        <target>Apagar imagem?</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Type</source>
+        <target>Tipo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>About</source>
+        <target>Sobre</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

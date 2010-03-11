@@ -1,0 +1,23 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Team
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Team
+    plural:                Teams
+    route_prefix:          team
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        team
+    
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display:           [=name, type, link] 
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

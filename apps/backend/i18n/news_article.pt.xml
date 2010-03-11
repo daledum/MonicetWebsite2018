@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>News article List</source>
-        <target>A listar as Notícias</target>
+        <target>A listar as notícias</target>
       </trans-unit>
       <trans-unit>
         <source>Edit News article</source>
-        <target>A editar uma Notícia</target>
+        <target>A editar uma notícia</target>
       </trans-unit>
       <trans-unit>
         <source>New News article</source>
-        <target>A adicionar nova Notícia</target>
+        <target>A adicionar nova notícia</target>
       </trans-unit>
       <trans-unit>
         <source>Is published</source>
@@ -53,6 +53,34 @@
       <trans-unit>
         <source>Publish date</source>
         <target>Data de publicação</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Image</source>
+        <target>Imagem</target>
+      </trans-unit>
+      <trans-unit>
+        <source>remove the current file</source>
+        <target>Apagar imagem?</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes</source>
+        <target>sim</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes or no</source>
+        <target>sim ou não</target>
+      </trans-unit>
+      <trans-unit>
+        <source>no</source>
+        <target>não</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
         <source></source>
