@@ -33,7 +33,7 @@ mfMenu:
     menu_pai_id:        menu_sitio_web_administrator
     rota:               consorcium_element
     posicao:            20
-  submenu_consorcium_administrator:
+  submenu_team_administrator:
     nome:               Equipa
     permissao_id:       administrator
     menu_pai_id:        menu_sitio_web_administrator
