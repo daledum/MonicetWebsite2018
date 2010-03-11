@@ -76,6 +76,16 @@ button {
     padding: 5px 8px;
 }
 
+.local-researchers, .consultants {
+    float: left;
+    display: inline;
+    width: 250px;
+}
+
+.consultants {
+    margin-left: 10px;
+}
+
 .flag {
    width: 20px;
    height: 14px;	
@@ -103,6 +113,20 @@ button {
     margin-left: 4px;
     display: inline;
     float: right;
+}
+
+#_span_feed:hover {
+    background-image: url("/images/frontend/feed-icon-hover.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+#_span_feed {
+    background-image: url("/images/frontend/feed-icon-small.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    width: 20px;
+    height: 20px;
 }
 
 #_div_main {
@@ -176,6 +200,10 @@ button {
 
 #_ul_main_menu li {
     height: 30px;
+}
+
+.menu-active a {
+    color: #ffffff !important;
 }
 
 #_ul_consorcium {
@@ -291,7 +319,9 @@ h3 {
     margin: 5px 20px;
     line-height: 18px;
 }
-
+._p_article_body a {
+    font-weight: bold;
+}
 ._p_news_pages_navigation {
     text-align: center;
     color: #2d606d;

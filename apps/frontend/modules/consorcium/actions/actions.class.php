@@ -10,6 +10,10 @@
  */
 class consorciumActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'team');
+  }
  /**
   * Executes index action
   *

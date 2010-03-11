@@ -10,6 +10,10 @@
  */
 class objectivesActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'objectives');
+  }
  /**
   * Executes index action
   *
@@ -17,6 +21,6 @@ class objectivesActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-
+    $this->active = "objectives";
   }
 }

@@ -10,6 +10,10 @@
  */
 class contactsActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'contacts');
+  }
  /**
   * Executes index action
   *
@@ -19,6 +23,7 @@ class contactsActions extends sfActions
   {
   	$this->form = new ContactForm();
   	$this->webmaster = sfConfig::get('app_mail_webmaster');
+  	$this->active = "contacts";
   }
   
   public function executeSubmit(sfWebRequest $request)
