@@ -17,5 +17,11 @@
  * @package    propel.generator.lib.model
  */
 class Team extends BaseTeam {
-
+  public function save(PropelPDO $con = null)
+  {
+    parent::save($con);
+    if ( $this->getPhoto() ){
+      WideImage::load(sfConfig::get('sf_upload_dir').'/team/'.$this->getPhoto())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/team/tn_'.$this->getPhoto()); 
+    }
+  }
 } // Team
