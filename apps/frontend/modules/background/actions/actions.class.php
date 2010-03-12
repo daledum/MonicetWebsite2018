@@ -10,6 +10,10 @@
  */
 class backgroundActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'background');
+  }
  /**
   * Executes index action
   *
@@ -17,6 +21,6 @@ class backgroundActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-
+    $this->active = "background";
   }
 }

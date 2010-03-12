@@ -10,6 +10,10 @@
  */
 class newsActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'news');
+  }
  /**
   * Executes index action
   *

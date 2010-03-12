@@ -26,11 +26,12 @@
 	            </div>
 	            <div id="_div_main_left">
 	                <ul id="_ul_main_menu">
-	                    <li><?php echo link_to(__('Home'), 'home/index'); ?></li>
-	                    <li><?php echo link_to(__('Background'), 'background/index'); ?></li>
-	                    <li><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>
-	                    <li><?php echo link_to(__('Team and Partners'), 'team/index'); ?></li>
-	                    <li><?php echo link_to(__('Contacts'), 'contacts/index'); ?></li>
+	                    <?php $active = get_slot('active'); ?>
+	                    <li<?php if($active == "home"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Home'), 'home/index'); ?></li>
+	                    <li<?php if($active == "background"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Background'), 'background/index'); ?></li>
+	                    <li<?php if($active == "objectives"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>
+	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Team and Partners'), 'team/index'); ?></li>
+	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Contacts'), 'contacts/index'); ?></li>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">
@@ -39,7 +40,7 @@
 	                </div>
 	            </div>
 	            <div id="_div_main_recent_news">
-	               <p id="_div_main_recent_news_header"><a href="<?php echo url_for('@news_feeds'); ?>"><img src="/images/frontend/feed-icon-small.png" alt="rss"/></a>&nbsp;<?php echo link_to(__('News'), '@news_all') ?></p>
+	               <p id="_div_main_recent_news_header"<?php if($active == "news"): ?> class="menu-active"<?php endif ?>><span id="_span_feed"><a href="<?php echo url_for('@news_feeds'); ?>">&nbsp;&nbsp;&nbsp;</a></span>&nbsp;<?php echo link_to(__('News'), '@news_all') ?></p>
 	               <?php include_component('news', 'recentNews') ?>
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>

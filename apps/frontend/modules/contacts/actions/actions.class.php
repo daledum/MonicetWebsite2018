@@ -10,6 +10,10 @@
  */
 class contactsActions extends sfActions
 {
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'contacts');
+  }
  /**
   * Executes index action
   *
@@ -19,20 +23,33 @@ class contactsActions extends sfActions
   {
   	$this->form = new ContactForm();
   	$this->webmaster = sfConfig::get('app_mail_webmaster');
-  }
-  
-  public function executeSubmit(sfWebRequest $request)
-  {
-  	$this->forward404Unless($request->isMethod('post'));
-    
-    if($request->getParameter('message') != "" && $request->getParameter('subject') != "" && $request->getParameter('email') != "")
+
+    if ($request->isMethod('post'))
     {
-	   mail(sfConfig::get('app_mail_webmaster'), $request->getParameter('subject'), $request->getParameter('message'), "From: " . $request->getParameter('email'));
-	   $this->redirect('contacts/sent');
-	}
-	$this->redirect('contacts/index');
+      $this->form->bind($request->getParameter('contact'));
+
+      if ($this->form->isValid())
+      {
+        /*$mail = new sfMail();
+        $mail->setCharset('utf-8');      
+ 
+        $mail->setSender($this->webmaster, 'Monicet');
+        $mail->setFrom($this->webmaster, 'Monicet');
+        $mail->addReplyTo($this->webmaster);
+ 
+        $mail->addAddress($request->getParameter('email'));
+ 
+        $mail->setSubject($request->getParameter('subject'));
+        $mail->setContentType('text/html');
+        $mail->setBody($request->getParameter('message'));    
+          
+        $this->mail = $mail;    
+        */
+        $this->getUser()->setFlash('success', true);
+      }
+    }
   }
-  
+
   public function executeSent(sfWebRequest $request)
   {
   }

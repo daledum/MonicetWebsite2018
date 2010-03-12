@@ -10,6 +10,11 @@
  */
 class homeActions extends sfActions
 {
+	
+  public function preExecute()
+  {
+    $this->getResponse()->setSlot('active', 'home');
+  }
  /**
   * Executes index action
   *

@@ -63,7 +63,20 @@ label {
 }
 
 textarea {
-    height: 120px;
+    height: 100px;
+}
+
+.success {
+    color: #2fa0b1;
+    font-weight: bold;
+    background-image: url('/mfAdministracaoPlugin/images/icons/tick.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    padding: 5px 20px;
+}
+
+.error_list {
+    color: red;
 }
 
 button {
@@ -74,6 +87,16 @@ button {
     margin-top: 10px;
     margin-left: 10px;
     padding: 5px 8px;
+}
+
+.local-researchers, .consultants {
+    float: left;
+    display: inline;
+    width: 250px;
+}
+
+.consultants {
+    margin-left: 10px;
 }
 
 .flag {
@@ -103,6 +126,20 @@ button {
     margin-left: 4px;
     display: inline;
     float: right;
+}
+
+#_span_feed:hover {
+    background-image: url("/images/frontend/feed-icon-hover.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+#_span_feed {
+    background-image: url("/images/frontend/feed-icon-small.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    width: 20px;
+    height: 20px;
 }
 
 #_div_main {
@@ -176,6 +213,10 @@ button {
 
 #_ul_main_menu li {
     height: 30px;
+}
+
+.menu-active a {
+    color: #ffffff !important;
 }
 
 #_ul_consorcium {
@@ -291,7 +332,9 @@ h3 {
     margin: 5px 20px;
     line-height: 18px;
 }
-
+._p_article_body a {
+    font-weight: bold;
+}
 ._p_news_pages_navigation {
     text-align: center;
     color: #2d606d;
