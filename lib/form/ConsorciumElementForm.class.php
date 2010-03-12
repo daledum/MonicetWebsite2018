@@ -27,9 +27,9 @@ class ConsorciumElementForm extends BaseConsorciumElementForm
       'path' => sfConfig::get('sf_upload_dir').'/consorcium',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array(new sfValidatorFile(), 'guessFromMimeContentType'),
-	      array(new sfValidatorFile(), 'guessFromFileinfo'),
-	      array(new sfValidatorFile(), 'guessFromFileBinary'),
+        array($this->getValue('logotype'), 'guessFromMimeContentType'),
+	      array($this->getValue('logotype'), 'guessFromFileinfo'),
+	      array($this->getValue('logotype'), 'guessFromFileBinary'),
       )
     ));
     $this->validatorSchema['logotype_delete'] = new sfValidatorPass();

@@ -30,9 +30,9 @@ class NewsArticleForm extends BaseNewsArticleForm
       'path' => sfConfig::get('sf_upload_dir').'/news',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array(new sfValidatorFile(), 'guessFromMimeContentType'),
-        array(new sfValidatorFile(), 'guessFromFileinfo'),
-        array(new sfValidatorFile(), 'guessFromFileBinary'),
+        array($this->getValue('image'), 'guessFromMimeContentType'),
+        array($this->getValue('image'), 'guessFromFileinfo'),
+        array($this->getValue('image'), 'guessFromFileBinary'),
       )
     ));
     $this->validatorSchema['image_delete'] = new sfValidatorPass();

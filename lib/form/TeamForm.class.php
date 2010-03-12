@@ -27,9 +27,9 @@ class TeamForm extends BaseTeamForm
       'path' => sfConfig::get('sf_upload_dir').'/team',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array(new sfValidatorFile(), 'guessFromMimeContentType'),
-        array(new sfValidatorFile(), 'guessFromFileinfo'),
-        array(new sfValidatorFile(), 'guessFromFileBinary'),
+        array($this->getValue('photo'), 'guessFromMimeContentType'),
+        array($this->getValue('photo'), 'guessFromFileinfo'),
+        array($this->getValue('photo'), 'guessFromFileBinary'),
       )
     ));
     $this->validatorSchema['photo_delete'] = new sfValidatorPass();
