@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
 <xliff version="1.0">
-  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2010-03-09T12:20:42Z" product-name="messages">
+  <file source-language="EN" target-language="pt" datatype="plaintext" original="messages" date="2010-03-12T11:42:39Z" product-name="messages">
     <header/>
     <body>
       <trans-unit id="1">
@@ -137,12 +137,44 @@
         <target>Mensagem</target>
       </trans-unit>
       <trans-unit id="34">
-        <source>Your message was sent to the monicet administrator. Thank you for your contact.</source>
-        <target>A sua mensagem foi enviada para o administrador da Monicet. Obrigado pelo seu contacto.</target>
+        <source>Your message was successfully sent to Monicet</source>
+        <target>A sua mensagem foi enviada com sucesso para a Monicet</target>
       </trans-unit>
       <trans-unit id="35">
         <source>...</source>
         <target>...</target>
+      </trans-unit>
+      <trans-unit id="36">
+        <source>Consorcium</source>
+        <target/>
+      </trans-unit>
+      <trans-unit id="37">
+        <source>Consultants</source>
+        <target>Consultores</target>
+      </trans-unit>
+      <trans-unit id="40">
+        <source>More formal communication can be made to:</source>
+        <target> Comunicações mais formais podem ser feitas para:</target>
+      </trans-unit>
+      <trans-unit id="41">
+        <source>MONICET project</source>
+        <target>Projecto MONICET</target>
+      </trans-unit>
+      <trans-unit id="42">
+        <source>Azores</source>
+        <target>Açores</target>
+      </trans-unit>
+      <trans-unit id="43">
+        <source>Phone</source>
+        <target>Tel</target>
+      </trans-unit>
+      <trans-unit id="44">
+        <source>c/o</source>
+        <target>a/c</target>
+      </trans-unit>
+      <trans-unit id="45">
+        <source>The easiest way to reach us is by e-mail. Just write to %1% or use the form below</source>
+        <target>A maneira mais fácil de nos contactar é por correio electrónico. Escreva para %1% ou use o formulário abaixo.</target>
       </trans-unit>
     </body>
   </file>

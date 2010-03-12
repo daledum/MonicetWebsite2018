@@ -274,6 +274,7 @@ button {
 a, a:active, a:focus, a:link, a:visited {
     color: #2d606d;
     text-decoration: none;
+    outline: none;
 }
 
 a:hover {
