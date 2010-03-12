@@ -6,6 +6,7 @@
     <?php include_metas() ?>
     <title>monicet::<?php echo __($active); ?></title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="alternate" title="Monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
@@ -54,5 +55,15 @@
             <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2010</p>
         </div>
     </div>
+    <script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-9650189-1");
+	pageTracker._trackPageview();
+	} catch(err) {}
+	</script>
   </body>
 </html>
