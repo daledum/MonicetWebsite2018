@@ -14,15 +14,15 @@
     <div id="_div_background">
 	    <div id="_div_page">
 	        <img id="_img_logo_transparent" src="/images/frontend/logo_transparent.png" alt="" usemap="#logo_map"/>
-	        <map name="logo_map">
-            <area shape="rect" coords="0,0,461,81" href="<?php echo url_for('@homepage') ?>" />
+	        <map name="logo_map" id="logo_map">
+            <area shape="rect" coords="0,0,461,81" href="<?php echo url_for('@homepage') ?>" alt="monicet" />
           </map>
 	        <div id="_div_main">
 	            <div id="_ul_languages">
 		            <?php if($sf_user->getCulture() == "pt"): ?> 
-	                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+	                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
 	              <?php else: ?>
-	                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+	                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
 	              <?php endif ?>
 	            </div>
 	            <div id="_div_main_left">
