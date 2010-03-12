@@ -1,9 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $sf_user->getCulture() ?>" lang="<?php echo $sf_user->getCulture() ?>">
   <head>
+    <?php $active = get_slot('active'); ?>
     <?php include_http_metas() ?>
     <?php include_metas() ?>
-    <?php include_title() ?>
+    <title>monicet::<?php echo __($active); ?></title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
@@ -26,12 +27,11 @@
 	            </div>
 	            <div id="_div_main_left">
 	                <ul id="_ul_main_menu">
-	                    <?php $active = get_slot('active'); ?>
-	                    <li<?php if($active == "home"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Home'), 'home/index'); ?></li>
-	                    <li<?php if($active == "background"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Background'), 'background/index'); ?></li>
-	                    <li<?php if($active == "objectives"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Objectives'), 'objectives/index'); ?></li>
-	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Team and Partners'), 'team/index'); ?></li>
-	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Contacts'), 'contacts/index'); ?></li>
+	                    <li<?php if($active == "home"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('home'), '@homepage'); ?></li>
+	                    <li<?php if($active == "background"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('background'), '@default_index?module=background'); ?></li>
+	                    <li<?php if($active == "objectives"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('objectives'), '@default_index?module=objectives'); ?></li>
+	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('team'), '@default_index?module=team'); ?></li>
+	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('contacts'), '@contacts'); ?></li>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">
@@ -40,7 +40,7 @@
 	                </div>
 	            </div>
 	            <div id="_div_main_recent_news">
-	               <p id="_div_main_recent_news_header"<?php if($active == "news"): ?> class="menu-active"<?php endif ?>><span id="_span_feed"><a href="<?php echo url_for('@news_feeds'); ?>">&nbsp;&nbsp;&nbsp;</a></span>&nbsp;<?php echo link_to(__('News'), '@news_all') ?></p>
+	               <p id="_div_main_recent_news_header"<?php if($active == "news"): ?> class="menu-active"<?php endif ?>><span id="_span_feed"><a href="<?php echo url_for('@news_feeds'); ?>">&nbsp;&nbsp;&nbsp;</a></span>&nbsp;<?php echo link_to(__('news'), '@news_all') ?></p>
 	               <?php include_component('news', 'recentNews') ?>
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>

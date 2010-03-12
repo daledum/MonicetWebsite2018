@@ -1,1 +1,0 @@
-<p class="content"><?php echo __('Your message was sent to the monicet administrator. Thank you for your contact.'); ?></p>
