@@ -12,6 +12,10 @@ index:
   requirements:
     sf_culture: (?:pt|en)
 
+background:
+  url:      /:sf_culture/background
+  param:    { module: background, action: index }
+
 news_all:
   url:      /:sf_culture/news/all
   param:    { module: news, action: all }
@@ -39,12 +43,8 @@ team:
   options:  { model: Team, type: object }
 
 contacts:
-  url:      /:sf_culture/contacts/submit
-  param:    { module: contacts, action: submit }
-
-contacts_sent:
-  url:      /:sf_culture/contacts/sent
-  param:    { module: contacts, action: sent }
+  url:      /:sf_culture/contacts
+  param:    { module: contacts, action: index }
 
 default_index:
   url:   /:sf_culture/:module

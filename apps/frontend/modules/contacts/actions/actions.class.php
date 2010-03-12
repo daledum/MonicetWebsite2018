@@ -14,6 +14,7 @@ class contactsActions extends sfActions
   {
     $this->getResponse()->setSlot('active', 'contacts');
   }
+
  /**
   * Executes index action
   *
@@ -30,27 +31,18 @@ class contactsActions extends sfActions
 
       if ($this->form->isValid())
       {
-        /*$mail = new sfMail();
-        $mail->setCharset('utf-8');      
+        $message = $this->getMailer()->compose(
+          $this->webmaster,
+          $request->getParameter('email'),
+          "[Sítio Web Monicet] " . $request->getParameter('subject'),
+          $request->getParameter('message') . "<br /><br />Enviado em: " . date("Y-m-d H:i")
+        );
  
-        $mail->setSender($this->webmaster, 'Monicet');
-        $mail->setFrom($this->webmaster, 'Monicet');
-        $mail->addReplyTo($this->webmaster);
- 
-        $mail->addAddress($request->getParameter('email'));
- 
-        $mail->setSubject($request->getParameter('subject'));
-        $mail->setContentType('text/html');
-        $mail->setBody($request->getParameter('message'));    
-          
-        $this->mail = $mail;    
-        */
+        $this->getMailer()->send($message);
+      	
         $this->getUser()->setFlash('success', true);
+        $this->redirect('@contacts');
       }
     }
-  }
-
-  public function executeSent(sfWebRequest $request)
-  {
   }
 }

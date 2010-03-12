@@ -13,28 +13,28 @@
         <target/>
       </trans-unit>
       <trans-unit id="3">
-        <source>Home</source>
-        <target/>
+        <source>home</source>
+        <target>Home</target>
       </trans-unit>
       <trans-unit id="4">
-        <source>Background</source>
-        <target/>
+        <source>background</source>
+        <target>Background</target>
       </trans-unit>
       <trans-unit id="5">
-        <source>Objectives</source>
-        <target/>
+        <source>objectives</source>
+        <target>Objectives</target>
       </trans-unit>
       <trans-unit id="6">
-        <source>Team and Partners</source>
-        <target/>
+        <source>team</source>
+        <target>Team and Partners</target>
       </trans-unit>
       <trans-unit id="7">
-        <source>Consorcium</source>
-        <target/>
+        <source>consorcium</source>
+        <target>Consorcium</target>
       </trans-unit>
       <trans-unit id="8">
-        <source>Consultants</source>
-        <target/>
+        <source>consultants</source>
+        <target>Consultants</target>
       </trans-unit>
       <trans-unit id="9">
         <source>Support</source>
@@ -49,8 +49,8 @@
         <target/>
       </trans-unit>
       <trans-unit id="12">
-        <source>News</source>
-        <target/>
+        <source>news</source>
+        <target>News</target>
       </trans-unit>
       <trans-unit id="13">
         <source>read more </source>
@@ -119,6 +119,10 @@
       <trans-unit id="29">
         <source>back_to_news</source>
         <target>Back to news.</target>
+      </trans-unit>
+      <trans-unit id="30">
+        <source>contacts</source>
+        <target>Contacts</target>
       </trans-unit>
     </body>
   </file>

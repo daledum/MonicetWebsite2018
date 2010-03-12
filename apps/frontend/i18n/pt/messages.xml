@@ -13,27 +13,27 @@
         <target>Português</target>
       </trans-unit>
       <trans-unit id="3">
-        <source>Home</source>
+        <source>home</source>
         <target>Início</target>
       </trans-unit>
       <trans-unit id="4">
-        <source>Background</source>
+        <source>background</source>
         <target>Fundamentos</target>
       </trans-unit>
       <trans-unit id="5">
-        <source>Objectives</source>
+        <source>objectives</source>
         <target>Objectivos</target>
       </trans-unit>
       <trans-unit id="6">
-        <source>Team and Partners</source>
+        <source>team</source>
         <target>Equipa e Parceiros</target>
       </trans-unit>
       <trans-unit id="7">
-        <source>Consorcium</source>
+        <source>consorcium</source>
         <target>Consórcio</target>
       </trans-unit>
       <trans-unit id="8">
-        <source>Consultants</source>
+        <source>consultants</source>
         <target>Consultores</target>
       </trans-unit>
       <trans-unit id="9">
@@ -49,7 +49,7 @@
         <target>ver todas</target>
       </trans-unit>
       <trans-unit id="12">
-        <source>News</source>
+        <source>news</source>
         <target>Notícias</target>
       </trans-unit>
       <trans-unit id="13">
@@ -121,7 +121,7 @@
         <target>Regressar às notícias.</target>
       </trans-unit>
       <trans-unit id="30">
-        <source>Contacts</source>
+        <source>contacts</source>
         <target>Contactos</target>
       </trans-unit>
       <trans-unit id="31">
