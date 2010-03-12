@@ -36,5 +36,12 @@ class NewsArticle extends BaseNewsArticle {
 	  $this->setSlug(mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en'))));
 	  return $this;
 	}
+	public function save(PropelPDO $con = null)
+	{
+		parent::save($con);
+		if ( $this->getImage() ){
+			WideImage::load(sfConfig::get('sf_upload_dir').'/news/'.$this->getImage())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/news/tn_'.$this->getImage()); 
+		}
+	}
 
 } // NewsArticle

@@ -188,10 +188,19 @@ button {
     height: 100%;
     width: 100%;
     overflow: auto;
+    outline: none !important;
 }
 
 #_div_main_content a:hover {
     color: #75d1e0;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
 }
 
 #_div_main_center {

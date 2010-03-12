@@ -30,5 +30,12 @@ class ConsorciumElement extends BaseConsorciumElement {
       $this->setSlug(mfText::stripText($name));
       return $this;
     }
+  public function save(PropelPDO $con = null)
+  {
+    parent::save($con);
+    if ( $this->getLogotype() ){
+      WideImage::load(sfConfig::get('sf_upload_dir').'/consorcium/'.$this->getLogotype())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/consorcium/tn_'.$this->getLogotype()); 
+    }
+  }
 	
 } // ConsorciumElement
