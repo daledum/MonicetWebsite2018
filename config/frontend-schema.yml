@@ -11,7 +11,7 @@ propel:
     created_at:    ~
     updated_at:    ~
   news_article_i18n:
-    id:            { type: integer, required: true, primaryKey: true, foreignTable: news_article, foreignReference: id }
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: news_article, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     headline:      { type: varchar(255), required: true }
     body:          { type: longvarchar, required: true }
@@ -25,7 +25,7 @@ propel:
     created_at:    ~
     updated_at:    ~
   consorcium_element_i18n:
-    id:            { type: integer, required: true, primaryKey: true, foreignTable: consorcium_element, foreignReference: id }
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: consorcium_element, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     description:   { type: longvarchar, required: false }
   team:
@@ -39,6 +39,6 @@ propel:
     created_at:    ~
     updated_at:    ~
   team_i18n:
-    id:            { type: integer, required: true, primaryKey: true, foreignTable: team, foreignReference: id }
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: team, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     about:         { type: longvarchar, required: false }

@@ -11,18 +11,16 @@ body {
 
 #_div_page {
     width: 974px;
-    height: 417px;
+    height: 515px;
     background-image: url("/images/frontend/bg_monicet.png");
     margin: 0 auto;
-    padding-top: 175px;
+    padding-top: 93px;
 }
 
-#_img_logo_transparent {
-    position: absolute;
-    top: 93px;
-    left: 483px;
-    width: 461px;
-    height: 81px;
+#_a_logo {
+    position: relative;
+    top: -22px;
+    left: 10px;
 }
 
 #_div_background {
@@ -263,7 +261,9 @@ em {
 
 #_div_footer div {
     width: 974px;
-    margin: 3px auto;
+    height: 44px;
+    margin: 0px auto;
+    padding-top: 2px;
 }
 
 #_ul_support li {
