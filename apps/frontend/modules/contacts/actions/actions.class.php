@@ -33,13 +33,14 @@ class contactsActions extends sfActions
       {
         $message = $this->getMailer()->compose(
           $this->webmaster,
-          $request->getParameter('email'),
-          "[Sítio Web Monicet] " . $request->getParameter('subject'),
-          $request->getParameter('message') . "<br /><br />Enviado em: " . date("Y-m-d H:i")
+          $this->form->getValue('email'),
+          "[Sítio Web Monicet] " . $this->form->getValue('subject'),
+          $this->form->getValue('message') . "<br /><br />Enviado em: " . date("Y-m-d H:i")
         );
- 
+      	$message->addBcc('titomiguelcosta@morfose.net');
+        
         $this->getMailer()->send($message);
-      	
+        
         $this->getUser()->setFlash('success', true);
         $this->redirect('@contacts');
       }
