@@ -2,25 +2,25 @@ ConsorciumElement:
   consorcium_cirn:
     name: "CIRN"
     slug: "cirn"
-    logotype: "cirn.jpg"
+    logotype: ""
     link: "http://cirn.4dproducoes.com/"
     
   consorcium_futurismo:
     name: "Futurismo"
     slug: "futurismo"
-    logotype: "futurismo.png"
+    logotype: ""
     link: "http://www.azoreswhales.com/"
     
   consorcium_terra_azul:
     name: "Terra Azul"
     slug: "terra_azul"
-    logotype: "terra_azul.png"
+    logotype: ""
     link: "http://www.terrazulazores.com/"
   
   consorcium_picos_de_aventura:
     name: "Picos de Aventura"
     slug: "picos_de_aventura"
-    logotype: "picos_de_aventura.png"
+    logotype: ""
     link: "http://www.picosdeaventura.com/"
 
 ConsorciumElementI18n:

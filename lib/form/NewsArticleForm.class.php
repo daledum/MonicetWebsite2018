@@ -22,7 +22,7 @@ class NewsArticleForm extends BaseNewsArticleForm
     
     $this->widgetSchema['image'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
-      'file_src' => sfConfig::get('sf_upload_dir').'/news/'.$this->getObject()->getImage(),
+      'file_src' => '/uploads/news/tn_'.$this->getObject()->getImage(),
       'edit_mode' => ! $this->getObject()->isNew()
     ));
     $this->validatorSchema['image'] = new sfValidatorFile(array(
@@ -30,9 +30,7 @@ class NewsArticleForm extends BaseNewsArticleForm
       'path' => sfConfig::get('sf_upload_dir').'/news',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array($this->getValue('image'), 'guessFromMimeContentType'),
-        array($this->getValue('image'), 'guessFromFileinfo'),
-        array($this->getValue('image'), 'guessFromFileBinary'),
+        array($this->getValue('image') ? $this->getValue('image') : new sfValidatorFile(), 'guessFromMimeContentType'),
       )
     ));
     $this->validatorSchema['image_delete'] = new sfValidatorPass();

@@ -188,10 +188,19 @@ button {
     height: 100%;
     width: 100%;
     overflow: auto;
+    outline: none !important;
 }
 
 #_div_main_content a:hover {
     color: #75d1e0;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
 }
 
 #_div_main_center {
@@ -274,6 +283,7 @@ button {
 a, a:active, a:focus, a:link, a:visited {
     color: #2d606d;
     text-decoration: none;
+    outline: none;
 }
 
 a:hover {
