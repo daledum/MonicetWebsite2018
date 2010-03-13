@@ -1,11 +1,12 @@
 <?php foreach ($pager->getResults() as $article): ?>
 <p class="_p_article_headline"><?php echo link_to($article->getHeadline(), 'news', $article); ?></p>
 <p class="_p_article_date"><?php echo $article->getUpdatedAt(); ?></p>
-<p class="_p_article_body">
 <?php if($article->getImage()): ?>
-    <?php echo image_tag('/uploads/news/'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()); ?>
+    <?php echo image_tag('/uploads/news/tn_'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()); ?>
 <?php endif ?>
-<?php echo nl2br(substr($article->getBody(), 0, 300)) ?> ... <?php echo link_to(__('read more ') . ' &raquo;', 'news', $article); ?></p>
+<div class="content">
+<?php echo substr($article->getBody(ESC_RAW), 9, 300) ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article); ?></strong>
+</div>
 <br /><br />
 <?php endforeach ?>
 

@@ -6,6 +6,7 @@
     <?php include_metas() ?>
     <title>monicet::<?php echo __($active); ?></title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link rel="alternate" title="Monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
@@ -13,16 +14,13 @@
     <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
-	        <img id="_img_logo_transparent" src="/images/frontend/logo_transparent.png" alt="" usemap="#logo_map"/>
-	        <map name="logo_map">
-            <area shape="rect" coords="0,0,461,81" href="<?php echo url_for('@homepage') ?>" />
-          </map>
+	        <a id="_a_logo" href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a>
 	        <div id="_div_main">
 	            <div id="_ul_languages">
 		            <?php if($sf_user->getCulture() == "pt"): ?> 
-	                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+	                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
 	              <?php else: ?>
-	                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+	                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
 	              <?php endif ?>
 	            </div>
 	            <div id="_div_main_left">
@@ -57,5 +55,15 @@
             <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2010</p>
         </div>
     </div>
+    <script type="text/javascript">
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	</script>
+	<script type="text/javascript">
+	try {
+	var pageTracker = _gat._getTracker("UA-9650189-1");
+	pageTracker._trackPageview();
+	} catch(err) {}
+	</script>
   </body>
 </html>

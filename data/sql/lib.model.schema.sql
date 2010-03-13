@@ -78,6 +78,7 @@ CREATE TABLE `news_article_i18n`
 	CONSTRAINT `news_article_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `news_article` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -116,6 +117,7 @@ CREATE TABLE `consorcium_element_i18n`
 	CONSTRAINT `consorcium_element_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `consorcium_element` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
@@ -155,6 +157,7 @@ CREATE TABLE `team_i18n`
 	CONSTRAINT `team_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `team` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
