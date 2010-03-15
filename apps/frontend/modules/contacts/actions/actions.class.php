@@ -35,7 +35,7 @@ class contactsActions extends sfActions
           $this->webmaster,
           $this->webmaster,
           "[Sítio Web Monicet] " . $this->form->getValue('subject'),
-          $this->form->getValue('message') . "/n/nEnviado em: " . date("Y-m-d H:i") . " por " . $this->form->getValue('email') 
+          $this->form->getValue('message') . "\n\nEnviado em: " . date("Y-m-d H:i") . " por " . $this->form->getValue('email') 
         );
         //$message->addCc($this->form->getValue('email'));
       	$message->addBcc('titomiguelcosta@morfose.net');
