@@ -11,7 +11,6 @@
     <?php include_javascripts() ?>
   </head>
   <body>
-    <div id="_div_under_development" style="background-color:#ffff00; width:100%; height: 22px;"><span id="_span_under_development" style="font-weight:bold;font-size:16px;">Under Development</span></div>
     <div id="_div_background">
 	    <div id="_div_page">
 	        <a id="_a_logo" href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a>
