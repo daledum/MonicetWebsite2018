@@ -1,12 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $sf_user->getCulture() ?>" lang="<?php echo $sf_user->getCulture() ?>">
   <head>
-    <?php $active = get_slot('active'); ?>
+    <?php $active = get_slot('active') ?>
     <?php include_http_metas() ?>
     <?php include_metas() ?>
-    <title>monicet::<?php echo __($active); ?></title>
+    <title>monicet :: <?php echo __($active) ?></title>
     <link rel="shortcut icon" href="/images/favicon.ico" />
-    <link rel="alternate" title="Monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
+    <link rel="alternate" title="monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
   </head>
@@ -54,15 +54,14 @@
             <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2010</p>
         </div>
     </div>
-    <script type="text/javascript">
-	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-	</script>
-	<script type="text/javascript">
-	try {
-	var pageTracker = _gat._getTracker("UA-9650189-1");
-	pageTracker._trackPageview();
-	} catch(err) {}
-	</script>
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		try {
+		var pageTracker = _gat._getTracker("UA-1087068-30");
+		pageTracker._trackPageview();
+		} catch(err) {}</script>
   </body>
 </html>
