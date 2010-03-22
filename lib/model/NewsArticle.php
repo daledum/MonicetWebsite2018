@@ -29,16 +29,21 @@ class NewsArticle extends BaseNewsArticle {
 		parent::__construct();
 	}
 	
+	/*
 	public function setHeadline($headline, $culture = null)
 	{
-	  parent::setHeadline($headline, $culture);
+	  $object = parent::setHeadline($headline, $culture);
 	 
-	  $this->setSlug(mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en'))));
-	  return $this;
+	  $object->setSlug(mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en'))));
+	  return $object;
 	}
+	*/
 	public function save(PropelPDO $con = null)
 	{
+		$this->setSlug(mfText::stripText($this->getHeadline(sfConfig::get('sf_default_culture', 'en'))));
+		
 		parent::save($con);
+		
 		if ( $this->getImage() ){
 			WideImage::load(sfConfig::get('sf_upload_dir').'/news/'.$this->getImage())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/news/tn_'.$this->getImage()); 
 		}
