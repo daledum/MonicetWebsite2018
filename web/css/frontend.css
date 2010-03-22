@@ -54,6 +54,9 @@ input, textarea {
     color: #167b8b;
 }
 
+input:focus, textarea:focus {
+    border-color: #75D1E0;
+}
 
 label {
     font-weight: bold;
