@@ -4,7 +4,7 @@
 # default rules
 homepage:
   url:   /
-  param: { module: home, action: language }
+  param: { module: home, action: language, sf_culture: en }
 
 index:
   url:   /:sf_culture
