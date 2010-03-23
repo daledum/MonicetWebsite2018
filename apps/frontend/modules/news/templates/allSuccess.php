@@ -1,13 +1,13 @@
 <?php foreach ($pager->getResults() as $article): ?>
-<p class="_p_article_headline"><?php echo link_to($article->getHeadline(), 'news', $article); ?></p>
-<p class="_p_article_date"><?php echo $article->getPublishDate(); ?></p>
-<?php if($article->getImage()): ?>
-    <?php echo image_tag('/uploads/news/tn_'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()); ?>
-<?php endif ?>
-<div class="content">
-<?php echo substr($article->getBody(ESC_RAW), 0, 300) ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article); ?></strong>
-</div>
-<br /><br />
+	<p class="_p_article_headline"><?php echo link_to($article->getHeadline(), 'news', $article) ?></p>
+	<p class="_p_article_date"><?php echo $article->getPublishDate(); ?></p>
+	<div class="content">
+	  <?php if($article->getImage()): ?>
+	    <?php echo image_tag('/uploads/news/tn_'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()) ?>
+	  <?php endif ?>
+	  <?php echo substr(strip_tags($article->getBody(ESC_RAW)), 0, 300) ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article) ?></strong>
+	  <br /><br />
+	</div>
 <?php endforeach ?>
 
 <?php if ($pager->haveToPaginate()): ?>
