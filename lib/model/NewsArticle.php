@@ -44,7 +44,7 @@ class NewsArticle extends BaseNewsArticle {
 		
 		parent::save($con);
 		
-		if ( $this->getImage() ){
+		if ( $this->getImage() && file_exists(sfConfig::get('sf_upload_dir').'/news/'.$this->getImage()) ){
 			WideImage::load(sfConfig::get('sf_upload_dir').'/news/'.$this->getImage())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/news/tn_'.$this->getImage()); 
 		}
 	}
