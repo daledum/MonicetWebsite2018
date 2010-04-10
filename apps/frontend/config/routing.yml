@@ -46,6 +46,10 @@ contacts:
   url:      /:sf_culture/contacts
   param:    { module: contacts, action: index }
 
+album_all:
+  url:      /:sf_culture/albums
+  param:    { module: photoalbum, action: index }
+
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }

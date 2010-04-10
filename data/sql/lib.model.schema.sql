@@ -161,6 +161,79 @@ CREATE TABLE `team_i18n`
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------
+#-- album
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album`;
+
+
+CREATE TABLE `album`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `album_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- album_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album_i18n`;
+
+
+CREATE TABLE `album_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `album_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- photo
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo`;
+
+
+CREATE TABLE `photo`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`image` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `photo_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- photo_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo_i18n`;
+
+
+CREATE TABLE `photo_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`caption` VARCHAR(512)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `photo_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `photo` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
 #-- company
 #-----------------------------------------------------------------------------
 
