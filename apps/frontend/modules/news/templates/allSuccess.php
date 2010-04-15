@@ -5,7 +5,7 @@
 	  <?php if($article->getImage()): ?>
 	    <?php echo image_tag('/uploads/news/tn_'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()) ?>
 	  <?php endif ?>
-	  <?php echo substr(html_entity_decode($article->getBody(ESC_RAW)), 0, 300) ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article) ?></strong>
+	  <?php $string=$article->getBody(ESC_RAW);if(strlen($string)<=300){echo $string;}else{$string=wordwrap($string,300);echo substr($string,0,strpos($string,"\n"));} ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article) ?></strong>
 	  <br /><br />
 	</div><br />
 <?php endforeach ?>
