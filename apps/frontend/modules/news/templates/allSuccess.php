@@ -5,7 +5,7 @@
 	  <?php if($article->getImage()): ?>
 	    <?php echo image_tag('/uploads/news/tn_'.$article->getImage(), 'align=left vspace=5 hspace=5 alt_title=' . $article->getHeadline()) ?>
 	  <?php endif ?>
-	  <?php echo $article->getBody(ESC_RAW); ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article) ?></strong>
+	  <?php echo substr($article->getBody(ESC_RAW), 0, 300) ?> ... <strong><?php echo link_to(__('read more ') . ' &raquo;', 'news', $article) ?></strong>
 	  <br /><br />
 	</div><br />
 <?php endforeach ?>
