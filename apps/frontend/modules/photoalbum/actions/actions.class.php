@@ -21,6 +21,11 @@ class photoalbumActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    $this->albums = AlbumPeer::doSelectAll();
+    $this->pager = AlbumPeer::getPager();
+  }
+  
+  public function executeShow(sfWebRequest $request)
+  {
+    $this->album = $this->getRoute()->getObject();
   }
 }

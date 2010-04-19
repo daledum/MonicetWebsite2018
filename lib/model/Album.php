@@ -18,4 +18,7 @@
  */
 class Album extends BaseAlbum {
 
+	public function __toString() {
+		return $this->getName();
+	}
 } // Album

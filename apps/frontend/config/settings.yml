@@ -41,3 +41,5 @@ all:
     default_culture:        en
     i18n:                   on
     standard_helpers:       [Partial, Cache, I18N]
+    enabled_modules:
+      - mfLog

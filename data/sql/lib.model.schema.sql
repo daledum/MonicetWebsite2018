@@ -207,11 +207,17 @@ CREATE TABLE `photo`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`slug` VARCHAR(255)  NOT NULL,
+	`album_id` INTEGER  NOT NULL,
 	`image` VARCHAR(1024),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	UNIQUE KEY `photo_U_1` (`slug`)
+	UNIQUE KEY `photo_U_1` (`slug`),
+	INDEX `photo_FI_1` (`album_id`),
+	CONSTRAINT `photo_FK_1`
+		FOREIGN KEY (`album_id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
 )Type=InnoDB;
 
 #-----------------------------------------------------------------------------

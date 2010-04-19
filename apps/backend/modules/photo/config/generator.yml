@@ -10,11 +10,13 @@ generator:
     route_prefix:          photo
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        photo
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        display: [caption, album, image, created_at, updated_at]
       filter:  ~
       form:    ~
       edit:    ~

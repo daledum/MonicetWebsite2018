@@ -11,5 +11,6 @@ class PhotoI18nForm extends BasePhotoI18nForm
 {
   public function configure()
   {
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('photo');
   }
 }

@@ -28,7 +28,7 @@ class NewsArticlePeer extends BaseNewsArticlePeer {
       ->addOr(NewsArticlePeer::ENTER_DATE, null, Criteria::ISNULL)
       ->add(NewsArticlePeer::EXIT_DATE, time(), Criteria::GREATER_EQUAL)
       ->addOr(NewsArticlePeer::EXIT_DATE, null, Criteria::ISNULL)
-      ->orderByPublishDate(Criteria::ASC)
+      ->orderByPublishDate(Criteria::DESC)
 		  ->useNewsArticleI18nQuery()
         ->filterByCulture($user->getCulture())
       ->enduse();

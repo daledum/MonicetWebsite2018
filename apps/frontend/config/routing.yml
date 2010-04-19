@@ -4,7 +4,7 @@
 # default rules
 homepage:
   url:   /
-  param: { module: home, action: language }
+  param: { module: home, action: language, sf_culture: en }
 
 index:
   url:   /:sf_culture
@@ -49,6 +49,12 @@ contacts:
 album_all:
   url:      /:sf_culture/albums
   param:    { module: photoalbum, action: index }
+  
+album:
+  url:      /:sf_culture/album/:slug
+  class:    sfPropelRoute
+  param:    { module: photoalbum, action: show }
+  options:  { model: Album, type: object }
 
 default_index:
   url:   /:sf_culture/:module

@@ -23,4 +23,24 @@ class AlbumPeer extends BaseAlbumPeer {
     $c->addDescendingOrderByColumn(AlbumPeer::UPDATED_AT);
     return self::doSelectWithI18n($c);
   }
+  
+  public static function getCriteria()
+  {
+    $user = sfContext::getInstance()->getUser();
+    $request = sfContext::getInstance()->getRequest();
+    
+    $criteria = AlbumQuery::create()
+      ->orderByUpdatedAt(Criteria::DESC)
+          ->useAlbumI18nQuery()
+        ->filterByCulture($user->getCulture())
+      ->enduse();
+    return $criteria;
+  }
+  
+  public static function getPager()
+  {     
+    $request = sfContext::getInstance()->getRequest();
+    $criteria = self::getCriteria();
+    return $criteria->paginate($request->getParameter('page', 1), 10);
+  }
 } // AlbumPeer

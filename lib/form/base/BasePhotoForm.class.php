@@ -16,6 +16,7 @@ abstract class BasePhotoForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'slug'       => new sfWidgetFormInputText(),
+      'album_id'   => new sfWidgetFormPropelChoice(array('model' => 'Album', 'add_empty' => false)),
       'image'      => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
@@ -24,6 +25,7 @@ abstract class BasePhotoForm extends BaseFormPropel
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'Photo', 'column' => 'id', 'required' => false)),
       'slug'       => new sfValidatorString(array('max_length' => 255)),
+      'album_id'   => new sfValidatorPropelChoice(array('model' => 'Album', 'column' => 'id')),
       'image'      => new sfValidatorString(array('max_length' => 1024, 'required' => false)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),

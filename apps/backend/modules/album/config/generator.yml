@@ -11,13 +11,15 @@ generator:
     with_propel_route:     1
     actions_base_class:    sfActions
     i18n_catalogue:        album
-    
+
     config:
       actions: ~
       fields:  ~
-      list:    
-        display:           [name]
+      list:
+        peer_method:       doSelectWithI18n    
+        display:           [name, created_at, updated_at]
       filter:  ~
       form:    ~
       edit:    ~
-      new:     ~
+      new:
+        display:           ~

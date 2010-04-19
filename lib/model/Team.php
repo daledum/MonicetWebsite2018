@@ -20,8 +20,10 @@ class Team extends BaseTeam {
   public function save(PropelPDO $con = null)
   {
     parent::save($con);
-    if ( $this->getPhoto() ){
-      WideImage::load(sfConfig::get('sf_upload_dir').'/team/'.$this->getPhoto())->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/team/tn_'.$this->getPhoto()); 
+    
+    $photo_src = sfConfig::get('sf_upload_dir').'/team/'.$this->getPhoto();
+    if ( $this->getPhoto() && file_exists($photo_src) ){
+      WideImage::load($photo_src)->resize(140, 500)->saveToFile(sfConfig::get('sf_upload_dir').'/team/tn_'.$this->getPhoto()); 
     }
   }
 } // Team
