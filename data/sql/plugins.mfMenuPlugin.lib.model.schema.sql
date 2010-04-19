@@ -32,7 +32,7 @@ CREATE TABLE `mf_menu`
 		FOREIGN KEY (`permissao_id`)
 		REFERENCES `sf_guard_permission` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

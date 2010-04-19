@@ -17,7 +17,7 @@ CREATE TABLE `mf_log`
 	`mensagem` TEXT  NOT NULL,
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

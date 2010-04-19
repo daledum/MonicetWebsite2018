@@ -6,3 +6,5 @@
 ./.buildpath
 ./.project
 ./.settings
+./data/sql/backup_*
+./web/error_log
