@@ -1,0 +1,23 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Photo
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Photo
+    plural:                Photos
+    route_prefix:          photo
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        photo
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display: [caption, album, image, created_at, updated_at]
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

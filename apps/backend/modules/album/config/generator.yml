@@ -1,0 +1,25 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Album
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Album
+    plural:                Albums
+    route_prefix:          album
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        album
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        peer_method:       doSelectWithI18n    
+        display:           [name, created_at, updated_at]
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:
+        display:           ~

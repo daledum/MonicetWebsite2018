@@ -1,3 +1,21 @@
+photo:
+  class: sfPropelRouteCollection
+  options:
+    model:                Photo
+    module:               photo
+    prefix_path:          /photo
+    column:               id
+    with_wildcard_routes: true
+
+album:
+  class: sfPropelRouteCollection
+  options:
+    model:                Album
+    module:               album
+    prefix_path:          /album
+    column:               id
+    with_wildcard_routes: true
+
 team:
   class: sfPropelRouteCollection
   options:

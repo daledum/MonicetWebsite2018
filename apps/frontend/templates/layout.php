@@ -9,6 +9,23 @@
     <link rel="alternate" title="monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+    <?php if($active == "album"): ?>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.lightbox-0.5.css" media="screen" />
+    <script type="text/javascript" src="/js/jquery.lightbox-0.5.pack.js"></script>
+    <script type="text/javascript">
+    $(function() {
+		$('ul.gallery li a').lightBox({
+		    imageBtnClose: "/images/frontend/lightbox-btn-close.gif",
+		    imageLoading: "/images/frontend/lightbox-ico-loading.gif",
+		    imageBtnPrev: "/images/frontend/lightbox-btn-prev.gif",
+		    imageBtnNext: "/images/frontend/lightbox-btn-next.gif",
+		    txtImage: '',
+		    txtOf: '-'
+		});
+	});
+
+	</script>
+    <?php endif ?>
   </head>
   <body>
     <div id="_div_background">
@@ -28,6 +45,7 @@
 	                    <li<?php if($active == "background"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('background'), '@default_index?module=background'); ?></li>
 	                    <li<?php if($active == "objectives"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('objectives'), '@default_index?module=objectives'); ?></li>
 	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('team'), '@default_index?module=team'); ?></li>
+	                    <li<?php if($active == "album"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('album'), '@album_all'); ?></li>
 	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('contacts'), '@contacts'); ?></li>
 	                </ul>
 	            </div>

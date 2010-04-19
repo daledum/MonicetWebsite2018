@@ -1,0 +1,109 @@
+Album:
+  album_1:
+    slug:                album_1
+  album_2:
+    slug:                album_2
+  album_3:
+    slug:                album_3
+  album_4:
+    slug:                album_4
+
+AlbumI18N:
+  album_1_en:
+    id:                   album_1
+    culture:              en
+    name:                 "Album one"
+
+  album_1_pt:
+    id:                   album_1
+    culture:              pt
+    name:                 "Álbum um"
+
+  album_2_en:
+    id:                   album_2
+    culture:              en
+    name:                 "Album two"
+
+  album_2_pt:
+    id:                   album_2
+    culture:              pt
+    name:                 "Álbum dois"
+
+  album_3_en:
+    id:                   album_3
+    culture:              en
+    name:                 "Album three"
+
+  album_3_pt:
+    id:                   album_3
+    culture:              pt
+    name:                 "Álbum três"
+
+  album_4_en:
+    id:                   album_4
+    culture:              en
+    name:                 "Album four"
+  
+  album_4_pt:
+    id:                   album_4
+    culture:              pt
+    name:                 "Álbum quatro"
+
+Photo:
+  photo_1:
+    slug:                photo_1
+    album_id:            album_1
+    image:               "album-one/img1.jpg"
+  photo_2:
+    slug:                photo_2
+    album_id:            album_1
+    image:               "album-one/img2.jpg"
+  photo_3:
+    slug:                photo_3
+    album_id:            album_1
+    image:               "album-one/img3.jpg"
+  photo_4:
+    slug:                photo_4
+    album_id:            album_1
+    image:               "album-one/img4.jpg"
+
+PhotoI18N:
+  photo_1_en:
+    id:                   photo_1
+    culture:              en
+    caption:              "Photo one"
+
+  photo_1_pt:
+    id:                   photo_1
+    culture:              pt
+    caption:              "Fotografia um"
+
+  photo_2_en:
+    id:                   photo_2
+    culture:              en
+    caption:              "Photo two"
+
+  photo_2_pt:
+    id:                   photo_2
+    culture:              pt
+    caption:              "Fotografia dois"
+
+  photo_3_en:
+    id:                   photo_3
+    culture:              en
+    caption:              "Photo three"
+
+  photo_3_pt:
+    id:                   photo_3
+    culture:              pt
+    caption:              "Fotografia três"
+
+  photo_4_en:
+    id:                   photo_4
+    culture:              en
+    caption:              "Photo four"
+  
+  photo_4_pt:
+    id:                   photo_4
+    culture:              pt
+    caption:              "Fotografia quatro"

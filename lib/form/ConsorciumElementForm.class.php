@@ -19,7 +19,7 @@ class ConsorciumElementForm extends BaseConsorciumElementForm
     
     $this->widgetSchema['logotype'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
-      'file_src' => sfConfig::get('sf_upload_dir').'/consorcium/'.$this->getObject()->getLogotype(),
+      'file_src' => '/uploads/consorcium/'.$this->getObject()->getLogotype(),
       'edit_mode' => ! $this->getObject()->isNew()
     ));
     $this->validatorSchema['logotype'] = new sfValidatorFile(array(
@@ -27,9 +27,9 @@ class ConsorciumElementForm extends BaseConsorciumElementForm
       'path' => sfConfig::get('sf_upload_dir').'/consorcium',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array($this->getValue('logotype'), 'guessFromMimeContentType'),
-	      array($this->getValue('logotype'), 'guessFromFileinfo'),
-	      array($this->getValue('logotype'), 'guessFromFileBinary'),
+        array($this->getValue('logotype') ? $this->getValue('logotype') : new sfValidatorFile(), 'guessFromMimeContentType'),
+	    array($this->getValue('logotype') ? $this->getValue('logotype') : new sfValidatorFile(), 'guessFromFileinfo'),
+	    array($this->getValue('logotype') ? $this->getValue('logotype') : new sfValidatorFile(), 'guessFromFileBinary'),
       )
     ));
     $this->validatorSchema['logotype_delete'] = new sfValidatorPass();

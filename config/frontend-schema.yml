@@ -42,3 +42,25 @@ propel:
     id:            { type: integer, required: true, primaryKey: true, foreignTable: team, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     about:         { type: longvarchar, required: false }
+  album:
+    _attributes:   { isI18N: true, i18nTable: album_i18n }
+    id:            ~
+    slug:          { type: varchar(255), required: true, index: unique }
+    created_at:    ~
+    updated_at:    ~
+  album_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: album, foreignReference: id, onDelete: cascade }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
+    name:          { type: varchar(512), required: true }
+  photo:
+    _attributes:   { isI18N: true, i18nTable: photo_i18n }
+    id:            ~
+    slug:          { type: varchar(255), required: true, index: unique }
+    album_id:      { type: integer, foreignTable: album, foreignReference: id, required: true, onDelete: cascade }
+    image:         { type: varchar(1024), required: false}
+    created_at:    ~
+    updated_at:    ~
+  photo_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: photo, foreignReference: id, onDelete: cascade }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
+    caption:       { type: varchar(512), required: true }

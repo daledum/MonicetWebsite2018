@@ -29,6 +29,29 @@ body {
     background-repeat: repeat-x;
 }
 
+.albums li {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.albums li span {
+    margin-left: 10px;
+    font-size: 10px;
+    color: #666666;
+}
+
+.albums li a {
+    background-image: url("/images/frontend/album_icon.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: 3px 0px 3px 30px;
+}
+
+ul.gallery, ul.gallery li {
+	display: inline;
+	margin-right: 5px;
+}
+
 #_div_header {
     background-color: #dcedeb;
     border-top-style: solid;

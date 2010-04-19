@@ -17,7 +17,7 @@ CREATE TABLE `log`
 	`message` TEXT(255),
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- option
@@ -37,7 +37,7 @@ CREATE TABLE `option`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `option_U_1` (`name`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- news_article
@@ -59,7 +59,7 @@ CREATE TABLE `news_article`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `news_article_U_1` (`slug`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- news_article_i18n
@@ -79,7 +79,7 @@ CREATE TABLE `news_article_i18n`
 		FOREIGN KEY (`id`)
 		REFERENCES `news_article` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- consorcium_element
@@ -99,7 +99,7 @@ CREATE TABLE `consorcium_element`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `consorcium_element_U_1` (`slug`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- consorcium_element_i18n
@@ -118,7 +118,7 @@ CREATE TABLE `consorcium_element_i18n`
 		FOREIGN KEY (`id`)
 		REFERENCES `consorcium_element` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- team
@@ -139,7 +139,7 @@ CREATE TABLE `team`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `team_U_1` (`slug`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- team_i18n
@@ -157,6 +157,85 @@ CREATE TABLE `team_i18n`
 	CONSTRAINT `team_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `team` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- album
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album`;
+
+
+CREATE TABLE `album`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `album_U_1` (`slug`)
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- album_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album_i18n`;
+
+
+CREATE TABLE `album_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `album_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- photo
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo`;
+
+
+CREATE TABLE `photo`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`album_id` INTEGER  NOT NULL,
+	`image` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `photo_U_1` (`slug`),
+	INDEX `photo_FI_1` (`album_id`),
+	CONSTRAINT `photo_FK_1`
+		FOREIGN KEY (`album_id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
+#-----------------------------------------------------------------------------
+#-- photo_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo_i18n`;
+
+
+CREATE TABLE `photo_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`caption` VARCHAR(512)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `photo_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `photo` (`id`)
 		ON DELETE CASCADE
 )Type=InnoDB;
 
@@ -185,7 +264,7 @@ CREATE TABLE `company`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- company_user
@@ -210,7 +289,7 @@ CREATE TABLE `company_user`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- vessel
@@ -232,7 +311,7 @@ CREATE TABLE `vessel`
 		FOREIGN KEY (`company_id`)
 		REFERENCES `company` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- general_info
@@ -267,7 +346,7 @@ CREATE TABLE `general_info`
 		FOREIGN KEY (`guide_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- visibility
@@ -283,7 +362,7 @@ CREATE TABLE `visibility`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- sea_state
@@ -301,7 +380,7 @@ CREATE TABLE `sea_state`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `sea_state_U_1` (`code`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- code
@@ -318,7 +397,7 @@ CREATE TABLE `code`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- record
@@ -367,7 +446,7 @@ CREATE TABLE `record`
 		FOREIGN KEY (`company_id`)
 		REFERENCES `company` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- association
@@ -383,7 +462,7 @@ CREATE TABLE `association`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- behaviour
@@ -399,7 +478,7 @@ CREATE TABLE `behaviour`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- specie_group
@@ -415,7 +494,7 @@ CREATE TABLE `specie_group`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- specie
@@ -438,7 +517,7 @@ CREATE TABLE `specie`
 		FOREIGN KEY (`specie_group_id`)
 		REFERENCES `specie_group` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- sighting
@@ -483,7 +562,7 @@ CREATE TABLE `sighting`
 		FOREIGN KEY (`association_id`)
 		REFERENCES `association` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- user
@@ -523,7 +602,7 @@ CREATE TABLE `user`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+)Type=MyISAM;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;
