@@ -21,6 +21,7 @@ class AlbumPeer extends BaseAlbumPeer {
   {
     $c = new Criteria();
     $c->addDescendingOrderByColumn(AlbumPeer::UPDATED_AT);
+    $c->where(AlbumPeer::IS_PUBLIC, true);
     return self::doSelectWithI18n($c);
   }
   
@@ -30,8 +31,9 @@ class AlbumPeer extends BaseAlbumPeer {
     $request = sfContext::getInstance()->getRequest();
     
     $criteria = AlbumQuery::create()
+      ->filterByIsPublic(true)
       ->orderByUpdatedAt(Criteria::DESC)
-          ->useAlbumI18nQuery()
+      ->useAlbumI18nQuery()
         ->filterByCulture($user->getCulture())
       ->enduse();
     return $criteria;

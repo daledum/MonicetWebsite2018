@@ -46,6 +46,7 @@ propel:
     _attributes:   { isI18N: true, i18nTable: album_i18n }
     id:            ~
     slug:          { type: varchar(255), required: true, index: unique }
+    is_public:     { type: boolean, default: false, required: false }
     created_at:    ~
     updated_at:    ~
   album_i18n:

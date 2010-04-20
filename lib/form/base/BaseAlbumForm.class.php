@@ -16,6 +16,7 @@ abstract class BaseAlbumForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
       'slug'       => new sfWidgetFormInputText(),
+      'is_public'  => new sfWidgetFormInputCheckbox(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
@@ -23,6 +24,7 @@ abstract class BaseAlbumForm extends BaseFormPropel
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'Album', 'column' => 'id', 'required' => false)),
       'slug'       => new sfValidatorString(array('max_length' => 255)),
+      'is_public'  => new sfValidatorBoolean(array('required' => false)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
     ));
