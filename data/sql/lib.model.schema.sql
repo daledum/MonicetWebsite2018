@@ -537,6 +537,7 @@ CREATE TABLE `album`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`slug` VARCHAR(255)  NOT NULL,
 	`is_public` TINYINT default 0,
+	`publish_date` DATE  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),

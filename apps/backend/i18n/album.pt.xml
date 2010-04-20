@@ -42,6 +42,14 @@
         <source>En</source>
         <target>Inglês</target>
       </trans-unit>
+      <trans-unit>
+        <source>Is public</source>
+        <target>É público</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Publish date</source>
+        <target>Data de publicação</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

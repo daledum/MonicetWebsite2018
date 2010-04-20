@@ -47,6 +47,7 @@ propel:
     id:            ~
     slug:          { type: varchar(255), required: true, index: unique }
     is_public:     { type: boolean, default: false, required: false }
+    publish_date:  { type: date, required: true }
     created_at:    ~
     updated_at:    ~
   album_i18n:

@@ -14,19 +14,21 @@ abstract class BaseAlbumForm extends BaseFormPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'id'         => new sfWidgetFormInputHidden(),
-      'slug'       => new sfWidgetFormInputText(),
-      'is_public'  => new sfWidgetFormInputCheckbox(),
-      'created_at' => new sfWidgetFormDateTime(),
-      'updated_at' => new sfWidgetFormDateTime(),
+      'id'           => new sfWidgetFormInputHidden(),
+      'slug'         => new sfWidgetFormInputText(),
+      'is_public'    => new sfWidgetFormInputCheckbox(),
+      'publish_date' => new sfWidgetFormDate(),
+      'created_at'   => new sfWidgetFormDateTime(),
+      'updated_at'   => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
-      'id'         => new sfValidatorPropelChoice(array('model' => 'Album', 'column' => 'id', 'required' => false)),
-      'slug'       => new sfValidatorString(array('max_length' => 255)),
-      'is_public'  => new sfValidatorBoolean(array('required' => false)),
-      'created_at' => new sfValidatorDateTime(array('required' => false)),
-      'updated_at' => new sfValidatorDateTime(array('required' => false)),
+      'id'           => new sfValidatorPropelChoice(array('model' => 'Album', 'column' => 'id', 'required' => false)),
+      'slug'         => new sfValidatorString(array('max_length' => 255)),
+      'is_public'    => new sfValidatorBoolean(array('required' => false)),
+      'publish_date' => new sfValidatorDate(),
+      'created_at'   => new sfValidatorDateTime(array('required' => false)),
+      'updated_at'   => new sfValidatorDateTime(array('required' => false)),
     ));
 
     $this->validatorSchema->setPostValidator(
