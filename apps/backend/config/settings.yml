@@ -47,4 +47,5 @@ all:
       - mfLog
       - mfMenu
       - sfGuardAuth
+      - sfGuardPermission
     standard_helpers:       [Partial, Cache, I18N]

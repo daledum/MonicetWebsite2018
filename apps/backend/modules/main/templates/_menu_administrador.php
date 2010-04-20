@@ -13,6 +13,7 @@
       <li><?php echo link_to('Utilizadores', '@sf_guard_user') ?></li>
       <li><?php echo link_to('Empresas', '@company') ?></li>
       <li><?php echo link_to('Menus', '@mf_menu') ?></li>
+      <li><?php echo link_to('Permissões', '@sf_guard_permission') ?></li>
       <li><?php echo link_to('Formulários', '@mf_formulario') ?></li>
       <li><?php echo link_to('Logs', '@mf_log') ?></li>
     </ul>
