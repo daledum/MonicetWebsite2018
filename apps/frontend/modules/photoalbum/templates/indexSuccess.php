@@ -2,7 +2,7 @@
 <br />
 <ul class="content albums">
     <?php foreach($pager->getResults() as $album): ?>
-    <li><?php echo link_to($album->getName(), 'album', $album) ?> <span>(<?php echo $album->getUpdatedAt(); ?>)</span></li>
+    <li><?php echo link_to($album->getName(), 'album', $album) ?> <span>(<?php echo $album->getPublishDate(); ?>)</span></li>
     <?php endforeach ?>
 </ul>
 
