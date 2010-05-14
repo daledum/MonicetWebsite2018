@@ -27,8 +27,8 @@ class PhotoForm extends BasePhotoForm
       'path' => sfConfig::get('sf_upload_dir').'/photoalbums',
       'mime_categories' => 'web_images',
       'mime_type_guessers' => array(
-        array($this->getValue('image') ? $this->getValue('image') : new sfValidatorFile(), 'guessFromMimeContentType'),
         array($this->getValue('image') ? $this->getValue('image') : new sfValidatorFile(), 'guessFromFileinfo'),
+        array($this->getValue('image') ? $this->getValue('image') : new sfValidatorFile(), 'guessFromMimeContentType'),
         array($this->getValue('image') ? $this->getValue('image') : new sfValidatorFile(), 'guessFromFileBinary'),
       )
     ));
