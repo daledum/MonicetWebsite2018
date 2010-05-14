@@ -6,6 +6,10 @@ homepage:
   url:   /
   param: { module: home, action: language, sf_culture: en }
 
+inquerito:
+  url:   /inquerito
+  param: { module: home, action: inquerito, sf_culture: pt }
+
 index:
   url:   /:sf_culture
   param: { module: home, action: index }

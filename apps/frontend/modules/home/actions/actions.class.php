@@ -23,6 +23,9 @@ class homeActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   }
+  public function executeInquerito(sfWebRequest $request)
+  {
+  }
   public function executeError404(sfWebRequest $request)
   {
   }
