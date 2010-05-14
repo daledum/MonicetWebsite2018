@@ -6,15 +6,15 @@ homepage:
   url:   /
   param: { module: home, action: language, sf_culture: en }
 
-inquerito:
-  url:   /inquerito
-  param: { module: home, action: inquerito, sf_culture: pt }
-
 index:
   url:   /:sf_culture
   param: { module: home, action: index }
   requirements:
     sf_culture: (?:pt|en)
+
+inquerito:
+  url:   /:sf_culture/inquerito
+  param: { module: home, action: inquerito }
 
 background:
   url:      /:sf_culture/background
