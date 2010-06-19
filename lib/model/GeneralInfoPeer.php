@@ -17,5 +17,12 @@
  * @package    lib.model
  */
 class GeneralInfoPeer extends BaseGeneralInfoPeer {
-
+    public static function doSelectByCompany() {
+        $user = sfContext::getInstance()->getUser()->getGuardUser();
+        $company = CompanyPeer::doSelectUserCompany($user->getId());
+        $query = GeneralInfoQuery::create()
+          ->filterByCompanyId($company->getId())
+          ->paginate();
+        return $query;
+    }
 } // GeneralInfoPeer

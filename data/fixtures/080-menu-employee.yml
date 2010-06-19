@@ -13,7 +13,7 @@ mfMenu:
   
   # submenus registo mar
   submenu_record_employee:
-    nome:               Registo               
+    nome:               Registos               
     permissao_id:       employee
     menu_pai_id:        menu_registos_mar_employee
     rota:               record

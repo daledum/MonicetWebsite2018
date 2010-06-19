@@ -88,6 +88,10 @@ record:
     column:               id
     with_wildcard_routes: true
 
+new_record:
+  url: /record/new?gi_id=:gi_id
+  param: { module: record, action: new_record }
+
 code:
   class: sfPropelRouteCollection
   options:

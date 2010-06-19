@@ -1,34 +1,38 @@
 Visibility:
    less_than_1_km:
+      code:               0
       description:        menos de 1 km
    from_1_to_5_km:
+      code:               1
       description:        de 1 a 5 km
    from_10_to_15_km:
+      code:               2
       description:        de 10 a 15 km
    greater_than_15_km:
+      code:               3
       description:        de 15 km ou mais   
 
 SeaState:
    sea_state_zero:
-      code:               sea_state_0
+      code:               0
       description:        "calmaria, mar espelhado"
    sea_state_one:
-      code:               sea_state_1
+      code:               1
       description:        "pequenas rugas na superfície do mar"
    sea_state_two:
-      code:               sea_state_2
+      code:               2
       description:        "ligeira ondulação sem rebentação (4-6 kts)"
    sea_state_three:
-      code:               sea_state_3
+      code:               3
       description:        "ondulação até 1m, com alguns carneiros (7-10 kts)"
    sea_state_four:
-      code:               sea_state_4
+      code:               4
       description:        "ondulação até 1.5m, carneiros frequentes (11-16 kts)"
    sea_state_five:
-      code:               sea_state_5
+      code:               5
       description:        "ondulação até 2.5m, muitos carneiros (17-21 kts)"
    sea_state_six:
-      code:               sea_state_6
+      code:               6
       description:        "ondas grandes até 3.5m, borrifos (22-27 kts)"
 
 Code:
@@ -53,26 +57,36 @@ Code:
 
 Association:
    nothing:
+      code:               0
       description:        nada
    birds:
+      code:               1
       description:        pássaros
    tuna:
+      code:               2
       description:        atum
    sharks:
+      code:               3
       description:        jamantas ou tubarões
    other_cet:
+      code:               4
       description:        outros cetáceos
    others:
+      code:               5
       description:        outros animais
 
 Behaviour:
    socialization:
+      code:               0
       description:        socialização
    food:
+      code:               1
       description:        alimentação
    travel:
+      code:               2
       description:        deslocação
    rest:
+      code:               3
       description:        repouso
 
 SpecieGroup:

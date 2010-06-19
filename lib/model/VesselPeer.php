@@ -18,4 +18,20 @@
  */
 class VesselPeer extends BaseVesselPeer {
 
+  public static function doSelectListByCompany() {
+  	$user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+  	$c = new Criteria();
+    $c->addAscendingOrderByColumn(VesselPeer::NAME);
+    $c->add(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+    return self::doSelect($c);
+  }
+  public static function doSelectByCompany() {
+        $user = sfContext::getInstance()->getUser()->getGuardUser();
+        $company = CompanyPeer::doSelectUserCompany($user->getId());
+        $query = VesselQuery::create()
+          ->filterByCompanyId($company->getId())
+          ->paginate();
+        return $query;
+    }
 } // VesselPeer

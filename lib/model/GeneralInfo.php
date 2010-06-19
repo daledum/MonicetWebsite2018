@@ -19,6 +19,10 @@
 class GeneralInfo extends BaseGeneralInfo {
   public function __toString()
   {
-    return $this->getId();
+    return strtoupper(substr($this->getVessel()->getCompany()->getName(), 0, 3)) . $this->getCreatedAt("Ymd") . "-" . $this->getId();
+  }
+  
+  public function getIdentifier() {
+  	return $this;
   }
 } // GeneralInfo

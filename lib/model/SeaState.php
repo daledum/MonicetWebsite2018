@@ -19,6 +19,6 @@
 class SeaState extends BaseSeaState {
   public function __toString()
   {
-    return $this->getDescription();
+    return $this->getCode() . ' - ' . $this->getDescription();
   }
 } // SeaState

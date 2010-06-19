@@ -25,13 +25,13 @@ mfMenu:
     posicao:            20
   # submenus registo mar
   submenu_record_boss:
-    nome:               Registo               
+    nome:               Registos               
     permissao_id:       ~
     menu_pai_id:        menu_registos_mar_boss
     rota:               record
     posicao:            10
   submenu_sighting_boss:
-    nome:               Avistamento               
+    nome:               Avistamentos               
     permissao_id:       boss
     menu_pai_id:        menu_registos_mar_boss
     rota:               sighting

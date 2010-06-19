@@ -16,8 +16,13 @@ generator:
       actions: ~
       fields:  ~
       list:
-        display:           [code, visibility, sea_state, time, comments]
-      filter:  ~
+        display:           [general_info, code, visibility, sea_state, time, show_sightings]
+        peer_method:       doSelectByGeneralInfo
+        fields:
+          id:  ~
+      filter:
+        class: false
       form:    ~
       edit:    ~
       new:     ~
+    

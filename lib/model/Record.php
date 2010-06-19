@@ -17,8 +17,18 @@
  * @package    lib.model
  */
 class Record extends BaseRecord {
+	
+  public function getShowSightings() {
+  	$acronym = $this->getCode()->getAcronym();
+    $result = "";
+  	if ($acronym == 'IA' || $acronym == 'RA') {
+  		$result = '<a style="background:transparent url(\'/mfAdministracaoPlugin/images/icons/list.png\') no-repeat scroll 0 0;padding-left:20px;" href="' . "sighting/new" . '">Ver Avistamento</a>';
+  	} 
+  	return $result;
+  }
+ 
   public function __toString()
   {
-    return $this->getCode()->getAcronym(). '/'.$this->getTime().'/'.$this->getGeneralInfo()->getDate("Y-m-d");
+    return $this->getCode()->getAcronym(). '/' . $this->getTime().'/'.$this->getGeneralInfo()->getDate("Y-m-d");
   }
 } // Record

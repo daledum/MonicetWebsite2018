@@ -17,5 +17,5 @@
  * @package    propel.generator.lib.model
  */
 class CompanyUserPeer extends BaseCompanyUserPeer {
-
+	
 } // CompanyUserPeer

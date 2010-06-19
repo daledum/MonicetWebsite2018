@@ -12,9 +12,15 @@ class RecordForm extends BaseRecordForm
 {
   public function configure()
   {
+  	$gi_id = sfContext::getInstance()->getRequest()->getParameter('gi_id');
+  	
   	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('record');
     unset(
       $this['created_at'], $this['updated_at']
     );
+
+    if($this->isNew()) {
+        $this->setWidget('code_id', new sfWidgetFormChoice(array('choices' => CodePeer::doSelectForNewRecord($gi_id))));
+    }
   }
 }

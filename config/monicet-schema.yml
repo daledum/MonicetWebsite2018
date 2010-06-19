@@ -34,6 +34,7 @@ propel:
       vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: true }
       skipper_id:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       guide_id:         { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       date:             { type: date, required: true }
@@ -42,13 +43,14 @@ propel:
 
    visibility:
       id:               ~
+      code:             { type: integer, required: true, index: unique }
       description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
 
    sea_state:
       id:               ~
-      code:             { type: varchar, size: 255, required: true, index: unique }
+      code:             { type: integer, required: true, index: unique }
       description:      { type: varchar, size: 255, required: true }
       created_at:       ~
       updated_at:       ~
@@ -66,22 +68,23 @@ propel:
       visibility_id:    { type: integer, foreignTable: visibility, foreignReference: id, required: true, onDelete: cascade }
       sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true, onDelete: cascade }
       general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true, onDelete: cascade }
-      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       time:             { type: time, required: true }
       latitude:         { type: varchar(255), required: true }
       longitude:        { type: varchar(255), required: true }
-      comments:         { type: longvarchar, required: false }
+      num_vessels:      { type: integer, default: 0, required: false }
       created_at:       ~
       updated_at:       ~
 
    association:
       id:               ~
+      code:             { type: integer, required: true, index: unique }
       description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
 
    behaviour:
       id:               ~
+      code:             { type: integer, required: true, index: unique }
       description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
@@ -110,8 +113,7 @@ propel:
       juveniles:        { type: integer, default: 0, required: false }
       cubs:             { type: integer, default: 0, required: false }
       total:            { type: integer, required: false }
-      num_vessels:      { type: integer, default: 0, required: false }
-      description:      { type: varchar, size: 255, required: false }
+      comments:         { type: longvarchar, required: false }
       created_at:       ~
       updated_at:       ~
 

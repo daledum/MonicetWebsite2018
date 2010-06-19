@@ -17,5 +17,12 @@
  * @package    lib.model
  */
 class RecordPeer extends BaseRecordPeer {
-
+	
+	public static function doSelectByGeneralInfo() {
+		$id = sfContext::getInstance()->getRequest()->getParameter('gi_id');
+		$query = RecordQuery::create()
+		  ->filterByGeneralInfoId($id)
+		  ->paginate();
+		return $query;
+	}
 } // RecordPeer

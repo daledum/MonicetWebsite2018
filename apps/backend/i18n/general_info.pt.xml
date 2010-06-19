@@ -12,15 +12,15 @@
       </trans-unit>
       <trans-unit>
         <source>General info List</source>
-        <target>A listar as informações</target>
+        <target>A listar as saídas</target>
       </trans-unit>
       <trans-unit>
         <source>Edit General info</source>
-        <target>A editar informação</target>
+        <target>A editar saída</target>
       </trans-unit>
       <trans-unit>
         <source>New General info</source>
-        <target>A adicionar nova informação</target>
+        <target>A adicionar nova saída</target>
       </trans-unit>
       <trans-unit>
         <source>General infos</source>
@@ -51,8 +51,8 @@
         <target>Data</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Records</source>
+        <target>Registos</target>
       </trans-unit>
       <trans-unit>
         <source></source>

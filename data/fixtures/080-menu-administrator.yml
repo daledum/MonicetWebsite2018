@@ -91,13 +91,13 @@ mfMenu:
   
   # submenus registo mar
   submenu_record_administrator:
-    nome:               Registo               
+    nome:               Registos               
     permissao_id:       administrator
     menu_pai_id:        menu_registos_mar_administrator
     rota:               record
     posicao:            10
   submenu_sighting_administrator:
-    nome:               Avistamento               
+    nome:               Avistamentos               
     permissao_id:       administrator
     menu_pai_id:        menu_registos_mar_administrator
     rota:               sighting

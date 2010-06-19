@@ -40,7 +40,7 @@
       </trans-unit>
       <trans-unit>
         <source>General info</source>
-        <target>Informações</target>
+        <target>Saída</target>
       </trans-unit>
       <trans-unit>
         <source>Time</source>
@@ -59,8 +59,12 @@
         <target>Observações</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Show sightings</source>
+        <target>Avistamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Num vessels</source>
+        <target>Nº Barcos</target>
       </trans-unit>
     </body>
   </file>

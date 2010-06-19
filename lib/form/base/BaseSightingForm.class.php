@@ -23,8 +23,7 @@ abstract class BaseSightingForm extends BaseFormPropel
       'juveniles'      => new sfWidgetFormInputText(),
       'cubs'           => new sfWidgetFormInputText(),
       'total'          => new sfWidgetFormInputText(),
-      'num_vessels'    => new sfWidgetFormInputText(),
-      'description'    => new sfWidgetFormInputText(),
+      'comments'       => new sfWidgetFormTextarea(),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -39,8 +38,7 @@ abstract class BaseSightingForm extends BaseFormPropel
       'juveniles'      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'cubs'           => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'total'          => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
-      'num_vessels'    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
-      'description'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'comments'       => new sfValidatorString(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));

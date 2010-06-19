@@ -17,5 +17,13 @@
  * @package    lib.model
  */
 class CompanyPeer extends BaseCompanyPeer {
-
+  public static function doSelectUserCompany($user_id)
+  {
+    $criteria = new Criteria();
+    $criteria->addJoin(CompanyUserPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+    $criteria->add(CompanyUserPeer::USER_ID, $user_id, Criteria::EQUAL);
+    $criteria->setLimit(1);
+    
+    return CompanyPeer::doSelectOne($criteria);
+  }
 } // CompanyPeer

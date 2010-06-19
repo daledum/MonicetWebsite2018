@@ -19,6 +19,6 @@
 class Code extends BaseCode {
   public function __toString()
   {
-    return $this->getDescription();
+    return $this->getAcronym() . ' - ' . $this->getDescription();
   }
 } // Code

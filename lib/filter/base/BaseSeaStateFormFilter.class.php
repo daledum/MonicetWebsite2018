@@ -19,7 +19,7 @@ abstract class BaseSeaStateFormFilter extends BaseFormFilterPropel
     ));
 
     $this->setValidators(array(
-      'code'        => new sfValidatorPass(array('required' => false)),
+      'code'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'description' => new sfValidatorPass(array('required' => false)),
       'created_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -41,7 +41,7 @@ abstract class BaseSeaStateFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'          => 'Number',
-      'code'        => 'Text',
+      'code'        => 'Number',
       'description' => 'Text',
       'created_at'  => 'Date',
       'updated_at'  => 'Date',

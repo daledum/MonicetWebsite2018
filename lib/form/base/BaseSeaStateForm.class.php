@@ -23,7 +23,7 @@ abstract class BaseSeaStateForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'SeaState', 'column' => 'id', 'required' => false)),
-      'code'        => new sfValidatorString(array('max_length' => 255)),
+      'code'        => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
       'description' => new sfValidatorString(array('max_length' => 255)),
       'created_at'  => new sfValidatorDateTime(array('required' => false)),
       'updated_at'  => new sfValidatorDateTime(array('required' => false)),

@@ -17,5 +17,23 @@ class GeneralInfoForm extends BaseGeneralInfoForm
       $this['created_at'], $this['updated_at']
     );
     $this->widgetSchema['date']->setOption('format', '%year%-%month%-%day%');
+    
+    $user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+    $vessels = array_merge((array)"-------------", VesselPeer::doSelectListByCompany());
+    $company_users = array_merge((array)"-------------", UserPeer::doSelectByCompany());
+    
+    $this->setWidget('vessel_id', new sfWidgetFormChoice(array('choices' => $vessels)));
+    
+    $this->setWidget('skipper_id', new sfWidgetFormChoice(array('choices' => $company_users)));
+    
+    $this->setWidget('guide_id', new sfWidgetFormChoice(array('choices' => $company_users)));
+    
+    $this->setWidget('company_id', new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
+    
+    if($this->isNew()) {
+    	$this->getWidget('base_latitude')->setAttribute('value', $company->getBaseLatitude());
+        $this->getWidget('base_longitude')->setAttribute('value', $company->getBaseLongitude());
+    }
   }
 }

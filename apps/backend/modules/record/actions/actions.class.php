@@ -13,4 +13,23 @@ require_once dirname(__FILE__).'/../lib/recordGeneratorHelper.class.php';
  */
 class recordActions extends autoRecordActions
 {
+  public function executeIndex(sfWebRequest $request) {
+  	parent::executeIndex($request);
+  }
+	
+  public function executeNew(sfWebRequest $request) {
+  	
+  	parent::executeNew($request);
+  }
+
+  public function executeShowRecords(sfWebRequest $request) {
+  	$c = new Criteria();
+    $records = RecordPeer::doSelect($c);
+  }
+  
+  public function executeListSightings(sfWebRequest $request)
+  {
+    $this->redirect('sighting');
+  }
+
 }

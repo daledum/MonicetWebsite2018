@@ -54,6 +54,7 @@ class UserPeer extends BaseUserPeer {
     	self::addPermissions($permissions, $sf_guard_user);
     }
   }
+
   public static function addPermissions( Array $permissions, $sf_guard_user = null )
   {
   	$sf_guard_user = is_null( $sf_guard_user) ? sfContext::getInstance()->getUser()->getGuardUser() : $sf_guard_user;
@@ -66,5 +67,15 @@ class UserPeer extends BaseUserPeer {
         }
       }
     }
+  }
+
+  public static function doSelectByCompany() {
+  	$user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+    $c = new Criteria();
+    $c->add(CompanyUserPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+    $c->addAscendingOrderByColumn(UserPeer::NAME);
+    $c->addJoin(CompanyUserPeer::USER_ID, UserPeer::USER_ID, Criteria::LEFT_JOIN);
+    return self::doSelect($c);
   }
 }
