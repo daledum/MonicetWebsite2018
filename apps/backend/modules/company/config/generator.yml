@@ -23,6 +23,5 @@ generator:
         actions:
           _save:  ~
           _cancel:  ~
-          _save_and_add:  ~
           teste:  ~
       new:     ~
