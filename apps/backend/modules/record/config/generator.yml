@@ -23,6 +23,11 @@ generator:
       filter:
         class: false
       form:    ~
-      edit:    ~
+      edit:
+        actions:
+          _save:  ~
+          _cancel:  ~
+          _save_and_add:  ~
+          teste:  ~
       new:     ~
     

@@ -10,4 +10,8 @@
  */
 class recordGeneratorHelper extends BaseRecordGeneratorHelper
 {
+  public function linkToTeste($object, $params)
+  {
+    return '<a href="http://www.morfose.net/?nome='.$object.'">'.$object.'</a>';
+  }
 }
