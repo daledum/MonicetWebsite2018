@@ -19,5 +19,10 @@ generator:
         display:           [name, base_latitude, base_longitude]
       filter:  ~
       form:    ~
-      edit:    ~
+      edit:
+        actions:
+          _save:  ~
+          _cancel:  ~
+          _save_and_add:  ~
+          teste:  ~
       new:     ~
