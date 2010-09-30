@@ -19,6 +19,6 @@
 class Visibility extends BaseVisibility {
   public function __toString()
   {
-    return $this->getCode() . ' - ' . $this->getDescription();
+    return $this->getCode();
   }
 } // Visibility

@@ -2,9 +2,12 @@ sfGuardUserPermission:
   user_permission_administrator:
     permission_id:           administrator
     user_id:                 sf_monicet
-  user_permission_boss:
+  user_permission_pa_boss:
     permission_id:           boss
-    user_id:                 sf_joao
-  user_permission_employee:
-    permission_id:           employee
-    user_id:                 sf_joana
+    user_id:                 sf_boss_pa
+  user_permission_ta_boss:
+    permission_id:           boss
+    user_id:                 sf_boss_ta
+  user_permission_ft_boss:
+    permission_id:           boss
+    user_id:                 sf_boss_ft

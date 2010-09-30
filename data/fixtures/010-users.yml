@@ -14,16 +14,16 @@ sfGuardUser:
     password:               monisete
     is_super_admin:         false
   # utilizadores teste
-  sf_joao:
-    username:               joao
+  sf_boss_ta:
+    username:               boss-ta
     password:               1234567
     is_super_admin:         false
-  sf_joana:
-    username:               joana
+  sf_boss_ft:
+    username:               boss-ft
     password:               1234567
     is_super_admin:         false
-  sf_pedro:
-    username:               pedro
+  sf_boss_pa:
+    username:               boss-pa
     password:               1234567
     is_super_admin:         false
 
@@ -45,27 +45,79 @@ User:
     country:                PT
     lang:                   pt
   # utilizadores teste
-  mf_joao:
-    user_id:                sf_joao
-    name:                   João
-    lastname:               Mendes
-    email:                  joao@mail.pt
+  mf_boss_ta:
+    user_id:                sf_boss_ta
+    name:                   boss
+    lastname:               ta
+    email:                  geral@monicet.net
     url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
-  mf_joana:
-    user_id:                sf_joana
-    name:                   Joana
-    lastname:               Saraiva
-    email:                  joana@mail.pt
+  mf_boss_ft:
+    user_id:                sf_boss_ft
+    name:                   boss
+    lastname:               ft
+    email:                  geral@monicet.net
     url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
-  mf_pedro:
-    user_id:                sf_pedro
-    name:                   Pedro
-    lastname:               Guedes
-    email:                  pedro@mail.pt
+  mf_boss_pa:
+    user_id:                sf_boss_pa
+    name:                   boss
+    lastname:               pa
+    email:                  geral@monicet.net
     url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
+
+
+Company:
+   futurismo:
+      name:               Futurismo São Miguel
+      acronym:            FS
+      base_latitude:      3.4
+      base_longitude:     4.3
+   terra_azul:
+      name:               Terra Azul
+      acronym:            TA
+      base_latitude:      2.1
+      base_longitude:     1.2
+   picos_de_aventura:
+      name:               Picos de Aventura
+      acronym:            PA
+      base_latitude:      7.8
+      base_longitude:     8.7
+
+
+Vessel:
+   vessel_one:
+      company_id:         picos_de_aventura
+      name:               vessel name one
+   vessel_two:
+      company_id:         picos_de_aventura
+      name:               vessel name two
+   vessel_three:
+      company_id:         futurismo
+      name:               vessel name three
+   vessel_four:
+      company_id:         futurismo
+      name:               vessel name four
+   vessel_five:
+      company_id:         terra_azul
+      name:               vessel name five
+   vessel_six:
+      company_id:         terra_azul
+      name:               vessel name six 
+ 
+ 
+CompanyUser:
+  boss_ft:
+    company_id: futurismo
+    user_id: sf_boss_ft
+  boss_ta:
+    company_id: terra_azul
+    user_id: sf_boss_ta
+  boss_pa:
+    company_id: picos_de_aventura
+    user_id: sf_boss_pa
+ 

@@ -252,8 +252,9 @@ CREATE TABLE `company`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255)  NOT NULL,
-	`base_latitude` VARCHAR(45)  NOT NULL,
-	`base_longitude` VARCHAR(45)  NOT NULL,
+	`acronym` VARCHAR(45)  NOT NULL,
+	`base_latitude` FLOAT  NOT NULL,
+	`base_longitude` FLOAT  NOT NULL,
 	`email` VARCHAR(255),
 	`url` VARCHAR(255),
 	`telephone` VARCHAR(255),
@@ -316,6 +317,50 @@ CREATE TABLE `vessel`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
+#-- guide
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `guide`;
+
+
+CREATE TABLE `guide`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`company_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `guide_FI_1` (`company_id`),
+	CONSTRAINT `guide_FK_1`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- skipper
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `skipper`;
+
+
+CREATE TABLE `skipper`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`company_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `skipper_FI_1` (`company_id`),
+	CONSTRAINT `skipper_FK_1`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
 #-- general_info
 #-----------------------------------------------------------------------------
 
@@ -325,16 +370,18 @@ DROP TABLE IF EXISTS `general_info`;
 CREATE TABLE `general_info`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(45)  NOT NULL,
 	`vessel_id` INTEGER  NOT NULL,
 	`skipper_id` INTEGER  NOT NULL,
 	`guide_id` INTEGER  NOT NULL,
 	`company_id` INTEGER  NOT NULL,
-	`base_latitude` VARCHAR(45)  NOT NULL,
-	`base_longitude` VARCHAR(45)  NOT NULL,
+	`base_latitude` FLOAT  NOT NULL,
+	`base_longitude` FLOAT  NOT NULL,
 	`date` DATE  NOT NULL,
+	`created_by` INTEGER  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
+	PRIMARY KEY (`id`,`created_by`),
 	INDEX `general_info_FI_1` (`vessel_id`),
 	CONSTRAINT `general_info_FK_1`
 		FOREIGN KEY (`vessel_id`)
@@ -342,17 +389,22 @@ CREATE TABLE `general_info`
 	INDEX `general_info_FI_2` (`skipper_id`),
 	CONSTRAINT `general_info_FK_2`
 		FOREIGN KEY (`skipper_id`)
-		REFERENCES `sf_guard_user` (`id`)
+		REFERENCES `skipper` (`id`)
 		ON DELETE CASCADE,
 	INDEX `general_info_FI_3` (`guide_id`),
 	CONSTRAINT `general_info_FK_3`
 		FOREIGN KEY (`guide_id`)
-		REFERENCES `sf_guard_user` (`id`)
+		REFERENCES `guide` (`id`)
 		ON DELETE CASCADE,
 	INDEX `general_info_FI_4` (`company_id`),
 	CONSTRAINT `general_info_FK_4`
 		FOREIGN KEY (`company_id`)
 		REFERENCES `company` (`id`)
+		ON DELETE CASCADE,
+	INDEX `general_info_FI_5` (`created_by`),
+	CONSTRAINT `general_info_FK_5`
+		FOREIGN KEY (`created_by`)
+		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
 )Type=MyISAM;
 
@@ -424,8 +476,8 @@ CREATE TABLE `record`
 	`sea_state_id` INTEGER  NOT NULL,
 	`general_info_id` INTEGER  NOT NULL,
 	`time` TIME  NOT NULL,
-	`latitude` VARCHAR(255)  NOT NULL,
-	`longitude` VARCHAR(255)  NOT NULL,
+	`latitude` FLOAT  NOT NULL,
+	`longitude` FLOAT  NOT NULL,
 	`num_vessels` INTEGER default 0,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -541,10 +593,11 @@ CREATE TABLE `sighting`
 	`specie_id` INTEGER  NOT NULL,
 	`behaviour_id` INTEGER  NOT NULL,
 	`association_id` INTEGER  NOT NULL,
-	`adults` INTEGER default 0,
-	`juveniles` INTEGER default 0,
-	`cubs` INTEGER default 0,
+	`adults` VARCHAR(45),
+	`juveniles` VARCHAR(45),
+	`cubs` VARCHAR(45),
 	`total` INTEGER,
+	`number_vessels` INTEGER,
 	`comments` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,

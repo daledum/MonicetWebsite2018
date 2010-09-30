@@ -15,10 +15,11 @@ mfMenu:
     permissao_id:       administrator
     menu_pai_id:        ~
     posicao:            30
-  menu_registos_mar_administrator:
-    nome:               Registos Mar
+  menu_general_info_administrator:
+    nome:               Saídas
     permissao_id:       administrator
     menu_pai_id:        ~
+    rota:               general_info
     posicao:            40
   # opções do sítio web 
   submenu_news_article_administrator:
@@ -88,27 +89,18 @@ mfMenu:
     menu_pai_id:        menu_administracao_mar_administrator
     rota:               vessel
     posicao:            80
-  
-  # submenus registo mar
-  submenu_record_administrator:
-    nome:               Registos               
+  submenu_guide_admin:
+    nome:               Guias/Biólogos
     permissao_id:       administrator
-    menu_pai_id:        menu_registos_mar_administrator
-    rota:               record
-    posicao:            10
-  submenu_sighting_administrator:
-    nome:               Avistamentos               
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               guide
+    posicao:            90
+  submenu_skipper_admin:
+    nome:               Skippers
     permissao_id:       administrator
-    menu_pai_id:        menu_registos_mar_administrator
-    rota:               sighting
-    posicao:            20
-  submenu_general_info_administrator:
-    nome:               Saídas
-    permissao_id:       administrator
-    menu_pai_id:        menu_registos_mar_administrator
-    rota:               general_info
-    posicao:            30
-  
+    menu_pai_id:        menu_administracao_mar_administrator
+    rota:               skipper
+    posicao:            100
   # submenu de administração administrador
   submenu_company_admin:
     nome:               Empresas

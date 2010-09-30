@@ -4,44 +4,43 @@ mfMenu:
     nome:               Administração
     permissao_id:       boss
     menu_pai_id:        ~
-    posicao:            20
+    posicao:            10
   menu_administracao_mar_boss:
     nome:               Administração Mar
     permissao_id:       boss
     menu_pai_id:        ~
-    posicao:            30
-  menu_registos_mar_boss:
-    nome:               Registos Mar
+    posicao:            20
+  menu_general_info_administrator:
+    nome:               Saídas
     permissao_id:       boss
     menu_pai_id:        ~
-    posicao:            40
-  
+    rota:               general_info
+    posicao:            30
   # submenus administração mar boss
   submenu_specie_boss:
     nome:               Espécies
     permissao_id:       boss
     menu_pai_id:        menu_administracao_mar_boss
     rota:               specie
-    posicao:            20
-  # submenus registo mar
-  submenu_record_boss:
-    nome:               Registos               
-    permissao_id:       ~
-    menu_pai_id:        menu_registos_mar_boss
-    rota:               record
     posicao:            10
-  submenu_sighting_boss:
-    nome:               Avistamentos               
+  submenu_vessel_boss:
+    nome:               Barcos
     permissao_id:       boss
-    menu_pai_id:        menu_registos_mar_boss
-    rota:               sighting
+    menu_pai_id:        menu_administracao_mar_boss
+    rota:               vessel
     posicao:            20
-  submenu_general_info_boss:
-    nome:               Saídas
+  submenu_guide_boss:
+    nome:               Guias/Biólogos
     permissao_id:       boss
-    menu_pai_id:        menu_registos_mar_boss
-    rota:               general_info
+    menu_pai_id:        menu_administracao_mar_boss
+    rota:               guide
     posicao:            30
+  submenu_skipper_admin:
+    nome:               Skippers
+    permissao_id:       boss
+    menu_pai_id:        menu_administracao_mar_boss
+    rota:               skipper
+    posicao:            40
   # submenu de administração boss
   submenu_company_boss:
     nome:               Empresas
@@ -49,15 +48,9 @@ mfMenu:
     menu_pai_id:        menu_administracao_boss
     rota:               company
     posicao:            10
-  submenu_vessel_boss:
-    nome:               Barcos
-    permissao_id:       boss
-    menu_pai_id:        menu_administracao_boss
-    rota:               vessel
-    posicao:            20
-  submenu_vessel_boss:
+  submenu_users_boss:
     nome:               Utilizadores
     permissao_id:       boss
     menu_pai_id:        menu_administracao_boss
     rota:               sf_guard_user
-    posicao:            30
+    posicao:            20

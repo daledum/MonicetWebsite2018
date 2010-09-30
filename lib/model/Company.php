@@ -17,6 +17,7 @@
  * @package    lib.model
  */
 class Company extends BaseCompany {
+
   public function __toString()
   {
   	return $this->getName();

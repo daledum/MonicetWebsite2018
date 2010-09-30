@@ -4,26 +4,13 @@ mfMenu:
     nome:               Administração
     permissao_id:       employee
     menu_pai_id:        ~
-    posicao:            40
-  menu_registos_mar_employee:
-    nome:               Registos Mar
-    permissao_id:       employee
-    menu_pai_id:        ~
-    posicao:            40
-  
-  # submenus registo mar
-  submenu_record_employee:
-    nome:               Registos               
-    permissao_id:       employee
-    menu_pai_id:        menu_registos_mar_employee
-    rota:               record
     posicao:            10
-  submenu_general_info_employee:
+  menu_general_info_administrator:
     nome:               Saídas
     permissao_id:       employee
-    menu_pai_id:        menu_registos_mar_employee
+    menu_pai_id:        ~
     rota:               general_info
-    posicao:            30
+    posicao:            20
   # submenu de administração administrador
   submenu_vessel_boss_employee:
     nome:               Utilizadores

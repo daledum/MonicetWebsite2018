@@ -15,26 +15,30 @@ abstract class BaseGeneralInfoForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
+      'code'           => new sfWidgetFormInputText(),
       'vessel_id'      => new sfWidgetFormPropelChoice(array('model' => 'Vessel', 'add_empty' => false)),
-      'skipper_id'     => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => false)),
-      'guide_id'       => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => false)),
+      'skipper_id'     => new sfWidgetFormPropelChoice(array('model' => 'Skipper', 'add_empty' => false)),
+      'guide_id'       => new sfWidgetFormPropelChoice(array('model' => 'Guide', 'add_empty' => false)),
       'company_id'     => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => false)),
       'base_latitude'  => new sfWidgetFormInputText(),
       'base_longitude' => new sfWidgetFormInputText(),
       'date'           => new sfWidgetFormDate(),
+      'created_by'     => new sfWidgetFormInputHidden(),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'             => new sfValidatorPropelChoice(array('model' => 'GeneralInfo', 'column' => 'id', 'required' => false)),
+      'code'           => new sfValidatorString(array('max_length' => 45)),
       'vessel_id'      => new sfValidatorPropelChoice(array('model' => 'Vessel', 'column' => 'id')),
-      'skipper_id'     => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id')),
-      'guide_id'       => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id')),
+      'skipper_id'     => new sfValidatorPropelChoice(array('model' => 'Skipper', 'column' => 'id')),
+      'guide_id'       => new sfValidatorPropelChoice(array('model' => 'Guide', 'column' => 'id')),
       'company_id'     => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id')),
-      'base_latitude'  => new sfValidatorString(array('max_length' => 45)),
-      'base_longitude' => new sfValidatorString(array('max_length' => 45)),
+      'base_latitude'  => new sfValidatorNumber(),
+      'base_longitude' => new sfValidatorNumber(),
       'date'           => new sfValidatorDate(),
+      'created_by'     => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id', 'required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));

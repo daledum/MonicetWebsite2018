@@ -22,16 +22,23 @@ class VesselPeer extends BaseVesselPeer {
   	$user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());
   	$c = new Criteria();
-    $c->addAscendingOrderByColumn(VesselPeer::NAME);
-    $c->add(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
-    return self::doSelect($c);
+    if ($company) {
+        $c->add(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+    }
+    return mfUtils::fromObjectsToArrayWithEmpty(self::doSelect($c));
   }
+  
   public static function doSelectByCompany() {
         $user = sfContext::getInstance()->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
-        $query = VesselQuery::create()
-          ->filterByCompanyId($company->getId())
-          ->paginate();
+        if ($company) {
+            $query = VesselQuery::create()
+                ->filterByCompanyId($company->getId())
+                ->paginate();
+        } else {
+        	$query = VesselQuery::create()
+                ->paginate();
+        }
         return $query;
     }
 } // VesselPeer

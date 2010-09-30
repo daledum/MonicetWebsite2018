@@ -19,6 +19,6 @@
 class Behaviour extends BaseBehaviour {
   public function __toString()
   {
-    return $this->getDescription();
+    return $this->getCode();
   }
 } // Behaviour

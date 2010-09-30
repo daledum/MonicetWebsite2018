@@ -34,8 +34,8 @@ all:
     csrf_secret:            eccfd8bd6a3aaaf8cca05004e4554ef5bfe0a383
 
     # Output escaping settings
-    escaping_strategy:      true
-    escaping_method:        ESC_RAW
+    #escaping_strategy:      true
+    #escaping_method:        ESC_RAW
 
     # Enable the database manager
     use_database:           true

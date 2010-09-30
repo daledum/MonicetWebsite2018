@@ -74,3 +74,11 @@ sfGuardPermission:
   permission_visibility_all:
     name:           visibility.*
     description:    All visibility actions
+
+  permission_guide_all:
+    name:           guide.*
+    description:    All guide actions
+
+  permission_skipper_all:
+    name:           skipper.*
+    description:    All skipper actions

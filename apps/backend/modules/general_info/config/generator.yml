@@ -13,16 +13,13 @@ generator:
     i18n_catalogue:        general_info
     
     config:
-      actions: ~
       fields:  ~
       list:
-        display:           [identifier, date, vessel, base_latitude, base_longitude]
+        display:           [code, vessel, base_latitude, base_longitude, date]
         peer_method:       doSelectByCompany
         object_actions:
-          records:     ~
           _edit:      ~
           _delete:    ~
       filter:  ~
       form:    ~
       edit:    ~
-      new:     ~

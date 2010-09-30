@@ -19,6 +19,6 @@
 class Association extends BaseAssociation {
   public function __toString()
   {
-    return $this->getCode() . ' - ' . $this->getDescription();
+    return $this->getCode();
   }
 } // Association

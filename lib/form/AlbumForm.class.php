@@ -15,7 +15,10 @@ class AlbumForm extends BaseAlbumForm
     unset(
       $this['created_at'], $this['updated_at'], $this['slug']
     );
-    $this->widgetSchema['publish_date']->setOption('format', '%year%-%month%-%day%');
+    $this->widgetSchema['publish_date'] = new sfWidgetFormInput();
+    $this->widgetSchema['publish_date']->setAttribute('class', 'date_field');
+    $this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['publish_date']->setAttribute('value', date("Y-m-d"));
     $this->embedI18n(array('pt', 'en'));
   }
   

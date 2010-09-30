@@ -16,9 +16,21 @@ class NewsArticleForm extends BaseNewsArticleForm
     unset(
       $this['created_at'], $this['updated_at'], $this['slug']
     );
-    $this->widgetSchema['enter_date']->setOption('format', '%year%-%month%-%day%');
-    $this->widgetSchema['exit_date']->setOption('format', '%year%-%month%-%day%');
-    $this->widgetSchema['publish_date']->setOption('format', '%year%-%month%-%day%');
+
+    $this->widgetSchema['enter_date'] = new sfWidgetFormInput();
+    $this->widgetSchema['enter_date']->setAttribute('class', 'date_field');
+    $this->widgetSchema['enter_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['enter_date']->setAttribute('value', date("Y-m-d"));
+    
+    $this->widgetSchema['exit_date'] = new sfWidgetFormInput();
+    $this->widgetSchema['exit_date']->setAttribute('class', 'date_field');
+    $this->widgetSchema['exit_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['exit_date']->setAttribute('value', date("Y-m-d"));
+    
+    $this->widgetSchema['publish_date'] = new sfWidgetFormInput();
+    $this->widgetSchema['publish_date']->setAttribute('class', 'date_field');
+    $this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['publish_date']->setAttribute('value', date("Y-m-d"));
     
     $this->widgetSchema['image'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,

@@ -1,8 +1,8 @@
 newSuccess:
-  stylesheets: []
-  javascripts: ["tiny_mce/jquery.tinymce.js", "tiny_mce/tiny_mce.js", "textarea.js"]
+  stylesheets: ['datepicker.css']
+  javascripts: ['datepicker.js', 'date.js', "tiny_mce/jquery.tinymce.js", "tiny_mce/tiny_mce.js", "textarea.js"]
 editSuccess:
-  stylesheets: []
-  javascripts: ["tiny_mce/jquery.tinymce.js", "tiny_mce/tiny_mce.js", "textarea.js"]
+  stylesheets: ['datepicker.css']
+  javascripts: ['datepicker.js', 'date.js', "tiny_mce/jquery.tinymce.js", "tiny_mce/tiny_mce.js", "textarea.js"]
 all:
   layout: mfAdminLayout

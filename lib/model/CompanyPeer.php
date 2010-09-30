@@ -26,4 +26,18 @@ class CompanyPeer extends BaseCompanyPeer {
     
     return CompanyPeer::doSelectOne($criteria);
   }
+  
+  public static function doSelectByCompany() {
+        $user = sfContext::getInstance()->getUser()->getGuardUser();
+        $company = CompanyPeer::doSelectUserCompany($user->getId());
+        if ($company) {
+            $query = CompanyQuery::create()
+                ->filterById($company->getId())
+                ->paginate();
+        } else {
+            $query = CompanyQuery::create()
+                ->paginate();
+        }
+        return $query;
+    }
 } // CompanyPeer

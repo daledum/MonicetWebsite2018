@@ -8,3 +8,5 @@ all:
     logo_alt:     monicet
     logo_width:   167
     logo_height:  120
+  jquery:
+    date_format:  'yy-mm-dd'

@@ -19,6 +19,6 @@
 class Specie extends BaseSpecie {
   public function __toString()
   {
-    return $this->getName();
+    return $this->getCode();
   }
 } // Specie

@@ -1,0 +1,25 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Skipper
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Skipper
+    plural:                Skippers
+    route_prefix:          skipper
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        skipper
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display:           [company, name]
+        peer_method:       doSelectByCompany
+      filter:
+        class: false
+      form:    ~
+      edit:    ~
+      new:     ~

@@ -36,20 +36,31 @@ class UserPeer extends BaseUserPeer {
   		  'specie.*',
   		  'team.*',
   		  'vessel.*',
-  		  'visibility.*'
+  		  'visibility.*',
+  		  'guide.*',
   		);
   		self::addPermissions($permissions, $sf_guard_user);
   	}
     if ( $sf_guard_user->hasPermission('boss') ){
       // definir todas as permissões base para os patrões
       $permissions = array(
-        'specie.*'
-      );
+          'company.*',
+          'general_info.*',
+          'record.*',
+          'utilizador.*',
+          'sighting.*',
+          'specie.*',
+          'vessel.*',
+          'guide.*',
+        );
     	self::addPermissions($permissions, $sf_guard_user);
     }
     if ( $sf_guard_user->hasPermission('employee') ){
     	// definir todas as permissões base para os empregados
       $permissions = array(
+          'general_info.*',
+          'record.*',
+          'sighting.*'
       );
     	self::addPermissions($permissions, $sf_guard_user);
     }
@@ -73,9 +84,11 @@ class UserPeer extends BaseUserPeer {
   	$user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());
     $c = new Criteria();
-    $c->add(CompanyUserPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+    if($company) {
+        $c->add(CompanyUserPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+        $c->addJoin(CompanyUserPeer::USER_ID, UserPeer::USER_ID, Criteria::LEFT_JOIN);
+    }
     $c->addAscendingOrderByColumn(UserPeer::NAME);
-    $c->addJoin(CompanyUserPeer::USER_ID, UserPeer::USER_ID, Criteria::LEFT_JOIN);
     return self::doSelect($c);
   }
 }

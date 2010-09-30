@@ -325,3 +325,7 @@
   font-size: 14px;
   padding: 4px 10px;
 }
+
+strong {
+    font-weight: bold;
+}

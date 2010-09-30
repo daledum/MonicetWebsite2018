@@ -17,7 +17,8 @@ generator:
       fields:  ~
       list:
         display:          [username, name, lastname, is_active, is_super_admin]
-      filter:  ~
+      filter:
+        class: false
       form:    ~
       edit:    ~
       new:     ~

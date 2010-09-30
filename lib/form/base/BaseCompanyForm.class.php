@@ -16,6 +16,7 @@ abstract class BaseCompanyForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                => new sfWidgetFormInputHidden(),
       'name'              => new sfWidgetFormInputText(),
+      'acronym'           => new sfWidgetFormInputText(),
       'base_latitude'     => new sfWidgetFormInputText(),
       'base_longitude'    => new sfWidgetFormInputText(),
       'email'             => new sfWidgetFormInputText(),
@@ -35,8 +36,9 @@ abstract class BaseCompanyForm extends BaseFormPropel
     $this->setValidators(array(
       'id'                => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id', 'required' => false)),
       'name'              => new sfValidatorString(array('max_length' => 255)),
-      'base_latitude'     => new sfValidatorString(array('max_length' => 45)),
-      'base_longitude'    => new sfValidatorString(array('max_length' => 45)),
+      'acronym'           => new sfValidatorString(array('max_length' => 45)),
+      'base_latitude'     => new sfValidatorNumber(),
+      'base_longitude'    => new sfValidatorNumber(),
       'email'             => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'url'               => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'telephone'         => new sfValidatorString(array('max_length' => 255, 'required' => false)),

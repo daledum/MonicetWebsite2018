@@ -28,13 +28,9 @@
       <li><a href="<?php echo url_for('@sea_state') ?>">Estados do mar</a></li>
       <li><a href="<?php echo url_for('@visibility') ?>">Visibilidade</a></li>
       <li><a href="<?php echo url_for('@vessel') ?>">Barcos</a></li>
+      <li><a href="<?php echo url_for('@skipper') ?>">Skippers</a></li>
+      <li><a href="<?php echo url_for('@guide') ?>">Guias/Biólogos</a></li>
     </ul>
   </li>
-  <li><a href="#">Registos mar</a>
-    <ul>
-      <li><a href="<?php echo url_for('@record') ?>">Registo</a></li>
-      <li><a href="<?php echo url_for('@sighting') ?>">Avistamento</a></li>
-      <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
-    </ul>
-  </li>
+  <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
 </ul>

@@ -1,13 +1,5 @@
 <?php
 
-/**
- * Record form.
- *
- * @package    monicet
- * @subpackage form
- * @author     Your name here
- * @version    SVN: $Id: sfPropelFormTemplate.php 10377 2008-07-21 07:10:32Z dwhittle $
- */
 class RecordForm extends BaseRecordForm
 {
   public function configure()
@@ -18,9 +10,18 @@ class RecordForm extends BaseRecordForm
     unset(
       $this['created_at'], $this['updated_at']
     );
+    
+    $this->widgetSchema['time'] = new sfWidgetFormInput();
 
-    if($this->isNew()) {
-        $this->setWidget('code_id', new sfWidgetFormChoice(array('choices' => CodePeer::doSelectForNewRecord($gi_id))));
-    }
+    $codes = CodePeer::doSelectListAll();
+    $this->widgetSchema['code_id'] = new sfWidgetFormChoice(array(
+        'choices' => $codes,
+        'multiple' => false,
+        'expanded' => false
+    ));
+    $this->validatorSchema['code_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($codes),
+        'required' => true
+    ));
   }
 }

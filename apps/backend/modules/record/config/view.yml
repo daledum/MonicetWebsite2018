@@ -1,2 +1,8 @@
+lineSuccess:
+  has_layout: False
+helpSuccess:
+  has_layout: False
+lineSubmitSuccess:
+  has_layout: False
 all:
   layout: mfAdminLayout

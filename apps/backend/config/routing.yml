@@ -137,6 +137,24 @@ vessel:
     column:               id
     with_wildcard_routes: true
 
+skipper:
+  class: sfPropelRouteCollection
+  options:
+    model:                Skipper
+    module:               skipper
+    prefix_path:          /skipper
+    column:               id
+    with_wildcard_routes: true
+
+guide:
+  class: sfPropelRouteCollection
+  options:
+    model:                Guide
+    module:               guide
+    prefix_path:          /guide
+    column:               id
+    with_wildcard_routes: true
+
 company:
   class: sfPropelRouteCollection
   options:
@@ -180,3 +198,4 @@ default_index:
 
 default:
   url:   /:module/:action/*
+  

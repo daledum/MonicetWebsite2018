@@ -1,2 +1,11 @@
+sheetSuccess:
+  javascripts: ['datepicker.js', 'date.js']
+  stylesheets: ['datepicker.css']
+
+newSuccess:
+  javascripts: ['datepicker.js', 'date.js']
+  stylesheets: ['datepicker.css']
+
 all:
   layout: mfAdminLayout
+  

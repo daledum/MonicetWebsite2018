@@ -2,8 +2,9 @@ propel:
    company:
       id:               ~
       name:             { type: varchar(255), required: true }
-      base_latitude:    { type: varchar(45), required: true }
-      base_longitude:   { type: varchar(45), required: true }
+      acronym:          { type: varchar(45), required: true }
+      base_latitude:    { type: float, required: true }
+      base_longitude:   { type: float, required: true }
       email:            { type: varchar, size: 255 }
       url:              { type: varchar, size: 255 }
       telephone:        { type: varchar, size: 255 }
@@ -29,15 +30,31 @@ propel:
       created_at:       ~
       updated_at:       ~
 
+   guide:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
+
+   skipper:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      name:             { type: varchar(255), required: true }
+      created_at:       ~
+      updated_at:       ~
+
    general_info:
       id:               ~
+      code:             { type: varchar(45), required: true }
       vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: true }
-      skipper_id:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
-      guide_id:         { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: true, onDelete: cascade }
+      guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: true, onDelete: cascade }
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
-      base_latitude:    { type: varchar(45), required: true }
-      base_longitude:   { type: varchar(45), required: true }
+      base_latitude:    { type: float, required: true }
+      base_longitude:   { type: float, required: true }
       date:             { type: date, required: true }
+      created_by:       { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
 
@@ -69,8 +86,8 @@ propel:
       sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true, onDelete: cascade }
       general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true, onDelete: cascade }
       time:             { type: time, required: true }
-      latitude:         { type: varchar(255), required: true }
-      longitude:        { type: varchar(255), required: true }
+      latitude:         { type: float, required: true }
+      longitude:        { type: float, required: true }
       num_vessels:      { type: integer, default: 0, required: false }
       created_at:       ~
       updated_at:       ~
@@ -109,10 +126,11 @@ propel:
       specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true, onDelete: cascade }
       behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true, onDelete: cascade }
       association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true, onDelete: cascade }
-      adults:           { type: integer, default: 0, required: false }
-      juveniles:        { type: integer, default: 0, required: false }
-      cubs:             { type: integer, default: 0, required: false }
+      adults:           { type: varchar(45), required: false }
+      juveniles:        { type: varchar(45), required: false }
+      cubs:             { type: varchar(45), required: false }
       total:            { type: integer, required: false }
+      number_vessels:   { type: integer, required: false }
       comments:         { type: longvarchar, required: false }
       created_at:       ~
       updated_at:       ~

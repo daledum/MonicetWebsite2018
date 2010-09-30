@@ -1,37 +1,74 @@
 <?php
 
-/**
- * GeneralInfo form.
- *
- * @package    monicet
- * @subpackage form
- * @author     Your name here
- * @version    SVN: $Id: sfPropelFormTemplate.php 10377 2008-07-21 07:10:32Z dwhittle $
- */
 class GeneralInfoForm extends BaseGeneralInfoForm
 {
+  public function processValues($values)
+  {
+	parent::processValues($values);
+	
+	if($this->isNew())
+	{
+	  $daily_number = GeneralInfoQuery::create()
+                        ->filterByCompanyId($this->values['company_id'])
+                        ->filterByDate($this->values['date'])
+                        ->count();
+      $vessel = VesselPeer::retrieveByPK($this->values['vessel_id']);
+      $this->values['code'] = strtoupper($vessel->getCompany()->getAcronym()) . substr(str_replace('-', '',$this->values['date']), -6) . "-" . ($daily_number + 1);
+	}
+	return $this->values;
+  }
+
   public function configure()
   {
   	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('general_info');
     unset(
-      $this['created_at'], $this['updated_at']
+      $this['created_at'], $this['updated_at'], $this['code']
     );
-    $this->widgetSchema['date']->setOption('format', '%year%-%month%-%day%');
-    
+
+    $this->widgetSchema['date'] = new sfWidgetFormInput();
+    $this->widgetSchema['date']->setAttribute('class', 'date_field');
+    $this->widgetSchema['date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['date']->setAttribute('value', date("Y-m-d"));
+
     $user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());
-    $vessels = array_merge((array)"-------------", VesselPeer::doSelectListByCompany());
-    $company_users = array_merge((array)"-------------", UserPeer::doSelectByCompany());
+
+    $vessels = VesselPeer::doSelectListByCompany();
+    $this->widgetSchema['vessel_id'] = new sfWidgetFormChoice(array(
+        'choices' => $vessels,
+        'multiple' => false,
+        'expanded' => false
+    ));
+    $this->validatorSchema['vessel_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($vessels),
+        'required' => true
+    ));
+    $skippers = SkipperPeer::doSelectListByCompany();
+    $this->widgetSchema['skipper_id'] = new sfWidgetFormChoice(array(
+        'choices' => $skippers,
+        'multiple' => false,
+        'expanded' => false
+    ));
+    $this->validatorSchema['skipper_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($skippers),
+        'required' => true
+    ));
+    $guides = GuidePeer::doSelectListByCompany();
+    $this->widgetSchema['guide_id'] = new sfWidgetFormChoice(array(
+        'choices' => $guides,
+        'multiple' => false,
+        'expanded' => false
+    ));
+    $this->validatorSchema['guide_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($guides),
+        'required' => true
+    ));
     
-    $this->setWidget('vessel_id', new sfWidgetFormChoice(array('choices' => $vessels)));
+    if ($company) {
+        $this->setWidget('company_id', new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
+    }
     
-    $this->setWidget('skipper_id', new sfWidgetFormChoice(array('choices' => $company_users)));
-    
-    $this->setWidget('guide_id', new sfWidgetFormChoice(array('choices' => $company_users)));
-    
-    $this->setWidget('company_id', new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
-    
-    if($this->isNew()) {
+    if($this->isNew() && $company) {
     	$this->getWidget('base_latitude')->setAttribute('value', $company->getBaseLatitude());
         $this->getWidget('base_longitude')->setAttribute('value', $company->getBaseLongitude());
     }

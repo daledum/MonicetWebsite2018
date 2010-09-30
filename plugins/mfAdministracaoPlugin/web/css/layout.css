@@ -224,3 +224,54 @@ a.jqmClose {
   margin: 0 auto;
   padding: 10px 7px;
 }
+
+.table-actions {
+    text-align: right;
+    padding: 5px 20px;
+}
+
+a.add-new-line {
+    background: transparent url('../images/icons/new.png') no-repeat top left;
+    padding: 1px 0px 1px 22px;
+}
+
+span#help-icon {
+    float: right;
+    display: inline-block;
+    position:relative;
+    top:0px;
+    background: transparent url('../images/icons/help.png') no-repeat top left;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.latitude input, .longitude input {
+    width: 80px !important;
+}
+
+.num_vessels input {
+    width: 30px !important;
+}
+
+.hour input, .date input, .num_vessels input {
+    width: 80px !important;
+}
+
+.total input, .adults input, .juveniles input, .cubs input {
+    width: 30px !important;
+    text-align: center;
+}
+
+.comments textarea {
+    width: 300px !important;
+    height: 40px !important;
+}
+
+.line-submit {
+    padding: 1px 0px 1px 20px;
+    background: transparent url('../images/icons/next.png') no-repeat top left;
+}
+
+.date_field {
+    border: 1px solid #5B8638 !important;
+}
