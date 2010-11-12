@@ -1,3 +1,5 @@
+
+
 dev:
   propel:
     param:
@@ -12,6 +14,7 @@ all:
     class: sfPropelDatabase
     param:
       classname: PropelPDO
+#      dsn: 'sqlite:%SF_DATA_DIR%/db'
       dsn: 'mysql:host=localhost;dbname=monicetc_monicet'
       username: monicetc_monicet
       password: monisete

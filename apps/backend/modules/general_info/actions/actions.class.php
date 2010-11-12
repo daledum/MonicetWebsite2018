@@ -6,6 +6,12 @@ require_once dirname(__FILE__).'/../lib/general_infoGeneratorHelper.class.php';
 
 class general_infoActions extends autoGeneral_infoActions
 {
+  public function executeListShowGrid(sfWebRequest $request) {
+    $giid = $request->getParameter('id');
+    $this->redirect('general_info/sheet?giid=' . $giid);
+  }
+
+  
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

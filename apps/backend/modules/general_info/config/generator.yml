@@ -15,9 +15,10 @@ generator:
     config:
       fields:  ~
       list:
-        display:           [code, vessel, base_latitude, base_longitude, date]
+        display:           [code, vessel, base_latitude, base_longitude, valid, date]
         peer_method:       doSelectByCompany
         object_actions:
+          showGrid:        {label: Ver Saída}
           _edit:      ~
           _delete:    ~
       filter:  ~

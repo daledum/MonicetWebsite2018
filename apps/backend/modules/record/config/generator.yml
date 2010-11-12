@@ -13,7 +13,8 @@ generator:
     i18n_catalogue:        record
 
     config:
-      actions: ~
+      actions:
+        lineSubmit:     {label: Save record, action: record}
       fields:  ~
       list:
         display:           [general_info, code, visibility, sea_state, time, show_sightings]

@@ -17,9 +17,18 @@ class recordActions extends autoRecordActions
   	parent::executeIndex($request);
   }
 	
+  public function executeSaveRecord(sfWebRequest $request) {
+     executeLineSubmit($request); 
+  }
   public function executeNew(sfWebRequest $request) {
   	
   	parent::executeNew($request);
+  }
+  
+    public function executeTest(sfWebRequest $request) {
+$this->getUser()->setFlash('notice', 'No job to delete.');
+
+    $this->redirect('index');
   }
 
   public function executeShowRecords(sfWebRequest $request) {
@@ -42,18 +51,90 @@ class recordActions extends autoRecordActions
     $this->n_lines = $request->getParameter('n_lines') + 1;
   }
 
+  /*
+  We have to fill in the Record Form and the Sighting Form.
+  */
   public function executeLineSubmit(sfWebRequest $request) {
-    $number_of_rows = $request->getParameter('number_of_rows');
-    $general_info_id = $request->getParameter('general_info_id');
-    $date = $request->getParameter('date');
-    $vessel_id = VesselPeer::retrieveByPK($request->getParameter('vessel_id'));
-    $guide_id = GuidePeer::retrieveByPK($request->getParameter('guide_id'));
-    $code_id = CodePeer::retrieveByPK($request->getParameter('code_id'));
+  /*
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
+
+      $Record = $form->save();
+
+      $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $Record)));
+
+      if ($request->hasParameter('_save_and_add'))
+      {
+        $this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+
+        $this->redirect('@general_info_new');
+      }
+      else
+      {
+        $this->getUser()->setFlash('notice', $notice);
+        $this->redirect('general_info');
+        //$this->redirect('general_info/sheet?giid=' . $Record->getId());
+      }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    }
+    */
+    
+    $code = CodePeer::retrieveByPK($request->getParameter('code_id'));
+    $visibility = VisibilityPeer::retrieveByPK($request->getParameter('visibility_id'));
+    $sea_state = SeaStatePeer::retrieveByPK($request->getParameter('sea_state_id'));
+    $general_info = GeneralInfoPeer::retrieveByPK($request->getParameter('general_info_id'));
     $time = $request->getParameter('time');
     $latitude = $request->getParameter('latitude');
     $longitude = $request->getParameter('longitude');
-    $sea_state_id = SeaStatePeer::retrieveByPK($request->getParameter('sea_state_id'));
-    $visibility_id = VisibilityPeer::retrieveByPK($request->getParameter('visibility_id'));
+    $num_vessels = $request->getParameter('num_vessels');
+
+    $form = new RecordForm();
+   	$form->bind($request->getParameter('record'));
+   	$form->setCodeId($code);
+   	$form->setVisibility($visibility);
+   	$form->setSeaState($sea_state);
+   	$form->setGeneralInfo($general_info);
+   	$form->setTime($time);
+   	$form->setLatitude($latitude);
+   	$form->setLongitude($longitude);
+   	$form->setNumVessels($num_vessels);
+   	
+    if ($form->isValid())
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
+
+      $Record = $form->save();
+
+      $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $Record)));
+
+      if ($request->hasParameter('_save_and_add'))
+      {
+        $this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+
+        $this->redirect('@general_info_new');
+      }
+      else
+      {
+        $this->getUser()->setFlash('notice', $notice);
+        $this->redirect('general_info');
+        //$this->redirect('general_info/sheet?giid=' . $Record->getId());
+      }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    }
+    /*
+    $number_of_rows = $request->getParameter('number_of_rows');
+    $date = $request->getParameter('date');
+    $vessel_id = VesselPeer::retrieveByPK($request->getParameter('vessel_id'));
+    $guide_id = GuidePeer::retrieveByPK($request->getParameter('guide_id'));
     $specie_id = SpeciePeer::retrieveByPK($request->getParameter('specie_id'));
     $total = $request->getParameter('total');
     $adults = $request->getParameter('adults');
@@ -61,7 +142,6 @@ class recordActions extends autoRecordActions
     $cubs = $request->getParameter('cubs');
     $behaviour_id = BehaviourPeer::retrieveByPK($request->getParameter('behaviour_id'));
     $association_id = AssociationPeer::retrieveByPK($request->getParameter('association_id'));
-    $num_vessels = $request->getParameter('num_vessels');
     $comments = $request->getParameter('comments');
 
     $user = sfContext::getInstance()->getUser()->getGuardUser();
@@ -78,6 +158,7 @@ class recordActions extends autoRecordActions
    	if ($general_info_form->isValid())
     {
     	echo "---1";
+    	
         $general_info_form->save();
     }
     else {
@@ -89,7 +170,7 @@ class recordActions extends autoRecordActions
 //        $general_info->setCompany($company);
 //    	$general_info->setDate($date);
 //    	$general_info->save()
-    
+    */
 
     
   	/*

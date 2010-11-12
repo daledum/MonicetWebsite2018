@@ -65,4 +65,4 @@ propel:
   photo_i18n:
     id:            { type: integer, required: true, primaryKey: true, foreignTable: photo, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
-    caption:       { type: varchar(512), required: true }
+    caption:       { type: varchar(512), required: false }

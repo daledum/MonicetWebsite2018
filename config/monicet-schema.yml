@@ -53,10 +53,12 @@ propel:
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       base_latitude:    { type: float, required: true }
       base_longitude:   { type: float, required: true }
+      valid:            { type: boolean, required: true }
       date:             { type: date, required: true }
       created_by:       { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
+
 
    visibility:
       id:               ~

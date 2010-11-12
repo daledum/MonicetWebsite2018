@@ -233,7 +233,7 @@ CREATE TABLE `photo_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`caption` VARCHAR(512)  NOT NULL,
+	`caption` VARCHAR(512),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `photo_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -377,6 +377,7 @@ CREATE TABLE `general_info`
 	`company_id` INTEGER  NOT NULL,
 	`base_latitude` FLOAT  NOT NULL,
 	`base_longitude` FLOAT  NOT NULL,
+	`valid` TINYINT  NOT NULL,
 	`date` DATE  NOT NULL,
 	`created_by` INTEGER  NOT NULL,
 	`created_at` DATETIME,

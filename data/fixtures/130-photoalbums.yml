@@ -1,12 +1,16 @@
 Album:
   album_1:
     slug:                album_1
+    publish_date:         '2008-11-12 13:40:42'
   album_2:
     slug:                album_2
+    publish_date:         '2008-11-12 13:40:42'
   album_3:
     slug:                album_3
+    publish_date:         '2008-11-12 13:40:42'
   album_4:
     slug:                album_4
+    publish_date:         '2008-11-12 13:40:42'
 
 AlbumI18N:
   album_1_en:
