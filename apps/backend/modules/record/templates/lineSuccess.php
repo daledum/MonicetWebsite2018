@@ -14,4 +14,5 @@
   <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
   <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
   <td class="sf_admin_text comments"><?php echo $sighting_form['comments']; ?></td>
+  <td class="sf_admin_text save"><a class="save-line" href="#">Guardar</a></td>
 </tr>

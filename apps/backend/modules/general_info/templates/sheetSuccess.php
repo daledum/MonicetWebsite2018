@@ -119,35 +119,30 @@
   <input id="general_info_id" type="hidden" value="<?php echo $general_info_id; ?>" />
   
   <div class="sf_admin_list">
-      <form action="." method="post">
-	    <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
-	    <table style="margin-left:10px;border:1px solid #ccc;" border="1">
-	      <thead>
-	        <tr>
-	            <th class="sf_admin_text">Código</th>
-	            <th class="sf_admin_text">Hora</th>
-	            <th class="sf_admin_text">Latitude</th>
-	            <th class="sf_admin_text">Longitude</th>
-	            <th class="sf_admin_text">Est.Mar</th>
-	            <th class="sf_admin_text">Visib.</th>
-	            <th class="sf_admin_text">Espécie</th>
-	            <th class="sf_admin_text">Total</th>
-	            <th class="sf_admin_text">A</th>
-	            <th class="sf_admin_text">J</th>
-	            <th class="sf_admin_text">C</th>
-	            <th class="sf_admin_text">Comp.</th>
-	            <th class="sf_admin_text">Asso.</th>
-	            <th class="sf_admin_text">Nº Emb.</th>
-	            <th class="sf_admin_text">Comentários</th>
-	      </thead>
-	      <tbody>
-	      </tbody>
-	    </table>
-	    <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
-	    <ul class="sf_admin_actions">
-	    	<li class="sf_admin_action_list"><?php echo link_to('Regressar à listagem', '@general_info') ?></li>
-	    	<li class="sf_admin_action_save"><input type="submit" value="Gravar"></li>
-	    </ul>
-    </form>
+    <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
+    <table style="margin-left:10px;border:1px solid #ccc;" border="1">
+      <thead>
+        <tr>
+            <th class="sf_admin_text">Código</th>
+            <th class="sf_admin_text">Hora</th>
+            <th class="sf_admin_text">Latitude</th>
+            <th class="sf_admin_text">Longitude</th>
+            <th class="sf_admin_text">Est.Mar</th>
+            <th class="sf_admin_text">Visib.</th>
+            <th class="sf_admin_text">Espécie</th>
+            <th class="sf_admin_text">Total</th>
+            <th class="sf_admin_text">A</th>
+            <th class="sf_admin_text">J</th>
+            <th class="sf_admin_text">C</th>
+            <th class="sf_admin_text">Comp.</th>
+            <th class="sf_admin_text">Asso.</th>
+            <th class="sf_admin_text">Nº Emb.</th>
+            <th class="sf_admin_text">Comentários</th>
+            <th class="sf_admin_text">Acções</th>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
   </div>
 </div>

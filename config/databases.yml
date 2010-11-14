@@ -16,8 +16,8 @@ all:
       classname: PropelPDO
 #      dsn: 'sqlite:%SF_DATA_DIR%/db'
       dsn: 'mysql:host=localhost;dbname=monicetc_monicet'
-      username: monicetc_monicet
-      password: monisete
+      username: monicet
+      password: monicet
       encoding: utf8
       persistent: true
       pooling: true

@@ -22,7 +22,7 @@ abstract class BasePhotoI18nForm extends BaseFormPropel
     $this->setValidators(array(
       'id'      => new sfValidatorPropelChoice(array('model' => 'Photo', 'column' => 'id', 'required' => false)),
       'culture' => new sfValidatorPropelChoice(array('model' => 'PhotoI18n', 'column' => 'culture', 'required' => false)),
-      'caption' => new sfValidatorString(array('max_length' => 512, 'required' => false)),
+      'caption' => new sfValidatorString(array('max_length' => 512)),
     ));
 
     $this->widgetSchema->setNameFormat('photo_i18n[%s]');
