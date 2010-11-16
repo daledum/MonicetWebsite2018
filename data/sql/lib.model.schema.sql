@@ -428,42 +428,6 @@ CREATE TABLE `user`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- log
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `log`;
-
-
-CREATE TABLE `log`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`type` VARCHAR(255),
-	`message` TEXT(255),
-	`created_at` DATETIME,
-	PRIMARY KEY (`id`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- option
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `option`;
-
-
-CREATE TABLE `option`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255)  NOT NULL,
-	`value` VARCHAR(255)  NOT NULL,
-	`initial` VARCHAR(255) default '',
-	`description` TEXT,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `option_U_1` (`name`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
 #-- news_article
 #-----------------------------------------------------------------------------
 
@@ -663,6 +627,42 @@ CREATE TABLE `photo_i18n`
 		FOREIGN KEY (`id`)
 		REFERENCES `photo` (`id`)
 		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- log
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `log`;
+
+
+CREATE TABLE `log`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`type` VARCHAR(255),
+	`message` TEXT(255),
+	`created_at` DATETIME,
+	PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- option
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `option`;
+
+
+CREATE TABLE `option`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255)  NOT NULL,
+	`value` VARCHAR(255)  NOT NULL,
+	`initial` VARCHAR(255) default '',
+	`description` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `option_U_1` (`name`)
 )Type=MyISAM;
 
 # This restores the fkey checks, after having unset them earlier

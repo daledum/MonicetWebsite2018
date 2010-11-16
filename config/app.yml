@@ -5,8 +5,8 @@ all:
     success_signin_url:      @homepage
     success_signout_url:     @homepage
   mfLog:
-    email:              true
+    email:              false
     email_to:
-      - titomiguelcosta@morfose.net
+      - antonio.pedro.couto@gmail.com
     email_from:         no-reply@morfose.net
     email_assunto:      monicet - lamentavelmente ocorreu uma excepção

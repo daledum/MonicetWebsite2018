@@ -12,7 +12,7 @@ abstract class BasePhotoI18nFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'caption' => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'caption' => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(

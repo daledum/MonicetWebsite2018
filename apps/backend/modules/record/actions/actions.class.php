@@ -205,4 +205,28 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
   	$this->odontocetis = SpeciePeer::doSelect($c->add(SpeciePeer::SPECIE_GROUP_ID, 2));
   	$this->mysticetis = SpeciePeer::doSelect($c->add(SpeciePeer::SPECIE_GROUP_ID, 3));
   }
+  
+  public function executeLineAjax(sfWebRequest $request){
+    $this->valor = $request->getParameter('valor');
+    $this->linha = $request->getParameter('n_lines');
+    $this->valores = array();
+    if($this->valor == 1){
+      $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R');
+    }
+    elseif($this->valor == 3){
+      $this->valores = array('4' => 'FA', '6' => 'RA');
+    }
+    elseif($this->valor == 4){
+      $this->valores = array('2' => 'F', '5' => 'R');
+    }
+    elseif($this->valor == 5){
+      $this->valores = array('2' => 'F', '3' => 'IA');
+    }
+    elseif($this->valor == 6){
+      $this->valores = array('4' => 'FA', '6' => 'RA');
+    }
+    elseif($this->linha == 1){
+      $this->valores = array('1' => 'I');
+    }
+  }
 }

@@ -14,6 +14,28 @@
                      }
         });
     }
+    
+    
+    
+    
+    
+    function mudar(n_linha){
+      $("#record_code_id_"+(n_linha+1)).children().remove();
+      $.ajax({
+        type: "get",
+        datatype: "html",
+        url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
+        data: { valor: $("#record_code_id_"+n_linha).val() },
+        success: function(html){
+          $("#record_code_id_"+(n_linha+1)).append(html);
+        },
+        error: function(html, text, codigo){
+          alert("erro");
+        }
+      });
+     }
+    
+    
 
     function saveRecordLine() {
         var success = false;
@@ -138,7 +160,6 @@
             <th class="sf_admin_text">Asso.</th>
             <th class="sf_admin_text">Nº Emb.</th>
             <th class="sf_admin_text">Comentários</th>
-            <th class="sf_admin_text">Acções</th>
       </thead>
       <tbody>
       </tbody>
