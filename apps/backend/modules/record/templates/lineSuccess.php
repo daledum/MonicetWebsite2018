@@ -1,7 +1,15 @@
+<?php
+  if($n_lines == 1){
+    $record_form->setDefault('latitude',$latitude);
+    $record_form->setDefault('longitude',$longitude);
+  }
+?>
+
 <tr class="sf_admin_row odd record_line_<?php echo $n_lines; ?>">
   <?php /*<td class="sf_admin_text record_code"><?php echo $record_form['code_id']; ?></td>*/ ?>
+  <td class="sf_admin_text line_id"><?php echo $n_lines ?><input type="hidden" class="record_id" value="0" /><input type="hidden" class="sighting_id" value="0" /></td>
   <td class="sf_admin_text record_code">
-    <select id="record_code_id_<?php echo $n_lines ?>" name="record[code_id]" class="change" <!--onChange="mudar(<?php echo $n_lines ?>)"-->>
+    <select id="record_code_id_<?php echo $n_lines ?>" name="record[code_id]" class="change">
       <?php if($n_lines == 1): ?>
         <option>-----</option>
         <option value="1" selected="selected">I</option>
@@ -22,27 +30,27 @@
   <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
   <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
   <td class="sf_admin_text comments"><?php echo $sighting_form['comments']; ?></td>
+  <?php echo $record_form['_csrf_token']; ?>
+  <?php echo $sighting_form['_csrf_token']; ?>
 </tr>
 
 <script type="text/javascript">
+    
+    
     $("#record_code_id_<?php echo $n_lines ?>").change(function(){
       for(i=<?php echo $n_lines+1 ?>; i<=$("#n-lines").val(); i++){
         $("#record_code_id_"+i).children().remove();
         $("#record_code_id_"+i).append('<option selected="selected">-----</option>');
       }
-      //$("#record_code_id_<?php echo $n_lines+1 ?>").children().remove();
+
       $.ajax({
         type: "get",
         datatype: "html",
         url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
-        data: { valor: $("#record_code_id_<?php echo $n_lines ?>").val() },
+        data: { valor: $("#record_code_id_<?php echo $n_lines ?>").val(), '_r': Math.random()*100 },
         success: function(html){
-          if( $("#record_code_id_<?php echo $n_lines ?>").val() == 2 ){
-            $(".table-actions").hide();
-          }
-          else{
+          if( $("#record_code_id_<?php echo $n_lines ?>").val() != 2 ){
             $("#record_code_id_<?php echo $n_lines+1 ?>").append(html);
-            $(".table-actions").show();
           }
         },
         error: function(html, text, codigo){
@@ -50,28 +58,29 @@
         }
       });
     });
-    
-    if( <?php echo $n_lines-1 ?> > 0 ){
-      $.ajax({
-        type: "get",
-        datatype: "html",
-        url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
-        data: { valor: $("#record_code_id_<?php echo $n_lines-1 ?>").val() },
-        success: function(html){
-          if( $("#record_code_id_<?php echo $n_lines-1 ?>").val() == 2 ){
-            $(".table-actions").hide();
-          }
-          else{
-            $("#record_code_id_<?php echo $n_lines ?>").children().remove();
-            $("#record_code_id_<?php echo $n_lines ?>").append('<option selected="selected">-----</option>');
-            $("#record_code_id_<?php echo $n_lines ?>").append(html);
-            $(".table-actions").show();
-          }
-        },
-        error: function(html, text, codigo){
-          alert("erro");
+        
+    $(document).ready(function() {
+        
+        if( <?php echo $n_lines-1 ?> > 0 ){
+          $.ajax({
+            type: "get",
+            datatype: "html",
+            url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
+            data: { valor: $("#record_code_id_<?php echo $n_lines-1 ?>").val(), '_r': Math.random()*100 },
+            success: function(html){
+              if( $("#record_code_id_<?php echo $n_lines-1 ?>").val() != 2 ){
+                $("#record_code_id_<?php echo $n_lines ?>").children().remove();
+                $("#record_code_id_<?php echo $n_lines ?>").append('<option selected="selected">-----</option>');
+                $("#record_code_id_<?php echo $n_lines ?>").append(html);
+              }
+            },
+            error: function(html, text, codigo){
+              alert("erro");
+            }
+          });
         }
-      });
-    }
+    
+    });
+    
     
 </script>

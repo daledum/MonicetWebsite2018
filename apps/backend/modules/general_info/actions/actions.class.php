@@ -57,6 +57,7 @@ class general_infoActions extends autoGeneral_infoActions
     $this->general_info = GeneralInfoQuery::create()
                             ->filterById($request->getParameter("giid"))
                             ->findOne();
-    $this->n_lines = 0;
+    $this->records = $this->general_info->getRecords();
+    $this->n_lines = count($this->records);
   }
 }

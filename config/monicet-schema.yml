@@ -47,14 +47,15 @@ propel:
    general_info:
       id:               ~
       code:             { type: varchar(45), required: true }
-      vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: true }
-      skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: true, onDelete: cascade }
-      guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: true, onDelete: cascade }
+      vessel_id:        { type: integer, foreignTable: vessel, foreignReference: id, required: false }
+      skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: false, onDelete: cascade }
+      guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: false, onDelete: cascade }
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       base_latitude:    { type: float, required: true }
       base_longitude:   { type: float, required: true }
-      valid:            { type: boolean, required: true }
       date:             { type: date, required: true }
+      valid:            { type: boolean, required: true }
+      comments:         { type: longvarchar, required: false }
       created_by:       { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
@@ -125,9 +126,9 @@ propel:
    sighting:
       id:               ~
       record_id:        { type: integer, foreignTable: record, foreignReference: id, required: true, onDelete: cascade }
-      specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: true, onDelete: cascade }
-      behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: true, onDelete: cascade }
-      association_id:   { type: integer, foreignTable: association, foreignReference: id, required: true, onDelete: cascade }
+      specie_id:        { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade }
+      behaviour_id:     { type: integer, foreignTable: behaviour, foreignReference: id, required: false, onDelete: cascade }
+      association_id:   { type: integer, foreignTable: association, foreignReference: id, required: false, onDelete: cascade }
       adults:           { type: varchar(45), required: false }
       juveniles:        { type: varchar(45), required: false }
       cubs:             { type: varchar(45), required: false }

@@ -30,4 +30,5 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
         }
         return $query;
     }
+
 } // GeneralInfoPeer

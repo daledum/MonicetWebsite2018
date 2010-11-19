@@ -49,6 +49,8 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $this->record_form = new RecordForm();
     $this->sighting_form = new SightingForm();
     $this->n_lines = $request->getParameter('n_lines') + 1;
+    $this->latitude = $request->getParameter('latitude');
+    $this->longitude = $request->getParameter('longitude');
   }
 
   /*
@@ -191,6 +193,93 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $this->setTemplate('editarSumario');
     */
   }
+
+  public function executeGuardarLinha(sfWebRequest $request){
+    $this->last_record = false;
+    
+    $this->registo = $request->getParameter('record');
+    $code = $this->registo['code_id'];
+    $visibility = $this->registo['visibility_id'];
+    $sea_state = $this->registo['sea_state_id'];
+    $general_info = $this->request->getParameter('general_info_id');
+    $time = $this->registo['time'];
+    $latitude = $this->registo['latitude'];
+    $longitude = $this->registo['longitude'];
+    $num_vessels = $this->registo['num_vessels'];
+    $csrfR = $this->registo['_csrf_token'];
+    
+    $this->sight = $request->getParameter('sighting');
+    $specie = $this->sight['specie_id'];
+    $total = $this->sight['total'];
+    $adults = $this->sight['adults'];
+    $juveniles = $this->sight['juveniles'];
+    $cubs = $this->sight['cubs'];
+    $behaviour = $this->sight['behaviour_id'];
+    $association = $this->sight['association_id'];
+    $comments = $this->sight['comments'];
+    $csrfS = $this->sight['_csrf_token'];
+    
+    $this->linha = $request->getParameter('linha');
+    
+    
+    $this->recordForm = new RecordForm();
+    $this->recordForm->bind(array_merge($this->registo,array('general_info_id' => $general_info)));
+    
+    $this->sightingForm = new SightingForm();
+    //$this->sightingForm->bind(array_merge($this->sight,array('record_id' => $this->linha)));
+    
+    if($this->recordForm->isValid()){
+      $this->erro = false;
+      
+      if(! $this->record = RecordPeer::retrieveByPk($request->getParameter('record_id'))){
+        $this->record = new Record();
+      }
+      $this->record->setCodeId($code);
+      $this->record->setVisibilityId($visibility);
+      $this->record->setSeaStateId($sea_state);
+      $this->record->setGeneralInfoId($general_info);
+      $this->record->setTime($time);
+      $this->record->setLatitude($latitude);
+      $this->record->setLongitude($longitude);
+      $this->record->setNumVessels($num_vessels);
+      $this->record->save();
+      
+      $this->sightingForm->bind(array_merge($this->sight,array('record_id' => $this->record->getId())));
+      $success = False;
+      
+      if($this->sightingForm->isValid()){
+        $this->erro = false;
+        if(! $this->sighting = SightingPeer::retrieveByPk($request->getParameter('sighting_id'))){
+          $this->sighting = new Sighting();
+        }
+        $this->sighting->setRecordId($this->record->getId());
+        $this->sighting->setSpecieId($specie);
+        $this->sighting->setBehaviourId($behaviour);
+        $this->sighting->setAssociationId($association);
+        $this->sighting->setAdults($adults);
+        $this->sighting->setJuveniles($juveniles);
+        $this->sighting->setCubs($cubs);
+        $this->sighting->setTotal($total);
+        $this->sighting->setNumberVessels($num_vessels);
+        $this->sighting->setComments($comments);
+        $this->sighting->save();
+        $success = True;
+        $this->last_record = ($this->record->getCodeId() == 2);
+      }
+      else{
+        $this->erro = true;
+      }
+      
+      if (! $success) {
+        $this->record->delete();
+      }
+      
+    }else{
+      $this->erro = true;
+    }
+  }
+
+
   
   public function executeHelp(sfWebRequest $request)
   {
@@ -209,6 +298,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
   public function executeLineAjax(sfWebRequest $request){
     $this->valor = $request->getParameter('valor');
     $this->linha = $request->getParameter('n_lines');
+    $this->selected = $request->getParameter('selected');
     $this->valores = array();
     if($this->valor == 1){
       $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R');

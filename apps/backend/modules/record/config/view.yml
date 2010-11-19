@@ -7,3 +7,6 @@ lineSubmitSuccess:
   has_layout: False
 all:
   layout: mfAdminLayout
+guardarLinhaSuccess:
+  javascripts: [-*, "jquery-1.4.min.js", "jquery-ui-1.8.1-custom.js"]
+  has_layout: False

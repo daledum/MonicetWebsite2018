@@ -21,4 +21,27 @@ class GeneralInfo extends BaseGeneralInfo {
   {
     return $this->getId();
   }
+  
+  
+  public function getRecords($criteria = null, PropelPDO $con = null)
+  {
+    if(null === $this->collRecords || null !== $criteria) {
+      if ($this->isNew() && null === $this->collRecords) {
+        // return empty collection
+        $this->initRecords();
+      } else {
+        $collRecords = RecordQuery::create(null, $criteria)
+          ->filterByGeneralInfo($this)
+          ->orderBy('Id')
+          ->find($con);
+        if (null !== $criteria) {
+          return $collRecords;
+        }
+        $this->collRecords = $collRecords;
+      }
+    }
+    return $this->collRecords;
+  }
+  
+  
 } // GeneralInfo
