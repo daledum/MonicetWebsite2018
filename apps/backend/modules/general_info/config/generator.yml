@@ -16,6 +16,7 @@ generator:
       fields:  ~
       list:
         display:           [code, date, vessel, base_latitude, base_longitude, valid]
+        sort:              [valid, asc]
         peer_method:       doSelectByCompany
         object_actions:
           showGrid:        {label: Show departure grid}

@@ -1,0 +1,5 @@
+autoload:
+  wideimage:
+    name:      wideimage
+    path:      %SF_LIB_DIR%/vendor/wideimage
+    recursive: true

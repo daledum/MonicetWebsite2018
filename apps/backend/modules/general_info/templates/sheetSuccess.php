@@ -188,7 +188,9 @@
   <input id="general_info_id" type="hidden" value="<?php echo $general_info->getId(); ?>" />
   
   <div class="sf_admin_list">
+    <?php if(!$sf_user->isSuperAdmin() && $general_info->getValid() != 1): ?>
     <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
+    <?php endif; ?>
     <table style="margin-left:10px;border:1px solid #ccc;" border="1">
       <thead>
         <tr>
@@ -291,7 +293,7 @@
           }; 
               
           $(document).ready(function() {
-             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*800); 
+             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*1000); 
           });
             
         </script>
@@ -299,13 +301,17 @@
         <?php endforeach; ?>
       </tbody>
     </table>
+    <?php if(!$sf_user->isSuperAdmin() && $general_info->getValid() != 1): ?>
     <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
+    <?php endif; ?>
     <div id="progressbar" style="display:inline-block;width:300px;"></div>
+    <?php if(!$sf_user->isSuperAdmin() && $general_info->getValid() != 1): ?>
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_save">
         <input type="button" value="Gravar" onClick="saveAllLines();" />
       </li>
     </ul>
+    <?php endif; ?>
   </div>
 </div>
 

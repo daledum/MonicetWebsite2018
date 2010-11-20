@@ -22,7 +22,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   {
   	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('general_info');
     unset(
-      $this['created_at'], $this['updated_at'], $this['code']
+      $this['created_at'], $this['updated_at'], $this['code'], $this['created_by']
     );
 
     $this->widgetSchema['date'] = new sfWidgetFormInput();
@@ -71,6 +71,22 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     if($this->isNew() && $company) {
     	$this->getWidget('base_latitude')->setAttribute('value', $company->getBaseLatitude());
         $this->getWidget('base_longitude')->setAttribute('value', $company->getBaseLongitude());
+    }
+    
+    if(!sfContext::getInstance()->getUser()->isSuperAdmin()){
+      $this->getWidget('valid')->setAttributes(array('disabled' => 'true'));
+      $this->getWidget('comments')->setAttributes(array('disabled' => 'true'));
+      
+      if($this->getObject()->getValid() == 1){
+        $this->getWidget('date')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('vessel_id')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('skipper_id')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('guide_id')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('company_id')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('base_latitude')->setAttributes(array('disabled' => 'true'));
+        $this->getWidget('base_longitude')->setAttributes(array('disabled' => 'true'));
+      }
+      
     }
   }
 }

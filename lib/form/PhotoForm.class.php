@@ -41,6 +41,16 @@ class PhotoForm extends BasePhotoForm
   	$en = $this->getValue('en');
     $this->getObject()->setSlug(mfText::stripText($en['caption']));
     
-  	return parent::doSave($con);
+    parent::doSave($con);
+    
+    if ( $this->isNew() ){
+        $imagem = $this->getObject()->getImage();
+        if ( $imagem ){
+            $dir = sfConfig::get('sf_upload_dir').'/photoalbums';
+            copy($dir.'/'.$imagem, $dir.'/'.$imagem);
+            WideImage::load($dir.'/'.$imagem)->resize(900, null, 'inside')->saveToFile($dir.'/'.$imagem);
+        }
+    }
+    
   }
 }

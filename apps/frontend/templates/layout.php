@@ -60,6 +60,7 @@
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>
 	        </div>
+	        <div style="position: relative; left: 740px; display: inline-block;"><?php echo link_to('Admin','/admin.php') ?></div>
 	    </div>
     </div>
     <div id="_div_footer">
