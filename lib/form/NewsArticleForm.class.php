@@ -19,12 +19,12 @@ class NewsArticleForm extends BaseNewsArticleForm
 
     $this->widgetSchema['enter_date'] = new sfWidgetFormInput();
     $this->widgetSchema['enter_date']->setAttribute('class', 'date_field');
-    $this->widgetSchema['enter_date']->setAttribute('readonly', 'readonly');
+    //$this->widgetSchema['enter_date']->setAttribute('readonly', 'readonly');
     $this->widgetSchema['enter_date']->setAttribute('value', date("Y-m-d"));
     
     $this->widgetSchema['exit_date'] = new sfWidgetFormInput();
     $this->widgetSchema['exit_date']->setAttribute('class', 'date_field');
-    $this->widgetSchema['exit_date']->setAttribute('readonly', 'readonly');
+    //$this->widgetSchema['exit_date']->setAttribute('readonly', 'readonly');
     $this->widgetSchema['exit_date']->setAttribute('value', date("Y-m-d"));
     
     $this->widgetSchema['publish_date'] = new sfWidgetFormInput();
