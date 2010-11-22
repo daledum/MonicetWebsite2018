@@ -43,8 +43,8 @@ class PhotoForm extends BasePhotoForm
     
     parent::doSave($con);
     
-    $imagem = $this->getObject()->getImage();
-    if ( $imagem ){
+    
+    if ( $imagem = $this->getObject()->getImage() ){
         $dir = sfConfig::get('sf_upload_dir').'/photoalbums';
         copy($dir.'/'.$imagem, $dir.'/'.$imagem);
         WideImage::load($dir.'/'.$imagem)->resize(900, null, 'inside')->saveToFile($dir.'/'.$imagem);
