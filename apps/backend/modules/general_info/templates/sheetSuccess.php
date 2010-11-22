@@ -295,7 +295,7 @@
           }; 
               
           $(document).ready(function() {
-             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*2000); 
+             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*3000); 
           });
             
         </script>
@@ -328,7 +328,7 @@
 
 <script>
 $(document).ready(function() {
-    $("#erros").dialog({ autoOpen: false, maxHeight: 400, maxWidth: 400, minWidth: 300, minHeight: 300, buttons: {
+    $("#erros").dialog({ autoOpen: false, maxHeight: 400, maxWidth: 400, buttons: {
         Fechar: function() {
           $(this).dialog("close");
         }
