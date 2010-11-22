@@ -295,7 +295,7 @@
           }; 
               
           $(document).ready(function() {
-             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*1500); 
+             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*2000); 
           });
             
         </script>
