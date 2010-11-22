@@ -3,8 +3,8 @@ propel:
       id:               ~
       name:             { type: varchar(255), required: true }
       acronym:          { type: varchar(45), required: true }
-      base_latitude:    { type: float, required: true }
-      base_longitude:   { type: float, required: true }
+      base_latitude:    { type: varchar(45), required: true }
+      base_longitude:   { type: varchar(45), required: true }
       email:            { type: varchar, size: 255 }
       url:              { type: varchar, size: 255 }
       telephone:        { type: varchar, size: 255 }
@@ -51,8 +51,8 @@ propel:
       skipper_id:       { type: integer, foreignTable: skipper, foreignReference: id, required: false, onDelete: cascade }
       guide_id:         { type: integer, foreignTable: guide, foreignReference: id, required: false, onDelete: cascade }
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
-      base_latitude:    { type: float, required: true }
-      base_longitude:   { type: float, required: true }
+      base_latitude:    { type: varchar(45), required: true }
+      base_longitude:   { type: varchar(45), required: true }
       date:             { type: date, required: true }
       valid:            { type: boolean, required: true }
       comments:         { type: longvarchar, required: false }
@@ -89,8 +89,8 @@ propel:
       sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true, onDelete: cascade }
       general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true, onDelete: cascade }
       time:             { type: time, required: true }
-      latitude:         { type: float, required: true }
-      longitude:        { type: float, required: true }
+      latitude:         { type: varchar(45), required: true }
+      longitude:        { type: varchar(45), required: true }
       num_vessels:      { type: integer, default: 0, required: false }
       created_at:       ~
       updated_at:       ~

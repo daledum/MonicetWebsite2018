@@ -24,4 +24,14 @@ class RecordForm extends BaseRecordForm
         'required' => true
     ));
   }
+  
+  public function processValues($values)
+  {
+    parent::processValues($values);
+    $this->values['latitude'] = mfUtils::convertLatLong($this->values['latitude']);
+    $this->values['longitude'] = mfUtils::convertLatLong($this->values['longitude']);
+    return $this->values;
+  }
+  
+  
 }

@@ -203,8 +203,8 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $sea_state = $this->registo['sea_state_id'];
     $general_info = $this->request->getParameter('general_info_id');
     $time = $this->registo['time'];
-    $latitude = $this->registo['latitude'];
-    $longitude = $this->registo['longitude'];
+    $latitude = mfUtils::convertLatLong($this->registo['latitude']);
+    $longitude = mfUtils::convertLatLong($this->registo['longitude']);
     $num_vessels = $this->registo['num_vessels'];
     $csrfR = $this->registo['_csrf_token'];
     

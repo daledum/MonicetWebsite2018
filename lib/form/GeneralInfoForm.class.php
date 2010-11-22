@@ -2,10 +2,17 @@
 
 class GeneralInfoForm extends BaseGeneralInfoForm
 {
+  
+  
   public function processValues($values)
   {
 	parent::processValues($values);
 	
+  $this->values['base_latitude'] = mfUtils::convertLatLong($this->values['base_latitude']);
+  $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);
+  
+  
+  
 	if($this->isNew())
 	{
 	  $daily_number = GeneralInfoQuery::create()
