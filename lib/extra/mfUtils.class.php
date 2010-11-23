@@ -7,7 +7,8 @@ class mfUtils {
     {
       $degrees = (int)substr($value, 0, 2);
       $minutes = (int)substr($value, 4, 2);
-      if ((strlen(strstr($value, '\'')) > 0) || (strlen(strstr($value, '"')) > 0) || (strlen(strstr($value, '\'\'')) > 0))
+      
+      if ((strlen(strstr($value, '\'')) > 1) || (strlen(strstr($value, '"')) == 1) || (strlen(strstr($value, '\'\'')) == 2))
       {
         $seconds = (int)substr($value, 7, 2);
         return round($degrees + ($minutes + ($seconds)/60)/60, 4);
