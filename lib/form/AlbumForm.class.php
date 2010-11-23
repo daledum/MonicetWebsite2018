@@ -17,8 +17,8 @@ class AlbumForm extends BaseAlbumForm
     );
     $this->widgetSchema['publish_date'] = new sfWidgetFormInput();
     $this->widgetSchema['publish_date']->setAttribute('class', 'date_field');
-    $this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
-    $this->widgetSchema['publish_date']->setAttribute('value', date("Y-m-d"));
+    //$this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['publish_date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","date_field",true)');
     $this->embedI18n(array('pt', 'en'));
   }
   

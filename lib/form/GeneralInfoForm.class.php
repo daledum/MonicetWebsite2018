@@ -34,8 +34,9 @@ class GeneralInfoForm extends BaseGeneralInfoForm
 
     $this->widgetSchema['date'] = new sfWidgetFormInput();
     $this->widgetSchema['date']->setAttribute('class', 'date_field');
-    $this->widgetSchema['date']->setAttribute('readonly', 'readonly');
-    $this->widgetSchema['date']->setAttribute('value', date("Y-m-d"));
+    $this->widgetSchema['date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","date_field",true)');
+    //$this->widgetSchema['date']->setAttribute('readonly', 'readonly');
+    //$this->widgetSchema['date']->setAttribute('value', date("Y-m-d"));
 
     $user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());

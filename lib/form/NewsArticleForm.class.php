@@ -20,17 +20,19 @@ class NewsArticleForm extends BaseNewsArticleForm
     $this->widgetSchema['enter_date'] = new sfWidgetFormInput();
     $this->widgetSchema['enter_date']->setAttribute('class', 'date_field');
     //$this->widgetSchema['enter_date']->setAttribute('readonly', 'readonly');
-    $this->widgetSchema['enter_date']->setAttribute('value', date("Y-m-d"));
+    $this->widgetSchema['enter_date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","news_article_enter_date",false)');
+    
     
     $this->widgetSchema['exit_date'] = new sfWidgetFormInput();
     $this->widgetSchema['exit_date']->setAttribute('class', 'date_field');
     //$this->widgetSchema['exit_date']->setAttribute('readonly', 'readonly');
-    $this->widgetSchema['exit_date']->setAttribute('value', date("Y-m-d"));
+    $this->widgetSchema['exit_date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","news_article_exit_date",false)');
+    
     
     $this->widgetSchema['publish_date'] = new sfWidgetFormInput();
     $this->widgetSchema['publish_date']->setAttribute('class', 'date_field');
-    $this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
-    $this->widgetSchema['publish_date']->setAttribute('value', date("Y-m-d"));
+    //$this->widgetSchema['publish_date']->setAttribute('readonly', 'readonly');
+    $this->widgetSchema['publish_date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","news_article_publish_date",false)');
     
     $this->widgetSchema['image'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
@@ -47,11 +49,11 @@ class NewsArticleForm extends BaseNewsArticleForm
     ));
     $this->validatorSchema['image_delete'] = new sfValidatorPass();
     
-    if( $this->getObject()->isNew() ){
+    /*if( $this->getObject()->isNew() ){
     	$this->setDefaults(array(
     	  'publish_date' => time()
     	));
-    }
+    }*/
 
     $this->embedI18n(array('pt', 'en'));
   }

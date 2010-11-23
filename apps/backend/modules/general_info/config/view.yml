@@ -5,6 +5,10 @@ sheetSuccess:
 newSuccess:
   javascripts: ['datepicker.js', 'date.js']
   stylesheets: ['datepicker.css']
+  
+editSuccess:
+  javascripts: ['datepicker.js', 'date.js']
+  stylesheets: ['datepicker.css']
 
 all:
   layout: mfAdminLayout

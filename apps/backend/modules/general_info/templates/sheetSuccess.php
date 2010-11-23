@@ -305,6 +305,10 @@
     </table>
     <?php if($sf_user->isSuperAdmin()): ?>
     <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
+    <?php elseif($general_info->getValid() != 1): ?>
+    <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
+    <?php endif; ?>
+    <?php if($sf_user->isSuperAdmin()): ?>
     <div id="progressbar" style="display:inline-block;width:300px;"></div>
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_save">

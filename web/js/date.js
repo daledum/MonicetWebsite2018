@@ -26,8 +26,19 @@ function addCalendar(elem) {
 }
 
 $(function() {
-    //addCalendar($('.date_field'));
+    
+    addCalendar($('.date_field'));
     addCalendar($('#news_article_enter_date'));
     addCalendar($('#news_article_exit_date'));
     addCalendar($('#news_article_publish_date'));
+    
 });
+
+function dataInicio(data, elem, classe){
+  if(!classe){
+    if($('#'+elem).val() === "") { $('#'+elem).val(data); }
+  }else{
+    if($('.'+elem).val() === "") { $('.'+elem).val(data); }
+  }
+  
+}
