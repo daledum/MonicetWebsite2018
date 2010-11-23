@@ -215,11 +215,13 @@
       </thead>
       <tbody>
         <?php $i = 1; ?>
-        <?php foreach($records as $record): ?>
+        <?php foreach($records as $x => $record): ?>
           <?php $sighting = $record->getSightings(); ?>
           <?php $sighting = $sighting[0]; ?>
           <?php $record_form = new RecordForm($record); ?>
           <?php $sighting_form = new SightingForm($sighting); ?>
+          
+          
           
           <tr class="sf_admin_row odd record_line_<?php echo $i; ?>">
             <td class="sf_admin_text line_id"><?php echo $i; ?><input type="hidden" class="record_id" value="<?php echo $record->getId() ?>" /><input type="hidden" class="sighting_id" value="<?php echo $sighting->getId() ?>" /></td>
@@ -228,6 +230,29 @@
                 <?php if($i == 1): ?>
                   <option>-----</option>
                   <option value="1" selected="selected">I</option>
+                <?php else: ?>
+                  <option>-----</option>
+                  <?php
+                    $linhas = array();
+                    if($records[$x-1]->getCodeId() == 1){
+                      $linhas = array('2' => 'F', '3' => 'IA', '5' => 'R');
+                    }
+                    elseif($records[$x-1]->getCodeId() == 3){
+                      $linhas = array('4' => 'FA', '6' => 'RA');
+                    }
+                    elseif($records[$x-1]->getCodeId() == 4){
+                      $linhas = array('2' => 'F', '5' => 'R');
+                    }
+                    elseif($records[$x-1]->getCodeId() == 5){
+                      $linhas = array('2' => 'F', '3' => 'IA');
+                    }
+                    elseif($records[$x-1]->getCodeId() == 6){
+                      $linhas = array('4' => 'FA', '6' => 'RA');
+                    }
+                  ?>
+                  <?php foreach($linhas as $index => $linha): ?>
+                    <option value="<?php echo $index ?>" <?php if($index == $record->getCodeId()) echo 'selected="selected"' ?> ><?php echo $linha ?></option>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </select>
             </td>
@@ -248,11 +273,13 @@
             <?php echo $record_form['_csrf_token']; ?>
             <?php echo $sighting_form['_csrf_token']; ?>
           </tr>
-       
+          
+          
+          
           
           <script type="text/javascript">
           function load_select_<?php echo $i-1 ?>() {
-            if( <?php echo $i-1 ?> > 0 ){
+            /*if( <?php echo $i-1 ?> > 0 ){
               //alert($("#record_code_id_<?php echo $i-1 ?>").val());
               $.ajax({
                 type: "get",
@@ -270,7 +297,13 @@
                   alert("erro");
                 }
               });
-            }
+            }*/
+            
+            
+            
+            
+            
+            
             $("#record_code_id_<?php echo $i ?>").change(function(){
                 for(i=<?php echo $i+1 ?>; i<=$("#n-lines").val(); i++){
                   $("#record_code_id_"+i).children().remove();
@@ -295,7 +328,8 @@
           }; 
               
           $(document).ready(function() {
-             setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*3000); 
+             //setTimeout('load_select_<?php echo $i-1 ?>()', <?php echo $i*0.5 ?>*3000); 
+             load_select_<?php echo $i-1 ?>();
           });
             
         </script>
