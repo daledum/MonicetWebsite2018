@@ -13,7 +13,9 @@ generator:
     i18n_catalogue:        general_info
     
     config:
-      fields:  ~
+      fields:  
+        date:
+          date_format:     yyyy-MM-dd
       list:
         display:           [code, date, vessel, base_latitude, base_longitude, valid]
         sort:              [valid, asc]

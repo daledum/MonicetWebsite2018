@@ -8,8 +8,8 @@
             async: false,
             data: {
                 n_lines: $('#n-lines').val(), 
-                latitude: <?php echo $general_info->getBaseLatitude();?>,
-                longitude: <?php echo $general_info->getBaseLongitude();?>, 
+                latitude: "<?php echo $general_info->getBaseLatitude();?>",
+                longitude: "<?php echo $general_info->getBaseLongitude();?>", 
                 '_r': Math.random()*100
             },
             success: function(msg) {

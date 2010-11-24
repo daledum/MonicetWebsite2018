@@ -3,11 +3,11 @@ sheetSuccess:
   javascripts: [-*, "jquery-1.4.2.min.js", "jquery-ui-1.8.6.custom.min.js", 'datepicker.js', 'date.js', "jquery.maskedinput-1.2.2.min.js"]
 
 newSuccess:
-  javascripts: ['datepicker.js', 'date.js']
+  javascripts: ['datepicker.js', 'date.js', coordenadas_empresa.js]
   stylesheets: ['datepicker.css']
   
 editSuccess:
-  javascripts: ['datepicker.js', 'date.js']
+  javascripts: ['datepicker.js', 'date.js', coordenadas_empresa.js]
   stylesheets: ['datepicker.css']
 
 all:

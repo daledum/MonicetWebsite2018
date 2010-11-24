@@ -60,4 +60,11 @@ class general_infoActions extends autoGeneral_infoActions
     $this->records = $this->general_info->getRecords();
     $this->n_lines = count($this->records);
   }
+  
+  public function executeCoordAjax(sfWebRequest $request){
+    $companhia = CompanyPeer::retrieveByPk($request->getParameter('company_id'));
+    $this->latitude = $companhia->getBaseLatitude();
+    $this->longitude = $companhia->getBaseLongitude();
+  }
+  
 }
