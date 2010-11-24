@@ -67,4 +67,8 @@ class general_infoActions extends autoGeneral_infoActions
     $this->longitude = $companhia->getBaseLongitude();
   }
   
+  public function executeUpload(sfWebRequest $request){
+    
+  }
+  
 }
