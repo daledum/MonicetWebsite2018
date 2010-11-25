@@ -71,4 +71,27 @@ class general_infoActions extends autoGeneral_infoActions
     
   }
   
+  public function executeDownload(sfWebRequest $request){
+    $objPHPExcel = new PHPExcel();
+  
+    $objPHPExcel->getProperties()
+    ->setCreator("Maarten Balliauw")
+    ->setLastModifiedBy("Maarten Balliauw")
+    ->setTitle("Office 2007 XLSX Test Document")
+    ->setSubject("Office 2007 XLSX Test Document")
+    ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
+    ->setKeywords("office 2007 openxml php")
+    ->setCategory("Test result file");
+    
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="DadosExportados.xls"');
+    header('Cache-Control: max-age=0');
+        
+    
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    
+    return sfView::NONE;
+  }
+  
 }

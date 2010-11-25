@@ -44,7 +44,6 @@ class UserPeer extends BaseUserPeer {
     if ( $sf_guard_user->hasPermission('boss') ){
       // definir todas as permissões base para os patrões
       $permissions = array(
-          'company.*',
           'general_info.*',
           'record.*',
           'utilizador.*',
@@ -52,6 +51,7 @@ class UserPeer extends BaseUserPeer {
           'specie.*',
           'vessel.*',
           'guide.*',
+          'skipper.*',
         );
     	self::addPermissions($permissions, $sf_guard_user);
     }

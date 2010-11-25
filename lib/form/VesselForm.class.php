@@ -16,5 +16,14 @@ class VesselForm extends BaseVesselForm
     unset(
       $this['created_at'], $this['updated_at']
     );
+    
+    $user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+
+    if ($company) {
+        $this->setWidget('company_id', 
+                         new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
+    }
+    
   }
 }
