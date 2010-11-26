@@ -100,6 +100,7 @@
                     "record[num_vessels]": $("tr.record_line_" + i + " #record_num_vessels").val(),
                     "sighting[comments]": $("tr.record_line_" + i + " #sighting_comments").val(),
                     
+                    
                     "linha" : i,
                     "_r": Math.random()*100
                 },
@@ -113,6 +114,25 @@
           }
           if( $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val() == 2) fim = true;
         }
+        
+        $.ajax({
+            type: "POST",   
+            url: url[0] + "//" + url[2] + "/" + url[3] + "/general_info/validation", 
+            data: {
+                general_info_id: <?php echo $general_info->getId();?>,
+                
+                "valid":           $("#general_info_valid").attr('checked'),
+                "comments":        $("#general_info_comments").val(),
+                "general_info_id": <?php echo $general_info->getId() ?>,
+                
+                "_r": Math.random()*100
+            },
+            async: false,
+            success: function(msg) {
+              
+            }
+        });
+        
 
         $('#erros').dialog('open');
     }
@@ -342,8 +362,19 @@
     <?php elseif($general_info->getValid() != 1): ?>
     <div class="table-actions"><a class="add-new-line" href="#">Adicionar Novo Registo</a></div>
     <?php endif; ?>
-    <?php if($sf_user->isSuperAdmin()): ?>
     <div id="progressbar" style="display:inline-block;width:300px;"></div>
+    <br />
+    <table style="width: 200px !important; float: left; margin-left: 20px !important;">
+      <tr>
+        <th><?php echo $gi_form['valid']->renderLabel() ?></th>
+        <th><?php echo $gi_form['comments']->renderLabel() ?></th>
+      </tr>
+      <tr>
+        <td><?php echo $gi_form['valid'] ?></td>
+        <td><?php echo $gi_form['comments'] ?></td>
+      </tr>
+    </table>
+    <?php if($sf_user->isSuperAdmin()): ?>
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_save">
         <input type="button" value="Gravar" onClick="saveAllLines();" />

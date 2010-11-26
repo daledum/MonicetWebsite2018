@@ -17,18 +17,28 @@
  * @package    lib.model
  */
 class GeneralInfoPeer extends BaseGeneralInfoPeer {
-    public static function doSelectByCompany() {
+    public static function doSelectByCompany($request=null) {
+      
+        $request = (! is_null($request) && $request instanceof sfWebRequest) ? $request : sfContext::getInstance()->getRequest();
+      
         $user = sfContext::getInstance()->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
         if ($company) {
             $query = GeneralInfoQuery::create()
-                ->filterByCompanyId($company->getId())
-                ->paginate();
+                ->filterByCompanyId($company->getId());
+                
         } else {
-            $query = GeneralInfoQuery::create()
-                ->paginate();
+            $query = GeneralInfoQuery::create();
         }
+        //$ordem = 'GeneralInfoPeer::'.strtoupper($request->getParameter('sort', 'valid'));
+        $query = $query
+            ->orderBy(mfText::to_camel_case($request->getParameter('sort', 'valid'), true), $request->getParameter('order', 'desc'))
+            //->addDescendingOrderByColumn($ordem)
+        ->paginate($request->getParameter('page', 1), 20);
         return $query;
     }
 
 } // GeneralInfoPeer
+
+
+

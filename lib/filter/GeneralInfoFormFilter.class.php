@@ -16,5 +16,13 @@ class GeneralInfoFormFilter extends BaseGeneralInfoFormFilter
     unset(
       $this['created_at'], $this['updated_at']
     );
+    
+    $user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+    
+    if($company){
+      unset($this['company_id']);
+    }
+    
   }
 }

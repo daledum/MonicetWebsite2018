@@ -59,6 +59,8 @@ class general_infoActions extends autoGeneral_infoActions
                             ->findOne();
     $this->records = $this->general_info->getRecords();
     $this->n_lines = count($this->records);
+    
+    $this->gi_form = new GeneralInfoForm($this->general_info);
   }
   
   public function executeCoordAjax(sfWebRequest $request){
@@ -72,26 +74,96 @@ class general_infoActions extends autoGeneral_infoActions
   }
   
   public function executeDownload(sfWebRequest $request){
+      
+    // buscar os dados  
+    $dados = GeneralInfoPeer::doSelectByCompany();
+      
+      
+    // criação do ficheiro Excel (.xls)
     $objPHPExcel = new PHPExcel();
-  
-    $objPHPExcel->getProperties()
-    ->setCreator("Maarten Balliauw")
-    ->setLastModifiedBy("Maarten Balliauw")
-    ->setTitle("Office 2007 XLSX Test Document")
-    ->setSubject("Office 2007 XLSX Test Document")
-    ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
-    ->setKeywords("office 2007 openxml php")
-    ->setCategory("Test result file");
     
+    $objPHPExcel->getProperties()
+    ->setCreator("Monicet")
+    ->setLastModifiedBy("Monicet")
+    ->setTitle("Mapa de Saidas")
+    ->setSubject("Mapa de Saidas")
+    ->setDescription("Exportação de saidas do Monicet")
+    ->setKeywords("Mapa Saidas")
+    ->setCategory("Saidas");
+    
+    $objPHPExcel->getDefaultStyle()->getFont()->setName('Arial');
+    $objPHPExcel->getDefaultStyle()->getFont()->setSize(10);
+    $objPHPExcel->getDefaultStyle()->getFont()->setColor(new PHPExcel_Style_Color('33333333')); 
+    
+    // edição do conteúdo do ficheiro
+    foreach($dados as $linha){
+      //foreach()
+      
+    }
+    
+    //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1, 'Some value');
+    
+    
+    // download do ficheiro
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="DadosExportados.xls"');
+    header('Content-Disposition: attachment;filename="Dados Exportados - '.date("Y-m-d H:i:s").'.xls"');
     header('Cache-Control: max-age=0');
-        
     
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
     
     return sfView::NONE;
   }
+
+
+
+  public function executeIndex(sfWebRequest $request)
+  {
+    
+    $user = sfContext::getInstance()->getUser()->getGuardUser();
+    $company = CompanyPeer::doSelectUserCompany($user->getId());
+    
+    if(!$user->getIsSuperAdmin()){
+      $this->setFilters(array( 'company_id' => $company->getId()));
+    }
+    
+    
+    
+    // sorting
+    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
+    {
+      $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+    }
+
+    // pager
+    if ($request->getParameter('page'))
+    {
+      $this->setPage($request->getParameter('page'));
+    }
+
+    $this->pager = $this->getPager();
+    $this->sort = $this->getSort();
+  }
+  
+  public function executeValidation(sfWebRequest $request){
+    $this->valid = $request->getParameter('valid');
+    $this->comments = $request->getParameter('comments');
+    
+    $general_info = GeneralInfoQuery::create()
+                            ->filterById($request->getParameter('general_info_id'))
+                            ->findOne();
+    if($this->valid){
+      $general_info->setValid(1);
+    }else{
+      $general_info->setValid(0);
+    }
+    $general_info->setValid($this->valid);
+    $general_info->setComments($this->comments);
+    $general_info->save();
+    
+    return sfView::NONE;
+  }
+  
+
   
 }

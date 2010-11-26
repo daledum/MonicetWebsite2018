@@ -18,8 +18,7 @@ generator:
           date_format:     yyyy-MM-dd
       list:
         display:           [code, date, vessel, base_latitude, base_longitude, valid]
-        sort:              [valid, asc]
-        peer_method:       doSelectByCompany
+        #peer_method:       doSelectByCompany
         object_actions:
           showGrid:        {label: Show departure grid}
           _edit:      ~

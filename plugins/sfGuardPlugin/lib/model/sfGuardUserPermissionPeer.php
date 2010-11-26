@@ -17,4 +17,11 @@
  */
 class sfGuardUserPermissionPeer extends PluginsfGuardUserPermissionPeer
 {
+  public static function getPermissao($user_id){
+        $c = new Criteria();
+        $c->add(sfGuardUserPermissionPeer::USER_ID, $user_id);
+        $c->addAscendingOrderByColumn(sfGuardUserPermissionPeer::PERMISSION_ID);
+        $c->setLimit(1);
+        return sfGuardUserPermissionPeer::doSelect($c);
+  }
 }
