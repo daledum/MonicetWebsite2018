@@ -364,7 +364,7 @@
     <?php endif; ?>
     <div id="progressbar" style="display:inline-block;width:300px;"></div>
     <br />
-    <table style="width: 200px !important; float: left; margin-left: 20px !important;">
+    <?php /*<table style="width: 200px !important; float: left; margin-left: 20px !important;">
       <tr>
         <th><?php echo $gi_form['valid']->renderLabel() ?></th>
         <th><?php echo $gi_form['comments']->renderLabel() ?></th>
@@ -373,7 +373,18 @@
         <td><?php echo $gi_form['valid'] ?></td>
         <td><?php echo $gi_form['comments'] ?></td>
       </tr>
-    </table>
+    </table>*/ ?>
+    <ul>
+      <li>
+        <?php echo $gi_form['valid']->renderLabel().' '.$gi_form['valid'] ?>
+      </li>
+    </ul>
+    <ul>
+      <li>
+        <?php echo $gi_form['comments']->renderLabel().' '.$gi_form['comments'] ?>
+      </li>
+    </ul>
+    
     <?php if($sf_user->isSuperAdmin()): ?>
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_save">

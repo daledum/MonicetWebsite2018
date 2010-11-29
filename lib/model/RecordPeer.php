@@ -25,4 +25,14 @@ class RecordPeer extends BaseRecordPeer {
 		  ->paginate();
 		return $query;
 	}
+  
+  
+  public static function doSelectRecordsByGeneralInfoId($giid){
+    $c = new Criteria();
+    $c->add(RecordPeer::GENERAL_INFO_ID, $giid);
+    $c->addAscendingOrderByColumn(RecordPeer::ID);
+    return RecordPeer::doSelect($c);
+
+  }
+  
 } // RecordPeer

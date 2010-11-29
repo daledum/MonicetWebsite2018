@@ -96,9 +96,66 @@ class general_infoActions extends autoGeneral_infoActions
     $objPHPExcel->getDefaultStyle()->getFont()->setColor(new PHPExcel_Style_Color('33333333')); 
     
     // edição do conteúdo do ficheiro
-    foreach($dados as $linha){
-      //foreach()
-      
+    
+      //headers
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1, 'Data');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,1, 'Código');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,1, 'Hora');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,1, 'Latitude');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,1, 'Longitude');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,1, 'Beaufort');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,1, 'Visibilidade');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,1, 'Espécie');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,1, 'Tamanho Grupo');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,1, 'Ad');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,1, 'Ju');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,1, 'Crias');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,1, 'Comportamento');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,1, 'Associações');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,1, 'Nº Embarcações');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,1, 'Comentários');
+    
+    $objPHPExcel->getActiveSheet()->getStyle('A1:P1')->getFont()->setBold(true);
+    
+    
+    $l = 2;
+    foreach($dados as $gi){
+      $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,$l, $gi->getDate());
+      $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
+      foreach($records as $record){
+        $sighting = SightingPeer::retrieveByPk($record->getId());
+        
+        $specie = $sighting->getSpecie();
+        if($sighting->getSpecie()){
+          $specie = $sighting->getSpecie()->getCode();
+        }else{
+          $specie = '';
+        }
+        
+        if($sighting->getAssociation()){
+          $association = $sighting->getAssociation()->getDescription();
+        }else{
+          $association = '';
+        }
+        
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,$l, $record->getCode()->getAcronym());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,$l, $record->getTime());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,$l, $record->getLatitude());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,$l, $record->getLongitude());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,$l, $record->getSeaStateId());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,$l, $record->getVisibilityId());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,$l, $specie);
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,$l, $sighting->getTotal());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,$l, $sighting->getAdults());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,$l, $sighting->getJuveniles());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,$l, $sighting->getCubs());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,$l, $sighting->getBehaviourId());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,$l, $association);
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,$l, $record->getNumVessels());
+        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,$l, $sighting->getComments());
+        
+        $l++;
+      }
     }
     
     //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1, 'Some value');
