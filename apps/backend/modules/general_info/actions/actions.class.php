@@ -209,12 +209,11 @@ class general_infoActions extends autoGeneral_infoActions
     $general_info = GeneralInfoQuery::create()
                             ->filterById($request->getParameter('general_info_id'))
                             ->findOne();
-    if($this->valid){
+    if(strcmp($this->valid,'true') == 0){
       $general_info->setValid(1);
     }else{
       $general_info->setValid(0);
     }
-    $general_info->setValid($this->valid);
     $general_info->setComments($this->comments);
     $general_info->save();
     
