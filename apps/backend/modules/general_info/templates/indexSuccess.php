@@ -21,7 +21,7 @@
       <?php include_partial('general_info/list_batch_actions', array('helper' => $helper)) ?>
       <?php include_partial('general_info/list_actions', array('helper' => $helper)) ?>
       <li class="sf_admin_action_export">
-        <a href="#">Exportar</a>
+        <a href="<?php echo url_for('general_info/download') ?>">Exportar</a>
       </li>
       <li class="sf_admin_action_import">
         <a href="<?php echo url_for('general_info/upload') ?>">Importar</a>

@@ -1,9 +1,11 @@
 <div id="sf_admin_container">
   <h1>Importar ficheiro</h1>
-  <form>
+  <form method="post" action="<?php echo url_for('general_info/upload') ?>" enctype="multipart/form-data">
     <b style="margin: 10px;" >Seleccione o ficheiro a importar (.xls):</b>
     <br />
-    <input style="margin: 10px;" type="file" id="ficheiroexp" />
+    <table>
+      <?php echo $form ?>
+    </table>
     <ul class="sf_admin_actions">
       <li><input type="submit" value="importar" /></li>
     </ul>

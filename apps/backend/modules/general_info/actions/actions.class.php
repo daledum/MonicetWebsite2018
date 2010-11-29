@@ -70,18 +70,34 @@ class general_infoActions extends autoGeneral_infoActions
   }
   
   public function executeUpload(sfWebRequest $request){
+      
+    $this->form = new importXlsForm();
     
+    if($request->isMethod('post')){
+      
+      $this->form->bind($request->getParameter('importXls'),$request->getFiles('importXls'));
+      if($this->form->isValid()){
+        
+        $file = $this->form->getValue('ficheiro');
+        $file->save(sfConfig::get('sf_upload_dir').'/import.xls');
+        
+        $objReader = new PHPExcel_Reader_Excel5();
+        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import.xls');
+        
+      }
+      
+      
+    }
   }
   
   public function executeDownload(sfWebRequest $request){
       
     // buscar os dados  
-    $dados = GeneralInfoPeer::doSelectByCompany();
+    $dados = GeneralInfoPeer::doSelect($this->buildCriteria());
       
       
     // criação do ficheiro Excel (.xls)
     $objPHPExcel = new PHPExcel();
-    
     $objPHPExcel->getProperties()
     ->setCreator("Monicet")
     ->setLastModifiedBy("Monicet")
@@ -90,14 +106,12 @@ class general_infoActions extends autoGeneral_infoActions
     ->setDescription("Exportação de saidas do Monicet")
     ->setKeywords("Mapa Saidas")
     ->setCategory("Saidas");
-    
     $objPHPExcel->getDefaultStyle()->getFont()->setName('Arial');
     $objPHPExcel->getDefaultStyle()->getFont()->setSize(10);
     $objPHPExcel->getDefaultStyle()->getFont()->setColor(new PHPExcel_Style_Color('33333333')); 
     
     // edição do conteúdo do ficheiro
-    
-      //headers
+      // headers
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1, 'Data');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,1, 'Código');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,1, 'Hora');
@@ -114,17 +128,22 @@ class general_infoActions extends autoGeneral_infoActions
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,1, 'Associações');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,1, 'Nº Embarcações');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,1, 'Comentários');
-    
     $objPHPExcel->getActiveSheet()->getStyle('A1:P1')->getFont()->setBold(true);
+    $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P');
+    foreach($letras as $letra){
+      $objPHPExcel->getActiveSheet()->getColumnDimension($letra)->setAutoSize(true);
+    }
     
-    
+      // conteudo
     $l = 2;
     foreach($dados as $gi){
       $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,$l, $gi->getDate());
       $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
       foreach($records as $record){
+        // buscar sighting correspondente
         $sighting = SightingPeer::retrieveByPk($record->getId());
         
+        // buscar especie
         $specie = $sighting->getSpecie();
         if($sighting->getSpecie()){
           $specie = $sighting->getSpecie()->getCode();
@@ -132,12 +151,14 @@ class general_infoActions extends autoGeneral_infoActions
           $specie = '';
         }
         
+        // buscar associacao
         if($sighting->getAssociation()){
           $association = $sighting->getAssociation()->getDescription();
         }else{
           $association = '';
         }
         
+        // escrever no ficheiro
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,$l, $record->getCode()->getAcronym());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,$l, $record->getTime());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,$l, $record->getLatitude());
@@ -153,13 +174,9 @@ class general_infoActions extends autoGeneral_infoActions
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,$l, $association);
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,$l, $record->getNumVessels());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,$l, $sighting->getComments());
-        
         $l++;
       }
     }
-    
-    //$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,1, 'Some value');
-    
     
     // download do ficheiro
     header('Content-Type: application/vnd.ms-excel');
