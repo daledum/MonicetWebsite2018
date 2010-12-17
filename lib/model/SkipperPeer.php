@@ -29,7 +29,7 @@ class SkipperPeer extends BaseSkipperPeer {
     
     public static function getSkipperByNome($nome){
       $c = new Criteria();
-      $c->add(SkipperPeer::NAME, $nome);
+      $c->add(SkipperPeer::NAME, $nome, Criteria::LIKE);
       $s = SkipperPeer::doSelect($c);
       if(count($s)){
         return $s[0];

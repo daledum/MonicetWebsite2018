@@ -43,7 +43,7 @@ class CompanyPeer extends BaseCompanyPeer {
   
   public static function getEmpresaByNome($nome){
     $c = new Criteria();
-    $c->add(CompanyPeer::NAME, $nome);
+    $c->add(CompanyPeer::NAME, $nome, Criteria::LIKE);
     $e = CompanyPeer::doSelect($c);
     if(count($e)){
       return $e[0];
