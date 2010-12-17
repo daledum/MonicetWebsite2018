@@ -17,5 +17,14 @@
  * @package    lib.model
  */
 class AssociationPeer extends BaseAssociationPeer {
-
+  public static function getByCode($code){
+    $c = new Criteria();
+    $c->add(AssociationPeer::CODE, $code);
+    $a = AssociationPeer::doSelect($c);
+    if(count($a)){
+      return $a[0];
+    }else{
+      return false;
+    }
+  }
 } // AssociationPeer

@@ -26,4 +26,12 @@ class SkipperPeer extends BaseSkipperPeer {
         }
         return $query;
     }
+    
+    public static function getSkipperByNome($nome){
+      $c = new Criteria();
+      $c->add(SkipperPeer::NAME, $nome);
+      $s = SkipperPeer::doSelect($c);
+      return $s[0];
+    }
+    
 } // SkipperPeer

@@ -15,12 +15,13 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   
 	if($this->isNew())
 	{
-	  $daily_number = GeneralInfoQuery::create()
+	  /*$daily_number = GeneralInfoQuery::create()
                         ->filterByCompanyId($this->values['company_id'])
                         ->filterByDate($this->values['date'])
                         ->count();
       $vessel = VesselPeer::retrieveByPK($this->values['vessel_id']);
-      $this->values['code'] = strtoupper($vessel->getCompany()->getAcronym()) . substr(str_replace('-', '',$this->values['date']), -6) . "-" . ($daily_number + 1);
+      $this->values['code'] = strtoupper($vessel->getCompany()->getAcronym()) . substr(str_replace('-', '',$this->values['date']), -6) . "-" . ($daily_number + 1);*/
+      $this->values['code'] = mfUtils::gerarCodigoGi($this->values['company_id'], $this->values['date'], $this->values['vessel_id']);
 	}
 	return $this->values;
   }

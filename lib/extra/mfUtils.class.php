@@ -41,5 +41,14 @@ class mfUtils {
       }
       return $array;
   }
+  
+  public static function gerarCodigoGi($company_id, $date, $vessel_id){
+      $daily_number = GeneralInfoQuery::create()
+                        ->filterByCompanyId($company_id)
+                        ->filterByDate($date)
+                        ->count();
+      $vessel = VesselPeer::retrieveByPK($vessel_id);
+      return strtoupper($vessel->getCompany()->getAcronym()) . substr(str_replace('-', '',$date), -6) . "-" . ($daily_number + 1);
+  }
 }
 ?>

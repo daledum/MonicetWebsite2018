@@ -17,5 +17,10 @@
  * @package    lib.model
  */
 class VisibilityPeer extends BaseVisibilityPeer {
-
+  public static function getByCode($code){
+    $c = new Criteria();
+    $c->add(VisibilityPeer::CODE, $code);
+    $v = VisibilityPeer::doSelect($c);
+    return $v[0];
+  }
 } // VisibilityPeer

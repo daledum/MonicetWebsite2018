@@ -17,5 +17,10 @@
  * @package    lib.model
  */
 class SeaStatePeer extends BaseSeaStatePeer {
-
+  public static function getByCode($code){
+    $c = new Criteria();
+    $c->add(SeaStatePeer::CODE, $code);
+    $s = SeaStatePeer::doSelect($c);
+    return $s[0];
+  }
 } // SeaStatePeer

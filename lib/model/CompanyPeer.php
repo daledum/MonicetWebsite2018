@@ -40,4 +40,13 @@ class CompanyPeer extends BaseCompanyPeer {
         }
         return $query;
     }
+  
+  public static function getEmpresaByNome($nome){
+    $c = new Criteria();
+    $c->add(CompanyPeer::NAME, $nome);
+    $e = CompanyPeer::doSelect($c);
+    return $e[0];
+  }
+  
+  
 } // CompanyPeer

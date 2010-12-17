@@ -84,6 +84,105 @@ class general_infoActions extends autoGeneral_infoActions
         $objReader = new PHPExcel_Reader_Excel5();
         $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import.xls');
         
+        //$l = 3;
+        //$c = 0;
+        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
+        
+        $giid = 0;
+        $record = null;
+        $sighting = null;
+        $general_info = null;
+        
+        //percorrer as linhas
+        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+          $code = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue();
+          
+          // criar nova general info caso registo seja 'I'
+          if(strcmp(strtoupper($code),'I') == 0){
+            $gi = new GeneralInfo();
+            $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
+            $gi->setVesselId($barco->getId());
+            
+            $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
+            $gi->setSkipperId($skipper->getId());
+            
+            $guia = GuidePeer::getGuiaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $l)->getValue());
+            $gi->setGuideId($guia->getId());
+            
+            $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
+            $gi->setCompanyId($empresa->getId());
+            $gi->setBaseLatitude($empresa->getBaseLatitude());
+            $gi->setBaseLongitude($empresa->getBaseLongitude());
+            $gi->setDate($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue());
+            $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
+            $gi->save();
+            $general_info = $gi;
+            //$giid = $general_info->getId();
+            
+            
+          }
+          
+          $record = new Record();
+          $sighting = new Sighting();
+          
+          $record->setGeneralInfoId($general_info->getId());
+          
+          // inserir registos
+          $codigo = CodePeer::getByAcronym(strtoupper($code));
+          
+          if($codigo) $record->setCodeId($codigo->getId());
+          
+          $vis = VisibilityPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $l)->getValue());
+          if($vis) $record->setVisibilityId($vis->getId());
+          
+          $sea = SeaStatePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue());
+          if($sea) $record->setSeaStateId($sea->getId());
+          
+          $value = $objPHPExcel->getActiveSheet()->getCell('C'.$l)->getValue();
+          $formatCode = $objPHPExcel->getActiveSheet()->getStyle('C'.$l)->getNumberFormat()->getFormatCode();
+          $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+          
+          //echo $formattedString;
+          $record->setTime($formattedString);
+          
+          $latitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $l)->getValue();
+          if(strcmp(strtoupper($latitude),'BASE') == 0){
+            $latitude = $general_info->getBaseLatitude();
+          }
+          $record->setLatitude($latitude);
+          
+          $longitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $l)->getValue();
+          if(strcmp(strtoupper($longitude),'BASE') == 0){
+            $longitude = $general_info->getBaseLongitude();
+          }
+          $record->setLongitude($longitude);
+          
+          $record->setNumVessels($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
+          
+          $record->save();
+          
+          // inserir sightings
+          $sighting->setRecordId($record->getId());
+          
+          $esp = SpeciePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $l)->getValue());
+          if($esp) $sighting->setSpecieId($esp->getId());
+          
+          $beh = BehaviourPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $l)->getValue());
+          if($beh) $sighting->setBehaviourId($beh->getId());
+          
+          $asso = AssociationPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $l)->getValue());
+          if($asso) $sighting->setAssociationId($asso->getId());
+          
+          $sighting->setAdults($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $l)->getValue());
+          $sighting->setJuveniles($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $l)->getValue());
+          $sighting->setCubs($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $l)->getValue());
+          $sighting->setTotal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $l)->getValue());
+          $sighting->setNumberVessels($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
+          $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $l)->getValue());
+          
+          $sighting->save();
+        }
+        
       }
       
       

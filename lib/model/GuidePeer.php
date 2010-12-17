@@ -41,4 +41,11 @@ class GuidePeer extends BaseGuidePeer {
         }
         return $query;
     }
+    
+    public static function getGuiaByNome($nome){
+      $c = new Criteria();
+      $c->add(GuidePeer::NAME, $nome);
+      $g = VesselPeer::doSelect($c);
+      return $g[0];
+    }
 } // GuidePeer

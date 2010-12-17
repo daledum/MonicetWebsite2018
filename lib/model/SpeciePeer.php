@@ -17,5 +17,16 @@
  * @package    lib.model
  */
 class SpeciePeer extends BaseSpeciePeer {
-
+  public static function getByCode($code){
+    $c = new Criteria();
+    $c->add(SpeciePeer::CODE, $code);
+    $s = SpeciePeer::doSelect($c);
+    if (count($s)){
+      return $s[0];
+    }
+    else{
+      return false;
+    }
+    
+  }
 } // SpeciePeer

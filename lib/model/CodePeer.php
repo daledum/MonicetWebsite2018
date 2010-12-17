@@ -44,6 +44,15 @@ class CodePeer extends BaseCodePeer {
     return mfUtils::fromObjectsToArrayWithEmpty(self::doSelectAll());
   }
   
+  public static function getByAcronym($code){
+    $c = new Criteria();
+    $c->add(CodePeer::ACRONYM, $code);
+    $b = CodePeer::doSelect($c);
+    return $b[0];
+  }
+  
+  
+  
 //  public static function getNextCodeAcronyms($code_acronym) {
 //  	$acronyms = array();
 //    switch ($code_acronym) {

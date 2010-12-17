@@ -41,4 +41,12 @@ class VesselPeer extends BaseVesselPeer {
         }
         return $query;
     }
+  
+  public static function getBarcoByNome($nome){
+    $c = new Criteria();
+    $c->add(VesselPeer::NAME, $nome);
+    $b = VesselPeer::doSelect($c);
+    return $b[0];
+  }
+  
 } // VesselPeer
