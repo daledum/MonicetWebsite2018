@@ -79,10 +79,12 @@ class general_infoActions extends autoGeneral_infoActions
       if($this->form->isValid()){
         
         $file = $this->form->getValue('ficheiro');
-        $file->save(sfConfig::get('sf_upload_dir').'/import.xls');
+        
+        
+        $file->save(sfConfig::get('sf_upload_dir').'/import/import.xls');
         
         $objReader = new PHPExcel_Reader_Excel5();
-        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import.xls');
+        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import/import.xls');
         
         //$l = 3;
         //$c = 0;
@@ -117,9 +119,6 @@ class general_infoActions extends autoGeneral_infoActions
             $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
             $gi->save();
             $general_info = $gi;
-            //$giid = $general_info->getId();
-            
-            
           }
           
           $record = new Record();
@@ -182,7 +181,6 @@ class general_infoActions extends autoGeneral_infoActions
           
           $sighting->save();
         }
-        
       }
       
       

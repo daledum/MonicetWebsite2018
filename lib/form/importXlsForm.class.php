@@ -14,8 +14,8 @@ class importXlsForm extends sfForm{
     
     $this->setValidators(array(
       'ficheiro' => new sfValidatorFile(array(
-        'path' => sfConfig::get('sf_upload_dir').'/',
-        'mime_types' => array('application/vnd.ms-office'),
+        'path' => sfConfig::get('sf_upload_dir').'/import/',
+        'mime_types' => array('application/vnd.ms-office', 'application/excel', 'application/vnd.ms-excel', 'application/x-excel', 'application/x-msexcel'),
       ))
     ));
     
