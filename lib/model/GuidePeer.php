@@ -46,6 +46,10 @@ class GuidePeer extends BaseGuidePeer {
       $c = new Criteria();
       $c->add(GuidePeer::NAME, $nome);
       $g = VesselPeer::doSelect($c);
-      return $g[0];
+      if(count($g)){
+        return $g[0];
+      }else{
+        return false;
+      }
     }
 } // GuidePeer

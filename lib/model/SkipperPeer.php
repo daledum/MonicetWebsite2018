@@ -31,7 +31,12 @@ class SkipperPeer extends BaseSkipperPeer {
       $c = new Criteria();
       $c->add(SkipperPeer::NAME, $nome);
       $s = SkipperPeer::doSelect($c);
-      return $s[0];
+      if(count($s)){
+        return $s[0];
+      }
+      else{
+        return false;
+      }
     }
     
 } // SkipperPeer

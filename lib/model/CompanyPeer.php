@@ -45,7 +45,12 @@ class CompanyPeer extends BaseCompanyPeer {
     $c = new Criteria();
     $c->add(CompanyPeer::NAME, $nome);
     $e = CompanyPeer::doSelect($c);
-    return $e[0];
+    if(count($e)){
+      return $e[0];
+    }else{
+      return false;
+    }
+    
   }
   
   

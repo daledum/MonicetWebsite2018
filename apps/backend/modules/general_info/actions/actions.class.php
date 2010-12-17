@@ -106,13 +106,13 @@ class general_infoActions extends autoGeneral_infoActions
             $gi->setVesselId($barco->getId());
             
             $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
-            $gi->setSkipperId($skipper->getId());
+            if($skipper) $gi->setSkipperId($skipper->getId());
             
             $guia = GuidePeer::getGuiaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $l)->getValue());
-            $gi->setGuideId($guia->getId());
+            if($guia) $gi->setGuideId($guia->getId());
             
             $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
-            $gi->setCompanyId($empresa->getId());
+            if($empresa) $gi->setCompanyId($empresa->getId());
             $gi->setBaseLatitude($empresa->getBaseLatitude());
             $gi->setBaseLongitude($empresa->getBaseLongitude());
             $gi->setDate($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue());
