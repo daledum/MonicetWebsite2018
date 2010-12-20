@@ -103,7 +103,7 @@ class general_infoActions extends autoGeneral_infoActions
           if(strcmp(strtoupper($code),'I') == 0){
             $gi = new GeneralInfo();
             $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
-            $gi->setVesselId($barco->getId());
+            if ($barco) $gi->setVesselId($barco->getId());
             
             $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
             if($skipper) $gi->setSkipperId($skipper->getId());
@@ -116,7 +116,9 @@ class general_infoActions extends autoGeneral_infoActions
             $gi->setBaseLatitude($empresa->getBaseLatitude());
             $gi->setBaseLongitude($empresa->getBaseLongitude());
             $gi->setDate($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue());
-            $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
+            if($barco && $empresa){
+              $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
+            }
             $gi->save();
             $general_info = $gi;
           }
