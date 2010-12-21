@@ -115,7 +115,16 @@ class general_infoActions extends autoGeneral_infoActions
             if($empresa) $gi->setCompanyId($empresa->getId());
             $gi->setBaseLatitude($empresa->getBaseLatitude());
             $gi->setBaseLongitude($empresa->getBaseLongitude());
-            $gi->setDate($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue());
+            
+            $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
+            $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
+            $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+            $dia = substr($formattedString,3,2);
+            $mes = substr($formattedString,0,2);
+            $ano = substr($formattedString,6,2);
+            
+            $gi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
+            echo $formattedString;
             if($barco && $empresa){
               $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
             }
@@ -150,11 +159,17 @@ class general_infoActions extends autoGeneral_infoActions
           if(strcmp(strtoupper($latitude),'BASE') == 0){
             $latitude = $general_info->getBaseLatitude();
           }
+          else{
+            $latitude = mfUtils::convertLatLong($latitude);
+          }
           $record->setLatitude($latitude);
           
           $longitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $l)->getValue();
           if(strcmp(strtoupper($longitude),'BASE') == 0){
             $longitude = $general_info->getBaseLongitude();
+          }
+          else{
+            $longitude = mfUtils::convertLatLong($longitude);
           }
           $record->setLongitude($longitude);
           
