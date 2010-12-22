@@ -13,7 +13,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   
   
   
-	if($this->isNew())
+	if($this->isNew() || !$this->getObject()->getCode() || $this->getObject()->getCompanyId() != $this->values['company_id'] || $this->getObject()->getDate() != $this->values['date'])
 	{
 	  /*$daily_number = GeneralInfoQuery::create()
                         ->filterByCompanyId($this->values['company_id'])
@@ -21,7 +21,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
                         ->count();
       $vessel = VesselPeer::retrieveByPK($this->values['vessel_id']);
       $this->values['code'] = strtoupper($vessel->getCompany()->getAcronym()) . substr(str_replace('-', '',$this->values['date']), -6) . "-" . ($daily_number + 1);*/
-      $this->values['code'] = mfUtils::gerarCodigoGi($this->values['company_id'], $this->values['date'], $this->values['vessel_id']);
+      $this->values['code'] = mfUtils::gerarCodigoGi($this->values['company_id'], $this->values['date']);
 	}
 	return $this->values;
   }

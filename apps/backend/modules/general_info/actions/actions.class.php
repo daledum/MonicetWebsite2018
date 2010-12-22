@@ -126,7 +126,7 @@ class general_infoActions extends autoGeneral_infoActions
             $gi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
             echo $formattedString;
             if($barco && $empresa){
-              $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue(), $barco->getId()));
+              $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(0, $l)->getValue()));
             }
             $gi->save();
             $general_info = $gi;
