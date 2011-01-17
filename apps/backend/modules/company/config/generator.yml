@@ -14,16 +14,16 @@ generator:
 
     config:
       actions:
-      fields:  ~
+      fields:
+        zipcode:           { label: Código Postal }
+        district:          { label: Distrito }
+        municipality:      { label: Conselho }
+        observations:      { label: Observações }
       list:
         display:           [acronym, name, base_latitude, base_longitude]
         peer_method:       doSelectByCompany
       filter:
         class: false
       form:    ~
-      edit:
-        actions:
-          _save:  ~
-          _cancel:  ~
-          teste:  ~
+      edit:    ~
       new:     ~

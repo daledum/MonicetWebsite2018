@@ -1,6 +1,22 @@
 <?php use_helper('I18N', 'Date') ?>
 <?php include_partial('general_info/assets') ?>
 
+<style>
+.sf_admin_action_import a{
+    background: url("/images/backend/icons/import.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+.sf_admin_action_export a{
+    background: url("/images/backend/icons/export.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+.sf_admin_action_showgrid a{
+    background: url("/images/backend/icons/grid.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+</style>
+
+
 <div id="sf_admin_container">
   <h1><?php echo __('General info List', array(), 'general_info') ?></h1>
 

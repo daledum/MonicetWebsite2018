@@ -29,4 +29,11 @@ class SpeciePeer extends BaseSpeciePeer {
     }
     
   }
+  
+  public static function getAllOrdered(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(SpeciePeer::CODE);
+    $s = SpeciePeer::doSelect($c);
+  }
+  
 } // SpeciePeer

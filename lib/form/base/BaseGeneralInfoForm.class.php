@@ -25,7 +25,8 @@ abstract class BaseGeneralInfoForm extends BaseFormPropel
       'date'           => new sfWidgetFormDate(),
       'valid'          => new sfWidgetFormInputCheckbox(),
       'comments'       => new sfWidgetFormTextarea(),
-      'created_by'     => new sfWidgetFormInputHidden(),
+      'created_by'     => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => false)),
+      'updated_by'     => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => false)),
       'created_at'     => new sfWidgetFormDateTime(),
       'updated_at'     => new sfWidgetFormDateTime(),
     ));
@@ -42,7 +43,8 @@ abstract class BaseGeneralInfoForm extends BaseFormPropel
       'date'           => new sfValidatorDate(),
       'valid'          => new sfValidatorBoolean(),
       'comments'       => new sfValidatorString(array('required' => false)),
-      'created_by'     => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id', 'required' => false)),
+      'created_by'     => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id')),
+      'updated_by'     => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id')),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
       'updated_at'     => new sfValidatorDateTime(array('required' => false)),
     ));

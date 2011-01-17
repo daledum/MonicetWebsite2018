@@ -189,6 +189,8 @@
 	        <th>Guia</th>
 	        <th>Latitude Base</th>
 	        <th>Longitude Base</th>
+	        <th>Criado por</th>
+	        <th>Actualizado por</th>
 	    </tr>
 	  </thead>
       <tbody>
@@ -200,6 +202,8 @@
             <td><?php echo $general_info->getGuide();?></td>
             <td><?php echo $general_info->getBaseLatitude();?></td>
             <td><?php echo $general_info->getBaseLongitude();?></td>
+            <td><?php echo sfGuardUserPeer::retrieveByPk($general_info->getCreatedBy()) ?></td>
+            <td><?php echo sfGuardUserPeer::retrieveByPk($general_info->getUpdatedBy()) ?></td>
         </tr>
       </tbody>    
   </table>

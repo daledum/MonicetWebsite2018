@@ -12,7 +12,7 @@ sfGuardUser:
   sf_monicet:
     username:               monicet
     password:               monisete
-    is_super_admin:         false
+    is_super_admin:         true
   # utilizadores teste
   sf_boss_ta:
     username:               boss-ta
@@ -30,43 +30,33 @@ sfGuardUser:
 User:
   mf_morfose:
     user_id:                sf_morfose
-    name:                   morfose
-    lastname:               lda
+    name:                   morfose lda
     email:                  geral@morfose.net
-    url:                    http://www.morfose.net/
     country:                PT
     lang:                   pt
   mf_monicet:
     user_id:                sf_monicet
-    name:                   monicet
-    lastname:               lda
+    name:                   monicet lda
     email:                  geral@monicet.net
-    url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
   # utilizadores teste
   mf_boss_ta:
     user_id:                sf_boss_ta
-    name:                   boss
-    lastname:               ta
+    name:                   boss ta
     email:                  geral@monicet.net
-    url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
   mf_boss_ft:
     user_id:                sf_boss_ft
-    name:                   boss
-    lastname:               ft
+    name:                   boss ft
     email:                  geral@monicet.net
-    url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
   mf_boss_pa:
     user_id:                sf_boss_pa
-    name:                   boss
-    lastname:               pa
+    name:                   boss pa
     email:                  geral@monicet.net
-    url:                    http://www.monicet.net/
     country:                PT
     lang:                   pt
 

@@ -24,5 +24,46 @@ class GeneralInfoFormFilter extends BaseGeneralInfoFormFilter
       unset($this['company_id']);
     }
     
+    
+    $this->widgetSchema['species'] =  new sfWidgetFormPropelChoice(array('model' => 'Specie', 'add_empty' => true));
+    $this->validatorSchema['species'] = new sfValidatorPropelChoice(array('required' => false, 'model' => 'Specie', 'column' => 'id'));
+    
+    
   }
+  
+  
+  protected function addSpeciesColumnCriteria(Criteria $criteria, $field, $values){
+      
+    if (!is_array($values))
+    {
+        $values = array($values);
+    }
+    
+    if (!count($values))
+    {
+        return;
+    }
+    
+    $value = array_pop($values);
+    
+    /*switch($value){
+    case 1:
+        $criterion = $criteria->getNewCriterion(FacturasPeer::ID_USER, null,Criteria::ISNOTNULL);
+    break;
+    case 0:
+        $criterion = $criteria->getNewCriterion(FacturasPeer::ID_USER, null,Criteria::ISNULL);
+    break;
+    }
+    
+    $criteria->add($criterion);*/
+    
+    
+    $criteria->addJoin(GeneralInfoPeer::ID, RecordPeer::GENERAL_INFO_ID, Criteria::INNER_JOIN);
+    $criteria->addJoin(RecordPeer::ID, SightingPeer::RECORD_ID, Criteria::INNER_JOIN);
+    $criteria->add(SightingPeer::SPECIE_ID, $value, Criteria::EQUAL);
+    $criteria->setDistinct();
+  }
+  
+  
+  
 }

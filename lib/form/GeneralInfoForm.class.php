@@ -30,8 +30,12 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   {
   	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('general_info');
     unset(
-      $this['created_at'], $this['updated_at'], $this['code'], $this['created_by']
+      $this['created_at'], $this['updated_at'], $this['code']
     );
+    
+    
+    
+    
 
     $this->widgetSchema['date'] = new sfWidgetFormInput();
     $this->widgetSchema['date']->setAttribute('class', 'date_field');
@@ -42,6 +46,20 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     $user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());
 
+
+    if($this->isNew()){
+      $this->widgetSchema['created_by'] = new sfWidgetFormInputHidden();
+      $this->widgetSchema['created_by']->setAttribute('value',$user->getId());
+    }else{
+      unset($this['created_by']);
+    }
+    
+    $this->widgetSchema['updated_by'] = new sfWidgetFormInputHidden();
+    $this->widgetSchema['updated_by']->setAttribute('value',$user->getId());
+    
+
+
+
     $vessels = VesselPeer::doSelectListByCompany();
     $this->widgetSchema['vessel_id'] = new sfWidgetFormChoice(array(
         'choices' => $vessels,
@@ -50,7 +68,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     ));
     $this->validatorSchema['vessel_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($vessels),
-        'required' => true
+        'required' => false
     ));
     $skippers = SkipperPeer::doSelectListByCompany();
     $this->widgetSchema['skipper_id'] = new sfWidgetFormChoice(array(
@@ -60,7 +78,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     ));
     $this->validatorSchema['skipper_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($skippers),
-        'required' => true
+        'required' => false
     ));
     $guides = GuidePeer::doSelectListByCompany();
     $this->widgetSchema['guide_id'] = new sfWidgetFormChoice(array(
@@ -70,7 +88,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     ));
     $this->validatorSchema['guide_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($guides),
-        'required' => true
+        'required' => false
     ));
     
     if ($company) {

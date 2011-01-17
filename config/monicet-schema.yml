@@ -5,15 +5,17 @@ propel:
       acronym:          { type: varchar(45), required: true }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
-      email:            { type: varchar, size: 255 }
       url:              { type: varchar, size: 255 }
-      telephone:        { type: varchar, size: 255 }
-      mobile:           { type: varchar, size: 255 }
-      fax:              { type: varchar, size: 255 }
+      telephone:        { type: varchar, size: 30 }
+      mobile:           { type: varchar, size: 30 }
+      fax:              { type: varchar, size: 30 }
+      email:            { type: varchar, size: 255 }
       address:          { type: longvarchar, size: 255 }
-      island:           { type: varchar, size: 255 }
-      council:          { type: varchar, size: 255 }
+      zipcode:          { type: varchar, size: 8 }
+      district:         { type: varchar, size: 255 }
+      municipality:     { type: varchar, size: 255 }
       locality:         { type: varchar, size: 255 }
+      observations:     { type: longvarchar }
       created_at:       ~
       updated_at:       ~
   
@@ -27,6 +29,10 @@ propel:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       name:             { type: varchar(255), required: true }
+      length:           { type: integer, required: false }
+      power:            { type: float, required: false }
+      height:           { type: float, required: false }
+      observations:     { type: longvarchar }      
       created_at:       ~
       updated_at:       ~
 
@@ -34,6 +40,7 @@ propel:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       name:             { type: varchar(255), required: true }
+      observations:     { type: longvarchar }
       created_at:       ~
       updated_at:       ~
 
@@ -41,6 +48,7 @@ propel:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
       name:             { type: varchar(255), required: true }
+      observations:     { type: longvarchar }
       created_at:       ~
       updated_at:       ~
 
@@ -56,7 +64,8 @@ propel:
       date:             { type: date, required: true }
       valid:            { type: boolean, required: true }
       comments:         { type: longvarchar, required: false }
-      created_by:       { type: integer, primaryKey: true, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      created_by:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      updated_by:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       created_at:       ~
       updated_at:       ~
 
@@ -143,23 +152,20 @@ propel:
       id:                 ~
       user_id:            { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
       name:               { type: varchar, size: 255, required: true }
-      lastname:           { type: varchar, size: 255, required: true }
       birthday:           { type: date }
       bi:                 { type: varchar, size: 30 }
       nif:                { type: varchar, size: 30 }
       country:            { type: varchar, size: 255, default: 'PT' }
-      island:             { type: varchar, size: 255 }
-      county:             { type: varchar, size: 255 }
+      district:           { type: varchar, size: 255 }
+      municipality:       { type: varchar, size: 255 }
       locality:           { type: varchar, size: 255 }
       address:            { type: varchar, size: 255 }
       zipcode:            { type: varchar, size: 8 }
       telephone:          { type: varchar, size: 30 }
       mobile:             { type: varchar, size: 30 }
       email:              { type: varchar, size: 255 }
-      url:                { type: varchar, size: 255 }
       lang:               { type: varchar, size: 255, default: 'pt' }
       photo:              { type: varchar, size: 255 }
-      situation:          { type: varchar, size: 255 }
       observations:       { type: longvarchar }
       created_at:         ~
       updated_at:         ~

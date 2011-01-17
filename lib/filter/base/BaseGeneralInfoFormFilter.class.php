@@ -22,6 +22,8 @@ abstract class BaseGeneralInfoFormFilter extends BaseFormFilterPropel
       'date'           => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'valid'          => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'comments'       => new sfWidgetFormFilterInput(),
+      'created_by'     => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
+      'updated_by'     => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
       'created_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
@@ -37,6 +39,8 @@ abstract class BaseGeneralInfoFormFilter extends BaseFormFilterPropel
       'date'           => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'valid'          => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'comments'       => new sfValidatorPass(array('required' => false)),
+      'created_by'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'sfGuardUser', 'column' => 'id')),
+      'updated_by'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'sfGuardUser', 'column' => 'id')),
       'created_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
@@ -68,6 +72,7 @@ abstract class BaseGeneralInfoFormFilter extends BaseFormFilterPropel
       'valid'          => 'Boolean',
       'comments'       => 'Text',
       'created_by'     => 'ForeignKey',
+      'updated_by'     => 'ForeignKey',
       'created_at'     => 'Date',
       'updated_at'     => 'Date',
     );

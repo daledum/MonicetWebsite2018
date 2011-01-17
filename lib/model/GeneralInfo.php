@@ -44,4 +44,26 @@ class GeneralInfo extends BaseGeneralInfo {
   }
   
   
+  public function getSpecies(){
+    
+    $sightings = SightingQuery::create()
+    ->useRecordQuery()
+      ->filterByGeneralInfoId($this->getId())
+    ->endUse()
+    ->orderBy('Id','asc')
+    ->find();
+    
+    $species = array();
+    
+    foreach($sightings as $s){
+      if($s->getSpecieId()) $species[] = SpeciePeer::retrieveByPk($s->getSpecieId());
+    }
+    
+    return $species;
+    
+    
+  }
+  
+  
+  
 } // GeneralInfo

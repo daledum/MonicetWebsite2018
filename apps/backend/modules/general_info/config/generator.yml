@@ -20,7 +20,7 @@ generator:
         display:           [code, date, vessel, base_latitude, base_longitude, valid]
         #peer_method:       doSelectByCompany
         object_actions:
-          showGrid:        {label: Show departure grid}
+          showGrid:        {label: Registos}
           _edit:      ~
           _delete:    ~
       filter:  ~

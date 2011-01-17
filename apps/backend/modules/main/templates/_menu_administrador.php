@@ -24,7 +24,7 @@
       <li><a href="<?php echo url_for('@specie') ?>">Espécies</a></li>
       <li><a href="<?php echo url_for('@association') ?>">Associações</a></li>
       <li><a href="<?php echo url_for('@behaviour') ?>">Comportamento</a></li>
-      <li><a href="<?php echo url_for('@code') ?>">Códigos</a></li>
+      <?php /*<li><a href="<?php echo url_for('@code') ?>">Códigos</a></li>*/ ?>
       <li><a href="<?php echo url_for('@sea_state') ?>">Estados do mar</a></li>
       <li><a href="<?php echo url_for('@visibility') ?>">Visibilidade</a></li>
       <li><a href="<?php echo url_for('@vessel') ?>">Barcos</a></li>

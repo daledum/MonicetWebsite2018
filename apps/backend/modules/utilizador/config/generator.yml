@@ -14,9 +14,11 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        district:         { label: Distrito }
+        municipality:     { label: Conselho }
       list:
-        display:          [username, name, lastname, is_active, is_super_admin]
+        display:          [username, name, is_active, is_super_admin]
       filter:
         class: false
       form:    ~

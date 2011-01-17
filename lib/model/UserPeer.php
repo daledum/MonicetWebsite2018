@@ -23,7 +23,6 @@ class UserPeer extends BaseUserPeer {
   		$permissions = array(
   		  'association.*',
   		  'behaviour.*',
-  		  'code.*',
   		  'company.*',
   		  'consorcium_element.*',
   		  'general_info.*',

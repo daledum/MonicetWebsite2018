@@ -14,9 +14,12 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        length:            { label: Comprimento (m) }
+        power:             { label: Potência (HP) }
+        height:            { label: Altura (m) }
       list:
-        display:           [company, name]
+        display:           [company, name, length, power, height]
         peer_method:       doSelectByCompany
       filter:
         class: false

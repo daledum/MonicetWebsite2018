@@ -277,6 +277,19 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     }else{
       $this->erro = true;
     }
+    
+    if($success && $this->last_record){
+      $gi = GeneralInfoPeer::retrieveByPk($general_info);
+      
+      $c = $gi->getComments();
+      $gi->setComments($c.' ');
+      $gi->save();
+      $gi->setComments($c);
+      $gi->save();
+      
+    }
+    
+    
   }
 
 
