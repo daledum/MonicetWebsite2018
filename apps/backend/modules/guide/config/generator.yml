@@ -14,12 +14,18 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:
+        company_id:        { label: Empresa }
+        name:              { label: Nome }
+        observations:      { label: Observações }
       list:
+        title:             A listar Guias/Biólogos
         display:           [company, name]
         peer_method:       doSelectByCompany
       filter:
         class: false
       form:    ~
-      edit:    ~
-      new:     ~
+      edit:
+        title:             A editar %%name%%
+      new:
+        title:             Novo Guia/Biólogo
