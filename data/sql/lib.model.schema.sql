@@ -375,7 +375,6 @@ CREATE TABLE `sighting`
 	`juveniles` VARCHAR(45),
 	`cubs` VARCHAR(45),
 	`total` INTEGER,
-	`number_vessels` INTEGER,
 	`comments` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,

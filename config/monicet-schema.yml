@@ -142,7 +142,6 @@ propel:
       juveniles:        { type: varchar(45), required: false }
       cubs:             { type: varchar(45), required: false }
       total:            { type: integer, required: false }
-      number_vessels:   { type: integer, required: false }
       comments:         { type: longvarchar, required: false }
       created_at:       ~
       updated_at:       ~

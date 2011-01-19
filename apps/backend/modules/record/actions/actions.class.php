@@ -260,7 +260,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
         $this->sighting->setJuveniles($juveniles);
         $this->sighting->setCubs($cubs);
         $this->sighting->setTotal($total);
-        $this->sighting->setNumberVessels($num_vessels);
+        //$this->sighting->setNumberVessels($num_vessels);
         $this->sighting->setComments($comments);
         $this->sighting->save();
         $success = True;

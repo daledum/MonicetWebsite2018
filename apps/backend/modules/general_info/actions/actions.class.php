@@ -193,7 +193,6 @@ class general_infoActions extends autoGeneral_infoActions
           $sighting->setJuveniles($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $l)->getValue());
           $sighting->setCubs($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $l)->getValue());
           $sighting->setTotal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $l)->getValue());
-          $sighting->setNumberVessels($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
           $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $l)->getValue());
           
           $sighting->save();
@@ -309,7 +308,7 @@ class general_infoActions extends autoGeneral_infoActions
         
         // buscar associacao
         if($sighting->getAssociation()){
-          $association = $sighting->getAssociation()->getDescription();
+          $association = $sighting->getAssociation()->getCode();
         }else{
           $association = '';
         }
@@ -319,8 +318,8 @@ class general_infoActions extends autoGeneral_infoActions
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,$l, $record->getTime());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,$l, $record->getLatitude());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,$l, $record->getLongitude());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,$l, $record->getVisibilityId());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,$l, $record->getSeaStateId());
+        if($record->getVisibility()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,$l, $record->getVisibility()->getCode());
+        if($record->getSeaState()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,$l, $record->getSeaState()->getCode());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,$l, $specie);
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,$l, $sighting->getTotal());
         $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,$l, $sighting->getAdults());
