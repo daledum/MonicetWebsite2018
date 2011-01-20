@@ -231,6 +231,11 @@ class general_infoActions extends autoGeneral_infoActions
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,1, 'Sighting');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,1, 'Inf. Geral');
     
+    $objPHPExcel->getActiveSheet()->getRowDimension(2)->setRowHeight(30);
+    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')
+        ->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+    
+    
     $objPHPExcel->getActiveSheet()->getStyle('A1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('0000ff');
@@ -258,32 +263,40 @@ class general_infoActions extends autoGeneral_infoActions
     $objPHPExcel->getActiveSheet()->getStyle('Q1:V1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('0000ff');
+      
+    
+    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
     
       
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,2, 'Data');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,2, 'Código');
+    $objPHPExcel->getActiveSheet()->getStyle('A2')->getFill()
+      ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+      ->getStartColor()->setRGB('33cccc');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,2, 'Cod.');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,2, 'Hora');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,2, 'Latitude');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,2, 'Longitude');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,2, 'Visibilidade');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,2, 'Beaufort');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,2, 'Espécie');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,2, 'Tamanho Grupo');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,2, 'Ad');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,2, 'Ju');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,2, 'Crias');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,2, 'Comportamento');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,2, 'Associações');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,2, 'Nº Embarcações');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,2, 'Vis.');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,2, 'Est. Mar');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,2, 'Sp.');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,2, 'Total');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,2, 'A');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,2, 'J');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,2, 'C');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,2, 'Comp');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,2, 'Asso');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,2, 'Num. Emb.');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,2, 'Comentários');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(16,2, 'Empresa');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(17,2, 'Barco');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(18,2, 'Skipper');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,2, 'Biologist');
     $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(20,2, 'Passg');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(21,2, 'Dist Precorrida');
+    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(21,2, 'Dist. Precorrida');
     $objPHPExcel->getActiveSheet()->getStyle('A1:V1')->getFont()->setBold(true);
+    $objPHPExcel->getActiveSheet()->getStyle('A1:V1')->getFont()->setSize(12);
     $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getFont()->setBold(true);
+    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getFont()->setSize(12);
     $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V');
     foreach($letras as $letra){
       $objPHPExcel->getActiveSheet()->getColumnDimension($letra)->setAutoSize(true);
