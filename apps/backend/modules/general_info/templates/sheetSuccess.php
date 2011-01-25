@@ -265,7 +265,7 @@
                       $linhas = array('4' => 'FA', '6' => 'RA');
                     }
                     elseif($records[$x-1]->getCodeId() == 4){
-                      $linhas = array('2' => 'F', '5' => 'R');
+                      $linhas = array('2' => 'F', '3' => 'IA', '5' => 'R', '6' => 'RA');
                     }
                     elseif($records[$x-1]->getCodeId() == 5){
                       $linhas = array('2' => 'F', '3' => 'IA', '5' => 'R');

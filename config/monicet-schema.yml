@@ -5,13 +5,13 @@ propel:
       acronym:          { type: varchar(45), required: true }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
-      url:              { type: varchar, size: 255 }
       telephone:        { type: varchar, size: 30 }
       mobile:           { type: varchar, size: 30 }
       fax:              { type: varchar, size: 30 }
       email:            { type: varchar, size: 255 }
       address:          { type: longvarchar, size: 255 }
       zipcode:          { type: varchar, size: 8 }
+      country:          { type: varchar, size: 225 }
       district:         { type: varchar, size: 255 }
       municipality:     { type: varchar, size: 255 }
       locality:         { type: varchar, size: 255 }
