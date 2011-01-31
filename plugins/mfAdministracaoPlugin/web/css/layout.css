@@ -257,7 +257,7 @@ span#help-icon {
     width: 80px !important;
 }
 
-.total input, .adults input, .juveniles input, .calves input {
+.total input, .adults input, .juveniles input, .cubs input {
     width: 30px !important;
     text-align: center;
 }
