@@ -373,7 +373,7 @@ CREATE TABLE `sighting`
 	`association_id` INTEGER,
 	`adults` VARCHAR(45),
 	`juveniles` VARCHAR(45),
-	`cubs` VARCHAR(45),
+	`calves` VARCHAR(45),
 	`total` INTEGER,
 	`comments` TEXT,
 	`created_at` DATETIME,

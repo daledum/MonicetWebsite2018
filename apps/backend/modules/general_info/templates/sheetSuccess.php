@@ -47,7 +47,7 @@
                 "sighting[total]": $("tr.record_line_" + n_lines + " #sighting_total").val(),
                 "sighting[adults]": $("tr.record_line_" + n_lines + " #sighting_adults").val(),
                 "sighting[juveniles]": $("tr.record_line_" + n_lines + " #sighting_juveniles").val(),
-                "sighting[cubs]": $("tr.record_line_" + n_lines + " #sighting_cubs").val(),
+                "sighting[calves]": $("tr.record_line_" + n_lines + " #sighting_calves").val(),
                 "sighting[behaviour_id]": $("tr.record_line_" + n_lines + " #sighting_behaviour_id option:selected").val(),
                 "sighting[association_id]": $("tr.record_line_" + n_lines + " #sighting_association_id option:selected").val(),
                 "record[num_vessels]": $("tr.record_line_" + n_lines + " #record_num_vessels").val(),
@@ -94,7 +94,7 @@
                     "sighting[total]": $("tr.record_line_" + i + " #sighting_total").val(),
                     "sighting[adults]": $("tr.record_line_" + i + " #sighting_adults").val(),
                     "sighting[juveniles]": $("tr.record_line_" + i + " #sighting_juveniles").val(),
-                    "sighting[cubs]": $("tr.record_line_" + i + " #sighting_cubs").val(),
+                    "sighting[calves]": $("tr.record_line_" + i + " #sighting_calves").val(),
                     "sighting[behaviour_id]": $("tr.record_line_" + i + " #sighting_behaviour_id option:selected").val(),
                     "sighting[association_id]": $("tr.record_line_" + i + " #sighting_association_id option:selected").val(),
                     "record[num_vessels]": $("tr.record_line_" + i + " #record_num_vessels").val(),
@@ -289,7 +289,7 @@
             <td class="sf_admin_text total"><?php echo $sighting_form['total']; ?></td>
             <td class="sf_admin_text adults"><?php echo $sighting_form['adults']; ?></td>
             <td class="sf_admin_text juveniles"><?php echo $sighting_form['juveniles']; ?></td>
-            <td class="sf_admin_text cubs"><?php echo $sighting_form['cubs']; ?></td>
+            <td class="sf_admin_text calves"><?php echo $sighting_form['calves']; ?></td>
             <td class="sf_admin_text behaviour"><?php echo $sighting_form['behaviour_id']; ?></td>
             <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
             <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>

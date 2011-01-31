@@ -140,7 +140,7 @@ propel:
       association_id:   { type: integer, foreignTable: association, foreignReference: id, required: false, onDelete: cascade }
       adults:           { type: varchar(45), required: false }
       juveniles:        { type: varchar(45), required: false }
-      cubs:             { type: varchar(45), required: false }
+      calves:             { type: varchar(45), required: false }
       total:            { type: integer, required: false }
       comments:         { type: longvarchar, required: false }
       created_at:       ~
