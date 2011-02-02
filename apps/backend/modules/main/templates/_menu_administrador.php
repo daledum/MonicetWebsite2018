@@ -33,4 +33,5 @@
     </ul>
   </li>
   <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
+  <?php /*<li><a href="<?php echo url_for('@maps') ?>">Mapa</a></li>*/ ?>
 </ul>

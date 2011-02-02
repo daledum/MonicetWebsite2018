@@ -182,6 +182,10 @@ news_article:
     column:               id
     with_wildcard_routes: true
 
+maps:
+  url:   /maps
+  param: { module: maps, action: index }
+
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 

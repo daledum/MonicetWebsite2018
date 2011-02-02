@@ -7,9 +7,20 @@
     <?php include_title() ?>
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+    
+    <?php if (has_slot('gmap')): ?>
+      <?php include_slot('gmap') ?>
+    <?php endif; ?>
+
+    
     <link rel="shortcut icon" href="<?php echo sfConfig::get('app_mfAdministracaoPlugin_favicon_src', '/mfAdministracaoPlugin/images/favicon.ico') ?>" />
   </head>
+  
+  <?php if (has_slot('gmap')): ?>
+  <body onload="initialize()">
+  <?php else: ?>
   <body>
+  <?php endif; ?>
     <div id="pg">
       <div id="hd">
         <div class="ct">

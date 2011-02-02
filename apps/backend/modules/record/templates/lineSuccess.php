@@ -25,7 +25,7 @@
   <td class="sf_admin_text total"><?php echo $sighting_form['total']; ?></td>
   <td class="sf_admin_text adults"><?php echo $sighting_form['adults']; ?></td>
   <td class="sf_admin_text juveniles"><?php echo $sighting_form['juveniles']; ?></td>
-  <td class="sf_admin_text cubs"><?php echo $sighting_form['cubs']; ?></td>
+  <td class="sf_admin_text calves"><?php echo $sighting_form['calves']; ?></td>
   <td class="sf_admin_text behaviour"><?php echo $sighting_form['behaviour_id']; ?></td>
   <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
   <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
