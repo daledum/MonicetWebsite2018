@@ -309,21 +309,18 @@ class general_infoActions extends autoGeneral_infoActions
       $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
       foreach($records as $record){
         // buscar sighting correspondente
-        $sighting = SightingPeer::retrieveByPk($record->getId());
+        $sighting = SightingPeer::retrieveByRecordId($record->getId());
         
         // buscar especie
-        $specie = $sighting->getSpecie();
-        if($sighting->getSpecie()){
+        $specie = '';
+        if($sighting->getSpecieId()){
           $specie = $sighting->getSpecie()->getCode();
-        }else{
-          $specie = '';
         }
         
         // buscar associacao
-        if($sighting->getAssociation()){
+        $association = '';
+        if($sighting->getAssociationId()){
           $association = $sighting->getAssociation()->getCode();
-        }else{
-          $association = '';
         }
         
         // escrever no ficheiro

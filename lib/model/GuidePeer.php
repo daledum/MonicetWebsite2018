@@ -34,9 +34,15 @@ class GuidePeer extends BaseGuidePeer {
         if ($company) {
             $query = GuideQuery::create()
                 ->filterByCompanyId($company->getId())
+                ->useCompanyQuery()
+                  ->orderByName()
+                ->endUse()
                 ->paginate();
         } else {
             $query = GuideQuery::create()
+                ->useCompanyQuery()
+                  ->orderByName()
+                ->endUse()
                 ->paginate();
         }
         return $query;
@@ -52,4 +58,27 @@ class GuidePeer extends BaseGuidePeer {
         return false;
       }
     }
+    
+    
+    public static function doSelect(Criteria $criteria, PropelPDO $con = null)
+    {
+      $user = sfContext::getInstance()->getUser()->getGuardUser();
+      $company = CompanyPeer::doSelectUserCompany($user->getId());
+      if ($company) {
+          $criteria->addAnd(GuidePeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+      }
+      $criteria->addJoin(GuidePeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+      $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+      return GuidePeer::populateObjects(GuidePeer::doSelectStmt($criteria, $con));
+    }
+    
+    
+    public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
+    {
+      return count(GuidePeer::doSelect($criteria));
+    }
+    
+    
+    
+    
 } // GuidePeer

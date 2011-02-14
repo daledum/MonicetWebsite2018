@@ -39,4 +39,26 @@ class SkipperPeer extends BaseSkipperPeer {
       }
     }
     
+    public static function doSelect(Criteria $criteria, PropelPDO $con = null)
+    {
+      $user = sfContext::getInstance()->getUser()->getGuardUser();
+      $company = CompanyPeer::doSelectUserCompany($user->getId());
+      if ($company) {
+          $criteria->addAnd(SkipperPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+      }
+      $criteria->addJoin(SkipperPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+      
+      $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+      $criteria->addAscendingOrderByColumn(SkipperPeer::NAME);
+      return SkipperPeer::populateObjects(SkipperPeer::doSelectStmt($criteria, $con));
+    }
+    
+    
+    public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
+    {
+      return count(SkipperPeer::doSelect($criteria));
+    }
+    
+    
+    
 } // SkipperPeer

@@ -314,7 +314,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $this->selected = $request->getParameter('selected');
     $this->valores = array();
     if($this->valor == 1){
-      $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R');
+      $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R', '6' => 'RA');
     }
     elseif($this->valor == 3){
       $this->valores = array('4' => 'FA', '6' => 'RA');
@@ -323,7 +323,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R', '6' => 'RA');
     }
     elseif($this->valor == 5){
-      $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R');
+      $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R', '6' => 'RA');
     }
     elseif($this->valor == 6){
       $this->valores = array('4' => 'FA', '6' => 'RA');

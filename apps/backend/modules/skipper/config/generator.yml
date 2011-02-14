@@ -21,9 +21,9 @@ generator:
       list:
         title:             A listar skippers
         display:           [company, name]
-        peer_method:       doSelectByCompany
-      filter:
-        class: false
+        #peer_method:       doSelectByCompany
+      filter:              
+        display:           [ company_id, name ]
       form:    ~
       edit:
         title:             A editar o skipper %%name%%

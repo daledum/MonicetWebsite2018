@@ -36,4 +36,16 @@ class SpeciePeer extends BaseSpeciePeer {
     $s = SpeciePeer::doSelect($c);
   }
   
+  
+  public static function getSpecieQuery($word){
+    
+    $c = new Criteria();
+    $c->add(SpeciePeer::NAME, '%'.$word.'%', Criteria::LIKE);
+    $c->addOr(SpeciePeer::CODE, '%'.$word.'%', Criteria::LIKE);
+    $c->setDistinct();
+    return SpeciePeer::doSelect($c);
+  }
+  
+  
+  
 } // SpeciePeer

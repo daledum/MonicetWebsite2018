@@ -33,5 +33,10 @@
     </ul>
   </li>
   <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
-  <?php /*<li><a href="<?php echo url_for('@maps') ?>">Mapa</a></li>*/ ?>
+  <?php /*<li><a href="#">Visualização</a>
+    <ul>
+      <li><a href="#">Analítica</a></li>
+      <li><a href="<?php echo url_for('@maps') ?>">Geográfica</a></li>
+    </ul>
+  </li>*/ ?>
 </ul>
