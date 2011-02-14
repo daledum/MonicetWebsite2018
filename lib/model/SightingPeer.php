@@ -29,6 +29,6 @@ class SightingPeer extends BaseSightingPeer {
     $c = new Criteria();
     $c->add(SightingPeer::RECORD_ID, $id, Criteria::EQUAL);
     return SightingPeer::doSelectOne($c);
-  }
+  } 
   
 } // SightingPeer
