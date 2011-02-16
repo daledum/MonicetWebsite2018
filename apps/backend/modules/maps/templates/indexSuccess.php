@@ -48,13 +48,11 @@
               },
               success: function( data ) {
                 
-                try{
                 
-                //var obj = $.parseJSON(data);
+                var obj = $.parseJSON(data);
                 
-                alert(data);
                 
-                var obj = JSON.parse(data);
+                //var obj = JSON.parse(data);
                 
                 
                 if(especiesActivas[obj.id] == true){
@@ -131,13 +129,6 @@
                   );
                   
                 }
-                
-                
-                }catch(err){
-                  alert(err);
-                }
-                
-                
               }
             });
         },
