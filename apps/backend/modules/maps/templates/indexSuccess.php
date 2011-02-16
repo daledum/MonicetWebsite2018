@@ -51,6 +51,9 @@
                 try{
                 
                 //var obj = $.parseJSON(data);
+                
+                alert(data);
+                
                 var obj = JSON.parse(data);
                 
                 
