@@ -326,7 +326,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->valores = array('2' => 'F', '3' => 'IA', '5' => 'R', '6' => 'RA');
     }
     elseif($this->valor == 6){
-      $this->valores = array('4' => 'FA', '6' => 'RA');
+      $this->valores = array('2' => 'F', '3' => 'IA', '4' => 'FA', '5' => 'R', '6' => 'RA');
     }
     elseif($this->linha == 1){
       $this->valores = array('1' => 'I');

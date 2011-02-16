@@ -9,13 +9,13 @@ foreach($sightings as $sighting){
   if($general_info){
     
     $company = $general_info->getCompany();
+    $company_id = ($company)? $company->getId() : 'none';
+    $company_name = ($company)? $company->getName() : 'none';
   
     $skipper = $general_info->getSkipper();
-    
     $skipper_name = ($skipper)? $skipper->getName() : 'none';
     
     $guide = $general_info->getGuide();
-    
     $guide_name = ($guide)? $guide->getName() : 'none';
     
     $spots .= '{
@@ -23,8 +23,8 @@ foreach($sightings as $sighting){
       "lon":"'.$record->getLongitude().'",
       "gi_id":"'.$general_info->getId().'",
       "gi_code":"'.$general_info->getCode().'",
-      "company_id":"'.$company->getId().'",
-      "company_name":"'.$company->getName().'",
+      "company_id":"'.$company_id.'",
+      "company_name":"'.$company_name.'",
       "date":"'.$general_info->getDate().'",
       "time":"'.$record->getTime().'",
       "n_vessels":"'.$record->getNumVessels().'",
