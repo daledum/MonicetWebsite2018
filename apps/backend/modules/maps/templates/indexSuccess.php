@@ -50,8 +50,8 @@
                 
                 try{
                 
-                var obj = $.parseJSON(data);
-                
+                //var obj = $.parseJSON(data);
+                var obj = JSON.parse(data);
                 
                 
                 if(especiesActivas[obj.id] == true){
