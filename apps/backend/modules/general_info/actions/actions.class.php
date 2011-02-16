@@ -112,9 +112,11 @@ class general_infoActions extends autoGeneral_infoActions
             if($guia) $gi->setGuideId($guia->getId());
             
             $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
-            if($empresa) $gi->setCompanyId($empresa->getId());
-            $gi->setBaseLatitude($empresa->getBaseLatitude());
-            $gi->setBaseLongitude($empresa->getBaseLongitude());
+            if($empresa){
+              $gi->setCompanyId($empresa->getId());
+              $gi->setBaseLatitude($empresa->getBaseLatitude());
+              $gi->setBaseLongitude($empresa->getBaseLongitude());
+            } 
             
             $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
             $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
