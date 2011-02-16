@@ -42,7 +42,7 @@ foreach($sightings as $sighting){
 }
 ?>
 
-<?php if($general_info): ?>
+<?php if(strcmp($spots,'') != 0): ?>
 
 {"id":"<?php echo $specie->getId() ?>","name":"<?php echo $specie->getName() ?>","code":"<?php echo $specie->getCode() ?>","spots":[<?php echo substr($spots,0,-1) ?>]}
 
