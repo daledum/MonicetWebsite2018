@@ -48,7 +48,7 @@
               },
               success: function( data ) {
                 
-                
+                try{
                 
                 var obj = $.parseJSON(data);
                 
@@ -128,6 +128,12 @@
                   );
                   
                 }
+                
+                
+                }catch(err){
+                  alert(err);
+                }
+                
                 
               }
             });
