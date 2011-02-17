@@ -59,7 +59,7 @@ class VesselPeer extends BaseVesselPeer {
     }
     $criteria->addJoin(VesselPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
     $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
-    return GuidePeer::populateObjects(VesselPeer::doSelectStmt($criteria, $con));
+    return VesselPeer::populateObjects(VesselPeer::doSelectStmt($criteria, $con));
   }
   
   
