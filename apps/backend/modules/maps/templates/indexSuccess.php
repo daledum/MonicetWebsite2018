@@ -65,7 +65,30 @@
                   
                   $.each(obj.spots, function(index, value){
                   
-                    var myLatlng = new google.maps.LatLng(value.lat,value.lon * -1);
+                    var lat = value.lat;
+                    if(value.lat > 0){
+                      if(obj.baselat < 0){
+                        lat *= -1;
+                      }
+                    }else{
+                      if(obj.baselat > 0){
+                        lat *= -1;
+                      }
+                    }
+                    
+                    var lon = value.lon;
+                    if(value.lon > 0){
+                      if(obj.baselon < 0){
+                        lon *= -1;
+                      }
+                    }else{
+                      if(obj.baselon > 0){
+                        lon *= -1;
+                      }
+                    }
+                    
+                  
+                    var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
                     var image = '/images/backend/icons_gmaps/'+obj.code+'.png';
                     var marker = new google.maps.Marker({
                         position: myLatlng,

@@ -276,6 +276,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       
     }else{
       $this->erro = true;
+      $success = false;
     }
     
     if($success && $this->last_record){

@@ -44,6 +44,6 @@ foreach($sightings as $sighting){
 
 <?php if(strcmp($spots,'') != 0): ?>
 
-{"id":"<?php echo $specie->getId() ?>","name":"<?php echo $specie->getName() ?>","code":"<?php echo $specie->getCode() ?>","spots":[<?php echo substr($spots,0,-1) ?>]}
+{"id":"<?php echo $specie->getId() ?>","name":"<?php echo $specie->getName() ?>","code":"<?php echo $specie->getCode() ?>","baselat":"<?php echo ($company)? $company->getBaseLatitude() : '' ; ?>","baselng":"<?php echo ($company)? $company->getBaseLongitude() : '' ; ?>","spots":[<?php echo substr($spots,0,-1) ?>]}
 
 <?php endif; ?>
