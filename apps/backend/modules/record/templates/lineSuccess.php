@@ -30,6 +30,7 @@
   <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
   <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
   <td class="sf_admin_text comments"><?php echo $sighting_form['comments']; ?></td>
+  <td class="sf_admin_text remove"><div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div></td>
   <?php echo $record_form['_csrf_token']; ?>
   <?php echo $sighting_form['_csrf_token']; ?>
 </tr>
@@ -49,9 +50,9 @@
         url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
         data: { valor: $("#record_code_id_<?php echo $n_lines ?>").val(), '_r': Math.random()*100 },
         success: function(html){
-          if( $("#record_code_id_<?php echo $n_lines ?>").val() != 2 ){
+          //if( $("#record_code_id_<?php echo $n_lines ?>").val() != 2 ){
             $("#record_code_id_<?php echo $n_lines+1 ?>").append(html);
-          }
+          //}
         },
         error: function(html, text, codigo){
           alert("erro");
@@ -68,11 +69,11 @@
             url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
             data: { valor: $("#record_code_id_<?php echo $n_lines-1 ?>").val(), '_r': Math.random()*100 },
             success: function(html){
-              if( $("#record_code_id_<?php echo $n_lines-1 ?>").val() != 2 ){
+              //if( $("#record_code_id_<?php echo $n_lines-1 ?>").val() != 2 ){
                 $("#record_code_id_<?php echo $n_lines ?>").children().remove();
                 $("#record_code_id_<?php echo $n_lines ?>").append('<option selected="selected">-----</option>');
                 $("#record_code_id_<?php echo $n_lines ?>").append(html);
-              }
+              //}
             },
             error: function(html, text, codigo){
               alert("erro");

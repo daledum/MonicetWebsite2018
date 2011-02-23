@@ -13,14 +13,30 @@
                 '_r': Math.random()*100
             },
             success: function(msg) {
+                         $('.remove-line-div').remove();
                          $('div.sf_admin_list table tbody').append(msg);
                          $('#n-lines').val(parseInt($('#n-lines').val()) + 1);
                          //addCalendar($('tr.record_line_' + $('#n-lines').val() + ' input.date_field'));
-                         //$('.hour input').mask("99:99"); 
+                         //$('.hour input').mask("99:99");
+                         $('a.remove-line').click(function() {
+                             removeRecordLine();
+                             return false;
+                         });
+                         
                      }
         });
     }
-
+    
+    function removeRecordLine() {
+        
+        $('tr.record_line_'+$('#n-lines').val()).remove();
+        $('#n-lines').val(parseInt($('#n-lines').val()) - 1);
+        $('tr.record_line_'+$('#n-lines').val()+' td.remove').append('<div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div>');
+        $('a.remove-line').click(function() {
+            removeRecordLine();
+            return false;
+        });
+    }
     
     
 
@@ -147,15 +163,22 @@
     	
         $('a.add-new-line').click(function() {
             appendNewRecordLine();
+            return false;
         });
         
         $('a.save-line').click(function() {
             saveRecordLine();
+            return false;
+        });
+        
+        $('a.remove-line').click(function() {
+            removeRecordLine();
+            return false;
         });
 
         $('#help-icon').click(function() {
         	window.open(url[0] + "//" + url[2] + "/" + url[3] + "/record/help/", "Ajuda", "status = 1, height = 600, width = 450, resizable = 0, scrollbars=yes");
-        	            
+          return false;
         });
         //$('.hour input').mask("99:99");        
     });
@@ -176,7 +199,6 @@
         margin: 5px auto !important;
     }
 </style>
-
 <div id="sf_admin_container">
   <h1>Saída - <strong><?php if($general_info) { echo $general_info->getCode(); } ?></strong><span id="help-icon"></span></h1>
   <table id="general-info-summary" style="margin-left:10px;border:1px solid #ccc;" border="1">
@@ -236,6 +258,7 @@
             <th class="sf_admin_text">Asso.</th>
             <th class="sf_admin_text">Nº Emb.</th>
             <th class="sf_admin_text">Comentários</th>
+            <th class="sf_admin_text" style="width: 4em;">Remover</th>
       </thead>
       <tbody>
         <?php $i = 1; ?>
@@ -294,6 +317,7 @@
             <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
             <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
             <td class="sf_admin_text comments"><?php echo $sighting_form['comments']; ?></td>
+            <td class="sf_admin_text remove"><?php if($records[$x]->getCodeId() == 2): ?><div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div><?php endif; ?></td>
             <?php echo $record_form['_csrf_token']; ?>
             <?php echo $sighting_form['_csrf_token']; ?>
           </tr>
@@ -340,9 +364,9 @@
                   url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineAjax",
                   data: { valor: $("#record_code_id_<?php echo $i ?>").val(), '_r': Math.random()*100 },
                   success: function(html){
-                    if( $("#record_code_id_<?php echo $i ?>").val() != 2 ){
+                    //if( $("#record_code_id_<?php echo $i ?>").val() != 2 ){
                       $("#record_code_id_<?php echo $i+1 ?>").append(html);
-                    }
+                    //}
                   },
                   error: function(html, text, codigo){
                     alert("erro");

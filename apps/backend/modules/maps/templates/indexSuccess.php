@@ -49,8 +49,12 @@
               success: function( data ) {
                 
                 
-                var obj = $.parseJSON(data);
+                if(data == '\n'){
+                  alert('Esta espécie não se encontra registada nos avistamentos.');
+                  return;
+                }
                 
+                var obj = $.parseJSON(data);
                 
                 //var obj = JSON.parse(data);
                 
@@ -59,7 +63,7 @@
                   alert('Esta espécie já se encontra listada!');
                 }else{
                   
-                  var obj = $.parseJSON(data);
+                  //var obj = $.parseJSON(data);
                 
                   markers[obj.id] = [];
                   
@@ -119,6 +123,8 @@
                     marker.setMap(map);
                     
                     markers[obj.id].push(marker);
+                    
+                    $('#pesquisa').val("");
                     
                   });
                   

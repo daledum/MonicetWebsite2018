@@ -222,6 +222,10 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $this->linha = $request->getParameter('linha');
     
     
+    
+    
+    
+    
     $this->recordForm = new RecordForm();
     $this->recordForm->bind(array_merge($this->registo,array('general_info_id' => $general_info)));
     
@@ -280,6 +284,9 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     }
     
     if($success && $this->last_record){
+      
+      RecordPeer::deleteIgnoredRecordsSightings($this->record->getId(), $general_info);
+      
       $gi = GeneralInfoPeer::retrieveByPk($general_info);
       
       $c = $gi->getComments();
