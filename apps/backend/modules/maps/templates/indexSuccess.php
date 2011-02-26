@@ -5,7 +5,16 @@
 <style type="text/css">
   html { height: 100% }
   body { height: 100%; margin: 0px; padding: 0px }
-  #map_canvas { height: 100% }
+  #pg { height: 90% }
+  #bd { height: 100% }
+  .ct { height: 100% }
+  .map-container { height: 100% }
+  #map_canvas { 
+    height: 90%;
+    width:60%;
+    float: left;
+    margin: 20px 0px; 
+  }
 </style>
 <script type="text/javascript"
     src="http://maps.google.com/maps/api/js?sensor=true">
@@ -16,10 +25,12 @@
   
   var especiesActivas = [];
   
+  var uis = [];
+  
   function initialize() {
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
     var myOptions = {
-      zoom: 7,
+      zoom: 6,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -44,131 +55,146 @@
               url: "/admin.php/mapResults",
               //dataType: "jsonp",
               data: {
-                specie_id: ui.item.id
+                specie_id: ui.item.id,
+                company_id: $('#company').val(),
+                association_id: $('#association').val(),
+                behaviour_id: $('#behaviour').val(),
+                sea_state_id: $('#sea_state').val(),
+                visibility_id: $('#visibility').val()
               },
               success: function( data ) {
                 
+                insertSpecieInList(ui)
                 
-                if(data == '\n'){
-                  alert('Esta espécie não se encontra registada nos avistamentos.');
-                  return;
-                }
+                getResultingDots(data, ui);
                 
-                var obj = $.parseJSON(data);
+                uis[ui.item.id] = ui;
                 
-                //var obj = JSON.parse(data);
-                
-                
-                if(especiesActivas[obj.id] == true){
-                  alert('Esta espécie já se encontra listada!');
-                }else{
-                  
-                  //var obj = $.parseJSON(data);
-                
-                  markers[obj.id] = [];
-                  
-                  $.each(obj.spots, function(index, value){
-                  
-                    var lat = value.lat;
-                    if(value.lat > 0){
-                      if(obj.baselat < 0){
-                        lat *= -1;
-                      }
-                    }else{
-                      if(obj.baselat > 0){
-                        lat *= -1;
-                      }
-                    }
-                    
-                    var lon = value.lon;
-                    if(value.lon > 0){
-                      if(obj.baselon < 0){
-                        lon *= -1;
-                      }
-                    }else{
-                      if(obj.baselon > 0){
-                        lon *= -1;
-                      }
-                    }
-                    
-                  
-                    var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
-                    var image = '/images/backend/icons_gmaps/'+obj.code+'.png';
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        title: obj.code,
-                        icon: image
-                    });
-                    
-                    var contentString = 
-                    '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
-                    '<div class="text-w">'+
-                      '<strong>Empresa:</strong> '+value.company_name+'<br />'+
-                      '<strong>Saída:</strong> '+value.gi_code+'<br />'+
-                      '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
-                      // TODO condição para validar utilizador para ver os dados
-                      '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
-                      '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
-                      '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
-                    '</div>';
-                    
-                    var infowindow = new google.maps.InfoWindow({
-                        content: contentString
-                    });
-                    
-                    google.maps.event.addListener(marker, 'click', function() {
-                      infowindow.open(map,marker);
-                    });
-                    
-                    marker.setMap(map);
-                    
-                    markers[obj.id].push(marker);
-                    
-                    $('#pesquisa').val("");
-                    
-                  });
-                  
-                  
-                  
-                  
-                  
-                  
-                  $('#item-list').append('<div id="'+obj.code+'" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="/images/backend/icons_gmaps/' + obj.code + '.png"></a>'+obj.name+' ('+obj.code+') <a href="#" id="show-hide-' + obj.code + '" class="show" type="button"></a><input id="show-hide-' + obj.code + '-val" type="hidden" value="' + obj.id + '" /><a class="remove" id="remove-' + obj.code + '"></a></div>');
-                  
-                  
-                  especiesActivas[obj.id] = true;
-                  
-                  $('#show-hide-'+obj.code).toggle(
-                    function(){
-                      removeMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-                      $(this).attr('class','hide');
-                    },
-                    function() {
-                      addMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-                      $(this).attr('class','show');
-                    }
-                  );
-                  
-                  $('#remove-' +obj.code).click(
-                    function(){
-                      if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
-                        removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-                      }
-                    }
-                  );
-                  
-                }
               }
             });
         },
       });
-      
-      
-      
-      
-      
     });
+    
+    
+    function insertSpecieInList(ui){
+    
+      if(especiesActivas[ui.item.id] == true){
+        alert('Esta espécie já se encontra listada!');
+      }else{
+    
+        $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="/images/backend/icons_gmaps/' + ui.item.code + '.png"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
         
+        especiesActivas[ui.item.id] = true;
+          
+        $('#show-hide-'+ui.item.code).toggle(
+          function(){
+            removeMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
+            $(this).attr('class','hide');
+          },
+          function() {
+            addMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
+            $(this).attr('class','show');
+          }
+        );
+        
+        $('#remove-' +ui.item.code).click(
+          function(){
+            if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
+              removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
+            }
+          }
+        );
+      
+      }
+    }
+    
+    
+    
+    function getResultingDots(data, ui){
+      
+      
+      
+      if(data == '\n'){
+        //alert('Esta espécie não se encontra registada nos avistamentos.');
+        return;
+      }
+      
+      var obj = $.parseJSON(data);
+      
+      
+      markers[obj.id] = [];
+      
+      var count = 0;
+      
+      $.each(obj.spots, function(index, value){
+      
+        var lat = value.lat;
+        if(value.lat > 0){
+          if(obj.baselat < 0){
+            lat *= -1;
+          }
+        }else{
+          if(obj.baselat > 0){
+            lat *= -1;
+          }
+        }
+        
+        var lon = value.lon;
+        if(value.lon > 0){
+          if(obj.baselon < 0){
+            lon *= -1;
+          }
+        }else{
+          if(obj.baselon > 0){
+            lon *= -1;
+          }
+        }
+        
+      
+        var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
+        var image = '/images/backend/icons_gmaps/'+obj.code+'.png';
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            title: obj.code,
+            icon: image
+        });
+        
+        var contentString = 
+        '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
+        '<div class="text-w">'+
+          '<strong>Empresa:</strong> '+value.company_name+'<br />'+
+          '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+          '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
+          // TODO condição para validar utilizador para ver os dados
+          '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
+          '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
+          '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
+        '</div>';
+        
+        var infowindow = new google.maps.InfoWindow({
+            content: contentString
+        });
+        
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map,marker);
+        });
+        
+        marker.setMap(map);
+        
+        markers[obj.id].push(marker);
+        
+        $('#pesquisa').val("");
+        
+        count = count + 1;
+        
+      });
+      
+      $('#specie-count-'+obj.code).html('('+count+')');
+      
+    }
+    
+     
         
     function addMarkers(markers){
     
@@ -189,14 +215,49 @@
     
     function removeSpecie(code,markers,id){
       
-      removeMarkers(markers);
-      
       $('#'+code).remove();
       
       especiesActivas[id] = false;
       
+      removeMarkers(markers);
+      
     }
     
+    
+    $('.filter-select').change(function(){
+      
+      //alert('teste');
+      
+      $('.specie input').each(function(index,item){
+        
+        ui = uis[item.value];
+        
+        $('#specie-count-'+ui.item.code).html('(0)');
+        
+        $.ajax({
+          url: "/admin.php/mapResults",
+          //dataType: "jsonp",
+          data: {
+            specie_id: item.value,
+            company_id: $('#company').val(),
+            association_id: $('#association').val(),
+            behaviour_id: $('#behaviour').val(),
+            sea_state_id: $('#sea_state').val(),
+            visibility_id: $('#visibility').val()
+          },
+          success: function( data ) {
+            
+            removeMarkers(markers[item.value]);
+            
+            getResultingDots(data, ui);
+          }
+        });
+        
+        
+      });
+      
+      
+    });
     
         
   }
@@ -237,25 +298,139 @@
   padding: 4px 12px;
 }
 
-.icon {
-  padding: 4px 5px;
+
+/* SIDEBAR */
+
+.right-side-bar{
+  width: 300px;
+  height: 90%;
+  float: left;
+  margin: 20px 3% 20px 3%;
+  background-color: #FFFFFF;
+}
+.right-side-bar-inner{
+  border: 1px solid silver;
+  height: 100%;
+  padding: 20px;
+  position: inherit;
+}
+.top-container{
+  height: 70%;
+}
+#pesquisa{
+  width: 90% !important;
+  padding: 5px 2%;
+  margin: 15px 2%;
+  border: 2px solid silver !important;
+}
+#item-list{
+  margin-top: 5px;
 }
 
+.specie-name{
+  width: 160px;
+  display: inline-block;
+  text-align: left;
+}
 
-  
+/* FILTROS */
+
+.bottom-container{
+  height: 27%;
+  border-top: 1px solid silver;
+  padding: 10px 5px;
+}
+
+.bottom-container h2{
+  margin-left: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.filter-item label{
+  width: 84px !important;
+  margin-top: 4px;
+  font-size: 11px;
+}
+
+.filter-item select{
+  width: 175px;
+  font-size: 11px;
+}
+
+.specie-count{
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+/* FILTROS */
+
+/* SIDEBAR */ 
 </style>
 
 
 <?php end_slot() ?>
 
 
-<div id="sf_admin_container">
+<div id="sf_admin_container" class="map-container">
   
-  <div id="map_canvas" style="width:70%; height:700px; float: left; margin: 20px 0px;"></div>
-  <div style="width:20%; height:700px; float: right; margin: 20px 6% 20px 3%;">
-    <div style="border: 1px solid green; height: 660px; padding: 20px;">
-      <input type="text" id="pesquisa" name="pesquisa" value="Pesquisar" style="width: 95%; padding: 5px;">
-      <div id="item-list" style="margin-top: 20px;"></div>
-    </div>
+  <div id="map_canvas"></div>
+  <div class="right-side-bar">
+    <?php //<div class="right-side-bar-inner"> ?>
+      <div class="top-container">
+        <input type="text" id="pesquisa" name="pesquisa" value="Pesquisar">
+        <div id="item-list"></div>
+      </div>
+      <div class="bottom-container">
+        <h2>Filtros:</h2>
+        <div class="filter-item">
+          <label>Empresa:</label>
+          <select id="company" class="filter-select">
+            <option></option>
+              <?php foreach($companies as $company): ?>
+                <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
+              <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>Associação:</label>
+            <select id="association" class="filter-select">
+              <option></option>
+              <?php foreach($associations as $association): ?>
+                <option value="<?php echo $association->getId(); ?>"><?php echo $association->getDescription(); ?></option>
+              <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>Comportamento:</label>
+            <select id="behaviour" class="filter-select">
+              <option></option>
+              <?php foreach($behaviours as $behaviour): ?>
+                <option value="<?php echo $behaviour->getId(); ?>"><?php echo $behaviour->getDescription(); ?></option>
+              <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>Estado do Mar:</label>
+            <select id="sea-state" class="filter-select">
+              <option></option>
+              <?php foreach($sea_states as $sea_state): ?>
+                <option value="<?php echo $sea_state->getId(); ?>"><?php echo $sea_state->getDescription(); ?></option>
+              <?php endforeach; ?>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label>Visibilidade:</label>
+            <select id="visibility" class="filter-select">
+              <option></option>
+              <?php foreach($visibilities as $visibility): ?>
+                <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
+              <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
+    <?php //</div> ?>
   </div>
 </div>

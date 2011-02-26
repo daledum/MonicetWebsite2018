@@ -23,4 +23,11 @@ class SeaStatePeer extends BaseSeaStatePeer {
     $s = SeaStatePeer::doSelect($c);
     return $s[0];
   }
+  
+  public static function getSeaStates(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(SeaStatePeer::ID);
+    return SeaStatePeer::doSelect($c);
+  }
+  
 } // SeaStatePeer

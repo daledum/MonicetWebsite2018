@@ -23,4 +23,12 @@ class VisibilityPeer extends BaseVisibilityPeer {
     $v = VisibilityPeer::doSelect($c);
     return $v[0];
   }
+  
+  public static function getVisibilities(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(VisibilityPeer::ID);
+    return VisibilityPeer::doSelect($c);
+  }
+  
+  
 } // VisibilityPeer

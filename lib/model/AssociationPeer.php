@@ -27,4 +27,11 @@ class AssociationPeer extends BaseAssociationPeer {
       return false;
     }
   }
+  
+  public static function getAssociations(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(AssociationPeer::ID);
+    return AssociationPeer::doSelect($c);
+  }
+  
 } // AssociationPeer

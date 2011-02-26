@@ -18,6 +18,14 @@ class mapsActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     //$this->forward('default', 'module');
+    
+    $this->companies = CompanyPeer::doSelectByCompany();
+    $this->associations = AssociationPeer::getAssociations();
+    $this->behaviours = BehaviourPeer::getBehaviours();
+    $this->sea_states = SeaStatePeer::getSeaStates();
+    $this->visibilities = VisibilityPeer::getvisibilities();
+    
+    
   }
   
   
@@ -31,7 +39,8 @@ class mapsActions extends sfActions
     
     $this->specie = SpeciePeer::retrieveByPk($request->getParameter('specie_id'));
     
-    $this->sightings = SightingPeer::getBySpecie($request->getParameter('specie_id'));
+    //$this->sightings = SightingPeer::getBySpecie($request->getParameter('specie_id'));
+    $this->sightings = SightingPeer::getForMap($request);
   }
   
   

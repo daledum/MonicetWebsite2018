@@ -28,4 +28,13 @@ class BehaviourPeer extends BaseBehaviourPeer {
       return false;
     }
   }
+  
+  public static function getBehaviours(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(BehaviourPeer::ID);
+    return BehaviourPeer::doSelect($c);
+  }
+  
+  
+  
 } // BehaviourPeer
