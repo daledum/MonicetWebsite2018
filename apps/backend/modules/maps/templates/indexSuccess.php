@@ -234,6 +234,10 @@
         
         $('#specie-count-'+ui.item.code).html('(0)');
         
+        removeMarkers(markers[item.value]);
+        
+        markers[item.value] = [];
+        
         $.ajax({
           url: "/admin.php/mapResults",
           //dataType: "jsonp",
@@ -246,8 +250,6 @@
             visibility_id: $('#visibility').val()
           },
           success: function( data ) {
-            
-            removeMarkers(markers[item.value]);
             
             getResultingDots(data, ui);
           }
