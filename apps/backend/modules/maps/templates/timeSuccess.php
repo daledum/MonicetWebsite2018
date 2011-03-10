@@ -201,10 +201,10 @@
     
     TimeMapTheme.createCircleTheme = function(opts) {
         var defaults = {
-                size:10,
+                size:12,
                 color:'1f77b4',
                 alpha:'ff',
-                eventIconSize:8,
+                eventIconSize:15,
                 eventAlpha:'ff'
             };
         opts = $.extend(defaults, opts);
