@@ -37,6 +37,7 @@ class UserPeer extends BaseUserPeer {
   		  'vessel.*',
   		  'visibility.*',
   		  'guide.*',
+  		  'maps.*',
   		);
   		self::addPermissions($permissions, $sf_guard_user);
   	}
@@ -51,6 +52,7 @@ class UserPeer extends BaseUserPeer {
           'vessel.*',
           'guide.*',
           'skipper.*',
+          'maps.*',
         );
     	self::addPermissions($permissions, $sf_guard_user);
     }
@@ -59,7 +61,8 @@ class UserPeer extends BaseUserPeer {
       $permissions = array(
           'general_info.*',
           'record.*',
-          'sighting.*'
+          'sighting.*',
+          'maps.*',
       );
     	self::addPermissions($permissions, $sf_guard_user);
     }

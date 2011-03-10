@@ -15,12 +15,7 @@
     
     <link rel="shortcut icon" href="<?php echo sfConfig::get('app_mfAdministracaoPlugin_favicon_src', '/mfAdministracaoPlugin/images/favicon.ico') ?>" />
   </head>
-  
-  <?php if (has_slot('gmap')): ?>
-  <body onload="initialize()">
-  <?php else: ?>
   <body>
-  <?php endif; ?>
     <div id="pg">
       <div id="hd">
         <div class="ct">

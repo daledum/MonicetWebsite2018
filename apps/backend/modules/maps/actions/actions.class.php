@@ -43,7 +43,13 @@ class mapsActions extends sfActions
     $this->sightings = SightingPeer::getForMap($request);
   }
   
-  
+  public function executeTime(sfWebRequest $request){
+    $this->companies = CompanyPeer::doSelectByCompany();
+    $this->associations = AssociationPeer::getAssociations();
+    $this->behaviours = BehaviourPeer::getBehaviours();
+    $this->sea_states = SeaStatePeer::getSeaStates();
+    $this->visibilities = VisibilityPeer::getvisibilities();
+  }
   
   
 }

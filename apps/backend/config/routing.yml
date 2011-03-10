@@ -186,6 +186,10 @@ maps:
   url:   /maps
   param: { module: maps, action: index }
   
+maps_time:
+  url:   /maps_time
+  param: { module: maps, action: time }
+  
 specie_query:
   url:   /specieQuery
   param: { module: maps, action: auto_complete }

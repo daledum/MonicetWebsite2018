@@ -15,6 +15,9 @@
     float: left;
     margin: 20px 0px; 
   }
+  #dv{
+    height: 15px;
+  }
 </style>
 <script type="text/javascript"
     src="http://maps.google.com/maps/api/js?sensor=true">
@@ -38,7 +41,7 @@
         myOptions);
         
     
-    $(function() {
+    //$(function() {
       $("#pesquisa").focus(function() {
         $(this).val("");
       });
@@ -74,7 +77,7 @@
             });
         },
       });
-    });
+    //});
     
     
     function insertSpecieInList(ui){
@@ -243,7 +246,9 @@
           //dataType: "jsonp",
           data: {
             specie_id: item.value,
+            <?php if($sf_user->isSuperAdmin()): ?>
             company_id: $('#company').val(),
+            <?php endif; ?>
             association_id: $('#association').val(),
             behaviour_id: $('#behaviour').val(),
             sea_state_id: $('#sea_state').val(),
@@ -264,8 +269,9 @@
         
   }
   
-  
-  
+  $(function(){
+    initialize();
+  });
   
   
 </script>
@@ -388,6 +394,7 @@
       <div class="bottom-container">
         <h2>Filtros:</h2>
         <div class="filter-item">
+          <?php if($sf_user->isSuperAdmin()): ?>
           <label>Empresa:</label>
           <select id="company" class="filter-select">
             <option></option>
@@ -395,6 +402,7 @@
                 <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
               <?php endforeach; ?>
           </select>
+          <?php endif; ?>
         </div>
         <div class="filter-item">
           <label>Associação:</label>
