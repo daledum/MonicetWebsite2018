@@ -53,7 +53,14 @@
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
         
-    
+    /*var georssLayer1 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
+    georssLayer1.setMap(map);
+    var georssLayer2 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
+    georssLayer2.setMap(map);
+    var georssLayer3 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+    georssLayer3.setMap(map);
+    var georssLayer4 = new google.maps.GroundOverlay('http://www.monicet.net/js/gmaps_kml/acoresESRI.tif Composite.kmz');
+    georssLayer4.setMap(map);*/
     
     /*$("#pesquisa").focus(function() {
       $(this).val("");
