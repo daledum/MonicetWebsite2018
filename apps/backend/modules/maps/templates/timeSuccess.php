@@ -374,7 +374,6 @@
         
         ui = uis[item.value];
         $('#specie-count-'+ui.item.code).html('(0)');
-        //markers[item.value] = [];
         
         $.ajax({
           url: "/admin.php/mapResults",
