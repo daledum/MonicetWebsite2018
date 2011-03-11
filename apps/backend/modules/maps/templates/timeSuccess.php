@@ -46,8 +46,6 @@
   
   var datasets = [];
   
-  var markers = [];
-  
   var especiesActivas = [];
   
   var uis = [];
@@ -86,7 +84,9 @@
   function initialize() {
     
     
-    
+    /*
+     * inicializa TimeMap
+     */
     var tm = TimeMap.init({
       mapId: "map",               // Id of map div element (required)
       timelineId: "timeline",     // Id of timeline div element (required)
@@ -104,6 +104,9 @@
 
     });
     
+    /*
+     * aplica opções ao GoogleMap do TimeMap
+     */
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
     var myOptions = {
       zoom: 6,
@@ -116,22 +119,59 @@
     
     
     
-    //$(function() {
-      $("#pesquisa").focus(function() {
-        $(this).val("");
-      });
-      $("#pesquisa").autocomplete({
-        source: "/admin.php/specieQuery",
-        minLength: 2,
-        select: function( event, ui ) {
-          // ui.item.value
-            //alert(ui.item.code);
-            // meter na side bar
-            // invocar action por ajax para obter spots
+    
+    /*$("#pesquisa").focus(function() {
+      $(this).val("");
+    });
+    $("#pesquisa").autocomplete({
+      source: "/admin.php/specieQuery",
+      minLength: 2,
+      select: function( event, ui ) {
+          
+          alert(ui);
+          alert(ui.item);
+          
+          $.ajax({
+            url: "/admin.php/mapResults",
+            //dataType: "jsonp",
+            data: {
+              specie_id: ui.item.id,
+              company_id: $('#company').val(),
+              association_id: $('#association').val(),
+              behaviour_id: $('#behaviour').val(),
+              sea_state_id: $('#sea_state').val(),
+              visibility_id: $('#visibility').val()
+            },
+            success: function( data ) {
+              
+              insertSpecieInList(ui);
+              
+              getResultingDots(data, ui);
+              
+              uis[ui.item.id] = ui;
+              
+            }
+          });
+      },
+    });*/
+    
+    
+    /*
+     * ao seleccionar a espécie, fazo processo de inserção no mapa
+     */
+    $("#pesquisa-select").change(function(){
+      $.ajax({
+        url: "/admin.php/specieQuery",
+        data: {
+          specie_id: $("#pesquisa-select option:selected").val()
+        },
+        success: function( dat ) {
+            
+            var j = $.parseJSON(dat);
+            var ui = { item: j };
             
             $.ajax({
               url: "/admin.php/mapResults",
-              //dataType: "jsonp",
               data: {
                 specie_id: ui.item.id,
                 company_id: $('#company').val(),
@@ -142,56 +182,58 @@
               },
               success: function( data ) {
                 
-                insertSpecieInList(ui)
+                if(especiesActivas[ui.item.id] == true){
+                  alert('Esta espécie já se encontra listada!');
+                  return;
+                }else{
                 
-                getResultingDots(data, ui);
-                
-                uis[ui.item.id] = ui;
+                  insertSpecieInList(ui);
+                  getResultingDots(data, ui);
+                  uis[ui.item.id] = ui;
+                }
                 
               }
             });
         },
       });
-    //});
+    });
     
     
+    
+    
+    /*
+     * Insere a espécie na lista
+     */
     function insertSpecieInList(ui){
     
-      if(especiesActivas[ui.item.id] == true){
-        alert('Esta espécie já se encontra listada!');
-      }else{
-    
-        $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(10,colors[ui.item.code],'bb')+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
-        
-        especiesActivas[ui.item.id] = true;
-          
-        $('#show-hide-'+ui.item.code).toggle(
-          function(){
-            //removeMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-            hideDS(ui.item.id);
-            tm.refreshTimeline();
-            $(this).attr('class','hide');
-          },
-          function() {
-            //addMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-            showDS(ui.item.id);
-            tm.refreshTimeline();
-            $(this).attr('class','show');
-          }
-        );
-        
-        $('#remove-' +ui.item.code).click(
-          function(){
-            if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
-              //removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-              removeDS($(this).attr('id').substr(7), $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-            }
-          }
-        );
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(10,colors[ui.item.code],'bb')+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      especiesActivas[ui.item.id] = true;
       
-      }
+      $('#show-hide-'+ui.item.code).toggle(
+        function(){
+          hideDS(ui.item.id);
+          tm.refreshTimeline();
+          $(this).attr('class','hide');
+        },
+        function() {
+          showDS(ui.item.id);
+          tm.refreshTimeline();
+          $(this).attr('class','show');
+        }
+      );
+      $('#remove-' +ui.item.code).click(
+        function(){
+          if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
+            removeDS($(this).attr('id').substr(7), $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
+          }
+        }
+      );
     }
     
+    
+    /*
+     * Cria o url para os pontos
+     */
     TimeMapTheme.getCircleUrl = function(size, color, alpha) {
         return "http://chart.apis.google.com/" + 
             "chart?cht=it&chs=" + size + "x" + size + 
@@ -199,6 +241,9 @@
             "&chf=bg,s,00000000|a,s,000000" + alpha + "&ext=.png";
     };
     
+    /*
+     * cria o tema para os pontos e barras no tempo
+     */
     TimeMapTheme.createCircleTheme = function(opts) {
         var defaults = {
                 size:12,
@@ -221,20 +266,16 @@
     };
 
     
+    /*
+     * retorna a informação para os pontos
+     */
     function getResultingDots(data, ui){
-      
-      
       
       if(data == '\n'){
         //alert('Esta espécie não se encontra registada nos avistamentos.');
         return;
       }
-      
       var obj = $.parseJSON(data);
-      
-      
-      markers[obj.id] = [];
-      
       
       datasets[obj.id] = tm.createDataset(
         obj.id,
@@ -244,20 +285,12 @@
       );
       
       var image = '/images/backend/icons_gmaps/'+obj.code+'.png';
-
-      
       var count = 0;
       
       $.each(obj.spots, function(index, value){
       
         var lat = value.lat;
-        
-        
         var lon = -value.lon;
-        
-        
-        
-        
         
         var contentString = 
         '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
@@ -270,7 +303,6 @@
           '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
           '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
         '</div>';
-        
         
         TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[obj.code], eventColor : '#'+colors[obj.code] });
         
@@ -290,81 +322,42 @@
           }
         });
         
-        
-        
         var map = tm.getNativeMap();
         map.setOptions(myOptions);
-        
-        //markers[obj.id].push(marker);
-        
-        
-        
-        $('#pesquisa').val("");
         
         count = count + 1;
         
       });
       
-      /*datasets[obj.id].each(function(item,index){
-        //item.show();
-        item.changeTheme(TimeMap.themes["theme-"+obj.code]);
-      });*/
-      TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[obj.code], eventColor : '#'+colors[obj.code] });
-
       datasets[obj.id].changeTheme(TimeMap.themes['theme1']);
       
-      
       tm.hideDatasets();
-      
       tm.showDatasets();
-      
       tm.refreshTimeline();
-      
       
       $('#specie-count-'+obj.code).html('('+count+')');
       
     }
     
-     
-        
-    function addMarkers(markers){
-    
-      for(var i in markers){
-        
-        markers[i].setMap(map);
-      }
-    }
-    
-    
-    function removeMarkers(markers){
-      
-      for(var i in markers){
-        
-        markers[i].setMap(null);
-      }
-    }
-    
-    function removeSpecie(code,markers,id){
-      
-      $('#'+code).remove();
-      
-      especiesActivas[id] = false;
-      
-      removeMarkers(markers);
-      
-    }
-    
-    
+    /*
+     * esconde informação da espécie
+     */
     function hideDS(id){
       tm.hideDataset(id);
       tm.refreshTimeline();
     }
     
+    /*
+     * mostra informação da espécie
+     */
     function showDS(id){
       tm.showDataset(id);
       tm.refreshTimeline();
     }
     
+    /*
+     * remove informação da espécie
+     */
     function removeDS(code,id){
       $('#'+code).remove();
       especiesActivas[id] = false;
@@ -372,17 +365,15 @@
     }
     
     
-    
+    /*
+     * muda a informação ao filtrar filtros
+     */
     $('.filter-select').change(function(){
       
       $('.specie input').each(function(index,item){
         
         ui = uis[item.value];
-        
         $('#specie-count-'+ui.item.code).html('(0)');
-        
-        removeMarkers(markers[item.value]);
-        
         markers[item.value] = [];
         
         $.ajax({
@@ -399,27 +390,19 @@
             visibility_id: $('#visibility').val()
           },
           success: function( data ) {
-            
             getResultingDots(data, ui);
           }
         });
         
-        
       });
-      
       
     });
     
-    
-    
-    
-    
-
-    
-    
-        
   }
   
+  /*
+   * inicializa o javascript com a abertura da página
+   */
   $(function(){
     initialize();
   });
@@ -496,6 +479,12 @@
   margin: 15px 2%;
   border: 2px solid silver !important;
 }
+#pesquisa-select{
+  width: 95% !important;
+  padding: 5px 2%;
+  margin: 15px 2%;
+  border: 2px solid silver !important;
+}
 #item-list{
   margin-top: 5px;
 }
@@ -559,7 +548,13 @@
   </div>
   <div class="right-side-bar">
     <div class="top-container">
-      <input type="text" id="pesquisa" name="pesquisa" value="Pesquisar">
+      <?php /*<input type="text" id="pesquisa" name="pesquisa" value="Pesquisar">*/ ?>
+      <select id="pesquisa-select">
+        <option></option>
+        <?php foreach($speciesList as $specie): ?>
+          <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getCode() ?> - <?php echo $specie->getName() ?></option>
+        <?php endforeach; ?>
+      </select>
       <div id="item-list"></div>
     </div>
     <div class="bottom-container">

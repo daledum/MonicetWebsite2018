@@ -33,18 +33,26 @@ class SpeciePeer extends BaseSpeciePeer {
   public static function getAllOrdered(){
     $c = new Criteria();
     $c->addAscendingOrderByColumn(SpeciePeer::CODE);
-    $s = SpeciePeer::doSelect($c);
+    return SpeciePeer::doSelect($c);
   }
   
   
-  public static function getSpecieQuery($word){
+  /*public static function getSpecieQuery($word){
     
     $c = new Criteria();
     $c->add(SpeciePeer::NAME, '%'.$word.'%', Criteria::LIKE);
     $c->addOr(SpeciePeer::CODE, '%'.$word.'%', Criteria::LIKE);
     $c->setDistinct();
     return SpeciePeer::doSelect($c);
+  }*/
+  
+  public static function getSpecieQuery($id){
+    
+    $c = new Criteria();
+    $c->add(SpeciePeer::ID, $id, Criteria::EQUAL);
+    return SpeciePeer::doSelectOne($c);
   }
+  
   
   
   

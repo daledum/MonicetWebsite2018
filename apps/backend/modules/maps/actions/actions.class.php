@@ -19,6 +19,8 @@ class mapsActions extends sfActions
   {
     //$this->forward('default', 'module');
     
+    $this->speciesList = SpeciePeer::getAllOrdered();
+    
     $this->companies = CompanyPeer::doSelectByCompany();
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();
@@ -30,8 +32,10 @@ class mapsActions extends sfActions
   
   
   public function executeAuto_complete(sfWebRequest $request){
-    $this->result = SpeciePeer::getSpecieQuery($request->getParameter('term'));
+    //$this->result = SpeciePeer::getSpecieQuery($request->getParameter('term'));
     //return sfView::NONE;
+    
+    $this->result = SpeciePeer::getSpecieQuery($request->getParameter('specie_id'));
   }
   
   
@@ -44,6 +48,9 @@ class mapsActions extends sfActions
   }
   
   public function executeTime(sfWebRequest $request){
+    
+    $this->speciesList = SpeciePeer::getAllOrdered();
+    
     $this->companies = CompanyPeer::doSelectByCompany();
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();

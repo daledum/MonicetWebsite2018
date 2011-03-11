@@ -30,6 +30,35 @@
   
   var uis = [];
   
+  var colors = [];
+  
+  colors['Ba'] = 'd90000';
+  colors['Bb'] = '00e700';
+  colors['Be'] = '00e7e7';
+  colors['Bm'] = 'e700e7';
+  colors['Bp'] = 'e6e6e6';
+  colors['Cc'] = 'fdc600';
+  colors['Cm'] = 'ddd2de';
+  colors['Dc'] = '0094da';
+  colors['Dd'] = 'e9e900';
+  colors['Em'] = '00d4c2';
+  colors['Gg'] = '00dc94';
+  colors['Gm'] = '00e697';
+  colors['Ha'] = '97e700';
+  colors['Kb'] = 'e7a000';
+  colors['Lk'] = 'e86800';
+  colors['Mb'] = 'e9009f';
+  colors['Mm'] = '7600e8';
+  colors['Oo'] = '80e600';
+  colors['Pc'] = '00e763';
+  colors['Pm'] = '006be7';
+  colors['Sb'] = '000000';
+  colors['Sc'] = 'a9d8ca';
+  colors['Sf'] = '000fdc';
+  colors['Tt'] = '878787';
+  colors['Zc'] = 'c1c1c1';
+  colors['Zp'] = 'c37676';
+  
   function initialize() {
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
     var myOptions = {
@@ -41,22 +70,56 @@
         myOptions);
         
     
-    //$(function() {
-      $("#pesquisa").focus(function() {
-        $(this).val("");
-      });
-      $("#pesquisa").autocomplete({
-        source: "/admin.php/specieQuery",
-        minLength: 2,
-        select: function( event, ui ) {
-          // ui.item.value
-            //alert(ui.item.code);
-            // meter na side bar
-            // invocar action por ajax para obter spots
+    
+    /*$("#pesquisa").focus(function() {
+      $(this).val("");
+    });
+    $("#pesquisa").autocomplete({
+      source: "/admin.php/specieQuery",
+      minLength: 2,
+      select: function( event, ui ) {
+          
+          $.ajax({
+            url: "/admin.php/mapResults",
+            data: {
+              specie_id: ui.item.id,
+              company_id: $('#company').val(),
+              association_id: $('#association').val(),
+              behaviour_id: $('#behaviour').val(),
+              sea_state_id: $('#sea_state').val(),
+              visibility_id: $('#visibility').val()
+            },
+            success: function( data ) {
+              
+              insertSpecieInList(ui)
+              
+              getResultingDots(data, ui);
+              
+              uis[ui.item.id] = ui;
+              
+            }
+          });
+      },
+    });*/
+    
+    
+    
+    /*
+     * ao seleccionar a espécie, fazo processo de inserção no mapa
+     */
+    $("#pesquisa-select").change(function(){
+      $.ajax({
+        url: "/admin.php/specieQuery",
+        data: {
+          specie_id: $("#pesquisa-select option:selected").val()
+        },
+        success: function( dat ) {
+            
+            var j = $.parseJSON(dat);
+            var ui = { item: j };
             
             $.ajax({
               url: "/admin.php/mapResults",
-              //dataType: "jsonp",
               data: {
                 specie_id: ui.item.id,
                 company_id: $('#company').val(),
@@ -67,96 +130,80 @@
               },
               success: function( data ) {
                 
-                insertSpecieInList(ui)
+                if(especiesActivas[ui.item.id] == true){
+                  alert('Esta espécie já se encontra listada!');
+                  return;
+                }else{
                 
-                getResultingDots(data, ui);
-                
-                uis[ui.item.id] = ui;
+                  insertSpecieInList(ui);
+                  getResultingDots(data, ui);
+                  uis[ui.item.id] = ui;
+                }
                 
               }
             });
         },
       });
-    //});
+    });
     
     
+    /*
+     * Insere a espécie na lista
+     */
     function insertSpecieInList(ui){
     
-      if(especiesActivas[ui.item.id] == true){
-        alert('Esta espécie já se encontra listada!');
-      }else{
-    
-        $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="/images/backend/icons_gmaps/' + ui.item.code + '.png"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+getCircleUrl(10,colors[ui.item.code],'bb')+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      especiesActivas[ui.item.id] = true;
         
-        especiesActivas[ui.item.id] = true;
-          
-        $('#show-hide-'+ui.item.code).toggle(
-          function(){
-            removeMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-            $(this).attr('class','hide');
-          },
-          function() {
-            addMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
-            $(this).attr('class','show');
+      $('#show-hide-'+ui.item.code).toggle(
+        function(){
+          removeMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
+          $(this).attr('class','hide');
+        },
+        function() {
+          addMarkers(markers[$("#" + $(this).attr('id') + "-val").val()]);
+          $(this).attr('class','show');
+        }
+      );
+      $('#remove-' +ui.item.code).click(
+        function(){
+          if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
+            removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
           }
-        );
-        
-        $('#remove-' +ui.item.code).click(
-          function(){
-            if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
-              removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-            }
-          }
-        );
-      
-      }
+        }
+      );
     }
     
+    /*
+     * Cria o url para os pontos
+     */
+     function getCircleUrl(size, color, alpha) {
+        return "http://chart.apis.google.com/" + 
+            "chart?cht=it&chs=" + size + "x" + size + 
+            "&chco=" + color + ",00000001,ffffffbb" +
+            "&chf=bg,s,00000000|a,s,000000" + alpha + "&ext=.png";
+    };
     
-    
+    /*
+     * retorna a informação para os pontos
+     */
     function getResultingDots(data, ui){
-      
-      
       
       if(data == '\n'){
         //alert('Esta espécie não se encontra registada nos avistamentos.');
         return;
       }
-      
       var obj = $.parseJSON(data);
-      
-      
       markers[obj.id] = [];
-      
       var count = 0;
       
       $.each(obj.spots, function(index, value){
       
         var lat = value.lat;
-        if(value.lat > 0){
-          if(obj.baselat < 0){
-            lat *= -1;
-          }
-        }else{
-          if(obj.baselat > 0){
-            lat *= -1;
-          }
-        }
-        
-        var lon = value.lon;
-        if(value.lon > 0){
-          if(obj.baselon < 0){
-            lon *= -1;
-          }
-        }else{
-          if(obj.baselon > 0){
-            lon *= -1;
-          }
-        }
-        
+        var lon = -value.lon;
       
         var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
-        var image = '/images/backend/icons_gmaps/'+obj.code+'.png';
+        var image = getCircleUrl(10,colors[ui.item.code],'bb');
         var marker = new google.maps.Marker({
             position: myLatlng,
             title: obj.code,
@@ -184,10 +231,7 @@
         });
         
         marker.setMap(map);
-        
         markers[obj.id].push(marker);
-        
-        $('#pesquisa').val("");
         
         count = count + 1;
         
@@ -198,52 +242,48 @@
     }
     
      
-        
+    /*
+     * mostra informação da espécie
+     */
     function addMarkers(markers){
-    
       for(var i in markers){
-        
         markers[i].setMap(map);
       }
     }
     
-    
+    /*
+     * esconde informação da espécie
+     */
     function removeMarkers(markers){
-      
       for(var i in markers){
-        
         markers[i].setMap(null);
       }
     }
     
+    /*
+     * remove informação da espécie
+     */
     function removeSpecie(code,markers,id){
       
       $('#'+code).remove();
-      
       especiesActivas[id] = false;
-      
       removeMarkers(markers);
-      
     }
     
-    
+    /*
+     * muda a informação ao filtrar filtros
+     */
     $('.filter-select').change(function(){
       
-      //alert('teste');
-      
       $('.specie input').each(function(index,item){
-        
+      
         ui = uis[item.value];
-        
         $('#specie-count-'+ui.item.code).html('(0)');
-        
         removeMarkers(markers[item.value]);
-        
         markers[item.value] = [];
         
         $.ajax({
           url: "/admin.php/mapResults",
-          //dataType: "jsonp",
           data: {
             specie_id: item.value,
             <?php if($sf_user->isSuperAdmin()): ?>
@@ -255,20 +295,19 @@
             visibility_id: $('#visibility').val()
           },
           success: function( data ) {
-            
             getResultingDots(data, ui);
           }
         });
         
-        
       });
-      
       
     });
     
-        
   }
   
+  /*
+   * inicializa o javascript com a abertura da página
+   */
   $(function(){
     initialize();
   });
@@ -306,6 +345,10 @@
   padding: 4px 12px;
 }
 
+.icon{
+  margin-left: 0;
+  padding: 4px 8px;
+}
 
 /* SIDEBAR */
 
@@ -327,6 +370,12 @@
 }
 #pesquisa{
   width: 90% !important;
+  padding: 5px 2%;
+  margin: 15px 2%;
+  border: 2px solid silver !important;
+}
+#pesquisa-select{
+  width: 95% !important;
   padding: 5px 2%;
   margin: 15px 2%;
   border: 2px solid silver !important;
@@ -388,7 +437,13 @@
   <div class="right-side-bar">
     <?php //<div class="right-side-bar-inner"> ?>
       <div class="top-container">
-        <input type="text" id="pesquisa" name="pesquisa" value="Pesquisar">
+        <?php /*<input type="text" id="pesquisa" name="pesquisa" value="Pesquisar">*/ ?>
+        <select id="pesquisa-select">
+          <option></option>
+          <?php foreach($speciesList as $specie): ?>
+            <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getCode() ?> - <?php echo $specie->getName() ?></option>
+          <?php endforeach; ?>
+        </select>
         <div id="item-list"></div>
       </div>
       <div class="bottom-container">

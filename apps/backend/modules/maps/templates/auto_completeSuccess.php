@@ -1,5 +1,5 @@
-[<?php foreach($result as $specie): ?>
- {"id":"<?php echo $specie->getId() ?>","value":"<?php echo $specie->getName() ?> - <?php echo $specie->getCode() ?>", "code":"<?php echo $specie->getcode() ?>", "name":"<?php echo $specie->getName() ?>"},
-<?php endforeach; ?>]
+<?php if($result): ?>
+ {"id":"<?php echo $result->getId() ?>","value":"<?php echo $result->getName() ?> - <?php echo $result->getCode() ?>", "code":"<?php echo $result->getcode() ?>", "name":"<?php echo $result->getName() ?>"}
+<?php endif; ?>
 
 
