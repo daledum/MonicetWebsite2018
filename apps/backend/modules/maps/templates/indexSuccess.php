@@ -48,19 +48,32 @@
     var myOptions = {
       zoom: 6,
       center: latlng,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
+      mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"),
         myOptions);
         
-    /*var georssLayer1 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
-    georssLayer1.setMap(map);
-    var georssLayer2 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
-    georssLayer2.setMap(map);
-    var georssLayer3 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
-    georssLayer3.setMap(map);
-    var georssLayer4 = new google.maps.GroundOverlay('http://www.monicet.net/js/gmaps_kml/acoresESRI.tif Composite.kmz');
-    georssLayer4.setMap(map);*/
+    //var layer1 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/acoresESRI.tif_Composite.kmz');
+    var layer2 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
+    var layer3 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
+    var layer4 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+    
+    //layer1.setMap(map);
+    //layer2.setMap(map);
+    //layer3.setMap(map);
+    //layer4.setMap(map);
+    
+    //var gx = new GGeoXml("http://www.monicet.net/js/gmaps_kml/acoresESRI.tif_Composite.kmz");
+
+    //map.addOverlay(gx);
+    //gx.setMap(map);
+
+var oldmap = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
+new google.maps.LatLngBounds(
+    new google.maps.LatLng(40.716216,-74.213393),
+    new google.maps.LatLng(40.765641,-74.139235)));
+oldmap.setMap(map);
+    
     
     /*$("#pesquisa").focus(function() {
       $(this).val("");
