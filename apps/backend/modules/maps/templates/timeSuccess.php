@@ -374,7 +374,7 @@
         
         ui = uis[item.value];
         $('#specie-count-'+ui.item.code).html('(0)');
-        markers[item.value] = [];
+        //markers[item.value] = [];
         
         $.ajax({
           url: "/admin.php/mapResults",
@@ -390,7 +390,10 @@
             visibility_id: $('#visibility').val()
           },
           success: function( data ) {
+            datasets[ui.item.id].clear();
+            tm.refreshTimeline();
             getResultingDots(data, ui);
+            tm.refreshTimeline();
           }
         });
         
