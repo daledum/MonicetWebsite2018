@@ -406,6 +406,10 @@
   font-weight: bold;
 }
 
+.filter-item{
+  display: inline-block;
+}
+
 .filter-item label{
   width: 84px !important;
   margin-top: 4px;
