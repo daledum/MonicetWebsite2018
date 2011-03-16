@@ -10,6 +10,8 @@
   
   var markers = [];
   
+  var layers = [];
+  
   var especiesActivas = [];
   
   var uis = [];
@@ -50,30 +52,8 @@
       center: latlng,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-    var map = new google.maps.Map(document.getElementById("map_canvas"),
-        myOptions);
+    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
         
-    //var layer1 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/acoresESRI.tif_Composite.kmz');
-    var layer2 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
-    var layer3 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
-    var layer4 = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
-    
-    //layer1.setMap(map);
-    //layer2.setMap(map);
-    //layer3.setMap(map);
-    //layer4.setMap(map);
-    
-    //var gx = new GGeoXml("http://www.monicet.net/js/gmaps_kml/acoresESRI.tif_Composite.kmz");
-
-    //map.addOverlay(gx);
-    //gx.setMap(map);
-
-var oldmap = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
-new google.maps.LatLngBounds(
-    new google.maps.LatLng(40.716216,-74.213393),
-    new google.maps.LatLng(40.765641,-74.139235)));
-oldmap.setMap(map);
-    
     
     /*$("#pesquisa").focus(function() {
       $(this).val("");
@@ -307,6 +287,36 @@ oldmap.setMap(map);
       
     });
     
+    
+    $('#layers-toggle').click(function(){
+      if ($('#layers-toggle:checked').val() !== undefined) {
+        layers[0] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
+        new google.maps.LatLngBounds(
+            new google.maps.LatLng(35.663833, -33.4665),
+            new google.maps.LatLng(40.602833, -22.4335)
+            ));
+        layers[1] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
+        //layers[2] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
+        layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+        
+        layers[0].setMap(map);
+        layers[1].setMap(map);
+        //layers[2].setMap(map);
+        layers[3].setMap(map);
+      }else{
+        layers[0].setMap(null);
+        layers[1].setMap(null);
+        //layers[2].setMap(null);
+        layers[3].setMap(null);
+        
+        delete layers[0];
+        delete layers[1];
+        //delete layers[2];
+        delete layers[3];
+      }
+    });
+    
+    
   }
   
   /*
@@ -517,6 +527,10 @@ oldmap.setMap(map);
               <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
             <?php endforeach; ?>
         </select>
+      </div>
+      <div class="filter-item">
+        <label>Layers:</label>
+        <input id="layers-toggle" type="checkbox">
       </div>
     </div>
   </div>

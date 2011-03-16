@@ -8,6 +8,8 @@
   
   var datasets = [];
   
+  var layers = [];
+  
   var especiesActivas = [];
   
   var uis = [];
@@ -362,6 +364,37 @@
       
     });
     
+    $('#layers-toggle').click(function(){
+      if ($('#layers-toggle:checked').val() !== undefined) {
+        
+        layers[0] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
+        new google.maps.LatLngBounds(
+            new google.maps.LatLng(35.663833, -33.4665),
+            new google.maps.LatLng(40.602833, -22.4335)
+            ));
+        layers[1] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
+        //layers[2] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines.kml');
+        layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+        
+        layers[0].setMap(map);
+        layers[1].setMap(map);
+        //layers[2].setMap(map);
+        layers[3].setMap(map);
+      }else{
+        
+        layers[0].setMap(null);
+        layers[1].setMap(null);
+        //layers[2].setMap(null);
+        layers[3].setMap(null);
+        
+        delete layers[0];
+        delete layers[1];
+        //delete layers[2];
+        delete layers[3];
+      }
+    });
+    
+    
   }
   
   /*
@@ -607,6 +640,10 @@
             <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
           <?php endforeach; ?>
         </select>
+      </div>
+      <div class="filter-item">
+        <label>Layers:</label>
+        <input id="layers-toggle" type="checkbox">
       </div>
     </div>
   </div>
