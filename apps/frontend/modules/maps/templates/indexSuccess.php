@@ -107,6 +107,7 @@
   margin: auto;
   width: 60%;
   height: 100%;
+  text-align: left;
 }
 
 .right-container{
@@ -114,6 +115,7 @@
   margin: auto;
   width: 320px;
   height: 100%;
+  text-align: left;
 }
 
 
