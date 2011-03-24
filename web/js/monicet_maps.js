@@ -112,7 +112,7 @@ function initialize(map_type) {
     $('#item-list').append('<div id="loading" style="padding-left: 10px; padding-top: 5px; margin-bottom: 5px;"><img src="/images/backend/icons_gmaps/loading.gif"></div>');
     
     $.ajax({
-      url: "/admin.php/specieQuery",
+      url: "/index.php/specieQuery",
       data: {
         specie_id: $("#pesquisa-select option:selected").val()
       },
@@ -122,7 +122,7 @@ function initialize(map_type) {
           var ui = { item: j };
           
           $.ajax({
-            url: "/admin.php/mapResults",
+            url: "/index.php/mapResults",
             data: {
               specie_id: ui.item.id,
               company_id: $('#company').val(),
@@ -463,7 +463,7 @@ function initialize(map_type) {
       
       
       $.ajax({
-        url: "/admin.php/mapResults",
+        url: "/index.php/mapResults",
         data: {
           specie_id: item.value,
           company_id: $('#company').val(),
@@ -488,7 +488,11 @@ function initialize(map_type) {
   
   
   $('#layers-toggle').click(function(){
+    
     if ($('#layers-toggle:checked').val() !== undefined) {
+      
+      $('#layers-toggle-div').append('<div id="loading" style="padding-left: 10px; display: inline-block;"><img src="/images/backend/icons_gmaps/loading.gif"></div>');
+      
       layers[0] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
       new google.maps.LatLngBounds(
           new google.maps.LatLng(35.663833, -33.4665),
@@ -502,6 +506,9 @@ function initialize(map_type) {
       layers[1].setMap(map);
       //layers[2].setMap(map);
       layers[3].setMap(map);
+      
+      
+      
     }else{
       layers[0].setMap(null);
       layers[1].setMap(null);
@@ -513,6 +520,11 @@ function initialize(map_type) {
       //delete layers[2];
       delete layers[3];
     }
+    
+    window.setTimeout(function() {
+      $('#loading').remove();
+    }, 6000);
+    
   });
   
   

@@ -59,6 +59,22 @@ album:
   class:    sfPropelRoute
   param:    { module: photoalbum, action: show }
   options:  { model: Album, type: object }
+  
+maps:
+  url:      /:sf_culture/maps
+  param:    { module: maps, action: index }
+  
+maps_time:
+  url:      /:sf_culture/maps_time
+  param:    { module: maps, action: time }
+  
+specie_query:
+  url:   /specieQuery
+  param: { module: maps, action: auto_complete }
+  
+get_map_results:
+  url:   /mapResults
+  param: { module: maps, action: get_results }
 
 default_index:
   url:   /:sf_culture/:module

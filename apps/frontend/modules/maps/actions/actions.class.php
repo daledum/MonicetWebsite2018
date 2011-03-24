@@ -21,7 +21,7 @@ class mapsActions extends sfActions
     
     $this->speciesList = SpeciePeer::getAllOrdered();
     
-    $this->companies = CompanyPeer::doSelectByCompany();
+    
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();
     $this->sea_states = SeaStatePeer::getSeaStates();
@@ -34,11 +34,28 @@ class mapsActions extends sfActions
     
     $this->speciesList = SpeciePeer::getAllOrdered();
     
-    $this->companies = CompanyPeer::doSelectByCompany();
+    
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
+  }
+  
+  
+  public function executeAuto_complete(sfWebRequest $request){
+    //$this->result = SpeciePeer::getSpecieQuery($request->getParameter('term'));
+    //return sfView::NONE;
+    
+    $this->result = SpeciePeer::getSpecieQuery($request->getParameter('specie_id'));
+  }
+  
+  
+  public function executeGet_results(sfWebRequest $request){
+    
+    $this->specie = SpeciePeer::retrieveByPk($request->getParameter('specie_id'));
+    
+    //$this->sightings = SightingPeer::getBySpecie($request->getParameter('specie_id'));
+    $this->sightings = SightingPeer::getForMap($request);
   }
   
   

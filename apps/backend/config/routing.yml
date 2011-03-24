@@ -189,14 +189,6 @@ maps:
 maps_time:
   url:   /maps_time
   param: { module: maps, action: time }
-  
-specie_query:
-  url:   /specieQuery
-  param: { module: maps, action: auto_complete }
-  
-get_map_results:
-  url:   /mapResults
-  param: { module: maps, action: get_results }
 
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing

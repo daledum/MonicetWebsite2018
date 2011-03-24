@@ -82,6 +82,12 @@
   text-align: left;
 }
 
+.specie-count{
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
 /* FILTROS */
 
 .bottom-container{
@@ -113,11 +119,6 @@
   font-size: 11px;
 }
 
-.specie-count{
-  display: inline-block;
-  width: 30px;
-  text-align: center;
-}
 /* FILTROS */
 
 /* SIDEBAR */ 

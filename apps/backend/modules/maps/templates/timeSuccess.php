@@ -44,7 +44,7 @@
     </div>
   </div>
   <div class="right-side-bar">
-    <div class="top-container">
+    <div class="top-container" style="position: relative;">
       <select id="pesquisa-select">
         <option></option>
         <?php foreach($speciesList as $specie): ?>
@@ -52,6 +52,10 @@
         <?php endforeach; ?>
       </select>
       <div id="item-list"></div>
+      <div class="filter-item" id="layers-toggle-div" style="position: absolute; bottom: 5px; left: 5px;">
+        <label>Layers:</label>
+        <input id="layers-toggle" type="checkbox" value="layer" name="layer" />
+      </div>
     </div>
     <div class="bottom-container">
       <h2>Filtros:</h2>
@@ -101,10 +105,6 @@
             <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
           <?php endforeach; ?>
         </select>
-      </div>
-      <div class="filter-item">
-        <label>Layers:</label>
-        <input id="layers-toggle" type="checkbox">
       </div>
     </div>
   </div>

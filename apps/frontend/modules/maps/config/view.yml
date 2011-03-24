@@ -1,0 +1,10 @@
+all:
+  layout: layout_maps
+  
+indexSuccess:
+  stylesheets: [ layout_maps_frontend.css, "monicet_maps_default.css" ]
+  javascripts: [-*, "jquery-1.4.2.min.js", "http://maps.google.com/maps/api/js?sensor=true", "monicet_maps.js"]
+  
+timeSuccess:
+  stylesheets: [ layout_maps_frontend.css, "monicet_maps_time.css" ]
+  javascripts: [ -*, "timemap/lib/jquery-1.4.4.min.js",  "jquery-ui-1.8.6.custom.min.js", "jquery.maskedinput-1.2.2.min.js", "timemap/lib/mxn/mxn.js?(googlev3)", "timemap/lib/timeline-1.2.js", "timemap/src/timemap.js", "timemap/src/manipulation.js", "http://maps.google.com/maps/api/js?sensor=true", "monicet_maps.js" ]
