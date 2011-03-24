@@ -294,11 +294,12 @@ function initialize(map_type) {
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
-        '<strong>Empresa:</strong> '+value.company_name+'<br />'+
-        '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+        //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
+        //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
         '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
         // TODO condição para validar utilizador para ver os dados
-        '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
+        //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
+        '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
         '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
@@ -348,11 +349,12 @@ function initialize(map_type) {
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
-        '<strong>Empresa:</strong> '+value.company_name+'<br />'+
-        '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+        //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
+        //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
         '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
         // TODO condição para validar utilizador para ver os dados
-        '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
+        //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
+        '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
         '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';

@@ -37,7 +37,7 @@
                       <?php echo $sf_content ?>
                   </div>
               </div>
-              <div style="display: block; position: relative; margin: auto; text-align: center; width: 77%;">
+              <div style="display: block; height: 20px; position: absolute; margin: auto; text-align: center; width: 100%; top: 735px;">
                 <?php include_component('consorcium', 'consorciumElements') ?>
                 <ul style="clear: both; display: inline-block; height: 40px; margin: auto; position: relative; width: 40px;"><li><?php echo link_to('Admin','/admin.php') ?></li></ul>
               </div>
