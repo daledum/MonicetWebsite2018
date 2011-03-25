@@ -1,10 +1,48 @@
-.map-container { height: 100% }
-#map_canvas { 
-  height: 90%;
-  width:60%;
-  float: left;
-  margin: 20px 0px; 
+.map-container { 
+  height: 92%;
 }
+
+#map-container-div{
+  margin-left: auto;
+  margin-right: auto;
+  height:100%;
+  width: 94%;
+  display:inline-block;
+  float: left;
+  padding-bottom: 15px;
+  background-image: url("/images/frontend/background-map.png");
+  background-repeat: repeat-x;
+}
+
+
+
+#map_canvas { 
+  float: left;
+  width: 100%;
+  margin: 15px 0px;
+  height: 97%;
+}
+
+
+
+.map-sides{
+  margin-left: auto;
+  margin-right: auto;
+  width: 15px;
+  display: inline-block;
+  float: left;
+  height: 532px;
+}
+
+
+.map-left{
+  background-image: url("/images/frontend/map-left.png");
+}
+
+.map-right{
+  background-image: url("/images/frontend/map-right.png");
+}
+
 #dv{
   height: 15px;
 }
@@ -45,11 +83,17 @@
 /* SIDEBAR */
 
 .right-side-bar{
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  margin: 0px !important;
+  padding: 15px 0px !important;
   width: 300px;
-  height: 90%;
   float: left;
-  margin: 20px 3% 20px 3%;
-  background-color: #FFFFFF;
+  height: 97%;
+  background-color: transparent;
+  background-image: url("/images/frontend/filters-background.png");
+  background-repeat: repeat-x;
 }
 .right-side-bar-inner{
   border: 1px solid silver;
@@ -97,9 +141,10 @@
 }
 
 .bottom-container h2{
+  color: #2D606D;
   margin-left: 5px;
   font-size: 16px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   font-style: italic;
   font-weight: bold;
 }
@@ -109,14 +154,74 @@
 }
 
 .filter-item label{
-  width: 84px !important;
-  margin-top: 4px;
+  color: #167B8B !important;
   font-size: 11px;
+  display: inline-block !important;
+  margin-top: 4px;
+  width: 109px !important;
+  padding: 0px !important;
+  float: none !important;
 }
 
 .filter-item select{
   width: 175px;
   font-size: 11px;
+}
+
+#layers-toggle{
+  border: none;
+  padding: 0px;
+  margin: 0px;
+  width: 10px;
+  height: 20px;
+}
+
+
+
+.filters-sides{
+  margin-left: auto;
+  margin-right: auto;
+  width: 10px;
+  display: inline-block;
+  float: left;
+  height: 532px;
+}
+
+.filters-left{
+  background-image: url("/images/frontend/filters-left.png");
+}
+
+.filters-right{
+  background-image: url("/images/frontend/filters-right.png");
+}
+
+
+
+
+.left-container{
+  display: inline-block;
+  margin: auto;
+  width: 60%;
+  height: 100%;
+  text-align: left;
+}
+
+.right-container{
+  display: inline-block;
+  margin: auto;
+  width: 320px;
+  height: 100%;
+  text-align: left;
+}
+
+#loading{
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 15px;
+  width: 15px;
+  background-image: url("/images/backend/icons_gmaps/loading_frontend.gif");
 }
 
 /* FILTROS */

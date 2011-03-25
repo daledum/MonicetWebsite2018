@@ -108,8 +108,8 @@ function initialize(map_type) {
    * ao seleccionar a espécie, faz o processo de inserção no mapa
    */
   $("#pesquisa-select").change(function(){
-  
-    $('#item-list').append('<div id="loading" style="padding-left: 10px; padding-top: 5px; margin-bottom: 5px;"><img src="/images/backend/icons_gmaps/loading.gif"></div>');
+    
+    $('#item-list').append('<div id="loading"></div>');
     
     $.ajax({
       url: "/index.php/specieQuery",
@@ -493,7 +493,8 @@ function initialize(map_type) {
     
     if ($('#layers-toggle:checked').val() !== undefined) {
       
-      $('#layers-toggle-div').append('<div id="loading" style="padding-left: 10px; display: inline-block;"><img src="/images/backend/icons_gmaps/loading.gif"></div>');
+      $('#layers-toggle-div').append('<div id="loading"></div>');
+      
       
       layers[0] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
       new google.maps.LatLngBounds(
