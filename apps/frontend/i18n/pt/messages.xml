@@ -192,6 +192,34 @@
         <source>Photo Albums</source>
         <target>Álbuns</target>
       </trans-unit>
+      <trans-unit id="50">
+        <source>Filters</source>
+        <target>Filtros</target>
+      </trans-unit>
+      <trans-unit id="51">
+        <source>Association</source>
+        <target>Associação</target>
+      </trans-unit>
+      <trans-unit id="52">
+        <source>Behaviour</source>
+        <target>Comportamento</target>
+      </trans-unit>
+      <trans-unit id="53">
+        <source>Sea State</source>
+        <target>Estado do Mar</target>
+      </trans-unit>
+      <trans-unit id="54">
+        <source>Visibility</source>
+        <target>Visibilidade</target>
+      </trans-unit>
+      <trans-unit id="55">
+        <source>Sightings Map</source>
+        <target>Mapa de Avistamentos</target>
+      </trans-unit>
+      <trans-unit id="56">
+        <source>Sightings Time Map</source>
+        <target>Mapa Temporal de Avistamentos</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

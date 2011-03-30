@@ -69,13 +69,21 @@
     background-image: url("/images/backend/icons_gmaps/loading_backend.gif");
   }
   
+  .right-side-bar{
+    height: 500px;
+  }
+  
+  .filters-sides{
+    height: 530px;
+  }
+  
 </style>
 
 
 <?php end_slot() ?>
 
 <div id="sf_admin_container" class="map-container">
-  <h1 style="text-align: left;">Mapa de Avistamentos</h1>
+  <h1 style="text-align: left;">Mapa Temporal de Avistamentos</h1>
   <div class="left-container">
     <div class="map-sides map-left"></div>
     <div class="left-side-bar">

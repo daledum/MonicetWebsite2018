@@ -26,7 +26,7 @@ body {
 }
 
 #_div_background {
-    height: 775px;
+    height: 780px;
     background-image: url("/images/frontend/bg_gradient.png");
     background-repeat: repeat-x;
     background-color: #56a9bc;
@@ -234,7 +234,7 @@ em {
 #_div_main_center {
     float: left;
     display: inline;
-    height: 563px;
+    height: 570px;
     width: 100%;
     /*background-image: url("/images/frontend/bg_content.png");*/
     background-image: none;

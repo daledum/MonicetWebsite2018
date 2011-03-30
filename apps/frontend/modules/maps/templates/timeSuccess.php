@@ -18,6 +18,7 @@
 
 
 <div id="sf_admin_container" class="map-container">
+  <h2><?php echo __('Sightings Time Map') ?></h2>
   <div id="_ul_languages" style="display: inline-block">
     <?php if($sf_user->getCulture() == "pt"): ?> 
        <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
@@ -54,9 +55,9 @@
         </div>
       </div>
       <div class="bottom-container">
-        <h2>Filtros:</h2>
+        <h2><?php echo __('Filters') ?>:</h2>
         <div class="filter-item">
-          <label>Associação:</label>
+          <label><?php echo __('Association') ?>:</label>
           <select id="association" class="filter-select">
             <option></option>
             <?php foreach($associations as $association): ?>
@@ -65,7 +66,7 @@
           </select>
         </div>
         <div class="filter-item">
-          <label>Comportamento:</label>
+          <label><?php echo __('Behaviour') ?>:</label>
           <select id="behaviour" class="filter-select">
             <option></option>
             <?php foreach($behaviours as $behaviour): ?>
@@ -74,7 +75,7 @@
           </select>
         </div>
         <div class="filter-item">
-          <label>Estado do Mar:</label>
+          <label><?php echo __('Sea State') ?>:</label>
           <select id="sea-state" class="filter-select">
             <option></option>
             <?php foreach($sea_states as $sea_state): ?>
@@ -83,7 +84,7 @@
           </select>
         </div>
         <div class="filter-item">
-          <label>Visibilidade:</label>
+          <label><?php echo __('Visibility') ?>:</label>
           <select id="visibility" class="filter-select">
             <option></option>
             <?php foreach($visibilities as $visibility): ?>
