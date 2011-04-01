@@ -190,6 +190,18 @@ maps_time:
   url:   /maps_time
   param: { module: maps, action: time }
 
+charts:
+  url:   /charts
+  param: { module: charts, action: index }
+
+chart:
+  url:   /chart
+  param: { module: charts, action: chart }
+  
+time_chart:
+  url:   /time_chart
+  param: { module: charts, action: time_chart }
+
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 

@@ -28,6 +28,7 @@ colors['Ha'] = '97e700';
 colors['Kb'] = 'e7a000';
 colors['Lk'] = 'e86800';
 colors['Mb'] = 'e9009f';
+colors['Md'] = 'e9000a';
 colors['Mm'] = '7600e8';
 colors['Oo'] = '80e600';
 colors['Pc'] = '00e763';

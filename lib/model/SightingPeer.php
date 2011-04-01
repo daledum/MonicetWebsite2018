@@ -64,4 +64,16 @@ class SightingPeer extends BaseSightingPeer {
   }
   
   
+  
+  public static function getFromInterval($date1, $date2){
+    $c = new Criteria();
+    $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
+    $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
+    $c->add(SightingPeer::SPECIE_ID, null, Criteria::ISNOTNULL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+    return SightingPeer::doSelect($c);
+  }
+  
+  
 } // SightingPeer
