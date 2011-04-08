@@ -26,7 +26,7 @@ abstract class BaseSpecieForm extends BaseFormPropel
       'id'              => new sfValidatorPropelChoice(array('model' => 'Specie', 'column' => 'id', 'required' => false)),
       'specie_group_id' => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id')),
       'code'            => new sfValidatorString(array('max_length' => 10)),
-      'scientific_name' => new sfValidatorString(array('max_length' => 255)),
+      'scientific_name' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));

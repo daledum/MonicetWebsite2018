@@ -413,6 +413,7 @@ DROP TABLE IF EXISTS `specie_group`;
 CREATE TABLE `specie_group`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`scientific_name` VARCHAR(255),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
@@ -448,7 +449,7 @@ CREATE TABLE `specie`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`specie_group_id` INTEGER  NOT NULL,
 	`code` VARCHAR(10)  NOT NULL,
-	`scientific_name` VARCHAR(255)  NOT NULL,
+	`scientific_name` VARCHAR(255),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
