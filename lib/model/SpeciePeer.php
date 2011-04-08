@@ -32,7 +32,8 @@ class SpeciePeer extends BaseSpeciePeer {
   
   public static function getAllOrdered(){
     $c = new Criteria();
-    $c->addAscendingOrderByColumn(SpeciePeer::CODE);
+    $c->addJoin(SpeciePeer::ID, SpecieI18nPeer::ID);
+    $c->addAscendingOrderByColumn(SpecieI18nPeer::NAME);
     return SpeciePeer::doSelect($c);
   }
   

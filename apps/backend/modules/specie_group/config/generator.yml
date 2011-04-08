@@ -16,6 +16,7 @@ generator:
       actions: ~
       fields:  ~
       list:
+        peer_method:       doSelectWithI18n
         display:           [name]
       filter:  ~
       form:    ~

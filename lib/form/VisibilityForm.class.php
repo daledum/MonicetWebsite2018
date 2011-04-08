@@ -16,5 +16,6 @@ class VisibilityForm extends BaseVisibilityForm
     unset(
       $this['created_at'], $this['updated_at']
     );
+    $this->embedI18n(array('pt', 'en'));
   }
 }

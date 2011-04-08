@@ -15,14 +15,12 @@ abstract class BaseSpecieGroupForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'name'       => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id', 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 255)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
     ));
@@ -39,5 +37,14 @@ abstract class BaseSpecieGroupForm extends BaseFormPropel
     return 'SpecieGroup';
   }
 
+  public function getI18nModelName()
+  {
+    return 'SpecieGroupI18n';
+  }
+
+  public function getI18nFormClass()
+  {
+    return 'SpecieGroupI18nForm';
+  }
 
 }

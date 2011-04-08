@@ -197,11 +197,28 @@ CREATE TABLE `visibility`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`code` INTEGER  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `visibility_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- visibility_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `visibility_i18n`;
+
+
+CREATE TABLE `visibility_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `visibility_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `visibility` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -215,11 +232,28 @@ CREATE TABLE `sea_state`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`code` INTEGER  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `sea_state_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- sea_state_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sea_state_i18n`;
+
+
+CREATE TABLE `sea_state_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `sea_state_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `sea_state` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -233,10 +267,27 @@ CREATE TABLE `code`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`acronym` VARCHAR(10)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- code_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `code_i18n`;
+
+
+CREATE TABLE `code_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `code_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `code` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -293,11 +344,28 @@ CREATE TABLE `association`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`code` INTEGER  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `association_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- association_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `association_i18n`;
+
+
+CREATE TABLE `association_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `association_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `association` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -311,11 +379,28 @@ CREATE TABLE `behaviour`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`code` INTEGER  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `behaviour_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- behaviour_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `behaviour_i18n`;
+
+
+CREATE TABLE `behaviour_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `behaviour_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `behaviour` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -328,10 +413,27 @@ DROP TABLE IF EXISTS `specie_group`;
 CREATE TABLE `specie_group`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- specie_group_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `specie_group_i18n`;
+
+
+CREATE TABLE `specie_group_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `specie_group_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `specie_group` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
@@ -346,7 +448,7 @@ CREATE TABLE `specie`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`specie_group_id` INTEGER  NOT NULL,
 	`code` VARCHAR(10)  NOT NULL,
-	`name` VARCHAR(255)  NOT NULL,
+	`scientific_name` VARCHAR(255)  NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -355,6 +457,24 @@ CREATE TABLE `specie`
 		FOREIGN KEY (`specie_group_id`)
 		REFERENCES `specie_group` (`id`)
 		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- specie_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `specie_i18n`;
+
+
+CREATE TABLE `specie_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `specie_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `specie` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------

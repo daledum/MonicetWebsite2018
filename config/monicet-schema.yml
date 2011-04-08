@@ -71,25 +71,40 @@ propel:
 
 
    visibility:
+      _attributes:      { isI18N: true, i18nTable: visibility_i18n }
       id:               ~
       code:             { type: integer, required: true, index: unique }
-      description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   visibility_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: visibility, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255), required: true }
 
    sea_state:
+      _attributes:      { isI18N: true, i18nTable: sea_state_i18n }
       id:               ~
       code:             { type: integer, required: true, index: unique }
-      description:      { type: varchar, size: 255, required: true }
       created_at:       ~
       updated_at:       ~
+      
+   sea_state_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: sea_state, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255), required: true }
 
    code:
+      _attributes:      { isI18N: true, i18nTable: code_i18n }
       id:               ~
       acronym:          { type: varchar(10), required: true }
-      description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   code_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: code, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255), required: true }
 
    record:
       id:               ~
@@ -105,32 +120,53 @@ propel:
       updated_at:       ~
 
    association:
+      _attributes:      { isI18N: true, i18nTable: association_i18n }
       id:               ~
       code:             { type: integer, required: true, index: unique }
-      description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   association_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: association, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255), required: true }
 
    behaviour:
+      _attributes:      { isI18N: true, i18nTable: behaviour_i18n }
       id:               ~
       code:             { type: integer, required: true, index: unique }
-      description:      { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   behaviour_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: behaviour, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255), required: true }
 
    specie_group:
+      _attributes:      { isI18N: true, i18nTable: specie_group_i18n }
       id:               ~
-      name:             { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   specie_group_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: specie_group, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     name:         { type: varchar(255), required: true }
 
    specie:
+      _attributes:      { isI18N: true, i18nTable: specie_i18n }
       id:               ~
       specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true, onDelete: cascade }
       code:             { type: varchar(10), required: true }
-      name:             { type: varchar(255), required: true }
+      scientific_name:  { type: varchar(255), required: true }
       created_at:       ~
       updated_at:       ~
+      
+   specie_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: specie, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     name:         { type: varchar(255), required: true }
 
    sighting:
       id:               ~

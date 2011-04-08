@@ -16,5 +16,6 @@ class AssociationForm extends BaseAssociationForm
   	unset(
   	  $this['created_at'], $this['updated_at']
   	);
+    $this->embedI18n(array('pt', 'en'));
   }
 }

@@ -23,7 +23,8 @@ colors['Dc'] = '0094da';
 colors['Dd'] = 'e9e900';
 colors['Em'] = '00d4c2';
 colors['Gg'] = '00dc94';
-colors['Gm'] = '00e697';
+colors['Gma'] = '00e697';
+colors['Gme'] = '00e699';
 colors['Ha'] = '97e700';
 colors['Kb'] = 'e7a000';
 colors['Lk'] = 'e86800';
@@ -39,6 +40,7 @@ colors['Sf'] = '000fdc';
 colors['Tt'] = '878787';
 colors['Zc'] = 'c1c1c1';
 colors['Zp'] = 'c37676';
+colors['Mm'] = '000fff';
 
 
 
