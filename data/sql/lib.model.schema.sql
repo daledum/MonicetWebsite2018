@@ -214,7 +214,7 @@ CREATE TABLE `visibility_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
+	`description` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `visibility_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -249,7 +249,7 @@ CREATE TABLE `sea_state_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
+	`description` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `sea_state_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -283,7 +283,7 @@ CREATE TABLE `code_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
+	`description` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `code_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -361,7 +361,7 @@ CREATE TABLE `association_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
+	`description` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `association_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -396,7 +396,7 @@ CREATE TABLE `behaviour_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255)  NOT NULL,
+	`description` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `behaviour_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -429,7 +429,7 @@ CREATE TABLE `specie_group_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`name` VARCHAR(255)  NOT NULL,
+	`name` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `specie_group_i18n_FK_1`
 		FOREIGN KEY (`id`)
@@ -470,7 +470,7 @@ CREATE TABLE `specie_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`name` VARCHAR(255)  NOT NULL,
+	`name` VARCHAR(255),
 	PRIMARY KEY (`id`,`culture`),
 	CONSTRAINT `specie_i18n_FK_1`
 		FOREIGN KEY (`id`)

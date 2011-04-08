@@ -22,7 +22,7 @@ abstract class BaseSpecieGroupI18nForm extends BaseFormPropel
     $this->setValidators(array(
       'id'      => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id', 'required' => false)),
       'culture' => new sfValidatorPropelChoice(array('model' => 'SpecieGroupI18n', 'column' => 'culture', 'required' => false)),
-      'name'    => new sfValidatorString(array('max_length' => 255)),
+      'name'    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('specie_group_i18n[%s]');

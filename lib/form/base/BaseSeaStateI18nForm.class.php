@@ -22,7 +22,7 @@ abstract class BaseSeaStateI18nForm extends BaseFormPropel
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'SeaState', 'column' => 'id', 'required' => false)),
       'culture'     => new sfValidatorPropelChoice(array('model' => 'SeaStateI18n', 'column' => 'culture', 'required' => false)),
-      'description' => new sfValidatorString(array('max_length' => 255)),
+      'description' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('sea_state_i18n[%s]');

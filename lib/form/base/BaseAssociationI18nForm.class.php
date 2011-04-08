@@ -22,7 +22,7 @@ abstract class BaseAssociationI18nForm extends BaseFormPropel
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'Association', 'column' => 'id', 'required' => false)),
       'culture'     => new sfValidatorPropelChoice(array('model' => 'AssociationI18n', 'column' => 'culture', 'required' => false)),
-      'description' => new sfValidatorString(array('max_length' => 255)),
+      'description' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('association_i18n[%s]');

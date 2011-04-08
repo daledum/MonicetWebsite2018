@@ -80,7 +80,7 @@ propel:
    visibility_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: visibility, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255), required: true }
+     description:  { type: varchar(255) }
 
    sea_state:
       _attributes:      { isI18N: true, i18nTable: sea_state_i18n }
@@ -92,7 +92,7 @@ propel:
    sea_state_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: sea_state, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255), required: true }
+     description:  { type: varchar(255) }
 
    code:
       _attributes:      { isI18N: true, i18nTable: code_i18n }
@@ -104,7 +104,7 @@ propel:
    code_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: code, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255), required: true }
+     description:  { type: varchar(255) }
 
    record:
       id:               ~
@@ -129,7 +129,7 @@ propel:
    association_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: association, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255), required: true }
+     description:  { type: varchar(255) }
 
    behaviour:
       _attributes:      { isI18N: true, i18nTable: behaviour_i18n }
@@ -141,7 +141,7 @@ propel:
    behaviour_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: behaviour, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255), required: true }
+     description:  { type: varchar(255) }
 
    specie_group:
       _attributes:      { isI18N: true, i18nTable: specie_group_i18n }
@@ -152,7 +152,7 @@ propel:
    specie_group_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: specie_group, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     name:         { type: varchar(255), required: true }
+     name:         { type: varchar(255) }
 
    specie:
       _attributes:      { isI18N: true, i18nTable: specie_i18n }
@@ -166,7 +166,7 @@ propel:
    specie_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: specie, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     name:         { type: varchar(255), required: true }
+     name:         { type: varchar(255) }
 
    sighting:
       id:               ~

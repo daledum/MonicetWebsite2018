@@ -22,7 +22,7 @@ abstract class BaseCodeI18nForm extends BaseFormPropel
     $this->setValidators(array(
       'id'          => new sfValidatorPropelChoice(array('model' => 'Code', 'column' => 'id', 'required' => false)),
       'culture'     => new sfValidatorPropelChoice(array('model' => 'CodeI18n', 'column' => 'culture', 'required' => false)),
-      'description' => new sfValidatorString(array('max_length' => 255)),
+      'description' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('code_i18n[%s]');
