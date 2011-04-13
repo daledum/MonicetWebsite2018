@@ -9,7 +9,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time');
+    initialize('time','frontend');
   });
   
   
@@ -19,6 +19,7 @@
 
 <div id="sf_admin_container" class="map-container">
   <h2><?php echo __('Sightings Time Map') ?></h2>
+  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
   <div id="_ul_languages" style="display: inline-block">
     <?php if($sf_user->getCulture() == "pt"): ?> 
        <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>

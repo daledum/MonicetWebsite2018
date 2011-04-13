@@ -68,8 +68,16 @@ ul.gallery, ul.gallery li {
     float: none;
     display: inline-block;
     padding-left: 60%;
-    width: 320px;
+    width: 120px;
     margin: auto;
+    padding-bottom: 0px;
+}
+
+.back-to-home {
+  display: inline-block;
+  width: 200px;
+  margin: auto;
+  text-align: left;
 }
 
 input, textarea {

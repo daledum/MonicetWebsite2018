@@ -12,7 +12,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time');
+    initialize('time', 'backend');
   });
   
   

@@ -220,6 +220,10 @@
         <source>Sightings Time Map</source>
         <target>Mapa Temporal de Avistamentos</target>
       </trans-unit>
+      <trans-unit id="57">
+        <source>Back to Home</source>
+        <target>Voltar à Página Principal</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

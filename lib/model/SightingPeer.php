@@ -34,10 +34,11 @@ class SightingPeer extends BaseSightingPeer {
   public static function getForMap($request){
     $c = new Criteria();
     $c->add(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
+    $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
+    $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
     
     if($request->getParameter('company_id') || $request->getParameter('sea_state_id') || $request->getParameter('visibility_id')){
-      $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
-      $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
+      
       if($request->getParameter('company_id')){
         $c->addAnd(GeneralInfoPeer::COMPANY_ID, $request->getParameter('company_id'));
       }
@@ -55,6 +56,12 @@ class SightingPeer extends BaseSightingPeer {
     
     if($request->getParameter('behaviour_id')){
       $c->addAnd(SightingPeer::BEHAVIOUR_ID, $request->getParameter('behaviour_id'));
+    }
+    
+    if($request->getParameter('environment')){
+      if(strcmp($request->getParameter('environment'),'frontend') == 0){
+        $c->addAnd(GeneralInfoPeer::VALID, 1, Criteria::LIKE);
+      }
     }
     
     

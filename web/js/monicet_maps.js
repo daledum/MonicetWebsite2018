@@ -49,7 +49,7 @@ colors['Mm'] = '000fff';
  * 
  * Valores para map_type: 'default' ou 'time'
  */
-function initialize(map_type) {
+function initialize(map_type, env) {
   
   
   if(map_type == 'default'){
@@ -132,7 +132,8 @@ function initialize(map_type) {
               association_id: $('#association').val(),
               behaviour_id: $('#behaviour').val(),
               sea_state_id: $('#sea_state').val(),
-              visibility_id: $('#visibility').val()
+              visibility_id: $('#visibility').val(),
+              environment: env
             },
             success: function( data ) {
               
@@ -168,7 +169,7 @@ function initialize(map_type) {
     
     if(map_type == 'default'){
       
-      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+getCircleUrl(10,colors[ui.item.code],'bb')+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+getCircleUrl(ui.item.code)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
       especiesActivas[ui.item.id] = true;
       
       /*
@@ -193,7 +194,7 @@ function initialize(map_type) {
       );
     }else if(map_type == 'time'){
       
-      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(10,colors[ui.item.code],'bb')+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(ui.item.code)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
       especiesActivas[ui.item.id] = true;
       
       /*
@@ -227,22 +228,32 @@ function initialize(map_type) {
     /*
      * Cria o url para os pontos
      */
-    function getCircleUrl(size, color, alpha) {
+    /*function getCircleUrl(size, color, alpha) {
         return "http://chart.apis.google.com/" + 
             "chart?cht=it&chs=" + size + "x" + size + 
             "&chco=" + color + ",00000001,ffffffbb" +
             "&chf=bg,s,00000000|a,s,000000" + alpha + "&ext=.png";
-    };
+    };*/
+    
+    function getCircleUrl(code) {
+      return '/images/backend/icons_gmaps/'+code+'.png';
+    }
+    
   }else if(map_type == 'time'){
     /*
      * Cria o url para os pontos
      */
-    TimeMapTheme.getCircleUrl = function(size, color, alpha) {
+    /*TimeMapTheme.getCircleUrl = function(size, color, alpha) {
         return "http://chart.apis.google.com/" + 
             "chart?cht=it&chs=" + size + "x" + size + 
             "&chco=" + color + ",00000001,ffffffbb" +
             "&chf=bg,s,00000000|a,s,000000" + alpha + "&ext=.png";
-    };
+    };*/
+    TimeMapTheme.getCircleUrl = function(code) {
+      return '/images/backend/icons_gmaps/'+code+'.png';
+    }
+    
+    
     /*
      * cria o tema para os pontos e barras no tempo
      */
@@ -256,12 +267,12 @@ function initialize(map_type) {
             };
         opts = $.extend(defaults, opts);
         return new TimeMapTheme({
-            icon: TimeMapTheme.getCircleUrl(opts.size, opts.color, opts.alpha),
+            icon: TimeMapTheme.getCircleUrl(code),
             iconShadow: null,
             iconShadowSize: [0,0],
             iconSize: [opts.size, opts.size],
             iconAnchor: [opts.size/2, opts.size/2],
-            eventIcon: TimeMapTheme.getCircleUrl(opts.eventIconSize, opts.color, opts.eventAlpha),
+            eventIcon: TimeMapTheme.getCircleUrl(code),
             color: opts.color,
             eventColor: '#'+opts.color
         });
@@ -287,7 +298,7 @@ function initialize(map_type) {
       var lon = -value.lon;
     
       var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
-      var image = getCircleUrl(10,colors[ui.item.code],'bb');
+      var image = getCircleUrl(ui.item.code);
       var marker = new google.maps.Marker({
           position: myLatlng,
           title: obj.code,
@@ -362,7 +373,7 @@ function initialize(map_type) {
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
-      TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[obj.code], eventColor : '#'+colors[obj.code] });
+      TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[obj.code], eventColor : '#'+colors[obj.code], code : obj.code });
       
       datasets[obj.id].loadItem({
         "start" : value.date+" "+value.time,

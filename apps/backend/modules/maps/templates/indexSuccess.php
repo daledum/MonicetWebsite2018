@@ -10,7 +10,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('default');
+    initialize('default', 'backend');
   });
   
   
