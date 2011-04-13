@@ -12,35 +12,36 @@ var uis = [];
 var colors = [];
 
 
-colors['Ba'] = 'd90000';
-colors['Bb'] = '00e700';
-colors['Be'] = '00e7e7';
-colors['Bm'] = 'e700e7';
-colors['Bp'] = 'e6e6e6';
-colors['Cc'] = 'fdc600';
-colors['Cm'] = 'ddd2de';
-colors['Dc'] = '0094da';
-colors['Dd'] = 'e9e900';
-colors['Em'] = '00d4c2';
-colors['Gg'] = '00dc94';
-colors['Gma'] = '00e697';
-colors['Gme'] = '00e699';
-colors['Ha'] = '97e700';
-colors['Kb'] = 'e7a000';
-colors['Lk'] = 'e86800';
-colors['Mb'] = 'e9009f';
-colors['Md'] = 'e9000a';
-colors['Mm'] = '7600e8';
-colors['Oo'] = '80e600';
-colors['Pc'] = '00e763';
-colors['Pm'] = '006be7';
-colors['Sb'] = '000000';
-colors['Sc'] = 'a9d8ca';
-colors['Sf'] = '000fdc';
-colors['Tt'] = '878787';
-colors['Zc'] = 'c1c1c1';
-colors['Zp'] = 'c37676';
-colors['Mm'] = '000fff';
+colors['Ba'] = 'b7b10b';
+colors['Bb'] = '4f884f';
+colors['Be'] = 'a6ffed';
+colors['Bm'] = '737373';
+colors['Bp'] = '232323';
+colors['Cc'] = '61390e';
+colors['Cm'] = '909a70';
+colors['Dc'] = '9a8670';
+colors['Dd'] = '9cff32';
+colors['Em'] = '9886ae';
+colors['Gg'] = '117566';
+colors['Gma'] = 'ffe432';
+colors['Gme'] = 'e1e5c0';
+colors['Ha'] = 'ff9494';
+colors['Kb'] = 'c7c7cd';
+colors['Lk'] = '00e4ff';
+colors['Mb'] = '9805ff';
+colors['Md'] = 'ffbedd';
+colors['Mm'] = 'c1ffea';
+colors['Mn'] = 'f4abff';
+colors['Oo'] = '5fb9d3';
+colors['Pc'] = '236375';
+colors['Pm'] = '5fd3c1';
+colors['Sb'] = 'ff8932';
+colors['Sc'] = '0e7015';
+colors['Sf'] = 'd01b52';
+colors['Tt'] = 'ff3232';
+colors['Zc'] = '0511ff';
+colors['Zp'] = '90b3fb';
+
 
 
 
@@ -267,12 +268,12 @@ function initialize(map_type, env) {
             };
         opts = $.extend(defaults, opts);
         return new TimeMapTheme({
-            icon: TimeMapTheme.getCircleUrl(code),
+            icon: TimeMapTheme.getCircleUrl(opts.code),
             iconShadow: null,
             iconShadowSize: [0,0],
             iconSize: [opts.size, opts.size],
             iconAnchor: [opts.size/2, opts.size/2],
-            eventIcon: TimeMapTheme.getCircleUrl(code),
+            eventIcon: TimeMapTheme.getCircleUrl(opts.code),
             color: opts.color,
             eventColor: '#'+opts.color
         });
