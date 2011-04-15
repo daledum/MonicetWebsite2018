@@ -66,3 +66,13 @@ propel:
     id:            { type: integer, required: true, primaryKey: true, foreignTable: photo, foreignReference: id, onDelete: cascade }
     culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }
     caption:       { type: varchar(512), required: false }
+  content:
+    _attributes:   { isI18N: true, i18nTable: content_i18n }
+    id:            ~
+    section:       { type: varchar(255), required: true, index: unique }
+    created_at:    ~
+    updated_at:    ~
+  content_i18n:
+    id:            { type: integer, required: true, primaryKey: true, foreignTable: content, foreignReference: id, onDelete: cascade }
+    description:   { type: longvarchar, required: false }
+    culture:       { isCulture: true, type: varchar(7), required: true, primaryKey: true }

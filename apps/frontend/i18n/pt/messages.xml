@@ -224,6 +224,22 @@
         <source>Back to Home</source>
         <target>Voltar à Página Principal</target>
       </trans-unit>
+      <trans-unit id="58">
+        <source>Layers</source>
+        <target>Camadas</target>
+      </trans-unit>
+      <trans-unit id="59">
+        <source>Layer</source>
+        <target>Camada</target>
+      </trans-unit>
+      <trans-unit id="60">
+        <source>Species</source>
+        <target>Espécies</target>
+      </trans-unit>
+      <trans-unit id="61">
+        <source>Choose a specie</source>
+        <target>Escolha uma espécie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

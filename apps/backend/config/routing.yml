@@ -1,3 +1,12 @@
+content:
+  class: sfPropelRouteCollection
+  options:
+    model:                content
+    module:               content
+    prefix_path:          /content
+    column:               id
+    with_wildcard_routes: true
+
 photo:
   class: sfPropelRouteCollection
   options:

@@ -762,6 +762,42 @@ CREATE TABLE `photo_i18n`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
+#-- content
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content`;
+
+
+CREATE TABLE `content`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`section` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `content_U_1` (`section`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- content_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content_i18n`;
+
+
+CREATE TABLE `content_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`description` TEXT,
+	`culture` VARCHAR(7)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `content_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `content` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
 #-- log
 #-----------------------------------------------------------------------------
 

@@ -1,3 +1,33 @@
+/* WINDOW */
+
+#dv{
+  height: 15px;
+}
+
+.title-w{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.text-w{
+  font-size: 12px;
+  display: inline-block;
+}
+
+#loading{
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 15px;
+  width: 15px;
+  background-image: url("/images/backend/icons_gmaps/loading_frontend.gif");
+}
+
+/* WINDOW END */
+
+/* MAPS */
+
 .map-container { 
   height: 91%;
 }
@@ -14,16 +44,12 @@
   background-repeat: repeat-x;
 }
 
-
-
 #map_canvas { 
   float: left;
   width: 100%;
   margin: 15px 0px;
   height: 97%;
 }
-
-
 
 .map-sides{
   margin-left: auto;
@@ -34,7 +60,6 @@
   height: 532px;
 }
 
-
 .map-left{
   background-image: url("/images/frontend/map-left.png");
 }
@@ -42,161 +67,6 @@
 .map-right{
   background-image: url("/images/frontend/map-right.png");
 }
-
-#dv{
-  height: 15px;
-}
-
-.title-w{
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.text-w{
-  font-size: 12px;
-  display: inline-block;
-}
-
-.show{
-  background: transparent url('/images/backend/icons_gmaps/buttons/show.png') no-repeat left top;
-}
-
-.hide{
-  background: transparent url('/images/backend/icons_gmaps/buttons/hide.png') no-repeat left top;
-}
-
-.remove{
-  background: transparent url('/images/backend/icons_gmaps/buttons/remove.png') no-repeat left top;
-}
-
-.hide, .show, .remove, .icon {
-  padding: 10px;
-  margin-left: 6px;
-  padding: 4px 12px;
-}
-
-.icon{
-  margin-left: 0;
-  padding: 4px 8px;
-}
-
-/* SIDEBAR */
-
-.right-side-bar{
-  margin-left: auto;
-  margin-right: auto;
-  display: inline-block;
-  margin: 0px !important;
-  padding: 15px 0px !important;
-  width: 300px;
-  float: left;
-  height: 97%;
-  background-color: transparent;
-  background-image: url("/images/frontend/filters-background.png");
-  background-repeat: repeat-x;
-}
-.right-side-bar-inner{
-  border: 1px solid silver;
-  height: 100%;
-  padding: 20px;
-  position: inherit;
-}
-.top-container{
-  height: 70%;
-}
-#pesquisa{
-  width: 90% !important;
-  padding: 5px 2%;
-  margin: 15px 2%;
-  border: 2px solid silver !important;
-}
-#pesquisa-select{
-  width: 95% !important;
-  padding: 5px 2%;
-  margin: 15px 2%;
-  border: 2px solid silver !important;
-}
-#item-list{
-  margin-top: 5px;
-}
-
-.specie-name{
-  width: 160px;
-  display: inline-block;
-  text-align: left;
-}
-
-.specie-count{
-  display: inline-block;
-  width: 30px;
-  text-align: center;
-}
-
-/* FILTROS */
-
-.bottom-container{
-  height: 27%;
-  border-top: 1px solid silver;
-  padding: 10px 5px;
-}
-
-.bottom-container h2{
-  color: #2D606D;
-  margin-left: 5px;
-  font-size: 16px;
-  margin-bottom: 0px;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.filter-item{
-  display: inline-block;
-}
-
-.filter-item label{
-  color: #167B8B !important;
-  font-size: 11px;
-  display: inline-block !important;
-  margin-top: 4px;
-  width: 109px !important;
-  padding: 0px !important;
-  float: none !important;
-}
-
-.filter-item select{
-  width: 175px;
-  font-size: 11px;
-}
-
-#layers-toggle{
-  border: none;
-  padding: 0px;
-  margin: 0px;
-  width: 10px;
-  height: 20px;
-}
-
-
-
-.filters-sides{
-  margin-left: auto;
-  margin-right: auto;
-  width: 10px;
-  display: inline-block;
-  float: left;
-  height: 532px;
-}
-
-.filters-left{
-  background-image: url("/images/frontend/filters-left.png");
-}
-
-.filters-right{
-  background-image: url("/images/frontend/filters-right.png");
-}
-
-
-
 
 .left-container{
   display: inline-block;
@@ -206,24 +76,4 @@
   text-align: left;
 }
 
-.right-container{
-  display: inline-block;
-  margin: auto;
-  width: 320px;
-  height: 100%;
-  text-align: left;
-}
-
-#loading{
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  height: 15px;
-  width: 15px;
-  background-image: url("/images/backend/icons_gmaps/loading_frontend.gif");
-}
-
-/* FILTROS */
-
-/* SIDEBAR */ 
+/* MAPS END */
