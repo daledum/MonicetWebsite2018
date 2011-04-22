@@ -5,7 +5,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time','frontend');
+    initialize('time','frontend', <?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 0 ; ?>, <?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 2 ; ?>);
   });
 </script>
 
@@ -103,6 +103,25 @@
                 <?php endforeach; ?>
               </select>
             </div>
+            <br /><br />
+            <div class="filter-item">
+              <label><?php echo __('Time Map Scale') ?>:</label>
+              <form method="post" action="<?php echo url_for('@maps_time') ?>">
+                <select id="scale1" name="scale1" class="filter-select" style="width: 85px;">
+                  <option value="0">Day</option>
+                  <option value="1">Week</option>
+                  <option value="2">Month</option>
+                </select>
+                <select id="scale2" name="scale2" class="filter-select" style="width: 85px;">
+                  <option value="1">Week</option>
+                  <option value="2">Month</option>
+                  <option value="3">Year</option>
+                </select>
+                <input type="submit" value="<?php echo __('Change Scale') ?>" style="width: 90px;">
+              </form>
+              <input type="hidden" id="sc1" value="<?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 0 ; ?>">
+              <input type="hidden" id="sc2" value="<?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 2 ; ?>">
+            </div>
           </div>
         </div>
         
@@ -111,15 +130,19 @@
           <div class="tabs-content-container">
             <h2><?php echo __('Layers') ?>:</h2>
             <div class="layers-item" id="layers-toggle-div1">
-              <label><?php echo __('Layer') ?> 1:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
+              <label><?php echo __('Batimetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div2">
-              <label><?php echo __('Layer') ?> 2:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
+              <label><?php echo __('Slope') ?>:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div3">
-              <label><?php echo __('Layer') ?> 3:</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+              <label><?php echo __('Bathymetric Lines') ?> (250m):</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+            </div>
+            <br />
+            <div class="layers-item" id="layers-toggle-div4">
+              <label><?php echo __('Bathymetric Lines') ?> (1000m):</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
             </div>
             <br />
           </div>

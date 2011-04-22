@@ -39,6 +39,9 @@ class mapsActions extends sfActions
     $this->behaviours = BehaviourPeer::getBehaviours();
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
+    
+    if($request->getParameter('scale1')) echo $request->getParameter('scale1');
+    
   }
   
   

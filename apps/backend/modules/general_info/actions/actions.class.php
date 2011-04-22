@@ -97,7 +97,7 @@ class general_infoActions extends autoGeneral_infoActions
         
         //percorrer as linhas
         for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
-          $code = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue();
+          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
           
           // criar nova general info caso registo seja 'I'
           if(strcmp(strtoupper($code),'I') == 0){

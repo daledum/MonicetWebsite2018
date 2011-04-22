@@ -22,5 +22,6 @@ class backgroundActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->active = "background";
+    $this->content = ContentPeer::getContent('Background');
   }
 }

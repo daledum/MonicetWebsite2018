@@ -22,6 +22,7 @@ class homeActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+    $this->content = ContentPeer::getContent('Home');
   }
   public function executeInquerito(sfWebRequest $request)
   {

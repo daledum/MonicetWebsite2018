@@ -8,7 +8,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time', 'backend');
+    initialize('time', 'backend', 0, 1);
   });
 </script>
 
@@ -222,15 +222,19 @@
           <div class="tabs-content-container">
             <h2>Camadas:</h2>
             <div class="layers-item" id="layers-toggle-div1">
-              <label>Camada 1:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
+              <label>Batimetria:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div2">
-              <label>Camada 2:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
+              <label>Inclinação do Fundo:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div3">
-              <label>Camada 3:</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+              <label>Linhas Batimétricas (250m):</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+            </div>
+            <br />
+            <div class="layers-item" id="layers-toggle-div4">
+              <label>Linhas Batimétricas (1000m):</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
             </div>
             <br />
           </div>

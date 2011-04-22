@@ -50,7 +50,7 @@ colors['Zp'] = '90b3fb';
  * 
  * Valores para map_type: 'default' ou 'time'
  */
-function initialize(map_type, env) {
+function initialize(map_type, env, scale1, scale2) {
   
   
   if(map_type == 'default'){
@@ -65,6 +65,34 @@ function initialize(map_type, env) {
     };
     var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
   }else if(map_type == 'time'){
+    
+    s1 = '';
+    s2 = '';
+    
+    if(scale1 == 0){
+      s1 = Timeline.DateTime.DAY;
+    }else{
+      if(scale1 == 1){
+        s1 = Timeline.DateTime.WEEK;
+      }else{
+        if(scale1 == 2){
+          s1 = Timeline.DateTime.MONTH;
+        }
+      }
+    }
+    
+    if(scale2 == 1){
+      s2 = Timeline.DateTime.WEEK;
+    }else{
+      if(scale2 == 2){
+        s2 = Timeline.DateTime.MONTH;
+      }else{
+        if(scale2 == 3){
+          s2 = Timeline.DateTime.YEAR;
+        }
+      }
+    }
+    
     /*
      * inicializa TimeMap
      */
@@ -79,8 +107,8 @@ function initialize(map_type, env) {
         }
       ],
       bandIntervals: [
-          Timeline.DateTime.DAY,
-          Timeline.DateTime.MONTH
+          s1,
+          s2
       ]
 
     });
@@ -309,9 +337,9 @@ function initialize(map_type, env) {
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
+        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
         //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
         //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
-        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
         // TODO condição para validar utilizador para ver os dados
         //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
         '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
@@ -510,15 +538,20 @@ function initialize(map_type, env) {
       
       $('#layers-toggle-div1').append('<div id="loading"></div>');
       
-      layers[1] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite.png", 
+      layers[1] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite_1.png", 
       new google.maps.LatLngBounds(
-          new google.maps.LatLng(35.663833, -33.4665),
-          new google.maps.LatLng(40.602833, -22.4335)
+          new google.maps.LatLng(35.888348, -32.964967),
+          new google.maps.LatLng(40.378169, -22.935368)
           ));
+          
+      layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
       
       layers[1].setMap(map);
+      layers[5].setMap(map);
       
     }else{
+      layers[5].setMap(null);
+      delete layers[5];
       layers[1].setMap(null);
       delete layers[1];
       
@@ -537,14 +570,22 @@ function initialize(map_type, env) {
       
       $('#layers-toggle-div2').append('<div id="loading"></div>');
       
-      layers[2] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islands.kml');
+      layers[2] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Slope.png", 
+      new google.maps.LatLngBounds(
+          new google.maps.LatLng(35.888348, -32.964967),
+          new google.maps.LatLng(40.378169, -22.935368)
+          ));
+      
+      layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
       
       layers[2].setMap(map);
+      layers[5].setMap(map);
       
     }else{
+      layers[5].setMap(null);
+      delete layers[5];
       layers[2].setMap(null);
-      
-      delete layers[1];
+      delete layers[2];
     }
     
     window.setTimeout(function() {
@@ -559,14 +600,35 @@ function initialize(map_type, env) {
       
       $('#layers-toggle-div3').append('<div id="loading"></div>');
       
-      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines250m.kml');
       
       layers[3].setMap(map);
       
     }else{
       layers[3].setMap(null);
-      
       delete layers[3];
+    }
+    
+    window.setTimeout(function() {
+      $('#loading').remove();
+    }, 6000);
+    
+  });
+  
+  
+  $('#layers-toggle4').click(function(){
+    
+    if ($('#layers-toggle4:checked').val() !== undefined) {
+      
+      $('#layers-toggle-div4').append('<div id="loading"></div>');
+      
+      layers[4] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/mainlines.kml');
+      
+      layers[4].setMap(map);
+      
+    }else{
+      layers[4].setMap(null);
+      delete layers[4];
     }
     
     window.setTimeout(function() {
