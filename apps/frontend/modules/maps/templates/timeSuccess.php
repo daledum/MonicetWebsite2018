@@ -5,7 +5,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time','frontend', <?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 0 ; ?>, <?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 2 ; ?>);
+    initialize('time','frontend', $('#sc1').val(), $('#sc2').val());
   });
 </script>
 
@@ -108,19 +108,19 @@
               <label><?php echo __('Time Map Scale') ?>:</label>
               <form method="post" action="<?php echo url_for('@maps_time') ?>">
                 <select id="scale1" name="scale1" class="filter-select" style="width: 85px;">
-                  <option value="0">Day</option>
-                  <option value="1">Week</option>
-                  <option value="2">Month</option>
+                  <option value="1"<?php if($sf_request->getParameter('scale1') == 1) echo ' selected="true"'; ?>>Day</option>
+                  <option value="2"<?php if($sf_request->getParameter('scale1') == 2) echo ' selected="true"'; ?>>Week</option>
+                  <option value="3"<?php if($sf_request->getParameter('scale1') == 3) echo ' selected="true"'; ?>>Month</option>
                 </select>
                 <select id="scale2" name="scale2" class="filter-select" style="width: 85px;">
-                  <option value="1">Week</option>
-                  <option value="2">Month</option>
-                  <option value="3">Year</option>
+                  <option value="2"<?php if($sf_request->getParameter('scale2') == 2) echo ' selected="true"'; ?>>Week</option>
+                  <option value="3"<?php if($sf_request->getParameter('scale2') == 3) echo ' selected="true"'; ?>>Month</option>
+                  <option value="4"<?php if($sf_request->getParameter('scale2') == 4) echo ' selected="true"'; ?>>Year</option>
                 </select>
                 <input type="submit" value="<?php echo __('Change Scale') ?>" style="width: 90px;">
               </form>
-              <input type="hidden" id="sc1" value="<?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 0 ; ?>">
-              <input type="hidden" id="sc2" value="<?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 2 ; ?>">
+              <input type="hidden" id="sc1" value="<?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 1 ; ?>">
+              <input type="hidden" id="sc2" value="<?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 3 ; ?>">
             </div>
           </div>
         </div>

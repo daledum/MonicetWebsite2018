@@ -11,6 +11,7 @@ var uis = [];
 
 var colors = [];
 
+var zindexvalue = 0;
 
 colors['Ba'] = 'b7b10b';
 colors['Bb'] = '4f884f';
@@ -69,25 +70,25 @@ function initialize(map_type, env, scale1, scale2) {
     s1 = '';
     s2 = '';
     
-    if(scale1 == 0){
+    if(scale1 == 1){
       s1 = Timeline.DateTime.DAY;
     }else{
-      if(scale1 == 1){
+      if(scale1 == 2){
         s1 = Timeline.DateTime.WEEK;
       }else{
-        if(scale1 == 2){
+        if(scale1 == 3){
           s1 = Timeline.DateTime.MONTH;
         }
       }
     }
     
-    if(scale2 == 1){
+    if(scale2 == 2){
       s2 = Timeline.DateTime.WEEK;
     }else{
-      if(scale2 == 2){
+      if(scale2 == 3){
         s2 = Timeline.DateTime.MONTH;
       }else{
-        if(scale2 == 3){
+        if(scale2 == 4){
           s2 = Timeline.DateTime.YEAR;
         }
       }
@@ -347,11 +348,14 @@ function initialize(map_type, env, scale1, scale2) {
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
-      var infowindow = new google.maps.InfoWindow({
-          content: contentString
-      });
       
       google.maps.event.addListener(marker, 'click', function() {
+        
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          zIndex: zindexvalue++
+        });
+        
         infowindow.open(map,marker);
       });
       
