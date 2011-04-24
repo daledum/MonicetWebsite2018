@@ -24,11 +24,11 @@
   
   <!-- MAP CONTAINER -->
   <div class="left-container">
-    <div class="map-sides map-left"></div>
-    <div id="map-container-div">
+    <div class="container-side container-left"></div>
+    <div id="map-container-div" class="container-div">
       <div id="map_canvas"></div>
     </div>
-    <div class="map-sides map-right"></div>
+    <div class="container-side container-right"></div>
   </div>
   
   <!-- RIGHT SIDEBAR -->

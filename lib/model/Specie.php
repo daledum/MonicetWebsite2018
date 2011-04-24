@@ -21,4 +21,8 @@ class Specie extends BaseSpecie {
   {
     return $this->getCode();
   }
+  
+  public function formattedString() {
+      return $this->getName()." (".$this->getCode().")";
+  }
 } // Specie

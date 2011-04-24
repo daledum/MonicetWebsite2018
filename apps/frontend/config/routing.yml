@@ -67,14 +67,26 @@ maps:
 maps_time:
   url:      /:sf_culture/maps_time
   param:    { module: maps, action: time }
+
+get_map_results:
+  url:   /mapResults
+  param: { module: maps, action: get_results }
   
 specie_query:
   url:   /specieQuery
   param: { module: maps, action: auto_complete }
+
+charts:
+  url:      /:sf_culture/charts
+  param:    { module: charts, action: index }
   
 get_map_results:
   url:   /mapResults
   param: { module: maps, action: get_results }
+
+get_charts_results:
+  url:   /chartResults
+  param: { module: charts, action: get_results }
 
 default_index:
   url:   /:sf_culture/:module

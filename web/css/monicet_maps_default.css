@@ -32,40 +32,11 @@
   height: 91%;
 }
 
-#map-container-div{
-  margin-left: auto;
-  margin-right: auto;
-  height: 520px;
-  width: 94%;
-  display:inline-block;
-  float: left;
-  padding-bottom: 15px;
-  background-image: url("/images/frontend/background-map.png");
-  background-repeat: repeat-x;
-}
-
 #map_canvas { 
   float: left;
   width: 100%;
   margin: 15px 0px;
   height: 97%;
-}
-
-.map-sides{
-  margin-left: auto;
-  margin-right: auto;
-  width: 15px;
-  display: inline-block;
-  float: left;
-  height: 532px;
-}
-
-.map-left{
-  background-image: url("/images/frontend/map-left.png");
-}
-
-.map-right{
-  background-image: url("/images/frontend/map-right.png");
 }
 
 .left-container{

@@ -24,7 +24,7 @@
   
   <!-- MAP CONTAINER -->
   <div class="left-container">
-    <div class="map-sides map-left"></div>
+    <div class="container-side container-left"></div>
     <div class="left-side-bar">
       <div id="timelinecontainer">
         <div id="timeline"></div>
@@ -33,7 +33,7 @@
         <div id="map"></div>
       </div>
     </div>
-    <div class="map-sides map-right"></div>
+    <div class="container-side container-right"></div>
   </div>
   
   <!-- RIGHT SIDEBAR -->
