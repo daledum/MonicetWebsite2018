@@ -24,6 +24,7 @@ class contactsActions extends sfActions
   {
   	$this->form = new ContactForm();
   	$this->webmaster = sfConfig::get('app_mail_webmaster');
+    $this->content = ContentPeer::getContent('Contacts');
 
     if ($request->isMethod('post'))
     {

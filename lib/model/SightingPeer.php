@@ -35,7 +35,9 @@ class SightingPeer extends BaseSightingPeer {
     $c = new Criteria();
     $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
     $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
-      
+
+    $c->addAnd(RecordPeer::CODE_ID, 4, Criteria::NOT_EQUAL);
+
     if($request->getParameter('company_id'))
     {
       $c->addAnd(GeneralInfoPeer::COMPANY_ID, $request->getParameter('company_id'));

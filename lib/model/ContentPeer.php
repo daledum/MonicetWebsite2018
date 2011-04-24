@@ -17,5 +17,9 @@
  * @package    propel.generator.lib.model
  */
 class ContentPeer extends BaseContentPeer {
-
+  public static function getContent($section){
+    $c = new Criteria();
+    $c->add(ContentPeer::SECTION, $section, Criteria::LIKE);
+    return ContentPeer::doSelectOne($c);
+  }
 } // ContentPeer

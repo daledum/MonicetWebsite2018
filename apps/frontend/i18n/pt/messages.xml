@@ -240,6 +240,18 @@
         <source>Choose a specie</source>
         <target>Escolha uma espécie</target>
       </trans-unit>
+      <trans-unit id="62">
+        <source>Bathymetry</source>
+        <target>Batimetria</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Slope</source>
+        <target>Inclinação do Fundo</target>
+      </trans-unit>
+      <trans-unit id="63">
+        <source>Bathymetric Lines</source>
+        <target>Linhas Batimétricas</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

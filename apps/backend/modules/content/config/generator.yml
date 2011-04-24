@@ -14,10 +14,10 @@ generator:
     config:
       actions: ~
       fields:  ~
-      list: ~
-        #actions:   {}
+      list:
+        actions:   {}
       filter:  ~
       form:    ~
       edit:    ~
-      new: ~
-        #actions:   { _list: ~ }
+      new:
+        actions:   { _list: ~ }

@@ -5,7 +5,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('default', 'frontend');
+    initialize('default', 'frontend', 0, 1);
   });
 </script>
 
@@ -106,15 +106,19 @@
           <div class="tabs-content-container">
             <h2><?php echo __('Layers') ?>:</h2>
             <div class="layers-item" id="layers-toggle-div1">
-              <label><?php echo __('Layer') ?> 1:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
+              <label><?php echo __('Batimetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div2">
-              <label><?php echo __('Layer') ?> 2:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
+              <label><?php echo __('Slope') ?>:</label><input id="layers-toggle2" class="layers-toggle" type="checkbox" value="layer2" name="layer2" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div3">
-              <label><?php echo __('Layer') ?> 3:</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+              <label><?php echo __('Bathymetric Lines') ?> (250m):</label><input id="layers-toggle3" class="layers-toggle" type="checkbox" value="layer3" name="layer3" />
+            </div>
+            <br />
+            <div class="layers-item" id="layers-toggle-div4">
+              <label><?php echo __('Bathymetric Lines') ?> (1000m):</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
             </div>
             <br />
           </div>

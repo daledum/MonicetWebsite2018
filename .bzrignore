@@ -9,3 +9,6 @@
 ./.settings
 ./data/sql/backup_*
 ./web/error_log
+./web/frontend_dev.php
+./web/backend_dev.php
+

@@ -17,7 +17,7 @@
 <?php endif; ?>
 <br />
 <p class="content"><?php echo __('More formal communication can be made to:'); ?></p>
-<ul class="content">
+<?php /*<ul class="content">
     <li><?php echo __('MONICET project'); ?></li>
     <li><?php echo __('c/o'); ?> Prof. Ana Isabel Neto</li>  
 </ul>
@@ -30,4 +30,7 @@
 <ul class="content">
     <li><?php echo __('Phone'); ?>: + 351 296 650 102</li>
     <li>Fax: + 351 296 650 100</li>
-</ul>
+</ul>*/ ?>
+<div class="content">
+  <?php echo html_entity_decode($content->getDescription()) ?>
+</div>
