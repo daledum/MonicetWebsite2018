@@ -17,7 +17,7 @@ class mapsActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
-    //$this->forward('default', 'module');
+    $this->active = 'maps';
     
     $this->speciesList = SpeciePeer::getAllOrdered();
     
@@ -31,6 +31,8 @@ class mapsActions extends sfActions
   }
   
   public function executeTime(sfWebRequest $request){
+    
+    $this->active = 'maps';
     
     $this->speciesList = SpeciePeer::getAllOrdered();
     

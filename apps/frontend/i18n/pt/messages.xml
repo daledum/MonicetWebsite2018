@@ -252,6 +252,78 @@
         <source>Bathymetric Lines</source>
         <target>Linhas Batimétricas</target>
       </trans-unit>
+      <trans-unit id="64">
+        <source>Chart Parameters</source>
+        <target>Parâmetros do gráfico</target>
+      </trans-unit>
+      <trans-unit id="65">
+        <source>Chart Type</source>
+        <target>Tipo de gráfico</target>
+      </trans-unit>
+      <trans-unit id="66">
+        <source>Totals</source>
+        <target>Totais</target>
+      </trans-unit>
+      <trans-unit id="67">
+        <source>Variations</source>
+        <target>Variações</target>
+      </trans-unit>
+      <trans-unit id="68">
+        <source>Period</source>
+        <target>Período</target>
+      </trans-unit>
+      <trans-unit id="69">
+        <source>All</source>
+        <target>Todos</target>
+      </trans-unit>
+      <trans-unit id="70">
+        <source>January</source>
+        <target>Janeiro</target>
+      </trans-unit>
+      <trans-unit id="71">
+        <source>February</source>
+        <target>Fevereiro</target>
+      </trans-unit>
+      <trans-unit id="72">
+        <source>March</source>
+        <target>Março</target>
+      </trans-unit>
+      <trans-unit id="73">
+        <source>April</source>
+        <target>Abril</target>
+      </trans-unit>
+      <trans-unit id="74">
+        <source>May</source>
+        <target>Maio</target>
+      </trans-unit>
+      <trans-unit id="75">
+        <source>June</source>
+        <target>Junho</target>
+      </trans-unit>
+      <trans-unit id="76">
+        <source>July</source>
+        <target>Julho</target>
+      </trans-unit>
+      <trans-unit id="77">
+        <source>August</source>
+        <target>Agosto</target>
+      </trans-unit>
+      <trans-unit id="78">
+        <source>September</source>
+        <target>Setembro</target>
+      </trans-unit>
+      <trans-unit id="79">
+        <source>October</source>
+        <target>Outubro</target>
+      </trans-unit>
+      <trans-unit id="80">
+        <source>November</source>
+        <target>Novembro</target>
+      </trans-unit>
+      <trans-unit id="81">
+        <source>December</source>
+        <target>Dezembro</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

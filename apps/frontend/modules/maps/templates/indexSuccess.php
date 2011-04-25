@@ -24,11 +24,11 @@
   
   <!-- MAP CONTAINER -->
   <div class="left-container">
-    <div class="map-sides map-left"></div>
-    <div id="map-container-div">
+    <div class="container-side container-left"></div>
+    <div id="map-container-div" class="container-div">
       <div id="map_canvas"></div>
     </div>
-    <div class="map-sides map-right"></div>
+    <div class="container-side container-right"></div>
   </div>
   
   <!-- RIGHT SIDEBAR -->
@@ -106,7 +106,7 @@
           <div class="tabs-content-container">
             <h2><?php echo __('Layers') ?>:</h2>
             <div class="layers-item" id="layers-toggle-div1">
-              <label><?php echo __('Batimetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
+              <label><?php echo __('Bathymetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div2">

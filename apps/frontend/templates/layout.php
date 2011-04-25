@@ -47,6 +47,9 @@
 	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('team'), '@default_index?module=team'); ?></li>
 	                    <li<?php if($active == "album"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('album'), '@album_all'); ?></li>
 	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('contacts'), '@contacts'); ?></li>
+	                    
+	                    <?php /*<li class="maps<?php if($active == "maps"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Maps'), '@homepage'); ?></li>
+                      <li class="charts<?php if($active == "charts"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Charts'), '@homepage'); ?></li>*/ ?>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">

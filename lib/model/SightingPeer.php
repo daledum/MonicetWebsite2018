@@ -31,58 +31,100 @@ class SightingPeer extends BaseSightingPeer {
     return SightingPeer::doSelectOne($c);
   } 
   
-  public static function getForMap($request){
+  public static function getCriteriaWithFilters($request) {
     $c = new Criteria();
-    $c->add(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
     $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
     $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
-    
+
     $c->addAnd(RecordPeer::CODE_ID, 4, Criteria::NOT_EQUAL);
-    
-    if($request->getParameter('company_id') || $request->getParameter('sea_state_id') || $request->getParameter('visibility_id')){
-      
-      if($request->getParameter('company_id')){
-        $c->addAnd(GeneralInfoPeer::COMPANY_ID, $request->getParameter('company_id'));
-      }
-      if($request->getParameter('sea_state_id')){
-        $c->addAnd(RecordPeer::SEA_STATE_ID, $request->getParameter('sea_state_id'));
-      }
-      if($request->getParameter('visibility_id')){
-        $c->addAnd(RecordPeer::VISIBILITY_ID, $request->getParameter('visibility_id'));
-      }
+
+    if($request->getParameter('company_id'))
+    {
+      $c->addAnd(GeneralInfoPeer::COMPANY_ID, $request->getParameter('company_id'));
+    }
+    if($request->getParameter('sea_state_id'))
+    {
+      $c->addAnd(RecordPeer::SEA_STATE_ID, $request->getParameter('sea_state_id'));
     }
     
-    if($request->getParameter('association_id')){
+    if($request->getParameter('visibility_id'))
+    {
+      $c->addAnd(RecordPeer::VISIBILITY_ID, $request->getParameter('visibility_id'));
+    }
+    
+    if($request->getParameter('association_id'))
+    {
       $c->addAnd(SightingPeer::ASSOCIATION_ID, $request->getParameter('association_id'));
     }
     
-    if($request->getParameter('behaviour_id')){
+    if($request->getParameter('behaviour_id'))
+    {
       $c->addAnd(SightingPeer::BEHAVIOUR_ID, $request->getParameter('behaviour_id'));
     }
     
-    if($request->getParameter('environment')){
-      if(strcmp($request->getParameter('environment'),'frontend') == 0){
+    if($request->getParameter('environment'))
+    {
+      if(strcmp($request->getParameter('environment'),'frontend') == 0) 
+      {
         $c->addAnd(GeneralInfoPeer::VALID, 1, Criteria::LIKE);
       }
     }
     
-    
     $c->addAscendingOrderByColumn(SightingPeer::ID);
-    return SightingPeer::doSelect($c);
     
+    return $c;
   }
   
+  public static function getForMap($request) 
+  {
+    $c = SightingPeer::getCriteriaWithFilters($request);
+    $c->add(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
+    return SightingPeer::doSelect($c);
+  }
   
+  public static function getForAPUETotals($request) 
+  {
+    $c = SightingPeer::getCriteriaWithFilters($request);
+    return SightingPeer::doSelect($c);
+  }
   
-  public static function getFromInterval($date1, $date2){
+  public static function getForPeriod($type, $year, $month, $association, 
+                                      $behaviour, $sea_state, $visibility) {
+    $date1 = $year."-";
+    $date2 = $year."-";  
+    if (($type == '1') && $month) {
+        $date1 .= $month."-1";
+        $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+    } else {
+        $date1 .= "1-1";
+        $date2 .= "12-31";
+    }
+    
     $c = new Criteria();
     $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
     $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
     $c->add(SightingPeer::SPECIE_ID, null, Criteria::ISNOTNULL);
     $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+    
+    if ($sea_state || $visibility) {
+        $c->addJoin(SightingPeer::RECORD_ID, RecordPeer::ID, Criteria::JOIN);
+    }
+    
+    if ($association) {
+        $c->addAnd(SightingPeer::ASSOCIATION_ID, $association);
+    }
+    if ($behaviour) {
+        $c->addAnd(SightingPeer::BEHAVIOUR_ID, $behaviour);
+    }
+    if ($sea_state) {
+        $c->addAnd(RecordPeer::SEA_STATE_ID, $sea_state);
+    }
+    if ($visibility) {
+        $c->addAnd(RecordPeer::VISIBILITY_ID, $visibility);
+    }
+    
     return SightingPeer::doSelect($c);
   }
-  
-  
+
 } // SightingPeer

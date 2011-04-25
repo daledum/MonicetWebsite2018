@@ -464,3 +464,25 @@ a.jScrollArrowDown:hover {
 a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     background-color: #f00;
 }
+
+.charts a, .maps a {
+  display: inline-block;
+  padding: 9px 0px 9px 28px;
+  background: transparent url('/images/frontend/icons-monicet.png') no-repeat left top;
+}
+
+.charts a:hover {
+  background-position: left -62px;
+}
+
+.maps {
+  margin-top: 70px;
+}
+
+.maps a {
+  background-position: left -29px;
+}
+
+.maps a:hover {
+  background-position: left -91px;
+}

@@ -1,0 +1,117 @@
+#dv{
+  height: 15px;
+}
+
+.title-w{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.text-w{
+  font-size: 12px;
+  display: inline-block;
+}
+
+#loading{
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 15px;
+  width: 15px;
+  background-image: url("/images/backend/icons_gmaps/loading_frontend.gif");
+}
+
+/* WINDOW END */
+
+/* MAPS */
+
+.charts-container { 
+  height: 91%;
+}
+
+#chart-container-div{
+  margin-left: auto;
+  margin-right: auto;
+  height: 520px;
+  width: 96%;
+  display:inline-block;
+  float: left;
+  padding-bottom: 15px;
+  background-image: url("/images/frontend/background-map.png");
+  background-repeat: repeat-x;
+}
+
+.left-container {
+    display: inline-block;
+    height: 100%;
+    margin: auto;
+    text-align: left;
+}
+
+.chart-container {
+    margin: 20px 0px;
+ }
+
+.left-sidebar {
+   float: left;
+   width: 300px;
+   height: 490px;
+   border-right: 1px solid #5FB1C3;
+}
+
+.chart-image {
+    float: left;
+    text-align: center;
+    padding: 20px 14px 20px 14px;
+    width: 600px; }
+
+.vertical-space {
+    margin-bottom: 70px;
+}
+
+.filter-item {
+  text-align: right;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.filter-item select {
+    width: 175px;
+}
+
+#chart-loading {
+    display: inline-block;
+    float: right;
+    margin-right: 10px;
+    margin-top: 7px;
+    padding: 22px;
+    background: transparent url('/images/loading.gif') no-repeat left top;
+}
+
+.container-div {
+    width: 930px !important;
+}
+
+#_ul_languages {
+    padding-left: 635px !important;
+}
+
+.filter-item input {
+  width: 20px;
+}
+
+.maps div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+
+.charts div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+

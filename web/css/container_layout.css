@@ -1,0 +1,28 @@
+.container-side {
+  margin-left: auto;
+  margin-right: auto;
+  width: 15px;
+  display: inline-block;
+  float: left;
+  height: 532px;
+}
+
+.container-left{
+  background-image: url("/images/frontend/map-left.png");
+}
+
+.container-right{
+  background-image: url("/images/frontend/map-right.png");
+}
+
+.container-div {
+  margin-left: auto;
+  margin-right: auto;
+  height: 520px;
+  width: 94%;
+  display:inline-block;
+  float: left;
+  padding-bottom: 15px;
+  background-image: url("/images/frontend/background-map.png");
+  background-repeat: repeat-x;
+}
