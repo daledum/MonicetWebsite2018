@@ -34,7 +34,7 @@
   margin-left: auto;
   margin-right: auto;
   height: 520px;
-  width: 94%;
+  width: 96%;
   display:inline-block;
   float: left;
   padding-bottom: 15px;
@@ -47,7 +47,6 @@
     height: 100%;
     margin: auto;
     text-align: left;
-    width: 990px;
 }
 
 .chart-container {
@@ -88,4 +87,12 @@
     margin-top: 7px;
     padding: 22px;
     background: transparent url('/images/loading.gif') no-repeat left top;
+}
+
+.container-div {
+    width: 980px !important;
+}
+
+#_ul_languages {
+    padding-left: 53% !important;
 }
