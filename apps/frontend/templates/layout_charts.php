@@ -30,7 +30,7 @@
   <body>
     <div id="_div_background">
       <div id="_div_page">
-          <a id="_a_logo" href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a>
+          <div style="margin: 0 auto;position: relative;top: -22px;width: 955px;"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a></div>
           <div id="_div_main">
               <div id="_div_main_center">
                   <div id="_div_main_content">

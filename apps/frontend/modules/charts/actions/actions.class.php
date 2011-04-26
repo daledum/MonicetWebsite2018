@@ -13,6 +13,8 @@ class chartsActions extends sfActions
 
   public function executeIndex(sfWebRequest $request)
   {
+    $this->active = 'charts';
+    
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();
     $this->sea_states = SeaStatePeer::getSeaStates();

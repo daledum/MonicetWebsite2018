@@ -11,7 +11,7 @@
 
 <div class="map-container">
   <h2><?php echo __('Sightings Map') ?></h2>
-  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
+  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<b><a href="<?php echo url_for('@maps_time') ?>"><?php echo __('Change to Time Map'); ?></a></b></div>
   
   <!-- LANGUAGE -->
   <div id="_ul_languages" style="display: inline-block">
@@ -106,7 +106,7 @@
           <div class="tabs-content-container">
             <h2><?php echo __('Layers') ?>:</h2>
             <div class="layers-item" id="layers-toggle-div1">
-              <label><?php echo __('Batimetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
+              <label><?php echo __('Bathymetry') ?>:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
             </div>
             <br />
             <div class="layers-item" id="layers-toggle-div2">

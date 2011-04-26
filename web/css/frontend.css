@@ -268,7 +268,7 @@ em {
 }
 
 #_div_footer {
-    background-color: #4aa4b9;
+    background-color: #dcedeb;
     border-bottom: solid;
     border-top: solid;
     border-color: #3b8c9e;
@@ -278,7 +278,7 @@ em {
 }
 
 #_div_footer p {
-    color: #ffffff;
+    color: #3b8c9e;
     text-align: right;
     display: inline;
     float: right;
@@ -292,11 +292,9 @@ em {
 }
 
 #_ul_support {
-    background-color: #ffffff;
+    background-color: #dcedeb;
     display: inline-block;
     height: 43px;
-    border-left: 2px solid #3B8C9E;
-    border-right: 2px solid #3B8C9E;
     padding-top: 3px;
     padding-left: 15px;
 }
@@ -311,7 +309,7 @@ em {
     display: inline;
     float: left;
     font-weight: bold;
-    color: #ffffff;
+    color: #3b8c9e;
     margin-top: 15px;
 }
 
@@ -463,4 +461,26 @@ a.jScrollArrowDown:hover {
 
 a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     background-color: #f00;
+}
+
+.charts a, .maps a {
+  display: inline-block;
+  padding: 9px 0px 9px 28px;
+  background: transparent url('/images/frontend/icons-monicet.png') no-repeat left top;
+}
+
+.charts a:hover {
+  background-position: left -62px;
+}
+
+.maps {
+  margin-top: 70px;
+}
+
+.maps a {
+  background-position: left -29px;
+}
+
+.maps a:hover {
+  background-position: left -91px;
 }

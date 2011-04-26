@@ -90,9 +90,28 @@
 }
 
 .container-div {
-    width: 980px !important;
+    width: 930px !important;
 }
 
 #_ul_languages {
-    padding-left: 53% !important;
+    padding-left: 635px !important;
 }
+
+.filter-item input {
+  width: 20px;
+}
+
+.maps div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+
+.charts div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+

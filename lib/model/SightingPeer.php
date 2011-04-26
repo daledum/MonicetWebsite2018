@@ -77,7 +77,6 @@ class SightingPeer extends BaseSightingPeer {
   
   public static function getForMap($request) 
   {
-    
     $c = SightingPeer::getCriteriaWithFilters($request);
     $c->add(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
     return SightingPeer::doSelect($c);
@@ -86,9 +85,6 @@ class SightingPeer extends BaseSightingPeer {
   public static function getForAPUETotals($request) 
   {
     $c = SightingPeer::getCriteriaWithFilters($request);
-    //$c->addSelectColumn(SightingPeer::SPECIE_ID);
-    //$c->addSelectColumn('count('.SightingPeer::SPECIE_ID.') as CountSpecie');
-    //$c->addGroupByColumn(SightingPeer::SPECIE_ID);
     return SightingPeer::doSelect($c);
   }
   

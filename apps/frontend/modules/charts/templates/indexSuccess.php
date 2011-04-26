@@ -17,11 +17,11 @@
     <div class="container-div">
         <div class="chart-container">
             <div class="left-sidebar">
-                <h2><?php echo __('chart parameters'); ?></h2><br/>
+                <h2><?php echo __('Chart Parameters'); ?></h2><br/>
                 <div class="filter-item">
-                    <label><?php echo __('chart type') ?>:</label>
-                    <input type="radio" name="chart-type" value="1" checked="checked" /><?php echo __('totals'); ?>
-                    <input type="radio" name="chart-type" value="2"/><?php echo __('variations'); ?>
+                    <label><?php echo __('Chart Type') ?>:</label>
+                    <input type="radio" name="chart-type" value="1" checked="checked" /><?php echo __('Totals'); ?>
+                    <input type="radio" name="chart-type" value="2"/><?php echo __('Variations'); ?>
                 </div>
                 <div class="filter-item">
                     <label><?php echo __('Period') ?>:</label>
@@ -31,9 +31,9 @@
                     <?php endforeach; ?>
                     </select>
                     <select id="month" class="filter-select">
-                        <option value="0">(<?php echo __('all'); ?>)</option>
+                        <option value="0">(<?php echo __('All'); ?>)</option>
                         <?php foreach($months as $monthId => $monthName): ?>
-                        <option value="<?php echo $monthId; ?>"><?php echo $monthName; ?></option>
+                        <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -78,10 +78,11 @@
                   </select>
                 </div>
             </div>
+            <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">
+                <!--<img id="chart-img-elem" src="http://chart.apis.google.com/chart?chf=bg,s,EAF4F800&chxl=1:|Sb|Tt&chxp=1,10,20&chxr=0,0,160&chxt=x,y&chbh=a&chs=600x220&cht=bhs&chco=4D89F9&chds=0,170&chd=t:10,50,60,80,40,60,30,50&chtt=APUE" width="600" height="300" alt="APUE" />-->
+            </div>
         </div>
-        <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">
-            <!--<img id="chart-img-elem" src="http://chart.apis.google.com/chart?chf=bg,s,EAF4F800&chxl=1:|Sb|Tt&chxp=1,10,20&chxr=0,0,160&chxt=x,y&chbh=a&chs=600x220&cht=bhs&chco=4D89F9&chds=0,170&chd=t:10,50,60,80,40,60,30,50&chtt=APUE" width="600" height="300" alt="APUE" />-->
-        </div>
+        
     </div>
     <div class="container-side container-right"></div>
   </div>

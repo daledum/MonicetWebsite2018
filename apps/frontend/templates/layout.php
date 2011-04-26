@@ -30,7 +30,7 @@
   <body>
     <div id="_div_background">
 	    <div id="_div_page">
-	        <a id="_a_logo" href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a>
+	        <div style="margin: 0 auto;position: relative;top: -22px;width: 955px;"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a></div>
 	        <div id="_div_main">
 	            <div id="_ul_languages">
 		            <?php if($sf_user->getCulture() == "pt"): ?> 
@@ -47,6 +47,9 @@
 	                    <li<?php if($active == "team"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('team'), '@default_index?module=team'); ?></li>
 	                    <li<?php if($active == "album"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('album'), '@album_all'); ?></li>
 	                    <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('contacts'), '@contacts'); ?></li>
+	                    
+	                    <?php /*<li class="maps<?php if($active == "maps"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Maps'), '@homepage'); ?></li>
+                      <li class="charts<?php if($active == "charts"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Charts'), '@homepage'); ?></li>*/ ?>
 	                </ul>
 	            </div>
 	            <div id="_div_main_center">
