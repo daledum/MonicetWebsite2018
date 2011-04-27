@@ -324,6 +324,38 @@
         <source>December</source>
         <target>Dezembro</target>
       </trans-unit>
+      <trans-unit id="82">
+        <source>Year</source>
+        <target>Ano</target>
+      </trans-unit>
+      <trans-unit id="83">
+        <source>Month</source>
+        <target>Mês</target>
+      </trans-unit>
+      <trans-unit id="84">
+        <source>Week</source>
+        <target>Semana</target>
+      </trans-unit>
+      <trans-unit id="85">
+        <source>Day</source>
+        <target>Dia</target>
+      </trans-unit>
+      <trans-unit id="86">
+        <source>Change</source>
+        <target>Alterar</target>
+      </trans-unit>
+      <trans-unit id="87">
+        <source>Time Map Scale</source>
+        <target>Escala Temporal</target>
+      </trans-unit>
+      <trans-unit id="88">
+        <source>Change to Normal Map</source>
+        <target>Mudar para Mapa Normal</target>
+      </trans-unit>
+      <trans-unit id="89">
+        <source>Change to Time Map</source>
+        <target>Mudar para Mapa Temporal</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

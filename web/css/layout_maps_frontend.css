@@ -67,15 +67,15 @@ ul.gallery, ul.gallery li {
 #_ul_languages {
     float: none;
     display: inline-block;
-    padding-left: 60%;
-    width: 120px;
+    padding-left: 56%;
+    width: 20px;
     margin: auto;
     padding-bottom: 0px;
 }
 
 .back-to-home {
   display: inline-block;
-  width: 200px;
+  width: 350px;
   margin: auto;
   text-align: left;
 }
@@ -283,7 +283,6 @@ em {
 }
 
 #_div_footer {
-    background-color: #4aa4b9;
     border-bottom: solid;
     border-top: solid;
     border-color: #3b8c9e;
@@ -293,7 +292,6 @@ em {
 }
 
 #_div_footer p {
-    color: #ffffff;
     text-align: right;
     display: inline;
     float: right;
@@ -316,7 +314,6 @@ em {
     display: inline;
     float: left;
     font-weight: bold;
-    color: #ffffff;
     margin-top: 13px;
 }
 

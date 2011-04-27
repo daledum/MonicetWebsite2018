@@ -4,14 +4,27 @@
   /*
    * inicializa o javascript com a abertura da página
    */
-  $(function(){
-    initialize('time','frontend', $('#sc1').val(), $('#sc2').val());
+  $(function() {
+    initialize('time','frontend', $('#scale1').val(), $('#scale2').val());
+
+    $("#scale2").change(function() {
+       var sc2 = parseInt($(this).val());
+       $("#scale1").val(sc2 - 1);
+       $("#scale1 option").each(function() {
+         if (parseInt($(this).val()) >= sc2) {
+             $(this).hide();
+         } else {
+             $(this).show();
+         }
+       });
+    });
+    
   });
 </script>
 
 <div id="sf_admin_container" class="map-container">
   <h2><?php echo __('Sightings Time Map') ?></h2>
-  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
+  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<b><a href="<?php echo url_for('@maps') ?>"><?php echo __('Change to Normal Map'); ?></a></b></div>
   
   <!-- LANGUAGE -->
   <div id="_ul_languages" style="display: inline-block">
@@ -41,19 +54,20 @@
     <div class="filters-sides filters-left"></div>
     <div class="right-side-bar">
       <div class="filter-item">
-        <label><?php echo __('Time Map Scale') ?>:</label>
+        <label style="width:140px !important;"><?php echo __('Time Map Scale') ?>:</label>
         <form method="post" action="<?php echo url_for('@maps_time') ?>">
-          <select id="scale1" name="scale1" class="filter-select" style="width: 85px;">
-            <option value="1"<?php if($sf_request->getParameter('scale1') == 1) echo ' selected="true"'; ?>>Day</option>
-            <option value="2"<?php if($sf_request->getParameter('scale1') == 2) echo ' selected="true"'; ?>>Week</option>
-            <option value="3"<?php if($sf_request->getParameter('scale1') == 3) echo ' selected="true"'; ?>>Month</option>
-          </select>
           <select id="scale2" name="scale2" class="filter-select" style="width: 85px;">
-            <option value="2"<?php if($sf_request->getParameter('scale2') == 2) echo ' selected="true"'; ?>>Week</option>
-            <option value="3"<?php if($sf_request->getParameter('scale2') == 3) echo ' selected="true"'; ?>>Month</option>
-            <option value="4"<?php if($sf_request->getParameter('scale2') == 4) echo ' selected="true"'; ?>>Year</option>
+            <option value="4"<?php if($sf_request->getParameter('scale2') == 4) echo ' selected="true"'; ?>><?php echo __('Year'); ?></option>
+            <option value="3"<?php if($sf_request->getParameter('scale2') == 3) echo ' selected="true"'; ?>><?php echo __('Month'); ?></option>            
+            <option value="2"<?php if($sf_request->getParameter('scale2') == 2) echo ' selected="true"'; ?>><?php echo __('Week'); ?></option>
           </select>
-          <input type="submit" value="<?php echo __('Change Scale') ?>" style="width: 90px;">
+          &nbsp;-&nbsp;
+          <select id="scale1" name="scale1" class="filter-select" style="width: 85px;">
+            <option value="3"<?php if($sf_request->getParameter('scale1') == 3) echo ' selected="true"'; ?>><?php echo __('Month'); ?></option>
+            <option value="2"<?php if($sf_request->getParameter('scale1') == 2) echo ' selected="true"'; ?>><?php echo __('Week'); ?></option>
+            <option value="1"<?php if($sf_request->getParameter('scale1') == 1) echo ' selected="true"'; ?>><?php echo __('Day'); ?></option>
+          </select>
+          <input type="submit" value="<?php echo __('Change'); ?>" style="width: 80px;" />
         </form>
         <input type="hidden" id="sc1" value="<?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 1 ; ?>">
         <input type="hidden" id="sc2" value="<?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 3 ; ?>">

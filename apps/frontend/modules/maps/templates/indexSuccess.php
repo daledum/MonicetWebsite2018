@@ -11,7 +11,7 @@
 
 <div class="map-container">
   <h2><?php echo __('Sightings Map') ?></h2>
-  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
+  <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a>&nbsp;&nbsp;&bull;&nbsp;&nbsp;<b><a href="<?php echo url_for('@maps_time') ?>"><?php echo __('Change to Time Map'); ?></a></b></div>
   
   <!-- LANGUAGE -->
   <div id="_ul_languages" style="display: inline-block">
