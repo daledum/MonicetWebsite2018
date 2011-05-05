@@ -268,7 +268,7 @@ em {
 }
 
 #_div_footer {
-    background-color: #4aa4b9;
+    background-color: #dcedeb;
     border-bottom: solid;
     border-top: solid;
     border-color: #3b8c9e;
@@ -278,7 +278,7 @@ em {
 }
 
 #_div_footer p {
-    color: #ffffff;
+    color: #3b8c9e;
     text-align: right;
     display: inline;
     float: right;
@@ -292,11 +292,9 @@ em {
 }
 
 #_ul_support {
-    background-color: #ffffff;
+    background-color: #dcedeb;
     display: inline-block;
     height: 43px;
-    border-left: 2px solid #3B8C9E;
-    border-right: 2px solid #3B8C9E;
     padding-top: 3px;
     padding-left: 15px;
 }
@@ -311,7 +309,7 @@ em {
     display: inline;
     float: left;
     font-weight: bold;
-    color: #ffffff;
+    color: #3b8c9e;
     margin-top: 15px;
 }
 
