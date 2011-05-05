@@ -217,7 +217,7 @@
         <target>Mapa de Avistamentos</target>
       </trans-unit>
       <trans-unit id="56">
-        <source>Sightings Time Map</source>
+        <source>Sightings Temporal Map</source>
         <target>Mapa Temporal de Avistamentos</target>
       </trans-unit>
       <trans-unit id="57">
@@ -237,7 +237,7 @@
         <target>Espécies</target>
       </trans-unit>
       <trans-unit id="61">
-        <source>Choose a specie</source>
+        <source>Choose species</source>
         <target>Escolha uma espécie</target>
       </trans-unit>
       <trans-unit id="62">

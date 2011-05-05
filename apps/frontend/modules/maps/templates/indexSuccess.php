@@ -47,11 +47,11 @@
         <!-- SPECIES TAB -->
         <div id="tabs-1">
           <div class="tabs-content-container" style="position: relative;">
-            <h2><?php echo __('Choose a specie') ?>:</h2>
+            <h2><?php echo __('Choose species') ?>:</h2>
             <select id="pesquisa-select">
               <option></option>
               <?php foreach($speciesList as $specie): ?>
-                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getCode() ?> - <?php echo $specie->getName() ?></option>
+                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getName() ?> - <?php echo $specie->getCode() ?></option>
               <?php endforeach; ?>
             </select>
             <div id="item-list"></div>

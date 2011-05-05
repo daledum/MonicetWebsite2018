@@ -10,7 +10,7 @@
 </script>
 
 <div id="sf_admin_container" class="map-container">
-  <h2><?php echo __('Sightings Time Map') ?></h2>
+  <h2><?php echo __('Sightings Temporal Map') ?></h2>
   <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
   
   <!-- LANGUAGE -->
@@ -70,11 +70,11 @@
         <!-- SPECIES TAB -->
         <div id="tabs-1">
           <div class="tabs-content-container" style="position: relative;">
-            <h2><?php echo __('Choose a specie') ?>:</h2>
+            <h2><?php echo __('Choose species') ?>:</h2>
             <select id="pesquisa-select">
               <option></option>
               <?php foreach($speciesList as $specie): ?>
-                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getCode() ?> - <?php echo $specie->getName() ?></option>
+                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getName() ?> - <?php echo $specie->getCode() ?></option>
               <?php endforeach; ?>
             </select>
             <div id="item-list"></div>
