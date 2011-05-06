@@ -37,6 +37,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
     $c->addAnd(RecordPeer::CODE_ID, array(3, 6), Criteria::IN);
     $c->addAnd(SightingPeer::SPECIE_ID, null, Criteria::ISNOTNULL);
+    $c->addAnd(SightingPeer::SPECIE_ID, 0, Criteria::NOT_EQUAL);
     return $c;  
   }
   
@@ -82,8 +83,20 @@ class SightingPeer extends BaseSightingPeer {
   
   public static function getForMap($request) 
   {
+    $date1 = $request->getParameter('year')."-";
+    $date2 = $request->getParameter('year')."-";  
+    if ($request->getParameter('month')) {
+        $date1 .= $request->getParameter('month')."-1";
+        $date2 .= $request->getParameter('month')."-" . idate('d', mktime(0, 0, 0, ($request->getParameter('month') + 1), 0, $request->getParameter('year'))); 
+    } else {
+        $date1 .= "1-1";
+        $date2 .= "12-31";
+    }
+    
     $c = SightingPeer::getCriteriaWithFilters($request);
     $c->addAnd(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
     return SightingPeer::doSelect($c);
   }
   

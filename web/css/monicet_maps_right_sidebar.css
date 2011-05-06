@@ -216,4 +216,10 @@
   float: none !important;
 }
 
+#layers-legend-bathymetry, #layers-legend-slope {
+  margin-top: 50px;
+  text-align: center;
+  display: none;
+}
+
 /* LAYERS TAB END */

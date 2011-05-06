@@ -46,6 +46,7 @@ class chartsActions extends sfActions
     $categories = array();
     $series = array();
     $species = array();
+    $species_ref = array();
     $type = $request->getParameter('type');
     $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
 
@@ -55,7 +56,7 @@ class chartsActions extends sfActions
 
         $data = array();
         $i = 1;
-        
+
         foreach($sightings as $s) {
             $species[$s[1]] = $s[0];
             $species_ref[$s[1]] = SpeciePeer::retrieveByPK($s[1]);
@@ -66,8 +67,8 @@ class chartsActions extends sfActions
             $pos[$k] = $i;
             $i += 1;
         }
-        foreach($species as $k => $v) {
-            $categories[] = $species_ref[$k]->getCode();
+        foreach($species_ref as $v) {
+            $categories[] = $v->getCode();
         }
         foreach($species as $k => $v) {
             $a = array_fill(1, $ndata, 0);
