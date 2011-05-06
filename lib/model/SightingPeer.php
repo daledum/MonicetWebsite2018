@@ -128,6 +128,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addGroupByColumn(SightingPeer::SPECIE_ID);
     $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
     $c->addSelectColumn(SightingPeer::SPECIE_ID);
+    $c->addAscendingOrderByColumn('total');
 
     return BasePeer::doSelect($c);
   }

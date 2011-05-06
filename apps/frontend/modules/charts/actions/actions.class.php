@@ -77,18 +77,18 @@ class chartsActions extends sfActions
         }
     } else {
         $sightings = SightingPeer::getAPUEVariations($request->getParameter('year'));
-        
         foreach($sightings as $s) {
           $species[] = array(0 => $s[0], 1 => $s[1], 2 => $s[2]);
-          $series[$s[2]] = array_fill(1, 12, 0);
+          $species_ref[$s[2]] = SpeciePeer::retrieveByPK($s[2]);
+          $series[$species_ref[$s[2]]->formattedString()] = array_fill(1, 12, 0);
         }
         foreach($species as $v) {
-            $series[$v[2]][$v[1]] = $v[0];
+            $series[$species_ref[$v[2]]->formattedString()][$v[1]] = $v[0];
         }
         foreach(range(1, 12) as $monthNumber) {
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
         }
-        
+        //echo "<pre>";print_r($species);echo "</pre>";
         /*
         foreach($sightings as $sighting){
           if($sighting->getSpecieId()){
