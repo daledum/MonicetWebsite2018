@@ -32,8 +32,18 @@ class SpeciePeer extends BaseSpeciePeer {
   
   public static function getAllOrdered(){
     $c = new Criteria();
+    $c->setDistinct();
     $c->addJoin(SpeciePeer::ID, SpecieI18nPeer::ID);
     $c->addAscendingOrderByColumn(SpecieI18nPeer::NAME);
+    return SpeciePeer::doSelect($c);
+  }
+  
+  public static function getAllOrderedFrontend(){
+    $c = new Criteria();
+    $c->setDistinct();
+    $c->addJoin(SpeciePeer::ID, SpecieI18nPeer::ID);
+    $c->addAscendingOrderByColumn(SpecieI18nPeer::NAME);
+    $c->addAnd(SpecieI18nPeer::CULTURE, sfContext::getInstance()->getUser()->getCulture(), Criteria::LIKE);
     return SpeciePeer::doSelect($c);
   }
   

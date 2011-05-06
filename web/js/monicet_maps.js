@@ -11,37 +11,41 @@ var uis = [];
 
 var colors = [];
 
+var speciesColors = [];
+
 var zindexvalue = 0;
 
-colors['Ba'] = 'b7b10b';
-colors['Bb'] = '4f884f';
-colors['Be'] = 'a6ffed';
-colors['Bm'] = '737373';
-colors['Bp'] = '232323';
-colors['Cc'] = '61390e';
-colors['Cm'] = '909a70';
-colors['Dc'] = '9a8670';
-colors['Dd'] = '9cff32';
-colors['Em'] = '9886ae';
-colors['Gg'] = '117566';
-colors['Gma'] = 'ffe432';
-colors['Gme'] = 'e1e5c0';
-colors['Ha'] = 'ff9494';
-colors['Kb'] = 'c7c7cd';
-colors['Lk'] = '00e4ff';
-colors['Mb'] = '9805ff';
-colors['Md'] = 'ffbedd';
-colors['Mm'] = 'c1ffea';
-colors['Mn'] = 'f4abff';
-colors['Oo'] = '5fb9d3';
-colors['Pc'] = '236375';
-colors['Pm'] = '5fd3c1';
-colors['Sb'] = 'ff8932';
-colors['Sc'] = '0e7015';
-colors['Sf'] = 'd01b52';
-colors['Tt'] = 'ff3232';
-colors['Zc'] = '0511ff';
-colors['Zp'] = '90b3fb';
+var colorIndex = 0;
+
+colors[0] = '9cff32';
+colors[1] = 'ff3232';
+colors[2] = 'a6ffed';
+colors[3] = '737373';
+colors[4] = 'ffbedd';
+colors[5] = '61390e';
+colors[6] = '0511ff';
+colors[7] = '9a8670';
+colors[8] = 'b7b10b';
+colors[9] = '9886ae';
+colors[10] = '117566';
+colors[11] = 'ffe432';
+colors[12] = 'e1e5c0';
+colors[13] = 'ff9494';
+colors[14] = 'c7c7cd';
+colors[15] = '00e4ff';
+colors[16] = '9805ff';
+colors[17] = '232323';
+colors[18] = 'c1ffea';
+colors[19] = 'f4abff';
+colors[20] = '5fb9d3';
+colors[21] = '236375';
+colors[22] = '5fd3c1';
+colors[23] = 'ff8932';
+colors[24] = '0e7015';
+colors[25] = 'd01b52';
+colors[26] = '4f884f';
+colors[27] = '909a70';
+colors[28] = '90b3fb';
 
 
 
@@ -132,7 +136,93 @@ function initialize(map_type, env, scale1, scale2) {
   }
   
   
-  
+  $.ajax({
+    url: "/index.php/specieQuery",
+    data: {
+      specie_id: 8
+    },
+    success: function( dat ) {
+        
+        var j = $.parseJSON(dat);
+        var ui = { item: j };
+        
+        $.ajax({
+          url: "/index.php/mapResults",
+          data: {
+            specie_id: ui.item.id,
+            company_id: $('#company').val(),
+            association_id: $('#association').val(),
+            behaviour_id: $('#behaviour').val(),
+            sea_state_id: $('#sea_state').val(),
+            visibility_id: $('#visibility').val(),
+            environment: env
+          },
+          success: function( data ) {
+            
+            $('#loading').remove();
+            
+            if(especiesActivas[ui.item.id] == true){
+              alert('Esta espécie já se encontra listada!');
+              return;
+            }else{
+              insertSpecieInList(ui);
+              if(map_type == 'default'){
+                getResultingDotsDefault(data, ui);  
+              }else if(map_type == 'time'){
+                getResultingDotsTime(data, ui);
+              }
+              
+              uis[ui.item.id] = ui;
+              speciesColors[ui.item.id] = colorIndex;
+              
+              try{
+                var obj = $.parseJSON(data);
+              }
+              catch(e){
+                colorIndex++;
+                return;
+              }
+              
+              
+              var count = 0;
+              var latitudes = [];
+              var longitudes = [];
+              var totalLats = 0;
+              var totalLons = 0;
+              
+              $.each(obj.spots, function(index, value){
+                latitudes.push(Math.abs(value.lat));
+                longitudes.push(Math.abs(value.lon));
+                count++;
+              });
+              
+              $.each(latitudes, function(index, value){
+                totalLats = totalLats + parseFloat(value);
+              });
+              
+              $.each(longitudes, function(index, value){
+                totalLons = totalLons + parseFloat(value);
+              });
+              
+              var lat = totalLats/count;
+              var lon = totalLons/count;
+              
+              
+              var latlng = new google.maps.LatLng(lat,-lon);
+              var myOptions = {
+                zoom: 10,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+              };
+              map.setOptions(myOptions)
+              
+              colorIndex++;
+            }
+            
+          }
+        });
+    },
+  });
   
   
   
@@ -141,6 +231,8 @@ function initialize(map_type, env, scale1, scale2) {
    * ao seleccionar a espécie, faz o processo de inserção no mapa
    */
   $("#pesquisa-select").change(function(){
+    
+    if ($(this).val() == '') return;
     
     $('#item-list').append('<div id="loading"></div>');
     
@@ -163,7 +255,11 @@ function initialize(map_type, env, scale1, scale2) {
               behaviour_id: $('#behaviour').val(),
               sea_state_id: $('#sea_state').val(),
               visibility_id: $('#visibility').val(),
-              environment: env
+              environment: env,
+              
+              
+              month: $('#month').val(),
+              year: $('#year').val(),
             },
             success: function( data ) {
               
@@ -181,6 +277,8 @@ function initialize(map_type, env, scale1, scale2) {
                 }
                 
                 uis[ui.item.id] = ui;
+                
+                colorIndex++;
               }
               
             }
@@ -199,9 +297,9 @@ function initialize(map_type, env, scale1, scale2) {
     
     if(map_type == 'default'){
       
-      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+getCircleUrl(ui.item.code)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+getCircleUrl(colorIndex)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
       especiesActivas[ui.item.id] = true;
-      
+      speciesColors[ui.item.id] = colorIndex;
       /*
        * definições para esconder, mostrar e eliminar as especies para mapa normal
        */
@@ -224,9 +322,9 @@ function initialize(map_type, env, scale1, scale2) {
       );
     }else if(map_type == 'time'){
       
-      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(ui.item.code)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
+      $('#item-list').append('<div id="'+ui.item.code+'" class="specie" style="padding: 5px; margin-bottom: 5px;"><a class="icon"><img src="'+TimeMapTheme.getCircleUrl(colorIndex)+'"></a><div class="specie-name">'+ui.item.name+' ('+ui.item.code+') </div> <div id="specie-count-'+ui.item.code+'" class="specie-count">(0)</div><a href="#" id="show-hide-' + ui.item.code + '" class="show" type="button"></a><input id="show-hide-' + ui.item.code + '-val" type="hidden" value="' + ui.item.id + '" /><a href="#" class="remove" id="remove-' + ui.item.code + '"></a></div>');
       especiesActivas[ui.item.id] = true;
-      
+      speciesColors[ui.item.id] = colorIndex;
       /*
        * definições para esconder, mostrar e eliminar as especies para mapa temporal
        */
@@ -266,7 +364,7 @@ function initialize(map_type, env, scale1, scale2) {
     };*/
     
     function getCircleUrl(code) {
-      return '/images/backend/icons_gmaps/'+code+'.png';
+      return '/images/backend/icons_gmaps/c'+code+'.png';
     }
     
   }else if(map_type == 'time'){
@@ -280,7 +378,7 @@ function initialize(map_type, env, scale1, scale2) {
             "&chf=bg,s,00000000|a,s,000000" + alpha + "&ext=.png";
     };*/
     TimeMapTheme.getCircleUrl = function(code) {
-      return '/images/backend/icons_gmaps/'+code+'.png';
+      return '/images/backend/icons_gmaps/c'+code+'.png';
     }
     
     
@@ -318,9 +416,21 @@ function initialize(map_type, env, scale1, scale2) {
       //alert('Esta espécie não se encontra registada nos avistamentos.');
       return;
     }
-    var obj = $.parseJSON(data);
+    
+    try{
+      var obj = $.parseJSON(data);
+    }
+    catch(e){
+      uis[ui.item.id] = ui;
+      speciesColors[ui.item.id] = colorIndex;
+      colorIndex++;
+      return;
+    }
     markers[obj.id] = [];
     var count = 0;
+    
+    var specieColor = colorIndex;
+    if(speciesColors[obj.id] !== undefined) specieColor = speciesColors[obj.id];
     
     $.each(obj.spots, function(index, value){
     
@@ -328,7 +438,7 @@ function initialize(map_type, env, scale1, scale2) {
       var lon = -value.lon;
     
       var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
-      var image = getCircleUrl(ui.item.code);
+      var image = getCircleUrl(specieColor);
       var marker = new google.maps.Marker({
           position: myLatlng,
           title: obj.code,
@@ -377,7 +487,16 @@ function initialize(map_type, env, scale1, scale2) {
       //alert('Esta espécie não se encontra registada nos avistamentos.');
       return;
     }
-    var obj = $.parseJSON(data);
+    
+    try{
+      var obj = $.parseJSON(data);
+    }
+    catch(e){
+      uis[ui.item.id] = ui;
+      speciesColors[ui.item.id] = colorIndex;
+      colorIndex++;
+      return;
+    }
     
     datasets[obj.id] = tm.createDataset(
       obj.id,
@@ -387,6 +506,9 @@ function initialize(map_type, env, scale1, scale2) {
     );
     
     var count = 0;
+    
+    var specieColor = colorIndex;
+    if(speciesColors[obj.id] !== undefined) specieColor = speciesColors[obj.id];
     
     $.each(obj.spots, function(index, value){
     
@@ -406,7 +528,7 @@ function initialize(map_type, env, scale1, scale2) {
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
-      TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[obj.code], eventColor : '#'+colors[obj.code], code : obj.code });
+      TimeMap.themes['theme1'] = TimeMapTheme.createCircleTheme({ color : colors[specieColor], eventColor : '#'+colors[specieColor], code : specieColor });
       
       datasets[obj.id].loadItem({
         "start" : value.date+" "+value.time,
@@ -466,6 +588,7 @@ function initialize(map_type, env, scale1, scale2) {
     $('#'+code).remove();
     especiesActivas[id] = false;
     removeMarkers(markers);
+    delete speciesColors[id];
   }
   
   /*
@@ -491,6 +614,7 @@ function initialize(map_type, env, scale1, scale2) {
     $('#'+code).remove();
     especiesActivas[id] = false;
     tm.deleteDataset(id);
+    delete speciesColors[id];
   }
   
   /*
@@ -506,7 +630,13 @@ function initialize(map_type, env, scale1, scale2) {
         removeMarkers(markers[item.value]);
         markers[item.value] = [];
       }else if(map_type == 'time'){
-        datasets[ui.item.id].clear();
+        try{
+          datasets[ui.item.id].clear();
+        }
+        catch(e){
+          
+        }
+        
         tm.refreshTimeline();
       }
       
@@ -519,7 +649,10 @@ function initialize(map_type, env, scale1, scale2) {
           association_id: $('#association').val(),
           behaviour_id: $('#behaviour').val(),
           sea_state_id: $('#sea_state').val(),
-          visibility_id: $('#visibility').val()
+          visibility_id: $('#visibility').val(),
+          
+          month: $('#month').val(),
+          year: $('#year').val(),
         },
         success: function( data ) {
           if(map_type == 'default'){
@@ -542,22 +675,33 @@ function initialize(map_type, env, scale1, scale2) {
       
       $('#layers-toggle-div1').append('<div id="loading"></div>');
       
+      // activar a camada da batimetria e as ilhas
       layers[1] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite_1.png", 
       new google.maps.LatLngBounds(
           new google.maps.LatLng(35.888348, -32.964967),
           new google.maps.LatLng(40.378169, -22.935368)
-          ));
-          
+          ));    
       layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
-      
       layers[1].setMap(map);
       layers[5].setMap(map);
+      
+      // desactivar a camada de inclinação do fundo
+      if (layers[2]) {
+        $('#layers-toggle2').attr('checked',false);
+        layers[2].setMap(null);
+        delete layers[2];
+      }
+      
+      // mostrar a legenda
+      $('#layers-legend-bathymetry').attr('style', 'display: block;');
+      $('#layers-legend-slope').attr('style', 'display: none;');
       
     }else{
       layers[5].setMap(null);
       delete layers[5];
       layers[1].setMap(null);
       delete layers[1];
+      $('#layers-legend-bathymetry').attr('style', 'display: none;');
       
     }
     
@@ -574,22 +718,33 @@ function initialize(map_type, env, scale1, scale2) {
       
       $('#layers-toggle-div2').append('<div id="loading"></div>');
       
+      // activar a camada de inclinação do fundo e as ilhas
       layers[2] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Slope.png", 
       new google.maps.LatLngBounds(
           new google.maps.LatLng(35.888348, -32.964967),
           new google.maps.LatLng(40.378169, -22.935368)
           ));
-      
       layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
-      
       layers[2].setMap(map);
       layers[5].setMap(map);
+      
+      // desactivar a camada de batimetria
+      if (layers[1]) {
+        $('#layers-toggle1').attr('checked',false);
+        layers[1].setMap(null);
+        delete layers[1];
+      }
+      
+      // mostrar a legenda
+      $('#layers-legend-slope').attr('style', 'display: block;');
+      $('#layers-legend-bathymetry').attr('style', 'display: none;');
       
     }else{
       layers[5].setMap(null);
       delete layers[5];
       layers[2].setMap(null);
       delete layers[2];
+      $('#layers-legend-slope').attr('style', 'display: none;');
     }
     
     window.setTimeout(function() {

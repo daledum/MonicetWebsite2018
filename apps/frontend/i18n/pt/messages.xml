@@ -353,7 +353,7 @@
         <target>Mudar para Mapa Normal</target>
       </trans-unit>
       <trans-unit id="89">
-        <source>Change to Time Map</source>
+        <source>Change to Temporal Map</source>
         <target>Mudar para Mapa Temporal</target>
       </trans-unit>
     </body>
