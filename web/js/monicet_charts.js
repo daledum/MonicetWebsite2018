@@ -49,6 +49,7 @@ function initChart(series, categories, chatType) {
 }
 
 function updateChart() {
+  $("#chart-loading").show();
   var categories = [];
   var series = [];
   $.ajax({
@@ -66,6 +67,7 @@ function updateChart() {
               chartType = 'line';
           }
           initChart(jsonRsp.series, jsonRsp.categories, chartType);
+          $("#chart-loading").hide();
       }
   });
 }

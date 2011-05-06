@@ -115,3 +115,16 @@
   display: inline-block;
 }
 
+.chart-totals, .chart-variations {
+    padding: 10px 13px 2px;
+}
+
+.chart-totals {
+    background: transparent url('/images/chart-totals.png') no-repeat left top;
+    margin-right: 10px;
+}
+
+.chart-variations {
+    background: transparent url('/images/chart-variations.png') no-repeat left top;
+    margin-right: 3px;
+}

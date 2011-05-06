@@ -45,51 +45,50 @@ class chartsActions extends sfActions
   {
     $categories = array();
     $series = array();
+    $species = array();
     $type = $request->getParameter('type');
-    $sightings = SightingPeer::getForPeriod(
-                                    $type,
-                                    $request->getParameter('year'),
-                                    $request->getParameter('month'),
-                                    $request->getParameter('association'), 
-                                    $request->getParameter('behaviour'), 
-                                    $request->getParameter('sea_state'), 
-                                    $request->getParameter('visibility'));
+    $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
+
     if($type == '1') {
-        $species = array();
+        $sightings = SightingPeer::getAPUETotals($request->getParameter('year'),
+                                                 $request->getParameter('month'));
+
         $data = array();
-        $pos = array();
-        foreach($sightings as $sighting) {
-          if($sighting->getSpecieId()){
-            if(array_key_exists($sighting->getSpecie()->getCode(), $data)) {
-              $data[$sighting->getSpecie()->getCode()] += 1;
-            } else {
-              $data[$sighting->getSpecie()->getCode()] = 0;
-              $species[$sighting->getSpecie()->getCode()] = $sighting->getSpecie();
-            }
-          }
-        }
-        asort($data);
         $i = 1;
-        foreach($data as $c => $d) {
-            if ($d == 0) {
-                 unset($data[$c]); 
-            } else {
-                $pos[$c] = $i;
-                $i += 1;
-            }
+        
+        foreach($sightings as $s) {
+            $species[$s[1]] = $s[0];
+            $species_ref[$s[1]] = SpeciePeer::retrieveByPK($s[1]);
         }
-        $ndata = count($data);
-    
-        foreach($data as $c => $d) {
-            $categories[] = $c;
+        $ndata = count($species);
+        $i = 1;
+        foreach($species as $k => $v) { 
+            $pos[$k] = $i;
+            $i += 1;
         }
-        foreach($data as $c => $d) {
+        foreach($species as $k => $v) {
+            $categories[] = $species_ref[$k]->getCode();
+        }
+        foreach($species as $k => $v) {
             $a = array_fill(1, $ndata, 0);
-            $a[$pos[$c]] = $d;
-            $series[$species[$c]->formattedString()] = $a;
+            $a[$pos[$k]] = round(($v / $gi_total) * 100, 0);
+            $series[$species_ref[$k]->formattedString()] = $a;
+        }
+    } else {
+        $sightings = SightingPeer::getAPUEVariations($request->getParameter('year'));
+        
+        foreach($sightings as $s) {
+          $species[] = array(0 => $s[0], 1 => $s[1], 2 => $s[2]);
+          $series[$s[2]] = array_fill(1, 12, 0);
+        }
+        foreach($species as $v) {
+            $series[$v[2]][$v[1]] = $v[0];
+        }
+        foreach(range(1, 12) as $monthNumber) {
+            $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
         }
         
-    } else {
+        /*
         foreach($sightings as $sighting){
           if($sighting->getSpecieId()){
             if(array_key_exists($sighting->getSpecie()->formattedString(), $series)) {
@@ -101,9 +100,16 @@ class chartsActions extends sfActions
           }
         }
         
+        foreach($series as $k => $v) {
+            foreach($v as $i => $m) {
+                $series[$k][$i] = $m/$gi_total;
+            }
+        }
+        
         foreach(range(1, 12) as $monthNumber) {
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
         }
+        */
     }
     $this->series = $series;
     $this->categories = $categories;

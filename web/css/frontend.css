@@ -253,17 +253,26 @@ em {
 }
 
 #_ul_consorcium {
+    display: inline-block;
     clear: both;
     padding-top: 10px;
     margin-left: 200px;
     width: 560px;
     height: 40px;
     text-align: center;
+    color: #ffffff;
 }
 
 #_ul_consorcium li {
     display: inline;
     list-style: none;
+}
+
+#_ul_consorcium a {
+    color: #fff;
+}
+
+#_ul_consorcium a:hover {
     color: #2d606d;
 }
 

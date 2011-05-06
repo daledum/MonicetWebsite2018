@@ -267,19 +267,8 @@ em {
 }
 
 #_ul_consorcium {
-    display: inline-block;
-    clear: both;
-    padding-top: 10px;
     margin: auto;
     width: 375px;
-    height: 40px;
-    text-align: center;
-}
-
-#_ul_consorcium li {
-    display: inline;
-    list-style: none;
-    color: #2d606d;
 }
 
 #_div_footer {
