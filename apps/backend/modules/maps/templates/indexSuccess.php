@@ -153,7 +153,7 @@
             <select id="pesquisa-select">
               <option></option>
               <?php foreach($speciesList as $specie): ?>
-                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getCode() ?> - <?php echo $specie->getName() ?></option>
+                <option value="<?php echo $specie->getId() ?>"><?php echo $specie->getName() ?> - <?php echo $specie->getCode() ?></option>
               <?php endforeach; ?>
             </select>
             <div id="item-list"></div>

@@ -604,7 +604,7 @@ function initialize(map_type, env, scale1, scale2) {
       
       $('#layers-toggle-div3').append('<div id="loading"></div>');
       
-      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines250m.kml');
+      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines250m.kmz');
       
       layers[3].setMap(map);
       
