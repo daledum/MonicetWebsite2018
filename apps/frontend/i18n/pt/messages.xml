@@ -356,6 +356,10 @@
         <source>Change to Temporal Map</source>
         <target>Mudar para Mapa Temporal</target>
       </trans-unit>
+      <trans-unit id="90">
+        <source>Average Sightings Per Trip</source>
+        <target>Média de Avistamentos Por Saída</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
