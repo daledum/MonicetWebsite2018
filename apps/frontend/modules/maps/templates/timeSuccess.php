@@ -77,14 +77,14 @@
       </div>
       
       <!-- PERIOD -->
-      <div class="filter-item">
+      <div class="filter-item" style="border-top: 1px solid #4AA4B9; border-bottom: 1px solid #4AA4B9;">
           <label><?php echo __('Period') ?>:</label>
-          <select id="year" class="filter-select">
+          <select id="year" class="filter-select" style="width: 85px;">
           <?php foreach(range($lastYear, $firstYear) as $year): ?>
               <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
           <?php endforeach; ?>
           </select>
-          <select id="month" class="filter-select">
+          <select id="month" class="filter-select" style="width: 85px;">
               <option value="0">(<?php echo __('All'); ?>)</option>
               <?php foreach($months as $monthId => $monthName): ?>
               <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
