@@ -30,9 +30,11 @@ class mapsActions extends sfActions
     
     $c = new Criteria();
     $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     $firstGI = GeneralInfoPeer::doSelectOne($c);
     $c = new Criteria();
     $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     $lastGI = GeneralInfoPeer::doSelectOne($c);
     
     $explodedLastDate = explode('-', $lastGI->getDate());
@@ -65,9 +67,11 @@ class mapsActions extends sfActions
     
     $c = new Criteria();
     $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     $firstGI = GeneralInfoPeer::doSelectOne($c);
     $c = new Criteria();
     $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     $lastGI = GeneralInfoPeer::doSelectOne($c);
     
     $explodedLastDate = explode('-', $lastGI->getDate());

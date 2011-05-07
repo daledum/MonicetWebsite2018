@@ -674,7 +674,16 @@ function initialize(map_type, env, scale1, scale2) {
     if ($('#layers-toggle1:checked').val() !== undefined) {
       
       $('#layers-toggle-div1').append('<div id="loading"></div>');
-      
+
+      // desactivar a camada de inclinação do fundo
+      if (layers[2]) {
+        $('#layers-toggle2').attr('checked',false);
+        layers[2].setMap(null);
+        delete layers[2];
+        layers[5].setMap(null);
+        delete layers[5];
+      }
+
       // activar a camada da batimetria e as ilhas
       layers[1] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Composite_1.png", 
       new google.maps.LatLngBounds(
@@ -684,13 +693,6 @@ function initialize(map_type, env, scale1, scale2) {
       layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
       layers[1].setMap(map);
       layers[5].setMap(map);
-      
-      // desactivar a camada de inclinação do fundo
-      if (layers[2]) {
-        $('#layers-toggle2').attr('checked',false);
-        layers[2].setMap(null);
-        delete layers[2];
-      }
       
       // mostrar a legenda
       $('#layers-legend-bathymetry').attr('style', 'display: block;');
@@ -717,7 +719,16 @@ function initialize(map_type, env, scale1, scale2) {
     if ($('#layers-toggle2:checked').val() !== undefined) {
       
       $('#layers-toggle-div2').append('<div id="loading"></div>');
-      
+
+      // desactivar a camada de batimetria
+      if (layers[1]) {
+        $('#layers-toggle1').attr('checked',false);
+        layers[1].setMap(null);
+        delete layers[1];
+        layers[5].setMap(null);
+        delete layers[5];
+      }
+
       // activar a camada de inclinação do fundo e as ilhas
       layers[2] = new google.maps.GroundOverlay("http://www.monicet.net/js/gmaps_kml/Slope.png", 
       new google.maps.LatLngBounds(
@@ -727,13 +738,6 @@ function initialize(map_type, env, scale1, scale2) {
       layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
       layers[2].setMap(map);
       layers[5].setMap(map);
-      
-      // desactivar a camada de batimetria
-      if (layers[1]) {
-        $('#layers-toggle1').attr('checked',false);
-        layers[1].setMap(null);
-        delete layers[1];
-      }
       
       // mostrar a legenda
       $('#layers-legend-slope').attr('style', 'display: block;');
@@ -759,7 +763,7 @@ function initialize(map_type, env, scale1, scale2) {
       
       $('#layers-toggle-div3').append('<div id="loading"></div>');
       
-      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/lines250m.kmz');
+      layers[3] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/linhas250m.kmz');
       
       layers[3].setMap(map);
       

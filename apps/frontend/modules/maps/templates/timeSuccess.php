@@ -138,10 +138,10 @@
             
             <!-- LEGENDS -->
             <div id="layers-legend-bathymetry">
-              <?php echo image_tag('charts/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+              <?php echo image_tag('layers/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
             </div>
             <div id="layers-legend-slope">
-              <?php echo image_tag('charts/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+              <?php echo image_tag('layers/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
             </div>
             
           </div>
