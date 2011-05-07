@@ -97,6 +97,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addAnd(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     return SightingPeer::doSelect($c);
   }
   
