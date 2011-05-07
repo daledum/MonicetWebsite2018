@@ -155,7 +155,10 @@ function initialize(map_type, env, scale1, scale2) {
             behaviour_id: $('#behaviour').val(),
             sea_state_id: $('#sea_state').val(),
             visibility_id: $('#visibility').val(),
-            environment: env
+            environment: env,
+            
+            month: $('#month').val(),
+            year: $('#year').val(),
           },
           success: function( data ) {
             
