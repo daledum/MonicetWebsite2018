@@ -48,9 +48,9 @@ class chartsActions extends sfActions
     $species = array();
     $species_ref = array();
     $type = $request->getParameter('type');
-    $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
 
     if($type == '1') {
+        $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
         $sightings = SightingPeer::getAPUETotals($request->getParameter('year'),
                                                  $request->getParameter('month'));
 
@@ -83,6 +83,7 @@ class chartsActions extends sfActions
           $series[$species_ref[$s[2]]->formattedString()] = array_fill(1, 12, 0);
         }
         foreach($species as $v) {
+            $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $request->getParameter('year'), $v[1]);
             $series[$species_ref[$v[2]]->formattedString()][$v[1]] = round(($v[0] / $gi_total) * 100, 0);
         }
         foreach(range(1, 12) as $monthNumber) {

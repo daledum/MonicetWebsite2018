@@ -41,7 +41,8 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
   public static function getTotalForPeriod($type, $year, $month) {
     $date1 = $year."-";
     $date2 = $year."-";  
-    if (($type == '1') && $month) {
+    //if (($type == '1') && $month) {
+    if ($month) {
         $date1 .= $month."-1";
         $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
     } else {

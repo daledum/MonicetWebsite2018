@@ -1,5 +1,5 @@
 <div class="charts-container">
-  <h2><?php echo __('Average Sightings Per Trip') ?></h2>
+  <h2><?php echo __('% sightings on trips') ?></h2>
   <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
   
   <!-- LANGUAGE -->

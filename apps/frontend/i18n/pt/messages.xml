@@ -357,8 +357,16 @@
         <target>Mudar para Mapa Temporal</target>
       </trans-unit>
       <trans-unit id="90">
-        <source>Average Sightings Per Trip</source>
-        <target>Média de Avistamentos Por Saída</target>
+        <source>% sightings on trips</source>
+        <target>% avistamentos nas saídas</target>
+      </trans-unit>
+      <trans-unit id="91">
+        <source>Maps</source>
+        <target>Mapas</target>
+      </trans-unit>
+      <trans-unit id="92">
+        <source>Charts</source>
+        <target>Gráficos</target>
       </trans-unit>
     </body>
   </file>
