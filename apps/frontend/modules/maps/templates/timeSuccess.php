@@ -40,7 +40,7 @@
   <div class="left-container">
     <div class="container-side container-left"></div
     <div class="left-side-bar">
-      <div style="background-color: #F3FAFA;height: 25px;position: absolute;top: 211px;width: 716px;z-index: 4000;"></div>
+      <!--<div style="background-color: #F3FAFA;height: 25px;position: absolute;top: 211px;width: 716px;z-index: 4000;"></div>-->
       <div id="timelinecontainer">
         <div id="timeline"></div>
       </div>
