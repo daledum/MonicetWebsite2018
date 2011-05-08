@@ -32,17 +32,17 @@
   height: 91%;
 }
 #mapcontainer{
-  height: 73%;
-  margin-bottom: 15px;
-  position: relative;
-  top: -1px;
+  float: left;
   width: 100%;
+  margin-bottom: 15px;
+  height:77%;
 }
 #timelinecontainer{ 
-  height: 135px !important;
-  margin-top: 1px;
+  float: left;
+  height: 20%;
+  width: 100%;
+  margin-top: 15px;
 }
-
 #map { 
   height: 100%;
   width: 100%;
@@ -50,6 +50,8 @@
 }
 #timeline{
   height: 100%;
+  width: 100%;
+  float: left;
 }
 
 .left-container{
