@@ -90,14 +90,7 @@
 }
 
 .timeline-band-layer-inner div {
-    position: absolute;
-    overflow: hidden;
     width: 50px;
-    color: black;
-    cursor: pointer;
-    top: 0.5em;
-    height: 1.5em;
-    left: 1738px;
 }
 
 
