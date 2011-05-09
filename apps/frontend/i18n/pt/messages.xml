@@ -368,6 +368,10 @@
         <source>Charts</source>
         <target>Gráficos</target>
       </trans-unit>
+      <trans-unit id="93">
+        <source>in maintenance</source>
+        <target>em manutenção</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

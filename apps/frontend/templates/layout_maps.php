@@ -28,6 +28,7 @@
     <?php endif ?>
   </head>
   <body>
+    <div style="width:100%;height:25px;background-color:#f4f06b;font-size: 14px;text-align: center; font-weight: bold; color: #d45a00;border-bottom: 2px solid #ffdb00;border-top: 2px solid #ffdb00;padding-top:7px;position:absolute;top:0px;"><span style="background-image:url('/images/wip.png');background-repeat:no-repeat;padding:6px 40px 5px;height:20px;"><?php echo __('in maintenance'); ?></span></div>
     <div id="_div_background">
       <div id="_div_page">
           <div style="margin: 0 auto;position: relative;top: -22px;width: 955px;"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a></div>
