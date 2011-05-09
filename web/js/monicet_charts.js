@@ -1,4 +1,4 @@
-function initChart(series, categories, chatType) {
+function initChart(series, categories, chatType, stacking) {
   var chart = new Highcharts.Chart({
     chart: {
       renderTo: 'chart-image',
@@ -8,16 +8,15 @@ function initChart(series, categories, chatType) {
       text: ' '
     },
     xAxis: {
-      categories: categories,
-      title: {
-        text: null
-      }
+      categories: categories
     },
     yAxis: {
-      min: 0,
+      plotLines: [{
+        value: 0,
+        width: 1
+      }],
       title: {
-        text: null,
-        align: 'high'
+        text: ' '
       }
     },
     tooltip: {
@@ -27,25 +26,15 @@ function initChart(series, categories, chatType) {
     },
     plotOptions: {
       series: {
-        stacking: 'normal'
+        stacking: stacking
       }
-    },
-    legend: {
-    /*  layout: 'horizontal',
-      align: 'right',
-      verticalAlign: 'bottom',
-      x: 0,
-      y: 0,
-      floating: false,
-      borderWidth: 1,
-      backgroundColor: '#FFFFFF',
-      shadow: true*/
     },
     credits: {
       enabled: false
     },
     series: series
   });
+
 }
 
 function updateChart() {
@@ -63,10 +52,12 @@ function updateChart() {
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'bar';
+          var stacking = 'normal';
           if ($("input[name='chart-type']:checked").val() == 2) {
               chartType = 'line';
+              stacking = null;
           }
-          initChart(jsonRsp.series, jsonRsp.categories, chartType);
+          initChart(jsonRsp.series, jsonRsp.categories, chartType, stacking);
           $("#chart-loading").hide();
       }
   });

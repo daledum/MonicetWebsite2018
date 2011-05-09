@@ -38,8 +38,9 @@
   
   <!-- MAP CONTAINER -->
   <div class="left-container">
-    <div class="container-side container-left"></div>
+    <div class="container-side container-left"></div
     <div class="left-side-bar">
+      <!--<div style="background-color: #F3FAFA;height: 25px;position: absolute;top: 211px;width: 716px;z-index: 4000;"></div>-->
       <div id="timelinecontainer">
         <div id="timeline"></div>
       </div>
@@ -77,14 +78,14 @@
       </div>
       
       <!-- PERIOD -->
-      <div class="filter-item">
+      <div class="filter-item" style="border-top: 1px solid #4AA4B9; border-bottom: 1px solid #4AA4B9;">
           <label><?php echo __('Period') ?>:</label>
-          <select id="year" class="filter-select">
+          <select id="year" class="filter-select" style="width: 85px;">
           <?php foreach(range($lastYear, $firstYear) as $year): ?>
               <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
           <?php endforeach; ?>
           </select>
-          <select id="month" class="filter-select">
+          <select id="month" class="filter-select" style="width: 85px;">
               <option value="0">(<?php echo __('All'); ?>)</option>
               <?php foreach($months as $monthId => $monthName): ?>
               <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
@@ -138,10 +139,10 @@
             
             <!-- LEGENDS -->
             <div id="layers-legend-bathymetry">
-              <?php echo image_tag('charts/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+              <?php echo image_tag('layers/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
             </div>
             <div id="layers-legend-slope">
-              <?php echo image_tag('charts/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+              <?php echo image_tag('layers/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
             </div>
             
           </div>

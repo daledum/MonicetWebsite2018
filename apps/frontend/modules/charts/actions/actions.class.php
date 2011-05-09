@@ -46,16 +46,17 @@ class chartsActions extends sfActions
     $categories = array();
     $series = array();
     $species = array();
+    $species_ref = array();
     $type = $request->getParameter('type');
-    $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
 
     if($type == '1') {
+        $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
         $sightings = SightingPeer::getAPUETotals($request->getParameter('year'),
                                                  $request->getParameter('month'));
 
         $data = array();
         $i = 1;
-        
+
         foreach($sightings as $s) {
             $species[$s[1]] = $s[0];
             $species_ref[$s[1]] = SpeciePeer::retrieveByPK($s[1]);
@@ -66,8 +67,8 @@ class chartsActions extends sfActions
             $pos[$k] = $i;
             $i += 1;
         }
-        foreach($species as $k => $v) {
-            $categories[] = $species_ref[$k]->getCode();
+        foreach($species_ref as $v) {
+            $categories[] = $v->getCode();
         }
         foreach($species as $k => $v) {
             $a = array_fill(1, $ndata, 0);
@@ -76,18 +77,19 @@ class chartsActions extends sfActions
         }
     } else {
         $sightings = SightingPeer::getAPUEVariations($request->getParameter('year'));
-        
         foreach($sightings as $s) {
           $species[] = array(0 => $s[0], 1 => $s[1], 2 => $s[2]);
-          $series[$s[2]] = array_fill(1, 12, 0);
+          $species_ref[$s[2]] = SpeciePeer::retrieveByPK($s[2]);
+          $series[$species_ref[$s[2]]->formattedString()] = array_fill(1, 12, 0);
         }
         foreach($species as $v) {
-            $series[$v[2]][$v[1]] = $v[0];
+            $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $request->getParameter('year'), $v[1]);
+            $series[$species_ref[$v[2]]->formattedString()][$v[1]] = round(($v[0] / $gi_total) * 100, 0);
         }
         foreach(range(1, 12) as $monthNumber) {
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
         }
-        
+        //echo "<pre>";print_r($species);echo "</pre>";
         /*
         foreach($sightings as $sighting){
           if($sighting->getSpecieId()){

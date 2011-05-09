@@ -37,6 +37,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addJoin(RecordPeer::GENERAL_INFO_ID, GeneralInfoPeer::ID, Criteria::JOIN);
     $c->addAnd(RecordPeer::CODE_ID, array(3, 6), Criteria::IN);
     $c->addAnd(SightingPeer::SPECIE_ID, null, Criteria::ISNOTNULL);
+    $c->addAnd(SightingPeer::SPECIE_ID, 0, Criteria::NOT_EQUAL);
     return $c;  
   }
   
@@ -96,6 +97,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addAnd(SightingPeer::SPECIE_ID, $request->getParameter('specie_id'), Criteria::EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
     return SightingPeer::doSelect($c);
   }
   
@@ -127,6 +129,7 @@ class SightingPeer extends BaseSightingPeer {
     $c->addGroupByColumn(SightingPeer::SPECIE_ID);
     $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
     $c->addSelectColumn(SightingPeer::SPECIE_ID);
+    $c->addAscendingOrderByColumn('total');
 
     return BasePeer::doSelect($c);
   }
