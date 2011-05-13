@@ -34,11 +34,13 @@
 #mapcontainer{
   float: left;
   width: 100%;
-  height:72%;
+  margin-bottom: 15px;
+  height:67% ;
 }
+
 #timelinecontainer{ 
   float: left;
-  height: 135px;
+  height: 30% ;
   width: 100%;
   margin-top: 15px;
 }
@@ -87,5 +89,10 @@
 .map-right{
   background-image: url("/images/frontend/map-right.png");
 }
+
+/*.timeline-band-layer-inner div {
+    width: 50px;
+}*/
+
 
 /* MAPS END */
