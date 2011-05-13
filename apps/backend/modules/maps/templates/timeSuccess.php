@@ -8,8 +8,22 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time', 'backend', 0, 1);
+    initialize('time', 'backend', $('#scale1').val(), $('#scale2').val());
+    
+    $("#scale2").change(function() {
+       var sc2 = parseInt($(this).val());
+       $("#scale1").val(sc2 - 1);
+       $("#scale1 option").each(function() {
+         if (parseInt($(this).val()) >= sc2) {
+             $(this).hide();
+         } else {
+             $(this).show();
+         }
+       });
+    });
+    
   });
+  
 </script>
 
 <style type="text/css">
@@ -141,6 +155,43 @@
     <div class="filters-sides filters-left"></div>
     <div class="right-side-bar">
       
+      <!-- TIME MAP SCALE -->
+      <div class="filter-item">
+        <label style="width:140px !important;"><?php echo __('Time Map Scale') ?>:</label>
+        <form method="post" action="<?php echo url_for('@maps_time') ?>">
+          <select id="scale2" name="scale2" class="filter-select" style="width: 85px;">
+            <option value="4"<?php if($sf_request->getParameter('scale2') == 4) echo ' selected="true"'; ?>><?php echo __('Year'); ?></option>
+            <option value="3"<?php if($sf_request->getParameter('scale2') == 3) echo ' selected="true"'; ?>><?php echo __('Month'); ?></option>            
+            <option value="2"<?php if($sf_request->getParameter('scale2') == 2) echo ' selected="true"'; ?>><?php echo __('Week'); ?></option>
+          </select>
+          &nbsp;-&nbsp;
+          <select id="scale1" name="scale1" class="filter-select" style="width: 85px;">
+            <option value="3"<?php if($sf_request->getParameter('scale1') == 3) echo ' selected="true"'; ?>><?php echo __('Month'); ?></option>
+            <option value="2"<?php if($sf_request->getParameter('scale1') == 2) echo ' selected="true"'; ?>><?php echo __('Week'); ?></option>
+            <option value="1"<?php if($sf_request->getParameter('scale1') == 1) echo ' selected="true"'; ?>><?php echo __('Day'); ?></option>
+          </select>
+          <input type="submit" value="<?php echo __('Change'); ?>" style="width: 80px;" />
+        </form>
+        <input type="hidden" id="sc1" value="<?php echo ($sf_request->getParameter('scale1'))? $sf_request->getParameter('scale1') : 1 ; ?>">
+        <input type="hidden" id="sc2" value="<?php echo ($sf_request->getParameter('scale2'))? $sf_request->getParameter('scale2') : 3 ; ?>">
+      </div>
+      
+      <!-- PERIOD -->
+      <div class="filter-item" style="border-top: 1px solid #4AA4B9; border-bottom: 1px solid #4AA4B9;">
+          <label><?php echo __('Period') ?>:</label>
+          <select id="year" class="filter-select" style="width: 85px;">
+          <?php foreach(range($lastYear, $firstYear) as $year): ?>
+              <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+          <?php endforeach; ?>
+          </select>
+          <select id="month" class="filter-select" style="width: 85px;">
+              <option value="0">(<?php echo __('All'); ?>)</option>
+              <?php foreach($months as $monthId => $monthName): ?>
+              <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
+              <?php endforeach; ?>
+          </select>
+      </div>
+      
       <!-- TAB LIST -->
       <div id="tabs">
         <ul>
@@ -220,6 +271,8 @@
         <!-- LAYERS TAB -->
         <div id="tabs-3">
           <div class="tabs-content-container">
+            
+            <!-- LAYERS -->
             <h2>Camadas:</h2>
             <div class="layers-item" id="layers-toggle-div1">
               <label>Batimetria:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
@@ -236,7 +289,15 @@
             <div class="layers-item" id="layers-toggle-div4">
               <label>Linhas Batimétricas (1000m):</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
             </div>
-            <br />
+            
+            <!-- LEGENDS -->
+            <div id="layers-legend-bathymetry">
+              <?php echo image_tag('layers/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+            </div>
+            <div id="layers-legend-slope">
+              <?php echo image_tag('layers/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+            </div>
+            
           </div>
         </div>
         

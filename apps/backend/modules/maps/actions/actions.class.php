@@ -27,7 +27,27 @@ class mapsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
     
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    $firstGI = GeneralInfoPeer::doSelectOne($c);
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    $lastGI = GeneralInfoPeer::doSelectOne($c);
     
+    $explodedLastDate = explode('-', $lastGI->getDate());
+    $explodedFirstDate = explode('-', $firstGI->getDate());
+    $this->firstYear = $explodedFirstDate[0];
+    $this->lastYear = $explodedLastDate[0];
+    
+    $months = array();
+    
+    foreach(range(1, 12) as $monthNumber) {
+        $months[$monthNumber] = date("F", mktime(0, 0, 0, $monthNumber, 1, 2000));
+    }
+    
+    $this->months = $months;
   }
   
   public function executeTime(sfWebRequest $request){
@@ -40,7 +60,27 @@ class mapsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
     
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    $firstGI = GeneralInfoPeer::doSelectOne($c);
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    $lastGI = GeneralInfoPeer::doSelectOne($c);
     
+    $explodedLastDate = explode('-', $lastGI->getDate());
+    $explodedFirstDate = explode('-', $firstGI->getDate());
+    $this->firstYear = $explodedFirstDate[0];
+    $this->lastYear = $explodedLastDate[0];
+    
+    $months = array();
+    
+    foreach(range(1, 12) as $monthNumber) {
+        $months[$monthNumber] = date("F", mktime(0, 0, 0, $monthNumber, 1, 2000));
+    }
+    
+    $this->months = $months;
   }
   
   

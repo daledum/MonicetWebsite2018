@@ -126,17 +126,33 @@
   
   <!-- MAP CONTAINER -->
   <div class="left-container">
-    <div class="map-sides map-left"></div>
-    <div id="map-container-div">
+    <div class="container-side container-left"></div>
+    <div id="map-container-div" class="container-div">
       <div id="map_canvas"></div>
     </div>
-    <div class="map-sides map-right"></div>
+    <div class="container-side container-right"></div>
   </div>
   
   <!-- RIGHT SIDEBAR -->
   <div class="right-container">
     <div class="filters-sides filters-left"></div>
     <div class="right-side-bar">
+      
+      <!-- PERIOD -->
+      <div class="filter-item">
+          <label><?php echo __('Period') ?>:</label>
+          <select id="year" class="filter-select" style="width: 85px;">
+          <?php foreach(range($lastYear, $firstYear) as $year): ?>
+              <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+          <?php endforeach; ?>
+          </select>
+          <select id="month" class="filter-select" style="width: 85px;">
+              <option value="0">(<?php echo __('All'); ?>)</option>
+              <?php foreach($months as $monthId => $monthName): ?>
+              <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
+              <?php endforeach; ?>
+          </select>
+      </div>
       
       <!-- TAB LIST -->
       <div id="tabs">
@@ -217,6 +233,8 @@
         <!-- LAYERS TAB -->
         <div id="tabs-3">
           <div class="tabs-content-container">
+            
+            <!-- LAYERS -->
             <h2>Camadas:</h2>
             <div class="layers-item" id="layers-toggle-div1">
               <label>Batimetria:</label><input id="layers-toggle1" class="layers-toggle" type="checkbox" value="layer1" name="layer1" />
@@ -233,7 +251,15 @@
             <div class="layers-item" id="layers-toggle-div4">
               <label>Linhas Batimétricas (1000m):</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
             </div>
-            <br />
+            
+            <!-- LEGENDS -->
+            <div id="layers-legend-bathymetry">
+              <?php echo image_tag('layers/bathlegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+            </div>
+            <div id="layers-legend-slope">
+              <?php echo image_tag('layers/slopelegend-'.$sf_user->getCulture().'.png', array('width' => '200')); ?>
+            </div>
+            
           </div>
         </div>
         
