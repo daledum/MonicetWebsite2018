@@ -198,6 +198,10 @@ maps:
 maps_time:
   url:   /maps_time
   param: { module: maps, action: time }
+  
+generalInfoMap:
+  url:   /generalInfoMap
+  param: { module: maps, action: gInfoMap }
 
 charts:
   url:   /charts

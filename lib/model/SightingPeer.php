@@ -144,5 +144,12 @@ class SightingPeer extends BaseSightingPeer {
 
     return BasePeer::doSelect($c);
   }
+  
+  public static function getByGeneralInfoId($giid){
+    $c = SightingPeer::getBasicCriteriaWithFilters();
+    $c->addAnd(GeneralInfoPeer::ID, $giid, Criteria::EQUAL);
+    $c->addAscendingOrderByColumn(SightingPeer::SPECIE_ID);
+    return SightingPeer::doSelect($c);
+  }
 
 } // SightingPeer

@@ -673,6 +673,100 @@ function initialize(map_type, env, scale1, scale2) {
   });
   
   
+  
+  initLayers();
+  
+  $( "#tabs" ).tabs();
+
+}
+
+
+function initGeneralInfo(){
+  
+  /*
+   * inicializa mapa normal
+   */
+  var latlng = new google.maps.LatLng(38.4105,-28.4326);
+  var myOptions = {
+    zoom: 6,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.SATELLITE
+  };
+  var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+  
+  
+  
+  /*
+   * mostra informação da espécie (mapa default)
+   */
+  function addMarkers(markers){
+    for(var i in markers){
+      markers[i].setMap(map);
+    }
+  }
+  
+  /*
+   * esconde informação da espécie (mapa default)
+   */
+  function removeMarkers(markers){
+    for(var i in markers){
+      markers[i].setMap(null);
+    }
+  }
+  
+  /*
+   * remove informação da espécie (mapa default)
+   */
+  function removeSpecie(code,markers,id){
+    
+    $('#'+code).remove();
+    especiesActivas[id] = false;
+    removeMarkers(markers);
+    delete speciesColors[id];
+  }
+  
+  /*
+   * esconde informação da espécie (mapa time)
+   */
+  function hideDS(id){
+    tm.hideDataset(id);
+    tm.refreshTimeline();
+  }
+  
+  /*
+   * mostra informação da espécie (mapa time)
+   */
+  function showDS(id){
+    tm.showDataset(id);
+    tm.refreshTimeline();
+  }
+  
+  /*
+   * remove informação da espécie (mapa time)
+   */
+  function removeDS(code,id){
+    $('#'+code).remove();
+    especiesActivas[id] = false;
+    tm.deleteDataset(id);
+    delete speciesColors[id];
+  }
+  
+  
+  initLayers();
+  
+  $( "#tabs" ).tabs();
+  
+}
+
+
+
+
+
+
+
+
+function initLayers(){
+  
   $('#layers-toggle1').click(function(){
     
     if ($('#layers-toggle1:checked').val() !== undefined) {
@@ -804,10 +898,5 @@ function initialize(map_type, env, scale1, scale2) {
     
   });
   
-  
-  $( "#tabs" ).tabs();
-
-  
-  
-  
 }
+

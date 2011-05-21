@@ -83,5 +83,10 @@ class mapsActions extends sfActions
     $this->months = $months;
   }
   
+  public function executeGInfoMap(sfWebRequest $request){
+    $this->results = SightingPeer::getByGeneralInfoId($request->getParameter('giid'));
+  }
+  
+  
   
 }
