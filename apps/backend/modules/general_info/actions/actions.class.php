@@ -207,10 +207,17 @@ class general_infoActions extends autoGeneral_infoActions
   }
   
   public function executeDownload(sfWebRequest $request){
-      
+    set_time_limit(600);
     // buscar os dados  
-    $dados = GeneralInfoPeer::doSelect($this->buildCriteria());
-      
+    //$dados = GeneralInfoPeer::doSelect($this->buildCriteria());
+    $year = $request->getParameter('year');
+    $c = new Criteria();
+    $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+    $dados = GeneralInfoPeer::doSelect($c);
+    
+    $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
+    PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
       
     // criação do ficheiro Excel (.xls)
     $objPHPExcel = new PHPExcel();
@@ -307,6 +314,7 @@ class general_infoActions extends autoGeneral_infoActions
       // conteudo
     $l = 3;
     foreach($dados as $gi){
+      
       $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,$l, $gi->getDate());
       $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
       foreach($records as $record){
@@ -347,6 +355,7 @@ class general_infoActions extends autoGeneral_infoActions
         if($gi->getGuide()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,$l, $gi->getGuide()->getName());
         $l++;
       }
+      
     }
     
     // download do ficheiro
@@ -390,7 +399,7 @@ class general_infoActions extends autoGeneral_infoActions
     $this->sort = $this->getSort();
   }
   
-  public function executeValidation(sfWebRequest $request){
+  public function executeValidation(sfWebRequest $request){ 
     $this->valid = $request->getParameter('valid');
     $this->comments = $request->getParameter('comments');
     
@@ -406,6 +415,10 @@ class general_infoActions extends autoGeneral_infoActions
     $general_info->save();
     
     return sfView::NONE;
+  }
+  
+  public function executeExport(sfWebRequest $request) {
+    
   }
   
 
