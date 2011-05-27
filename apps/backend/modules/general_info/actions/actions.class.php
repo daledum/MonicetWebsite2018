@@ -208,14 +208,67 @@ class general_infoActions extends autoGeneral_infoActions
   
   public function executeDownload(sfWebRequest $request){
     
-    if(!file_exists(sfConfig::get('sf_upload_dir').'/export/'.$request->getParameter('year').'.xls')) {
-      set_time_limit(600);
-      // buscar os dados  
-      //$dados = GeneralInfoPeer::doSelect($this->buildCriteria());
-      $year = $request->getParameter('year');
+    if($request->getParameter('month') && $request->getParameter('month') != 0) {
+        
+        $year = $request->getParameter('year');
+        $month = $request->getParameter('month');
+        
+        // criar o ficheiro excel
+        $objPHPExcel = $this->generateExportExcelObject($year, $month);
+        
+        $this->filename = $year;
+        
+        // download do ficheiro sem o guardar
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
+        header('Cache-Control: max-age=0');
+        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+        return sfView::NONE;
+        
+        
+    }else {
+      if(!file_exists(sfConfig::get('sf_upload_dir').'/export/'.$request->getParameter('year').'.xls')) {
+        set_time_limit(600);
+        
+        $year = $request->getParameter('year');
+        
+        // criar o ficheiro excel
+        $objPHPExcel = $this->generateExportExcelObject($year);
+        
+        $this->filename = $year;
+        
+        // guardar e fazer download do ficheiro
+        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+        $objWriter->save(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls');
+        chmod(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls', 0777);
+        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
+        
+      } else {
+        
+        // se o ficheiro existe, envia o ficheiro existente
+        $this->filename = $request->getParameter('year');
+        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
+      }
+    }
+    
+  }
+  
+  
+  public function generateExportExcelObject($year, $month = null) {
+      
+      // buscar os dados
       $c = new Criteria();
-      $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
-      $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+      
+      if(!is_null($month)){
+        if($month < 10) $month = '0'.$month;
+        $c->add(GeneralInfoPeer::DATE, $year.'-'.$month.'-%', Criteria::LIKE);
+        
+      } else {
+        $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
+        $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+      }
+      
       $dados = GeneralInfoPeer::doSelect($c);
         
       $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
@@ -376,42 +429,15 @@ class general_infoActions extends autoGeneral_infoActions
         }
         
       }
-    
+      
       // escrever o array no ficheiro
       $cena->fromArray($array,null,'B3');
       
-      $this->filename = $year;
-      
-      // download do ficheiro
-      /*header('Content-Type: application/vnd.ms-excel');
-      header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
-      header('Cache-Control: max-age=0');*/
-      
-      //$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-      //$objWriter->save('php://output');
-      
-      //return sfView::NONE;
-      
-      $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
-      
-      $objWriter->save(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls');
-      
-      chmod(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls', 0777);
-      
-      $this->filedir = '/uploads/export/'.$this->filename.'.xls';
-      
-    } else {
-      $this->filename = $request->getParameter('year');
-      $this->filedir = '/uploads/export/'.$this->filename.'.xls';
-    }
-    
-    
-    
-    
+      return $objPHPExcel;
   }
-
-
-
+  
+  
+  
   public function executeIndex(sfWebRequest $request)
   {
     
