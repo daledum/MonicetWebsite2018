@@ -215,7 +215,7 @@ class general_infoActions extends autoGeneral_infoActions
     $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
     $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
     $dados = GeneralInfoPeer::doSelect($c);
-    
+      
     $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
     PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
       
@@ -236,86 +236,123 @@ class general_infoActions extends autoGeneral_infoActions
     // edição do conteúdo do ficheiro
       // headers
     
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,1, 'Position /EFF');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,1, 'Sighting');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,1, 'Inf. Geral');
+    $cena = $objPHPExcel->getActiveSheet();
     
-    $objPHPExcel->getActiveSheet()->getRowDimension(2)->setRowHeight(30);
-    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')
+    
+    $cena->setCellValueByColumnAndRow(3,1, 'Position /EFF');
+    $cena->setCellValueByColumnAndRow(12,1, 'Sighting');
+    $cena->setCellValueByColumnAndRow(19,1, 'Inf. Geral');
+    
+    $cena->getRowDimension(2)->setRowHeight(30);
+    $cena->getStyle('A2:V2')
         ->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
     
     
-    $objPHPExcel->getActiveSheet()->getStyle('A1')->getFill()
+    $cena->getStyle('A1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('0000ff');
     
     //$objPHPExcel->getActiveSheet()->mergeCells('B1:E1');
-    $objPHPExcel->getActiveSheet()->getStyle('C1:E1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
-    $objPHPExcel->getActiveSheet()->getStyle('B1:E1')->getFill()
+    $cena->getStyle('C1:E1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+    $cena->getStyle('B1:E1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('ffff99');
     
     //$objPHPExcel->getActiveSheet()->mergeCells('F1:G1');
-    $objPHPExcel->getActiveSheet()->getStyle('G1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
-    $objPHPExcel->getActiveSheet()->getStyle('F1:G1')->getFill()
+    $cena->getStyle('G1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+    $cena->getStyle('F1:G1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('0000ff');
     
     //$objPHPExcel->getActiveSheet()->mergeCells('H1:P1');
-    $objPHPExcel->getActiveSheet()->getStyle('I1:P1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
-    $objPHPExcel->getActiveSheet()->getStyle('H1:P1')->getFill()
+    $cena->getStyle('I1:P1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+    $cena->getStyle('H1:P1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('ff9900');
     
     //$objPHPExcel->getActiveSheet()->mergeCells('Q1:V1');
-    $objPHPExcel->getActiveSheet()->getStyle('R1:V1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
-    $objPHPExcel->getActiveSheet()->getStyle('Q1:V1')->getFill()
+    $cena->getStyle('R1:V1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+    $cena->getStyle('Q1:V1')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('0000ff');
       
     
-    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+    $cena->getStyle('A2:V2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
     
-      
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,2, 'Data');
-    $objPHPExcel->getActiveSheet()->getStyle('A2')->getFill()
+    $headers = array();
+    $headers[0] = array();
+    
+    $cena->setCellValueByColumnAndRow(0,2, 'Data');
+    $cena->getStyle('A2')->getFill()
       ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
       ->getStartColor()->setRGB('33cccc');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,2, 'Cod.');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,2, 'Hora');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,2, 'Latitude');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,2, 'Longitude');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,2, 'Vis.');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,2, 'Est. Mar');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,2, 'Sp.');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,2, 'Total');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,2, 'A');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,2, 'J');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,2, 'C');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,2, 'Comp');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,2, 'Asso');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,2, 'Num. Emb.');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,2, 'Comentários');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(16,2, 'Empresa');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(17,2, 'Barco');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(18,2, 'Skipper');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,2, 'Biologist');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(20,2, 'Passg');
-    $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(21,2, 'Dist. Precorrida');
-    $objPHPExcel->getActiveSheet()->getStyle('A1:V1')->getFont()->setBold(true);
-    $objPHPExcel->getActiveSheet()->getStyle('A1:V1')->getFont()->setSize(12);
-    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getFont()->setBold(true);
-    $objPHPExcel->getActiveSheet()->getStyle('A2:V2')->getFont()->setSize(12);
+      
+    $headers[0][] = 'Cod.';
+    $headers[0][] = 'Hora';
+    $headers[0][] = 'Latitude';
+    $headers[0][] = 'Longitude';
+    $headers[0][] = 'Vis.';
+    $headers[0][] = 'Est. Mar';
+    $headers[0][] = 'Sp.';
+    $headers[0][] = 'Total';
+    $headers[0][] = 'A';
+    $headers[0][] = 'J';
+    $headers[0][] = 'C';
+    $headers[0][] = 'Comp';
+    $headers[0][] = 'Asso';
+    $headers[0][] = 'Num. Emb.';
+    $headers[0][] = 'Comentários';
+    $headers[0][] = 'Empresa';
+    $headers[0][] = 'Barco';
+    $headers[0][] = 'Skipper';
+    $headers[0][] = 'Biologist';
+    $headers[0][] = 'Passg';
+    $headers[0][] = 'Dist. Precorrida';
+    $cena->fromArray($headers,null,'B2');
+    
+    /*
+    $cena->setCellValueByColumnAndRow(1,2, 'Cod.');
+    $cena->setCellValueByColumnAndRow(2,2, 'Hora');
+    $cena->setCellValueByColumnAndRow(3,2, 'Latitude');
+    $cena->setCellValueByColumnAndRow(4,2, 'Longitude');
+    $cena->setCellValueByColumnAndRow(5,2, 'Vis.');
+    $cena->setCellValueByColumnAndRow(6,2, 'Est. Mar');
+    $cena->setCellValueByColumnAndRow(7,2, 'Sp.');
+    $cena->setCellValueByColumnAndRow(8,2, 'Total');
+    $cena->setCellValueByColumnAndRow(9,2, 'A');
+    $cena->setCellValueByColumnAndRow(10,2, 'J');
+    $cena->setCellValueByColumnAndRow(11,2, 'C');
+    $cena->setCellValueByColumnAndRow(12,2, 'Comp');
+    $cena->setCellValueByColumnAndRow(13,2, 'Asso');
+    $cena->setCellValueByColumnAndRow(14,2, 'Num. Emb.');
+    $cena->setCellValueByColumnAndRow(15,2, 'Comentários');
+    $cena->setCellValueByColumnAndRow(16,2, 'Empresa');
+    $cena->setCellValueByColumnAndRow(17,2, 'Barco');
+    $cena->setCellValueByColumnAndRow(18,2, 'Skipper');
+    $cena->setCellValueByColumnAndRow(19,2, 'Biologist');
+    $cena->setCellValueByColumnAndRow(20,2, 'Passg');
+    $cena->setCellValueByColumnAndRow(21,2, 'Dist. Precorrida');*/
+    
+    $cena->getStyle('A1:V1')->getFont()->setBold(true);
+    $cena->getStyle('A1:V1')->getFont()->setSize(12);
+    $cena->getStyle('A2:V2')->getFont()->setBold(true);
+    $cena->getStyle('A2:V2')->getFont()->setSize(12);
+    
+    
+    
     $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V');
     foreach($letras as $letra){
-      $objPHPExcel->getActiveSheet()->getColumnDimension($letra)->setAutoSize(true);
+      $cena->getColumnDimension($letra)->setAutoSize(true);
     }
     
       // conteudo
     $l = 3;
+    $l_arr = 0;
+    $array = array();
+    
     foreach($dados as $gi){
       
-      $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(0,$l, $gi->getDate());
+      $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
       $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
       foreach($records as $record){
         // buscar sighting correspondente
@@ -334,33 +371,59 @@ class general_infoActions extends autoGeneral_infoActions
         }
         
         // escrever no ficheiro
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(1,$l, $record->getCode()->getAcronym());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(2,$l, $record->getTime());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(3,$l, $record->getLatitude());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(4,$l, $record->getLongitude());
-        if($record->getVisibility()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(5,$l, $record->getVisibility()->getCode());
-        if($record->getSeaState()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(6,$l, $record->getSeaState()->getCode());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(7,$l, $specie);
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(8,$l, $sighting->getTotal());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(9,$l, $sighting->getAdults());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(10,$l, $sighting->getJuveniles());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(11,$l, $sighting->getCalves());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(12,$l, $sighting->getBehaviourId());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(13,$l, $association);
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(14,$l, $record->getNumVessels());
-        $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(15,$l, $sighting->getComments());
-        if($gi->getCompany()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(16,$l, $gi->getCompany()->getName());
-        if($gi->getVessel()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(17,$l, $gi->getVessel()->getName());
-        if($gi->getSkipper()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(18,$l, $gi->getSkipper()->getName());
-        if($gi->getGuide()) $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(19,$l, $gi->getGuide()->getName());
+        /*$cena->setCellValueByColumnAndRow(1,$l, $record->getCode()->getAcronym());
+        $cena->setCellValueByColumnAndRow(2,$l, $record->getTime());
+        $cena->setCellValueByColumnAndRow(3,$l, $record->getLatitude());
+        $cena->setCellValueByColumnAndRow(4,$l, $record->getLongitude());
+        if($record->getVisibility()) $cena->setCellValueByColumnAndRow(5,$l, $record->getVisibility()->getCode());
+        if($record->getSeaState()) $cena->setCellValueByColumnAndRow(6,$l, $record->getSeaState()->getCode());
+        $cena->setCellValueByColumnAndRow(7,$l, $specie);
+        $cena->setCellValueByColumnAndRow(8,$l, $sighting->getTotal());
+        $cena->setCellValueByColumnAndRow(9,$l, $sighting->getAdults());
+        $cena->setCellValueByColumnAndRow(10,$l, $sighting->getJuveniles());
+        $cena->setCellValueByColumnAndRow(11,$l, $sighting->getCalves());
+        $cena->setCellValueByColumnAndRow(12,$l, $sighting->getBehaviourId());
+        $cena->setCellValueByColumnAndRow(13,$l, $association);
+        $cena->setCellValueByColumnAndRow(14,$l, $record->getNumVessels());
+        $cena->setCellValueByColumnAndRow(15,$l, $sighting->getComments());
+        if($gi->getCompany()) $cena->setCellValueByColumnAndRow(16,$l, $gi->getCompany()->getName());
+        if($gi->getVessel()) $cena->setCellValueByColumnAndRow(17,$l, $gi->getVessel()->getName());
+        if($gi->getSkipper()) $cena->setCellValueByColumnAndRow(18,$l, $gi->getSkipper()->getName());
+        if($gi->getGuide()) $cena->setCellValueByColumnAndRow(19,$l, $gi->getGuide()->getName());*/
+        
+        
+        $array[$l_arr] = array();
+        $array[$l_arr][] = $record->getCode()->getAcronym();
+        $array[$l_arr][] = $record->getTime();
+        $array[$l_arr][] = $record->getLatitude();
+        $array[$l_arr][] = $record->getLongitude();
+        if($record->getVisibility()) $array[$l_arr][] = $record->getVisibility()->getCode(); else $array[$l_arr][] = null;
+        if($record->getSeaState()) $array[$l_arr][] = $record->getSeaState()->getCode(); else $array[$l_arr][] = null;
+        $array[$l_arr][] = $specie;
+        $array[$l_arr][] = $sighting->getTotal();
+        $array[$l_arr][] = $sighting->getAdults();
+        $array[$l_arr][] = $sighting->getJuveniles();
+        $array[$l_arr][] = $sighting->getCalves();
+        $array[$l_arr][] = $sighting->getBehaviourId();
+        $array[$l_arr][] = $association;
+        $array[$l_arr][] = $record->getNumVessels();
+        $array[$l_arr][] = $sighting->getComments();
+        if($gi->getCompany()) $array[$l_arr][] = $gi->getCompany()->getName(); else $array[$l_arr][] = null;
+        if($gi->getVessel()) $array[$l_arr][] = $gi->getVessel()->getName(); else $array[$l_arr][] = null;
+        if($gi->getSkipper()) $array[$l_arr][] = $gi->getSkipper()->getName(); else $array[$l_arr][] = null;
+        if($gi->getGuide()) $array[$l_arr][] = $gi->getGuide()->getName(); else $array[$l_arr][] = null;
+        
         $l++;
+        $l_arr++;
       }
       
     }
+
+    $cena->fromArray($array,null,'B3');
     
     // download do ficheiro
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="Dados Exportados - '.date("Y-m-d H:i:s").'.xls"');
+    header('Content-Disposition: attachment;filename="'.$year.' - Dados Exportados - '.date("Y-m-d H:i:s").'.xls"');
     header('Cache-Control: max-age=0');
     
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
