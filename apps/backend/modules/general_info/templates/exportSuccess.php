@@ -9,10 +9,10 @@
         <label for="year">Ano:</label>
         <div class="content">
           <select id="year" name="year">
-            <option value="2011" selected="selected">2011</option>
-            <option value="2010">2010</option>
-            <option value="2009">2009</option>
-            <option value="2008">2008</option>
+            <option value="<?php echo $years[0] ?>" selected="selected"><?php echo $years[0] ?></option>
+            <?php for($i = 1; $i < count($years); $i++): ?>
+            <option value="<?php echo $years[$i] ?>"><?php echo $years[$i] ?></option>
+            <?php endfor; ?>
           </select>
         </div>
       </div>

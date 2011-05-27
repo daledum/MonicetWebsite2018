@@ -459,9 +459,63 @@ class general_infoActions extends autoGeneral_infoActions
   }
   
   public function executeExport(sfWebRequest $request) {
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);    
+    $gis = GeneralInfoPeer::doSelect($c);
     
+    $temp = substr($gis[0]->getDate(),0,4);
+    $this->years = array();
+    $this->years[] = $temp;
+    foreach($gis as $gi) {
+      if(substr($gi->getDate(),0,4) != $temp) {
+        $temp = substr($gi->getDate(),0,4);
+        $this->years[] = $temp;
+      }
+    }
   }
   
+  
+  public function executeCreate(sfWebRequest $request)
+  {
+      $this->form = $this->configuration->getForm();
+      $this->GeneralInfo = $this->form->getObject();
+      
+      // eliminar ficheiro com o mesmo ano
+      if(file_exists(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls')) {
+        unlink(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls');
+      }
+      
+      $this->processForm($request, $this->form);
+      $this->setTemplate('new');
+  }
 
+  public function executeUpdate(sfWebRequest $request)
+  {
+      $this->GeneralInfo = $this->getRoute()->getObject();
+      
+      // eliminar ficheiro com o mesmo ano
+      if(file_exists(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls')) {
+        unlink(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls');
+      }
+      
+      $this->form = $this->configuration->getForm($this->GeneralInfo);
+      $this->processForm($request, $this->form);
+      $this->setTemplate('edit');
+  }
+  public function executeDelete(sfWebRequest $request)
+  {
+      $request->checkCSRFProtection();
+      $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
+      $this->GeneralInfo = $this->getRoute()->getObject();
+      
+      // eliminar ficheiro com o mesmo ano
+      if(file_exists(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls')) {
+        unlink(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls');
+      }
+      
+      $this->getRoute()->getObject()->delete();
+      $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+      $this->redirect('@general_info');
+  }
   
 }
