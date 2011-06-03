@@ -145,14 +145,6 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       url: "/admin.php/generalInfoResults",
       data: {
         general_info_id: g_info_id,
-        company_id: $('#company').val(),
-        association_id: $('#association').val(),
-        behaviour_id: $('#behaviour').val(),
-        sea_state_id: $('#sea_state').val(),
-        visibility_id: $('#visibility').val(),
-  
-        year: $('#year').val(),
-        month: $('#month').val(),
       },
       success: function( data ) {
         
@@ -223,6 +215,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
               behaviour_id: $('#behaviour').val(),
               sea_state_id: $('#sea_state').val(),
               visibility_id: $('#visibility').val(),
+              valid: $('#valid').val(),
+              environment: env,
   
               year: $('#year').val(),
               month: $('#month').val(),
@@ -329,6 +323,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
               behaviour_id: $('#behaviour').val(),
               sea_state_id: $('#sea_state').val(),
               visibility_id: $('#visibility').val(),
+              valid: $('#valid').val(),
               environment: env,
               
               
@@ -511,16 +506,17 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
           icon: image
       });
       
+      
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
-        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
-        //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
-        //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
-        // TODO condição para validar utilizador para ver os dados
-        //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
-        '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
-        '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
+        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />';
+      if(env == 'backend'){
+        contentString += '<strong>Empresa:</strong> '+value.company_name+'<br />'+
+        '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+        '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />';
+      }
+      contentString += '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
@@ -584,13 +580,13 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
-        //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
-        //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
-        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
-        // TODO condição para validar utilizador para ver os dados
-        //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
-        '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
-        '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
+        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />';
+      if(env == 'backend'){
+        contentString += '<strong>Empresa:</strong> '+value.company_name+'<br />'+
+        '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+        '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />';
+      }
+      contentString += '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
@@ -655,13 +651,13 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
       '<div class="text-w">'+
-        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />'+
-        //'<strong>Empresa:</strong> '+value.company_name+'<br />'+
-        //'<strong>Saída:</strong> '+value.gi_code+'<br />'+
-        // TODO condição para validar utilizador para ver os dados
-        //'<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />'+
-        '<strong>Nº Barcos:</strong> '+value.n_vessels+'<br />'+
-        '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
+        '<strong>Data:</strong> '+value.date+'&nbsp;&nbsp;&nbsp;<strong>Hora:</strong> '+value.time+'<br />';
+      if(env == 'backend'){
+        contentString += '<strong>Empresa:</strong> '+value.company_name+'<br />'+
+        '<strong>Saída:</strong> '+value.gi_code+'<br />'+
+        '<strong>Nº Barcos:</strong> '+value.n_vessels+'&nbsp;&nbsp;&nbsp;<strong>Skipper:</strong> '+value.skipper+'&nbsp;&nbsp;&nbsp;<strong>Guia:</strong> '+value.guide+'<br />';
+      }
+      contentString += '<strong>Total:</strong> '+value.total+'&nbsp;&nbsp;&nbsp;<strong>Adultos:</strong> '+value.adults+'&nbsp;&nbsp;&nbsp;<strong>Jovens:</strong> '+value.juveniles+'&nbsp;&nbsp;&nbsp;<strong>Crias:</strong> '+value.calves+'<br />'+
         '<strong>Latitude:</strong> '+value.lat+'&nbsp;&nbsp;&nbsp;<strong>Longitude:</strong> '+value.lon+'<br />'+
       '</div>';
       
@@ -767,7 +763,6 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         tm.refreshTimeline();
       }
       
-      
       $.ajax({
         url: "/index.php/mapResults",
         data: {
@@ -777,6 +772,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
           behaviour_id: $('#behaviour').val(),
           sea_state_id: $('#sea_state').val(),
           visibility_id: $('#visibility').val(),
+          valid: $('#valid').val(),
+          environment: env,
           
           month: $('#month').val(),
           year: $('#year').val(),

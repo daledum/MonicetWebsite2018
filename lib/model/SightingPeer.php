@@ -68,12 +68,15 @@ class SightingPeer extends BaseSightingPeer {
       $c->addAnd(SightingPeer::BEHAVIOUR_ID, $request->getParameter('behaviour_id'));
     }
     
-    if($request->getParameter('environment'))
+    if($request->getParameter('environment') == 'backend')
     {
-      if(strcmp($request->getParameter('environment'),'frontend') == 0) 
-      {
-        $c->addAnd(GeneralInfoPeer::VALID, 1, Criteria::LIKE);
+      if(intVal($request->getParameter('valid')) != -1){
+        $c->addAnd(GeneralInfoPeer::VALID, intVal($request->getParameter('valid')), Criteria::LIKE);
       }
+    }
+    else
+    {
+      $c->addAnd(GeneralInfoPeer::VALID, 1, Criteria::LIKE);
     }
     
     $c->addAscendingOrderByColumn(SightingPeer::ID);

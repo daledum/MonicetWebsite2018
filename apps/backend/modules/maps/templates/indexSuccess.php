@@ -180,17 +180,19 @@
         <div id="tabs-2">
           <div class="tabs-content-container">
             <h2>Filtros:</h2>
-            <div class="filter-item">
             <?php if($sf_user->isSuperAdmin()): ?>
-            <label>Empresa:</label>
-            <select id="company" class="filter-select">
-              <option></option>
-                <?php foreach($companies as $company): ?>
-                  <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
-                <?php endforeach; ?>
-            </select>
+              <div class="filter-item">
+              <label>Empresa:</label>
+              <select id="company" class="filter-select">
+                <option></option>
+                  <?php foreach($companies as $company): ?>
+                    <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
+                  <?php endforeach; ?>
+              </select>
+            </div>
+            <?php else: ?>
+            <input type="hidden" id="company" name="company" value="<?php echo $user_company->getId() ?>" />
             <?php endif; ?>
-          </div>
             <div class="filter-item">
               <label>Associação:</label>
               <select id="association" class="filter-select">
@@ -225,6 +227,14 @@
                 <?php foreach($visibilities as $visibility): ?>
                   <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
                 <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>Validação:</label>
+              <select id="valid" class="filter-select">
+                <option value="-1" selected="selected">Ambas</option>
+                <option value="0">Não Válidas</option>
+                <option value="1">Válidas</option>
               </select>
             </div>
           </div>

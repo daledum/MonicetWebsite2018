@@ -19,6 +19,11 @@ class mapsActions extends sfActions
   {
     //$this->forward('default', 'module');
     
+    if(!$this->getUser()->isSuperAdmin()){
+      $user = $this->getUser()->getGuardUser();
+      $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    }
+    
     $this->speciesList = SpeciePeer::getAllOrdered();
     
     $this->companies = CompanyPeer::doSelectByCompany();
@@ -51,6 +56,11 @@ class mapsActions extends sfActions
   }
   
   public function executeTime(sfWebRequest $request){
+    
+    if(!$this->getUser()->isSuperAdmin()){
+      $user = $this->getUser()->getGuardUser();
+      $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    }
     
     $this->speciesList = SpeciePeer::getAllOrdered();
     
@@ -89,8 +99,8 @@ class mapsActions extends sfActions
     
     if(!$this->getUser()->isSuperAdmin()){
       $user = $this->getUser()->getGuardUser();
-      $company = CompanyPeer::doSelectUserCompany($user->getId());
-      $this->forward404Unless($company->getId() == $this->general_info->getCompanyId());
+      $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+      $this->forward404Unless($this->user_company->getId() == $this->general_info->getCompanyId());
     }
   }
   
