@@ -10,6 +10,11 @@ class general_infoActions extends autoGeneral_infoActions
     $giid = $request->getParameter('id');
     $this->redirect('general_info/sheet?giid=' . $giid);
   }
+  
+  public function executeListShowMap(sfWebRequest $request) {
+    $giid = $request->getParameter('id');
+    $this->redirect('@generalInfoMap?general_info_id=' . $giid);
+  }
 
   
   protected function processForm(sfWebRequest $request, sfForm $form)

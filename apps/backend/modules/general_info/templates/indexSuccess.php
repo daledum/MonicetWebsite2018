@@ -14,6 +14,10 @@
     background: url("/images/backend/icons/grid.png") no-repeat scroll 0 0 !important;
     padding-left: 20px;
 }
+.sf_admin_action_showmap a{
+    background: url("/images/backend/icons/map.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
 </style>
 
 

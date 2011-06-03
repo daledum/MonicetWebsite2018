@@ -8,7 +8,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('time', 'backend', $('#scale1').val(), $('#scale2').val());
+    initialize('time', 'backend', $('#scale1').val(), $('#scale2').val(), null);
     
     $("#scale2").change(function() {
        var sc2 = parseInt($(this).val());

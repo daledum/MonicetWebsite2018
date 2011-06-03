@@ -8,7 +8,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initGeneralInfo();
+    initialize('ginfo', 'backend', null, null, <?php echo $general_info->getId() ?>);
   });
 </script>
 
@@ -121,7 +121,7 @@
 <?php end_slot() ?>
 
 <div id="sf_admin_container" class="map-container">
-  <h1 style="text-align: left;">Mapa de Avistamentos</h1>
+  <h1 style="text-align: left;">Mapa de Avistamentos da Saída <?php echo $general_info->getCode() ?></h1>
   
   <!-- MAP CONTAINER -->
   <div class="left-container">

@@ -83,10 +83,33 @@ class mapsActions extends sfActions
     $this->months = $months;
   }
   
-  public function executeGInfoMap(sfWebRequest $request){
-    $this->results = SightingPeer::getByGeneralInfoId($request->getParameter('giid'));
+  public function executeGInfoMap(sfWebRequest $request) {
+    $this->general_info = GeneralInfoPeer::retrieveByPk($request->getParameter('general_info_id'));
+    $this->forward404Unless($this->general_info);
+    
+    if(!$this->getUser()->isSuperAdmin()){
+      $user = $this->getUser()->getGuardUser();
+      $company = CompanyPeer::doSelectUserCompany($user->getId());
+      $this->forward404Unless($company->getId() == $this->general_info->getCompanyId());
+    }
   }
   
-  
+  public function executeGInfoResults(sfWebRequest $request) {
+    
+    $this->general_info = GeneralInfoPeer::retrieveByPk($request->getParameter('general_info_id'));
+    
+    $this->sightings = SightingPeer::getByGeneralInfoId($request);
+    
+    $this->species = array();
+    $this->species[] = SpeciePeer::retrieveByPk($this->sightings[0]->getSpecieId());
+    
+    foreach($this->sightings as $sighting) {
+      if (end($this->species)->getId() != $sighting->getSpecieId()){
+        $this->species[] = SpeciePeer::retrieveByPk($sighting->getSpecieId());
+      }
+    }
+    
+    
+  }
   
 }

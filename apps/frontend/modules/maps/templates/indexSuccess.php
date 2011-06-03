@@ -5,7 +5,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('default', 'frontend', 0, 1);
+    initialize('default', 'frontend', 0, 1, null);
   });
 </script>
 

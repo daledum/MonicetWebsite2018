@@ -8,7 +8,7 @@
    * inicializa o javascript com a abertura da página
    */
   $(function(){
-    initialize('default', 'backend', 0, 1);
+    initialize('default', 'backend', 0, 1, null);
   });
 </script>
 

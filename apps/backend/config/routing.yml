@@ -200,8 +200,12 @@ maps_time:
   param: { module: maps, action: time }
   
 generalInfoMap:
-  url:   /generalInfoMap
+  url:   /generalInfoMap/:general_info_id
   param: { module: maps, action: gInfoMap }
+  
+generalInfoResults:
+  url:   /generalInfoResults
+  param: { module: maps, action: gInfoResults }
 
 charts:
   url:   /charts
