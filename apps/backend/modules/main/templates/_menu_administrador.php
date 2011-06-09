@@ -33,11 +33,30 @@
       <li><a href="<?php echo url_for('@guide') ?>">Guias/Biólogos</a></li>
     </ul>
   </li>
-  <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
-  <?php /*<li><a href="#">Visualização</a>
+  <?php if($sf_user->isSuperAdmin()): ?>
+    <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
+  <?php else: ?>
+    <li><a href="#">Saídas</a>
+      <ul>
+        <li><a href="<?php echo url_for('@general_info') ?>">As minhas saídas</a></li>
+        <li><a href="#">Todas as saídas</a></li>
+      </ul>
+    </li>
+  <?php endif; ?>
+  
+  <li><a href="#">Visualização</a>
     <ul>
-      <li><a href="#">Analítica</a></li>
-      <li><a href="<?php echo url_for('@maps') ?>">Geográfica</a></li>
+      <li><a href="#">Mapas</a>
+        <ul>
+          <li><a href="<?php echo url_for('@maps') ?>">Mapa Geral</a></li>
+          <li><a href="<?php echo url_for('@maps_time') ?>">Mapa Temporal</a></li>
+        </ul>
+      </li>
+      <li><a href="#">Gráficos</a>
+        <ul>
+          <li><a href="<?php echo url_for('@charts') ?>">APUE</a></li>
+        </ul>
+      </li>
     </ul>
-  </li>*/ ?>
+  </li>
 </ul>

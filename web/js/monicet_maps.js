@@ -145,6 +145,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       url: "/admin.php/generalInfoResults",
       data: {
         general_info_id: g_info_id,
+        valid: $('#valid').val(),
+        environment: env,
       },
       success: function( data ) {
         
@@ -199,7 +201,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
     $.ajax({
       url: "/index.php/specieQuery",
       data: {
-        specie_id: 8
+        specie_id: 8,
+        environment: env,
       },
       success: function( dat ) {
           

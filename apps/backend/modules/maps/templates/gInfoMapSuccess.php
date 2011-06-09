@@ -151,6 +151,9 @@
           </div>
         </div>
         
+        <!-- FILTERS -->
+        <input type="hidden" id="valid" name="valid" value="-1" />
+        
         <!-- LAYERS TAB -->
         <div id="tabs-3">
           <div class="tabs-content-container">

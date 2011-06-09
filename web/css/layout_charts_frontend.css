@@ -95,6 +95,8 @@ input:focus, textarea:focus {
 label {
     font-weight: bold;
     color: #167b8b;
+    width: 100px !important;
+    float: left;
 }
 
 textarea {
