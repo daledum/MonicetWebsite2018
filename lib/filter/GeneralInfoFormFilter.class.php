@@ -21,7 +21,7 @@ class GeneralInfoFormFilter extends BaseGeneralInfoFormFilter
     $company = CompanyPeer::doSelectUserCompany($user->getId());
     
     if($company){
-      unset($this['company_id']);
+      $this->setWidget('company_id', new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
     }
     
     

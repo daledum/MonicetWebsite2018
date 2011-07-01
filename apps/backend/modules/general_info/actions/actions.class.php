@@ -446,14 +446,6 @@ class general_infoActions extends autoGeneral_infoActions
   public function executeIndex(sfWebRequest $request)
   {
     
-    $user = sfContext::getInstance()->getUser()->getGuardUser();
-    $company = CompanyPeer::doSelectUserCompany($user->getId());
-    
-    if(!$user->getIsSuperAdmin()){
-      $this->setFilters(array( 'company_id' => $company->getId()));
-    }
-    
-    
     
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
