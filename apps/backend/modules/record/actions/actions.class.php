@@ -243,8 +243,16 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->record->setSeaStateId($sea_state);
       $this->record->setGeneralInfoId($general_info);
       $this->record->setTime($time);
-      $this->record->setLatitude($latitude);
-      $this->record->setLongitude($longitude);
+      $gi = GeneralInfoPeer::retrieveByPk($general_info);
+      echo $gi->getCode();
+      if ($latitude == $gi->getBaseLatitude() && $longitude == $gi->getBaseLongitude() && ($code == 1 || $code == 2) ) {
+        $this->record->setLatitude('BASE');
+        $this->record->setLongitude('BASE');
+      }
+      else {
+        $this->record->setLatitude($latitude);
+        $this->record->setLongitude($longitude);
+      }
       $this->record->setNumVessels($num_vessels);
       $this->record->save();
       
