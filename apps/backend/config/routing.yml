@@ -1,3 +1,12 @@
+general_info_gi_list:
+  class: sfPropelRouteCollection
+  options:
+    model:                GeneralInfo
+    module:               gi_list
+    prefix_path:          /gi_list
+    column:               id
+    with_wildcard_routes: true
+
 content:
   class: sfPropelRouteCollection
   options:
@@ -202,6 +211,10 @@ maps_time:
 generalInfoMap:
   url:   /generalInfoMap/:general_info_id
   param: { module: maps, action: gInfoMap }
+
+generalInfoPublicMap:
+  url:   /generalInfoPublicMap/:general_info_id
+  param: { module: maps, action: gInfoPublicMap }
   
 generalInfoResults:
   url:   /generalInfoResults

@@ -1,0 +1,32 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           GeneralInfo
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             true
+    singular:              GeneralInfo
+    plural:                GeneralInfos
+    route_prefix:          general_info_gi_list
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        general_info
+
+    config:
+      actions: ~
+      fields:  
+        date:
+          date_format:     yyyy-MM-dd
+      list:
+        display:           [date, base_latitude, base_longitude]
+        peer_method:       doSelectForPublicList
+        batch_actions:     {}
+        actions:           {}
+        object_actions:
+          showGrid:        {label: Registos}
+          showMap:         {label: Ver em Mapa}
+      filter:
+        display:           [ date, species ]
+      form:    ~
+      edit:    ~
+      new:     ~

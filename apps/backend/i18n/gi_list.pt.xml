@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Gi list List</source>
+        <target>Lista Pública de Saídas</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

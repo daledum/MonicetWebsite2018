@@ -104,6 +104,16 @@ class mapsActions extends sfActions
     }
   }
   
+  public function executeGInfoPublicMap(sfWebRequest $request) {
+    $this->general_info = GeneralInfoPeer::retrieveByPk($request->getParameter('general_info_id'));
+    $this->forward404Unless($this->general_info);
+    
+    if(!$this->getUser()->isSuperAdmin()){
+      $user = $this->getUser()->getGuardUser();
+      $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    }
+  }
+  
   public function executeGInfoResults(sfWebRequest $request) {
     
     $this->general_info = GeneralInfoPeer::retrieveByPk($request->getParameter('general_info_id'));

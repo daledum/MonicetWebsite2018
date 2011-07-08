@@ -62,6 +62,11 @@ class general_infoActions extends autoGeneral_infoActions
     $this->general_info = GeneralInfoQuery::create()
                             ->filterById($request->getParameter("giid"))
                             ->findOne();
+    
+    $user = $this->getUser()->getGuardUser();
+    $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    $this->forward404Unless($this->general_info->getCompanyId() == $this->user_company->getId());
+    
     $this->records = $this->general_info->getRecords();
     $this->n_lines = count($this->records);
     

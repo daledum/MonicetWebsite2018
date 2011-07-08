@@ -1,0 +1,7 @@
+indexSuccess:
+  javascripts: ['datepicker.js', 'date.js', coordenadas_empresa.js]
+  stylesheets: ['datepicker.css']
+
+all:
+  layout: mfAdminLayout
+  

@@ -18,3 +18,22 @@ fieldset fieldset legend {
   margin: 0 10px;
   padding: 0 4px;
 }
+
+/* acções no backend da general info e gi_list */
+.sf_admin_action_import a{
+    background: url("/images/backend/icons/import.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+.sf_admin_action_export a{
+    background: url("/images/backend/icons/export.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+.sf_admin_action_showgrid a{
+    background: url("/images/backend/icons/grid.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+.sf_admin_action_showmap a{
+    background: url("/images/backend/icons/map.png") no-repeat scroll 0 0 !important;
+    padding-left: 20px;
+}
+/* fim das acções no backend da general info e gi_list */
