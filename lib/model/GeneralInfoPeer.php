@@ -17,27 +17,45 @@
  * @package    lib.model
  */
 class GeneralInfoPeer extends BaseGeneralInfoPeer {
-    public static function doSelectByCompany($request=null) {
-      
-        $request = (! is_null($request) && $request instanceof sfWebRequest) ? $request : sfContext::getInstance()->getRequest();
-      
+    
+    /**
+     * Method to do selects.
+     *
+     * @param      Criteria $criteria The Criteria object used to build the SELECT statement.
+     * @param      PropelPDO $con
+     * @return     array Array of selected Objects
+     * @throws     PropelException Any exceptions caught during processing will be
+     *       rethrown wrapped into a PropelException.
+     */
+    public static function doSelect(Criteria $criteria, PropelPDO $con = null)
+    {
         $user = sfContext::getInstance()->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
         if ($company) {
-            $query = GeneralInfoQuery::create()
-                ->filterByCompanyId($company->getId());
-                
-        } else {
-            $query = GeneralInfoQuery::create();
+            $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
         }
-        //$ordem = 'GeneralInfoPeer::'.strtoupper($request->getParameter('sort', 'valid'));
-        $query = $query
-            ->orderBy(mfText::to_camel_case($request->getParameter('sort', 'valid'), true), $request->getParameter('order', 'desc'))
-            //->addDescendingOrderByColumn($ordem)
-        ->paginate($request->getParameter('page', 1), 20);
-        return $query;
+        return parent::doSelect($criteria, $con);
     }
-	
+    
+    /**
+     * Returns the number of rows matching criteria.
+     *
+     * @param      Criteria $criteria
+     * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
+     * @param      PropelPDO $con
+     * @return     int Number of matching rows.
+     */
+    public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
+    {
+        $user = sfContext::getInstance()->getUser()->getGuardUser();
+        $company = CompanyPeer::doSelectUserCompany($user->getId());
+        if ($company) {
+            $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
+        }
+        
+        return parent::doCount($criteria, $distinct, $con);
+    }
+    
 	public static function doSelectForPublicList($request=null) {
       
         $request = (! is_null($request) && $request instanceof sfWebRequest) ? $request : sfContext::getInstance()->getRequest();
