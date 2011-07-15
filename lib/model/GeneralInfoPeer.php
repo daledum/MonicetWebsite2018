@@ -29,11 +29,14 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        $user = sfContext::getInstance()->getUser()->getGuardUser();
-        $company = CompanyPeer::doSelectUserCompany($user->getId());
-        if ($company) {
-            $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
+        if(sfContext::getInstance()->getUser()->isAuthenticated()) {
+            $user = sfContext::getInstance()->getUser()->getGuardUser();
+            $company = CompanyPeer::doSelectUserCompany($user->getId());
+            if ($company) {
+                $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
+            }
         }
+        
         return parent::doSelect($criteria, $con);
     }
     
@@ -47,10 +50,12 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
      */
     public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
     {
-        $user = sfContext::getInstance()->getUser()->getGuardUser();
-        $company = CompanyPeer::doSelectUserCompany($user->getId());
-        if ($company) {
-            $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
+        if(sfContext::getInstance()->getUser()->isAuthenticated()) {
+            $user = sfContext::getInstance()->getUser()->getGuardUser();
+            $company = CompanyPeer::doSelectUserCompany($user->getId());
+            if ($company) {
+                $criteria->addAnd(GeneralInfoPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);    
+            }
         }
         
         return parent::doCount($criteria, $distinct, $con);
