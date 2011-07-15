@@ -18,7 +18,8 @@ generator:
           date_format:     yyyy-MM-dd
       list:
         display:           [code, date, vessel, base_latitude, base_longitude, valid]
-        #peer_method:       doSelectByCompany
+        peer_method:       doSelectByCompany
+        peer_count_method: doCountByCompany
         object_actions:
           showGrid:        {label: Registos}
           showMap:         {label: Ver em Mapa}

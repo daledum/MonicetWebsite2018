@@ -19,7 +19,7 @@
 class GeneralInfoPeer extends BaseGeneralInfoPeer {
     
     /**
-     * Method to do selects.
+     * Method to do selects. (BACKEND)
      *
      * @param      Criteria $criteria The Criteria object used to build the SELECT statement.
      * @param      PropelPDO $con
@@ -27,7 +27,7 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
      * @throws     PropelException Any exceptions caught during processing will be
      *       rethrown wrapped into a PropelException.
      */
-    public static function doSelect(Criteria $criteria, PropelPDO $con = null)
+    public static function doSelectByCompany(Criteria $criteria, PropelPDO $con = null)
     {
         if(sfContext::getInstance()->getUser()->isAuthenticated()) {
             $user = sfContext::getInstance()->getUser()->getGuardUser();
@@ -41,14 +41,14 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
     }
     
     /**
-     * Returns the number of rows matching criteria.
+     * Returns the number of rows matching criteria. (BACKEND)
      *
      * @param      Criteria $criteria
      * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
      * @param      PropelPDO $con
      * @return     int Number of matching rows.
      */
-    public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
+    public static function doCountByCompany(Criteria $criteria, $distinct = false, PropelPDO $con = null)
     {
         if(sfContext::getInstance()->getUser()->isAuthenticated()) {
             $user = sfContext::getInstance()->getUser()->getGuardUser();
