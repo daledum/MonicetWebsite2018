@@ -5,6 +5,13 @@
     <?php include_http_metas() ?>
     <?php include_metas() ?>
     <title>monicet :: <?php echo __($active) ?></title>
+    <meta property="og:language" content="<?php echo $sf_user->getCulture(); ?>" />
+    <meta property="og:title" content="MONICET" />
+    <meta property="og:type" content="non_profit" />
+    <meta property="og:url" content="http://www.monicet.net" />
+    <meta property="og:image" content="http://profile.ak.fbcdn.net/hprofile-ak-snc4/174780_195624723787486_4269390_n.jpg" />
+    <meta property="og:site_name" content="MONICET" />
+    <meta property="fb:admins" content="531002996" />
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <link rel="alternate" title="monicet - Notícias" href="<?php echo url_for('@news_feeds'); ?>" type="application/rss+xml" />
     <?php include_stylesheets() ?>
@@ -66,9 +73,8 @@
 	        <div style="position: relative; left: 740px; display: inline-block;"><?php echo link_to('Admin','/admin.php') ?></div>
 	    </div>
     </div>
-    <div id="_div_footer">
-        <div>
-            <span id="_span_support"><?php echo __('Support'); ?>: &nbsp;</span>
+    <div id="_div_footer">																			 <div><div style="display:inline-block;float:left;margin-top:11px;width:300px;"><iframe src="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.monicet.net%2F&show_faces=False" scrolling="no" frameborder="0" style="height: 62px; width: 100%" allowTransparency="true"></iframe></div>
+		       <span id="_span_support">&nbsp;&bull;&nbsp;<?php echo __('Support'); ?>: &nbsp;</span>
             <ul id="_ul_support">
                 <li><a href="http://www.azores.gov.pt" target="_blank"><img alt="Governo Regional dos Açores" title="Governo Regional dos Açores" src="/images/logo-gra.png" /></a></li>
                 <li><a href="http://www.azores.gov.pt/Portal/pt/entidades/srcte/" target="_blank"><img alt="Secretaria Regional da Ciência, Tecnologia e Equipamentos" title="Secretaria Regional da Ciência, Tecnologia e Equipamentos" src="/images/logo-srcte.png" /></a></li>

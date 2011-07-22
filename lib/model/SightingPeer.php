@@ -18,18 +18,18 @@
  */
 class SightingPeer extends BaseSightingPeer {
   
-  public static function getBySpecie($specie_id){
+  public static function getBySpecie($specie_id){  
     $c = new Criteria();
     $c->add(SightingPeer::SPECIE_ID, $specie_id, Criteria::EQUAL);
     $c->addAscendingOrderByColumn(SightingPeer::ID);
     return SightingPeer::doSelect($c);
   }
-  
+
   public static function retrieveByRecordId($id){
     $c = new Criteria();
     $c->add(SightingPeer::RECORD_ID, $id, Criteria::EQUAL);
     return SightingPeer::doSelectOne($c);
-  } 
+  }
   
   public static function getBasicCriteriaWithFilters() {
     $c = new Criteria();
