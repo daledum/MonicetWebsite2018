@@ -28,7 +28,6 @@
     <?php endif ?>
   </head>
   <body>
-    <div style="width:100%;height:25px;background-color:#f4f06b;font-size: 14px;text-align: center; font-weight: bold; color: #d45a00;border-bottom: 2px solid #ffdb00;border-top: 2px solid #ffdb00;padding-top:7px;position:absolute;top:0px;"><span style="background-image:url('/images/wip.png');background-repeat:no-repeat;padding:6px 40px 5px;height:20px;"><?php echo __('in maintenance'); ?></span></div>
     <div id="_div_background">
       <div id="_div_page">
           <div style="margin: 0 auto;position: relative;top: -22px;width: 955px;"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a></div>
@@ -48,12 +47,15 @@
     </div>
     <div id="_div_footer">
         <div>
+            <div style="display:inline-block;float:left;margin-top:16px;width:300px;">
+                <iframe src="http://www.facebook.com/plugins/like.php?app_id=128579077231396&amp;href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FMonicet%2F195624723787486&amp;send=false&amp;layout=standard&amp;width=300&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300px; height:35px;" allowTransparency="true"></iframe>
+            </div>
             <span id="_span_support"><?php echo __('Support'); ?>: &nbsp;</span>
             <ul id="_ul_support">
                 <li><a href="http://www.azores.gov.pt" target="_blank"><img alt="Governo Regional dos Açores" title="Governo Regional dos Açores" src="/images/logo-gra.png" /></a></li>
                 <li><a href="http://www.azores.gov.pt/Portal/pt/entidades/srcte/" target="_blank"><img alt="Secretaria Regional da Ciência, Tecnologia e Equipamentos" title="Secretaria Regional da Ciência, Tecnologia e Equipamentos" src="/images/logo-srcte.png" /></a></li>
             </ul>
-            <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2010/2011</p>
+            <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2011</p>
         </div>
     </div>
     <script type="text/javascript">
