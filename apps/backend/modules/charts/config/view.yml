@@ -4,3 +4,7 @@ all:
 indexSuccess:
   stylesheets: ["layout_charts_backend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
   javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]
+  
+monthSuccess:
+  stylesheets: ["layout_charts_backend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
+  javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts_month.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]

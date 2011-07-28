@@ -223,6 +223,10 @@ generalInfoResults:
 charts:
   url:   /charts
   param: { module: charts, action: index }
+  
+month_chart:
+  url:   /month_chart
+  param: { module: charts, action: month }
 
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
