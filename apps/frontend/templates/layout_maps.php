@@ -56,6 +56,16 @@
                 <li><a href="http://www.azores.gov.pt/Portal/pt/entidades/srcte/" target="_blank"><img alt="Secretaria Regional da Ciência, Tecnologia e Equipamentos" title="Secretaria Regional da Ciência, Tecnologia e Equipamentos" src="/images/logo-srcte.png" /></a></li>
             </ul>
             <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2011</p>
+            <br />
+            <div class="creative-commons">
+        		<div class="creative-commons-image">
+        			<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+		            	<img alt="Licença Creative Commons" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" />
+		           	</a>
+		        </div>
+	           	<br />
+	           	<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">MONICET</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.monicet.net/" property="cc:attributionName" rel="cc:attributionURL">MONICET database</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Atribuição-Uso Não-Comercial-Partilha nos termos da mesma licença 3.0 Unported License</a>.<br />Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.monicet.net/" rel="cc:morePermissions">http://www.monicet.net/</a>
+            </div>
         </div>
     </div>
     <script type="text/javascript">
