@@ -17,7 +17,8 @@ function initChart(series, categories, chatType, stacking) {
       }],
       title: {
         text: ' '
-      }
+      },
+      min: 0,
     },
     tooltip: {
       formatter: function() {
