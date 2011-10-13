@@ -25,6 +25,6 @@
 	  <div class="form_row right">
 	  	<input type="button" class="button" value="<?php echo __('cancel', array(), 'sf_guard') ?>" onclick="location.href='<?php echo url_for('@homepage') ?>'" /> <input type="submit" class="button" value="<?php echo __('enter', array(), 'sf_guard') ?>" />
 	  </div>
-	  <?php include_partial('sfGuardAuth/login_links') ?>
+	  <?php //include_partial('sfGuardAuth/login_links') ?>
 	</form>
 </div>

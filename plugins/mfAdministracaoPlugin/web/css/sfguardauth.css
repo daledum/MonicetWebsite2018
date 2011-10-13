@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 body, html {
-  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  background: #fff url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
   font-family: Tahoma;
   padding-top: 20px;
   color: #727272;
@@ -15,14 +15,14 @@ body, html {
   width: 100%;
 }
 #header {
-  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  background: #fff url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
   height: 80px;
 }
 #header .box {
   background: #5785c3 url('../images/sfguardauth/header_box_bg.jpg') repeat-x top left;
   position: relative;
 }
-#header .box .ne {
+/*#header .box .ne {
   background: transparent url('../images/sfguardauth/nw.jpg') no-repeat top left;
   position: absolute;
   top: 0;
@@ -38,14 +38,15 @@ body, html {
   width: 20px;
   height: 20px;
 }
+*/
 #main {
-  background: #4d545e url('../images/sfguardauth/main_bg.jpg') repeat-y top center;
+  background: #fff url('../images/sfguardauth/main_bg.jpg') repeat-y top center;
   height: 378px;
 }
 #main .box {
-  background-color: #474e59;
-  border-top: 2px solid #3465b0;
-  border-bottom: 2px solid #5784c2;
+  background-color: #fff;
+  border-top: 1px dotted #69c8de;
+ /* border-bottom: 1px solid #69c8de;*/
   color: #ffffff;
   padding: 0;
   position: relative;
@@ -66,12 +67,12 @@ body, html {
 }
 #main .vbar {
   float: left;
-  width: 2px;
+  width: 1px;
   height: 332px;
   position: relative;
   left: 6px;
   top: 24px;
-  background-color: #3667b1;
+  background-color: #69c8de;
 }
 #main .form {
   float: right;
@@ -90,15 +91,15 @@ body, html {
   *left: 90px;
 }
 #main .form .textbox {
-  border: 2px solid #666666;
-  background-color: #e0e0e0;
+  border: 1px solid #295764;
+  background-color: #fff;
   font-size: 16px;
   height: 22px;
   width: 300px;
 }
 #main .form .textbox:focus {
-  border: 2px solid #3667b1;
-  background-color: #e6e6e6;
+  border: 2px solid #295764;
+  background-color: #fff;
 }
 #main .form .button {
   background: #222222 url('../images/sfguardauth/button_bg.jpg') repeat top left;
@@ -108,7 +109,7 @@ body, html {
   padding: 4px 12px;
 }
 #main .form h1 {
-  color: #4a78bc;
+  color: #295764;
   font-size: 20px;
   text-align: right;
 }
@@ -118,7 +119,7 @@ body, html {
   text-align: right;
 }
 #main .form label {
-  color: #d8d8d8;
+  color: #295764;
   font-size: 14px;
   display: block;
   margin-bottom: 5px;
@@ -133,16 +134,16 @@ body, html {
   background: transparent url('../images/sfguardauth/arrow.jpg') no-repeat left 50%;
 }
 #footer {
-  background: #5785c3 url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
+  background: #fff url('../images/sfguardauth/header_bg.jpg') repeat-y top center;
   height: 35px;
   clear: both;
   display: block;
   margin-top: 2px; 
 }
 #footer .box {
-  background: #6088c6 url('../images/sfguardauth/footer_box_bg.jpg') repeat-x;
-  border-top: 2px solid #3465b0;
-  color: #cccccc;
+  background: #fff url('../images/sfguardauth/footer_box_bg.jpg') repeat-x;
+  border-top: 1px dotted #69c8de;
+  color: #6d6d6d;
   text-align: right;
   position: relative;
 }
@@ -151,7 +152,7 @@ body, html {
   top: 7px;
   right: 20px;	
 }
-#footer .box .se {
+/*#footer .box .se {
   background: transparent url('../images/sfguardauth/sw.jpg') no-repeat bottom left;
   position: absolute;
   bottom: 0;
@@ -168,21 +169,24 @@ body, html {
   height: 20px;
   z-index: 100;
 }
+*/
 #footer a:link, #footer a:visited {
-  color: #eeeeee;	
+  color: #1c64a4;	
 }
 #footer a:hover, #footer a:active {
-  color: #444444; 
+  color: #1c64a4; 
+  text-decoration: underline;
 }
 a {
   outline: none;
 }
 a:link, a:visited {
-	color: #4a78bc;
+	color: #295764;
   text-decoration: none;
 }
 a:hover, a:active {
-  color: #dddddd;
+  color: #295764;
+  text-decoration: underline;
 }
 .error {
   color: #d95050;
