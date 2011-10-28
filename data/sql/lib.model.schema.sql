@@ -40,244 +40,6 @@ CREATE TABLE `option`
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- news_article
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `news_article`;
-
-
-CREATE TABLE `news_article`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`is_published` TINYINT default 0 NOT NULL,
-	`slug` VARCHAR(255)  NOT NULL,
-	`image` VARCHAR(1024),
-	`enter_date` DATE,
-	`exit_date` DATE,
-	`publish_date` DATE  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `news_article_U_1` (`slug`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- news_article_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `news_article_i18n`;
-
-
-CREATE TABLE `news_article_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`headline` VARCHAR(255)  NOT NULL,
-	`body` TEXT  NOT NULL,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `news_article_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `news_article` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- consorcium_element
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `consorcium_element`;
-
-
-CREATE TABLE `consorcium_element`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR(255)  NOT NULL,
-	`logotype` VARCHAR(255),
-	`link` VARCHAR(500),
-	`slug` VARCHAR(255)  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `consorcium_element_U_1` (`slug`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- consorcium_element_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `consorcium_element_i18n`;
-
-
-CREATE TABLE `consorcium_element_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`description` TEXT,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `consorcium_element_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `consorcium_element` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- team
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `team`;
-
-
-CREATE TABLE `team`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`slug` VARCHAR(255)  NOT NULL,
-	`type` VARCHAR(255)  NOT NULL,
-	`name` VARCHAR(512)  NOT NULL,
-	`link` VARCHAR(1024),
-	`photo` VARCHAR(1024),
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `team_U_1` (`slug`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- team_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `team_i18n`;
-
-
-CREATE TABLE `team_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`about` TEXT,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `team_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `team` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- album
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `album`;
-
-
-CREATE TABLE `album`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`slug` VARCHAR(255)  NOT NULL,
-	`is_public` TINYINT default 0,
-	`publish_date` DATE  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `album_U_1` (`slug`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- album_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `album_i18n`;
-
-
-CREATE TABLE `album_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`name` VARCHAR(512)  NOT NULL,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `album_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `album` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- photo
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `photo`;
-
-
-CREATE TABLE `photo`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`slug` VARCHAR(255)  NOT NULL,
-	`album_id` INTEGER  NOT NULL,
-	`image` VARCHAR(1024),
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `photo_U_1` (`slug`),
-	INDEX `photo_FI_1` (`album_id`),
-	CONSTRAINT `photo_FK_1`
-		FOREIGN KEY (`album_id`)
-		REFERENCES `album` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- photo_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `photo_i18n`;
-
-
-CREATE TABLE `photo_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`caption` VARCHAR(512),
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `photo_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `photo` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- content
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `content`;
-
-
-CREATE TABLE `content`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`section` VARCHAR(255)  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `content_U_1` (`section`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- content_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `content_i18n`;
-
-
-CREATE TABLE `content_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`description` TEXT,
-	`culture` VARCHAR(7)  NOT NULL,
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `content_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `content` (`id`)
-		ON DELETE CASCADE
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
 #-- company
 #-----------------------------------------------------------------------------
 
@@ -830,6 +592,519 @@ CREATE TABLE `user`
 	CONSTRAINT `user_FK_1`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_info
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_info`;
+
+
+CREATE TABLE `watch_info`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(45)  NOT NULL,
+	`watch_post_id` INTEGER,
+	`watchman_id` INTEGER,
+	`company_id` INTEGER  NOT NULL,
+	`base_latitude` VARCHAR(45)  NOT NULL,
+	`base_longitude` VARCHAR(45)  NOT NULL,
+	`date` DATE  NOT NULL,
+	`valid` TINYINT  NOT NULL,
+	`comments` TEXT,
+	`created_by` INTEGER  NOT NULL,
+	`updated_by` INTEGER  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `watch_info_FI_1` (`watch_post_id`),
+	CONSTRAINT `watch_info_FK_1`
+		FOREIGN KEY (`watch_post_id`)
+		REFERENCES `watch_post` (`id`),
+	INDEX `watch_info_FI_2` (`watchman_id`),
+	CONSTRAINT `watch_info_FK_2`
+		FOREIGN KEY (`watchman_id`)
+		REFERENCES `watchman` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_info_FI_3` (`company_id`),
+	CONSTRAINT `watch_info_FK_3`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_info_FI_4` (`created_by`),
+	CONSTRAINT `watch_info_FK_4`
+		FOREIGN KEY (`created_by`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_info_FI_5` (`updated_by`),
+	CONSTRAINT `watch_info_FK_5`
+		FOREIGN KEY (`updated_by`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_sighting
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_sighting`;
+
+
+CREATE TABLE `watch_sighting`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`watch_code_id` INTEGER  NOT NULL,
+	`time` TIME  NOT NULL,
+	`watch_visibility_id` INTEGER  NOT NULL,
+	`specie_id` INTEGER,
+	`group` VARCHAR(2),
+	`total` INTEGER,
+	`watch_behaviour_id` INTEGER,
+	`direction_id` INTEGER  NOT NULL,
+	`horizontal` FLOAT  NOT NULL,
+	`vertical` FLOAT  NOT NULL,
+	`vessel_id` INTEGER,
+	`comments` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `watch_sighting_FI_1` (`watch_code_id`),
+	CONSTRAINT `watch_sighting_FK_1`
+		FOREIGN KEY (`watch_code_id`)
+		REFERENCES `watch_code` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_2` (`watch_visibility_id`),
+	CONSTRAINT `watch_sighting_FK_2`
+		FOREIGN KEY (`watch_visibility_id`)
+		REFERENCES `watch_visibility` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_3` (`specie_id`),
+	CONSTRAINT `watch_sighting_FK_3`
+		FOREIGN KEY (`specie_id`)
+		REFERENCES `specie` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_4` (`watch_behaviour_id`),
+	CONSTRAINT `watch_sighting_FK_4`
+		FOREIGN KEY (`watch_behaviour_id`)
+		REFERENCES `watch_behaviour` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_5` (`direction_id`),
+	CONSTRAINT `watch_sighting_FK_5`
+		FOREIGN KEY (`direction_id`)
+		REFERENCES `direction` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_6` (`vessel_id`),
+	CONSTRAINT `watch_sighting_FK_6`
+		FOREIGN KEY (`vessel_id`)
+		REFERENCES `vessel` (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watchman
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watchman`;
+
+
+CREATE TABLE `watchman`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`company_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`observations` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `watchman_FI_1` (`company_id`),
+	CONSTRAINT `watchman_FK_1`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_code
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_code`;
+
+
+CREATE TABLE `watch_code`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`acronym` VARCHAR(10)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_code_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_code_i18n`;
+
+
+CREATE TABLE `watch_code_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255),
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `watch_code_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `watch_code` (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_visibility
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_visibility`;
+
+
+CREATE TABLE `watch_visibility`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` INTEGER  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `watch_visibility_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_visibility_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_visibility_i18n`;
+
+
+CREATE TABLE `watch_visibility_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255),
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `watch_visibility_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `watch_visibility` (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_behaviour
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_behaviour`;
+
+
+CREATE TABLE `watch_behaviour`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` INTEGER  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `watch_behaviour_U_1` (`code`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_behaviour_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_behaviour_i18n`;
+
+
+CREATE TABLE `watch_behaviour_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` VARCHAR(255),
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `watch_behaviour_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `watch_behaviour` (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- direction
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `direction`;
+
+
+CREATE TABLE `direction`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`acronym` VARCHAR(10)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- watch_post
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `watch_post`;
+
+
+CREATE TABLE `watch_post`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`company_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`latitude` VARCHAR(45)  NOT NULL,
+	`longitude` VARCHAR(45)  NOT NULL,
+	`height` FLOAT,
+	`observations` TEXT,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `watch_post_FI_1` (`company_id`),
+	CONSTRAINT `watch_post_FK_1`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- news_article
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `news_article`;
+
+
+CREATE TABLE `news_article`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`is_published` TINYINT default 0 NOT NULL,
+	`slug` VARCHAR(255)  NOT NULL,
+	`image` VARCHAR(1024),
+	`enter_date` DATE,
+	`exit_date` DATE,
+	`publish_date` DATE  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `news_article_U_1` (`slug`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- news_article_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `news_article_i18n`;
+
+
+CREATE TABLE `news_article_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`headline` VARCHAR(255)  NOT NULL,
+	`body` TEXT  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `news_article_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `news_article` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- consorcium_element
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `consorcium_element`;
+
+
+CREATE TABLE `consorcium_element`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255)  NOT NULL,
+	`logotype` VARCHAR(255),
+	`link` VARCHAR(500),
+	`slug` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `consorcium_element_U_1` (`slug`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- consorcium_element_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `consorcium_element_i18n`;
+
+
+CREATE TABLE `consorcium_element_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`description` TEXT,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `consorcium_element_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `consorcium_element` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- team
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team`;
+
+
+CREATE TABLE `team`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`type` VARCHAR(255)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	`link` VARCHAR(1024),
+	`photo` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `team_U_1` (`slug`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- team_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `team_i18n`;
+
+
+CREATE TABLE `team_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`about` TEXT,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `team_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `team` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- album
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album`;
+
+
+CREATE TABLE `album`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`is_public` TINYINT default 0,
+	`publish_date` DATE  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `album_U_1` (`slug`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- album_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `album_i18n`;
+
+
+CREATE TABLE `album_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`name` VARCHAR(512)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `album_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- photo
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo`;
+
+
+CREATE TABLE `photo`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255)  NOT NULL,
+	`album_id` INTEGER  NOT NULL,
+	`image` VARCHAR(1024),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `photo_U_1` (`slug`),
+	INDEX `photo_FI_1` (`album_id`),
+	CONSTRAINT `photo_FK_1`
+		FOREIGN KEY (`album_id`)
+		REFERENCES `album` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- photo_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photo_i18n`;
+
+
+CREATE TABLE `photo_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`culture` VARCHAR(7)  NOT NULL,
+	`caption` VARCHAR(512),
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `photo_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `photo` (`id`)
+		ON DELETE CASCADE
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- content
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content`;
+
+
+CREATE TABLE `content`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`section` VARCHAR(255)  NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	UNIQUE KEY `content_U_1` (`section`)
+)Type=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- content_i18n
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `content_i18n`;
+
+
+CREATE TABLE `content_i18n`
+(
+	`id` INTEGER  NOT NULL,
+	`description` TEXT,
+	`culture` VARCHAR(7)  NOT NULL,
+	PRIMARY KEY (`id`,`culture`),
+	CONSTRAINT `content_i18n_FK_1`
+		FOREIGN KEY (`id`)
+		REFERENCES `content` (`id`)
 		ON DELETE CASCADE
 )Type=MyISAM;
 

@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           WatchInfo
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              WatchInfo
+    plural:                WatchInfos
+    route_prefix:          watch_info_wi_list
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

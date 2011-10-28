@@ -1,3 +1,75 @@
+watch_info_wi_list:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchInfo
+    module:               wi_list
+    prefix_path:          /wi_list
+    column:               id
+    with_wildcard_routes: true
+
+direction:
+  class: sfPropelRouteCollection
+  options:
+    model:                Direction
+    module:               direction
+    prefix_path:          /direction
+    column:               id
+    with_wildcard_routes: true
+
+watch_behaviour:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchBehaviour
+    module:               watch_behaviour
+    prefix_path:          /watch_behaviour
+    column:               id
+    with_wildcard_routes: true
+
+watch_visibility:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchVisibility
+    module:               watch_visibility
+    prefix_path:          /watch_visibility
+    column:               id
+    with_wildcard_routes: true
+
+watch_code:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchCode
+    module:               watch_code
+    prefix_path:          /watch_code
+    column:               id
+    with_wildcard_routes: true
+
+watchman:
+  class: sfPropelRouteCollection
+  options:
+    model:                watchman
+    module:               watchman
+    prefix_path:          /watchman
+    column:               id
+    with_wildcard_routes: true
+
+watch_sighting:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchSighting
+    module:               watch_sighting
+    prefix_path:          /watch_sighting
+    column:               id
+    with_wildcard_routes: true
+
+watch_info:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchInfo
+    module:               watch_info
+    prefix_path:          /watch_info
+    column:               id
+    with_wildcard_routes: true
+
 general_info_gi_list:
   class: sfPropelRouteCollection
   options:

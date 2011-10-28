@@ -147,6 +147,16 @@ class SightingPeer extends BaseSightingPeer {
     return BasePeer::doSelect($c);
   }
   
+  public static function getMonthChartTotals($year, $month) {
+    $c = SightingPeer::getChartsCriteria(1, $year, $month);
+    $c->addGroupByColumn(SightingPeer::SPECIE_ID);
+    $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
+    $c->addSelectColumn(SightingPeer::SPECIE_ID);
+    
+    return BasePeer::doSelect($c);
+      
+  }
+  
   public static function getByGeneralInfoId($request){
     $c = SightingPeer::getCriteriaWithFilters($request);
     $c->addAnd(GeneralInfoPeer::ID, $request->getParameter('general_info_id'), Criteria::EQUAL);

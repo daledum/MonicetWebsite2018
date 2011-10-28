@@ -205,3 +205,101 @@ propel:
       observations:       { type: longvarchar }
       created_at:         ~
       updated_at:         ~
+      
+   watch_info:
+      _attributes:      { phpName: WatchInfo }
+      id:               ~
+      code:             { type: varchar(45), required: true }
+      watch_post_id:    { type: integer, foreignTable: watch_post, foreignReference: id, required: false }
+      watchman_id:      { type: integer, foreignTable: watchman, foreignReference: id, required: false, onDelete: cascade }
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      base_latitude:    { type: varchar(45), required: true }
+      base_longitude:   { type: varchar(45), required: true }
+      date:             { type: date, required: true }
+      valid:            { type: boolean, required: true }
+      comments:         { type: longvarchar, required: false }
+      created_by:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      updated_by:       { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+      created_at:       ~
+      updated_at:       ~
+      
+   watch_sighting:
+      _attributes:         { phpName: WatchSighting }
+      id:                  ~
+      watch_code_id:       { type: integer, foreignTable: watch_code, foreignReference: id, required: true, onDelete: cascade }
+      time:                { type: time, required: true }
+      watch_visibility_id: { type: integer, foreignTable: watch_visibility, foreignReference: id, required: true, onDelete: cascade }
+      specie_id:           { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade }
+      group:               { type: varchar(2), required: false }
+      total:               { type: integer, required: false }
+      watch_behaviour_id:  { type: integer, foreignTable: watch_behaviour, foreignReference: id, required: false, onDelete: cascade }
+      direction_id:        { type: integer, foreignTable: direction, foreignReference: id, required: true, onDelete: cascade }
+      horizontal:          { type: float, required: true }
+      vertical:            { type: float, required: true }
+      vessel_id:           { type: integer, foreignTable: vessel, foreignReference: id, required: false }
+      comments:            { type: longvarchar, required: false }
+      created_at:          ~
+      updated_at:          ~
+      
+   watchman:
+      _attributes:         { phpName: Watchman }
+      id:                  ~
+      company_id:          { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      name:                { type: varchar(255), required: true }
+      observations:        { type: longvarchar }
+      created_at:          ~
+      updated_at:          ~
+      
+   watch_code:
+      _attributes:      { isI18N: true, i18nTable: code_i18n, phpName: WatchCode }
+      id:               ~
+      acronym:          { type: varchar(10), required: true }
+      created_at:       ~
+      updated_at:       ~
+      
+   watch_code_i18n:
+      id:           { type: integer, required: true, primaryKey: true, foreignTable: watch_code, foreignReference: id }
+      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+      description:  { type: varchar(255) }
+      
+   watch_visibility:
+      _attributes:      { isI18N: true, i18nTable: watch_visibility_i18n, phpName: WatchVisibility }
+      id:               ~
+      code:             { type: integer, required: true, index: unique }
+      created_at:       ~
+      updated_at:       ~
+      
+   watch_visibility_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: watch_visibility, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255) }
+     
+   watch_behaviour:
+      _attributes:      { isI18N: true, i18nTable: watch_behaviour_i18n, phpName: WatchBehaviour }
+      id:               ~
+      code:             { type: integer, required: true, index: unique }
+      created_at:       ~
+      updated_at:       ~
+      
+   watch_behaviour_i18n:
+     id:           { type: integer, required: true, primaryKey: true, foreignTable: watch_behaviour, foreignReference: id }
+     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
+     description:  { type: varchar(255) }
+     
+   direction:
+      _attributes:      { phpName: Direction }
+      id:               ~
+      acronym:          { type: varchar(10), required: true }
+      created_at:       ~
+      updated_at:       ~
+      
+   watch_post:
+      id:               ~
+      company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      name:             { type: varchar(255), required: true }
+      latitude:         { type: varchar(45), required: true }
+      longitude:        { type: varchar(45), required: true }
+      height:           { type: float, required: false }
+      observations:     { type: longvarchar }
+      created_at:       ~
+      updated_at:       ~

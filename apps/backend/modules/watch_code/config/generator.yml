@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           WatchCode
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              WatchCode
+    plural:                WatchCodes
+    route_prefix:          watch_code
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~
