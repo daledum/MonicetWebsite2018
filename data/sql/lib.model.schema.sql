@@ -655,48 +655,54 @@ DROP TABLE IF EXISTS `watch_sighting`;
 CREATE TABLE `watch_sighting`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`watch_info_id` INTEGER  NOT NULL,
 	`watch_code_id` INTEGER  NOT NULL,
 	`time` TIME  NOT NULL,
-	`watch_visibility_id` INTEGER  NOT NULL,
+	`watch_visibility_id` INTEGER,
 	`specie_id` INTEGER,
 	`group` VARCHAR(2),
 	`total` INTEGER,
 	`watch_behaviour_id` INTEGER,
-	`direction_id` INTEGER  NOT NULL,
-	`horizontal` FLOAT  NOT NULL,
-	`vertical` FLOAT  NOT NULL,
+	`direction_id` INTEGER,
+	`horizontal` FLOAT,
+	`vertical` FLOAT,
 	`vessel_id` INTEGER,
 	`comments` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	INDEX `watch_sighting_FI_1` (`watch_code_id`),
+	INDEX `watch_sighting_FI_1` (`watch_info_id`),
 	CONSTRAINT `watch_sighting_FK_1`
+		FOREIGN KEY (`watch_info_id`)
+		REFERENCES `watch_info` (`id`)
+		ON DELETE CASCADE,
+	INDEX `watch_sighting_FI_2` (`watch_code_id`),
+	CONSTRAINT `watch_sighting_FK_2`
 		FOREIGN KEY (`watch_code_id`)
 		REFERENCES `watch_code` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_2` (`watch_visibility_id`),
-	CONSTRAINT `watch_sighting_FK_2`
+	INDEX `watch_sighting_FI_3` (`watch_visibility_id`),
+	CONSTRAINT `watch_sighting_FK_3`
 		FOREIGN KEY (`watch_visibility_id`)
 		REFERENCES `watch_visibility` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_3` (`specie_id`),
-	CONSTRAINT `watch_sighting_FK_3`
+	INDEX `watch_sighting_FI_4` (`specie_id`),
+	CONSTRAINT `watch_sighting_FK_4`
 		FOREIGN KEY (`specie_id`)
 		REFERENCES `specie` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_4` (`watch_behaviour_id`),
-	CONSTRAINT `watch_sighting_FK_4`
+	INDEX `watch_sighting_FI_5` (`watch_behaviour_id`),
+	CONSTRAINT `watch_sighting_FK_5`
 		FOREIGN KEY (`watch_behaviour_id`)
 		REFERENCES `watch_behaviour` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_5` (`direction_id`),
-	CONSTRAINT `watch_sighting_FK_5`
+	INDEX `watch_sighting_FI_6` (`direction_id`),
+	CONSTRAINT `watch_sighting_FK_6`
 		FOREIGN KEY (`direction_id`)
 		REFERENCES `direction` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_6` (`vessel_id`),
-	CONSTRAINT `watch_sighting_FK_6`
+	INDEX `watch_sighting_FI_7` (`vessel_id`),
+	CONSTRAINT `watch_sighting_FK_7`
 		FOREIGN KEY (`vessel_id`)
 		REFERENCES `vessel` (`id`)
 )Type=MyISAM;

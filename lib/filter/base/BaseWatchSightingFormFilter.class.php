@@ -12,6 +12,7 @@ abstract class BaseWatchSightingFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
+      'watch_info_id'       => new sfWidgetFormPropelChoice(array('model' => 'WatchInfo', 'add_empty' => true)),
       'watch_code_id'       => new sfWidgetFormPropelChoice(array('model' => 'WatchCode', 'add_empty' => true)),
       'time'                => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate(), 'with_empty' => false)),
       'watch_visibility_id' => new sfWidgetFormPropelChoice(array('model' => 'WatchVisibility', 'add_empty' => true)),
@@ -20,8 +21,8 @@ abstract class BaseWatchSightingFormFilter extends BaseFormFilterPropel
       'total'               => new sfWidgetFormFilterInput(),
       'watch_behaviour_id'  => new sfWidgetFormPropelChoice(array('model' => 'WatchBehaviour', 'add_empty' => true)),
       'direction_id'        => new sfWidgetFormPropelChoice(array('model' => 'Direction', 'add_empty' => true)),
-      'horizontal'          => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'vertical'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'horizontal'          => new sfWidgetFormFilterInput(),
+      'vertical'            => new sfWidgetFormFilterInput(),
       'vessel_id'           => new sfWidgetFormPropelChoice(array('model' => 'Vessel', 'add_empty' => true)),
       'comments'            => new sfWidgetFormFilterInput(),
       'created_at'          => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -29,6 +30,7 @@ abstract class BaseWatchSightingFormFilter extends BaseFormFilterPropel
     ));
 
     $this->setValidators(array(
+      'watch_info_id'       => new sfValidatorPropelChoice(array('required' => false, 'model' => 'WatchInfo', 'column' => 'id')),
       'watch_code_id'       => new sfValidatorPropelChoice(array('required' => false, 'model' => 'WatchCode', 'column' => 'id')),
       'time'                => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'watch_visibility_id' => new sfValidatorPropelChoice(array('required' => false, 'model' => 'WatchVisibility', 'column' => 'id')),
@@ -61,6 +63,7 @@ abstract class BaseWatchSightingFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'                  => 'Number',
+      'watch_info_id'       => 'ForeignKey',
       'watch_code_id'       => 'ForeignKey',
       'time'                => 'Date',
       'watch_visibility_id' => 'ForeignKey',

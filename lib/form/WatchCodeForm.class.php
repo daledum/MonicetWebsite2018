@@ -11,5 +11,9 @@ class WatchCodeForm extends BaseWatchCodeForm
 {
   public function configure()
   {
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('watch_code');
+    unset(
+      $this['created_at'], $this['updated_at']
+    );
   }
 }

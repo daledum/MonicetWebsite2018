@@ -17,5 +17,35 @@
  * @package    propel.generator.lib.model
  */
 class WatchInfo extends BaseWatchInfo {
-
+	public function __toString()
+	{
+	    return $this->getCode();
+	}
+	
+	public function getWatchSightings($criteria = null, PropelPDO $con = null)
+	{
+		$watch_sightings = WatchSightingQuery::create(null, $criteria)
+			->filterByWatchInfoId($this->getId())
+			->orderBy('Id')
+			->find($con);
+		return $watch_sightings;
+	}
+	
+	public function getSpecies() {
+    
+	    $sightings = WatchSightingQuery::create()
+	    ->filterByWatchInfoId($this->getId())
+	    ->orderBy('Id','asc')
+	    ->find();
+	    
+	    $species = array();
+	    
+	    foreach($sightings as $s){
+	        if($s->getSpecieId()) $species[] = SpeciePeer::retrieveByPk($s->getSpecieId());
+	    }
+	    
+	    return $species;
+	    
+	    
+	}
 } // WatchInfo

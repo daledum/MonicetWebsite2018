@@ -1,3 +1,12 @@
+watch_post:
+  class: sfPropelRouteCollection
+  options:
+    model:                WatchPost
+    module:               watch_post
+    prefix_path:          /watch_post
+    column:               id
+    with_wildcard_routes: true
+
 watch_info_wi_list:
   class: sfPropelRouteCollection
   options:
@@ -271,6 +280,10 @@ news_article:
     prefix_path:          /news_article
     column:               id
     with_wildcard_routes: true
+  
+new_watch_sighting:
+  url: /watch_sighting/new?wi_id=:wi_id
+  param: { module: watch_sighting, action: new_watch_sighting }
 
 maps:
   url:   /maps

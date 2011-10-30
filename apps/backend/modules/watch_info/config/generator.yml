@@ -10,6 +10,7 @@ generator:
     route_prefix:          watch_info
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        watch_info
 
     config:
       actions: ~

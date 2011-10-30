@@ -10,12 +10,24 @@ generator:
     route_prefix:          watch_info_wi_list
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        watch_info
 
     config:
       actions: ~
-      fields:  ~
-      list:    ~
-      filter:  ~
+      fields:  
+        date:
+          date_format:     yyyy-MM-dd
+      list:
+        display:           [date]
+        peer_method:       doSelectForPublicList
+        peer_count_method: doCountForPublicList
+        batch_actions:     {}
+        actions:           {}
+        object_actions:
+          showGrid:        {label: Registos}
+          showMap:         {label: Ver em Mapa}
+      filter:
+        display:           [ date, species ]
       form:    ~
       edit:    ~
       new:     ~

@@ -17,5 +17,8 @@
  * @package    propel.generator.lib.model
  */
 class WatchPost extends BaseWatchPost {
-
+	public function __toString()
+  {
+    return $this->getName();
+  }
 } // WatchPost

@@ -10,12 +10,21 @@ generator:
     route_prefix:          watchman
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        watchman
 
     config:
       actions: ~
-      fields:  ~
-      list:    ~
-      filter:  ~
+      fields:
+        company_id:        { label: Empresa }
+        name:              { label: Nome }
+        observations:      { label: Observações }
+      list:
+        title:             A listar Vigias
+        display:           [company, name]
+      filter:              
+        display:           [ company_id, name ]
       form:    ~
-      edit:    ~
-      new:     ~
+      edit:
+        title:             A editar o vigia %%name%%
+      new:
+        title:             Novo Vigia

@@ -36,7 +36,7 @@ class watch_infoActions extends autoWatch_infoActions
 			}
 			else {
 				$this->getUser()->setFlash('notice', $notice);
-				$this->redirect('watch_info/sheet?giid=' . $watchInfo->getId());
+				$this->redirect('watch_info/sheet?wiid=' . $watchInfo->getId());
 			}
 		}
 		else {
@@ -64,10 +64,10 @@ class watch_infoActions extends autoWatch_infoActions
 	    $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
 	    $this->forward404Unless( $user->getIsSuperAdmin() || $this->watch_info->getCompanyId() == $this->user_company->getId() );
 	    
-	    $this->records = $this->watch_info->getRecords();
-	    $this->n_lines = count($this->records);
+	    $this->sightings = $this->watch_info->getWatchSightings();
+	    $this->n_lines = count($this->sightings);
 	    
-	    $this->gi_form = new WatchInfoForm($this->watch_info);
+	    $this->wi_form = new WatchInfoForm($this->watch_info);
 	}
 	
 	public function executeCoordAjax(sfWebRequest $request){

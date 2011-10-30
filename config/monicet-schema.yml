@@ -226,16 +226,17 @@ propel:
    watch_sighting:
       _attributes:         { phpName: WatchSighting }
       id:                  ~
+      watch_info_id:       { type: integer, foreignTable: watch_info, foreignReference: id, required: true, onDelete: cascade }
       watch_code_id:       { type: integer, foreignTable: watch_code, foreignReference: id, required: true, onDelete: cascade }
       time:                { type: time, required: true }
-      watch_visibility_id: { type: integer, foreignTable: watch_visibility, foreignReference: id, required: true, onDelete: cascade }
+      watch_visibility_id: { type: integer, foreignTable: watch_visibility, foreignReference: id, required: false, onDelete: cascade }
       specie_id:           { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade }
       group:               { type: varchar(2), required: false }
       total:               { type: integer, required: false }
       watch_behaviour_id:  { type: integer, foreignTable: watch_behaviour, foreignReference: id, required: false, onDelete: cascade }
-      direction_id:        { type: integer, foreignTable: direction, foreignReference: id, required: true, onDelete: cascade }
-      horizontal:          { type: float, required: true }
-      vertical:            { type: float, required: true }
+      direction_id:        { type: integer, foreignTable: direction, foreignReference: id, required: false, onDelete: cascade }
+      horizontal:          { type: float, required: false }
+      vertical:            { type: float, required: false }
       vessel_id:           { type: integer, foreignTable: vessel, foreignReference: id, required: false }
       comments:            { type: longvarchar, required: false }
       created_at:          ~
@@ -251,7 +252,7 @@ propel:
       updated_at:          ~
       
    watch_code:
-      _attributes:      { isI18N: true, i18nTable: code_i18n, phpName: WatchCode }
+      _attributes:      { isI18N: true, i18nTable: watch_code_i18n, phpName: WatchCode }
       id:               ~
       acronym:          { type: varchar(10), required: true }
       created_at:       ~

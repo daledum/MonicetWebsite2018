@@ -17,5 +17,22 @@
  * @package    propel.generator.lib.model
  */
 class WatchBehaviourPeer extends BaseWatchBehaviourPeer {
-
+	
+	public static function getByCode($code){
+	    $c = new Criteria();
+	    $c->add(WatchBehaviourPeer::CODE, $code);
+	    $b = WatchBehaviourPeer::doSelect($c);
+	    if(count($b)) {
+	        return $b[0];
+	    }
+	    else{
+	        return false;
+	    }
+	}
+  
+	public static function getBehaviours(){
+	    $c = new Criteria();
+	    $c->addAscendingOrderByColumn(WatchBehaviourPeer::ID);
+	    return WatchBehaviourPeer::doSelect($c);
+	}
 } // WatchBehaviourPeer

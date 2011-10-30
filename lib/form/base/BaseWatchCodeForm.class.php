@@ -41,12 +41,12 @@ abstract class BaseWatchCodeForm extends BaseFormPropel
 
   public function getI18nModelName()
   {
-    return 'CodeI18n';
+    return 'WatchCodeI18n';
   }
 
   public function getI18nFormClass()
   {
-    return 'CodeI18nForm';
+    return 'WatchCodeI18nForm';
   }
 
 }

@@ -13,6 +13,7 @@ abstract class BaseWatchInfoFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'code'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
+      'watch_post_id'  => new sfWidgetFormPropelChoice(array('model' => 'WatchPost', 'add_empty' => true)),
       'watchman_id'    => new sfWidgetFormPropelChoice(array('model' => 'Watchman', 'add_empty' => true)),
       'company_id'     => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => true)),
       'base_latitude'  => new sfWidgetFormFilterInput(array('with_empty' => false)),
@@ -28,6 +29,7 @@ abstract class BaseWatchInfoFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'code'           => new sfValidatorPass(array('required' => false)),
+      'watch_post_id'  => new sfValidatorPropelChoice(array('required' => false, 'model' => 'WatchPost', 'column' => 'id')),
       'watchman_id'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Watchman', 'column' => 'id')),
       'company_id'     => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Company', 'column' => 'id')),
       'base_latitude'  => new sfValidatorPass(array('required' => false)),
@@ -58,6 +60,7 @@ abstract class BaseWatchInfoFormFilter extends BaseFormFilterPropel
     return array(
       'id'             => 'Number',
       'code'           => 'Text',
+      'watch_post_id'  => 'ForeignKey',
       'watchman_id'    => 'ForeignKey',
       'company_id'     => 'ForeignKey',
       'base_latitude'  => 'Text',

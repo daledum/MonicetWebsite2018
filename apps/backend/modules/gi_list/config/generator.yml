@@ -18,7 +18,7 @@ generator:
         date:
           date_format:     yyyy-MM-dd
       list:
-        display:           [date, base_latitude, base_longitude]
+        display:           [date]
         peer_method:       doSelectForPublicList
         batch_actions:     {}
         actions:           {}

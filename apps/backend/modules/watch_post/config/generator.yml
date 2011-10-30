@@ -1,0 +1,29 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           WatchPost
+    theme:                 admin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              WatchPost
+    plural:                WatchPosts
+    route_prefix:          watch_post
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        watch_post
+
+    config:
+      actions: ~
+      fields:
+        height:            { label: Altura (m) }
+        observations:      { label: Observações }
+      list:
+        title:             A listar Postos
+        display:           [company, latitude, longitude, height]
+      filter:              
+        display:           [ company_id, name ]
+      form:    ~
+      edit:
+        title:             A editar o Posto %%name%%
+      new:
+        title:             Novo Posto

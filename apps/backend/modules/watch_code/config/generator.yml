@@ -10,11 +10,14 @@ generator:
     route_prefix:          watch_code
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        watch_code
 
     config:
       actions: ~
       fields:  ~
-      list:    ~
+      list:
+        peer_method:       doSelectWithI18n
+        display:          [acronym, description]
       filter:  ~
       form:    ~
       edit:    ~
