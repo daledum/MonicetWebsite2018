@@ -1,6 +1,6 @@
 all:
-  layout: layout_charts
+  layout:      layout_charts
 
 indexSuccess:
   stylesheets: ["layout_charts_frontend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
-  javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]
+  javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js", "jquery.tools.min.js", "creative_commons_baloon.js"]
