@@ -116,32 +116,4 @@ class chartsActions extends sfActions
     $this->series = $series;
     $this->categories = $categories;
   }
-
-
-  public function executeGet_month_results(sfWebRequest $request)
-  {
-    $categories = array('Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez');
-    $series = array();
-    $species = array();
-    $species_ref = array();
-    $type = $request->getParameter('type');
-    
-    
-    $sightings = SightingPeer::getAPUEVariations($request->getParameter('year'));
-    foreach($sightings as $s) {
-      $species[] = array(0 => $s[0], 1 => $s[1], 2 => $s[2]);
-      $species_ref[$s[2]] = SpeciePeer::retrieveByPK($s[2]);
-      $series[$species_ref[$s[2]]->getCode()] = array_fill(1, 12, 0);
-    }
-    foreach($species as $v) {
-        $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $request->getParameter('year'), $v[1]);
-        $series[$species_ref[$v[2]]->getCode()][$v[1]] = $gi_total;
-    }
-    foreach(range(1, 12) as $monthNumber) {
-        $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
-    }
-    $this->series = $series;
-    $this->categories = $categories;
-  }
-
 }

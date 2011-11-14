@@ -1,5 +1,5 @@
 <div id="sf_admin_container">
-  <h1 style="text-align: left;">Saídas por mês</h1>
+  <h1 style="text-align: left;">Avistamentos Mensais por Espécie</h1>
   
   <!-- CHART CONTAINER -->
   <div class="left-container">
@@ -17,10 +17,10 @@
                     </select>
                 </div>
                 <div class="filter-item">
-                	<label>Item a mostrar:</label>
-                	<select id="chart-item" class="filter-select">
-                        <option value="0">Barcos</option>
-                        <option value="1">Guias</option>
+                	<label>Tipo de gráfico:</label>
+                	<select id="chart-type" class="filter-select">
+                        <option value="0">Totais</option>
+                        <option value="1">Percentagem</option>
                     </select>
                 </div>
                 <div id="chart-loading"></div>

@@ -1,11 +1,11 @@
-function initChart(series, categories, chatType, stacking, title) {
+function initChart(series, categories, chartType, plotOptions, yAxisText) {
   var chart = new Highcharts.Chart({
-    chart: {
+      chart: {
          renderTo: 'chart-image',
-         defaultSeriesType: 'column'
+         defaultSeriesType: chartType
       },
       title: {
-         text: title
+         text: 'Gráfico de Espécies'
       },
       xAxis: {
          categories: categories
@@ -13,7 +13,7 @@ function initChart(series, categories, chatType, stacking, title) {
       yAxis: {
          min: 0,
          title: {
-            text: 'Número de saídas'
+            text: yAxisText
          },
          stackLabels: {
             enabled: true,
@@ -26,17 +26,12 @@ function initChart(series, categories, chatType, stacking, title) {
       tooltip: {
          formatter: function() {
             return '<b>'+ this.x +'</b><br/>'+
-                this.series.name +': '+ this.y +'<br/>'+
-                'Total: '+ this.point.stackTotal;
+                this.series.name +': '+ this.y
          }
       },
-      plotOptions: {
-         column: {
-            stacking: 'normal',
-         }
-      },
+      plotOptions: plotOptions,
       series: series
-  });
+   });
 
 }
 
@@ -45,20 +40,22 @@ function updateChart() {
   var categories = [];
   var series = [];
   $.ajax({
-      url: "/admin.php/monthChartResults?_=" + Math.floor(Math.random()*1000001),
-      data: {"year": $("#year").val(), "month": $("#month").val(), 
-             "chart-item": $("#chart-item").val()},
+      url: "/admin.php/speciesChartResults?_=" + Math.floor(Math.random()*1000001),
+      data: {"year": $("#year").val(), "month": $("#month").val()},
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
-          var chartType = 'bar';
-          var stacking = 'normal';
-          if ($("#chart-item").val() == 0) {
-              var title = 'Por barco';
+          var chartType = 'column';
+          
+          if ($("#chart-type").val() == 0) {
+              var plotOptions = { column: { pointPadding: 0.2, borderWidth: 0 } };
+              var yAxisText = 'Quantidade';
           }
           else {
-              var title = 'Por guia';
-          } 
-          initChart(jsonRsp.series, jsonRsp.categories, chartType, stacking, title);
+              var plotOptions = { column: { stacking: 'percent' } };
+              var yAxisText = 'Percentagem';
+          }
+          
+          initChart(jsonRsp.series, jsonRsp.categories, chartType, plotOptions, yAxisText);
           $("#chart-loading").hide();
       }
   });

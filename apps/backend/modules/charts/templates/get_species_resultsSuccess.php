@@ -1,16 +1,16 @@
 <?php
-  
+    
   $selected = array(
-  	'Common dolphin (Dd)',
-  	'Golfinho comum (Dd)',
-  	'Sperm whale (Pm)',
-  	'Cachalote (Pm)',
-  	'Atlantic Spotted dolphin (Sf)',
-  	'Golfinho Pintado (Sf)',
-  	'Common bottlenose dolphin (Tt)',
-  	'Roaz (Tt)',
+    'Common dolphin (Dd)',
+    'Golfinho comum (Dd)',
+    'Sperm whale (Pm)',
+    'Cachalote (Pm)',
+    'Atlantic Spotted dolphin (Sf)',
+    'Golfinho Pintado (Sf)',
+    'Common bottlenose dolphin (Tt)',
+    'Roaz (Tt)',
   );
-  
+    
   $cats = '';
   foreach($categories as $c): 
     $cats .= "\"".$c."\","; 
@@ -23,12 +23,12 @@
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-	if (in_array($c, $selected)) {
-		$results .= "]},";
-	}
-	else {
-		$results .= "], \"visible\":false},";
-	}
+    if (in_array($c, $selected)) {
+        $results .= "]},";
+    }
+    else {
+        $results .= "], \"visible\":false},";
+    }
   endforeach;
 ?>
 {

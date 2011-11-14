@@ -312,6 +312,26 @@ charts:
 month_chart:
   url:   /month_chart
   param: { module: charts, action: month }
+  
+species_chart:
+  url:   /species_chart
+  param: { module: charts, action: species }
+  
+departure_chart:
+  url:   /departure_chart
+  param: { module: charts, action: departure }
+  
+get_month_charts_results:
+  url:   /monthChartResults
+  param: { module: charts, action: get_month_results }
+  
+get_species_charts_results:
+  url:   /speciesChartResults
+  param: { module: charts, action: get_species_results }
+  
+get_departure_charts_results:
+  url:   /departureChartResults
+  param: { module: charts, action: get_departure_results }
 
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing

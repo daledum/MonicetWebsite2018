@@ -88,10 +88,6 @@ get_charts_results:
   url:   /chartResults
   param: { module: charts, action: get_results }
 
-get_month_charts_results:
-  url:   /monthChartResults
-  param: { module: charts, action: get_month_results }
-
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }

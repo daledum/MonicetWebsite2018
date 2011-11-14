@@ -8,3 +8,11 @@ indexSuccess:
 monthSuccess:
   stylesheets: ["layout_charts_backend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
   javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts_month.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]
+  
+speciesSuccess:
+  stylesheets: ["layout_charts_backend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
+  javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts_species.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]
+  
+departureSuccess:
+  stylesheets: ["layout_charts_backend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
+  javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts_departure.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js"]
