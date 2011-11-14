@@ -57,7 +57,7 @@
                     "watch_sighting[specie_id]":           $("tr.watch_sighting_line_" + i + " #watch_sighting_specie_id option:selected").val(),
                     "watch_sighting[group]":               $("tr.watch_sighting_line_" + i + " #watch_sighting_group").val(),
                     "watch_sighting[total]":               $("tr.watch_sighting_line_" + i + " #watch_sighting_total").val(),
-                    "watch_sighting[watch_behaviour_id]":  $("tr.watch_sighting_line_" + i + " #watch_sighting_watch_behaviour_id option:selected").val(),
+                    "watch_sighting[behaviour_id]":        $("tr.watch_sighting_line_" + i + " #watch_sighting_behaviour_id option:selected").val(),
                     "watch_sighting[direction_id]":        $("tr.watch_sighting_line_" + i + " #watch_sighting_direction_id option:selected").val(),
                     "watch_sighting[horizontal]":          $("tr.watch_sighting_line_" + i + " #watch_sighting_horizontal").val(),
                     "watch_sighting[vertical]":            $("tr.watch_sighting_line_" + i + " #watch_sighting_vertical").val(),
@@ -230,7 +230,7 @@
             <td class="sf_admin_text specie"><?php echo $sighting_form['specie_id']; ?></td>
             <td class="sf_admin_text group"><?php echo $sighting_form['group']; ?></td>
             <td class="sf_admin_text total"><?php echo $sighting_form['total']; ?></td>
-            <td class="sf_admin_text behaviour"><?php echo $sighting_form['watch_behaviour_id']; ?></td>
+            <td class="sf_admin_text behaviour"><?php echo $sighting_form['behaviour_id']; ?></td>
             <td class="sf_admin_text direction"><?php echo $sighting_form['direction_id']; ?></td>
             <td class="sf_admin_text horizontal"><?php echo $sighting_form['horizontal']; ?></td>
             <td class="sf_admin_text vertical"><?php echo $sighting_form['vertical']; ?></td>

@@ -662,7 +662,7 @@ CREATE TABLE `watch_sighting`
 	`specie_id` INTEGER,
 	`group` VARCHAR(2),
 	`total` INTEGER,
-	`watch_behaviour_id` INTEGER,
+	`behaviour_id` INTEGER,
 	`direction_id` INTEGER,
 	`horizontal` FLOAT,
 	`vertical` FLOAT,
@@ -691,10 +691,10 @@ CREATE TABLE `watch_sighting`
 		FOREIGN KEY (`specie_id`)
 		REFERENCES `specie` (`id`)
 		ON DELETE CASCADE,
-	INDEX `watch_sighting_FI_5` (`watch_behaviour_id`),
+	INDEX `watch_sighting_FI_5` (`behaviour_id`),
 	CONSTRAINT `watch_sighting_FK_5`
-		FOREIGN KEY (`watch_behaviour_id`)
-		REFERENCES `watch_behaviour` (`id`)
+		FOREIGN KEY (`behaviour_id`)
+		REFERENCES `behaviour` (`id`)
 		ON DELETE CASCADE,
 	INDEX `watch_sighting_FI_6` (`direction_id`),
 	CONSTRAINT `watch_sighting_FK_6`
@@ -797,41 +797,6 @@ CREATE TABLE `watch_visibility_i18n`
 	CONSTRAINT `watch_visibility_i18n_FK_1`
 		FOREIGN KEY (`id`)
 		REFERENCES `watch_visibility` (`id`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- watch_behaviour
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `watch_behaviour`;
-
-
-CREATE TABLE `watch_behaviour`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`code` INTEGER  NOT NULL,
-	`created_at` DATETIME,
-	`updated_at` DATETIME,
-	PRIMARY KEY (`id`),
-	UNIQUE KEY `watch_behaviour_U_1` (`code`)
-)Type=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- watch_behaviour_i18n
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `watch_behaviour_i18n`;
-
-
-CREATE TABLE `watch_behaviour_i18n`
-(
-	`id` INTEGER  NOT NULL,
-	`culture` VARCHAR(7)  NOT NULL,
-	`description` VARCHAR(255),
-	PRIMARY KEY (`id`,`culture`),
-	CONSTRAINT `watch_behaviour_i18n_FK_1`
-		FOREIGN KEY (`id`)
-		REFERENCES `watch_behaviour` (`id`)
 )Type=MyISAM;
 
 #-----------------------------------------------------------------------------

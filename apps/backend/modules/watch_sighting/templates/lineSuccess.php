@@ -13,7 +13,7 @@
 	<td class="sf_admin_text specie"><?php echo $sighting_form['specie_id']; ?></td>
 	<td class="sf_admin_text group"><?php echo $sighting_form['group']; ?></td>
 	<td class="sf_admin_text total"><?php echo $sighting_form['total']; ?></td>
-	<td class="sf_admin_text behaviour"><?php echo $sighting_form['watch_behaviour_id']; ?></td>
+	<td class="sf_admin_text behaviour"><?php echo $sighting_form['behaviour_id']; ?></td>
 	<td class="sf_admin_text direction"><?php echo $sighting_form['direction_id']; ?></td>
 	<td class="sf_admin_text horizontal"><?php echo $sighting_form['horizontal']; ?></td>
 	<td class="sf_admin_text vertical"><?php echo $sighting_form['vertical']; ?></td>

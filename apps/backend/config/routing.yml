@@ -25,15 +25,6 @@ direction:
     column:               id
     with_wildcard_routes: true
 
-watch_behaviour:
-  class: sfPropelRouteCollection
-  options:
-    model:                WatchBehaviour
-    module:               watch_behaviour
-    prefix_path:          /watch_behaviour
-    column:               id
-    with_wildcard_routes: true
-
 watch_visibility:
   class: sfPropelRouteCollection
   options:

@@ -233,7 +233,7 @@ propel:
       specie_id:           { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade }
       group:               { type: varchar(2), required: false }
       total:               { type: integer, required: false }
-      watch_behaviour_id:  { type: integer, foreignTable: watch_behaviour, foreignReference: id, required: false, onDelete: cascade }
+      behaviour_id:        { type: integer, foreignTable: behaviour, foreignReference: id, required: false, onDelete: cascade }
       direction_id:        { type: integer, foreignTable: direction, foreignReference: id, required: false, onDelete: cascade }
       horizontal:          { type: float, required: false }
       vertical:            { type: float, required: false }
@@ -272,18 +272,6 @@ propel:
       
    watch_visibility_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: watch_visibility, foreignReference: id }
-     culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
-     description:  { type: varchar(255) }
-     
-   watch_behaviour:
-      _attributes:      { isI18N: true, i18nTable: watch_behaviour_i18n, phpName: WatchBehaviour }
-      id:               ~
-      code:             { type: integer, required: true, index: unique }
-      created_at:       ~
-      updated_at:       ~
-      
-   watch_behaviour_i18n:
-     id:           { type: integer, required: true, primaryKey: true, foreignTable: watch_behaviour, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
      description:  { type: varchar(255) }
      

@@ -46,7 +46,7 @@ class watch_sightingActions extends autoWatch_sightingActions
 		$specie = $this->watch_sighting['specie_id'];
 		$group = $this->watch_sighting['group'];
 		$total = $this->watch_sighting['total'];
-		$watch_behaviour = $this->watch_sighting['watch_behaviour_id'];
+		$behaviour = $this->watch_sighting['behaviour_id'];
 		$direction = $this->watch_sighting['direction_id'];
 		$horizontal = $this->watch_sighting['horizontal'];
 		$vertical = $this->watch_sighting['vertical'];
@@ -73,7 +73,7 @@ class watch_sightingActions extends autoWatch_sightingActions
 			$this->sighting->setSpecieId($specie);
 			$this->sighting->setGroup($group);
 			$this->sighting->setTotal($total);
-			$this->sighting->setWatchBehaviourId($watch_behaviour);
+			$this->sighting->setBehaviourId($behaviour);
 			$this->sighting->setDirectionId($direction);
 			$this->sighting->setHorizontal($horizontal);
 			$this->sighting->setVertical($vertical);

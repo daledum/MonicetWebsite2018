@@ -29,7 +29,7 @@
                     <td class="sf_admin_text specie"><?php echo $sighting->getSpecie(); ?></td>
                     <td class="sf_admin_text group"><?php echo $sighting->getGroup(); ?></td>
                     <td class="sf_admin_text total"><?php echo $sighting->getTotal(); ?></td>
-                    <td class="sf_admin_text behaviour"><?php if($behaviour = $sighting->getWatchBehaviour()) echo $behaviour->getDescription(); ?></td>
+                    <td class="sf_admin_text behaviour"><?php if($behaviour = $sighting->getBehaviour()) echo $behaviour->getDescription(); ?></td>
                     <td class="sf_admin_text direction"><?php if($direction = $sighting->getDirection()) echo $direction->getDescription(); ?></td>
                     <td class="sf_admin_text horizontal"><?php echo $sighting->getHorizontal(); ?></td>
                     <td class="sf_admin_text vertical"><?php echo $sighting->getVertical(); ?></td>
