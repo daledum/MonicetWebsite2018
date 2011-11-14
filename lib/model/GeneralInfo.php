@@ -60,9 +60,26 @@ class GeneralInfo extends BaseGeneralInfo {
     }
     
     return $species;
-    
-    
   }
+  
+    public function getTotalSighted() {
+        $sightings = SightingQuery::create()
+        ->useRecordQuery()
+            ->filterByGeneralInfoId($this->getId())
+        ->endUse()
+        ->orderBy('Id','asc')
+        ->find();
+        
+        $total = 0;
+        
+        foreach($sightings as $s){
+            if($s->getTotal()) {
+                $total += $s->getTotal();
+            } 
+        }
+        
+        return $total;
+    }
   
   
   

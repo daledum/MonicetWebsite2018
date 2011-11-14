@@ -62,13 +62,16 @@ class GuidePeer extends BaseGuidePeer {
     
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-      $user = sfContext::getInstance()->getUser()->getGuardUser();
-      $company = CompanyPeer::doSelectUserCompany($user->getId());
-      if ($company) {
-          $criteria->addAnd(GuidePeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+      if (sfContext::getInstance()->getUser()->isAuthenticated()) {
+      	  $user = sfContext::getInstance()->getUser()->getGuardUser();
+	      $company = CompanyPeer::doSelectUserCompany($user->getId());
+	      if ($company) {
+	          $criteria->addAnd(GuidePeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+	      }
+	      $criteria->addJoin(GuidePeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+	      $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
       }
-      $criteria->addJoin(GuidePeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
-      $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+      
       return GuidePeer::populateObjects(GuidePeer::doSelectStmt($criteria, $con));
     }
     

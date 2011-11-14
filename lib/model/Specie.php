@@ -23,6 +23,25 @@ class Specie extends BaseSpecie {
   }
   
   public function formattedString() {
-      return $this->getName()." (".$this->getCode().")";
+      if ( $culture = sfContext::getInstance()->getUser()->getCulture() ) {
+          return $this->getCurrentSpecieI18n($culture)->getName()." (".$this->getCode().")";
+      }
+      else {
+          return $this->getCurrentSpecieI18n('pt')->getName()." (".$this->getCode().")";
+      }
+  }
+  
+  public function getTotalMonth($year, $month) {
+    $g_infos = GeneralInfoPeer::doSelectByPeriod($year, $month);
+    $counter = 0;
+    foreach ($g_infos as $gi) {
+        $species = $gi->getSpecies();
+        foreach ($species as $s) {
+            if ($s->getId() == $this->getId()) {
+                $counter++;
+            }
+        }
+    }
+    return $counter;
   }
 } // Specie

@@ -52,22 +52,34 @@ class VesselPeer extends BaseVesselPeer {
   
   public static function doSelect(Criteria $criteria, PropelPDO $con = null)
   {
-    $user = sfContext::getInstance()->getUser()->getGuardUser();
-    $company = CompanyPeer::doSelectUserCompany($user->getId());
-    if ($company) {
-        $criteria->addAnd(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
-    }
-    $criteria->addJoin(VesselPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
-    $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+   	if (sfContext::getInstance()->getUser()->isAuthenticated()) {
+   		$user = sfContext::getInstance()->getUser()->getGuardUser();
+	    $company = CompanyPeer::doSelectUserCompany($user->getId());
+	    if ($company) {
+	        $criteria->addAnd(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+	    }
+	    $criteria->addJoin(VesselPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+	    $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+   	}
+    
     return VesselPeer::populateObjects(VesselPeer::doSelectStmt($criteria, $con));
   }
   
   
   public static function doCount(Criteria $criteria, $distinct = false, PropelPDO $con = null)
   {
+  	if (sfContext::getInstance()->getUser()->isAuthenticated()) {
+   		$user = sfContext::getInstance()->getUser()->getGuardUser();
+	    $company = CompanyPeer::doSelectUserCompany($user->getId());
+	    if ($company) {
+	        $criteria->addAnd(VesselPeer::COMPANY_ID, $company->getId(), Criteria::EQUAL);
+	    }
+	    $criteria->addJoin(VesselPeer::COMPANY_ID, CompanyPeer::ID, Criteria::LEFT_JOIN);
+	    $criteria->addAscendingOrderByColumn(CompanyPeer::NAME);
+   	}
+	
     return count(VesselPeer::doSelect($criteria));
   }
-  
   
   
 } // VesselPeer

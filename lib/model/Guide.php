@@ -21,4 +21,15 @@ class Guide extends BaseGuide {
   {
     return $this->getName();
   }
+  
+  public function getTotalMonth($year, $month) {
+  	$g_infos = GeneralInfoPeer::doSelectByPeriod($year, $month);
+	$counter = 0;
+	foreach ($g_infos as $gi) {
+		if ($gi->getGuideId() == $this->getId()) {
+			$counter ++;
+		}
+	}
+	return $counter;
+  }
 } // Guide

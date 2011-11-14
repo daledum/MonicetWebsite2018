@@ -94,6 +94,27 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
 
     return GeneralInfoPeer::doCount($c);
   }
+  
+  public static function doSelectByPeriod($year, $month) {
+  	
+	$date1 = $year."-";
+    $date2 = $year."-";  
+    //if (($type == '1') && $month) {
+    if ($month) {
+        $date1 .= $month."-1";
+        $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+    } else {
+        $date1 .= "1-1";
+        $date2 .= "12-31";
+    }
+    //TODO refactor
+    $c = new Criteria();
+    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+
+    return GeneralInfoPeer::doSelect($c);
+  }
 } // GeneralInfoPeer
 
 
