@@ -244,7 +244,6 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->record->setGeneralInfoId($general_info);
       $this->record->setTime($time);
       $gi = GeneralInfoPeer::retrieveByPk($general_info);
-      echo $gi->getCode();
       if ($latitude == $gi->getBaseLatitude() && $longitude == $gi->getBaseLongitude() && ($code == 1 || $code == 2) ) {
         $this->record->setLatitude('BASE');
         $this->record->setLongitude('BASE');
