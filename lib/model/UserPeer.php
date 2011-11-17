@@ -40,6 +40,12 @@ class UserPeer extends BaseUserPeer {
   		  'maps.*',
   		  'charts.*',
   		  'gi_list.*',
+  		  'watch_info.*',
+  		  'watch_post.*',
+  		  'watch_sighting.*',
+  		  'watch_visibility.*',
+  		  'watchman.*',
+  		  'wi_list.*',
   		);
   		self::addPermissions($permissions, $sf_guard_user);
   	}
@@ -57,6 +63,11 @@ class UserPeer extends BaseUserPeer {
           'maps.*',
           'charts.*',
           'gi_list.*',
+          'watch_info.*',
+          'watch_post.*',
+          'watch_sighting.*',
+          'watch_visibility.*',
+          'wi_list.*',
         );
     	self::addPermissions($permissions, $sf_guard_user);
     }
@@ -69,6 +80,11 @@ class UserPeer extends BaseUserPeer {
           'maps.*',
           'charts.*',
           'gi_list.*',
+          'watch_info.*',
+          'watch_post.*',
+          'watch_sighting.*',
+          'watch_visibility.*',
+          'wi_list.*',
       );
     	self::addPermissions($permissions, $sf_guard_user);
     }
