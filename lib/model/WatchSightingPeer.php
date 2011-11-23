@@ -27,4 +27,12 @@ class WatchSightingPeer extends BaseWatchSightingPeer {
 	        $sighting->delete();
 	    }
 	}
+    
+    public static function doSelectSightingsByWatchInfoId($wiid){
+        $c = new Criteria();
+        $c->add(WatchSightingPeer::WATCH_INFO_ID, $wiid);
+        $c->addAscendingOrderByColumn(WatchSightingPeer::ID);
+        return WatchSightingPeer::doSelect($c);
+    
+    }
 } // WatchSightingPeer

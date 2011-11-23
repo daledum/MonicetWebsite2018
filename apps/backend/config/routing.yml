@@ -323,6 +323,10 @@ get_species_charts_results:
 get_departure_charts_results:
   url:   /departureChartResults
   param: { module: charts, action: get_departure_results }
+  
+delete_watch_line_ajax:
+  url:   /deleteWatchLineAjax
+  param: { module: watch_info, action deleteLineAjax }
 
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing

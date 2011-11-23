@@ -25,6 +25,18 @@
     
     function removeWatchSightingLine() {
         
+        var sighting_id = $('tr.watch_sighting_line_'+$('#n-lines').val()).children('.line_id').children('.sighting_id').val();
+        
+        $.ajax({
+            type: "POST",
+            url: url[0] + "//" + url[2] + "/" + url[3] + "/deleteWatchLineAjax",
+            assync: false,
+            data: {
+                sighting_id: sighting_id,
+            },
+            success: function(msg) { },
+        });
+        
         $('tr.watch_sighting_line_'+$('#n-lines').val()).remove();
         $('#n-lines').val(parseInt($('#n-lines').val()) - 1);
         $('tr.watch_sighting_line_'+$('#n-lines').val()+' td.remove').append('<div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div>');
