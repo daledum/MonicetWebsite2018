@@ -12,7 +12,7 @@ function initChart(series, categories, yAxis, tooltip) {
       },
       yAxis: yAxis,
       legend: {
-          enabled: false
+          enabled: true
       },
       tooltip: tooltip,
       series: series

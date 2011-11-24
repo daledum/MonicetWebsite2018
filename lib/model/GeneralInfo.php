@@ -62,7 +62,7 @@ class GeneralInfo extends BaseGeneralInfo {
     return $species;
   }
   
-    public function getTotalSighted() {
+    public function getTotalSighted($specie_id = null) {
         $sightings = SightingQuery::create()
         ->useRecordQuery()
             ->filterByGeneralInfoId($this->getId())
@@ -73,9 +73,16 @@ class GeneralInfo extends BaseGeneralInfo {
         $total = 0;
         
         foreach($sightings as $s){
-            if($s->getTotal()) {
-                $total += $s->getTotal();
-            } 
+            if ($s->getTotal()){
+                if ($specie_id) {
+                    if ($s->getSpecieId() == $specie_id) {
+                        $total += $s->getTotal();
+                    }
+                }
+                else {
+                    $total += $s->getTotal();
+                } 
+            }            
         }
         
         return $total;

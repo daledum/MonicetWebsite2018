@@ -202,19 +202,33 @@ class chartsActions extends sfActions
     
     if ($request->getParameter('chart-type') == 0) {
         foreach (range(1, 12) as $monthNumber) {
+            $species = array();
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
             $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), $monthNumber);
             $total = count($g_infos);
             $with_species = 0;
+            
+            foreach (SpeciePeer::getAllOrdered() as $s) {
+                $species[$s->getCode()] = 0;
+            }
+            
             foreach ($g_infos as $gi) {
                 if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $gi->getCompanyId() == $company->getId()) {
                     if (count($gi->getSpecies()) > 0) {
-                        $with_species ++;
+                        $species_counted = array();
+                        foreach ($gi->getSpecies() as $s) {
+                            if (!in_array($s->getCode(),$species_counted)) {
+                                $species[$s->getCode()]++;
+                                $species_counted[] = $s->getCode();
+                            }
+                        }
                     }
                 }
             }
             
-            $values[] = ($total > 0)? round(($with_species/$total) * 100, 2) : "null";
+            foreach (SpeciePeer::getAllOrdered() as $s) {
+                $series[$s->getCode()][] = ($total > 0)? round(($species[$s->getCode()]/$total) * 100, 2) : "null";
+            }
         }
     }
     elseif ($request->getParameter('chart-type') == 1) {
@@ -222,19 +236,28 @@ class chartsActions extends sfActions
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
             $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), $monthNumber);
             $total = count($g_infos);
-            $totalSighted = 0;
+            $totalSighted = array();
+            
+            foreach (SpeciePeer::getAllOrdered() as $s) {
+                $totalSighted[$s->getCode()] = 0;
+            }
+            
             foreach ($g_infos as $gi) {
                 if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $gi->getCompanyId() == $company->getId()) {
-                    $totalSighted += $gi->getTotalSighted();
+                    foreach (SpeciePeer::getAllOrdered() as $s) {
+                        $totalSighted[$s->getCode()] += $gi->getTotalSighted($s->getId());
+                    }
                 }
             }
             
-            $values[] = ($total > 0)? round(($totalSighted/$total), 0) : "null";
+            foreach (SpeciePeer::getAllOrdered() as $s) {
+                $series[$s->getCode()][] = ($total > 0)? round(($totalSighted[$s->getCode()]/$total), 0) : "null";
+            }
         }
     }
     
     
-    $series['values'] = $values;
+    //$series['values'] = $values;
     
     $this->series = $series;
     $this->categories = $categories;
