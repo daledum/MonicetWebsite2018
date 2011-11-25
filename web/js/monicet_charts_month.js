@@ -47,7 +47,7 @@ function updateChart() {
   $.ajax({
       url: "/admin.php/monthChartResults?_=" + Math.floor(Math.random()*1000001),
       data: {"year": $("#year").val(), "month": $("#month").val(), 
-             "chart-item": $("#chart-item").val()},
+             "chart-item": $("#chart-item").val(), "company_id": $("#company_id").val()},
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'bar';

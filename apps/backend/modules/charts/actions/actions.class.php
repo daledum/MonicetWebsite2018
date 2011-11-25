@@ -62,6 +62,8 @@ class chartsActions extends sfActions
     $this->firstYear = $explodedFirstDate[0];
     $this->lastYear = $explodedLastDate[0];
     
+    $this->companies = CompanyPeer::doSelect(new Criteria());
+    
   }
   
   public function executeSpecies(sfWebRequest $request) {
@@ -81,6 +83,8 @@ class chartsActions extends sfActions
     $explodedFirstDate = explode('-', $firstGI->getDate());
     $this->firstYear = $explodedFirstDate[0];
     $this->lastYear = $explodedLastDate[0];
+    
+    $this->companies = CompanyPeer::doSelect(new Criteria());
     
   }
   
@@ -102,6 +106,8 @@ class chartsActions extends sfActions
     $this->firstYear = $explodedFirstDate[0];
     $this->lastYear = $explodedLastDate[0];
     
+    $this->companies = CompanyPeer::doSelect(new Criteria());
+    
   }
   
   public function executeGet_month_results(sfWebRequest $request)
@@ -115,6 +121,9 @@ class chartsActions extends sfActions
         $user = $this->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
     }
+    else {
+        $company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
+    }
     
     if ($request->getParameter('chart-item') == 0) {
         foreach ($g_infos as $gi) {
@@ -122,7 +131,25 @@ class chartsActions extends sfActions
                 $items[] = $gi->getVesselId();
                 $data = array();
                 if ($vessel = VesselPeer::retrieveByPK($gi->getVesselId())) {
-                    if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $vessel->getCompanyId() == $company->getId()) {
+                    
+                    $valid = false;
+                    if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+                        if ($company) {
+                            if ($vessel->getCompanyId() == $company->getId()) {
+                                $valid = true;
+                            }
+                        }
+                        else{
+                            $valid = true;
+                        }
+                    }
+                    else {
+                        if ($vessel->getCompanyId() == $company->getId()) {
+                            $valid = true;
+                        }
+                    }
+                    
+                    if ($valid) {
                         for ($i = 1; $i<=12; $i++) {
                             $data[] = $vessel->getTotalMonth($request->getParameter('year'), $i);
                         }
@@ -138,7 +165,25 @@ class chartsActions extends sfActions
                 $items[] = $gi->getGuideId();
                 $data = array();
                 if ($guide = GuidePeer::retrieveByPK($gi->getGuideId())) {
-                    if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $guide->getCompanyId() == $company->getId()) {
+                    
+                    $valid = false;
+                    if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+                        if ($company) {
+                            if ($guide->getCompanyId() == $company->getId()) {
+                                $valid = true;
+                            }
+                        }
+                        else{
+                            $valid = true;
+                        }
+                    }
+                    else {
+                        if ($guide->getCompanyId() == $company->getId()) {
+                            $valid = true;
+                        }
+                    }
+                    
+                    if ($valid) {
                         for ($i = 1; $i<=12; $i++) {
                             $data[] = $guide->getTotalMonth($request->getParameter('year'), $i);
                         }
@@ -167,10 +212,31 @@ class chartsActions extends sfActions
         $user = $this->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
     }
+    else {
+        $company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
+    }
     
     foreach ($g_infos as $gi) {
         foreach ($gi->getSpecies() as $specie){
-            if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $gi->getCompanyId() == $company->getId()) {
+            
+            $valid = false;
+            if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+                if ($company) {
+                    if ($company->getId() == $gi->getCompanyId()) {
+                        $valid = true;
+                    }
+                }
+                else{
+                    $valid = true;
+                }
+            }
+            else {
+                if ($gi->getCompanyId() == $company->getId()) {
+                    $valid = true;
+                }
+            }
+            
+            if ($valid) {
                 if (!in_array($specie->getId(),$items)) {
                     $items[] = $specie->getId();
                     $data = array();
@@ -199,6 +265,9 @@ class chartsActions extends sfActions
         $user = $this->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
     }
+    else {
+        $company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
+    }
     
     if ($request->getParameter('chart-type') == 0) {
         foreach (range(1, 12) as $monthNumber) {
@@ -213,7 +282,25 @@ class chartsActions extends sfActions
             }
             
             foreach ($g_infos as $gi) {
-                if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $gi->getCompanyId() == $company->getId()) {
+                
+                $valid = false;
+                if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+                    if ($company) {
+                        if ($company->getId() == $gi->getCompanyId()) {
+                            $valid = true;
+                        }
+                    }
+                    else{
+                        $valid = true;
+                    }
+                }
+                else {
+                    if ($gi->getCompanyId() == $company->getId()) {
+                        $valid = true;
+                    }
+                }
+                
+                if ($valid) {
                     if (count($gi->getSpecies()) > 0) {
                         $species_counted = array();
                         foreach ($gi->getSpecies() as $s) {
@@ -243,7 +330,25 @@ class chartsActions extends sfActions
             }
             
             foreach ($g_infos as $gi) {
-                if ($this->getUser()->getGuardUser()->getIsSuperAdmin() || $gi->getCompanyId() == $company->getId()) {
+                
+                $valid = false;
+                if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+                    if ($company) {
+                        if ($company->getId() == $gi->getCompanyId()) {
+                            $valid = true;
+                        }
+                    }
+                    else{
+                        $valid = true;
+                    }
+                }
+                else {
+                    if ($gi->getCompanyId() == $company->getId()) {
+                        $valid = true;
+                    }
+                }
+                
+                if ($valid) {
                     foreach (SpeciePeer::getAllOrdered() as $s) {
                         $totalSighted[$s->getCode()] += $gi->getTotalSighted($s->getId());
                     }

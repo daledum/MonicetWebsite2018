@@ -26,7 +26,7 @@ function updateChart() {
   var series = [];
   $.ajax({
       url: "/admin.php/departureChartResults?_=" + Math.floor(Math.random()*1000001),
-      data: {"year": $("#year").val(), "month": $("#month").val(), "chart-type": $("#chart-type").val()},
+      data: {"year": $("#year").val(), "month": $("#month").val(), "chart-type": $("#chart-type").val(), "company_id": $("#company_id").val()},
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           

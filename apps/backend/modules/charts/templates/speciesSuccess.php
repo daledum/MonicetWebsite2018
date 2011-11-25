@@ -23,6 +23,17 @@
                         <option value="1">Percentagem</option>
                     </select>
                 </div>
+                <?php if ($sf_user->isSuperAdmin()): ?>
+                <div class="filter-item">
+                    <label>Empresa:</label>
+                    <select id="company_id" class="filter-select">
+                        <option value="0">(Todas)</option>
+                        <?php foreach ($companies as $company): ?>
+                            <option value="<?php print $company->getId() ?>"><?php print $company->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <?php endif; ?>
                 <div id="chart-loading"></div>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">

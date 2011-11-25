@@ -41,7 +41,7 @@ function updateChart() {
   var series = [];
   $.ajax({
       url: "/admin.php/speciesChartResults?_=" + Math.floor(Math.random()*1000001),
-      data: {"year": $("#year").val(), "month": $("#month").val()},
+      data: {"year": $("#year").val(), "month": $("#month").val(), "company_id": $("#company_id").val()},
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'column';
