@@ -47,11 +47,11 @@ function updateChart() {
           var chartType = 'column';
           
           if ($("#chart-type").val() == 0) {
-              var plotOptions = { column: { pointPadding: 0.2, borderWidth: 0 } };
+              var plotOptions = { column: { pointPadding: 0.2, borderWidth: 0 }, series: { pointPadding: 0.1, groupPadding: 0.1, borderWidth: 0, shadow: false } };
               var yAxisText = 'Quantidade';
           }
           else {
-              var plotOptions = { column: { stacking: 'percent' } };
+              var plotOptions = { column: { stacking: 'percent' }, series: { pointPadding: 0.1, groupPadding: 0.1, borderWidth: 0, shadow: false } };
               var yAxisText = 'Percentagem';
           }
           

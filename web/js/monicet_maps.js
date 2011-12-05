@@ -392,9 +392,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       );
       $('#remove-' +ui.item.code).click(
         function(){
-          if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
-            removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-          }
+          removeSpecie($(this).attr('id').substr(7), markers[$("#show-hide-" + $(this).attr('id').substr(7) + "-val").val()], $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
         }
       );
     }else if(map_type == 'time'){
@@ -420,9 +418,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       );
       $('#remove-' +ui.item.code).click(
         function(){
-          if (confirm('Remover ' + $(this).attr('id').substr(7) + ' ?')) {
-            removeDS($(this).attr('id').substr(7), $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
-          }
+          removeDS($(this).attr('id').substr(7), $("#show-hide-" + $(this).attr('id').substr(7) + "-val").val());
         }
       );
     }

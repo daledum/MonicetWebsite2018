@@ -1,30 +1,21 @@
 <?php
     
-  $selected = array(
-    'Common dolphin (Dd)',
-    'Golfinho comum (Dd)',
-    'Sperm whale (Pm)',
-    'Cachalote (Pm)',
-    'Atlantic Spotted dolphin (Sf)',
-    'Golfinho Pintado (Sf)',
-    'Common bottlenose dolphin (Tt)',
-    'Roaz (Tt)',
-  );
-    
   $cats = '';
   foreach($categories as $c): 
     $cats .= "\"".$c."\","; 
   endforeach;
 
   $results = '';
+  $visible = 4;
   foreach($series as $c => $d): 
     $results .= "{\"name\": \"".$c."\", \"data\": [";  
     foreach($d as $i):  
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-    if (in_array($c, $selected)) {
+    if ($visible > 0) {
         $results .= "]},";
+        $visible--;
     }
     else {
         $results .= "], \"visible\":false},";

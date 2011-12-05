@@ -6,13 +6,20 @@
   endforeach;
 
   $results = '';
+  $visible = 4;
   foreach($series as $c => $d): 
     $results .= "{\"name\": \"".$c."\", \"data\": [";  
     foreach($d as $i):  
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-    $results .= "]},";
+    if ($visible > 0) {
+        $results .= "]},";
+        $visible--;
+    }
+    else {
+        $results .= "], \"visible\":false},";
+    }
   endforeach;
 ?>
 {

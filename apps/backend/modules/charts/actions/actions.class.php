@@ -252,7 +252,7 @@ class chartsActions extends sfActions
     foreach(range(1, 12) as $monthNumber) {
         $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
     }
-    $this->series = $series;
+    $this->series = $this->orderSpeciesDesc($series);
     $this->categories = $categories;
   }
 
@@ -364,8 +364,53 @@ class chartsActions extends sfActions
     
     //$series['values'] = $values;
     
-    $this->series = $series;
+    $this->series = $this->orderSpeciesDesc($series);
     $this->categories = $categories;
   }
+
+    
+  public function orderSpeciesDesc($array) {
+      
+      $pos = 0;
+      $to_order = array();
+      
+      foreach ($array as $i => $values ) {
+          $sum = 0;
+          foreach ($values as $value) {
+              if ($value != "null") {
+                  $sum += $value;
+              }
+          }
+          $to_order[$pos] = array('index' => $i, 'value' => $sum);
+          $pos++;
+      }
+      
+      $ordered = array();
+      $is_ordered = false;
+      do {
+          $times = 0;
+          for ($i = 1; $i < count($to_order); $i++) {
+              if ($to_order[$i]['value'] > $to_order[$i-1]['value']) {
+                  $temp = $to_order[$i-1];
+                  $to_order[$i-1] = $to_order[$i];
+                  $to_order[$i] = $temp;
+                  $times++;
+              }
+          }
+          
+          if ($times == 0) {
+              $is_ordered = true;
+          }
+          
+      } while ($is_ordered == false);
+      
+      foreach ($to_order as $value) {
+          $ordered[$value['index']] = $array[$value['index']];
+      }
+      
+      return $ordered;
+      
+  }
+    
   
 }
