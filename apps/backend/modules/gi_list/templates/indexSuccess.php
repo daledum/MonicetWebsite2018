@@ -19,6 +19,9 @@
     <ul class="sf_admin_actions">
       <?php include_partial('gi_list/list_batch_actions', array('helper' => $helper)) ?>
       <?php include_partial('gi_list/list_actions', array('helper' => $helper)) ?>
+      <li class="sf_admin_action_export">
+        <a href="<?php echo url_for('gi_list/export') ?>">Exportar</a>
+      </li>
     </ul>
   </div>
 
