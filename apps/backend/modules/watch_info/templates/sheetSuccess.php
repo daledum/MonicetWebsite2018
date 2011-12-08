@@ -2,25 +2,28 @@
     var url = window.location.href.split('/');
     
     function appendNewWatchSightingLine() {
-        $.ajax({
-            type: "POST",   
-            url: url[0] + "//" + url[2] + "/" + url[3] + "/watch_sighting/line/", 
-            async: false,
-            data: {
-                n_lines: $('#n-lines').val(),
-                '_r': Math.random()*100
-            },
-            success: function(msg) {
-                 $('.remove-line-div').remove();
-                 $('div.sf_admin_list table tbody').append(msg);
-                 $('#n-lines').val(parseInt($('#n-lines').val()) + 1);
-                 $('a.remove-line').click(function() {
-                     removeWatchSightingLine();
-                     return false;
-                 });
-                 
-             }
-        });
+        
+        if ($("#watch_sighting_code_id_"+$('#n-lines').val()).val() != 2) {
+            $.ajax({
+                type: "POST",   
+                url: url[0] + "//" + url[2] + "/" + url[3] + "/watch_sighting/line/", 
+                async: false,
+                data: {
+                    n_lines: $('#n-lines').val(),
+                    '_r': Math.random()*100
+                },
+                success: function(msg) {
+                     $('.remove-line-div').remove();
+                     $('div.sf_admin_list table tbody').append(msg);
+                     $('#n-lines').val(parseInt($('#n-lines').val()) + 1);
+                     $('a.remove-line').click(function() {
+                         removeWatchSightingLine();
+                         return false;
+                     });
+                     
+                 }
+            });
+        }
     }
     
     function removeWatchSightingLine() {

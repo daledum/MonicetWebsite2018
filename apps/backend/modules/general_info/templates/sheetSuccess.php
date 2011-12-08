@@ -2,29 +2,32 @@
     var url = window.location.href.split('/');
     
     function appendNewRecordLine() {
-        $.ajax({
-            type: "POST",   
-            url: url[0] + "//" + url[2] + "/" + url[3] + "/record/line/", 
-            async: false,
-            data: {
-                n_lines: $('#n-lines').val(), 
-                latitude: "<?php echo $general_info->getBaseLatitude();?>",
-                longitude: "<?php echo $general_info->getBaseLongitude();?>", 
-                '_r': Math.random()*100
-            },
-            success: function(msg) {
-                         $('.remove-line-div').remove();
-                         $('div.sf_admin_list table tbody').append(msg);
-                         $('#n-lines').val(parseInt($('#n-lines').val()) + 1);
-                         //addCalendar($('tr.record_line_' + $('#n-lines').val() + ' input.date_field'));
-                         //$('.hour input').mask("99:99");
-                         $('a.remove-line').click(function() {
-                             removeRecordLine();
-                             return false;
-                         });
-                         
-                     }
-        });
+        
+        if ($("#record_code_id_"+$('#n-lines').val()).val() != 2) {
+            $.ajax({
+                type: "POST",   
+                url: url[0] + "//" + url[2] + "/" + url[3] + "/record/line/", 
+                async: false,
+                data: {
+                    n_lines: $('#n-lines').val(), 
+                    latitude: "<?php echo $general_info->getBaseLatitude();?>",
+                    longitude: "<?php echo $general_info->getBaseLongitude();?>", 
+                    '_r': Math.random()*100
+                },
+                success: function(msg) {
+                             $('.remove-line-div').remove();
+                             $('div.sf_admin_list table tbody').append(msg);
+                             $('#n-lines').val(parseInt($('#n-lines').val()) + 1);
+                             //addCalendar($('tr.record_line_' + $('#n-lines').val() + ' input.date_field'));
+                             //$('.hour input').mask("99:99");
+                             $('a.remove-line').click(function() {
+                                 removeRecordLine();
+                                 return false;
+                             });
+                             
+                         }
+            });
+        }
     }
     
     function removeRecordLine() {
