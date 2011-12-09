@@ -30,12 +30,6 @@ h2 {
 
 <div class="help">
   <h1>Ajuda</h1>
-  <h2>Estado do Mar (Beaufort)</h2>
-  <ul>
-    <?php foreach($sea_states as $sea_state): ?>
-        <li><strong><?php echo $sea_state->getCode() ?></strong> - <?php echo $sea_state->getDescription() ?></li>
-    <?php endforeach ?>
-  </ul>
 	
 	<h2>Códigos</h2>
 	<ul>
@@ -55,13 +49,6 @@ h2 {
     <ul>
       <?php foreach($behaviours as $behaviour): ?>
         <li><strong><?php echo $behaviour->getCode() ?></strong> - <?php echo $behaviour->getDescription() ?></li>
-      <?php endforeach ?>
-    </ul>
-    
-    <h2>Associação</h2>
-    <ul>
-      <?php foreach($associations as $association): ?>
-        <li><strong><?php echo $association->getCode() ?></strong> - <?php echo $association->getDescription() ?></li>
       <?php endforeach ?>
     </ul>
     

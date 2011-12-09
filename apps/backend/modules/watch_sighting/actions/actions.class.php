@@ -103,6 +103,18 @@ class watch_sightingActions extends autoWatch_sightingActions
 	    
 	    
 	}
+
+    public function executeHelp(sfWebRequest $request)
+    {
+        $c = new Criteria();
+        $this->codes = WatchCodePeer::doSelect($c);
+        $this->visibilities = WatchVisibilityPeer::doSelect($c);
+        $this->behaviours = BehaviourPeer::doSelect($c);
+        
+        $this->turtles = SpeciePeer::doSelect($c->add(SpeciePeer::SPECIE_GROUP_ID, 1));
+        $this->odontocetis = SpeciePeer::doSelect($c->add(SpeciePeer::SPECIE_GROUP_ID, 2));
+        $this->mysticetis = SpeciePeer::doSelect($c->add(SpeciePeer::SPECIE_GROUP_ID, 3));
+    }
 	
 	
 }

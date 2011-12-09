@@ -1,2 +1,5 @@
 all:
   layout: mfAdminLayout
+
+helpSuccess:
+  has_layout: False
