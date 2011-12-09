@@ -13,11 +13,6 @@ require_once dirname(__FILE__).'/../lib/wi_listGeneratorHelper.class.php';
  */
 class wi_listActions extends autoWi_listActions
 {
-	public function executeListShowMap(sfWebRequest $request) {
-        $wiid = $request->getParameter('id');
-        $this->redirect('@watchInfoPublicMap?watch_info_id=' . $wiid);
-    }
-	  
 	public function executeListShowGrid(sfWebRequest $request) {
 	    $wiid = $request->getParameter('id');
 		$this->redirect('wi_list/sheet?wiid=' . $wiid);

@@ -23,7 +23,6 @@ generator:
         peer_count_method: doCountByCompany
         object_actions:
           showGrid:        {label: Registos}
-          showMap:         {label: Ver em Mapa}
           _edit:      ~
           _delete:    ~
       filter:  ~

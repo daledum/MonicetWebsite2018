@@ -17,11 +17,6 @@ class watch_infoActions extends autoWatch_infoActions
 		$wiid = $request->getParameter('id');
 		$this->redirect('watch_info/sheet?wiid=' . $wiid);
 	}
-		  
-	public function executeListShowMap(sfWebRequest $request) {
-		$wiid = $request->getParameter('id');
-		$this->redirect('@watchInfoMap?watch_info_id=' . $wiid);
-	}
 	
 	protected function processForm(sfWebRequest $request, sfForm $form) {
 		$form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));

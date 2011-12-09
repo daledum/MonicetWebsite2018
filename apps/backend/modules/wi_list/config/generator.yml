@@ -25,7 +25,6 @@ generator:
         actions:           {}
         object_actions:
           showGrid:        {label: Registos}
-          showMap:         {label: Ver em Mapa}
       filter:
         display:           [ date, species ]
       form:    ~
