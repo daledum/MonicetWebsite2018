@@ -1,0 +1,11 @@
+web/uploads/*
+config/database.yml
+cache
+log
+.buildpath
+.project
+nbproject
+.settings
+data/sql/backup_*
+web/*_dev.php
+

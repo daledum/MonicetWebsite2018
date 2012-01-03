@@ -14,9 +14,10 @@ all:
     class: sfPropelDatabase
     param:
       classname: PropelPDO
-      dsn: 'mysql:host=sf.morfose.dremhosters.com;dbname=monicet'
-      username: monicet
-      password: H76Au2jFRr
+#      dsn: 'sqlite:%SF_DATA_DIR%/db'
+      dsn: 'mysql:host=localhost;dbname=db_name'
+      username: db_user
+      password: db_pass
       encoding: utf8
       persistent: true
       pooling: true
