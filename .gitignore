@@ -1,5 +1,6 @@
 web/uploads/*
-config/database.yml
+config/databases.yml
+config/propel.ini
 cache
 log
 .buildpath
