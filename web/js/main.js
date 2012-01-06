@@ -1,5 +1,27 @@
 $(document).ready(function(){
   // caso exista o formulário, adicionar código para que passe a abrir num popup
+  $('.jqmWindow h2').append('<a href="#" class="jqmClose jqmCloseTop">Fechar</a>');
+
+  if ( $('.sf_admin_filter').get(0) !== undefined ){
+
+    //$('.sf_admin_filter').wrap('<div id="pesquisa" class="jqmWindow" style="display: none;" />');
+
+    //$('.sf_admin_filter h2').append('<a href="#" class="jqmClose jqmCloseTop">Fechar</a>');
+    //$('.jqmWindow h2').append('<a href="#" class="jqmClose jqmCloseTop">Fechar</a>');
+
+    if ( $('ul.sf_admin_actions').get(0) !== undefined ){
+      $('ul.sf_admin_actions').append('<li class="sf_admin_action_pesquisa"><a href="#" class="pesquisa tooltip" title="Pesquisar no modelo">Pesquisar</a></li>');
+    }
+
+    $('#pesquisa').jqm({
+      modal: true,
+      trigger: 'a.pesquisa',
+      overlay: 40
+    });
+
+  }
+  /*
+  // caso exista o formulário, adicionar código para que passe a abrir num popup
   if ( $('.sf_admin_filter').get(0) !== undefined ){
 	$('.sf_admin_filter').wrap('<div id="pesquisa" class="jqmWindow" style="display: none;" />');
 	
@@ -14,7 +36,7 @@ $(document).ready(function(){
 	  trigger: 'a.pesquisa',
 	  overlay: 40
 	});
-  }
+  }*/
   
   $('#creditos').jqm({
     modal: true,

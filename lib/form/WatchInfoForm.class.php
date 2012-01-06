@@ -28,7 +28,7 @@ class WatchInfoForm extends BaseWatchInfoForm
 
   public function configure()
   {
-  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('general_info');
+  	$this->widgetSchema->getFormFormatter()->setTranslationCatalogue('watch_info');
     unset(
       $this['created_at'], $this['updated_at'], $this['code']
     );

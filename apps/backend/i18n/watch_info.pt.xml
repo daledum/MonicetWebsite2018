@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Watch info List</source>
+        <target>A listar os eventos de vigia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Watch info</source>
+        <target>A editar evento de vigia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>New Watch info</source>
+        <target>A adicionar novo evento de vigia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Watch post</source>
+        <target>Posto de vigia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Watchman</source>
+        <target>Vigia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company</source>
+        <target>Empresa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Valid</source>
+        <target>Válido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base latitude</source>
+        <target>Latitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Base longitude</source>
+        <target>Longitude</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Comments</source>
+        <target>Comentários</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created by</source>
+        <target>Criado por</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Updated by</source>
+        <target>Actualizado por</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Species</source>
+        <target>Espécies</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes or no</source>
+        <target>Sim ou não</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes</source>
+        <target>Sim</target>
+      </trans-unit>
+      <trans-unit>
+        <source>no</source>
+        <target>Não</target>
+      </trans-unit>
+      <trans-unit>
+        <source>is empty</source>
+        <target>Vazio</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -26,17 +26,23 @@ class WatchInfoFormFilter extends BaseWatchInfoFormFilter
     
     $this->widgetSchema['species'] =  new sfWidgetFormPropelChoice(array('model' => 'Specie', 'add_empty' => true));
     $this->validatorSchema['species'] = new sfValidatorPropelChoice(array('required' => false, 'model' => 'Specie', 'column' => 'id'));
+    
+    $this->widgetSchema['date'] = new sfWidgetFormFilterDate(array(
+      'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
+      'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
+      'template' => 'De %from_date% a %to_date%',
+      'with_empty' => false
+    ));
   }
+  
   
   protected function addSpeciesColumnCriteria(Criteria $criteria, $field, $values){
       
-    if (!is_array($values))
-    {
+    if (!is_array($values)){
         $values = array($values);
     }
     
-    if (!count($values))
-    {
+    if (!count($values)) {
         return;
     }
     

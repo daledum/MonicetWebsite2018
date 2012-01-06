@@ -37,6 +37,13 @@ a.jqmClose {
   border-left: 1px solid #d6d6d6;
 }
 
+a.jqmCloseTop {
+  float: right;
+  position: relative;
+  top: -6px;
+  right: -12px;
+}
+
 #pg {
   margin: auto;
   text-align: left;

@@ -1,3 +1,14 @@
+input[type=checkbox] {
+  width: 20px !important;
+}
+.date_field {
+  width: 70px !important;
+  border: 1px solid #5B8638 !important;
+  background-color: #e4eae0 !important;
+  height: 20px;
+}
+
+
 ul.footer li {
   float: left;
   padding: 0 10px;

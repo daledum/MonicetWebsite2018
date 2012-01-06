@@ -2,7 +2,7 @@
 
 [?php use_stylesheets_for_form($form) ?]
 [?php use_javascripts_for_form($form) ?]
-
+<div id="pesquisa" class="jqmWindow" style="display: none;" >
 <div class="sf_admin_filter">
   <h2>[?php echo __('Search', array(), 'sf_admin') ?]</h2>
   [?php if ($form->hasGlobalErrors()): ?]
@@ -36,5 +36,6 @@
       </tbody>
     </table>
   </form>
+</div>
 </div>
 [?php endif; ?]
