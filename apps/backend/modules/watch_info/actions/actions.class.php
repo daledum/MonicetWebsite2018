@@ -112,6 +112,7 @@ class watch_infoActions extends autoWatch_infoActions
     public function executeDeleteLineAjax(sfWebRequest $request) {
         $sighting_id = $request->getParameter('sighting_id');
         
+        // TODO -> não me parece correcto (Vilarinho)
         if ($sighting = WatchSightingPeer::retrieveByPK($sighting_id)) {
             $sighting->delete();
         }
@@ -298,4 +299,140 @@ class watch_infoActions extends autoWatch_infoActions
         }
     }
 	
+    public function executeUpload(sfWebRequest $request){
+      
+    $this->form = new importXlsForm();
+    
+    if($request->isMethod('post')){
+      
+      $this->form->bind($request->getParameter('importXls'),$request->getFiles('importXls'));
+      if($this->form->isValid()){
+        
+//        $file = $this->form->getValue('ficheiro');
+//        
+//        
+//        $file->save(sfConfig::get('sf_upload_dir').'/import/import.xls');
+//        
+//        $objReader = new PHPExcel_Reader_Excel5();
+//        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import/import.xls');
+//        
+//        //$l = 3;
+//        //$c = 0;
+//        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
+//        
+//        $giid = 0;
+//        $record = null;
+//        $sighting = null;
+//        $general_info = null;
+//        
+//        //percorrer as linhas
+//        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+//          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
+//          
+//          // criar nova general info caso registo seja 'I'
+//          if(strcmp(strtoupper($code),'I') == 0){
+//            $gi = new GeneralInfo();
+//            $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
+//            if ($barco) $gi->setVesselId($barco->getId());
+//            
+//            $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
+//            if($skipper) $gi->setSkipperId($skipper->getId());
+//            
+//            $guia = GuidePeer::getGuiaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $l)->getValue());
+//            if($guia) $gi->setGuideId($guia->getId());
+//            
+//            $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
+//            if($empresa){
+//              $gi->setCompanyId($empresa->getId());
+//              $gi->setBaseLatitude($empresa->getBaseLatitude());
+//              $gi->setBaseLongitude($empresa->getBaseLongitude());
+//            } 
+//            
+//            $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
+//            $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
+//            $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+//            $dia = substr($formattedString,3,2);
+//            $mes = substr($formattedString,0,2);
+//            $ano = substr($formattedString,6,2);
+//            
+//            $gi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
+//            //echo $formattedString;
+//            if($barco && $empresa){
+//              $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $gi->getDate()));
+//            }
+//            $gi->save();
+//            $general_info = $gi;
+//          }
+//          
+//          $record = new Record();
+//          $sighting = new Sighting();
+//          
+//          $record->setGeneralInfoId($general_info->getId());
+//          
+//          // inserir registos
+//          $codigo = CodePeer::getByAcronym(strtoupper($code));
+//          
+//          if($codigo) $record->setCodeId($codigo->getId());
+//          
+//          $vis = VisibilityPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $l)->getValue());
+//          if($vis) $record->setVisibilityId($vis->getId());
+//          
+//          $sea = SeaStatePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue());
+//          if($sea) $record->setSeaStateId($sea->getId());
+//          
+//          $value = $objPHPExcel->getActiveSheet()->getCell('C'.$l)->getValue();
+//          $formatCode = $objPHPExcel->getActiveSheet()->getStyle('C'.$l)->getNumberFormat()->getFormatCode();
+//          $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+//          
+//          //echo $formattedString;
+//          $record->setTime($formattedString);
+//          
+//          $latitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $l)->getValue();
+//          if(strcmp(strtoupper($latitude),'BASE') == 0){
+//            $latitude = $general_info->getBaseLatitude();
+//          }
+//          else{
+//            $latitude = mfUtils::convertLatLong($latitude);
+//          }
+//          $record->setLatitude($latitude);
+//          
+//          $longitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $l)->getValue();
+//          if(strcmp(strtoupper($longitude),'BASE') == 0){
+//            $longitude = $general_info->getBaseLongitude();
+//          }
+//          else{
+//            $longitude = mfUtils::convertLatLong($longitude);
+//          }
+//          $record->setLongitude($longitude);
+//          
+//          $record->setNumVessels($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
+//          
+//          $record->save();
+//          
+//          // inserir sightings
+//          $sighting->setRecordId($record->getId());
+//          
+//          $esp = SpeciePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $l)->getValue());
+//          if($esp) $sighting->setSpecieId($esp->getId());
+//          
+//          $beh = BehaviourPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $l)->getValue());
+//          if($beh) $sighting->setBehaviourId($beh->getId());
+//          
+//          $asso = AssociationPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $l)->getValue());
+//          if($asso) $sighting->setAssociationId($asso->getId());
+//          
+//          $sighting->setAdults($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $l)->getValue());
+//          $sighting->setJuveniles($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $l)->getValue());
+//          $sighting->setCalves($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $l)->getValue());
+//          $sighting->setTotal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $l)->getValue());
+//          $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $l)->getValue());
+//          
+//          $sighting->save();
+//        }
+      }
+      
+      $this->redirect('@watch_info');
+      
+    }
+  }
 }
