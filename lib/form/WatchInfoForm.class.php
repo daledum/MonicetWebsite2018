@@ -34,8 +34,6 @@ class WatchInfoForm extends BaseWatchInfoForm
     );
     
     
-    
-    
 
     $this->widgetSchema['date'] = new sfWidgetFormInput();
     $this->widgetSchema['date']->setAttribute('class', 'date_field');
@@ -63,7 +61,7 @@ class WatchInfoForm extends BaseWatchInfoForm
     ));
     $this->validatorSchema['watch_post_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($posts),
-        'required' => false
+        'required' => true
     ));
     $watchmen = WatchmanPeer::doSelectListByCompany();
     $this->widgetSchema['watchman_id'] = new sfWidgetFormChoice(array(

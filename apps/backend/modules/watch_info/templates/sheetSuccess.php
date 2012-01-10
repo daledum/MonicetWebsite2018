@@ -177,8 +177,8 @@
             <td><?php echo $watch_info->getDate();?></td>
             <td><?php echo $watch_info->getWatchPost();?></td>
             <td><?php echo $watch_info->getWatchman();?></td>
-            <td><?php echo $watch_info->getBaseLatitude();?></td>
-            <td><?php echo $watch_info->getBaseLongitude();?></td>
+            <td><?php echo $watch_info->getWatchPost()->getLatitude();?></td>
+            <td><?php echo $watch_info->getWatchPost()->getLongitude();?></td>
             <td><?php echo sfGuardUserPeer::retrieveByPk($watch_info->getCreatedBy()) ?></td>
             <td><?php echo sfGuardUserPeer::retrieveByPk($watch_info->getUpdatedBy()) ?></td>
         </tr>

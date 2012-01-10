@@ -18,7 +18,7 @@ generator:
         date:
           date_format:     yyyy-MM-dd
       list:
-        display:           [code, date, watch_post, watchman, base_latitude, base_longitude, valid]
+        display:           [code, date, watch_post, watchman, _latitude, _longitude, valid]
         peer_method:       doSelectByCompany
         peer_count_method: doCountByCompany
         object_actions:

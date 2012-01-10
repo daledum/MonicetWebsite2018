@@ -1,0 +1,1 @@
+<?php echo $WatchInfo->getWatchPost()->getLatitude() ?>
