@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           WatchPost
-    theme:                 admin
+    theme:                 mfAdmin
     non_verbose_templates: true
     with_show:             false
     singular:              WatchPost
@@ -17,13 +17,17 @@ generator:
       fields:
         height:            { label: Altura (m) }
         observations:      { label: Observações }
+        company_id:           
+          label: "Empresa"
+        name:
+          label: "Nome"
       list:
-        title:             A listar Postos
+        title:             A listar postos
         display:           [company, latitude, longitude, height]
       filter:              
         display:           [ company_id, name ]
       form:    ~
       edit:
-        title:             A editar o Posto %%name%%
+        title:             A editar o posto %%name%%
       new:
-        title:             Novo Posto
+        title:             Novo posto

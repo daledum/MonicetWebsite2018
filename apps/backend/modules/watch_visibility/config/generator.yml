@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           WatchVisibility
-    theme:                 admin
+    theme:                 mfAdmin
     non_verbose_templates: true
     with_show:             false
     singular:              WatchVisibility
@@ -10,11 +10,17 @@ generator:
     route_prefix:          watch_visibility
     with_propel_route:     1
     actions_base_class:    sfActions
+    i18n_catalogue:        watch_visibility
 
     config:
       actions: ~
-      fields:  ~
-      list:    ~
+      fields:  
+        descriptionPt:
+          label: "Descrição (PT)"
+        descriptionEn:
+          label: "Descrição (EN)"
+      list:    
+        display:          [code, _descriptionPt, _descriptionEn]
       filter:  ~
       form:    ~
       edit:    ~

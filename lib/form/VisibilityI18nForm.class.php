@@ -11,5 +11,6 @@ class VisibilityI18nForm extends BaseVisibilityI18nForm
 {
   public function configure()
   {
+    
   }
 }

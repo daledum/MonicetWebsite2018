@@ -11,5 +11,6 @@ class WatchVisibilityI18nForm extends BaseWatchVisibilityI18nForm
 {
   public function configure()
   {
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('watch_visibility');
   }
 }

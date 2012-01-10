@@ -11,5 +11,6 @@ class WatchCodeFormFilter extends BaseWatchCodeFormFilter
 {
   public function configure()
   {
+    unset($this['created_at'], $this['updated_at']);
   }
 }

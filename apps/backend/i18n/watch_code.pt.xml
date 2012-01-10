@@ -11,80 +11,80 @@
         <target>Campo inválido</target>
       </trans-unit>
       <trans-unit>
-        <source>Watch info List</source>
-        <target>A listar os eventos de vigia</target>
+        <source>Watch code List</source>
+        <target>A listar códigos</target>
       </trans-unit>
       <trans-unit>
-        <source>Edit Watch info</source>
-        <target>A editar evento de vigia</target>
+        <source>Edit Watch code</source>
+        <target>A editar código</target>
       </trans-unit>
       <trans-unit>
-        <source>New Watch info</source>
-        <target>A adicionar novo evento de vigia</target>
+        <source>New Watch code</source>
+        <target>A adicionar novo código</target>
       </trans-unit>
       <trans-unit>
-        <source>Watch post</source>
-        <target>Posto de vigia</target>
+        <source>Watch code</source>
+        <target>Código</target>
       </trans-unit>
       <trans-unit>
-        <source>Watchman</source>
-        <target>Vigia</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Company</source>
-        <target>Empresa</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
         <source>Valid</source>
         <target>Válido</target>
       </trans-unit>
       <trans-unit>
-        <source>Base latitude</source>
-        <target>Latitude</target>
+        <source>Acronym</source>
+        <target>Acrónimo</target>
       </trans-unit>
       <trans-unit>
-        <source>Base longitude</source>
-        <target>Longitude</target>
+        <source>Description</source>
+        <target>Descrição</target>
       </trans-unit>
       <trans-unit>
-        <source>Date</source>
-        <target>Data</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Comments</source>
-        <target>Comentários</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Created by</source>
-        <target>Criado por</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Updated by</source>
-        <target>Actualizado por</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Species</source>
-        <target>Espécies</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>yes or no</source>
-        <target>Sim ou não</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>yes</source>
-        <target>Sim</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>no</source>
-        <target>Não</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>is empty</source>
-        <target>Vazio</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Code</source>
-        <target>Código</target>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
         <source></source>

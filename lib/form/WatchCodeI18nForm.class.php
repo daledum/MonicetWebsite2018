@@ -11,5 +11,6 @@ class WatchCodeI18nForm extends BaseWatchCodeI18nForm
 {
   public function configure()
   {
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('watch_code');
   }
 }

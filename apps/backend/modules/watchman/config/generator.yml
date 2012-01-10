@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           watchman
-    theme:                 admin
+    theme:                 mfAdmin
     non_verbose_templates: true
     with_show:             false
     singular:              watchman
@@ -19,7 +19,7 @@ generator:
         name:              { label: Nome }
         observations:      { label: Observações }
       list:
-        title:             A listar Vigias
+        title:             A listar vigias
         display:           [company, name]
       filter:              
         display:           [ company_id, name ]
@@ -27,4 +27,4 @@ generator:
       edit:
         title:             A editar o vigia %%name%%
       new:
-        title:             Novo Vigia
+        title:             Novo vigia

@@ -2,7 +2,7 @@ generator:
   class: sfPropelGenerator
   param:
     model_class:           WatchInfo
-    theme:                 admin
+    theme:                 mfAdmin
     non_verbose_templates: true
     with_show:             false
     singular:              WatchInfo

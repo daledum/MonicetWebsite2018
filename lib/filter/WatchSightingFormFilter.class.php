@@ -11,5 +11,6 @@ class WatchSightingFormFilter extends BaseWatchSightingFormFilter
 {
   public function configure()
   {
+    
   }
 }
