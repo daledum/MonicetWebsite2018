@@ -266,7 +266,9 @@ class general_infoActions extends autoGeneral_infoActions
   
   
   public function generateExportExcelObject($year, $month = null) {
-      
+    
+      ini_set("memory_limit","300M");
+    
       // buscar os dados
       $c = new Criteria();
       
