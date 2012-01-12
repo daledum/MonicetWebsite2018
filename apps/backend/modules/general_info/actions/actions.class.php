@@ -219,49 +219,70 @@ class general_infoActions extends autoGeneral_infoActions
   public function executeDownload(sfWebRequest $request){
     $this->forward404Unless( $request->isMethod(sfRequest::POST) );
     
+    $year = $request->getParameter('year');
+    
     if($request->getParameter('month') && $request->getParameter('month') != 0) {
-        
-        $year = $request->getParameter('year');
-        $month = $request->getParameter('month');
-        
-        // criar o ficheiro excel
-        $objPHPExcel = $this->generateExportExcelObject($year, $month);
-        
-        $this->filename = $year;
-        
-        // download do ficheiro sem o guardar
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
-        header('Cache-Control: max-age=0');
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-        $objWriter->save('php://output');
-        return sfView::NONE;
-        
-        
+      $month = $request->getParameter('month');
+      // criar o ficheiro excel
+      $objPHPExcel = $this->generateExportExcelObject($year, $month);
+      $filename = $year.'_'.$month;
     }else {
-      if(!file_exists(sfConfig::get('sf_upload_dir').'/export/'.$request->getParameter('year').'.xls')) {
-        set_time_limit(600);
-        
-        $year = $request->getParameter('year');
-        
-        // criar o ficheiro excel
-        $objPHPExcel = $this->generateExportExcelObject($year);
-        
-        $this->filename = $year;
-        
-        // guardar e fazer download do ficheiro
-        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
-        $objWriter->save(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls');
-        chmod(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls', 0777);
-        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
-        
-      } else {
-        
-        // se o ficheiro existe, envia o ficheiro existente
-        $this->filename = $request->getParameter('year');
-        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
-      }
+      // criar o ficheiro excel
+      $objPHPExcel = $this->generateExportExcelObject($year);
+      $filename = $year;
     }
+    
+    // download do ficheiro sem o guardar
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    return sfView::NONE;
+    
+//    if($request->getParameter('month') && $request->getParameter('month') != 0) {
+//        
+//        $year = $request->getParameter('year');
+//        $month = $request->getParameter('month');
+//        
+//        // criar o ficheiro excel
+//        $objPHPExcel = $this->generateExportExcelObject($year, $month);
+//        
+//        $this->filename = $year;
+//        
+//        // download do ficheiro sem o guardar
+//        header('Content-Type: application/vnd.ms-excel');
+//        header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
+//        header('Cache-Control: max-age=0');
+//        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+//        $objWriter->save('php://output');
+//        return sfView::NONE;
+//        
+//        
+//    }else {
+//      if(!file_exists(sfConfig::get('sf_upload_dir').'/export/'.$request->getParameter('year').'.xls')) {
+//        set_time_limit(600);
+//        
+//        $year = $request->getParameter('year');
+//        
+//        // criar o ficheiro excel
+//        $objPHPExcel = $this->generateExportExcelObject($year);
+//        
+//        $this->filename = $year;
+//        
+//        // guardar e fazer download do ficheiro
+//        $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+//        $objWriter->save(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls');
+//        chmod(sfConfig::get('sf_upload_dir').'/export/'.$this->filename.'.xls', 0777);
+//        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
+//        
+//      } else {
+//        
+//        // se o ficheiro existe, envia o ficheiro existente
+//        $this->filename = $request->getParameter('year');
+//        $this->filedir = '/uploads/export/'.$this->filename.'.xls';
+//      }
+//    }
     
   }
   
