@@ -163,8 +163,9 @@
 	    <tr>
 	        <th>Código</th>
 	        <th>Data</th>
+          <th>Empresa</th>
+          <th>Vigia</th>
 	        <th>Posto</th>
-	        <th>Vigia</th>
 	        <th>Latitude Base</th>
 	        <th>Longitude Base</th>
 	        <th>Criado por</th>
@@ -175,8 +176,9 @@
         <tr>
             <td><?php echo $watch_info->getCode();?></td>
             <td><?php echo $watch_info->getDate();?></td>
-            <td><?php echo $watch_info->getWatchPost();?></td>
+            <td><?php echo $watch_info->getCompany();?></td>
             <td><?php echo $watch_info->getWatchman();?></td>
+            <td><?php echo $watch_info->getWatchPost();?></td>
             <td><?php echo $watch_info->getWatchPost()->getLatitude();?></td>
             <td><?php echo $watch_info->getWatchPost()->getLongitude();?></td>
             <td><?php echo sfGuardUserPeer::retrieveByPk($watch_info->getCreatedBy()) ?></td>

@@ -218,7 +218,12 @@ class watch_infoActions extends autoWatch_infoActions
       
       $cena->setCellValueByColumnAndRow(0,2, 'Data');
         
-      $headers[0][] = 'Cod.';
+      $headers[0][] = 'Cod. observação';
+      $headers[0][] = 'Data';
+      $headers[0][] = 'Empresa';
+      $headers[0][] = 'Posto';
+      $headers[0][] = 'Vigia';
+      $headers[0][] = 'Cod. avistamento';
       $headers[0][] = 'Hora';
       $headers[0][] = 'Vis.';
       $headers[0][] = 'Espécie';
@@ -257,6 +262,11 @@ class watch_infoActions extends autoWatch_infoActions
           
           // criar o array para escrever no ficheiro
           $array[$l_arr] = array();
+          $array[$l_arr][] = $wi->getCode();
+          $array[$l_arr][] = $wi->getDate();
+          $array[$l_arr][] = $wi->getCompany()->getAcronym();
+          if($wi->getWatchPostId()) $array[$l_arr][] = $wi->getWatchPost()->getName(); else $array[$l_arr][] = null;
+          if($wi->getWatchManId()) $array[$l_arr][] = $wi->getWatchMan()->getName(); else $array[$l_arr][] = null;
           $array[$l_arr][] = $sighting->getwatchCode()->getAcronym();
           $array[$l_arr][] = $sighting->getTime();
           if($sighting->getWatchVisibilityId()) $array[$l_arr][] = $sighting->getWatchVisibility()->getCode(); else $array[$l_arr][] = null;
@@ -308,31 +318,30 @@ class watch_infoActions extends autoWatch_infoActions
       $this->form->bind($request->getParameter('importXls'),$request->getFiles('importXls'));
       if($this->form->isValid()){
         
-//        $file = $this->form->getValue('ficheiro');
-//        
-//        
-//        $file->save(sfConfig::get('sf_upload_dir').'/import/import.xls');
-//        
-//        $objReader = new PHPExcel_Reader_Excel5();
-//        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import/import.xls');
-//        
-//        //$l = 3;
-//        //$c = 0;
-//        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
-//        
-//        $giid = 0;
-//        $record = null;
-//        $sighting = null;
-//        $general_info = null;
-//        
-//        //percorrer as linhas
-//        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
-//          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
-//          
-//          // criar nova general info caso registo seja 'I'
-//          if(strcmp(strtoupper($code),'I') == 0){
-//            $gi = new GeneralInfo();
-//            $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
+        $file = $this->form->getValue('ficheiro');
+        
+        $file->save(sfConfig::get('sf_upload_dir').'/import/import.xls');
+        
+        $objReader = new PHPExcel_Reader_Excel5();
+        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import/import.xls');
+        
+        //$l = 3;
+        //$c = 0;
+        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
+        
+        $wiId = 0;
+        $record = null;
+        $sighting = null;
+        $watch_info = null;
+        
+        //percorrer as linhas
+        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
+          
+          // criar nova watch info caso registo seja 'I'
+          if(strcmp(strtoupper($code),'I') == 0){
+            $wi = new GeneralInfo();
+            $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
 //            if ($barco) $gi->setVesselId($barco->getId());
 //            
 //            $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
@@ -362,7 +371,7 @@ class watch_infoActions extends autoWatch_infoActions
 //            }
 //            $gi->save();
 //            $general_info = $gi;
-//          }
+          }
 //          
 //          $record = new Record();
 //          $sighting = new Sighting();
@@ -428,7 +437,7 @@ class watch_infoActions extends autoWatch_infoActions
 //          $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $l)->getValue());
 //          
 //          $sighting->save();
-//        }
+        }
       }
       
       $this->redirect('@watch_info');
