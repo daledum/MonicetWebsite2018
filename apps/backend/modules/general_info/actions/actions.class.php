@@ -217,6 +217,7 @@ class general_infoActions extends autoGeneral_infoActions
   }
   
   public function executeDownload(sfWebRequest $request){
+    $this->forward404Unless( $request->isMethod(sfRequest::POST) );
     
     if($request->getParameter('month') && $request->getParameter('month') != 0) {
         
