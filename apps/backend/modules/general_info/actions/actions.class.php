@@ -427,6 +427,12 @@ class general_infoActions extends autoGeneral_infoActions
       $l = 3;
       //$l_arr = 0;
       $array = array();
+      $vis_cache = array();
+      $sea_state_cache = array();
+      $company_cache = array();
+      $vessel_cache = array();
+      $skipper_cache = array();
+      $guide_cache = array();
       
       foreach($dados as $gi){
         
@@ -454,8 +460,25 @@ class general_infoActions extends autoGeneral_infoActions
           $array[0][] = $record->getTime();
           $array[0][] = $record->getLatitude();
           $array[0][] = $record->getLongitude();
-          if($record->getVisibility()) $array[0][] = $record->getVisibility()->getCode(); else $array[0][] = null;
-          if($record->getSeaState()) $array[0][] = $record->getSeaState()->getCode(); else $array[0][] = null;
+          
+          if($record->getVisibilityId()){
+            if( !isset($vis_cache[$record->getVisibilityId()])) {
+              $vis_cache[$record->getVisibilityId()] = $record->getVisibility()->getCode();
+            }
+            $array[0][] = $vis_cache[$record->getVisibilityId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($record->getSeaStateId()){
+            if( !isset( $sea_state_cache[$record->getSeaStateId()] ) ){
+              $sea_state_cache[$record->getSeaStateId()] = $record->getSeaState()->getCode();
+            }
+            $array[0][] = $sea_state_cache[$record->getSeaStateId()];
+          } else {
+            $array[0][] = null;
+          }
+          
           $array[0][] = $specie;
           $array[0][] = $sighting->getTotal();
           $array[0][] = $sighting->getAdults();
@@ -465,10 +488,47 @@ class general_infoActions extends autoGeneral_infoActions
           $array[0][] = $association;
           $array[0][] = $record->getNumVessels();
           $array[0][] = $sighting->getComments();
-          if($gi->getCompany()) $array[0][] = $gi->getCompany()->getName(); else $array[0][] = null;
-          if($gi->getVessel()) $array[0][] = $gi->getVessel()->getName(); else $array[0][] = null;
-          if($gi->getSkipper()) $array[0][] = $gi->getSkipper()->getName(); else $array[0][] = null;
-          if($gi->getGuide()) $array[0][] = $gi->getGuide()->getName(); else $array[0][] = null;
+          
+          if($gi->getCompanyId()){
+            if( !isset( $company_cache[$gi->getCompanyId()] ) ){
+              $company_cache[$gi->getCompanyId()] = $gi->getCompany()->getName();
+            }
+            $array[0][] = $company_cache[$gi->getCompanyId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($gi->getVesselId()){
+            if( !isset( $vessel_cache[$gi->getVesselId()] ) ){
+              $vessel_cache[$gi->getVesselId()] = $gi->getVessel()->getName();
+            }
+            $array[0][] = $vessel_cache[$gi->getVesselId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($gi->getSkipperId()){
+            if( !isset( $skipper_cache[$gi->getSkipperId()] ) ){
+              $skiper_cache[$gi->getSkipperId()] = $gi->getSkipper()->getName();
+            }
+            $array[0][] = $skiper_cache[$gi->getSkipperId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($gi->getGuideId()){
+            if( !isset( $guide_cache[$gi->getGuideId()] ) ){
+              $guide_cache[$gi->getGuideId()] = $gi->getGuide()->getName();
+            }
+            $array[0][] = $guide_cache[$gi->getGuideId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          //if($gi->getCompanyId()) $array[0][] = $gi->getCompany()->getName(); else $array[0][] = null;
+          //if($gi->getVesselId()) $array[0][] = $gi->getVessel()->getName(); else $array[0][] = null;
+          //if($gi->getSkipperId()) $array[0][] = $gi->getSkipper()->getName(); else $array[0][] = null;
+          //if($gi->getGuideId()) $array[0][] = $gi->getGuide()->getName(); else $array[0][] = null;
           
           unset($sighting);
           unset($specie);
