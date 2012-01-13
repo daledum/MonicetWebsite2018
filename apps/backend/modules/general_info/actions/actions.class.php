@@ -433,6 +433,8 @@ class general_infoActions extends autoGeneral_infoActions
       $vessel_cache = array();
       $skipper_cache = array();
       $guide_cache = array();
+      $specie_cache = array();
+      $association_cache = array();
       
       foreach($dados as $gi){
         
@@ -445,13 +447,19 @@ class general_infoActions extends autoGeneral_infoActions
           // buscar especie
           $specie = '';
           if($sighting->getSpecieId()){
-            $specie = $sighting->getSpecie()->getCode();
+            if( !isset( $specie_cache[$sighting->getSpecieId()] ) ){
+              $specie_cache[$sighting->getSpecieId()] = $sighting->getSpecie()->getCode();
+            }
+            $specie = $specie_cache[$sighting->getSpecieId()];
           }
           
           // buscar associacao
           $association = '';
           if($sighting->getAssociationId()){
-            $association = $sighting->getAssociation()->getCode();
+            if( !isset( $association_cache[$sighting->getAssociationId()] ) ) {
+              $association_cache[$sighting->getAssociationId()] = $sighting->getAssociation()->getCode();
+            }
+            $association = $association_cache[$sighting->getAssociationId()];
           }
           
           // criar o array para escrever no ficheiro
