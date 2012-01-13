@@ -426,6 +426,7 @@ class general_infoActions extends autoGeneral_infoActions
       // conteudo
       $l = 3;
       //$l_arr = 0;
+      $code_cache = array();
       $array = array();
       $vis_cache = array();
       $sea_state_cache = array();
@@ -464,7 +465,10 @@ class general_infoActions extends autoGeneral_infoActions
           
           // criar o array para escrever no ficheiro
           $array[0] = array();
-          $array[0][] = $record->getCode()->getAcronym();
+          if( !isset( $code_cache[$record->getCodeId()] ) ){
+            $code_cache[$record->getCodeId()] = $record->getCode()->getAcronym();
+          }
+          $array[0][] = $code_cache[$record->getCodeId()];
           $array[0][] = $record->getTime();
           $array[0][] = $record->getLatitude();
           $array[0][] = $record->getLongitude();
