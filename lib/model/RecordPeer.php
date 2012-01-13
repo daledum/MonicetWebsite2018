@@ -28,11 +28,16 @@ class RecordPeer extends BaseRecordPeer {
   
   
   public static function doSelectRecordsByGeneralInfoId($giid){
-    $c = new Criteria();
-    $c->add(RecordPeer::GENERAL_INFO_ID, $giid);
-    $c->addAscendingOrderByColumn(RecordPeer::ID);
-    return RecordPeer::doSelect($c);
-
+    $query = RecordQuery::create()
+            ->filterByGeneralInfoId($giid)
+            ->orderById()
+            ->setFormatter(ModelCriteria::FORMAT_ON_DEMAND);
+    return $query->find();
+    
+//    $c = new Criteria();
+//    $c->add(RecordPeer::GENERAL_INFO_ID, $giid);
+//    $c->addAscendingOrderByColumn(RecordPeer::ID);
+//    return RecordPeer::doSelect($c);
   }
   
   public static function deleteIgnoredRecordsSightings($recordId, $giid){

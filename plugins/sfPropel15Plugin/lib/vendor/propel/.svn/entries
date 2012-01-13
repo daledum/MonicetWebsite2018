@@ -1,98 +1,0 @@
-10
-
-dir
-1587
-http://svn.phpdb.org/propel/branches/1.5/runtime/lib
-http://svn.phpdb.org/propel
-
-
-
-2010-02-26T10:58:29.829703Z
-1587
-francois
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-4126deef-30f4-0310-a2a2-883dd235dc3b
-
-connection
-dir
-
-logger
-dir
-
-adapter
-dir
-
-formatter
-dir
-
-config
-dir
-
-query
-dir
-
-validator
-dir
-
-Propel.php
-file
-
-
-
-
-2010-02-27T20:59:08.000000Z
-44c94ee10cb977622be9a9c4923501a1
-2010-02-25T23:31:36.874018Z
-1584
-francois
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-28866
-
-collection
-dir
-
-om
-dir
-
-map
-dir
-
-util
-dir
-
-exception
-dir
-

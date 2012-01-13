@@ -1,86 +1,0 @@
-10
-
-dir
-28316
-http://svn.symfony-project.com/plugins/sfPropel15Plugin/trunk/test/functional/fixtures
-http://svn.symfony-project.com
-
-
-
-2009-12-17T08:53:50.713289Z
-25502
-francois
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-ee427ae8-e902-0410-961c-c3ed070cd9f9
-
-test
-dir
-
-log
-dir
-
-plugins
-dir
-
-apps
-dir
-
-cache
-dir
-
-symfony
-file
-
-
-
-
-2010-02-27T20:58:52.000000Z
-36073c1914105fb3bbb4f1ce4965b4d2
-2009-12-17T08:10:48.044017Z
-25499
-francois
-has-props
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-482
-
-config
-dir
-
-lib
-dir
-
-data
-dir
-

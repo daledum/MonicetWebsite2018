@@ -1,8 +1,0 @@
-K 13
-svn:externals
-V 206
-phing http://phing.mirror.svn.symfony-project.com/tags/2.3.3/classes/phing/
-propel http://svn.phpdb.org/propel/branches/1.5/runtime/lib/
-propel-generator http://svn.phpdb.org/propel/branches/1.5/generator/
-
-END
