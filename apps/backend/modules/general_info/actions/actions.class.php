@@ -472,11 +472,10 @@ class general_infoActions extends autoGeneral_infoActions
           $l++;
           $l_arr++;
         }
-        
       }
       
       // escrever o array no ficheiro
-      $cena->fromArray($array,null,'B3');
+      $cena->fromArray($array, null,'B3');
       
       return $objPHPExcel;
   }
