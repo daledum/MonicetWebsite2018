@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/propel/!svn/ver/1579/branches/1.5/generator/lib/behavior
+END
+AutoAddPkBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/propel/!svn/ver/1570/branches/1.5/generator/lib/behavior/AutoAddPkBehavior.php
+END
+SoftDeleteBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/propel/!svn/ver/1570/branches/1.5/generator/lib/behavior/SoftDeleteBehavior.php
+END
+AlternativeCodingStandardsBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/propel/!svn/ver/1347/branches/1.5/generator/lib/behavior/AlternativeCodingStandardsBehavior.php
+END
+TimestampableBehavior.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/propel/!svn/ver/1460/branches/1.5/generator/lib/behavior/TimestampableBehavior.php
+END

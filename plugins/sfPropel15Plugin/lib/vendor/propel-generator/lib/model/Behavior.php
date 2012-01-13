@@ -1,31 +1,21 @@
 <?php
-/*
- *	$Id: Behavior.php 1570 2010-02-20 10:47:22Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/Index.php';
+require_once 'builder/util/PropelTemplate.php';
 
 /**
  * Information about behaviors of a table.
  *
  * @author     François Zaninotto
- * @version    $Revision: 1570 $
+ * @version    $Revision: 1839 $
  * @package    propel.generator.model
  */
 class Behavior extends XMLElement
@@ -36,6 +26,9 @@ class Behavior extends XMLElement
 	protected $name;
 	protected $parameters = array();
 	protected $isTableModified = false;
+	protected $isEarly = false;
+	protected $dirname;
+	protected $additionalBuilders = array();
 	
 	public function setName($name)
 	{
@@ -135,6 +128,60 @@ class Behavior extends XMLElement
 	{
 		return $this->isTableModified;
 	}
+
+	public function setEarly($bool = true)
+	{
+		$this->isEarly = $bool;
+	}
+	
+	public function isEarly()
+	{
+		return $this->isEarly;
+	}
+	
+	/**
+	 * Use Propel's simple templating system to render a PHP file
+	 * using variables passed as arguments.
+	 *
+	 * @param string $filename    The template file name, relative to the behavior's dirname
+	 * @param array  $vars        An associative array of argumens to be rendered
+	 * @param string $templateDir The name of the template subdirectory
+	 *
+	 * @return string The rendered template
+	 */
+	public function renderTemplate($filename, $vars = array(), $templateDir = '/templates/')
+	{
+		$filePath = $this->getDirname() . $templateDir . $filename;
+		if (!file_exists($filePath)) {
+			// try with '.php' at the end
+			$filePath = $filePath . '.php';
+			if (!file_exists($filePath)) {
+				throw new InvalidArgumentException(sprintf('Template "%s" not found in "%s" directory',
+					$filename,
+					$this->getDirname() . $templateDir
+				));
+			}
+		}
+		$template = new PropelTemplate();
+		$template->setTemplateFile($filePath);
+		$vars = array_merge($vars, array('behavior' => $this));
+		
+		return $template->render($vars);
+	}
+	
+	/**
+	 * Returns the current dirname of this behavior (also works for descendants)
+	 *
+	 * @return string The absolute directory name
+	 */
+	protected function getDirname()
+	{
+		if (null === $this->dirname) {
+			$r = new ReflectionObject($this);
+			$this->dirname = dirname($r->getFileName());
+		}
+		return $this->dirname;
+	}
 	
 	/**
 	 * Retrieve a column object using a name stored in the behavior parameters
@@ -197,5 +244,15 @@ class Behavior extends XMLElement
 	public function getTableMapBuilderModifier()
 	{
 		return $this;
+	}
+
+	public function hasAdditionalBuilders()
+	{
+		return !empty($this->additionalBuilders);
+	}
+	
+	public function getAdditionalBuilders()
+	{
+		return $this->additionalBuilders;
 	}
 }

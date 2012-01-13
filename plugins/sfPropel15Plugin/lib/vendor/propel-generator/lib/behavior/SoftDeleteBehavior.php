@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: SoftDeleteBehavior.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
  
 /**
@@ -26,7 +14,7 @@
  * And an additional condition for every read query to only consider rows with no deletion date
  *
  * @author     François Zaninotto
- * @version    $Revision: 1570 $
+ * @version    $Revision: 1807 $
  * @package    propel.generator.behavior
  */
 class SoftDeleteBehavior extends Behavior
@@ -97,8 +85,9 @@ public function unDelete(PropelPDO \$con = null)
 		return <<<EOT
 if (!empty(\$ret) && {$builder->getStubQueryBuilder()->getClassname()}::isSoftDeleteEnabled()) {
 	\$this->{$this->getColumnSetter()}(time());
-	\$this->save();
+	\$this->save(\$con);
 	\$con->commit();
+	{$builder->getStubPeerBuilder()->getClassname()}::removeInstanceFromPool(\$this);
 	return;
 }
 EOT;
@@ -175,10 +164,7 @@ public function softDelete(PropelPDO \$con = null)
  */
 public function forceDelete(PropelPDO \$con = null)
 {
-	if (\$con === null) {
-		\$con = Propel::getConnection({$this->builder->getPeerClassname()}::DATABASE_NAME, Propel::CONNECTION_WRITE);
-	}
-	return \$this->doDelete(\$con);
+	return {$this->builder->getPeerClassname()}::doForceDelete(\$this, \$con);
 }
 ";
 	}
@@ -195,11 +181,7 @@ public function forceDelete(PropelPDO \$con = null)
  */
 public function forceDeleteAll(PropelPDO \$con = null)
 {
-	if (\$con === null) {
-		\$con = Propel::getConnection({$this->builder->getPeerClassname()}::DATABASE_NAME, Propel::CONNECTION_WRITE);
-	}
-	return \$this->doDeleteAll(\$con);
-}
+	return {$this->builder->getPeerClassname()}::doForceDeleteAll(\$con);}
 ";
 	}
 
@@ -285,6 +267,7 @@ EOT;
 
 	public function staticMethods($builder)
 	{
+		$builder->declareClassFromBuilder($builder->getStubQueryBuilder());
 		$this->builder = $builder;
 		$script = '';
 		$this->addPeerEnableSoftDelete($script);
@@ -307,6 +290,8 @@ EOT;
 public static function enableSoftDelete()
 {
 	{$this->builder->getStubQueryBuilder()->getClassname()}::enableSoftDelete();
+	// some soft_deleted objects may be in the instance pool
+	{$this->builder->getStubPeerBuilder()->getClassname()}::clearInstancePool();
 }
 ";
 	}
@@ -361,8 +346,21 @@ public static function doSoftDelete(\$values, PropelPDO \$con = null)
 		\$criteria = \$values->buildPkeyCriteria();
 	} else {
 		// it must be the primary key
-		\$criteria = new Criteria(self::DATABASE_NAME);
-		\$criteria->add({$this->getTable()->getPhpName()}Peer::ID, (array) \$values, Criteria::IN);
+		\$criteria = new Criteria(self::DATABASE_NAME);";
+		$pks = $this->getTable()->getPrimaryKey();
+		if (count($pks)>1) {
+			$i = 0;
+			foreach ($pks as $col) {
+				$script .= "
+		\$criteria->add({$col->getConstantName()}, \$values[$i], Criteria::EQUAL);";
+				$i++;
+			}
+		} else  {
+			$col = $pks[0];
+			$script .= "
+		\$criteria->add({$col->getConstantName()}, (array) \$values, Criteria::IN);";
+		}
+		$script .= "
 	}
 	\$criteria->add({$this->getColumnForParameter('deleted_column')->getConstantName()}, time());
 	return {$this->getTable()->getPhpName()}Peer::doUpdate(\$criteria, \$con);

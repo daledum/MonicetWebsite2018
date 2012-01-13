@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PHP5PeerBuilder.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'builder/om/PeerBuilder.php';
@@ -81,6 +69,17 @@ class PHP5PeerBuilder extends PeerBuilder
 		return parent::getPackage() . ".om";
 	}
 
+	public function getNamespace()
+	{
+		if ($namespace = parent::getNamespace()) {
+			if ($this->getGeneratorConfig() && $omns = $this->getGeneratorConfig()->getBuildProperty('namespaceOm')) {
+				return $namespace . '\\' . $omns;
+			} else {
+				return $namespace;
+			}
+		}
+	}
+	
 	/**
 	 * Adds the include() statements for files that this class depends on or utilizes.
 	 * @param      string &$script The script will be modified in this method.
@@ -126,6 +125,14 @@ class PHP5PeerBuilder extends PeerBuilder
  */
 abstract class ".$this->getClassname(). $extendingPeerClass . " {
 ";
+	}
+	
+	protected function addClassBody(&$script)
+	{
+		$this->declareClassFromBuilder($this->getStubPeerBuilder());
+		$this->declareClassFromBuilder($this->getStubObjectBuilder());
+		parent::addClassBody($script);
+		$this->declareClasses('Propel', 'PropelException', 'PropelPDO', 'BasePeer', 'Criteria', 'PDO', 'PDOStatement');
 	}
 
 	/**
@@ -181,7 +188,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 	{
 		$dbName = $this->getDatabase()->getName();
 		$tableName = $this->getTable()->getName();
-		$tablePhpName = $this->getTablePhpName();
+		$tablePhpName = $this->getTable()->isAbstract() ? '' : addslashes($this->getStubObjectBuilder()->getFullyQualifiedClassname());
 		$script .= "
 	/** the default database name for this class */
 	const DATABASE_NAME = '$dbName';
@@ -390,6 +397,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 	 */
 	protected function addBuildTableMap(&$script)
 	{
+		$this->declareClassFromBuilder($this->getTableMapBuilder());
 		$script .= "
 	/**
 	 * Add a TableMap instance to the database for this peer class.
@@ -832,24 +840,20 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			// $fk is the foreign key in the other table, so localTableName will
 			// actually be the table name of other table
 			$tblFK = $fk->getTable();
-
-			$joinedTablePeerBuilder = $this->getNewPeerBuilder($tblFK);
+			
+			$joinedTablePeerBuilder = $this->getNewStubPeerBuilder($tblFK);
+			$this->declareClassFromBuilder($joinedTablePeerBuilder);
 			$tblFKPackage = $joinedTablePeerBuilder->getStubPeerBuilder()->getPackage();
 
 			if (!$tblFK->isForReferenceOnly()) {
 				// we can't perform operations on tables that are
 				// not within the schema (i.e. that we have no map for, etc.)
 
-				$fkClassName = $joinedTablePeerBuilder->getObjectClassname();
-
-				// i'm not sure whether we can allow delete cascade for foreign keys
-				// within the same table?  perhaps we can?
-				if ( ($fk->getOnDelete() == ForeignKey::CASCADE || $fk->getOnDelete() == ForeignKey::SETNULL )
-				&& $tblFK->getName() != $table->getName()) {
+				if ($fk->getOnDelete() == ForeignKey::CASCADE || $fk->getOnDelete() == ForeignKey::SETNULL) {
 					$script .= "
-		// invalidate objects in ".$joinedTablePeerBuilder->getPeerClassname()." instance pool, since one or more of them may be deleted by ON DELETE CASCADE rule.
-		".$joinedTablePeerBuilder->getPeerClassname()."::clearInstancePool();
-";
+		// Invalidate objects in ".$joinedTablePeerBuilder->getClassname()." instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		".$joinedTablePeerBuilder->getClassname()."::clearInstancePool();";
 				} // if fk is on delete cascade
 			} // if (! for ref only)
 		} // foreach
@@ -1011,7 +1015,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			\$key = ".$this->getPeerClassname()."::getPrimaryKeyHashFromRow(\$row, 0);
 			if (null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(\$key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
+				// See http://www.propelorm.org/ticket/509
 				// \$obj->hydrate(\$row, 0, true); // rehydrate
 				\$results[] = \$obj;
 			} else {";
@@ -1061,9 +1065,18 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 		\$key = ".$this->getPeerClassname()."::getPrimaryKeyHashFromRow(\$row, \$startcol);
 		if (null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(\$key))) {
 			// We no longer rehydrate the object, since this can cause data loss.
-			// See http://propel.phpdb.org/trac/ticket/509
+			// See http://www.propelorm.org/ticket/509
 			// \$obj->hydrate(\$row, \$startcol, true); // rehydrate
-			\$col = \$startcol + " . $this->getPeerClassname() . "::NUM_COLUMNS;
+			\$col = \$startcol + " . $this->getPeerClassname() . "::NUM_COLUMNS;";
+		if ($table->isAbstract()) {
+			$script .= "
+		} elseif (null == \$key) {
+			// empty resultset, probably from a left join
+			// since this table is abstract, we can't hydrate an empty object
+			\$obj = null;
+			\$col = \$startcol + " . $this->getPeerClassname() . "::NUM_COLUMNS;";
+		}
+		$script .= "
 		} else {";
 		if (!$table->getChildrenColumn()) {
 			$script .= "
@@ -1347,7 +1360,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			$script .= $this->getPeerClassname() . "::doOnDeleteSetNull(new Criteria(".$this->getPeerClassname() . "::DATABASE_NAME), \$con);
 			";
 		}
-		$script .= "\$affectedRows += {$this->basePeerClassname}::doDeleteAll(".$this->getPeerClassname()."::TABLE_NAME, \$con);
+		$script .= "\$affectedRows += {$this->basePeerClassname}::doDeleteAll(".$this->getPeerClassname()."::TABLE_NAME, \$con, ".$this->getPeerClassname()."::DATABASE_NAME);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
 			// instances get re-added by the select statement contained therein).
@@ -1479,11 +1492,17 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			";
 
 		if ($this->isDeleteCascadeEmulationNeeded()) {
-			$script .= "\$affectedRows += ".$this->getPeerClassname()."::doOnDeleteCascade(\$criteria, \$con);
+			$script .= "
+			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
+			\$c = clone \$criteria;
+			\$affectedRows += ".$this->getPeerClassname()."::doOnDeleteCascade(\$c, \$con);
 			";
 		}
 		if ($this->isDeleteSetNullEmulationNeeded()) {
-			$script .= $this->getPeerClassname() . "::doOnDeleteSetNull(\$criteria, \$con);
+			$script .= "
+			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
+			\$c = clone \$criteria;
+			" . $this->getPeerClassname() . "::doOnDeleteSetNull(\$c, \$con);
 			";
 		}
 
@@ -1563,9 +1582,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 
 				$fkClassName = $joinedTablePeerBuilder->getObjectClassname();
 
-				// i'm not sure whether we can allow delete cascade for foreign keys
-				// within the same table?  perhaps we can?
-				if ( $fk->getOnDelete() == ForeignKey::CASCADE && $tblFK->getName() != $table->getName()) {
+				if ($fk->getOnDelete() == ForeignKey::CASCADE) {
 
 					// backwards on purpose
 					$columnNamesF = $fk->getLocalColumns();
@@ -1644,10 +1661,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 
 				$fkClassName = $refTablePeerBuilder->getObjectClassname();
 
-				// i'm not sure whether we can allow delete setnull for foreign keys
-				// within the same table?  perhaps we can?
-				if ( $fk->getOnDelete() == ForeignKey::SETNULL &&
-				$fk->getTable()->getName() != $table->getName()) {
+				if ($fk->getOnDelete() == ForeignKey::SETNULL) {
 
 					// backwards on purpose
 					$columnNamesF = $fk->getLocalColumns();
@@ -1667,7 +1681,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 					}
 
 					$script .= "
-					{$this->basePeerClassname}::doUpdate(\$selectCriteria, \$updateValues, \$con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
+			{$this->basePeerClassname}::doUpdate(\$selectCriteria, \$updateValues, \$con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
 ";
 				} // if setnull && fkey table name != curr table name
 			} // if not for ref only
@@ -1845,9 +1859,9 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 		$script .= implode(', ', $php);
 
 		$script .= ", PropelPDO \$con = null) {
-		\$key = ".$this->getInstancePoolKeySnippet($php).";";
+		\$_instancePoolKey = ".$this->getInstancePoolKeySnippet($php).";";
  		$script .= "
- 		if (null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(\$key))) {
+ 		if (null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(\$_instancePoolKey))) {
  			return \$obj;
 		}
 
@@ -1908,6 +1922,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 
 		foreach ($this->getTable()->getForeignKeys() as $fk) {
 			$tblFK = $table->getDatabase()->getTable($fk->getForeignTableName());
+			$this->declareClassFromBuilder($this->getNewStubPeerBuilder($tblFK));
 			if ($tblFK->isForReferenceOnly()) {
 				$includeJoinAll = false;
 			}
@@ -2042,7 +2057,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			\$key1 = ".$this->getPeerClassname()."::getPrimaryKeyHashFromRow(\$row, 0);
 			if (null !== (\$obj1 = ".$this->getPeerClassname()."::getInstanceFromPool(\$key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
+				// See http://www.propelorm.org/ticket/509
 				// \$obj1->hydrate(\$row, 0, true); // rehydrate
 			} else {
 ";
@@ -2274,7 +2289,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			\$key1 = ".$this->getPeerClassname()."::getPrimaryKeyHashFromRow(\$row, 0);
 			if (null !== (\$obj1 = ".$this->getPeerClassname()."::getInstanceFromPool(\$key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
+				// See http://www.propelorm.org/ticket/509
 				// \$obj1->hydrate(\$row, 0, true); // rehydrate
 			} else {";
 
@@ -2545,7 +2560,7 @@ abstract class ".$this->getClassname(). $extendingPeerClass . " {
 			\$key1 = ".$this->getPeerClassname()."::getPrimaryKeyHashFromRow(\$row, 0);
 			if (null !== (\$obj1 = ".$this->getPeerClassname()."::getInstanceFromPool(\$key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://propel.phpdb.org/trac/ticket/509
+				// See http://www.propelorm.org/ticket/509
 				// \$obj1->hydrate(\$row, 0, true); // rehydrate
 			} else {";
 			if ($table->getChildrenColumn()) {

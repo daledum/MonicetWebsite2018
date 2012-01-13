@@ -1,22 +1,11 @@
 <?php
-/*
- *	$Id: Column.php 1570 2010-02-20 10:47:22Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/XMLElement.php';
@@ -36,7 +25,7 @@ require_once 'model/ColumnDefaultValue.php';
  * @author     Daniel Rall <dlr@finemaltcoding.com> (Torque)
  * @author     Byron Foster <byron_foster@yahoo.com> (Torque)
  * @author     Bernd Goldschmidt <bgoldschmidt@rapidsoft.de>
- * @version    $Revision: 1570 $
+ * @version    $Revision: 2065 $
  * @package    propel.generator.model
  */
 class Column extends XMLElement
@@ -256,7 +245,7 @@ class Column extends XMLElement
 	 */
 	public function getFullyQualifiedName()
 	{
-		return ($this->parentTable->getName() . '.' . name);
+		return ($this->parentTable->getName() . '.' . strtoupper($this->getName()));
 	}
 
 	/**
@@ -1059,8 +1048,8 @@ class Column extends XMLElement
 	}
 
 	/**
-	 * Return auto increment/sequence string for the target database. We need to
-	 * pass in the props for the target database!
+	 * Return true if the columns has to be lazy loaded, i.e. if a runtime query 
+	 * on the table doesn't hydrate this column, but a getter does.
 	 */
 	public function isLazyLoad()
 	{

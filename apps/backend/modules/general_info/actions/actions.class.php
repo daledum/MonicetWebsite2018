@@ -260,7 +260,7 @@ class general_infoActions extends autoGeneral_infoActions
         
     }else {
       if(!file_exists(sfConfig::get('sf_upload_dir').'/export/'.$request->getParameter('year').'.xls')) {
-        set_time_limit(600);
+        //set_time_limit(600);
         
         $year = $request->getParameter('year');
         
@@ -288,21 +288,33 @@ class general_infoActions extends autoGeneral_infoActions
   
   public function generateExportExcelObject($year, $month = null) {
     
-      ini_set("memory_limit","300M");
+      //ini_set("memory_limit","300M");
     
       // buscar os dados
-      $c = new Criteria();
-      
+//      $c = new Criteria();
+//      
+//      if(!is_null($month)){
+//        if($month < 10) $month = '0'.$month;
+//        $c->add(GeneralInfoPeer::DATE, $year.'-'.$month.'-%', Criteria::LIKE);
+//        
+//      } else {
+//        $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
+//        $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+//      }
+//      
+//      $dados = GeneralInfoPeer::doSelect($c);
+      $query = GeneralInfoQuery::create();
       if(!is_null($month)){
-        if($month < 10) $month = '0'.$month;
-        $c->add(GeneralInfoPeer::DATE, $year.'-'.$month.'-%', Criteria::LIKE);
-        
+        if( $month < 12 ) {
+          $query = $query->filterByDate($year.'-'.$month.'-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-'.($month+1).'-1', Criteria::LESS_THAN );
+        } else {
+          $query = $query->filterByDate($year.'-12-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-12-31', Criteria::LESS_EQUAL );
+        }
       } else {
-        $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
-        $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+        $query = $query->filterByDate($year.'-1-1', Criteria::GREATER_EQUAL)->filterByDate( ($year+1).'-1-1', Criteria::LESS_THAN );
+        //$query = $query->where('GeneralInfo.Date >= ?', $year.'-1-1')->where('GeneralInfo.Date < ?', ($year+1).'-1-1');
       }
-      
-      $dados = GeneralInfoPeer::doSelect($c);
+      $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
         
       $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
       PHPExcel_Settings::setCacheStorageMethod($cacheMethod);

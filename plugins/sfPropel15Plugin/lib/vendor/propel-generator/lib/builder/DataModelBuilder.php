@@ -1,25 +1,12 @@
 <?php
 
-/*
- *  $Id: DataModelBuilder.php 1541 2010-02-09 16:22:18Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
-
 
 /**
  * This is the base class for any builder class that is using the data model.
@@ -93,6 +80,12 @@ abstract class DataModelBuilder
 	 */
 	private $stubQueryBuilder;
 
+	/**
+	 * TableMap builder class for current table.
+	 * @var        DataModelBuilder
+	 */
+	protected $tablemapBuilder;
+	
 	/**
 	 * Stub Interface builder class for current table.
 	 * @var        DataModelBuilder
@@ -252,7 +245,19 @@ abstract class DataModelBuilder
 		}
 		return $this->stubQueryBuilder;
 	}
-
+	
+	/**
+	 * Returns new or existing Object builder class for this table.
+	 * @return     ObjectBuilder
+	 */
+	public function getTableMapBuilder()
+	{
+		if (!isset($this->tablemapBuilder)) {
+			$this->tablemapBuilder = $this->getGeneratorConfig()->getConfiguredBuilder($this->getTable(), 'tablemap');
+		}
+		return $this->tablemapBuilder;
+	}
+	
 	/**
 	 * Returns new or existing stub Interface builder class for this table.
 	 * @return     ObjectBuilder
@@ -372,10 +377,24 @@ abstract class DataModelBuilder
 		}
 		return $this->dataSqlBuilder;
 	}
-
+	
+ /**
+	* Gets a new data model builder class for specified table and classname.
+	*
+	* @param      Table $table
+	* @param      string $classname The class of builder
+	* @return     DataModelBuilder
+	*/
+	public function getNewBuilder(Table $table, $classname)
+	{
+		$builder = new $classname($table);
+		$builder->setGeneratorConfig($this);
+		return $builder;
+	}
+	
 	/**
-	 * Convenience method to return a NEW Peer class builder instance
-	 * .
+	 * Convenience method to return a NEW Peer class builder instance.
+   * 
 	 * This is used very frequently from the peer and object builders to get
 	 * a peer builder for a RELATED table.
 	 *
@@ -385,6 +404,20 @@ abstract class DataModelBuilder
 	public function getNewPeerBuilder(Table $table)
 	{
 		return $this->getGeneratorConfig()->getConfiguredBuilder($table, 'peer');
+	}
+	
+	/**
+	 * Convenience method to return a NEW Peer stub class builder instance.
+	 * 
+	 * This is used from the peer and object builders to get
+	 * a peer builder for a RELATED table.
+	 *
+	 * @param      Table $table
+	 * @return     PeerBuilder
+	 */
+	public function getNewStubPeerBuilder(Table $table)
+	{
+		return $this->getGeneratorConfig()->getConfiguredBuilder($table, 'peerstub');
 	}
 
 	/**
@@ -416,6 +449,20 @@ abstract class DataModelBuilder
 	}
 
 	/**
+	 * Convenience method to return a NEW query class builder instance.
+	 *
+	 * This is used from the query builders to get
+	 * a query builder for a RELATED table.
+	 *
+	 * @param      Table $table
+	 * @return     QueryBuilder
+	 */
+	public function getNewQueryBuilder(Table $table)
+	{
+		return $this->getGeneratorConfig()->getConfiguredBuilder($table, 'query');
+	}
+	
+	/**
 	 * Convenience method to return a NEW query stub class builder instance.
 	 *
 	 * This is used from the query builders to get
@@ -429,6 +476,28 @@ abstract class DataModelBuilder
 		return $this->getGeneratorConfig()->getConfiguredBuilder($table, 'querystub');
 	}
 
+	/**
+	 * Returns new Query Inheritance builder class for this table.
+	 * @return     ObjectBuilder
+	 */
+	public function getNewQueryInheritanceBuilder($child)
+	{
+		$queryInheritanceBuilder = $this->getGeneratorConfig()->getConfiguredBuilder($this->getTable(), 'queryinheritance');
+		$queryInheritanceBuilder->setChild($child);
+		return $queryInheritanceBuilder;
+	}
+
+	/**
+	 * Returns new stub Query Inheritance builder class for this table.
+	 * @return     ObjectBuilder
+	 */
+	public function getNewStubQueryInheritanceBuilder($child)
+	{
+		$stubQueryInheritanceBuilder = $this->getGeneratorConfig()->getConfiguredBuilder($this->getTable(), 'queryinheritancestub');
+		$stubQueryInheritanceBuilder->setChild($child);
+		return $stubQueryInheritanceBuilder;
+	}
+	
 	/**
 	 * Gets the GeneratorConfig object.
 	 *

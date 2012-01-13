@@ -1,34 +1,24 @@
 <?php
 
-/*
- *	$Id: ConcreteInheritanceBehavior.php 1471 2010-01-20 14:31:12Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'ConcreteInheritanceParentBehavior.php';
 
 /**
- * Gives a model class the ability to remain in database even when the user deletes object
- * Uses an additional column storing the deletion date
- * And an additional condition for every read query to only consider rows with no deletion date
+ * Makes a model inherit another one. The model with this behavior gets a copy
+ * of the structure of the parent model. In addition, both the ActiveRecord and
+ * ActiveQuery classes will extend the related classes of the parent model.
+ * Lastly (an optionally), the data from a model with this behavior is copied
+ * to the parent model.
  *
  * @author     François Zaninotto
- * @version    $Revision: 1494 $
+ * @version    $Revision: 2068 $
  * @package    propel.generator.behavior.concrete_inheritance
  */
 class ConcreteInheritanceBehavior extends Behavior
@@ -77,6 +67,7 @@ class ConcreteInheritanceBehavior extends Behavior
 				$fk->setOnDelete('CASCADE');
 				$fk->setOnUpdate(null);
 				$fk->addReference($copiedColumn, $column);
+				$fk->isParentChild = true;
 				$table->addForeignKey($fk);
 			}
 		}
@@ -85,6 +76,7 @@ class ConcreteInheritanceBehavior extends Behavior
 		foreach ($parentTable->getForeignKeys() as $fk) {
 			$copiedFk = clone $fk;
 			$copiedFk->setName('');
+			$copiedFk->setRefPhpName('');
 			$this->getTable()->addForeignKey($copiedFk);
 		}
 		
@@ -125,7 +117,8 @@ class ConcreteInheritanceBehavior extends Behavior
 	
 	protected function getParentTable()
 	{
-		return $this->getTable()->getDatabase()->getTable($this->getParameter('extends'));
+		$database = $this->getTable()->getDatabase();
+		return $database->getTable($database->getTablePrefix() . $this->getParameter('extends'));
 	}
 	
 	protected function isCopyData()
@@ -172,7 +165,7 @@ class ConcreteInheritanceBehavior extends Behavior
 			return;
 		}
 		$this->builder = $builder;
-		$script .= '';
+		$script = '';
 		$this->addObjectGetParentOrCreate($script);
 		$this->addObjectGetSyncParent($script);
 		
@@ -191,7 +184,7 @@ class ConcreteInheritanceBehavior extends Behavior
  */
 public function getParentOrCreate(\$con = null)
 {
-	if (\$this->isNew()) {
+	if (\$this->isNew() && \$this->isPrimaryKeyNull()) {
 		\$parent = new " . $parentClass . "();
 		\$parent->set" . $this->getParentTable()->getColumn($this->getParameter('descendant_column'))->getPhpName() . "('" . $this->builder->getStubObjectBuilder()->getClassname() . "');
 		return \$parent;
@@ -226,6 +219,9 @@ public function getSyncParent(\$con = null)
 	\$parent->set{$phpName}(\$this->get{$phpName}());";
 		}
 		foreach ($parentTable->getForeignKeys() as $fk) {
+			if (isset($fk->isParentChild) && $fk->isParentChild) {
+				continue;
+			}
 			$refPhpName = $this->builder->getFKPhpNameAffix($fk, $plural = false);
 			$script .= "
 	if (\$this->get" . $refPhpName . "() && \$this->get" . $refPhpName . "()->isNew()) {

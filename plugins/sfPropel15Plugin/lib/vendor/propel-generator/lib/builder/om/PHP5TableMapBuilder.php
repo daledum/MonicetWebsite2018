@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PHP5TableMapBuilder.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'builder/om/OMBuilder.php';
@@ -40,6 +28,17 @@ class PHP5TableMapBuilder extends OMBuilder
 		return parent::getPackage() . '.map';
 	}
 
+	public function getNamespace()
+	{
+		if ($namespace = parent::getNamespace()) {
+			if ($this->getGeneratorConfig() && $omns = $this->getGeneratorConfig()->getBuildProperty('namespaceMap')) {
+				return $namespace . '\\' . $omns;
+			} else {
+				return $namespace;
+			}
+		}
+	}
+	
 	/**
 	 * Returns the name of the current class being built.
 	 * @return     string
@@ -98,6 +97,7 @@ class ".$this->getClassname()." extends TableMap {
 	 */
 	protected function addClassBody(&$script)
 	{
+		$this->declareClasses('TableMap', 'RelationMap');
 		$this->addConstants($script);
 		$this->addAttributes($script);
 		$this->addInitialize($script);
@@ -163,7 +163,7 @@ class ".$this->getClassname()." extends TableMap {
 	  // attributes
 		\$this->setName('".$table->getName()."');
 		\$this->setPhpName('".$table->getPhpName()."');
-		\$this->setClassname('" . $this->getObjectClassname() . "');
+		\$this->setClassname('" . addslashes($this->getStubObjectBuilder()->getFullyQualifiedClassname()) . "');
 		\$this->setPackage('" . parent::getPackage() . "');";
 		if ($table->getIdMethod() == "native") {
 			$script .= "
@@ -269,7 +269,7 @@ class ".$this->getClassname()." extends TableMap {
       $onDelete = $fkey->hasOnDelete() ? "'" . $fkey->getOnDelete() . "'" : 'null';
       $onUpdate = $fkey->hasOnUpdate() ? "'" . $fkey->getOnUpdate() . "'" : 'null';
       $script .= "
-    \$this->addRelation('" . $this->getFKPhpNameAffix($fkey) . "', '" . $fkey->getForeignTable()->getPhpName() . "', RelationMap::MANY_TO_ONE, $columnMapping, $onDelete, $onUpdate);";
+    \$this->addRelation('" . $this->getFKPhpNameAffix($fkey) . "', '" . addslashes($this->getNewStubObjectBuilder($fkey->getForeignTable())->getFullyQualifiedClassname()) . "', RelationMap::MANY_TO_ONE, $columnMapping, $onDelete, $onUpdate);";
     }
     foreach ($this->getTable()->getReferrers() as $fkey)
     {
@@ -282,7 +282,7 @@ class ".$this->getClassname()." extends TableMap {
       $onDelete = $fkey->hasOnDelete() ? "'" . $fkey->getOnDelete() . "'" : 'null';
       $onUpdate = $fkey->hasOnUpdate() ? "'" . $fkey->getOnUpdate() . "'" : 'null';
       $script .= "
-    \$this->addRelation('" . $this->getRefFKPhpNameAffix($fkey) . "', '" . $fkey->getTable()->getPhpName() . "', RelationMap::ONE_TO_" . ($fkey->isLocalPrimaryKey() ? "ONE" : "MANY") .", $columnMapping, $onDelete, $onUpdate);";
+    \$this->addRelation('" . $this->getRefFKPhpNameAffix($fkey) . "', '" . addslashes($this->getNewStubObjectBuilder($fkey->getTable())->getFullyQualifiedClassname()) . "', RelationMap::ONE_TO_" . ($fkey->isLocalPrimaryKey() ? "ONE" : "MANY") .", $columnMapping, $onDelete, $onUpdate);";
     }
     foreach ($this->getTable()->getCrossFks() as $fkList)
     {
@@ -290,7 +290,7 @@ class ".$this->getClassname()." extends TableMap {
       $onDelete = $fkey->hasOnDelete() ? "'" . $fkey->getOnDelete() . "'" : 'null';
       $onUpdate = $fkey->hasOnUpdate() ? "'" . $fkey->getOnUpdate() . "'" : 'null';
       $script .= "
-    \$this->addRelation('" . $this->getFKPhpNameAffix($crossFK) . "', '" . $crossFK->getForeignTable()->getPhpName() . "', RelationMap::MANY_TO_MANY, array(), $onDelete, $onUpdate);";
+    \$this->addRelation('" . $this->getFKPhpNameAffix($crossFK) . "', '" . addslashes($this->getNewStubObjectBuilder($crossFK->getForeignTable())->getFullyQualifiedClassname()) . "', RelationMap::MANY_TO_MANY, array(), $onDelete, $onUpdate);";
     }
     $script .= "
 	} // buildRelations()

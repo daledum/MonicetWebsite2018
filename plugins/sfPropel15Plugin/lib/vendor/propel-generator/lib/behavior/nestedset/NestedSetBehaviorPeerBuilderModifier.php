@@ -1,25 +1,12 @@
 <?php
 
-/*
- *  $Id: NestedSetBehaviorPeerBuilderModifier.php 1571 2010-02-21 14:30:02Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
- 
  
 /**
  * Behavior to adds nested set tree structure columns and abilities
@@ -375,18 +362,22 @@ public static function shiftLevel(\$delta, \$first, \$last" . ($useScope ? ", \$
 	protected function addUpdateLoadedNodes(&$script)
 	{
 		$peerClassname = $this->peerClassname;
+		$objectClassname = $this->objectClassname;
 		$script .= "
 /**
  * Reload all already loaded nodes to sync them with updated db
  *
+ * @param      $objectClassname \$prune		Object to prune from the update
  * @param      PropelPDO \$con		Connection to use.
  */
-public static function updateLoadedNodes(PropelPDO \$con = null)
+public static function updateLoadedNodes(\$prune = null, PropelPDO \$con = null)
 {
 	if (Propel::isInstancePoolingEnabled()) {
 		\$keys = array();
 		foreach ($peerClassname::\$instances as \$obj) {
-			\$keys[] = \$obj->getPrimaryKey();
+			if (!\$prune || !\$prune->equals(\$obj)) {
+				\$keys[] = \$obj->getPrimaryKey();
+			}
 		}
 
 		if (!empty(\$keys)) {
@@ -397,8 +388,7 @@ public static function updateLoadedNodes(PropelPDO \$con = null)
 			$pkey = $this->table->getPrimaryKey();
 			$col = array_shift($pkey);
 			$script .= "
-			\$criteria->add(".$this->builder->getColumnConstant($col).", \$keys, Criteria::IN);
-";
+			\$criteria->add(".$this->builder->getColumnConstant($col).", \$keys, Criteria::IN);";
 		} else {
 			$fields = array();
 			foreach ($this->table->getPrimaryKey() as $k => $col) {
@@ -433,6 +423,7 @@ public static function updateLoadedNodes(PropelPDO \$con = null)
 				if (null !== (\$object = $peerClassname::getInstanceFromPool(\$key))) {";
 		$n = 0;
 		foreach ($this->table->getColumns() as $col) {
+			if ($col->isLazyLoad()) continue;
 			if ($col->getPhpName() == $this->getColumnPhpName('left_column')) {
 				$script .= "
 					\$object->setLeftValue(\$row[$n]);";
@@ -470,15 +461,16 @@ public static function updateLoadedNodes(PropelPDO \$con = null)
  * @param      integer \$scope	scope column value";
  		}
  		$script .= "
+ * @param      mixed \$prune	Object to prune from the shift
  * @param      PropelPDO \$con	Connection to use.
  */
-public static function makeRoomForLeaf(\$left" . ($useScope ? ", \$scope" : ""). ", PropelPDO \$con = null)
+public static function makeRoomForLeaf(\$left" . ($useScope ? ", \$scope" : ""). ", \$prune = null, PropelPDO \$con = null)
 {	
 	// Update database nodes
 	$peerClassname::shiftRLValues(2, \$left, null" . ($useScope ? ", \$scope" : "") . ", \$con);
 
 	// Update all loaded nodes
-	$peerClassname::updateLoadedNodes(\$con);
+	$peerClassname::updateLoadedNodes(\$prune, \$con);
 }
 ";
 	}

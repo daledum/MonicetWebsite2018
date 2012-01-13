@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PropelConvertConfTask.php 1562 2010-02-18 13:33:49Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'phing/Task.php';
@@ -259,33 +247,42 @@ class PropelConvertConfTask extends AbstractPropelDataModelTask
 
 					if (!$table->isForReferenceOnly()) {
 
-						// Classes that I'm assuming do not need to be mapped (because they will be required by subclasses):
-						//	- base peer and object classes
-						//	- interfaces
-						//	- base node peer and object classes
-
 						// -----------------------------------------------------
-						// Add Peer & Object stub classes and MapBuilder classes
+						// Add TableMap class,
+						//     Peer, Object & Query stub classes,
+						// and Peer, Object & Query base classes
 						// -----------------------------------------------------
 						// (this code is based on PropelOMTask)
 
 						foreach (array('tablemap', 'peerstub', 'objectstub', 'querystub', 'peer', 'object', 'query') as $target) {
 							$builder = $generatorConfig->getConfiguredBuilder($table, $target);
 							$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
-							$classMap[$builder->getClassname()] = $builder->getClassFilePath();
+							$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
 						}
+
+						// -----------------------------------------------------
+						// Add children classes for object and query,
+						// as well as base child query,
+						// for single tabel inheritance tables.
+						// -----------------------------------------------------
 
 						if ($col = $table->getChildrenColumn()) {
 							if ($col->isEnumeratedClasses()) {
 								foreach ($col->getChildren() as $child) {
-									$builder = $generatorConfig->getConfiguredBuilder($table, 'objectmultiextend');
-									$builder->setChild($child);
-									$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
-									$classMap[$builder->getClassname()] = $builder->getClassFilePath();
+									foreach (array('objectmultiextend', 'queryinheritance', 'queryinheritancestub') as $target) {
+											$builder = $generatorConfig->getConfiguredBuilder($table, $target);
+										$builder->setChild($child);
+										$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
+										$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
+									}
 								}
 							}
 						}
-
+						
+						// -----------------------------------------------------
+						// Add base classes for alias tables (undocumented)
+						// -----------------------------------------------------
+						
 						$baseClass = $table->getBaseClass();
 						if ( $baseClass !== null ) {
 							$className = ClassTools::classname($baseClass);
@@ -306,22 +303,44 @@ class PropelConvertConfTask extends AbstractPropelDataModelTask
 							}
 						}
 						
-						// ------------------------
-						// Create tree Node classes
-						// ------------------------
+						// ----------------------------------------------
+						// Add classes for interface
+						// ----------------------------------------------
+						
+						if ($table->getInterface()) {
+							$builder = $generatorConfig->getConfiguredBuilder($table, 'interface');
+							$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
+							$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
+						}
+						
+						// ----------------------------------------------
+						// Add classes from old treeMode implementations
+						// ----------------------------------------------
 
 						if ($table->treeMode() == 'MaterializedPath') {
 							foreach (array('nodepeerstub', 'nodestub', 'nodepeer', 'node') as $target) {
 								$builder = $generatorConfig->getConfiguredBuilder($table, $target);
 								$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
-								$classMap[$builder->getClassname()] = $builder->getClassFilePath();
+								$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
 							}
 						}
 						if ($table->treeMode() == 'NestedSet') {
 							foreach (array('nestedset', 'nestedsetpeer') as $target) {
 								$builder = $generatorConfig->getConfiguredBuilder($table, $target);
 								$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
-								$classMap[$builder->getClassname()] = $builder->getClassFilePath();
+								$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
+							}
+						}
+						
+						// ----------------------------------
+						// Add classes added by behaviors
+						// ----------------------------------
+						if ($table->hasAdditionalBuilders()) {
+							foreach ($table->getAdditionalBuilders() as $builderClass) {
+								$builder = new $builderClass($table);
+								$builder->setGeneratorConfig($generatorConfig);
+								$this->log("Adding class mapping: " . $builder->getClassname() . ' => ' . $builder->getClassFilePath());
+								$classMap[$builder->getFullyQualifiedClassname()] = $builder->getClassFilePath();
 							}
 						}
 
@@ -331,6 +350,9 @@ class PropelConvertConfTask extends AbstractPropelDataModelTask
 				$phpconfClassmap = array_merge($phpconfClassmap, $classMap);
 			}
 		}
+		
+		// sort the classmap by class name, to avoid discrepancies between OS
+		ksort($phpconfClassmap);
 		
 		return $phpconfClassmap;
 	}

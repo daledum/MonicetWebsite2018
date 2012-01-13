@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PropelCollection.php $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -64,7 +52,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	 */
 	public function getPosition()
 	{
-		return (int) $this->getIterator()->key();
+		return (int) $this->getInternalIterator()->key();
 	}
 
 	/**
@@ -75,7 +63,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	 */
 	public function getFirst()
 	{
-		$this->getIterator()->rewind();
+		$this->getInternalIterator()->rewind();
 		return $this->getCurrent();
 	}
 	
@@ -101,7 +89,7 @@ class PropelCollection extends ArrayObject implements Serializable
 		if ($pos == 0) {
 			return null;
 		} else {
-			$this->getIterator()->seek($pos - 1);
+			$this->getInternalIterator()->seek($pos - 1);
 			return $this->getCurrent();
 		}
 	}
@@ -113,7 +101,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	 */
 	public function getCurrent()
 	{
-		return $this->getIterator()->current();
+		return $this->getInternalIterator()->current();
 	}
 
 	/**
@@ -124,7 +112,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	 */
 	public function getNext()
 	{
-		$this->getIterator()->next();
+		$this->getInternalIterator()->next();
 		return $this->getCurrent();
 	}
 
@@ -140,7 +128,7 @@ class PropelCollection extends ArrayObject implements Serializable
 		if ($count == 0) {
 			return null;
 		} else {
-			$this->getIterator()->seek($count - 1);
+			$this->getInternalIterator()->seek($count - 1);
 			return $this->getCurrent();
 		}
 	}
@@ -178,7 +166,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	 */
 	public function isOdd()
 	{
-		return (boolean) ($this->getIterator()->key() % 2);
+		return (boolean) ($this->getInternalIterator()->key() % 2);
 	}
 
 	/**
@@ -218,7 +206,7 @@ class PropelCollection extends ArrayObject implements Serializable
 	    return null;
 	  }
 		$ret = $this->getLast();
-		$lastKey = $this->getIterator()->key();
+		$lastKey = $this->getInternalIterator()->key();
 		$this->offsetUnset((string) $lastKey);
 		return $ret;
 	}
@@ -340,13 +328,19 @@ class PropelCollection extends ArrayObject implements Serializable
 	// IteratorAggregate method
 	
 	/**
-	 * Overrides ArrayObject::getIterator() to return always the same iterator object
-	 * Instead of a new instance for each call
+	 * Overrides ArrayObject::getIterator() to save the iterator object
+	 * for internal use e.g. getNext(), isOdd(), etc.
 	 */
 	public function getIterator()
 	{
+		$this->iterator = new ArrayIterator($this);
+		return $this->iterator;
+	}
+	
+	public function getInternalIterator()
+	{
 		if (null === $this->iterator) {
-			$this->iterator = new ArrayIterator($this);
+			return $this->getIterator();
 		}
 		return $this->iterator;
 	}

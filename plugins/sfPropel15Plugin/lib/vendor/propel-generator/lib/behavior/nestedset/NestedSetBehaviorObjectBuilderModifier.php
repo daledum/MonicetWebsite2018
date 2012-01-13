@@ -1,25 +1,12 @@
 <?php
 
-/*
- *  $Id: NestedSetBehaviorObjectBuilderModifier.php 1577 2010-02-23 11:06:51Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
- 
  
 /**
  * Behavior to adds nested set tree structure columns and abilities
@@ -92,27 +79,61 @@ protected \$aNestedSetParent = null;
 
 ";
 	}
-	
+
 	public function preSave($builder)
 	{
-		return "\$this->processNestedSetQueries(\$con);";
+		$peerClassname = $builder->getStubPeerBuilder()->getClassname();
+		$queryClassname = $builder->getStubQueryBuilder()->getClassname();
+
+		$script = "if (\$this->isNew() && \$this->isRoot()) {
+	// check if no other root exist in, the tree
+	\$nbRoots = $queryClassname::create()
+		->addUsingAlias($peerClassname::LEFT_COL, 1, Criteria::EQUAL)";
+
+		if ($this->behavior->useScope()) {
+			$script .= "
+		->addUsingAlias($peerClassname::SCOPE_COL, \$this->getScopeValue(), Criteria::EQUAL)";
+		}
+
+		$script .= "
+		->count(\$con);
+	if (\$nbRoots > 0) {
+			throw new PropelException(";
+
+		if ($this->behavior->useScope()) {
+			$script .= "sprintf('A root node already exists in this tree with scope \"%s\".', \$this->getScopeValue())";
+		} else {
+			$script .= "'A root node already exists in this tree. To allow multiple root nodes, add the `use_scope` parameter in the nested_set behavior tag.'";
+		}
+
+		$script .= ");
 	}
-		
+}
+\$this->processNestedSetQueries(\$con);";
+
+		return $script;
+	}
+
 	public function preDelete($builder)
 	{
 		$peerClassname = $builder->getStubPeerBuilder()->getClassname();
 		return "if (\$this->isRoot()) {
 	throw new PropelException('Deletion of a root node is disabled for nested sets. Use $peerClassname::deleteTree(" . ($this->behavior->useScope() ? '$scope' : '') . ") instead to delete an entire tree');
 }
-\$this->deleteDescendants(\$con);
+
+if (\$this->isInTree()) {
+	\$this->deleteDescendants(\$con);
+}
 ";
 	}
 
 	public function postDelete($builder)
 	{
 		$peerClassname = $builder->getStubPeerBuilder()->getClassname();
-		return "// fill up the room that was used by the node
-$peerClassname::shiftRLValues(-2, \$this->getRightValue() + 1, null" . ($this->behavior->useScope() ? ", \$this->getScopeValue()" : "") . ", \$con);
+		return "if (\$this->isInTree()) {
+	// fill up the room that was used by the node
+	$peerClassname::shiftRLValues(-2, \$this->getRightValue() + 1, null" . ($this->behavior->useScope() ? ", \$this->getScopeValue()" : "") . ", \$con);
+}
 ";
 	}
 	
@@ -129,19 +150,31 @@ $peerClassname::shiftRLValues(-2, \$this->getRightValue() + 1, null" . ($this->b
 		
 		$this->addProcessNestedSetQueries($script);
 		
-		$this->addGetLeft($script);
-		$this->addGetRight($script);
-		$this->addGetLevel($script);
-		if ($this->getParameter('use_scope') == 'true')
-		{
+		if ($this->getColumnPhpName('left_column') != 'LeftValue') {
+			$this->addGetLeft($script);
+		}
+		if ($this->getColumnPhpName('right_column') != 'RightValue') {
+			$this->addGetRight($script);
+		}
+		if ($this->getColumnPhpName('level_column') != 'Level') {
+			$this->addGetLevel($script);
+		}
+		if ($this->getParameter('use_scope') == 'true'
+		 && $this->getColumnPhpName('scope_column') != 'ScopeValue') {
 			$this->addGetScope($script);
 		}
-
-		$this->addSetLeft($script);
-		$this->addSetRight($script);
-		$this->addSetLevel($script);
-		if ($this->getParameter('use_scope') == 'true')
-		{
+		
+		if ($this->getColumnPhpName('left_column') != 'LeftValue') {
+			$this->addSetLeft($script);
+		}
+		if ($this->getColumnPhpName('right_column') != 'RightValue') {
+			$this->addSetRight($script);
+		}
+		if ($this->getColumnPhpName('level_column') != 'Level') {
+			$this->addSetLevel($script);
+		}
+		if ($this->getParameter('use_scope') == 'true'
+		 && $this->getColumnPhpName('scope_column') != 'ScopeValue') {
 			$this->addSetScope($script);
 		}
 		
@@ -832,7 +865,7 @@ public function getSiblings(\$includeNode = false, \$query = null, PropelPDO \$c
 	} else {
 		 \$query = $queryClassname::create(null, \$query)
 				->childrenOf(\$this->getParent(\$con))
-				->orderByBranch(true);
+				->orderByBranch();
 		if (!\$includeNode) {
 			\$query->prune(\$this);
 		}
@@ -1012,7 +1045,7 @@ public function insertAsFirstChildOf(\$parent)
 	// Keep the tree modification query for the save() transaction
 	\$this->nestedSetQueries []= array(
 		'callable'  => array('$peerClassname', 'makeRoomForLeaf'),
-		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ")
+		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
 	);
 	return \$this;
 }
@@ -1057,7 +1090,7 @@ public function insertAsLastChildOf(\$parent)
 	// Keep the tree modification query for the save() transaction
 	\$this->nestedSetQueries []= array(
 		'callable'  => array('$peerClassname', 'makeRoomForLeaf'),
-		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ")
+		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
 	);
 	return \$this;
 }
@@ -1099,7 +1132,7 @@ public function insertAsPrevSiblingOf(\$sibling)
 	// Keep the tree modification query for the save() transaction
 	\$this->nestedSetQueries []= array(
 		'callable'  => array('$peerClassname', 'makeRoomForLeaf'),
-		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ")
+		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
 	);
 	return \$this;
 }
@@ -1141,7 +1174,7 @@ public function insertAsNextSiblingOf(\$sibling)
 	// Keep the tree modification query for the save() transaction
 	\$this->nestedSetQueries []= array(
 		'callable'  => array('$peerClassname', 'makeRoomForLeaf'),
-		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ")
+		'arguments' => array(\$left" . ($useScope ? ", \$scope" : "") . ", \$this->isNew() ? null : \$this)
 	);
 	return \$this;
 }
@@ -1353,7 +1386,7 @@ protected function moveSubtreeTo(\$destLeft, \$levelDelta, PropelPDO \$con = nul
 		$peerClassname::shiftRLValues(-\$treeSize, \$right + 1, null" . ($useScope ? ", \$scope" : "") . ", \$con);
 		
 		// update all loaded nodes
-		$peerClassname::updateLoadedNodes(\$con);
+		$peerClassname::updateLoadedNodes(null, \$con);
 		
 		\$con->commit();
 	} catch (PropelException \$e) {
@@ -1546,7 +1579,9 @@ public function retrieveLastChild(PropelPDO \$con = null)
  */
 public function getPath(PropelPDO \$con = null)
 {
-	return \$this->getAncestors(null, \$con);
+	\$path = \$this->getAncestors(null, \$con);
+	\$path []= \$this;
+	return \$path;
 }
 ";
 	}

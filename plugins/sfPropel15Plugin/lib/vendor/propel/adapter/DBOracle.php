@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: DBOracle.php 1347 2009-12-03 21:06:36Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -29,7 +17,7 @@
  * @author     Brett McLaughlin <bmclaugh@algx.net> (Torque)
  * @author     Bill Schneider <bschneider@vecna.com> (Torque)
  * @author     Daniel Rall <dlr@finemaltcoding.com> (Torque)
- * @version    $Revision: 1347 $
+ * @version    $Revision: 2026 $
  * @package    propel.runtime.adapter
  */
 class DBOracle extends DBAdapter
@@ -44,6 +32,8 @@ class DBOracle extends DBAdapter
 	 */
 	public function initConnection(PDO $con, array $settings)
 	{
+		$con->exec("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD'");
+		$con->exec("ALTER SESSION SET NLS_TIMESTAMP_FORMAT='YYYY-MM-DD HH24:MI:SS'");
 		if (isset($settings['queries']) && is_array($settings['queries'])) {
 			foreach ($settings['queries'] as $queries) {
 				foreach ((array)$queries as $query) {
@@ -51,8 +41,6 @@ class DBOracle extends DBAdapter
 				}
 			}
 		}
-		$con->exec("ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD'");
-		$con->exec("ALTER SESSION SET NLS_TIMESTAMP_FORMAT='YYYY-MM-DD HH24:MI:SS'");
 	}
 	
 	/**
@@ -116,25 +104,24 @@ class DBOracle extends DBAdapter
 	/**
 	 * @see        DBAdapter::applyLimit()
 	 */
-	public function applyLimit(&$sql, $offset, $limit)
+	public function applyLimit(&$sql, $offset, $limit, $criteria = null)
 	{
-		 $sql =
-			'SELECT B.* FROM (  '
-			.  'SELECT A.*, rownum AS PROPEL_ROWNUM FROM (  '
-			. $sql
-			. '  ) A '
-			.  ' ) B WHERE ';
+		if (BasePeer::needsSelectAliases($criteria)) {
+			$crit = clone $criteria;
+			$selectSql = $this->createSelectSqlPart($crit, $params, true);
+			$sql = $selectSql . substr($sql, strpos($sql, 'FROM') - 1);
+		}
+		$sql = 'SELECT B.* FROM ('
+			. 'SELECT A.*, rownum AS PROPEL_ROWNUM FROM (' . $sql . ') A '
+			. ') B WHERE ';
 
 		if ( $offset > 0 ) {
-			$sql				.= ' B.PROPEL_ROWNUM > ' . $offset;
-
-			if ( $limit > 0 )
-			{
-				$sql			.= ' AND B.PROPEL_ROWNUM <= '
-									. ( $offset + $limit );
+			$sql .= ' B.PROPEL_ROWNUM > ' . $offset;
+			if ( $limit > 0 ) {
+				$sql .= ' AND B.PROPEL_ROWNUM <= ' . ( $offset + $limit );
 			}
 		} else {
-			$sql				.= ' B.PROPEL_ROWNUM <= ' . $limit;
+			$sql .= ' B.PROPEL_ROWNUM <= ' . $limit;
 		}
 	}
 
@@ -160,5 +147,43 @@ class DBOracle extends DBAdapter
 		return 'dbms_random.value';
 	}
 
+	/**
+	 * Ensures uniqueness of select column names by turning them all into aliases
+	 * This is necessary for queries on more than one table when the tables share a column name
+	 * @see http://propel.phpdb.org/trac/ticket/795
+	 *
+	 * @param Criteria $criteria
+	 *
+	 * @return Criteria The input, with Select columns replaced by aliases
+	 */
+	public function turnSelectColumnsToAliases(Criteria $criteria)
+	{
+		$selectColumns = $criteria->getSelectColumns();
+		// clearSelectColumns also clears the aliases, so get them too
+		$asColumns = $criteria->getAsColumns();
+		$criteria->clearSelectColumns();
+		$columnAliases = $asColumns;
+		// add the select columns back
+		foreach ($selectColumns as $id => $clause) {
+			// Generate a unique alias
+			$baseAlias = "ORA_COL_ALIAS_".$id;
+			$alias = $baseAlias;
+			// If it already exists, add a unique suffix
+			$i = 0;
+			while (isset($columnAliases[$alias])) {
+				$i++;
+				$alias = $baseAlias . '_' . $i;
+			}
+			// Add it as an alias
+			$criteria->addAsColumn($alias, $clause);
+			$columnAliases[$alias] = $clause;
+		}
+		// Add the aliases back, don't modify them
+		foreach ($asColumns as $name => $clause) {
+			$criteria->addAsColumn($name, $clause);
+		}
+
+		return $criteria;
+	}
 
 }

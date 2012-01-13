@@ -1,34 +1,29 @@
 <?php
 
-/*
-*  $Id: DBMSSQL.php 1566 2010-02-19 14:01:09Z KRavEN $
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-* "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-* LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-* A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-* OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-* LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-* DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-* THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-* (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-* This software consists of voluntary contributions made by many individuals
-* and is licensed under the LGPL. For more information please see
-* <http://propel.phpdb.org>.
-*/
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ *
+ * @license    MIT License
+ */
 
 /**
  * This is used to connect to a MSSQL database.
  *
  * @author     Hans Lellelid <hans@xmpl.org> (Propel)
- * @version    $Revision: 1566 $
+ * @version    $Revision: 1952 $
  * @package    propel.runtime.adapter
  */
 class DBMSSQL extends DBAdapter
 {
+	/**
+	 * MS SQL Server does not support SET NAMES
+	 * @see        DBAdapter::setCharset()
+	 */
+	public function setCharset(PDO $con, $charset)
+	{
+	}
 
 	/**
 	 * This method is used to ignore case.
@@ -121,6 +116,13 @@ class DBMSSQL extends DBAdapter
 
 		//split the select and from clauses out of the original query
 		$selectSegment = array();
+
+		$selectText = 'SELECT ';
+
+		if (preg_match('/\Aselect(\s+)distinct/i', $sql)) {
+			$selectText .= 'DISTINCT ';
+		}
+
 		preg_match('/\Aselect(.*)from(.*)/si', $sql, $selectSegment);
 		if(count($selectSegment) == 3) {
 			$selectStatement = trim($selectSegment[1]);
@@ -129,10 +131,10 @@ class DBMSSQL extends DBAdapter
 			throw new Exception('DBMSSQL::applyLimit() could not locate the select statement at the start of the query.');
 		}
 
-		// if we're starting at offset 0 then theres no need to simulate limit, 
+		// if we're starting at offset 0 then theres no need to simulate limit,
 		// just grab the top $limit number of rows
 		if($offset == 0) {
-			$sql = 'SELECT TOP ' . $limit . ' ' . $selectStatement . ' FROM ' . $fromStatement;
+			$sql = $selectText . 'TOP ' . $limit . ' ' . $selectStatement . ' FROM ' . $fromStatement;
 			return;
 		}
 
@@ -169,7 +171,9 @@ class DBMSSQL extends DBAdapter
 				}
 
 				//use the alias if one was present otherwise use the column name
-				$alias = (! stristr($selCol, ' AS ')) ? $this->quoteIdentifier($selColArr[0]) : $this->quoteIdentifier($selColArr[$selColCount]);
+				$alias = (! stristr($selCol, ' AS ')) ? $selColArr[0] : $selColArr[$selColCount];
+				//don't quote the identifier if it is already quoted
+				if($alias[0] != '[') $alias = $this->quoteIdentifier($alias);
 
 				//save the first non-aggregate column for use in ROW_NUMBER() if required
 				if(! isset($firstColumnOrderStatement)) {
@@ -191,7 +195,9 @@ class DBMSSQL extends DBAdapter
 				}
 
 				//quote the alias
-				$alias = $this->quoteIdentifier($selColArr[$selColCount]);
+				$alias = $selColArr[$selColCount];
+				//don't quote the identifier if it is already quoted
+				if($alias[0] != '[') $alias = $this->quoteIdentifier($alias);
 				$innerSelect .= str_replace($selColArr[$selColCount], $alias, $selCol) . ', ';
 				$outerSelect .= $alias . ', ';
 			}
@@ -209,12 +215,57 @@ class DBMSSQL extends DBAdapter
 		}
 
 		//substring the select strings to get rid of the last comma and add our FROM and SELECT clauses
-		$innerSelect = 'SELECT ROW_NUMBER() OVER(' . $orderStatement . ') AS RowNumber, ' . substr($innerSelect, 0, - 2) . ' FROM';
+		$innerSelect = $selectText . 'ROW_NUMBER() OVER(' . $orderStatement . ') AS [RowNumber], ' . substr($innerSelect, 0, - 2) . ' FROM';
 		//outer select can't use * because of the RowNumber column
 		$outerSelect = 'SELECT ' . substr($outerSelect, 0, - 2) . ' FROM';
 
 		//ROW_NUMBER() starts at 1 not 0
 		$sql = $outerSelect . ' (' . $innerSelect . ' ' . $fromStatement . ') AS derivedb WHERE RowNumber BETWEEN ' . ($offset + 1) . ' AND ' . ($limit + $offset);
 		return;
+	}
+
+	/**
+	 * @see        parent::cleanupSQL()
+	 */
+	public function cleanupSQL(&$sql, array &$params, Criteria $values, DatabaseMap $dbMap)
+	{
+		$i = 1;
+		$qualCols = array();
+		foreach ($params as $param) {
+			$tableName = $param['table'];
+			$columnName = $param['column'];
+			$value = $param['value'];
+			if (null !== $tableName) {
+				$cMap = $dbMap->getTable($tableName)->getColumn($columnName);
+				/* MSSQL pdo_dblib and pdo_mssql blob values must be converted to hex and then the hex added
+				 * to the query string directly.  If it goes through PDOStatement::bindValue quotes will cause
+				 * an error with the insert or update.
+				 */
+				if (is_resource($value) && $cMap->isLob()) {
+					// we always need to make sure that the stream is rewound, otherwise nothing will
+					// get written to database.
+					rewind($value);
+					$binaryString  = stream_get_contents($value);
+					$arrData  = unpack("H*hex", $binaryString);
+					$hexString = '0x'.$arrData['hex'];
+					$sql = str_replace(":p$i", $hexString, $sql);
+
+				} else {
+					$paramCols[] = $param;
+				}
+			}
+			$i++;
+		}
+
+		//if we made changes re-number the params
+		if($params != $paramCols)
+		{
+			$params = $paramCols;
+			preg_match_all('/:p\d/', $sql, $matches);
+			foreach($matches[0] as $key => $match)
+			{
+				$sql = str_replace($match, ':p'.($key+1), $sql);
+			}
+		}
 	}
 }

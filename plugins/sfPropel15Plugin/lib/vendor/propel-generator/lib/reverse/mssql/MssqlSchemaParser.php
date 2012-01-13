@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: MssqlSchemaParser.php 1383 2009-12-28 17:19:10Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'reverse/BaseSchemaParser.php';
@@ -25,7 +14,7 @@ require_once 'reverse/BaseSchemaParser.php';
  * Microsoft SQL Server database schema parser.
  *
  * @author     Hans Lellelid <hans@xmpl.org>
- * @version    $Revision: 1383 $
+ * @version    $Revision: 2135 $
  * @package    propel.generator.reverse.mssql
  */
 class MssqlSchemaParser extends BaseSchemaParser
@@ -65,7 +54,9 @@ class MssqlSchemaParser extends BaseSchemaParser
 		"tinyint" => PropelTypes::TINYINT,
 		"uniqueidentifier" => PropelTypes::CHAR,
 		"varbinary" => PropelTypes::VARBINARY,
+		"varbinary(max)" => PropelTypes::CLOB,
 		"varchar" => PropelTypes::VARCHAR,
+		"varchar(max)" => PropelTypes::CLOB,
 		"uniqueidentifier" => PropelTypes::CHAR,
 	// SQL Server 2000 only
 		"bigint identity" => PropelTypes::BIGINT,
@@ -73,11 +64,9 @@ class MssqlSchemaParser extends BaseSchemaParser
 		"sql_variant" => PropelTypes::VARCHAR,
 	);
 
-	/**
-	 * Gets a type mapping from native types to Propel types
-	 *
-	 * @return     array
-	 */
+  /**
+   * @see        BaseSchemaParser::getTypeMapping()
+   */
 	protected function getTypeMapping()
 	{
 		return self::$mssqlTypeMap;
@@ -179,15 +168,12 @@ class MssqlSchemaParser extends BaseSchemaParser
 								      INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu2 ON ccu2.CONSTRAINT_NAME = rc1.UNIQUE_CONSTRAINT_NAME
 									WHERE (ccu1.table_name = '".$table->getName()."')");
 
-		$row = $stmt->fetch(PDO::FETCH_NUM);
-
 		$foreignKeys = array(); // local store to avoid duplicates
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 			$lcol = $row['COLUMN_NAME'];
 			$ftbl = $row['FK_TABLE_NAME'];
 			$fcol = $row['FK_COLUMN_NAME'];
-
 
 			$foreignTable = $database->getTable($ftbl);
 			$foreignColumn = $foreignTable->getColumn($fcol);

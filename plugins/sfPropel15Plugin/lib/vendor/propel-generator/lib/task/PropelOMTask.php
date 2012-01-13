@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PropelOMTask.php 1352 2009-12-06 23:12:34Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'task/AbstractPropelDataModelTask.php';
@@ -79,22 +67,32 @@ class PropelOMTask extends AbstractPropelDataModelTask
 	 */
 	protected function build(OMBuilder $builder, $overwrite = true)
 	{
-
 		$path = $builder->getClassFilePath();
 		$this->ensureDirExists(dirname($path));
 
 		$_f = new PhingFile($this->getOutputDirectory(), $path);
-		if ($overwrite || !$_f->exists()) {
-			$this->log("\t\t-> " . $builder->getClassname() . " [builder: " . get_class($builder) . "]");
-			$script = $builder->build();
-			file_put_contents($_f->getAbsolutePath(), $script);
-			foreach ($builder->getWarnings() as $warning) {
-				$this->log($warning, Project::MSG_WARN);
-			}
-		} else {
-			$this->log("\t\t-> (exists) " . $builder->getClassname());
+		
+		// skip files already created once
+		if ($_f->exists() && !$overwrite) {
+			$this->log("\t\t-> (exists) " . $builder->getClassname(), Project::MSG_VERBOSE);
+			return 0;
 		}
-
+		
+		$script = $builder->build();
+		foreach ($builder->getWarnings() as $warning) {
+			$this->log($warning, Project::MSG_WARN);
+		}
+		
+		// skip unchanged files
+		if ($_f->exists() && $script == $_f->contents()) {
+			$this->log("\t\t-> (unchanged) " . $builder->getClassname(), Project::MSG_VERBOSE);
+			return 0;
+		}
+		
+		// write / overwrite new / changed files
+		$this->log("\t\t-> " . $builder->getClassname() . " [builder: " . get_class($builder) . "]");
+		file_put_contents($_f->getAbsolutePath(), $script);
+		return 1;
 	}
 
 	/**
@@ -106,7 +104,8 @@ class PropelOMTask extends AbstractPropelDataModelTask
 		$this->validate();
 
 		$generatorConfig = $this->getGeneratorConfig();
-
+		$totalNbFiles = 0;
+		
 		foreach ($this->getDataModels() as $dataModel) {
 			$this->log("Processing Datamodel : " . $dataModel->getName());
 
@@ -117,6 +116,8 @@ class PropelOMTask extends AbstractPropelDataModelTask
 				foreach ($database->getTables() as $table) {
 
 					if (!$table->isForReferenceOnly()) {
+						
+						$nbWrittenFiles = 0;
 
 						$this->log("\t+ " . $table->getName());
 
@@ -127,7 +128,7 @@ class PropelOMTask extends AbstractPropelDataModelTask
 						// these files are always created / overwrite any existing files
 						foreach (array('peer', 'object', 'tablemap', 'query') as $target) {
 							$builder = $generatorConfig->getConfiguredBuilder($table, $target);
-							$this->build($builder);
+							$nbWrittenFiles += $this->build($builder);
 						}
 
 						// -----------------------------------------------------------------------------------------
@@ -137,7 +138,7 @@ class PropelOMTask extends AbstractPropelDataModelTask
 						// these classes are only generated if they don't already exist
 						foreach (array('peerstub', 'objectstub', 'querystub') as $target) {
 							$builder = $generatorConfig->getConfiguredBuilder($table, $target);
-							$this->build($builder, $overwrite=false);
+							$nbWrittenFiles += $this->build($builder, $overwrite=false);
 						}
 
 						// -----------------------------------------------------------------------------------------
@@ -145,13 +146,22 @@ class PropelOMTask extends AbstractPropelDataModelTask
 						// -----------------------------------------------------------------------------------------
 
 						// If table has enumerated children (uses inheritance) then create the empty child stub classes if they don't already exist.
-						if ($table->getChildrenColumn()) {
-							$col = $table->getChildrenColumn();
+						if ($col = $table->getChildrenColumn()) {
 							if ($col->isEnumeratedClasses()) {
 								foreach ($col->getChildren() as $child) {
-									$builder = $generatorConfig->getConfiguredBuilder($table, 'objectmultiextend');
-									$builder->setChild($child);
-									$this->build($builder, $overwrite=false);
+									foreach (array('queryinheritance') as $target) {
+										if (!$child->getAncestor()) {
+											continue;
+										}
+										$builder = $generatorConfig->getConfiguredBuilder($table, $target);
+										$builder->setChild($child);
+										$nbWrittenFiles += $this->build($builder, $overwrite=true);
+									}
+									foreach (array('objectmultiextend', 'queryinheritancestub') as $target) {
+										$builder = $generatorConfig->getConfiguredBuilder($table, $target);
+										$builder->setChild($child);
+										$nbWrittenFiles += $this->build($builder, $overwrite=false);
+									}
 								} // foreach
 							} // if col->is enumerated
 						} // if tbl->getChildrenCol
@@ -164,7 +174,7 @@ class PropelOMTask extends AbstractPropelDataModelTask
 						// Create [empty] interface if it does not already exist
 						if ($table->getInterface()) {
 							$builder = $generatorConfig->getConfiguredBuilder($table, 'interface');
-							$this->build($builder, $overwrite=false);
+							$nbWrittenFiles += $this->build($builder, $overwrite=false);
 						}
 
 						// -----------------------------------------------------------------------------------------
@@ -176,19 +186,19 @@ class PropelOMTask extends AbstractPropelDataModelTask
 								case 'NestedSet':
 									foreach (array('nestedsetpeer', 'nestedset') as $target) {
 										$builder = $generatorConfig->getConfiguredBuilder($table, $target);
-										$this->build($builder);
+										$nbWrittenFiles += $this->build($builder);
 									}
 								break;
 
 								case 'MaterializedPath':
 									foreach (array('nodepeer', 'node') as $target) {
 										$builder = $generatorConfig->getConfiguredBuilder($table, $target);
-										$this->build($builder);
+										$nbWrittenFiles += $this->build($builder);
 									}
 
 									foreach (array('nodepeerstub', 'nodestub') as $target) {
 										$builder = $generatorConfig->getConfiguredBuilder($table, $target);
-										$this->build($builder, $overwrite=false);
+										$nbWrittenFiles += $this->build($builder, $overwrite=false);
 									}
 								break;
 
@@ -200,7 +210,21 @@ class PropelOMTask extends AbstractPropelDataModelTask
 
 						} // if Table->treeMode()
 
-
+						// ----------------------------------
+						// Create classes added by behaviors
+						// ----------------------------------
+						if ($table->hasAdditionalBuilders()) {
+							foreach ($table->getAdditionalBuilders() as $builderClass) {
+								$builder = new $builderClass($table);
+								$builder->setGeneratorConfig($generatorConfig);
+								$nbWrittenFiles += $this->build($builder, isset($builder->overwrite) ? $builder->overwrite : true);
+							}
+						}
+						
+						$totalNbFiles += $nbWrittenFiles;
+						if ($nbWrittenFiles == 0) {
+							$this->log("\t\t(no change)");
+						}
 					} // if !$table->isForReferenceOnly()
 
 				} // foreach table
@@ -208,6 +232,10 @@ class PropelOMTask extends AbstractPropelDataModelTask
 			} // foreach database
 
 		} // foreach dataModel
-
+		if ($totalNbFiles) {
+			$this->log(sprintf("Object model generation complete - %d files written", $totalNbFiles));
+		} else {
+			$this->log("Object model generation complete - All files already up to date");
+		}
 	} // main()
 }

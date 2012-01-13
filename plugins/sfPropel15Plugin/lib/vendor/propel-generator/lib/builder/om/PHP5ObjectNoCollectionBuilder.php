@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PHP5ObjectBuilder.php 1500 2010-01-27 23:36:25Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'builder/om/PHP5ObjectBuilder.php';
@@ -451,17 +439,21 @@ class PHP5ObjectNoCollectionBuilder extends PHP5ObjectBuilder
 		$table = $this->getTable();
 
 		$varName = $this->getFKVarName($fk);
-		$pCollName = $this->getFKPhpNameAffix($fk, $plural = true);
 		
 		$fkPeerBuilder = $this->getNewPeerBuilder($this->getForeignTable($fk));
 		$fkObjectBuilder = $this->getNewObjectBuilder($this->getForeignTable($fk))->getStubObjectBuilder();
 		$className = $fkObjectBuilder->getClassname(); // get the Classname that has maybe a prefix
 		
 		$and = "";
-		$comma = "";
 		$conditional = "";
+		$localColumns = array(); // foreign key local attributes names
 		$argmap = array(); // foreign -> local mapping
-		$argsize = 0;
+
+		// If the related columns are a primary key on the foreign table
+		// then use retrieveByPk() instead of doSelect() to take advantage
+		// of instance pooling
+		$useRetrieveByPk = $fk->isForeignPrimaryKey();
+
 		foreach ($fk->getLocalColumns() as $columnName) {
 			
 			$lfmap = $fk->getLocalForeignMapping();
@@ -472,6 +464,7 @@ class PHP5ObjectNoCollectionBuilder extends PHP5ObjectBuilder
 			$column = $table->getColumn($columnName);
 			$cptype = $column->getPhpType();
 			$clo = strtolower($column->getName());
+			$localColumns[$foreignColumn->getPosition()] = '$this->'.$clo;
 			
 			if ($cptype == "integer" || $cptype == "float" || $cptype == "double") {
 				$conditional .= $and . "\$this->". $clo ." != 0";
@@ -483,9 +476,11 @@ class PHP5ObjectNoCollectionBuilder extends PHP5ObjectBuilder
 			
 			$argmap[] = array('foreign' => $foreignColumn, 'local' => $localColumn);
 			$and = " && ";
-			$comma = ", ";
-			$argsize = $argsize + 1;
 		}
+
+		ksort($localColumns); // restoring the order of the foreign PK
+		$localColumns = count($localColumns) > 1 ?
+				('array('.implode(', ', $localColumns).')') : reset($localColumns);
 		
 		// If the related column is a primary kay and if it's a simple association,
 		// The use retrieveByPk() instead of doSelect() to take advantage of instance pooling
@@ -506,7 +501,7 @@ class PHP5ObjectNoCollectionBuilder extends PHP5ObjectBuilder
 		if (\$this->$varName === null && ($conditional)) {";
 		if ($useRetrieveByPk) {
 			$script .= "
-			\$this->$varName = ".$fkPeerBuilder->getPeerClassname()."::retrieveByPk(\$this->$clo);";
+			\$this->$varName = ".$fkPeerBuilder->getPeerClassname()."::retrieveByPk($localColumns);";
 		} else {
 			$script .= "
 			\$c = new Criteria(".$fkPeerBuilder->getPeerClassname()."::DATABASE_NAME);";

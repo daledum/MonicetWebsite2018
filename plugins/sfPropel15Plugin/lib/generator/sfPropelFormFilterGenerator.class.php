@@ -120,6 +120,7 @@ class sfPropelFormFilterGenerator extends sfPropelFormGenerator
     switch ($column->getType())
     {
       case PropelColumnTypes::BOOLEAN:
+      case PropelColumnTypes::BOOLEAN_EMU:
         $name = 'Choice';
         break;
       case PropelColumnTypes::DATE:
@@ -154,6 +155,7 @@ class sfPropelFormFilterGenerator extends sfPropelFormGenerator
     switch ($column->getType())
     {
       case PropelColumnTypes::BOOLEAN:
+      case PropelColumnTypes::BOOLEAN_EMU:
         $options[] = "'choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no')";
         break;
       case PropelColumnTypes::DATE:
@@ -192,6 +194,7 @@ class sfPropelFormFilterGenerator extends sfPropelFormGenerator
     switch ($column->getType())
     {
       case PropelColumnTypes::BOOLEAN:
+      case PropelColumnTypes::BOOLEAN_EMU:
         $name = 'Choice';
         break;
       case PropelColumnTypes::DOUBLE:
@@ -248,6 +251,7 @@ class sfPropelFormFilterGenerator extends sfPropelFormGenerator
       switch ($column->getType())
       {
         case PropelColumnTypes::BOOLEAN:
+        case PropelColumnTypes::BOOLEAN_EMU:
           $options[] = "'choices' => array('', 1, 0)";
           break;
         case PropelColumnTypes::DATE:
@@ -282,6 +286,7 @@ class sfPropelFormFilterGenerator extends sfPropelFormGenerator
     switch ($column->getType())
     {
       case PropelColumnTypes::BOOLEAN:
+      case PropelColumnTypes::BOOLEAN_EMU:
         return 'Boolean';
       case PropelColumnTypes::DATE:
       case PropelColumnTypes::TIME:

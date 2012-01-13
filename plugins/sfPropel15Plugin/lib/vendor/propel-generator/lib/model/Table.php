@@ -1,23 +1,11 @@
 <?php
 
-/*
- *	$Id: Table.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/XMLElement.php';
@@ -31,7 +19,6 @@ require_once 'model/IdMethodParameter.php';
 require_once 'model/Validator.php';
 require_once 'model/Behavior.php';
 
-
 /**
  * Data about a table used in an application.
  *
@@ -42,7 +29,7 @@ require_once 'model/Behavior.php';
  * @author     John McNally <jmcnally@collab.net> (Torque)
  * @author     Daniel Rall <dlr@collab.net> (Torque)
  * @author     Byron Foster <byron_foster@yahoo.com> (Torque)
- * @version    $Revision: 1570 $
+ * @version    $Revision: 1839 $
  * @package    propel.generator.model
  */
 class Table extends XMLElement implements IDMethod
@@ -115,6 +102,13 @@ class Table extends XMLElement implements IDMethod
 	 * @var       string
 	 */
 	private $phpName;
+
+	/**
+	 * Namespace for the generated OM.
+	 *
+	 * @var       string
+	 */
+	protected $namespace;
 
 	/**
 	 * ID method for the table (e.g. IDMethod::NATIVE, IDMethod::NONE).
@@ -319,6 +313,16 @@ class Table extends XMLElement implements IDMethod
 		// retrieves the method for converting from specified name to a PHP name.
 		$this->phpNamingMethod = $this->getAttribute("phpNamingMethod", $this->getDatabase()->getDefaultPhpNamingMethod());
 		$this->phpName = $this->getAttribute("phpName", $this->buildPhpName($this->getAttribute('name')));
+		
+		$namespace = $this->getAttribute("namespace", '');
+		$package = $this->getAttribute("package");
+		if ($namespace && !$package && $this->getDatabase()->getBuildProperty('namespaceAutoPackage')) {
+			$package = str_replace('\\', '.', $namespace);
+		}
+		$this->namespace = $namespace;
+		$this->pkg = $package;
+		
+		$this->namespace = $this->getAttribute("namespace");
 		$this->idMethod = $this->getAttribute("idMethod", $this->getDatabase()->getDefaultIdMethod());
 		$this->allowPkInsert = $this->booleanValue($this->getAttribute("allowPkInsert"));
 
@@ -326,7 +330,6 @@ class Table extends XMLElement implements IDMethod
 		$this->skipSql = $this->booleanValue($this->getAttribute("skipSql"));
 		$this->readOnly = $this->booleanValue($this->getAttribute("readOnly"));
 
-		$this->pkg = $this->getAttribute("package");
 		$this->abstractValue = $this->booleanValue($this->getAttribute("abstract"));
 		$this->baseClass = $this->getAttribute("baseClass");
 		$this->basePeer = $this->getAttribute("basePeer");
@@ -822,6 +825,21 @@ class Table extends XMLElement implements IDMethod
 	{
 		return $this->behaviors;
 	}
+	
+	/**
+	 * Get the early table behaviors
+	 * @return    Array of Behavior objects
+	 */
+	public function getEarlyBehaviors()
+	{
+		$behaviors = array();
+		foreach ($this->behaviors as $name => $behavior) {
+			if ($behavior->isEarly()) {
+				$behaviors[$name] = $behavior;
+			}
+		}
+		return $behaviors;
+	}
 
 	/**
 	 * check if the table has a behavior by name
@@ -843,6 +861,38 @@ class Table extends XMLElement implements IDMethod
 	public function getBehavior($name)
 	{
 		return $this->behaviors[$name];
+	}
+	
+	/**
+	 * Check whether one of the table behaviors offer an additional builder
+	 *
+	 * @return boolean true in the table has at least one behavior 
+	 *                with an additional builder, false otherwise
+	 */
+	public function hasAdditionalBuilders()
+	{
+		foreach ($this->getBehaviors() as $behavior) {
+			if ($behavior->hasAdditionalBuilders()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Get the additional builders provided by the table behaviors
+	 *
+	 * @return array list of builder class names
+	 */
+	public function getAdditionalBuilders()
+	{
+		$additionalBuilders = array();
+		foreach ($this->getBehaviors() as $behavior) {
+			$additionalBuilders = array_merge($additionalBuilders, $behavior->getAdditionalBuilders());
+		}
+		
+		return $additionalBuilders;
 	}
 
 	/**
@@ -929,7 +979,34 @@ class Table extends XMLElement implements IDMethod
 			return strtolower($phpname);
 		}
 	}
-	
+
+	/**
+	 * Get the value of the namespace.
+	 * @return     value of namespace.
+	 */
+	public function getNamespace()
+	{
+		if (strpos($this->namespace, '\\') === 0) {
+			// absolute table namespace
+			return substr($this->namespace, 1);
+		} elseif ($this->namespace && $this->getDatabase() && $this->getDatabase()->getNamespace()) {
+			return $this->getDatabase()->getNamespace() . '\\' . $this->namespace;
+		} elseif ($this->getDatabase() && $this->getDatabase()->getNamespace()) {
+			return $this->getDatabase()->getNamespace();
+		} else {
+			return $this->namespace;
+		}
+	}
+
+	/**
+	 * Set the value of the namespace.
+	 * @param      v  Value to assign to namespace.
+	 */
+	public function setNamespace($v)
+	{
+		$this->namespace = $v;
+	}
+
 	/**
 	 * Get the method for generating pk's
 	 * [HL] changing behavior so that Database default method is returned 
@@ -1210,7 +1287,7 @@ class Table extends XMLElement implements IDMethod
 	}
 
 	/**
-	 * Get all the foreign keys from this table to the specufued tabke.
+	 * Get all the foreign keys from this table to the specified table.
 	 * @return    array ForeignKey[]
 	 */
 	public function getForeignKeysReferencingTable($tablename)

@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: ForeignKey.php 1570 2010-02-20 10:47:22Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/XMLElement.php';
@@ -27,7 +16,7 @@ require_once 'model/XMLElement.php';
  * @author     Hans Lellelid <hans@xmpl.org>
  * @author     Fedor <fedor.karpelevitch@home.com>
  * @author     Daniel Rall <dlr@finemaltcoding.com>
- * @version    $Revision: 1570 $
+ * @version    $Revision: 1856 $
  * @package    propel.generator.model
  */
 class ForeignKey extends XMLElement
@@ -37,6 +26,7 @@ class ForeignKey extends XMLElement
 	protected $name;
 	protected $phpName;
 	protected $refPhpName;
+	protected $defaultJoin;
 	protected $onUpdate;
 	protected $onDelete;
 	protected $parentTable;
@@ -71,6 +61,7 @@ class ForeignKey extends XMLElement
 		$this->name = $this->getAttribute("name");
 		$this->phpName = $this->getAttribute("phpName");
 		$this->refPhpName = $this->getAttribute("refPhpName");
+		$this->defaultJoin = $this->getAttribute('defaultJoin');
 		$this->onUpdate = $this->normalizeFKey($this->getAttribute("onUpdate"));
 		$this->onDelete = $this->normalizeFKey($this->getAttribute("onDelete"));
 	}
@@ -193,6 +184,24 @@ class ForeignKey extends XMLElement
 	}
 
 	/**
+	 * Gets the defaultJoin for this foreign key (if any).
+	 * @return     string
+	 */
+	public function getDefaultJoin()
+	{
+		return $this->defaultJoin;
+	}
+
+	/**
+	 * Sets a defaultJoin to use for this foreign key.
+	 * @param      string $name
+	 */
+	public function setDefaultJoin($defaultJoin)
+	{
+		$this->defaultJoin = $defaultJoin;
+	}
+
+	/**
 	 * Get the foreignTableName of the FK
 	 */
 	public function getForeignTableName()
@@ -310,6 +319,37 @@ class ForeignKey extends XMLElement
 	}
 
 	/**
+	 * Utility method to get local column to foreign column
+	 * mapping for this foreign key.
+	 */
+	public function getForeignLocalMapping()
+	{
+		$h = array();
+		for ($i=0, $size=count($this->localColumns); $i < $size; $i++) {
+			$h[$this->foreignColumns[$i]] = $this->localColumns[$i];
+		}
+		return $h;
+	}
+
+	/**
+	 * Utility method to get local and foreign column objects
+	 * mapping for this foreign key.
+	 */
+	public function getColumnObjectsMapping()
+	{
+		$mapping = array();
+		$localTable = $this->getTable();
+		$foreignTable = $this->getForeignTable();
+		for ($i=0, $size=count($this->localColumns); $i < $size; $i++) {
+			$mapping[]= array(
+				'local'   => $localTable->getColumn($this->localColumns[$i]),
+				'foreign' => $foreignTable->getColumn($this->foreignColumns[$i]),
+			);
+		}
+		return $mapping;
+	}
+
+	/**
 	 * Get the foreign column mapped to specified local column.
 	 * @return     string Column name.
 	 */
@@ -345,17 +385,44 @@ class ForeignKey extends XMLElement
 	}
 
 	/**
-	 * Utility method to get local column to foreign column
-	 * mapping for this foreign key.
+	 * Whether this foreign key uses a required column, or a list or required columns.
+	 *
+	 * @return     boolean
 	 */
-	public function getForeignLocalMapping()
+	public function isLocalColumnsRequired()
 	{
-		$h = array();
-		for ($i=0, $size=count($this->localColumns); $i < $size; $i++) {
-			$h[ $this->foreignColumns[$i] ] = $this->localColumns[$i];
+		foreach ($this->getLocalColumns() as $columnName) {
+			if (!$this->getTable()->getColumn($columnName)->isNotNull()) {
+				return false;
+			}
 		}
-		return $h;
+		return true;
 	}
+	
+	/**
+	 * Whether this foreign key is also the primary key of the foreign table.
+	 *
+	 * @return     boolean
+	 */
+	public function isForeignPrimaryKey()
+	{
+		$lfmap = $this->getLocalForeignMapping();
+		$foreignTable = $this->getForeignTable();
+		
+		$foreignPKCols = array();
+		foreach ($foreignTable->getPrimaryKey() as $fPKCol) {
+			$foreignPKCols[] = $fPKCol->getName();
+		}
+
+		$foreignCols = array ();
+		foreach ($this->getLocalColumns() as $colName) {
+			$foreignCols[] = $foreignTable->getColumn($lfmap[$colName])->getName();
+		}
+
+		return ((count($foreignPKCols) === count($foreignCols)) &&
+			!array_diff($foreignPKCols, $foreignCols));
+	}
+
 
 	/**
 	 * Whether this foreign key is also the primary key of the local table.
@@ -372,14 +439,9 @@ class ForeignKey extends XMLElement
 		foreach ($localPKColumnObjs as $lPKCol) {
 			$localPKCols[] = $lPKCol->getName();
 		}
-		//
-		//		print "Local key columns: \n";
-		//		print_r($localCols);
-		//
-		//		print "Local table primary key columns: \n";
-		//		print_r($localPKCols);
 
-		return (!array_diff($localPKCols, $localCols));
+		return ((count($localPKCols) === count($localCols)) &&
+			!array_diff($localPKCols, $localCols));
 	}
 
 	/**
@@ -421,7 +483,7 @@ class ForeignKey extends XMLElement
 	{
 		$fks = array();
 		foreach ($this->getTable()->getForeignKeys() as $fk) {
-			if ($fk != $this) {
+			if ($fk !== $this) {
 				$fks[]= $fk;
 			}
 		}
@@ -446,6 +508,10 @@ class ForeignKey extends XMLElement
 
 		if ($this->getRefPhpName()) {
 			$fkNode->setAttribute('refPhpName', $this->getRefPhpName());
+		}
+
+		if ($this->getDefaultJoin()) {
+			$fkNode->setAttribute('defaultJoin', $this->getDefaultJoin());
 		}
 
 		if ($this->getOnDelete()) {

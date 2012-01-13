@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: Database.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/XMLElement.php';
@@ -25,7 +13,6 @@ require_once 'model/IDMethod.php';
 require_once 'model/NameGenerator.php';
 require_once 'model/Table.php';
 require_once 'model/Behavior.php';
-
 
 /**
  * A class for holding application data structures.
@@ -36,7 +23,7 @@ require_once 'model/Behavior.php';
  * @author     Martin Poeschl<mpoeschl@marmot.at> (Torque)
  * @author     Daniel Rall<dlr@collab.net> (Torque)
  * @author     Byron Foster <byron_foster@yahoo.com> (Torque)
- * @version    $Revision: 1570 $
+ * @version    $Revision: 1848 $
  * @package    propel.generator.model
  */
 class Database extends XMLElement
@@ -47,6 +34,14 @@ class Database extends XMLElement
 	private $curColumn;
 	private $name;
 	private $pkg;
+
+	/**
+	 * Namespace for the generated OM.
+	 *
+	 * @var       string
+	 */
+	protected $namespace;
+
 	private $baseClass;
 	private $basePeer;
 	private $defaultIdMethod;
@@ -84,7 +79,13 @@ class Database extends XMLElement
 	protected function setupObject()
 	{
 		$this->name = $this->getAttribute("name");
-		$this->pkg = $this->getAttribute("package");
+		$namespace = $this->getAttribute("namespace", '');
+		$package = $this->getAttribute("package");
+		if ($namespace && !$package && $this->getBuildProperty('namespaceAutoPackage')) {
+			$package = str_replace('\\', '.', $namespace);
+		}
+		$this->namespace = $namespace;
+		$this->pkg = $package;
 		$this->baseClass = $this->getAttribute("baseClass");
 		$this->basePeer = $this->getAttribute("basePeer");
 		$this->defaultIdMethod = $this->getAttribute("defaultIdMethod", IDMethod::NATIVE);
@@ -146,6 +147,24 @@ class Database extends XMLElement
 	public function setPackage($v)
 	{
 		$this->pkg = $v;
+	}
+
+	/**
+	 * Get the value of the namespace.
+	 * @return     value of namespace.
+	 */
+	public function getNamespace()
+	{
+		return $this->namespace;
+	}
+
+	/**
+	 * Set the value of the namespace.
+	 * @param      v  Value to assign to namespace.
+	 */
+	public function setNamespace($v)
+	{
+		$this->namespace = $v;
 	}
 
 	/**
@@ -282,6 +301,7 @@ class Database extends XMLElement
 
 	/**
 	 * Check whether the database has a table.
+	 * @param      string $name the name of the table (e.g. 'my_table')
 	 * @return     boolean
 	 */
 	public function hasTable($name)
@@ -302,6 +322,16 @@ class Database extends XMLElement
 		return null; // just to be explicit
 	}
 
+	/**
+	 * Check whether the database has a table.
+	 * @param      string $phpName the PHP Name of the table (e.g. 'MyTable')
+	 * @return     boolean
+	 */
+	public function hasTableByPhpName($phpName)
+	{
+		return array_key_exists($phpName, $this->tablesByPhpName);
+	}
+	
 	/**
 	 * Return the table with the specified phpName.
 	 * @param      string $phpName the PHP Name of the table (e.g. 'MyTable')
@@ -435,6 +465,17 @@ class Database extends XMLElement
   }
   
   /**
+	 * check if the database has a behavior by name
+	 *
+	 * @param     string $name the behavior name
+	 * @return    boolean True if the behavior exists
+	 */
+	public function hasBehavior($name)
+	{
+		return array_key_exists($name, $this->behaviors);
+	}
+	
+  /**
    * Get one database behavior by name
    * @param string $name the behavior name
    * @return Behavior a behavior object
@@ -457,24 +498,31 @@ class Database extends XMLElement
 
 	public function doFinalInitialization()
 	{
-    if($defaultBehaviors = $this->getBuildProperty('behaviorDefault'))
-    {
+    if($defaultBehaviors = $this->getBuildProperty('behaviorDefault')) {
       // add generic behaviors from build.properties 
       $defaultBehaviors = explode(',', $defaultBehaviors);
-      foreach ($defaultBehaviors as $behavior)
-      {
+      foreach ($defaultBehaviors as $behavior) {
         $this->addBehavior(array('name' => trim($behavior)));
       }
     }
     
     // execute behavior database modifiers
-    foreach ($this->getBehaviors() as $behavior)
-    {
+    foreach ($this->getBehaviors() as $behavior) {
       $behavior->modifyDatabase();
     }
 
 		$tables = $this->getTables();
-
+		
+		// execute early table behaviors
+		foreach ($tables as $table) {
+			foreach ($table->getEarlyBehaviors() as $behavior) {
+				if (!$behavior->isTableModified()) {
+					$behavior->getTableModifier()->modifyTable();
+					$behavior->setTableModified(true);
+				}
+			}
+		}
+			
 		for ($i=0,$size=count($tables); $i < $size; $i++) {
 			$currTable = $tables[$i];
 

@@ -1,30 +1,19 @@
 <?php
 
-/*
- *  $Id: XmlToAppData.php 1347 2009-12-03 21:06:36Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/AppData.php';
 
 // Phing dependencies
 require_once 'phing/parser/AbstractHandler.php';
-include_once 'phing/system/io/FileReader.php';
+
+require_once 'builder/util/PropelStringReader.php';
 
 /**
  * A class that is used to parse an input xml schema file and creates an AppData
@@ -35,7 +24,7 @@ include_once 'phing/system/io/FileReader.php';
  * @author     Jason van Zyl <jvanzyl@apache.org> (Torque)
  * @author     Martin Poeschl <mpoeschl@marmot.at> (Torque)
  * @author     Daniel Rall <dlr@collab.net> (Torque)
- * @version    $Revision: 1347 $
+ * @version    $Revision: 1764 $
  * @package    propel.generator.builder.util
  */
 class XmlToAppData extends AbstractHandler
@@ -100,8 +89,25 @@ class XmlToAppData extends AbstractHandler
 			return;
 		}
 
-		$domDocument = new DomDocument('1.0', 'UTF-8');
-		$domDocument->load($xmlFile);
+		$f = new PhingFile($xmlFile);
+		
+		return $this->parseString($f->contents(), $xmlFile);		
+	}
+
+	/**
+	 * Parses a XML input string and returns a newly created and
+	 * populated AppData structure.
+	 *
+	 * @param      string $xmlString The input string to parse.
+	 * @param      string $xmlFile The input file name.
+	 * @return     AppData populated by <code>xmlFile</code>.
+	 */
+	public function parseString($xmlString, $xmlFile)
+	{
+		// we don't want infinite recursion
+		if ($this->isAlreadyParsed($xmlFile)) {
+			return;
+		}
 
 		// store current schema file path
 		$this->schemasTagsStack[$xmlFile] = array();
@@ -109,13 +115,14 @@ class XmlToAppData extends AbstractHandler
 		$this->currentXmlFile = $xmlFile;
 
 		try {
-			$fr = new FileReader($xmlFile);
+			$sr = new PropelStringReader($xmlString);
+
 		} catch (Exception $e) {
 			$f = new PhingFile($xmlFile);
 			throw new Exception("XML File not found: " . $f->getAbsolutePath());
 		}
 
-		$br = new BufferedReader($fr);
+		$br = new BufferedReader($sr);
 
 		$this->parser = new ExpatParser($br);
 		$this->parser->parserSetOption(XML_OPTION_CASE_FOLDING, 0);
@@ -133,7 +140,7 @@ class XmlToAppData extends AbstractHandler
 
 		return $this->app;
 	}
-
+	
 	/**
 	 * Handles opening elements of the xml file.
 	 *
@@ -382,25 +389,25 @@ class XmlToAppData extends AbstractHandler
 
 	protected function peekCurrentSchemaTag()
 	{
-				$keys = array_keys($this->schemasTagsStack);
+		$keys = array_keys($this->schemasTagsStack);
 		return end($this->schemasTagsStack[end($keys)]);
 	}
 
 	protected function popCurrentSchemaTag()
 	{
-				$keys = array_keys($this->schemasTagsStack);
+		$keys = array_keys($this->schemasTagsStack);
 		array_pop($this->schemasTagsStack[end($keys)]);
 	}
 
 	protected function pushCurrentSchemaTag($tag)
 	{
-				$keys = array_keys($this->schemasTagsStack);
+		$keys = array_keys($this->schemasTagsStack);
 		$this->schemasTagsStack[end($keys)][] = $tag;
 	}
 
 	protected function isExternalSchema()
 	{
-		return (sizeof($this->schemasTagsStack) > 1);
+		return count($this->schemasTagsStack) > 1;
 	}
 
 	protected function isAlreadyParsed($filePath)

@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/propel/!svn/ver/1559/branches/1.5/generator/lib/builder/sql/mysql
+END
+MysqlDDLBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/propel/!svn/ver/1559/branches/1.5/generator/lib/builder/sql/mysql/MysqlDDLBuilder.php
+END
+MysqlDataSQLBuilder.php
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/propel/!svn/ver/1347/branches/1.5/generator/lib/builder/sql/mysql/MysqlDataSQLBuilder.php
+END

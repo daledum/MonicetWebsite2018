@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/!svn/ver/25503/plugins/sfPropel15Plugin/trunk/lib/routing
+END
+sfPropelRouteCollection.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/!svn/ver/25503/plugins/sfPropel15Plugin/trunk/lib/routing/sfPropelRouteCollection.class.php
+END
+sfPropelRoute.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/!svn/ver/25503/plugins/sfPropel15Plugin/trunk/lib/routing/sfPropelRoute.class.php
+END

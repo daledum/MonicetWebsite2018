@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PropelCollection.php $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -106,14 +94,103 @@ class PropelObjectCollection extends PropelCollection
 	 * Get an array representation of the collection
 	 * Each object is turned into an array and the result is returned
 	 *
+	 * @param     string $keyColumn If null, the returned array uses an incremental index.
+	 *              Otherwise, the array is indexed using the specified column
+	 * @param     boolean $usePrefix If true, the returned array prefixes keys 
+	 *              with the model class name ('Article_0', 'Article_1', etc).
+	 *
+	 * <code>
+	 * $bookCollection->toArray(); 
+	 * array(
+	 *  0 => array('Id' => 123, 'Title' => 'War And Peace'),
+	 *  1 => array('Id' => 456, 'Title' => 'Don Juan'),
+	 * )
+	 * $bookCollection->toArray('Id'); 
+	 * array(
+	 *  123 => array('Id' => 123, 'Title' => 'War And Peace'),
+	 *  456 => array('Id' => 456, 'Title' => 'Don Juan'),
+	 * )
+	 * $bookCollection->toArray(null, true); 
+	 * array(
+	 *  'Book_0' => array('Id' => 123, 'Title' => 'War And Peace'),
+	 *  'Book_1' => array('Id' => 456, 'Title' => 'Don Juan'),
+	 * )
+	 * </code>
 	 * @return    array
 	 */
-	public function toArray($usePrefix = true)
+	public function toArray($keyColumn = null, $usePrefix = false)
 	{
 		$ret = array();
+		$keyGetterMethod = 'get' . $keyColumn;
 		foreach ($this as $key => $obj) {
+			$key = null === $keyColumn ? $key : $obj->$keyGetterMethod();
 			$key = $usePrefix ? ($this->getModel() . '_' . $key) : $key;
 			$ret[$key] = $obj->toArray();
+		}
+		
+		return $ret;
+	}
+	
+	/**
+	 * Get an array representation of the collection
+	 *
+	 * @param     string $keyColumn If null, the returned array uses an incremental index.
+	 *              Otherwise, the array is indexed using the specified column
+	 * @param     boolean $usePrefix If true, the returned array prefixes keys 
+	 *              with the model class name ('Article_0', 'Article_1', etc).
+	 *
+	 * <code>
+	 * $bookCollection->getArrayCopy(); 
+	 * array(
+	 *  0 => $book0,
+	 *  1 => $book1,
+	 * )
+	 * $bookCollection->getArrayCopy('Id'); 
+	 * array(
+	 *  123 => $book0,
+	 *  456 => $book1,
+	 * )
+	 * $bookCollection->getArrayCopy(null, true); 
+	 * array(
+	 *  'Book_0' => $book0,
+	 *  'Book_1' => $book1,
+	 * )
+	 * </code>
+	 * @return    array
+	 */
+	public function getArrayCopy($keyColumn = null, $usePrefix = false)
+	{
+		if (null === $keyColumn && false === $usePrefix) {
+			return parent::getArrayCopy();
+		}
+		$ret = array();
+		$keyGetterMethod = 'get' . $keyColumn;
+		foreach ($this as $key => $obj) {
+			$key = null === $keyColumn ? $key : $obj->$keyGetterMethod();
+			$key = $usePrefix ? ($this->getModel() . '_' . $key) : $key;
+			$ret[$key] = $obj;
+		}
+		
+		return $ret;
+	}
+	
+	/**
+	 * Get an associative array representation of the collection
+	 * The first parameter specifies the column to be used for the key,
+	 * And the seconf for the value.
+	 * <code>
+	 * $res = $coll->toKeyValue('Id', 'Name');
+	 * </code>
+	 *
+	 * @return    array
+	 */
+	public function toKeyValue($keyColumn = 'PrimaryKey', $valueColumn = null)
+	{
+		$ret = array();
+		$keyGetterMethod = 'get' . $keyColumn;
+		$valueGetterMethod = (null === $valueColumn) ? '__toString' : ('get' . $valueColumn);
+		foreach ($this as $obj) {
+			$ret[$obj->$keyGetterMethod()] = $obj->$valueGetterMethod();
 		}
 		
 		return $ret;
@@ -134,8 +211,13 @@ class PropelObjectCollection extends PropelCollection
 		if (!Propel::isInstancePoolingEnabled()) {
 			throw new PropelException('populateRelation() needs instance pooling to be enabled prior to populating the collection');
 		}
-		$query = $this->getFormatter()->getCriteria();
-		$relationMap = $query->getTableMap()->getRelation($relation);
+		$relationMap = $this->getFormatter()->getTableMap()->getRelation($relation);
+		if ($this->isEmpty()) {
+			// save a useless query and return an empty collection
+			$coll = new PropelObjectCollection();
+			$coll->setModel($relationMap->getRightTable()->getPhpName());
+			return $coll;
+		}
 		$symRelationMap = $relationMap->getSymmetricalRelation();
 		
 		// query the db for the related objects

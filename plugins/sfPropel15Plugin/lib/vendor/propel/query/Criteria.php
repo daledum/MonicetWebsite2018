@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: Criteria.php 1586 2010-02-26 08:33:05Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -33,7 +21,7 @@
  * @author     Eric Dobbs <eric@dobbse.net> (Torque)
  * @author     Henning P. Schmiedehausen <hps@intermeta.de> (Torque)
  * @author     Sam Joseph <sam@neurogrid.com> (Torque)
- * @version    $Revision: 1586 $
+ * @version    $Revision: 1941 $
  * @package    propel.runtime.query
  */
 class Criteria implements IteratorAggregate
@@ -79,7 +67,7 @@ class Criteria implements IteratorAggregate
 	const CUSTOM_EQUAL = "CUSTOM_EQUAL";
 
 	/** Comparison type. */
-	const DISTINCT = "DISTINCT ";
+	const DISTINCT = "DISTINCT";
 
 	/** Comparison type. */
 	const IN = " IN ";
@@ -88,7 +76,7 @@ class Criteria implements IteratorAggregate
 	const NOT_IN = " NOT IN ";
 
 	/** Comparison type. */
-	const ALL = "ALL ";
+	const ALL = "ALL";
 
 	/** Comparison type. */
 	const JOIN = "JOIN";
@@ -135,18 +123,62 @@ class Criteria implements IteratorAggregate
 	/** logical AND operator */
 	const LOGICAL_AND = "AND";
 	
-	private $ignoreCase = false;
-	private $singleRecord = false;
-	private $selectModifiers = array();
-	private $selectColumns = array();
-	private $orderByColumns = array();
-	private $groupByColumns = array();
-	private $having = null;
-	private $asColumns = array();
+	protected $ignoreCase = false;
+	protected $singleRecord = false;
+	
+	/**
+	 * Storage of select data. Collection of column names.
+	 * @var        array
+	 */
+	protected $selectColumns = array();
+	
+	/**
+	 * Storage of aliased select data. Collection of column names.
+	 * @var        array
+	 */
+	protected $asColumns = array();
+	
+	/**
+	 * Storage of select modifiers data. Collection of modifier names.
+	 * @var        array
+	 */
+	protected $selectModifiers = array();
+		
+	/**
+	 * Storage of conditions data. Collection of Criterion objects.
+	 * @var        array
+	 */
+	protected $map = array();
+	
+	/**
+	 * Storage of ordering data. Collection of column names.
+	 * @var        array
+	 */
+	protected $orderByColumns = array();
+	
+	/**
+	 * Storage of grouping data. Collection of column names.
+	 * @var        array
+	 */
+	protected $groupByColumns = array();
+	
+	/**
+	 * Storage of having data.
+	 * @var        Criterion
+	 */
+	protected $having = null;
+	
+	/**
+	 * Storage of join data. colleciton of Join objects.
+	 * @var        array
+	 */
 	protected $joins = array();
 
-	/** The name of the database. */
-	private $dbName;
+	/**
+	 * The name of the database.
+	 * @var        string
+	 */
+	protected $dbName;
 
 	/**
 	 * The primary table for this Criteria.
@@ -154,32 +186,32 @@ class Criteria implements IteratorAggregate
 	 * columns.
 	 * @var        string
 	 */
-	private $primaryTableName;
+	protected $primaryTableName;
 
 	/** The name of the database as given in the contructor. */
-	private $originalDbName;
+	protected $originalDbName;
 
 	/**
 	 * To limit the number of rows to return.  <code>0</code> means return all
 	 * rows.
 	 */
-	private $limit = 0;
+	protected $limit = 0;
 
 	/** To start the results at a row other than the first one. */
-	private $offset = 0;
+	protected $offset = 0;
 
+	/**
+	 * Comment to add to the SQL query
+	 * @var        string
+	 */
+	protected $queryComment;
+	
 	// flag to note that the criteria involves a blob.
-	private $blobFlag = null;
+	protected $blobFlag = null;
 
 	protected $aliases = array();
 
-	private $useTransaction = false;
-
-	/**
-	 * Primary storage of criteria data.
-	 * @var        array
-	 */
-	private $map = array();
+	protected $useTransaction = false;
 	
 	/**
 	 * Storage for Criterions expected to be combined
@@ -209,7 +241,7 @@ class Criteria implements IteratorAggregate
 	}
 
 	/**
-	 * Get the criteria map.
+	 * Get the criteria map, i.e. the array of Criterions
 	 * @return     array
 	 */
 	public function getMap()
@@ -276,7 +308,7 @@ class Criteria implements IteratorAggregate
 		return $this->asColumns;
 	}
 
-		/**
+	/**
 	 * Returns the column name associated with an alias (AS-column).
 	 *
 	 * @param      string $alias
@@ -301,6 +333,20 @@ class Criteria implements IteratorAggregate
 	public function addAlias($alias, $table)
 	{
 		$this->aliases[$alias] = $table;
+		
+		return $this;
+	}
+
+	/**
+	 * Remove an alias for a table (useful when merging Criterias).
+	 *
+	 * @param      string $alias
+	 *
+	 * @return     Criteria A modified Criteria object.
+	 */
+	public function removeAlias($alias)
+	{
+		unset($this->aliases[$alias]);
 		
 		return $this;
 	}
@@ -329,7 +375,12 @@ class Criteria implements IteratorAggregate
 	}
 
 	/**
-	 * Get the keys for the criteria map.
+	 * Get the keys of the criteria map, i.e. the list of columns bearing a condition
+	 * <code>
+	 * print_r($c->keys());
+	 *  => array('book.price', 'book.title', 'author.first_name')
+	 * </code>
+	 *
 	 * @return     array
 	 */
 	public function keys()
@@ -402,15 +453,15 @@ class Criteria implements IteratorAggregate
 	/**
 	 * Method to return criteria related to columns in a table.
 	 *
+	 * Make sure you call containsKey($column) prior to calling this method,
+	 * since no check on the existence of the $column is made in this method.
+	 *
 	 * @param      string $column Column name.
-	 * @return     Criterion A Criterion or null if $column is invalid.
+	 * @return     Criterion A Criterion object.
 	 */
 	public function getCriterion($column)
 	{
-		if ( isset ( $this->map[$column] ) ) {
-			return $this->map[$column];
-		}
-		return null;
+		return $this->map[$column];
 	}
 	
 	/**
@@ -458,18 +509,22 @@ class Criteria implements IteratorAggregate
 
 	/**
 	 * Shortcut method to get an array of columns indexed by table.
+	 * <code>
+	 * print_r($c->getTablesColumns());
+	 *  => array(
+	 *       'book'   => array('book.price', 'book.title'), 
+	 *       'author' => array('author.first_name')
+	 *     )
+	 * </code>
+	 *
 	 * @return     array array(table => array(table.column1, table.column2))
 	 */
 	public function getTablesColumns()
 	{
 		$tables = array();
-		foreach ( array_keys ( $this->map ) as $key) {
-			$t = substr ( $key, 0, strrpos ( $key, '.' ) );
-			if ( ! isset ( $tables[$t] ) ) {
-				$tables[$t] = array( $key );
-			} else {
-				$tables[$t][] = $key;
-			}
+		foreach ($this->keys() as $key) {
+			$tableName = substr($key, 0, strrpos($key, '.' ));
+			$tables[$tableName][] = $key;
 		}
 		return $tables;
 	}
@@ -659,8 +714,8 @@ class Criteria implements IteratorAggregate
 	 *
 	 * <code>
 	 * $crit = new Criteria();
-	 * $crit->addCond($column1, $value1, Criteria::GREATER_THAN, 'cond1');
-	 * $crit->addCond($column2, $value2, Criteria::EQUAL, 'cond2');
+	 * $crit->addCond('cond1', $column1, $value1, Criteria::GREATER_THAN);
+	 * $crit->addCond('cond2', $column2, $value2, Criteria::EQUAL);
 	 * $crit->combine(array('cond1', 'cond2'), Criteria::LOGICAL_OR);
 	 * </code>
 	 *
@@ -669,10 +724,10 @@ class Criteria implements IteratorAggregate
 	 * The name of the table must be used implicitly in the column name,
 	 * so the Column name must be something like 'TABLE.id'.
 	 *
-	 * @param      string $critOrColumn The column to run the comparison on, or Criterion object.
+	 * @param      string $name name to combine the criterion later
+	 * @param      string $p1 The column to run the comparison on, or Criterion object.
 	 * @param      mixed $value
 	 * @param      string $comparison A String.
-	 * @param      string $name name to combine the criterion later
 	 *
 	 * @return     A modified Criteria object.
 	 */
@@ -720,36 +775,34 @@ class Criteria implements IteratorAggregate
 	}
 
 	/**
-	 * This is the way that you should add a straight (inner) join of two tables.  For
-	 * example:
-	 *
-	 * <p>
-	 * AND PROJECT.PROJECT_ID=FOO.PROJECT_ID
-	 * <p>
-	 *
-	 * left = PROJECT.PROJECT_ID
-	 * right = FOO.PROJECT_ID
+	 * This is the way that you should add a join of two tables. 
+	 * Example usage:
+	 * <code>
+	 * $c->addJoin(ProjectPeer::ID, FooPeer::PROJECT_ID, Criteria::LEFT_JOIN);
+	 * // LEFT JOIN FOO ON PROJECT.ID = FOO.PROJECT_ID
+	 * </code>
 	 *
 	 * @param      mixed $left A String with the left side of the join.
 	 * @param      mixed $right A String with the right side of the join.
-	 * @param      mixed $operator A String with the join operator e.g. LEFT JOIN, ...
+	 * @param      mixed $operator A String with the join operator
+	 *                             among Criteria::INNER_JOIN, Criteria::LEFT_JOIN,
+	 *                             and Criteria::RIGHT_JOIN
    *
 	 * @return     Criteria A modified Criteria object.
 	 */
 	public function addJoin($left, $right, $operator = null)
 	{
 		$join = new Join();
-    if (!is_array($left)) {
-      // simple join
-      $join->addCondition($left, $right);
-    } else {
-      // join with multiple conditions
-      // deprecated: use addMultipleJoin() instead
-      foreach ($left as $key => $value)
-      {
-        $join->addCondition($value, $right[$key]);
-      }
-    }
+		if (!is_array($left)) {
+			// simple join
+			$join->addCondition($left, $right);
+		} else {
+			// join with multiple conditions
+			// deprecated: use addMultipleJoin() instead
+			foreach ($left as $key => $value) {
+				$join->addCondition($value, $right[$key]);
+			}
+		}
 		$join->setJoinType($operator);
 		
 		return $this->addJoinObject($join);
@@ -757,7 +810,7 @@ class Criteria implements IteratorAggregate
 
 	/**
 	 * Add a join with multiple conditions
-	 * see http://propel.phpdb.org/trac/ticket/167, http://propel.phpdb.org/trac/ticket/606
+	 * @see http://propel.phpdb.org/trac/ticket/167, http://propel.phpdb.org/trac/ticket/606
 	 * 
 	 * Example usage:
 	 * $c->addMultipleJoin(array(
@@ -774,10 +827,10 @@ class Criteria implements IteratorAggregate
 	 * @return     Criteria A modified Criteria object.
 	 */
 	public function addMultipleJoin($conditions, $joinType = null) 
-  {
+	{
 		$join = new Join();
 		foreach ($conditions as $condition) {
-		  $join->addCondition($condition[0], $condition[1], isset($condition[2]) ? $condition[2] : Criteria::EQUAL);
+			$join->addCondition($condition[0], $condition[1], isset($condition[2]) ? $condition[2] : Criteria::EQUAL);
 		}
 		$join->setJoinType($joinType);
 		
@@ -987,6 +1040,29 @@ class Criteria implements IteratorAggregate
 	}
 	
 	/**
+	 * Set the query comment, that appears after the first verb in the SQL query
+	 *
+	 * @param      string $comment The comment to add to the query, without comment sign
+	 * @return     Criteria Modified Criteria object (for fluent API)
+	 */
+	public function setComment($comment = null)
+	{
+		$this->queryComment = $comment;
+		
+		return $this;
+	}
+	
+	/**
+	 * Get the query comment, that appears after the first verb in the SQL query
+	 *
+	 * @return      string The comment to add to the query, without comment sign
+	 */
+	public function getComment()
+	{
+		return $this->queryComment;
+	}
+	
+	/**
 	 * Whether this Criteria has any select columns.
 	 * 
 	 * This will include columns added with addAsColumn() method.
@@ -1003,8 +1079,7 @@ class Criteria implements IteratorAggregate
 	/**
 	 * Get select columns.
 	 *
-	 * @return     array An array with the name of the select
-	 * columns.
+	 * @return     array An array with the name of the select columns.
 	 */
 	public function getSelectColumns()
 	{
@@ -1016,7 +1091,8 @@ class Criteria implements IteratorAggregate
 	 *
 	 * @return     Criteria Modified Criteria object (for fluent API)
 	 */
-	public function clearSelectColumns() {
+	public function clearSelectColumns()
+	{
 		$this->selectColumns = $this->asColumns = array();
 		return $this;
 	}
@@ -1118,7 +1194,7 @@ class Criteria implements IteratorAggregate
 	{
 		return $this->having;
 	}
-
+	
 	/**
 	 * Remove an object from the criteria.
 	 *
@@ -1237,8 +1313,12 @@ class Criteria implements IteratorAggregate
 	 * In case of conflict, the current Criteria keeps its properties
 	 * 
 	 * @param     Criteria $criteria The criteria to read properties from
+	 * @param     string $operator The logical operator used to combine conditions
+	 *              Defaults to Criteria::LOGICAL_AND, also accapts Criteria::LOGICAL_OR
+	 *
+	 * @return    Criteria The current criteria object
 	 */
-	public function mergeWith(Criteria $criteria)
+	public function mergeWith(Criteria $criteria, $operator = Criteria::LOGICAL_AND)
 	{
 		// merge limit
 		$limit = $criteria->getLimit();
@@ -1277,13 +1357,20 @@ class Criteria implements IteratorAggregate
 		$this->groupByColumns = array_unique($groupByColumns);
 		
 		// merge where conditions
-		foreach ($criteria->getMap() as $key => $criterion) {
-			if ($this->containsKey($key)) {
-				$this->addAnd($criterion);
-			} else {
-				$this->add($criterion);
+		if ($operator == Criteria::LOGICAL_AND) {
+			foreach ($criteria->getMap() as $key => $criterion) {
+				if ($this->containsKey($key)) {
+					$this->addAnd($criterion);
+				} else {
+					$this->add($criterion);
+				}
+			}
+		} else {
+			foreach ($criteria->getMap() as $key => $criterion) {
+				$this->addOr($criterion);
 			}
 		}
+
 		
 		// merge having
 		if ($having = $criteria->getHaving()) {
@@ -1452,6 +1539,22 @@ class Criteria implements IteratorAggregate
 	public function _endif()
 	{
 		return $this;
+	}
+	
+	/**
+	 * Ensures deep cloning of attached objects
+	 */
+	public function __clone()
+	{
+		foreach ($this->map as $key => $criterion) {
+			$this->map[$key] = clone $criterion;
+		}
+		foreach ($this->joins as $key => $join) {
+			$this->joins[$key] = clone $join;
+		}
+		if (null !== $this->having) {
+			$this->having = clone $this->having;
+		}
 	}
 	
 }

@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: OracleSchemaParser.php 1387 2009-12-28 17:37:08Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'reverse/BaseSchemaParser.php';
@@ -26,7 +15,7 @@ require_once 'reverse/BaseSchemaParser.php';
  *
  * @author     Hans Lellelid <hans@xmpl.org>
  * @author     Guillermo Gutierrez <ggutierrez@dailycosas.net> (Adaptation)
- * @version    $Revision: 1387 $
+ * @version    $Revision: 1918 $
  * @package    propel.generator.reverse.oracle
  */
 class OracleSchemaParser extends BaseSchemaParser
@@ -53,14 +42,15 @@ class OracleSchemaParser extends BaseSchemaParser
 		'BLOB'		=> PropelTypes::BLOB,
 		'CHAR'		=> PropelTypes::CHAR,
 		'CLOB'		=> PropelTypes::CLOB,
-		'DATE'		=> PropelTypes::DATE,
+		'DATE'		=> PropelTypes::TIMESTAMP,
+		'BIGINT'	=> PropelTypes::BIGINT,
 		'DECIMAL'	=> PropelTypes::DECIMAL,
 		'DOUBLE'	=> PropelTypes::DOUBLE,
 		'FLOAT'		=> PropelTypes::FLOAT,
 		'LONG'		=> PropelTypes::LONGVARCHAR,
 		'NCHAR'		=> PropelTypes::CHAR,
 		'NCLOB'		=> PropelTypes::CLOB,
-		'NUMBER'	=> PropelTypes::BIGINT,
+		'NUMBER'	=> PropelTypes::INTEGER,
 		'NVARCHAR2'	=> PropelTypes::VARCHAR,
 		'TIMESTAMP'	=> PropelTypes::TIMESTAMP,
 		'VARCHAR2'	=> PropelTypes::VARCHAR,
@@ -119,20 +109,23 @@ class OracleSchemaParser extends BaseSchemaParser
 	 */
 	protected function addColumns(Table $table)
 	{
-		$stmt = $this->dbh->query("SELECT COLUMN_NAME, DATA_TYPE, NULLABLE, DATA_LENGTH, DATA_SCALE, DATA_DEFAULT FROM USER_TAB_COLS WHERE TABLE_NAME = '" . $table->getName() . "'");
+		$stmt = $this->dbh->query("SELECT COLUMN_NAME, DATA_TYPE, NULLABLE, DATA_LENGTH, DATA_PRECISION, DATA_SCALE, DATA_DEFAULT FROM USER_TAB_COLS WHERE TABLE_NAME = '" . $table->getName() . "'");
 		/* @var stmt PDOStatement */
 		while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 			if (strpos($row['COLUMN_NAME'], '$') !== false) {
 				// this is an Oracle internal column - prune
 				continue;
 			}
-			$size = $row["DATA_LENGTH"];
+			$size = $row["DATA_PRECISION"] ? $row["DATA_PRECISION"] : $row["DATA_LENGTH"];
 			$scale = $row["DATA_SCALE"];
 			$default = $row['DATA_DEFAULT'];
 			$type = $row["DATA_TYPE"];
 			$isNullable = ($row['NULLABLE'] == 'Y');
 			if ($type == "NUMBER" && $row["DATA_SCALE"] > 0) {
 				$type = "DECIMAL";
+			}
+			if ($type == "NUMBER" && $size > 9) {
+				$type = "BIGINT";
 			}
 			if ($type == "FLOAT"&& $row["DATA_PRECISION"] == 126) {
 				$type = "DOUBLE";

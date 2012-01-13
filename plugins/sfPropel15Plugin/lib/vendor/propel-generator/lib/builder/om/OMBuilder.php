@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: OMBuilder.php 1570 2010-02-20 10:47:22Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'builder/DataModelBuilder.php';
@@ -34,7 +22,13 @@ require_once 'builder/DataModelBuilder.php';
  */
 abstract class OMBuilder extends DataModelBuilder
 {
-
+	/**
+	 * Declared fully qualified classnames, to build the 'namespace' statements
+   * according to this table's namespace.
+   * @var array
+	 */
+	protected $declaredClasses = array();
+	
 	/**
 	 * Builds the PHP source for current class and returns it as a string.
 	 *
@@ -49,14 +43,25 @@ abstract class OMBuilder extends DataModelBuilder
 	{
 		$this->validateModel();
 
-		$script = "<" . "?php\n"; // intentional concatenation
+		$script = '';
 		if ($this->isAddIncludes()) {
 			$this->addIncludes($script);
 		}
 		$this->addClassOpen($script);
 		$this->addClassBody($script);
 		$this->addClassClose($script);
-		return $script;
+		
+		if($useStatements = $this->getUseStatements($ignoredNamespace = $this->getNamespace())) {
+			$script = $useStatements . $script;
+		}
+		if($namespaceStatement = $this->getNamespaceStatement()) {
+			$script = $namespaceStatement . $script;
+		}
+		//if($this->getTable()->getName() == 'book_club_list') die($ignoredNamespace);
+		
+		return "<" . "?php
+
+" . $script;
 	}
 
 	/**
@@ -91,7 +96,7 @@ abstract class OMBuilder extends DataModelBuilder
 	abstract public function getUnprefixedClassname();
 
 	/**
-	 * Returns the prefixed clasname that is being built by the current class.
+	 * Returns the prefixed classname that is being built by the current class.
 	 * @return     string
 	 * @see        DataModelBuilder#prefixClassname()
 	 */
@@ -99,6 +104,20 @@ abstract class OMBuilder extends DataModelBuilder
 	{
 		return $this->prefixClassname($this->getUnprefixedClassname());
 	}
+	
+	/**
+	 * Returns the namespaced classname if there is a namespace, and the raw classname otherwise
+	 * @return     string
+	 */
+	public function getFullyQualifiedClassname()
+	{
+		if ($namespace = $this->getNamespace()) {
+			return $namespace . '\\' . $this->getClassname();
+		} else {
+			return $this->getClassname();
+		}
+	}
+	
 	/**
 	 * Gets the dot-path representation of current class being built.
 	 * @return     string
@@ -145,6 +164,85 @@ abstract class OMBuilder extends DataModelBuilder
 		return strtr($this->getPackage(), '.', '/');
 	}
 
+	/**
+	 * Return the user-defined namespace for this table, 
+	 * or the database namespace otherwise.
+	 *
+	 * @return    string
+	 */
+	public function getNamespace()
+	{
+		return $this->getTable()->getNamespace();
+	}
+	
+	public function declareClassNamespace($class, $namespace = '')
+	{
+		if (isset($this->declaredClasses[$namespace]) 
+		 && in_array($class, $this->declaredClasses[$namespace])) {
+			return;
+		}
+		$this->declaredClasses[$namespace][] = $class;
+	}
+	
+	public function declareClass($fullyQualifiedClassName)
+	{
+		$fullyQualifiedClassName = trim($fullyQualifiedClassName, '\\');
+		if (($pos = strrpos($fullyQualifiedClassName, '\\')) !== false) {
+			$this->declareClassNamespace(substr($fullyQualifiedClassName, $pos + 1), substr($fullyQualifiedClassName, 0, $pos));
+		} else {
+			// root namespace
+			$this->declareClassNamespace($fullyQualifiedClassName);
+		} 
+	}
+	
+	public function declareClassFromBuilder($builder)
+	{
+		$this->declareClassNamespace($builder->getClassname(), $builder->getNamespace());
+	}
+	
+	public function declareClasses()
+	{
+		$args = func_get_args();
+		foreach ($args as $class) {
+			$this->declareClass($class);
+		}
+	}
+	
+	public function getDeclaredClasses($namespace = null)
+	{
+		if (null !== $namespace && isset($this->declaredClasses[$namespace])) {
+			return $this->declaredClasses[$namespace];
+		} else {
+			return $this->declaredClasses;
+		}
+	}
+
+	public function getNamespaceStatement()
+	{
+		$namespace = $this->getNamespace();
+		if ($namespace != '') {
+			return sprintf("namespace %s;
+
+", $namespace);
+		}
+	}
+	
+	public function getUseStatements($ignoredNamespace = null)
+	{
+		$script = '';
+		$declaredClasses = $this->declaredClasses;
+		unset($declaredClasses[$ignoredNamespace]);
+		ksort($declaredClasses);
+		foreach ($declaredClasses as $namespace => $classes) {
+			sort($classes);
+			foreach ($classes as $class) {
+				$script .= sprintf("use %s\\%s;
+", $namespace, $class);
+			}
+		}
+		return $script;
+	}
+	
 	/**
 	 * Shortcut method to return the [stub] peer classname for current table.
 	 * This is the classname that is used whenever object or peer classes want
@@ -220,11 +318,27 @@ abstract class OMBuilder extends DataModelBuilder
 
 	/**
 	 * Convenience method to get the foreign Table object for an fkey.
+	 * @deprecated use ForeignKey::getForeignTable() instead
 	 * @return     Table
 	 */
 	protected function getForeignTable(ForeignKey $fk)
 	{
 		return $this->getTable()->getDatabase()->getTable($fk->getForeignTableName());
+	}
+
+	/**
+	 * Convenience method to get the default Join Type for a relation.
+	 * If the key is required, an INNER JOIN will be returned, else a LEFT JOIN will be suggested,
+	 * unless the schema is provided with the DefaultJoin attribute, which overrules the default Join Type
+	 * 
+	 * @param ForeignKey $fk
+	 * @return     string
+	 */
+	protected function getJoinType(ForeignKey $fk)
+	{
+		return $fk->getDefaultJoin() ? 
+      "'".$fk->getDefaultJoin()."'" :
+      ($fk->isLocalColumnsRequired() ? 'Criteria::INNER_JOIN' : 'Criteria::LEFT_JOIN');	  
 	}
 
 	/**
@@ -246,14 +360,47 @@ abstract class OMBuilder extends DataModelBuilder
 				return $fk->getPhpName();
 			}
 		} else {
-			$className = $this->getForeignTable($fk)->getPhpName();
+			$className = $fk->getForeignTable()->getPhpName();
 			if ($plural) {
 				$className = $this->getPluralizer()->getPluralForm($className);
 			}
-			return $className . $this->getRelatedBySuffix($fk, true);
+			return $className . $this->getRelatedBySuffix($fk);
 		}
 	}
 
+	/**
+	 * Gets the "RelatedBy*" suffix (if needed) that is attached to method and variable names.
+	 *
+	 * The related by suffix is based on the local columns of the foreign key.  If there is more than
+	 * one column in a table that points to the same foreign table, then a 'RelatedByLocalColName' suffix
+	 * will be appended.
+	 *
+	 * @return     string
+	 */
+	protected static function getRelatedBySuffix(ForeignKey $fk)
+	{
+		$relCol = '';
+		foreach ($fk->getLocalForeignMapping() as $localColumnName => $foreignColumnName) {
+			$localTable  = $fk->getTable();
+			$localColumn = $localTable->getColumn($localColumnName);
+			if (!$localColumn) {
+				throw new Exception("Could not fetch column: $columnName in table " . $localTable->getName());
+			}
+			if (count($localTable->getForeignKeysReferencingTable($fk->getForeignTableName())) > 1 
+			 || count($fk->getForeignTable()->getForeignKeysReferencingTable($fk->getTableName())) > 0
+			 || $fk->getForeignTableName() == $fk->getTableName()) {
+				// self referential foreign key, or several foreign keys to the same table, or cross-reference fkey
+				$relCol .= $localColumn->getPhpName();
+			}
+		}
+
+		if ($relCol != '') {
+			$relCol = 'RelatedBy' . $relCol;
+		}
+
+		return $relCol;
+	}
+	
 	/**
 	 * Gets the PHP method name affix to be used for referencing foreign key methods and variable names (e.g. set????(), $coll???).
 	 *
@@ -277,40 +424,30 @@ abstract class OMBuilder extends DataModelBuilder
 			if ($plural) {
 				$className = $this->getPluralizer()->getPluralForm($className);
 			}
-			return $className . $this->getRelatedBySuffix($fk);
+			return $className . $this->getRefRelatedBySuffix($fk);
 		}
 	}
-
-	/**
-	 * Gets the "RelatedBy*" suffix (if needed) that is attached to method and variable names.
-	 *
-	 * The related by suffix is based on the local columns of the foreign key.  If there is more than
-	 * one column in a table that points to the same foreign table, then a 'RelatedByLocalColName' suffix
-	 * will be appended.
-	 *
-	 * @return     string
-	 */
-	protected static function getRelatedBySuffix(ForeignKey $fk, $reverseOnSelf = false)
+	
+	protected static function getRefRelatedBySuffix(ForeignKey $fk)
 	{
 		$relCol = '';
-		foreach ($fk->getLocalForeignMapping() as $columnName => $foreignColumnName) {
-			$column = $fk->getTable()->getColumn($columnName);
-			if (!$column) {
-				throw new Exception("Could not fetch column: $columnName in table " . $fk->getTable()->getName());
+		foreach ($fk->getLocalForeignMapping() as $localColumnName => $foreignColumnName) {
+			$localTable = $fk->getTable();
+			$localColumn = $localTable->getColumn($localColumnName);
+			if (!$localColumn) {
+				throw new Exception("Could not fetch column: $columnName in table " . $localTable->getName());
 			}
-
-			if (count($column->getTable()->getForeignKeysReferencingTable($fk->getForeignTableName())) > 1) {
-				// if there are several foreign keys that point to the same table
-				// then we need to generate methods like getAuthorRelatedByColName()
-				// instead of just getAuthor().
-				$relCol .= $column->getPhpName();
-			} elseif ($fk->getForeignTableName() == $fk->getTable()->getName()) {
+			$foreignKeysToForeignTable = $localTable->getForeignKeysReferencingTable($fk->getForeignTableName());
+			if ($fk->getForeignTableName() == $fk->getTableName()) {
 				// self referential foreign key
-				if ($reverseOnSelf) {
-					$relCol .= $fk->getTable()->getColumn($foreignColumnName)->getPhpName();
-				} else {
-					$relCol .= $column->getPhpName();
+				$relCol .= $fk->getForeignTable()->getColumn($foreignColumnName)->getPhpName();
+				if (count($foreignKeysToForeignTable) > 1) {
+					// several self-referential foreign keys
+					$relCol .= array_search($fk, $foreignKeysToForeignTable);
 				}
+			} elseif (count($foreignKeysToForeignTable) > 1 || count($fk->getForeignTable()->getForeignKeysReferencingTable($fk->getTableName())) > 0) {
+				// several foreign keys to the same table, or symmetrical foreign key in foreign table
+				$relCol .= $localColumn->getPhpName();
 			}
 		}
 

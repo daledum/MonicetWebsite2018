@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: AbstractPropelDataModelTask.php 1548 2010-02-12 17:00:30Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 //include_once 'phing/tasks/ext/CapsuleTask.php';
@@ -64,12 +52,6 @@ abstract class AbstractPropelDataModelTask extends Task
 	 * in a lot of cases they won't be.
 	 */
 	protected $dataModelDbMap;
-
-	/**
-	 * Hashtable containing the names of all the databases
-	 * in our collection of schemas.
-	 */
-	protected $databaseNames; // doesn't seem to be used anywhere
 
 	/**
 	 * The target database(s) we are generating SQL
@@ -163,7 +145,9 @@ abstract class AbstractPropelDataModelTask extends Task
 	 */
 	public function getDataModels()
 	{
-		if (!$this->dataModelsLoaded) $this->loadDataModels();
+		if (!$this->dataModelsLoaded) {
+			$this->loadDataModels();
+		}
 		return $this->dataModels;
 	}
 
@@ -174,7 +158,9 @@ abstract class AbstractPropelDataModelTask extends Task
 	 */
 	public function getDataModelDbMap()
 	{
-		if (!$this->dataModelsLoaded) $this->loadDataModels();
+		if (!$this->dataModelsLoaded) {
+			$this->loadDataModels();
+		}
 		return $this->dataModelDbMap;
 	}
 
@@ -417,6 +403,7 @@ abstract class AbstractPropelDataModelTask extends Task
 			$srcDir = $fs->getDir($this->project);
 
 			$dataModelFiles = $ds->getIncludedFiles();
+			sort($dataModelFiles);
 
 			$platform = $this->getGeneratorConfig()->getConfiguredPlatform();
 
@@ -429,30 +416,21 @@ abstract class AbstractPropelDataModelTask extends Task
 				$dom = new DomDocument('1.0', 'UTF-8');
 				$dom->load($xmlFile->getAbsolutePath());
 				
-				// modify schema to include any external schema's (and remove the external-schema nodes)
+				// modify schema to include any external schemas (and remove the external-schema nodes)
 				$this->includeExternalSchemas($dom, $srcDir);
-				
+					
 				// normalize (or transform) the XML document using XSLT
 				if ($this->getGeneratorConfig()->getBuildProperty('schemaTransform') && $this->xslFile) {
 					$this->log("Transforming " . $xmlFile->getPath() . " using stylesheet " . $this->xslFile->getPath(), Project::MSG_VERBOSE);
 					if (!class_exists('XSLTProcessor')) {
-						$this->log("Could not perform XLST transformation.  Make sure PHP has been compiled/configured to support XSLT.", Project::MSG_ERR);
+						$this->log("Could not perform XLST transformation. Make sure PHP has been compiled/configured to support XSLT.", Project::MSG_ERR);
 					} else {
 						// normalize the document using normalizer stylesheet
 						$xslDom = new DomDocument('1.0', 'UTF-8');
 						$xslDom->load($this->xslFile->getAbsolutePath());
 						$xsl = new XsltProcessor();
 						$xsl->importStyleSheet($xslDom);
-						$transformed = $xsl->transformToDoc($dom);
-						$newXmlFilename = substr($xmlFile->getName(), 0, strrpos($xmlFile->getName(), '.')) . '-transformed.xml';
-
-						// now overwrite previous vars to point to newly transformed file
-						$xmlFile = new PhingFile($srcDir, $newXmlFilename);
-						$transformed->save($xmlFile->getAbsolutePath());
-						$this->log("\t- Using new (post-transformation) XML file: " . $xmlFile->getPath(), Project::MSG_VERBOSE);
-
-						$dom = new DomDocument('1.0', 'UTF-8');
-						$dom->load($xmlFile->getAbsolutePath());
+						$dom = $xsl->transformToDoc($dom);
 					}
 				}
 
@@ -463,10 +441,11 @@ abstract class AbstractPropelDataModelTask extends Task
 						throw new EngineException("XML schema file (".$xmlFile->getPath().") does not validate. See warnings above for reasons validation failed (make sure error_reporting is set to show E_WARNING if you don't see any).", $this->getLocation());
 					}
 				}
-
+				
 				$xmlParser = new XmlToAppData($platform, $this->getTargetPackage(), $this->dbEncoding);
-				$ad = $xmlParser->parseFile($xmlFile->getAbsolutePath());
-				$ad->setName($dmFilename); // <-- Important: use the original name, not the -transformed name.
+				$ad = $xmlParser->parseString($dom->saveXML(), $xmlFile->getAbsolutePath());
+		
+				$ad->setName($dmFilename);
 				$ads[] = $ad;
 			}
 		}
@@ -475,25 +454,22 @@ abstract class AbstractPropelDataModelTask extends Task
 			throw new BuildException("No schema files were found (matching your schema fileset definition).");
 		}
 
-		if (!$this->packageObjectModel) {
-
-			$this->dataModels = $ads;
-			$this->databaseNames = array(); // doesn't seem to be used anywhere
-			$this->dataModelDbMap = array();
-
-			// Different datamodels may state the same database
-			// names, we just want the unique names of databases.
-			foreach ($this->dataModels as $dm) {
-				$database = $dm->getDatabase();
-				$this->dataModelDbMap[$dm->getName()] = $database->getName();
-				$this->databaseNames[$database->getName()] = $database->getName(); // making list of *unique* dbnames.
-			}
-		} else {
-
-			$this->joinDatamodels($ads);
-			$this->dataModels[0]->getDatabases(); // calls doFinalInitialization()
+		foreach ($ads as $ad) {
+			// map schema filename with database name
+			$this->dataModelDbMap[$ad->getName()] = $ad->getDatabase(null, false)->getName();
 		}
-
+		
+		if (count($ads)>1 && $this->packageObjectModel) {
+			$ad = $this->joinDataModels($ads);
+			$this->dataModels = array($ad);
+		} else {
+			$this->dataModels = $ads;
+		}
+		
+		foreach ($this->dataModels as &$ad) {
+			$ad->doFinalInitialization();
+		}
+			
 		$this->dataModelsLoaded = true;
 	}
 
@@ -511,65 +487,70 @@ abstract class AbstractPropelDataModelTask extends Task
 	protected function includeExternalSchemas(DomDocument $dom, $srcDir) {
 		$databaseNode = $dom->getElementsByTagName("database")->item(0);
 		$externalSchemaNodes = $dom->getElementsByTagName("external-schema");
+		$fs = FileSystem::getFileSystem();
+		$nbIncludedSchemas = 0;
 		while ($externalSchema = $externalSchemaNodes->item(0)) {
 			$include = $externalSchema->getAttribute("filename");
+			$this->log("Processing external schema: ".$include);
 			$externalSchema->parentNode->removeChild($externalSchema);
-			if (strpos($srcDir->getPath(), "/") === 0) {
+			if ($fs->prefixLength($include) != 0) {
 				$externalSchemaFile = new PhingFile($include);
 			} else {
 				$externalSchemaFile = new PhingFile($srcDir, $include);
 			}
 			$externalSchemaDom = new DomDocument('1.0', 'UTF-8');
 			$externalSchemaDom->load($externalSchemaFile->getAbsolutePath());
+			// The external schema may have external schemas of its own ; recurse
 			$this->includeExternalSchemas($externalSchemaDom, $srcDir);
 			foreach ($externalSchemaDom->getElementsByTagName("table") as $tableNode) { // see xsd, datatase may only have table or external-schema, the latter was just deleted so this should cover everything
 				$databaseNode->appendChild($dom->importNode($tableNode, true));
 			}
+			$nbIncludedSchemas++;
 		}
+		return $nbIncludedSchemas;
 	}
+	
 	/**
-	 * Joins the datamodels collected from schema.xml files into one big datamodel
+	 * Joins the datamodels collected from schema.xml files into one big datamodel.
+	 *  We need to join the datamodels in this case to allow for foreign keys 
+	 * that point to tables in different packages.
 	 *
-	 * This applies only when the the packageObjectModel option is set. We need to
-	 * join the datamodels in this case to allow for foreign keys that point to
-	 * tables in different packages.
-	 *
-	 * @param      array $ads The datamodels to join
+	 * @param      array[AppData] $ads The datamodels to join
+	 * @return     AppData        The single datamodel with all other datamodels joined in
 	 */
-	protected function joinDatamodels($ads) {
-
-		foreach ($ads as $ad) {
-			$db = $ad->getDatabase(null, false);
-			$this->dataModelDbMap[$ad->getName()] = $db->getName();
-		}
-
-		foreach ($ads as $addAd) {
-
-			$ad = &$this->dataModels[0];
-			if (!isset($ad)) {
-				$addAd->setName('JoinedDataModel');
-				$ad = $addAd;
+	protected function joinDataModels($ads)
+	{
+		$mainAppData = null;
+		foreach ($ads as $appData) {
+			if (null === $mainAppData) {
+				$mainAppData = $appData;
+				$appData->setName('JoinedDataModel');
 				continue;
 			}
-			foreach ($addAd->getDatabases(false) as $addDb) {
+			// merge subsequent schemas to the first one
+			foreach ($appData->getDatabases(false) as $addDb) {
 				$addDbName = $addDb->getName();
-				if (!$package = $addDb->getPackage()) {
-					throw new BuildException('No package found for database "' . $addDbName . '" in ' . $addAd->getName() . '. The propel.packageObjectModel property requires the package attribute to be set for each database.');
-				}
-				$db = $ad->getDatabase($addDbName, false);
-				if (!$db) {
-					$ad->addDatabase($addDb);
-					continue;
-				}
-				foreach ($addDb->getTables() as $addTable) {
-					$table = $db->getTable($addTable->getName());
-					if ($table) {
-						throw new BuildException('Duplicate table found: ' . $addDbName . '.');
+				if ($mainAppData->hasDatabase($addDbName)) {
+					$db = $mainAppData->getDatabase($addDbName, false);
+					// join tables
+					foreach ($addDb->getTables() as $addTable) {
+						if ($db->getTable($addTable->getName())) {
+							throw new BuildException('Duplicate table found: ' . $addDbName . '.');
+						}
+						$db->addTable($addTable);
 					}
-					$db->addTable($addTable);
+					// join database behaviors
+					foreach ($addDb->getBehaviors() as $addBehavior) {
+						if (!$db->hasBehavior($addBehavior->getName())) {
+							$db->addBehavior($addBehavior);
+						}
+					}
+				} else {
+					$mainAppData->addDatabase($addDb);
 				}
 			}
 		}
+		return $mainAppData;
 	}
 
 	/**

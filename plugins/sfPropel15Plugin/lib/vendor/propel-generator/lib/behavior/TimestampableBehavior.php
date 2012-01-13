@@ -1,23 +1,11 @@
 <?php
 
-/*
- *	$Id: TimestampableBehavior.php 1460 2010-01-17 22:36:48Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -25,7 +13,7 @@
  * Uses two additional columns storing the creation and update date
  *
  * @author     François Zaninotto
- * @version    $Revision: 1460 $
+ * @version    $Revision: 1817 $
  * @package    propel.generator.behavior
  */
 class TimestampableBehavior extends Behavior
@@ -66,14 +54,19 @@ class TimestampableBehavior extends Behavior
 		return 'set' . $this->getColumnForParameter($column)->getPhpName();
 	}
 	
+	protected function getColumnConstant($columnName, $builder)
+	{
+		return $builder->getColumnConstant($this->getColumnForParameter($columnName));
+	}
+	
 	/**
-	 * Add code in ObjectBuilder::preSave
+	 * Add code in ObjectBuilder::preUpdate
 	 *
 	 * @return    string The code to put at the hook
 	 */
-	public function preSave()
+	public function preUpdate($builder)
 	{
-		return "if (!\$this->isColumnModified(" . $this->getColumnForParameter('update_column')->getConstantName() . ")) {
+		return "if (\$this->isModified() && !\$this->isColumnModified(" . $this->getColumnConstant('update_column', $builder) . ")) {
 	\$this->" . $this->getColumnSetter('update_column') . "(time());
 }";
 	}
@@ -83,10 +76,13 @@ class TimestampableBehavior extends Behavior
 	 *
 	 * @return    string The code to put at the hook
 	 */
-	public function preInsert()
+	public function preInsert($builder)
 	{
-		return "if (!\$this->isColumnModified(" . $this->getColumnForParameter('create_column')->getConstantName() . ")) {
+		return "if (!\$this->isColumnModified(" . $this->getColumnConstant('create_column', $builder) . ")) {
 	\$this->" . $this->getColumnSetter('create_column') . "(time());
+}
+if (!\$this->isColumnModified(" . $this->getColumnConstant('update_column', $builder) . ")) {
+	\$this->" . $this->getColumnSetter('update_column') . "(time());
 }";
 	}
 
@@ -100,7 +96,7 @@ class TimestampableBehavior extends Behavior
  */
 public function keepUpdateDateUnchanged()
 {
-	\$this->modifiedColumns[] = " . $this->getColumnForParameter('update_column')->getConstantName() . ";
+	\$this->modifiedColumns[] = " . $this->getColumnConstant('update_column', $builder) . ";
 	return \$this;
 }
 ";
@@ -109,8 +105,8 @@ public function keepUpdateDateUnchanged()
 	public function queryMethods($builder)
 	{
 		$queryClassName = $builder->getStubQueryBuilder()->getClassname();
-		$updateColumnConstant = $this->getColumnForParameter('update_column')->getConstantName();
-		$createColumnConstant = $this->getColumnForParameter('create_column')->getConstantName();
+		$updateColumnConstant = $this->getColumnConstant('update_column', $builder);
+		$createColumnConstant = $this->getColumnConstant('create_column', $builder);
 		return "
 /**
  * Filter by the latest updated

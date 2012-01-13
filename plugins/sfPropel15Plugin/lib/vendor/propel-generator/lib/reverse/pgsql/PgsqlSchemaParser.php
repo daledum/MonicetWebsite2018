@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: PgsqlSchemaParser.php 1397 2009-12-31 08:05:10Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'reverse/BaseSchemaParser.php';
@@ -25,7 +14,7 @@ require_once 'reverse/BaseSchemaParser.php';
  * Postgresql database schema parser.
  *
  * @author     Hans Lellelid <hans@xmpl.org>
- * @version    $Revision: 1397 $
+ * @version    $Revision: 1928 $
  * @package    propel.generator.reverse.pgsql
  */
 class PgsqlSchemaParser extends BaseSchemaParser
@@ -42,18 +31,25 @@ class PgsqlSchemaParser extends BaseSchemaParser
 				'tinyint' => PropelTypes::TINYINT,
 				'smallint' => PropelTypes::SMALLINT,
 				'mediumint' => PropelTypes::SMALLINT,
+				'int2' => PropelTypes::SMALLINT,
 				'int' => PropelTypes::INTEGER,
 				'int4' => PropelTypes::INTEGER,
+				'serial4' => PropelTypes::INTEGER,
 				'integer' => PropelTypes::INTEGER,
 				'int8' => PropelTypes::BIGINT,
 				'bigint' => PropelTypes::BIGINT,
+				'bigserial' => PropelTypes::BIGINT,
+				'serial8' => PropelTypes::BIGINT,
 				'int24' => PropelTypes::BIGINT,
 				'real' => PropelTypes::REAL,
 				'float' => PropelTypes::FLOAT,
+				'float4' => PropelTypes::FLOAT,
 				'decimal' => PropelTypes::DECIMAL,
 				'numeric' => PropelTypes::NUMERIC,
 				'double' => PropelTypes::DOUBLE,
+				'float8' => PropelTypes::DOUBLE,
 				'char' => PropelTypes::CHAR,
+				'character' => PropelTypes::CHAR,
 				'varchar' => PropelTypes::VARCHAR,
 				'date' => PropelTypes::DATE,
 				'time' => PropelTypes::TIME,
@@ -124,7 +120,7 @@ class PgsqlSchemaParser extends BaseSchemaParser
 		// Now populate only columns.
 		$task->log("Reverse Engineering Columns");
 		foreach ($tableWraps as $wrap) {
-			$task->log("  Adding columns for table '" . $$wrap->table->getName() . "'");
+			$task->log("  Adding columns for table '" . $wrap->table->getName() . "'");
 			$this->addColumns($wrap->table, $wrap->oid, $version);
 		}
 
@@ -246,7 +242,12 @@ class PgsqlSchemaParser extends BaseSchemaParser
 			$column->getDomain()->replaceSize($size);
 			$column->getDomain()->replaceScale($scale);
 			if ($default !== null) {
-				$column->getDomain()->setDefaultValue(new ColumnDefaultValue($default, ColumnDefaultValue::TYPE_VALUE));
+				if (in_array($default, array('now()'))) {
+					$type = ColumnDefaultValue::TYPE_EXPR;
+				} else {
+					$type = ColumnDefaultValue::TYPE_VALUE;
+				}
+				$column->getDomain()->setDefaultValue(new ColumnDefaultValue($default, $type));
 			}
 			$column->setAutoIncrement($autoincrement);
 			$column->setNotNull(!$is_nullable);

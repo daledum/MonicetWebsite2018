@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: MssqlPlatform.php 1347 2009-12-03 21:06:36Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'platform/DefaultPlatform.php';
@@ -27,7 +16,7 @@ require_once 'model/Domain.php';
  *
  * @author     Hans Lellelid <hans@xmpl.org> (Propel)
  * @author     Martin Poeschl <mpoeschl@marmot.at> (Torque)
- * @version    $Revision: 1347 $
+ * @version    $Revision: 1954 $
  * @package    propel.generator.platform
  */
 class MssqlPlatform extends DefaultPlatform
@@ -42,17 +31,17 @@ class MssqlPlatform extends DefaultPlatform
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::INTEGER, "INT"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::BOOLEAN, "INT"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::DOUBLE, "FLOAT"));
-		$this->setSchemaDomainMapping(new Domain(PropelTypes::LONGVARCHAR, "TEXT"));
-		$this->setSchemaDomainMapping(new Domain(PropelTypes::CLOB, "TEXT"));
+		$this->setSchemaDomainMapping(new Domain(PropelTypes::LONGVARCHAR, "VARCHAR(MAX)"));
+		$this->setSchemaDomainMapping(new Domain(PropelTypes::CLOB, "VARCHAR(MAX)"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::DATE, "DATETIME"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::BU_DATE, "DATETIME"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::TIME, "DATETIME"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::TIMESTAMP, "DATETIME"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::BU_TIMESTAMP, "DATETIME"));
 		$this->setSchemaDomainMapping(new Domain(PropelTypes::BINARY, "BINARY(7132)"));
-		$this->setSchemaDomainMapping(new Domain(PropelTypes::VARBINARY, "IMAGE"));
-		$this->setSchemaDomainMapping(new Domain(PropelTypes::LONGVARBINARY, "IMAGE"));
-		$this->setSchemaDomainMapping(new Domain(PropelTypes::BLOB, "IMAGE"));
+		$this->setSchemaDomainMapping(new Domain(PropelTypes::VARBINARY, "VARBINARY(MAX)"));
+		$this->setSchemaDomainMapping(new Domain(PropelTypes::LONGVARBINARY, "VARBINARY(MAX)"));
+		$this->setSchemaDomainMapping(new Domain(PropelTypes::BLOB, "VARBINARY(MAX)"));
 	}
 
 	/**
@@ -88,7 +77,7 @@ class MssqlPlatform extends DefaultPlatform
 	{
 		return false;
 	}
-	
+
 	/**
 	 * @see        Platform::hasSize(String)
 	 */
@@ -105,14 +94,14 @@ class MssqlPlatform extends DefaultPlatform
 		return '[' . $text . ']';
 	}
 
-   /**
-   * Gets the preferred timestamp formatter for setting date/time values.
-   * @return     string
-   */
-  public function getTimestampFormatter()
-  {
-    return 'Y-m-d H:i:s';
-  }
+	 /**
+	 * Gets the preferred timestamp formatter for setting date/time values.
+	 * @return     string
+	 */
+	public function getTimestampFormatter()
+	{
+		return 'Y-m-d H:i:s';
+	}
 
 
 }

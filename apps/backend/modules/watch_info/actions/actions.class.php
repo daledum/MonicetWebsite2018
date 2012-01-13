@@ -342,8 +342,8 @@ class watch_infoActions extends autoWatch_infoActions
           if(strcmp(strtoupper($code),'I') == 0){
             $wi = new GeneralInfo();
             $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
-//            if ($barco) $gi->setVesselId($barco->getId());
-//            
+            if ($barco) $wi->setVesselId($barco->getId());
+            
 //            $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
 //            if($skipper) $gi->setSkipperId($skipper->getId());
 //            

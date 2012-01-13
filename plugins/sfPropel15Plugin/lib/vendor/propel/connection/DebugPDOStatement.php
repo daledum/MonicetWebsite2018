@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: DebugPDOStatement.php 1519 2010-02-03 13:13:51Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -117,17 +106,43 @@ class DebugPDOStatement extends PDOStatement
 	 */
 	public function bindValue($pos, $value, $type = PDO::PARAM_STR)
 	{
-		$debug		= $this->pdo->getDebugSnapshot();
-		$typestr	= isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
-		$return		= parent::bindValue($pos, $value, $type);
-		$valuestr	= $type == PDO::PARAM_LOB ? '[LOB value]' : var_export($value, true);
-		$msg		= "Binding $valuestr at position $pos w/ PDO type $typestr";
+		$debug    = $this->pdo->getDebugSnapshot();
+		$typestr  = isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
+		$return   = parent::bindValue($pos, $value, $type);
+		$valuestr = $type == PDO::PARAM_LOB ? '[LOB value]' : var_export($value, true);
+		$msg      = sprintf('Binding %s at position %s w/ PDO type %s', $valuestr, $pos, $typestr);
 
-    $this->boundValues[$pos] = $valuestr;
+		$this->boundValues[$pos] = $valuestr;
 		
 		$this->pdo->log($msg, null, __METHOD__, $debug);
 		
 		return $return;
 	}
-	
+
+	/**
+	 * Binds a PHP variable to a corresponding named or question mark placeholder in the SQL statement
+	 * that was use to prepare the statement. Unlike PDOStatement::bindValue(), the variable is bound
+	 * as a reference and will only be evaluated at the time that PDOStatement::execute() is called.
+	 * Returns a boolean value indicating success.
+	 *
+	 * @param      int $pos Parameter identifier (for determining what to replace in the query).
+	 * @param      mixed $value The value to bind to the parameter.
+	 * @param      int $type Explicit data type for the parameter using the PDO::PARAM_* constants. Defaults to PDO::PARAM_STR.
+	 * @param      int $length Length of the data type. To indicate that a parameter is an OUT parameter from a stored procedure, you must explicitly set the length.
+	 * @return     boolean
+	 */
+	public function bindParam($pos, &$value, $type = PDO::PARAM_STR, $length = 0, $driver_options = null)
+	{
+		$debug    = $this->pdo->getDebugSnapshot();
+		$typestr  = isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
+		$return   = parent::bindParam($pos, $value, $type, $length, $driver_options);
+		$valuestr = $length > 100 ? '[Large value]' : var_export($value, true);
+		$msg      = sprintf('Binding %s at position %s w/ PDO type %s', $valuestr, $pos, $typestr);
+
+		$this->boundValues[$pos] = $valuestr;
+		
+		$this->pdo->log($msg, null, __METHOD__, $debug);
+
+		return $return;
+	}
 }

@@ -1,22 +1,11 @@
 <?php
-/*
- *  $Id: PhpNameGenerator.php 1514 2010-02-02 20:30:58Z francois $
+
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'model/NameGenerator.php';
@@ -28,7 +17,7 @@ require_once 'model/NameGenerator.php';
  * @author     Daniel Rall <dlr@finemaltcoding.com> (Torque)
  * @author     Byron Foster <byron_foster@yahoo.com> (Torque)
  * @author     Bernd Goldschmidt <bgoldschmidt@rapidsoft.de>
- * @version    $Revision: 1514 $
+ * @version    $Revision: 1793 $
  * @package    propel.generator.model
  */
 class PhpNameGenerator implements NameGenerator
@@ -88,10 +77,12 @@ class PhpNameGenerator implements NameGenerator
 	}
 
 	/**
-	 * Converts a database schema name to php object name.  Removes
-	 * <code>STD_SEPARATOR_CHAR</code>, capitilizes first letter of
-	 * name and each letter after the <code>STD_SEPERATOR</code>,
+	 * Converts a database schema name to php object name by Camelization.
+	 * Removes <code>STD_SEPARATOR_CHAR</code>, capitilizes first letter
+	 * of name and each letter after the <code>STD_SEPERATOR</code>,
 	 * converts the rest of the letters to lowercase.
+	 *
+	 * This method should be named camelizeMethod() for clarity
 	 *
 	 * my_CLASS_name -> MyClassName
 	 *

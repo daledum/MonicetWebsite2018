@@ -1,48 +1,133 @@
 <?php 
 
-/*
- *  $Id: PropelFormatter.php 1585 2010-02-26 08:28:11Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
  * Abstract class for query formatter
  *
  * @author     Francois Zaninotto
- * @version    $Revision: 1585 $
+ * @version    $Revision: 1923 $
  * @package    propel.runtime.formatter
  */
 abstract class PropelFormatter
 {
 	protected
-	  $criteria,
-	  $class,
-	  $peer,
+		$dbName,
+		$class,
+		$peer,
+		$with = array(),
+		$asColumns = array(),
+		$hasLimit = false,
 		$currentObjects = array();
 	
-	public function setCriteria(ModelCriteria $criteria)
+	public function __construct(ModelCriteria $criteria = null)
 	{
-		$this->criteria = $criteria;
+		if (null !== $criteria) {
+			$this->init($criteria);
+		}
 	}
 	
-	public function getCriteria()
+	/**
+	 * Define the hydration schema based on a query object.
+	 * Fills the Formatter's properties using a Criteria as source
+	 *
+	 * @param ModelCriteria $criteria
+	 *
+	 * @return PropelFormatter The current formatter object
+	 */
+	public function init(ModelCriteria $criteria)
 	{
-		return $this->criteria;
+		$this->dbName = $criteria->getDbName();
+		$this->setClass($criteria->getModelName());
+		$this->setWith($criteria->getWith());
+		$this->asColumns = $criteria->getAsColumns();
+		$this->hasLimit = $criteria->getLimit() != 0;
+		
+		return $this;
+	}
+	
+	// DataObject getters & setters
+
+	public function setDbName($dbName)
+	{
+		$this->dbName = $dbName;
+	}
+	
+	public function getDbName()
+	{
+		return $this->dbName;
+	}
+		
+	public function setClass($class)
+	{
+		$this->class = $class;
+		$this->peer = constant($this->class . '::PEER');
+	}
+	
+	public function getClass()
+	{
+		return $this->class;
+	}
+	
+	public function setPeer($peer)
+	{
+		$this->peer = $peer;
+	}
+	
+	public function getPeer()
+	{
+		return $this->peer;
+	}
+	
+	public function setWith($withs = array())
+	{
+		$this->with = array();
+		foreach ($withs as $relation => $join) {
+			$this->with[$relation] = new ModelWith($join);
+		}
+	}
+	
+	public function getWith()
+	{
+		return $this->with;
+	}
+
+	public function setAsColumns($asColumns = array())
+	{
+		$this->asColumns = $asColumns;
+	}
+		
+	public function getAsColumns()
+	{
+		return $this->asColumns;
+	}
+
+	public function setHasLimit($hasLimit = false)
+	{
+		$this->hasLimit = $hasLimit;
+	}
+		
+	public function hasLimit()
+	{
+		return $this->hasLimit;
+	}
+	
+	/**
+	 * Formats an ActiveRecord object
+	 *
+	 * @param BaseObject $record the object to format
+	 *
+	 * @return BaseObject The original record
+	 */
+	public function formatRecord($record = null)
+	{
+		return $record;
 	}
 	
 	abstract public function format(PDOStatement $stmt);
@@ -51,18 +136,26 @@ abstract class PropelFormatter
 	
 	abstract public function isObjectFormatter();
 	
-	/**
-	 * Check that a ModelCriteria was properly set
-	 *
-	 * @throws    PropelException if no Criteria was set, or if the Criteria set is not an instance of ModelCriteria
-	 */
-	protected function checkCriteria()
+	public function checkInit()
 	{
-		if (!$this->criteria instanceof ModelCriteria) {
-			throw new PropelException('A formatter needs a ModelCriteria. Use PropelFormatter::setCriteria() to set one');
+		if (null === $this->peer) {
+			throw new PropelException('You must initialize a formatter object before calling format() or formatOne()');
 		}
-		$this->class = $this->criteria->getModelName();
-		$this->peer = $this->criteria->getModelPeerName();		
+	}
+	
+	public function getTableMap()
+	{
+		return Propel::getDatabaseMap($this->dbName)->getTableByPhpName($this->class);
+	}
+	
+	protected function isWithOneToMany()
+	{
+		foreach ($this->with as $modelWith) {
+			if ($modelWith->isAdd()) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	/**
@@ -79,7 +172,9 @@ abstract class PropelFormatter
 	 */
 	protected function getWorkerObject($col, $class)
 	{
-		if(!isset($this->currentObjects[$col])) {
+		if(isset($this->currentObjects[$col])) {
+			$this->currentObjects[$col]->clear();
+		} else {
 			$this->currentObjects[$col] = new $class();
 		}
 		return $this->currentObjects[$col];

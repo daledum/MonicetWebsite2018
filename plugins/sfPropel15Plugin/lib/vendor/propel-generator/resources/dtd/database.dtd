@@ -21,12 +21,13 @@ PHP class or method name.
               to lowercase.
 -->
 
-<!ELEMENT database (external-schema*, table+, behavior+)>
+<!ELEMENT database (external-schema*, table+, behavior*)>
 <!ATTLIST database
   name CDATA #IMPLIED
   defaultIdMethod (native|none) "none"
   defaultTranslateMethode CDATA #IMPLIED
   package CDATA #IMPLIED
+  namespace CDATA #IMPLIED
   baseClass CDATA #IMPLIED
   basePeer CDATA #IMPLIED
   defaultPhpNamingMethod (nochange|underscore|phpname) "underscore"
@@ -47,6 +48,7 @@ PHP class or method name.
 <!ATTLIST table
   name CDATA #REQUIRED
   phpName CDATA #IMPLIED
+  namespace CDATA #IMPLIED
   idMethod (native|autoincrement|sequence|none|null) "null"
   skipSql (true|false) "false"
   readOnly (true|false) "false"
@@ -131,7 +133,7 @@ PHP class or method name.
 >
 
 <!ELEMENT behavior (parameter+)>
-<!ATTLIST index
+<!ATTLIST behavior
   name CDATA #IMPLIED
 >
 

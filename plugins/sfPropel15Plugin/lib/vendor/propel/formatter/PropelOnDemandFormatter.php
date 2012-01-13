@@ -1,23 +1,11 @@
 <?php
 
-/*
- *  $Id: PropelObjectFormatter.php 1380 2009-12-28 10:11:46Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 /**
@@ -26,24 +14,32 @@
  * This formatter consumes less memory than the PropelObjectFormatter, but doesn't use Instance Pool
  *
  * @author     Francois Zaninotto
- * @version    $Revision: 1569 $
+ * @version    $Revision: 1898 $
  * @package    propel.runtime.formatter
  */
 class PropelOnDemandFormatter extends PropelObjectFormatter
 {
 	protected $collectionName = 'PropelOnDemandCollection';
+	protected $isSingleTableInheritance = false;
+	
+	public function init(ModelCriteria $criteria)
+	{
+		parent::init($criteria);
+		$this->isSingleTableInheritance = $criteria->getTableMap()->isSingleTableInheritance();
+		
+		return $this;
+	}
 	
 	public function format(PDOStatement $stmt)
 	{
-		$this->checkCriteria();
-		if ($this->getCriteria()->isWithOneToMany()) {
+		$this->checkInit();
+		if ($this->isWithOneToMany()) {
 			throw new PropelException('PropelOnDemandFormatter cannot hydrate related objects using a one-to-many relationship. Try removing with() from your query.');
 		}
 		$class = $this->collectionName;
 		$collection = new $class();
-		$collection->setModel($this->getCriteria()->getModelName());
-		$collection->setFormatter($this);
-		$collection->setStatement($stmt);
+		$collection->setModel($this->class);
+		$collection->initIterator($this, $stmt);
 		
 		return $collection;
 	}
@@ -61,24 +57,36 @@ class PropelOnDemandFormatter extends PropelObjectFormatter
 	public function getAllObjectsFromRow($row)
 	{
 		$col = 0;
-		$tableMap = $this->getCriteria()->getTableMap(); 
-		$class = $tableMap->isSingleTableInheritance() ? call_user_func(array($tableMap->getPeerClassname(), 'getOMClass'), $row, $col, false) : $this->class;
+		// main object
+		$class = $this->isSingleTableInheritance ? call_user_func(array($this->peer, 'getOMClass'), $row, $col, false) : $this->class;
 		$obj = $this->getSingleObjectFromRow($row, $class, $col);
-		
-		foreach ($this->getCriteria()->getWith() as $join) {
-			$startObject = $join->getObjectToRelate($obj);
-			$tableMap = $join->getTableMap(); 
-			$class = $tableMap->isSingleTableInheritance() ? call_user_func(array($tableMap->getPeerClassname(), 'getOMClass'), $row, $col, false) : $tableMap->getClassname(); 
+		// related objects using 'with'
+		foreach ($this->getWith() as $modelWith) {
+			if ($modelWith->isSingleTableInheritance()) {
+				$class = call_user_func(array($modelWith->getModelPeerName(), 'getOMClass'), $row, $col, false);
+				$refl = new ReflectionClass($class);
+				if ($refl->isAbstract()) {
+					$col += constant($class . 'Peer::NUM_COLUMNS');
+					continue;
+				} 
+			} else {
+				$class = $modelWith->getModelName();
+			}
 			$endObject = $this->getSingleObjectFromRow($row, $class, $col);
 			// as we may be in a left join, the endObject may be empty
 			// in which case it should not be related to the previous object
-			if ($endObject->isPrimaryKeyNull()) {
+			if (null === $endObject || $endObject->isPrimaryKeyNull()) {
 				continue;
 			}
-			$method = 'set' . $join->getRelationMap()->getName();
-			$startObject->$method($endObject);
+			if (isset($hydrationChain)) {
+				$hydrationChain[$modelWith->getRightPhpName()] = $endObject;
+			} else {
+				$hydrationChain = array($modelWith->getRightPhpName() => $endObject);
+			}
+			$startObject = $modelWith->isPrimary() ? $obj : $hydrationChain[$modelWith->getLeftPhpName()];
+			call_user_func(array($startObject, $modelWith->getRelationMethod()), $endObject);
 		}
-		foreach ($this->getCriteria()->getAsColumns() as $alias => $clause) {
+		foreach ($this->getAsColumns() as $alias => $clause) {
 			$obj->setVirtualColumn($alias, $row[$col]);
 			$col++;
 		}

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/propel/!svn/ver/1347/branches/1.5/runtime/lib/adapter/MSSQL
+END
+MssqlDebugPDO.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/propel/!svn/ver/1347/branches/1.5/runtime/lib/adapter/MSSQL/MssqlDebugPDO.php
+END
+MssqlDateTime.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/propel/!svn/ver/1347/branches/1.5/runtime/lib/adapter/MSSQL/MssqlDateTime.class.php
+END
+MssqlPropelPDO.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/propel/!svn/ver/1347/branches/1.5/runtime/lib/adapter/MSSQL/MssqlPropelPDO.php
+END

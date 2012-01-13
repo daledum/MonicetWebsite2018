@@ -1,24 +1,11 @@
 <?php
 
-
-/*
- *  $Id: QueryBuilder.php 1451 2010-01-12 22:10:50Z francois $
+/**
+ * This file is part of the Propel package.
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
- * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
- * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
- * A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
- * OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
- * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- * This software consists of voluntary contributions made by many individuals
- * and is licensed under the LGPL. For more information please see
- * <http://propel.phpdb.org>.
+ * @license    MIT License
  */
 
 require_once 'builder/om/OMBuilder.php';
@@ -42,6 +29,17 @@ class QueryBuilder extends OMBuilder
 	public function getPackage()
 	{
 		return parent::getPackage() . ".om";
+	}
+
+	public function getNamespace()
+	{
+		if ($namespace = parent::getNamespace()) {
+			if ($this->getGeneratorConfig() && $omns = $this->getGeneratorConfig()->getBuildProperty('namespaceOm')) {
+				return $namespace . '\\' . $omns;
+			} else {
+				return $namespace;
+			}
+		}
 	}
 
 	/**
@@ -75,7 +73,6 @@ class QueryBuilder extends OMBuilder
 		$parentClass = $this->getBehaviorContent('parentClass');
 		$parentClass = null === $parentClass ? 'ModelCriteria' : $parentClass;
 		$script .= "
-
 /**
  * Base class that represents a query for the '$tableName' table.
  *
@@ -103,12 +100,40 @@ class QueryBuilder extends OMBuilder
 			$script .= "
  * @method     $queryClass groupBy" . $column->getPhpName() . "() Group by the " . $column->getName() . " column";
 		}
+		
+		// override the signature of ModelCriteria::left-, right- and innerJoin to specify the class of the returned object, for IDE completion
 		$script .= "
+ *
+ * @method     $queryClass leftJoin(\$relation) Adds a LEFT JOIN clause to the query
+ * @method     $queryClass rightJoin(\$relation) Adds a RIGHT JOIN clause to the query
+ * @method     $queryClass innerJoin(\$relation) Adds a INNER JOIN clause to the query
  *";
+
+		// magic XXXjoinYYY() methods, for IDE completion
+		foreach ($this->getTable()->getForeignKeys() as $fk) {
+			$relationName = $this->getFKPhpNameAffix($fk);
+
+			$script .= "
+ * @method     $queryClass leftJoin" . $relationName . "(\$relationAlias = null) Adds a LEFT JOIN clause to the query using the " . $relationName . " relation
+ * @method     $queryClass rightJoin" . $relationName . "(\$relationAlias = null) Adds a RIGHT JOIN clause to the query using the " . $relationName . " relation
+ * @method     $queryClass innerJoin" . $relationName . "(\$relationAlias = null) Adds a INNER JOIN clause to the query using the " . $relationName . " relation
+ *";
+		}
+		foreach ($this->getTable()->getReferrers() as $refFK) {
+			$relationName = $this->getRefFKPhpNameAffix($refFK);
+
+			$script .= "
+ * @method     $queryClass leftJoin" . $relationName . "(\$relationAlias = null) Adds a LEFT JOIN clause to the query using the " . $relationName . " relation
+ * @method     $queryClass rightJoin" . $relationName . "(\$relationAlias = null) Adds a RIGHT JOIN clause to the query using the " . $relationName . " relation
+ * @method     $queryClass innerJoin" . $relationName . "(\$relationAlias = null) Adds a INNER JOIN clause to the query using the " . $relationName . " relation
+ *";
+		}
 
 		// override the signature of ModelCriteria::findOne() to specify the class of the returned object, for IDE completion
 		$script .= "
- * @method     $modelClass findOne(PropelPDO \$con = null) Return the first $modelClass matching the query";
+ * @method     $modelClass findOne(PropelPDO \$con = null) Return the first $modelClass matching the query
+ * @method     $modelClass findOneOrCreate(PropelPDO \$con = null) Return the first $modelClass matching the query, or a new $modelClass object populated from the query conditions when no match is found
+ *";
 
 		// magic findBy() methods, for IDE completion
 		foreach ($this->getTable()->getColumns() as $column) {
@@ -141,9 +166,15 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 */
 	protected function addClassBody(&$script)
 	{
+		// namespaces
+		$this->declareClasses('ModelCriteria', 'Criteria', 'ModelJoin');
+		$this->declareClassFromBuilder($this->getStubQueryBuilder());
+		$this->declareClassFromBuilder($this->getStubPeerBuilder());
+		
 		// apply behaviors
 		$this->applyBehaviorModifier('queryAttributes', $script, "	");
 		$this->addConstructor($script);
+		$this->addFactory($script);
 		$this->addFindPk($script);
 		$this->addFindPks($script);
 		$this->addFilterByPrimaryKey($script);
@@ -153,10 +184,12 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 		}
 		foreach ($this->getTable()->getForeignKeys() as $fk) {
 			$this->addFilterByFK($script, $fk);
+			$this->addJoinFk($script, $fk);
 			$this->addUseFKQuery($script, $fk);
 		}
 		foreach ($this->getTable()->getReferrers() as $refFK) {
 			$this->addFilterByRefFK($script, $refFK);
+			$this->addJoinRefFk($script, $refFK);
 			$this->addUseRefFKQuery($script, $refFK);
 		}
 		foreach ($this->getTable()->getCrossFks() as $fkList) {
@@ -166,7 +199,9 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 		$this->addPrune($script);
 		$this->addBasePreSelect($script);
 		$this->addBasePreDelete($script);
+		$this->addBasePostDelete($script);
 		$this->addBasePreUpdate($script);
+		$this->addBasePostUpdate($script);
 		// apply behaviors
 		$this->applyBehaviorModifier('queryMethods', $script, "	");
 	}
@@ -220,7 +255,7 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	{
 		$table = $this->getTable();
 		$script .= "
-	public function __construct(\$dbName = '" . $table->getDatabase()->getName() . "', \$modelName = '" . $this->getNewStubObjectBuilder($table)->getClassname() . "', \$modelAlias = null)
+	public function __construct(\$dbName = '" . $table->getDatabase()->getName() . "', \$modelName = '" . addslashes($this->getNewStubObjectBuilder($table)->getFullyQualifiedClassname()) . "', \$modelAlias = null)
 	{";
 	}
 
@@ -244,37 +279,120 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	}
 ";
 	}
-		
+	
+	/**
+	 * Adds the factory for this object.
+	 * @param      string &$script The script will be modified in this method.
+	 */
+	protected function addFactory(&$script)
+	{
+		$this->addFactoryComment($script);
+		$this->addFactoryOpen($script);
+		$this->addFactoryBody($script);
+		$this->addFactoryClose($script);
+	}
+
+		/**
+	 * Adds the comment for the factory
+	 * @param      string &$script The script will be modified in this method.
+	 **/
+	protected function addFactoryComment(&$script)
+	{
+		$classname = $this->getNewStubQueryBuilder($this->getTable())->getClassname();
+		$script .= "
+	/**
+	 * Returns a new " . $classname . " object.
+	 *
+	 * @param     string \$modelAlias The alias of a model in the query
+	 * @param     Criteria \$criteria Optional Criteria to build the query from
+	 *
+	 * @return    " . $classname . "
+	 */";
+	}
+
+	/**
+	 * Adds the function declaration for the factory
+	 * @param      string &$script The script will be modified in this method.
+	 **/
+	protected function addFactoryOpen(&$script)
+	{
+		$script .= "
+	public static function create(\$modelAlias = null, \$criteria = null)
+	{";
+	}
+
+	/**
+	 * Adds the function body for the factory
+	 * @param      string &$script The script will be modified in this method.
+	 **/
+	protected function addFactoryBody(&$script)
+	{
+		$classname = $this->getNewStubQueryBuilder($this->getTable())->getClassname();
+		$script .= "
+		if (\$criteria instanceof " . $classname . ") {
+			return \$criteria;
+		}
+		\$query = new " . $classname . "();
+		if (null !== \$modelAlias) {
+			\$query->setModelAlias(\$modelAlias);
+		}
+		if (\$criteria instanceof Criteria) {
+			\$query->mergeWith(\$criteria);
+		}
+		return \$query;";
+	}
+
+	/**
+	 * Adds the function close for the factory
+	 * @param      string &$script The script will be modified in this method.
+	 **/
+	protected function addFactoryClose(&$script)
+	{
+		$script .= "
+	}
+";
+	}
+	
+	
 	/**
 	 * Adds the findPk method for this object.
 	 * @param      string &$script The script will be modified in this method.
 	 */
 	protected function addFindPk(&$script)
 	{
+		$table = $this->getTable();
+		$pks = $table->getPrimaryKey();
+		$class = $class = $this->getStubObjectBuilder()->getClassname();
+		$this->declareClasses('PropelPDO');
 		$script .= "
 	/**
 	 * Find object by primary key";
-		if (count($this->getTable()->getPrimaryKey()) === 1) {
+		if (count($pks) === 1) {
+			$pkType = 'mixed';
 			$script .= "
 	 * Use instance pooling to avoid a database query if the object exists
 	 * <code>
 	 * \$obj  = \$c->findPk(12, \$con);";
-		} else {	
+		} else {
+			$examplePk = array_slice(array(12, 34, 56, 78, 91), 0, count($pks));
+			$colNames = array();
+			foreach ($pks as $col) {
+				$colNames[]= '$' . $col->getName();
+			}
+			$pkType = 'array['. join($colNames, ', ') . ']';
 			$script .= "
 	 * <code>
-	 * \$obj = \$c->findPk(array(34, 634), \$con);";
+	 * \$obj = \$c->findPk(array(" . join($examplePk, ', ') . "), \$con);";
 		}
 	 	$script .= "
 	 * </code>
-	 * @param     mixed \$key Primary key to use for the query
+	 * @param     " . $pkType . " \$key Primary key to use for the query
 	 * @param     PropelPDO \$con an optional connection object
 	 *
-	 * @return    mixed the result, formatted by the current formatter
+	 * @return    " . $class . "|array|mixed the result, formatted by the current formatter
 	 */
 	public function findPk(\$key, \$con = null)
 	{";
-		$table = $this->getTable();
-		$pks = $table->getPrimaryKey();
 		if (count($pks) === 1) {
 			$poolKeyHashParams = '$key';
 		} else {
@@ -283,15 +401,19 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 				$poolKeyHashParams[]= '$key[' . $i . ']';
 			}
 		}
+		// tip: we don't use findOne() to avoid putting an unecessary LIMIT 1 statement,
+		// which may be costly on platforms not natively supporting LIMIT (like Oracle)
 		$script .= "
-		if (\$this->getFormatter()->isObjectFormatter() && (null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(".$this->getPeerBuilder()->getInstancePoolKeySnippet($poolKeyHashParams).")))) {
+		if ((null !== (\$obj = ".$this->getPeerClassname()."::getInstanceFromPool(".$this->getPeerBuilder()->getInstancePoolKeySnippet($poolKeyHashParams)."))) && \$this->getFormatter()->isObjectFormatter()) {
 			// the object is alredy in the instance pool
 			return \$obj;
 		} else {
 			// the object has not been requested yet, or the formatter is not an object formatter
-			return \$this
+			\$criteria = \$this->isKeepQuery() ? clone \$this : \$this;
+			\$stmt = \$criteria
 				->filterByPrimaryKey(\$key)
-				->findOne(\$con);
+				->getSelectStatement(\$con);
+			return \$criteria->getFormatter()->init(\$criteria)->formatOne(\$stmt);
 		}
 	}
 ";
@@ -303,6 +425,7 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 */
 	protected function addFindPks(&$script)
 	{
+		$this->declareClasses('PropelPDO');
 		$table = $this->getTable();
 		$pks = $table->getPrimaryKey();
 		$count = count($pks);
@@ -322,10 +445,11 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 * @param     array \$keys Primary keys to use for the query
 	 * @param     PropelPDO \$con an optional connection object
 	 *
-	 * @return    the list of results, formatted by the current formatter
+	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks(\$keys, \$con = null)
 	{	
+		\$criteria = \$this->isKeepQuery() ? clone \$this : \$this;
 		return \$this
 			->filterByPrimaryKeys(\$keys)
 			->find(\$con);
@@ -402,6 +526,9 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 		} else {
 			// composite primary key
 			$script .= "
+		if (empty(\$keys)) {
+			return \$this->add(null, '1<>1', Criteria::CUSTOM);
+		}
 		foreach (\$keys as \$key) {";
 			$i = 0;
 			foreach ($pks as $col) {
@@ -442,11 +569,11 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 * ";
 		if ($col->isNumericType() || $col->isTemporalType()) {
 			$script .= "
-	 * @param     " . $col->getPhpType() . "|array \$$colName The value to use as filter.
+	 * @param     " . $col->getPhpType() . "|array \$$variableName The value to use as filter.
 	 *            Accepts an associative array('min' => \$minValue, 'max' => \$maxValue)";
 		} elseif ($col->isTextType()) {
 			$script .= "
-	 * @param     string \$$colName The value to use as filter.
+	 * @param     string \$$variableName The value to use as filter.
 	 *            Accepts wildcards (* and % trigger a LIKE)";
 		} elseif ($col->isBooleanType()) {
 			$script .= "
@@ -454,56 +581,57 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)";
 		} else {
 			$script .= "
-	 * @param     mixed \$$colName The value to use as filter";
+	 * @param     mixed \$$variableName The value to use as filter";
 		}
 		$script .= "
+	 * @param     string \$comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    " . $this->getStubQueryBuilder()->getClassname() . " The current query, for fluid interface
 	 */
-	public function filterBy$colPhpName(\$$variableName = null)
+	public function filterBy$colPhpName(\$$variableName = null, \$comparison = null)
 	{";
 		if ($col->isPrimaryKey() && ($col->getType() == PropelTypes::INTEGER || $col->getType() == PropelTypes::BIGINT)) {
 			$script .= "
-		if (is_array(\$$variableName)) {
-			return \$this->addUsingAlias($qualifiedName, \${$variableName}, Criteria::IN);
-		} else {
-			return \$this->addUsingAlias($qualifiedName, \$$variableName, Criteria::EQUAL);
+		if (is_array(\$$variableName) && null === \$comparison) {
+			\$comparison = Criteria::IN;
 		}";
 		} elseif ($col->isNumericType() || $col->isTemporalType()) {
 			$script .= "
 		if (is_array(\$$variableName)) {
-			if (array_values(\$$variableName) === \$$variableName) {
-				return \$this->addUsingAlias($qualifiedName, \${$variableName}, Criteria::IN);
-			} else {
-				if (isset(\${$variableName}['min'])) {
-					\$this->addUsingAlias($qualifiedName, \${$variableName}['min'], Criteria::GREATER_EQUAL);
-				}
-				if (isset(\${$variableName}['max'])) {
-					\$this->addUsingAlias($qualifiedName, \${$variableName}['max'], Criteria::LESS_EQUAL);
-				}
-				return \$this;	
+			\$useMinMax = false;
+			if (isset(\${$variableName}['min'])) {
+				\$this->addUsingAlias($qualifiedName, \${$variableName}['min'], Criteria::GREATER_EQUAL);
+				\$useMinMax = true;
 			}
-		} else {
-			return \$this->addUsingAlias($qualifiedName, \$$variableName, Criteria::EQUAL);
+			if (isset(\${$variableName}['max'])) {
+				\$this->addUsingAlias($qualifiedName, \${$variableName}['max'], Criteria::LESS_EQUAL);
+				\$useMinMax = true;
+			}
+			if (\$useMinMax) {
+				return \$this;
+			}
+			if (null === \$comparison) {
+				\$comparison = Criteria::IN;
+			}
 		}";
 		} elseif ($col->isTextType()) {
 			$script .= "
-		if(preg_match('/[\%\*]/', \$$variableName)) {
-			return \$this->addUsingAlias($qualifiedName, str_replace('*', '%', \$$variableName), Criteria::LIKE);
-		} else {
-			return \$this->addUsingAlias($qualifiedName, \$$variableName, Criteria::EQUAL);
+		if (null === \$comparison) {
+			if (is_array(\$$variableName)) {
+				\$comparison = Criteria::IN;
+			} elseif (preg_match('/[\%\*]/', \$$variableName)) {
+				\$$variableName = str_replace('*', '%', \$$variableName);
+				\$comparison = Criteria::LIKE;
+			}
 		}";
 		} elseif ($col->isBooleanType()) {
 			$script .= "
-		if(is_string(\$$variableName)) {
+		if (is_string(\$$variableName)) {
 			\$$colName = in_array(strtolower(\$$variableName), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
-		}
-		return \$this->addUsingAlias($qualifiedName, \$$variableName, Criteria::EQUAL);";
-		} else {
-			$script .= "
-		return \$this->addUsingAlias($qualifiedName, \$$variableName, Criteria::EQUAL);";
+		}";
 		}
 		$script .= "
+		return \$this->addUsingAlias($qualifiedName, \$$variableName, \$comparison);
 	}
 ";
 	}
@@ -525,17 +653,18 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 * Filter the query by a related $fkPhpName object
 	 *
 	 * @param     $fkPhpName $objectName  the related object to use as filter
+	 * @param     string \$comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    $queryClass The current query, for fluid interface
 	 */
-	public function filterBy$relationName($objectName)
+	public function filterBy$relationName($objectName, \$comparison = null)
 	{
 		return \$this";
 		foreach ($fk->getLocalForeignMapping() as $localColumn => $foreignColumn) {
 			$localColumnObject = $table->getColumn($localColumn);
 			$foreignColumnObject = $fkTable->getColumn($foreignColumn);
 			$script .= "
-			->addUsingAlias(" . $this->getColumnConstant($localColumnObject) . ", " . $objectName . "->get" . $foreignColumnObject->getPhpName() . "(), Criteria::EQUAL)";
+			->addUsingAlias(" . $this->getColumnConstant($localColumnObject) . ", " . $objectName . "->get" . $foreignColumnObject->getPhpName() . "(), \$comparison)";
 		}
 		$script .= ";
 	}
@@ -559,23 +688,93 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 * Filter the query by a related $fkPhpName object
 	 *
 	 * @param     $fkPhpName $objectName  the related object to use as filter
+	 * @param     string \$comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    $queryClass The current query, for fluid interface
 	 */
-	public function filterBy$relationName($objectName)
+	public function filterBy$relationName($objectName, \$comparison = null)
 	{
 		return \$this";
 		foreach ($fk->getForeignLocalMapping() as $localColumn => $foreignColumn) {
 			$localColumnObject = $table->getColumn($localColumn);
 			$foreignColumnObject = $fkTable->getColumn($foreignColumn);
 			$script .= "
-			->addUsingAlias(" . $this->getColumnConstant($localColumnObject) . ", " . $objectName . "->get" . $foreignColumnObject->getPhpName() . "(), Criteria::EQUAL)";
+			->addUsingAlias(" . $this->getColumnConstant($localColumnObject) . ", " . $objectName . "->get" . $foreignColumnObject->getPhpName() . "(), \$comparison)";
 		}
 		$script .= ";
 	}
 ";
 	}
 	
+	/**
+	 * Adds the joinFk method for this object.
+	 * @param      string &$script The script will be modified in this method.
+	 */
+	protected function addJoinFk(&$script, $fk)
+	{
+		$table = $this->getTable();
+		$queryClass = $this->getStubQueryBuilder()->getClassname();
+		$fkTable = $this->getForeignTable($fk);
+		$relationName = $this->getFKPhpNameAffix($fk);
+		$joinType = $this->getJoinType($fk);
+		$this->addJoinRelated($script, $fkTable, $queryClass, $relationName, $joinType);
+	}
+
+	/**
+	 * Adds the joinRefFk method for this object.
+	 * @param      string &$script The script will be modified in this method.
+	 */
+	protected function addJoinRefFk(&$script, $fk)
+	{
+		$table = $this->getTable();
+		$queryClass = $this->getStubQueryBuilder()->getClassname();
+		$fkTable = $this->getTable()->getDatabase()->getTable($fk->getTableName());
+		$relationName = $this->getRefFKPhpNameAffix($fk);
+		$joinType = $this->getJoinType($fk);
+		$this->addJoinRelated($script, $fkTable, $queryClass, $relationName, $joinType);
+	}
+
+	/**
+	 * Adds a joinRelated method for this object.
+	 * @param      string &$script The script will be modified in this method.
+	 */
+	protected function addJoinRelated(&$script, $fkTable, $queryClass, $relationName, $joinType)
+	{
+		$script .= "
+	/**
+	 * Adds a JOIN clause to the query using the " . $relationName . " relation
+	 * 
+	 * @param     string \$relationAlias optional alias for the relation
+	 * @param     string \$joinType Accepted values are null, 'left join', 'right join', 'inner join'
+	 *
+	 * @return    ". $queryClass . " The current query, for fluid interface
+	 */
+	public function join" . $relationName . "(\$relationAlias = null, \$joinType = " . $joinType . ")
+	{
+		\$tableMap = \$this->getTableMap();
+		\$relationMap = \$tableMap->getRelation('" . $relationName . "');
+		
+		// create a ModelJoin object for this join
+		\$join = new ModelJoin();
+		\$join->setJoinType(\$joinType);
+		\$join->setRelationMap(\$relationMap, \$this->useAliasInSQL ? \$this->getModelAlias() : null, \$relationAlias);
+		if (\$previousJoin = \$this->getPreviousJoin()) {
+			\$join->setPreviousJoin(\$previousJoin);
+		}
+		
+		// add the ModelJoin to the current object
+		if(\$relationAlias) {
+			\$this->addAlias(\$relationAlias, \$relationMap->getRightTable()->getName());
+			\$this->addJoinObject(\$join, \$relationAlias);
+		} else {
+			\$this->addJoinObject(\$join, '" . $relationName . "');
+		}
+		
+		return \$this;
+	}
+";
+	}
+
 	/**
 	 * Adds the useFkQuery method for this object.
 	 * @param      string &$script The script will be modified in this method.
@@ -584,9 +783,14 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	{
 		$table = $this->getTable();
 		$fkTable = $this->getForeignTable($fk);
-		$queryClass = $this->getNewStubQueryBuilder($fkTable)->getClassname();
+		$fkQueryBuilder = $this->getNewStubQueryBuilder($fkTable);
+		$queryClass = $fkQueryBuilder->getClassname();
+		if ($namespace = $fkQueryBuilder->getNamespace()) {
+			$queryClass = '\\' . $namespace . '\\' . $queryClass;
+		}
 		$relationName = $this->getFKPhpNameAffix($fk);
-		$this->addUseRelatedQuery($script, $fkTable, $queryClass, $relationName);
+		$joinType = $this->getJoinType($fk);
+		$this->addUseRelatedQuery($script, $fkTable, $queryClass, $relationName, $joinType);
 	}
 
 	/**
@@ -597,16 +801,21 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	{
 		$table = $this->getTable();
 		$fkTable = $this->getTable()->getDatabase()->getTable($fk->getTableName());
-		$queryClass = $this->getNewStubQueryBuilder($fkTable)->getClassname();
+		$fkQueryBuilder = $this->getNewStubQueryBuilder($fkTable);
+		$queryClass = $fkQueryBuilder->getClassname();
+		if ($namespace = $fkQueryBuilder->getNamespace()) {
+			$queryClass = '\\' . $namespace . '\\' . $queryClass;
+		}
 		$relationName = $this->getRefFKPhpNameAffix($fk);
-		$this->addUseRelatedQuery($script, $fkTable, $queryClass, $relationName);
+		$joinType = $this->getJoinType($fk);
+		$this->addUseRelatedQuery($script, $fkTable, $queryClass, $relationName, $joinType);
 	}
 
 	/**
-	 * Adds the useFkQuery method for this object.
+	 * Adds a useRelatedQuery method for this object.
 	 * @param      string &$script The script will be modified in this method.
 	 */
-	protected function addUseRelatedQuery(&$script, $fkTable, $queryClass, $relationName)
+	protected function addUseRelatedQuery(&$script, $fkTable, $queryClass, $relationName, $joinType)
 	{
 		$script .= "
 	/**
@@ -620,10 +829,10 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 *
 	 * @return    $queryClass A secondary query class using the current class as primary query
 	 */
-	public function use" . $relationName . "Query(\$relationAlias = '', \$joinType = Criteria::INNER_JOIN)
+	public function use" . $relationName . "Query(\$relationAlias = null, \$joinType = " . $joinType . ")
 	{
 		return \$this
-			->join('$relationName' . (\$relationAlias ? ' ' . \$relationAlias : ''), \$joinType)
+			->join" . $relationName . "(\$relationAlias, \$joinType)
 			->useQuery(\$relationAlias ? \$relationAlias : '$relationName', '$queryClass');
 	}
 ";
@@ -645,14 +854,15 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 * using the $crossTableName table as cross reference
 	 *
 	 * @param     $fkPhpName $objectName the related object to use as filter
+	 * @param     string \$comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    $queryClass The current query, for fluid interface
 	 */
-	public function filterBy{$relName}($objectName)
+	public function filterBy{$relName}($objectName, \$comparison = Criteria::EQUAL)
 	{
 		return \$this
 			->use{$relationName}Query()
-				->filterBy{$relName}($objectName)
+				->filterBy{$relName}($objectName, \$comparison)
 			->endUse();
 	}
 	";
@@ -713,56 +923,21 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 */
 	protected function addBasePreSelect(&$script)
 	{
-		$this->addBasePreSelectComment($script);
-		$this->addBasePreSelectOpen($script);
-		$this->addBasePreSelectBody($script);
-		$this->addBasePreSelectClose($script);
-	}
-
-	/**
-	 * Adds the comment for the basePreSelect
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreSelectComment(&$script)
-	{
+		$behaviorCode = '';
+		$this->applyBehaviorModifier('preSelectQuery', $behaviorCode, "		");
+		if (!$behaviorCode) {
+			return;
+		}
 		$script .= "
 	/**
 	 * Code to execute before every SELECT statement
 	 * 
 	 * @param     PropelPDO \$con The connection object used by the query
-	 */";
-	}
-
-	/**
-	 * Adds the function declaration for the basePreSelect
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreSelectOpen(&$script)
-	{
-		$script .= "
+	 */
 	protected function basePreSelect(PropelPDO \$con)
-	{";
-	}
-
-	/**
-	 * Adds the function body for the basePreSelect
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreSelectBody(&$script)
-	{
-		// apply behaviors
-		$this->applyBehaviorModifier('preSelectQuery', $script, "		");
-		$script .= "
-		return \$this->preSelect(\$con);";
-	}
-
-	/**
-	 * Adds the function close for the basePreSelect
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreSelectClose(&$script)
-	{
-		$script .= "
+	{" . $behaviorCode . "
+		
+		return \$this->preSelect(\$con);
 	}
 ";
 	}
@@ -773,56 +948,47 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 */
 	protected function addBasePreDelete(&$script)
 	{
-		$this->addBasePreDeleteComment($script);
-		$this->addBasePreDeleteOpen($script);
-		$this->addBasePreDeleteBody($script);
-		$this->addBasePreDeleteClose($script);
-	}
-
-	/**
-	 * Adds the comment for the basePreDelete
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreDeleteComment(&$script)
-	{
+		$behaviorCode = '';
+		$this->applyBehaviorModifier('preDeleteQuery', $behaviorCode, "		");
+		if (!$behaviorCode) {
+			return;
+		}
 		$script .= "
 	/**
 	 * Code to execute before every DELETE statement
 	 * 
 	 * @param     PropelPDO \$con The connection object used by the query
-	 */";
-	}
-
-	/**
-	 * Adds the function declaration for the basePreDelete
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreDeleteOpen(&$script)
-	{
-		$script .= "
+	 */
 	protected function basePreDelete(PropelPDO \$con)
-	{";
+	{" . $behaviorCode . "
+		
+		return \$this->preDelete(\$con);
+	}
+";
 	}
 
 	/**
-	 * Adds the function body for the basePreDelete
+	 * Adds the basePostDelete hook for this object.
 	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreDeleteBody(&$script)
+	 */
+	protected function addBasePostDelete(&$script)
 	{
-		// apply behaviors
-		$this->applyBehaviorModifier('preDeleteQuery', $script, "		");
+		$behaviorCode = '';
+		$this->applyBehaviorModifier('postDeleteQuery', $behaviorCode, "		");
+		if (!$behaviorCode) {
+			return;
+		}
 		$script .= "
-		return \$this->preDelete(\$con);";
-	}
-
 	/**
-	 * Adds the function close for the basePreDelete
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreDeleteClose(&$script)
-	{
-		$script .= "
+	 * Code to execute after every DELETE statement
+	 * 
+	 * @param     int \$affectedRows the number of deleted rows
+	 * @param     PropelPDO \$con The connection object used by the query
+	 */
+	protected function basePostDelete(\$affectedRows, PropelPDO \$con)
+	{" . $behaviorCode . "
+		
+		return \$this->postDelete(\$affectedRows, \$con);
 	}
 ";
 	}
@@ -833,61 +999,53 @@ abstract class ".$this->getClassname()." extends " . $parentClass . "
 	 */
 	protected function addBasePreUpdate(&$script)
 	{
-		$this->addBasePreUpdateComment($script);
-		$this->addBasePreUpdateOpen($script);
-		$this->addBasePreUpdateBody($script);
-		$this->addBasePreUpdateClose($script);
-	}
-
-	/**
-	 * Adds the comment for the basePreUpdate
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreUpdateComment(&$script)
-	{
+		$behaviorCode = '';
+		$this->applyBehaviorModifier('preUpdateQuery', $behaviorCode, "		");
+		if (!$behaviorCode) {
+			return;
+		}
 		$script .= "
 	/**
 	 * Code to execute before every UPDATE statement
 	 * 
 	 * @param     array \$values The associatiove array of columns and values for the update
 	 * @param     PropelPDO \$con The connection object used by the query
-	 */";
-	}
-
-	/**
-	 * Adds the function declaration for the basePreUpdate
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreUpdateOpen(&$script)
-	{
-		$script .= "
-	protected function basePreUpdate(&\$values, PropelPDO \$con)
-	{";
-	}
-
-	/**
-	 * Adds the function body for the basePreUpdate
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreUpdateBody(&$script)
-	{
-		// apply behaviors
-		$this->applyBehaviorModifier('preUpdateQuery', $script, "		");
-		$script .= "
-		return \$this->preUpdate(\$values, \$con);";
-	}
-
-	/**
-	 * Adds the function close for the basePreUpdate
-	 * @param      string &$script The script will be modified in this method.
-	 **/
-	protected function addBasePreUpdateClose(&$script)
-	{
-		$script .= "
+	 * @param     boolean \$forceIndividualSaves If false (default), the resulting call is a BasePeer::doUpdate(), ortherwise it is a series of save() calls on all the found objects
+	 */
+	protected function basePreUpdate(&\$values, PropelPDO \$con, \$forceIndividualSaves = false)
+	{" . $behaviorCode . "
+		
+		return \$this->preUpdate(\$values, \$con, \$forceIndividualSaves);
 	}
 ";
 	}
 
+	/**
+	 * Adds the basePostUpdate hook for this object.
+	 * @param      string &$script The script will be modified in this method.
+	 */
+	protected function addBasePostUpdate(&$script)
+	{
+		$behaviorCode = '';
+		$this->applyBehaviorModifier('postUpdateQuery', $behaviorCode, "		");
+		if (!$behaviorCode) {
+			return;
+		}
+		$script .= "
+	/**
+	 * Code to execute after every UPDATE statement
+	 * 
+	 * @param     int \$affectedRows the number of udated rows
+	 * @param     PropelPDO \$con The connection object used by the query
+	 */
+	protected function basePostUpdate(\$affectedRows, PropelPDO \$con)
+	{" . $behaviorCode . "
+		
+		return \$this->postUpdate(\$affectedRows, \$con);
+	}
+";
+	}
+	
 	/**
 	 * Checks whether any registered behavior on that table has a modifier for a hook
 	 * @param string $hookName The name of the hook as called from one of this class methods, e.g. "preSave"
