@@ -174,18 +174,18 @@ class watch_infoActions extends autoWatch_infoActions
     public function generateExportExcelObject($year, $month = null) {
       
       // buscar os dados
-      $c = new Criteria();
-      
+      $query = WatchInfoQuery::create();
       if(!is_null($month)){
-        if($month < 10) $month = '0'.$month;
-        $c->add(WatchInfoPeer::DATE, $year.'-'.$month.'-%', Criteria::LIKE);
-        
+        if( $month < 12 ) {
+          $query = $query->filterByDate($year.'-'.$month.'-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-'.($month+1).'-1', Criteria::LESS_THAN );
+        } else {
+          $query = $query->filterByDate($year.'-12-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-12-31', Criteria::LESS_EQUAL );
+        }
       } else {
-        $c->addAnd(WatchInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
-        $c->addAnd(WatchInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
+        $query = $query->filterByDate($year.'-1-1', Criteria::GREATER_EQUAL)->filterByDate( ($year+1).'-1-1', Criteria::LESS_THAN );
       }
+      $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
       
-      $dados = WatchInfoPeer::doSelect($c);
         
       $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
       PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
@@ -244,51 +244,112 @@ class watch_infoActions extends autoWatch_infoActions
       
       
       
-      $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M');
+      $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M', 'N', 'O', 'P', 'Q', 'R');
       foreach($letras as $letra){
         $cena->getColumnDimension($letra)->setAutoSize(true);
       }
       
         // conteudo
       $l = 3;
-      $l_arr = 0;
       $array = array();
+      $watch_code_cache = array();
+      $watch_post_cache = array();
+      $watch_man_cache = array();
+      $watch_vis_cache = array();
+      $direction_cache = array();
+      $company_cache = array();
+      $vessel_cache = array();
+      $specie_cache = array();
       
       foreach($dados as $wi){
-        
         $cena->setCellValueByColumnAndRow(0,$l, $wi->getDate());
         $sightings = WatchSightingPeer::doSelectSightingsByWatchInfoId($wi->getId());
         foreach($sightings as $sighting){
           
           // criar o array para escrever no ficheiro
-          $array[$l_arr] = array();
-          $array[$l_arr][] = $wi->getCode();
-          $array[$l_arr][] = $wi->getDate();
-          $array[$l_arr][] = $wi->getCompany()->getAcronym();
-          if($wi->getWatchPostId()) $array[$l_arr][] = $wi->getWatchPost()->getName(); else $array[$l_arr][] = null;
-          if($wi->getWatchManId()) $array[$l_arr][] = $wi->getWatchMan()->getName(); else $array[$l_arr][] = null;
-          $array[$l_arr][] = $sighting->getwatchCode()->getAcronym();
-          $array[$l_arr][] = $sighting->getTime();
-          if($sighting->getWatchVisibilityId()) $array[$l_arr][] = $sighting->getWatchVisibility()->getCode(); else $array[$l_arr][] = null;
-          if($sighting->getSpecieId()) $array[$l_arr][] = $sighting->getSpecie()->getCode(); else $array[$l_arr][] = null;
-          $array[$l_arr][] = $sighting->getGroup();
-          $array[$l_arr][] = $sighting->getTotal();
-          $array[$l_arr][] = $sighting->getBehaviourId();
-          if($sighting->getDirectionId()) $array[$l_arr][] = $sighting->getDirection()->getCode(); else $array[$l_arr][] = null;
-          $array[$l_arr][] = $sighting->getHorizontal();
-          $array[$l_arr][] = $sighting->getVertical();
-          if($sighting->getVesselId()) $array[$l_arr][] = $sighting->getVessel()->getName(); else $array[$l_arr][] = null;
-          $array[$l_arr][] = $sighting->getComments();
+          $array[0] = array();
+          $array[0][] = $wi->getCode();
+          $array[0][] = $wi->getDate();
           
+          if( !isset( $company_cache[$wi->getCompanyId()] ) ){
+            $company_cache[$wi->getCompanyId()] = $wi->getCompany()->getAcronym();
+          }
+          $array[0][] = $company_cache[$wi->getCompanyId()];
+          
+          if($wi->getWatchPostId()){
+            if( !isset($watch_post_cache[$wi->getWatchPostId()]) ) {
+              $watch_post_cache[$wi->getWatchPostId()] = $wi->getWatchPost()->getName();
+            }
+            $array[0][] = $watch_post_cache[$wi->getWatchPostId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($wi->getWatchManId()){
+            if( !isset($watch_man_cache[$wi->getWatchManId()]) ) {
+              $watch_man_cache[$wi->getWatchManId()] = $wi->getWatchMan()->getName();
+            }
+            $array[0][] = $watch_man_cache[$wi->getWatchManId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if( !isset( $watch_code_cache[$sighting->getWatchCodeId()] ) ){
+            $watch_code_cache[$sighting->getWatchCodeId()] = $sighting->getWatchCode()->getAcronym();
+          }
+          $array[0][] = $watch_code_cache[$sighting->getWatchCodeId()];
+          
+          $array[0][] = $sighting->getTime();
+          
+          if($sighting->getWatchVisibilityId()){
+            if( !isset($watch_vis_cache[$sighting->getWatchVisibilityId()]) ) {
+              $watch_vis_cache[$sighting->getWatchVisibilityId()] = $sighting->getWatchVisibility()->getCode();
+            }
+            $array[0][] = $watch_vis_cache[$sighting->getWatchVisibilityId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          if($sighting->getSpecieId()){
+            if( !isset($specie_cache[$sighting->getSpecieId()]) ) {
+              $specie_cache[$sighting->getSpecieId()] = $sighting->getSpecie()->getCode();
+            }
+            $array[0][] = $specie_cache[$sighting->getWatchVisibilityId()];
+          } else {
+            $array[0][] = null;
+          }
+          
+          $array[0][] = $sighting->getGroup();
+          $array[0][] = $sighting->getTotal();
+          $array[0][] = $sighting->getBehaviourId();
+          
+          if($sighting->getDirectionId()){
+            if( !isset($direction_cache[$sighting->getDirectionId()]) ) {
+              $direction_cache[$sighting->getDirectionId()] = $sighting->getDirection()->getCode();
+            }
+            $array[0][] = $direction_cache[$sighting->getDirectionId()];
+          } else {
+            $array[0][] = null;
+          }
+          $array[0][] = $sighting->getHorizontal();
+          $array[0][] = $sighting->getVertical();
+          
+          if($sighting->getVesselId()){
+            if( !isset($vessel_cache[$sighting->getVesselId()]) ) {
+              $vessel_cache[$sighting->getVesselId()] = $sighting->getVessel()->getName();
+            }
+            $array[0][] = $vessel_cache[$sighting->getVesselId()];
+          } else {
+            $array[0][] = null;
+          }
+          $array[0][] = $sighting->getComments();
+          
+          // escrever o array no ficheiro
+          $cena->fromArray($array, null, 'B'.$l);
           $l++;
-          $l_arr++;
         }
         
       }
-      
-      // escrever o array no ficheiro
-      $cena->fromArray($array,null,'B3');
-      
       return $objPHPExcel;
     }
     
