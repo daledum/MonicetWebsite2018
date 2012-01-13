@@ -407,7 +407,7 @@ class general_infoActions extends autoGeneral_infoActions
       $headers[0][] = 'Skipper';
       $headers[0][] = 'Biologist';
       $headers[0][] = 'Passg';
-      $headers[0][] = 'Dist. Precorrida';
+      $headers[0][] = 'Dist. Percorrida';
       $cena->fromArray($headers,null,'B2');
       
       $cena->getStyle('A1:V1')->getFont()->setBold(true);
@@ -421,10 +421,11 @@ class general_infoActions extends autoGeneral_infoActions
       foreach($letras as $letra){
         $cena->getColumnDimension($letra)->setAutoSize(true);
       }
+      unset($letras);
       
-        // conteudo
+      // conteudo
       $l = 3;
-      $l_arr = 0;
+      //$l_arr = 0;
       $array = array();
       
       foreach($dados as $gi){
@@ -448,34 +449,38 @@ class general_infoActions extends autoGeneral_infoActions
           }
           
           // criar o array para escrever no ficheiro
-          $array[$l_arr] = array();
-          $array[$l_arr][] = $record->getCode()->getAcronym();
-          $array[$l_arr][] = $record->getTime();
-          $array[$l_arr][] = $record->getLatitude();
-          $array[$l_arr][] = $record->getLongitude();
-          if($record->getVisibility()) $array[$l_arr][] = $record->getVisibility()->getCode(); else $array[$l_arr][] = null;
-          if($record->getSeaState()) $array[$l_arr][] = $record->getSeaState()->getCode(); else $array[$l_arr][] = null;
-          $array[$l_arr][] = $specie;
-          $array[$l_arr][] = $sighting->getTotal();
-          $array[$l_arr][] = $sighting->getAdults();
-          $array[$l_arr][] = $sighting->getJuveniles();
-          $array[$l_arr][] = $sighting->getCalves();
-          $array[$l_arr][] = $sighting->getBehaviourId();
-          $array[$l_arr][] = $association;
-          $array[$l_arr][] = $record->getNumVessels();
-          $array[$l_arr][] = $sighting->getComments();
-          if($gi->getCompany()) $array[$l_arr][] = $gi->getCompany()->getName(); else $array[$l_arr][] = null;
-          if($gi->getVessel()) $array[$l_arr][] = $gi->getVessel()->getName(); else $array[$l_arr][] = null;
-          if($gi->getSkipper()) $array[$l_arr][] = $gi->getSkipper()->getName(); else $array[$l_arr][] = null;
-          if($gi->getGuide()) $array[$l_arr][] = $gi->getGuide()->getName(); else $array[$l_arr][] = null;
+          $array[0] = array();
+          $array[0][] = $record->getCode()->getAcronym();
+          $array[0][] = $record->getTime();
+          $array[0][] = $record->getLatitude();
+          $array[0][] = $record->getLongitude();
+          if($record->getVisibility()) $array[0][] = $record->getVisibility()->getCode(); else $array[0][] = null;
+          if($record->getSeaState()) $array[0][] = $record->getSeaState()->getCode(); else $array[0][] = null;
+          $array[0][] = $specie;
+          $array[0][] = $sighting->getTotal();
+          $array[0][] = $sighting->getAdults();
+          $array[0][] = $sighting->getJuveniles();
+          $array[0][] = $sighting->getCalves();
+          $array[0][] = $sighting->getBehaviourId();
+          $array[0][] = $association;
+          $array[0][] = $record->getNumVessels();
+          $array[0][] = $sighting->getComments();
+          if($gi->getCompany()) $array[0][] = $gi->getCompany()->getName(); else $array[0][] = null;
+          if($gi->getVessel()) $array[0][] = $gi->getVessel()->getName(); else $array[0][] = null;
+          if($gi->getSkipper()) $array[0][] = $gi->getSkipper()->getName(); else $array[0][] = null;
+          if($gi->getGuide()) $array[0][] = $gi->getGuide()->getName(); else $array[0][] = null;
           
+          unset($sighting);
+          unset($specie);
+          unset($association);
+          $cena->fromArray($array, null, 'B'.$l);
           $l++;
-          $l_arr++;
         }
+        
       }
       
       // escrever o array no ficheiro
-      $cena->fromArray($array, null,'B3');
+      
       
       return $objPHPExcel;
   }
