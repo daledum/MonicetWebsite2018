@@ -5,9 +5,9 @@ all:
     success_signin_url:      @homepage
     success_signout_url:     @homepage
   mfLog:
-    email:              false
+    email:              true
     email_to:
       - vilarinho@morfose.net
-      - antonio.pedro.couto@gmail.com
+      - antonio.pedro.couto@morfose.net
     email_from:         no-reply@morfose.net
     email_assunto:      monicet - lamentavelmente ocorreu uma excepção
