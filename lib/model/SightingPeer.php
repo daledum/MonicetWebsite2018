@@ -126,7 +126,7 @@ class SightingPeer extends BaseSightingPeer {
     return $c;
   }
   
-  public static function getAPUETotals2($year, $month){
+  public static function getAPUETotals($year, $month){
     $date1 = $year."-";
     $date2 = $year."-";
     if( $month ) {
@@ -148,36 +148,57 @@ class SightingPeer extends BaseSightingPeer {
           ->filterByDate($date2, Criteria::LESS_EQUAL)
         ->endUse()
       ->endUse()
-      //->addGroupByColumn(SightingPeer::SPECIE_ID)
-      //->addSelectColumn('count( distinct ('.GeneralInfoPeer::ID.')) as total')
-      //->addSelectColumn(SightingPeer::ID)
-      //->addAscendingOrderByColumn('total')
       ->distinct()
       ->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)
       ->find();
     return $query;
   }
-  
-  public static function getAPUETotals($year, $month) {
-    $c = SightingPeer::getChartsCriteria(1, $year, $month);
-    $c->addGroupByColumn(SightingPeer::SPECIE_ID);
-    $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
-    $c->addSelectColumn(SightingPeer::SPECIE_ID);
-    $c->addAscendingOrderByColumn('total');
 
-    return BasePeer::doSelect($c);
-  }
+// I didn't removed, just in case ...
+//  public static function getAPUETotals($year, $month) {
+//    $c = SightingPeer::getChartsCriteria(1, $year, $month);
+//    $c->addGroupByColumn(SightingPeer::SPECIE_ID);
+//    $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
+//    $c->addSelectColumn(SightingPeer::SPECIE_ID);
+//    $c->addAscendingOrderByColumn('total');
+//
+//    return BasePeer::doSelect($c);
+//  }
 
   public static function getAPUEVariations($year) {
-    $c = SightingPeer::getChartsCriteria(2, $year, 0);
-    $c->addGroupByColumn('month('.GeneralInfoPeer::DATE.')');
-    $c->addGroupByColumn(SightingPeer::SPECIE_ID);
-    $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
-    $c->addSelectColumn('month('.GeneralInfoPeer::DATE.') as month');
-    $c->addSelectColumn(SightingPeer::SPECIE_ID);
+    $date1 = $year."-1-1";
+    $date2 = $year."-12-31";  
 
+    $query = SightingQuery::create()
+      ->where('Sighting.SpecieId IS NOT NULL')
+      ->filterBySpecieId(0, Criteria::NOT_EQUAL)
+      ->useRecordQuery()
+        ->filterByCodeId(array(3, 6), Criteria::IN)
+        ->useGeneralInfoQuery()
+          ->filterByValid(true)
+          ->filterByDate($date1, Criteria::GREATER_EQUAL)
+          ->filterByDate($date2, Criteria::LESS_EQUAL)
+        ->endUse()
+      ->endUse()
+      ->distinct()
+      ->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)
+      ->find();
+    return $query;
+    
     return BasePeer::doSelect($c);
   }
+  
+// I didn't removed, just in case ...
+//  public static function getAPUEVariations($year) {
+//    $c = SightingPeer::getChartsCriteria(2, $year, 0);
+//    $c->addGroupByColumn('month('.GeneralInfoPeer::DATE.')');
+//    $c->addGroupByColumn(SightingPeer::SPECIE_ID);
+//    $c->addSelectColumn('count(distinct '.GeneralInfoPeer::ID.') as total');
+//    $c->addSelectColumn('month('.GeneralInfoPeer::DATE.') as month');
+//    $c->addSelectColumn(SightingPeer::SPECIE_ID);
+//
+//    return BasePeer::doSelect($c);
+//  }
   
   public static function getMonthChartTotals($year, $month) {
     $c = SightingPeer::getChartsCriteria(1, $year, $month);
