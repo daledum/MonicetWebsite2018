@@ -51,30 +51,50 @@ class chartsActions extends sfActions
 
     if($type == '1') {
         $gi_total = GeneralInfoPeer::getTotalForPeriod($type, $request->getParameter('year'), $request->getParameter('month'));
-        $sightings = SightingPeer::getAPUETotals($request->getParameter('year'),
+        // TODO SightingPeer::getAPUETotals
+        $sightings = SightingPeer::getAPUETotals2($request->getParameter('year'),
                                                  $request->getParameter('month'));
-
+        //echo count($sightings);
         $data = array();
-        $i = 1;
-
-        foreach($sightings as $s) {
-            $species[$s[1]] = $s[0];
-            $species_ref[$s[1]] = SpeciePeer::retrieveByPK($s[1]);
+        foreach ( $sightings as $sighting ) {
+          $specieId = $sighting->getSpecieId();
+          if( !isset($data[$specieId]) ){
+            $data[$specieId]['counter'] = 1;
+            $data[$specieId]['specie'] = $sighting->getSpecie()->formattedString();
+            $data[$specieId]['code'] = $sighting->getSpecie()->getCode();
+          } else {
+            $data[$specieId]['counter'] += 1;
+          }
         }
-        $ndata = count($species);
-        $i = 1;
-        foreach($species as $k => $v) { 
-            $pos[$k] = $i;
-            $i += 1;
+        //print_r($data);
+        $k=1;
+        foreach($data as $specie_data) {
+          //echo $k."-";
+          $categories[] = $specie_data['code'];
+          $a = array_fill(1, count($data), 0);
+          $a[$k] = round(($specie_data['counter'] / $gi_total) * 100, 0);
+          $series[$specie_data['specie']] = $a;
+          $k++;
         }
-        foreach($species_ref as $v) {
-            $categories[] = $v->getCode();
-        }
-        foreach($species as $k => $v) {
-            $a = array_fill(1, $ndata, 0);
-            $a[$pos[$k]] = round(($v / $gi_total) * 100, 0);
-            $series[$species_ref[$k]->formattedString()] = $a;
-        }
+//        $i = 1;
+//        foreach($sightings as $s) {
+//            $species[$s[1]] = $s[0];
+//            $species_ref[$s[1]] = SpeciePeer::retrieveByPK($s[1]);
+//        }
+//        $ndata = count($species);
+//        $i = 1;
+//        foreach($species as $k => $v) { 
+//            $pos[$k] = $i;
+//            $i += 1;
+//        }
+//        foreach($species_ref as $v) {
+//            $categories[] = $v->getCode();
+//        }
+//        foreach($species as $k => $v) {
+//            $a = array_fill(1, $ndata, 0);
+//            $a[$pos[$k]] = round(($v / $gi_total) * 100, 0);
+//            $series[$species_ref[$k]->formattedString()] = $a;
+//        }
     } else {
         $sightings = SightingPeer::getAPUEVariations($request->getParameter('year'));
         foreach($sightings as $s) {

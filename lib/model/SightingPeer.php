@@ -126,6 +126,38 @@ class SightingPeer extends BaseSightingPeer {
     return $c;
   }
   
+  public static function getAPUETotals2($year, $month){
+    $date1 = $year."-";
+    $date2 = $year."-";
+    if( $month ) {
+      $date1 .= $month."-1";
+      $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+    } else {
+      $date1 .= "1-1";
+      $date2 .= "12-31";
+    }
+
+    $query = SightingQuery::create()
+      ->where('Sighting.SpecieId IS NOT NULL')
+      ->filterBySpecieId(0, Criteria::NOT_EQUAL)
+      ->useRecordQuery()
+        ->filterByCodeId(array(3, 6), Criteria::IN)
+        ->useGeneralInfoQuery()
+          ->filterByValid(true)
+          ->filterByDate($date1, Criteria::GREATER_EQUAL)
+          ->filterByDate($date2, Criteria::LESS_EQUAL)
+        ->endUse()
+      ->endUse()
+      //->addGroupByColumn(SightingPeer::SPECIE_ID)
+      //->addSelectColumn('count( distinct ('.GeneralInfoPeer::ID.')) as total')
+      //->addSelectColumn(SightingPeer::ID)
+      //->addAscendingOrderByColumn('total')
+      ->distinct()
+      ->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)
+      ->find();
+    return $query;
+  }
+  
   public static function getAPUETotals($year, $month) {
     $c = SightingPeer::getChartsCriteria(1, $year, $month);
     $c->addGroupByColumn(SightingPeer::SPECIE_ID);
