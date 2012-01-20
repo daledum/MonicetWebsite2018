@@ -30,6 +30,10 @@ class SpeciePeer extends BaseSpeciePeer {
     
   }
   
+  public static function getByCode2($code){
+    return SpecieQuery::create()->filterByCode($code)->findOne();
+  }
+  
   public static function getAllOrdered(){
     $c = new Criteria();
     $c->setDistinct();

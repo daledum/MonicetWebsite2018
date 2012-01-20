@@ -74,7 +74,6 @@ class watch_infoActions extends autoWatch_infoActions
 	
 	public function executeIndex(sfWebRequest $request)
 	{
-	    
 	    // sorting
 	    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort')))
 	    {
@@ -123,50 +122,50 @@ class watch_infoActions extends autoWatch_infoActions
 	
     
     public function executeDownload(sfWebRequest $request){
-    
-        if($request->getParameter('month') && $request->getParameter('month') != 0) {
-            
-            $year = $request->getParameter('year');
-            $month = $request->getParameter('month');
-            
-            // criar o ficheiro excel
-            $objPHPExcel = $this->generateExportExcelObject($year, $month);
-            
-            $this->filename = $year;
-            
-            // download do ficheiro sem o guardar
-            header('Content-Type: application/vnd.ms-excel');
-            header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
-            header('Cache-Control: max-age=0');
-            $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-            $objWriter->save('php://output');
-            return sfView::NONE;
-            
-            
-        }else {
-          if(!file_exists(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$request->getParameter('year').'.xls')) {
-            set_time_limit(600);
-            
-            $year = $request->getParameter('year');
-            
-            // criar o ficheiro excel
-            $objPHPExcel = $this->generateExportExcelObject($year);
-            
-            $this->filename = $year;
-            
-            // guardar e fazer download do ficheiro
-            $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
-            $objWriter->save(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$this->filename.'.xls');
-            chmod(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$this->filename.'.xls', 0777);
-            $this->filedir = '/uploads/export_watch_info/'.$this->filename.'.xls';
-            
-          } else {
-            
-            // se o ficheiro existe, envia o ficheiro existente
-            $this->filename = $request->getParameter('year');
-            $this->filedir = '/uploads/export_watch_info/'.$this->filename.'.xls';
-          }
+      $this->forward404Unless( $request->isMethod(sfRequest::POST) );
+      if($request->getParameter('month') && $request->getParameter('month') != 0) {
+
+          $year = $request->getParameter('year');
+          $month = $request->getParameter('month');
+
+          // criar o ficheiro excel
+          $objPHPExcel = $this->generateExportExcelObject($year, $month);
+
+          $this->filename = $year;
+
+          // download do ficheiro sem o guardar
+          header('Content-Type: application/vnd.ms-excel');
+          header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
+          header('Cache-Control: max-age=0');
+          $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+          $objWriter->save('php://output');
+          return sfView::NONE;
+
+
+      }else {
+        if(!file_exists(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$request->getParameter('year').'.xls')) {
+          set_time_limit(600);
+
+          $year = $request->getParameter('year');
+
+          // criar o ficheiro excel
+          $objPHPExcel = $this->generateExportExcelObject($year);
+
+          $this->filename = $year;
+
+          // guardar e fazer download do ficheiro
+          $objWriter = new PHPExcel_Writer_Excel5($objPHPExcel);
+          $objWriter->save(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$this->filename.'.xls');
+          chmod(sfConfig::get('sf_upload_dir').'/export_watch_info/'.$this->filename.'.xls', 0777);
+          $this->filedir = '/uploads/export_watch_info/'.$this->filename.'.xls';
+
+        } else {
+
+          // se o ficheiro existe, envia o ficheiro existente
+          $this->filename = $request->getParameter('year');
+          $this->filedir = '/uploads/export_watch_info/'.$this->filename.'.xls';
         }
+      }
         
     }
     
@@ -354,155 +353,365 @@ class watch_infoActions extends autoWatch_infoActions
     }
     
     
-    public function executeExport(sfWebRequest $request) {
-        $c = new Criteria();
-        $c->addDescendingOrderByColumn(WatchInfoPeer::DATE);    
-        $wis = WatchInfoPeer::doSelect($c);
-        
-        $temp = substr($wis[0]->getDate(),0,4);
-        $this->years = array();
+  public function executeExport(sfWebRequest $request) {
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn(WatchInfoPeer::DATE);    
+    $wis = WatchInfoPeer::doSelect($c);
+
+    $temp = substr($wis[0]->getDate(),0,4);
+    $this->years = array();
+    $this->years[] = $temp;
+    foreach($wis as $wi) {
+      if(substr($wi->getDate(),0,4) != $temp) {
+        $temp = substr($wi->getDate(),0,4);
         $this->years[] = $temp;
-        foreach($wis as $wi) {
-          if(substr($wi->getDate(),0,4) != $temp) {
-            $temp = substr($wi->getDate(),0,4);
-            $this->years[] = $temp;
-          }
-        }
+      }
     }
+  }
 	
-    public function executeUpload(sfWebRequest $request){
-      
+  public function executeUpload(sfWebRequest $request){
     $this->form = new importXlsForm();
-    
+        
     if($request->isMethod('post')){
-      
+          
       $this->form->bind($request->getParameter('importXls'),$request->getFiles('importXls'));
       if($this->form->isValid()){
-        
+                  
         $file = $this->form->getValue('ficheiro');
-        
-        $file->save(sfConfig::get('sf_upload_dir').'/import/import.xls');
-        
-        $objReader = new PHPExcel_Reader_Excel5();
-        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import/import.xls');
-        
-        //$l = 3;
-        //$c = 0;
-        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
-        
-        $wiId = 0;
-        $record = null;
-        $sighting = null;
-        $watch_info = null;
-        
-        //percorrer as linhas
-        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
-          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
-          
-          // criar nova watch info caso registo seja 'I'
-          if(strcmp(strtoupper($code),'I') == 0){
-            $wi = new GeneralInfo();
-            $barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
-            if ($barco) $wi->setVesselId($barco->getId());
-            
-//            $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
-//            if($skipper) $gi->setSkipperId($skipper->getId());
-//            
-//            $guia = GuidePeer::getGuiaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $l)->getValue());
-//            if($guia) $gi->setGuideId($guia->getId());
-//            
-//            $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
-//            if($empresa){
-//              $gi->setCompanyId($empresa->getId());
-//              $gi->setBaseLatitude($empresa->getBaseLatitude());
-//              $gi->setBaseLongitude($empresa->getBaseLongitude());
-//            } 
-//            
-//            $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
-//            $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
-//            $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
-//            $dia = substr($formattedString,3,2);
-//            $mes = substr($formattedString,0,2);
-//            $ano = substr($formattedString,6,2);
-//            
-//            $gi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
-//            //echo $formattedString;
-//            if($barco && $empresa){
-//              $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $gi->getDate()));
-//            }
-//            $gi->save();
-//            $general_info = $gi;
+        $file->save(sfConfig::get('sf_upload_dir').'/import_watch_info/import.xls');
+
+        $this->getUser()->setFlash('notice', 'Upload - OK');
+        $this->redirect('@watch_info_show_import_file');
+      } 
+    }
+  }  
+  
+  public function executeShowImportFile( sfWebRequest $request ){
+    
+    $this->filename = null;
+    $this->current_dir = sfConfig::get('sf_upload_dir').'/import_watch_info';
+    $dir = opendir($this->current_dir);        // Open the sucker
+    $file = readdir($dir);
+    
+    $parts = explode(".", $file);                    // pull apart the name and dissect by period
+    if (is_array($parts) && count($parts) > 1) {    // does the dissected array have more than one part
+      $extension = end($parts);        // set to we can see last file extension
+      if ($extension == "xls") {
+        $this->filename = $file;
+      }else {
+        $this->redirect('@watch_info_collection?action=upload');
+      }
+    } else {
+      $this->redirect('@watch_info_collection?action=upload');
+    }
+    
+    $this->img_valida = '<img src="/mfAdministracaoPlugin/images/icons/tick.png" title="Válido" />';
+    $this->img_invalida = '<img src="/mfAdministracaoPlugin/images/icons/delete.png" title="Inválido" />';
+    
+    $this->validation_log = $this->getValidationLog();
+    
+    $num_erros = count($this->validation_log);
+    if( $num_erros != 0 ){
+      $this->valido = true;
+    } else {
+      $this->valido = false;
+      $this->getUser()->setFlash('error', 'O ficheiro carregado contém erros. Por favor rectifique-os e faça upload novamente do ficheiro.');
+    }
+  }
+  
+  // Construção de log de validação do ficheiro de importação
+  public function getValidationLog(){
+    $log = array();
+    $objReader = new PHPExcel_Reader_Excel5();
+    $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import_watch_info/import.xls');
+    $activeSheet = $objPHPExcel->getActiveSheet();
+    
+    $next_codes = array('I' => array('R', 'RA'), 'R' => array('R', 'RA', 'F'), 'RA' => array('R', 'RA', 'F'), 'F' => array('I'));
+    $prev_code = 'F'; 
+    
+    $last_date = null;
+    
+    $vis_cache = array();
+    $specie_cache = array();
+    $behav_cache = array();
+    $dir_cache = array();
+    $comp_cache = array();
+    $watchman_cache = array();
+    $post_cache = array();
+    
+    //para todas as linhas que tem código preencchido
+    for($l=3 ; strcmp($activeSheet->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+      // colunas 
+      $date = trim($activeSheet->getCellByColumnAndRow(0, $l)->getValue());
+      $code = trim($activeSheet->getCellByColumnAndRow(1, $l)->getValue());
+      $time = trim($activeSheet->getCellByColumnAndRow(2, $l)->getValue());
+      $visibility = trim($activeSheet->getCellByColumnAndRow(3, $l)->getValue());
+      $specie = trim($activeSheet->getCellByColumnAndRow(4, $l)->getValue());
+      //$group = trim($activeSheet->getCellByColumnAndRow(5, $l)->getValue());
+      $total = trim($activeSheet->getCellByColumnAndRow(6, $l)->getValue());
+      $behaviour = trim($activeSheet->getCellByColumnAndRow(7, $l)->getValue());
+      $direction = trim($activeSheet->getCellByColumnAndRow(8, $l)->getValue());
+      $horizontal = trim($activeSheet->getCellByColumnAndRow(9, $l)->getValue());
+      $vertical = trim($activeSheet->getCellByColumnAndRow(10, $l)->getValue());
+      $comment = trim($activeSheet->getCellByColumnAndRow(11, $l)->getValue());
+      $company_acronym = trim($activeSheet->getCellByColumnAndRow(12, $l)->getValue());
+      $watchman = trim($activeSheet->getCellByColumnAndRow(13, $l)->getValue());
+      $post = trim($activeSheet->getCellByColumnAndRow(14, $l)->getValue());
+      $latitude = trim($activeSheet->getCellByColumnAndRow(15, $l)->getValue());
+      $longitude = trim($activeSheet->getCellByColumnAndRow(16, $l)->getValue());
+      $vessel = trim($activeSheet->getCellByColumnAndRow(17, $l)->getValue());
+      
+      // testar campos individualmente
+      // date
+      if( !strlen($date) && isset($last_date) ){
+        $log[] = array( 'line' => $l, 'column' => 'A', 'error' => 'A data é um campo obrigatório');
+      }
+      if( strlen($date) ){
+        if( !preg_match("/^\d{4}-\d{2}-\d{2}$/", $date) ){
+          $log[] = array( 'line' => $l, 'column' => 'A', 'error' => 'A data "'.$date.'" tem um formato inválido. o formato correto é: yyyy-mm-dd');
+        }
+      }
+      // code
+      if( !strlen($code) ) {
+        $log[] = array( 'line' => $l, 'column' => 'B', 'error' => 'O código é um campo obrigatório');
+      } else {
+        if( $code == 'I' && !strlen($date)){
+          $log[] = array( 'line' => $l, 'column' => 'A', 'error' => 'A data é um campo obrigatório');
+        }
+        if( !array_key_exists($code, $next_codes) ) {
+          $log[] = array( 'line' => $l, 'column' => 'B', 'error' => 'O código "'.$code.'" não existe. os códigos permitidos são: I, R, RA, F.');
+        } else {
+          if( !in_array($code, $next_codes[$prev_code]) ) {
+            $log[] = array( 'line' => $l, 'column' => 'B', 'error' => 'O código "'.$code.'" não pode ser usado após "'.$prev_code.'". os códigos permitidos são: '.implode(', ', $next_codes[$prev_code]).'.');
           }
-//          
-//          $record = new Record();
-//          $sighting = new Sighting();
-//          
-//          $record->setGeneralInfoId($general_info->getId());
-//          
+          $prev_code = $code;
+        }
+      }
+      //Time
+      if( strlen($time) ){
+        if( !preg_match("/^(\d{2}:\d{2}:\d{2}|\d{2}:\d{2})$/", $time) ){
+          $log[] = array( 'line' => $l, 'column' => 'C', 'error' => 'A hora "'.$time.'" tem um formato inválido. O formato correto é: hh:mm:ss ou hh:mm.');
+        }
+      } else {
+        $log[] = array( 'line' => $l, 'column' => 'C', 'error' => 'A hora é um campo obrigatório');
+      }
+      //visibility
+      if( strlen($visibility) ){
+        if( !isset($vis_cache[$visibility]) ) {
+          $vis = VisibilityPeer::getByCode($visibility);
+          if( !is_object($vis) ){
+            $log[] = array( 'line' => $l, 'column' => 'D', 'error' => 'Não existe o código "'.$visibility.'" para a visibilidade.');
+          } else {
+            $vis_cache[$visibility] = $vis->getDescription('pt');
+          }
+        }
+      }
+      //specie
+      if( strlen($specie) ){
+        if( !isset($specie_cache[$specie]) ) {
+          $sp = SpeciePeer::getByCode2($specie);
+          if( !is_object($sp) ){
+            $log[] = array( 'line' => $l, 'column' => 'E', 'error' => 'Não existe o código "'.$specie.'" para a espécie.');
+          } else {
+            $specie_cache[$specie] = $sp->getCode();
+          }
+        }
+      } else {
+        $log[] = array( 'line' => $l, 'column' => 'E', 'error' => 'A espécie é um campo obrigatório');
+      }
+      //total
+      if( strlen($total) ){
+        if( !preg_match("/^(\d{1}|\d{2}|\d{3}|\d{4})$/", $total) ){
+          $log[] = array( 'line' => $l, 'column' => 'G', 'error' => 'O total de indivíduos "'.$total.'" tem que ser um número inteiro.');
+        }
+      }
+      //behaviour
+      if( strlen($behaviour) ){
+        if( !isset($behav_cache[$behaviour]) ) {
+          $behav = BehaviourPeer::getByCode2($behaviour);
+          if( !is_object($behav) ){
+            $log[] = array( 'line' => $l, 'column' => 'H', 'error' => 'Não existe o código "'.$behaviour.'" para o comportamento.');
+          } else {
+            $behav_cache[$behaviour] = $behav->getCode();
+          }
+        }
+      }
+      //Direction
+      if( strlen($direction) ){
+        if( !isset($dir_cache[$direction]) ) {
+          $dir = DirectionPeer::getByAcronym($direction);
+          if( !is_object($dir) ){
+            $log[] = array( 'line' => $l, 'column' => 'I', 'error' => 'Não existe o acrónimo "'.$direction.'" para a direção.');
+          } else {
+            $dir_cache[$direction] = $dir->getAcronym();
+          }
+        }
+      }
+      //horizontal
+      
+      //Vertical
+      
+      //Company
+      if( strlen($company_acronym) ){
+        if( !isset($comp_cache[$company_acronym]) ) {
+          $comp = CompanyPeer::getByAcronym($company_acronym);
+          if( !is_object($comp) ){
+            $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'Não existe o acrónimo "'.$company_acronym.'" para a empresa.');
+          } else {
+            $comp_cache[$company_acronym] = $comp->getAcronym();
+          }
+        }
+      } else {
+        $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'A empresa é um campo obrigatório');
+      }
+      //watchman
+      if( strlen($watchman) ){
+        if( !isset($watchman_cache[$company_acronym.$watchman]) ) {
+          $wm = WatchmanPeer::getByNameAndCompanyAcronym($watchman, $company_acronym);
+          if( !is_object($wm) ){
+            $log[] = array( 'line' => $l, 'column' => 'N', 'error' => 'Não existe o nenhum vigia com o nome "'.$watchman.'" na empresa "'.$company_acronym.'".');
+          } else {
+            $watchman_cache[$company_acronym.$watchman] = $wm->getNome();
+          }
+        }
+      }
+      //Watchpost
+      if( strlen($post) ){
+        if( !isset($post_cache[$company_acronym.$post]) ) {
+          $wp = WatchPostPeer::getByNameAndCompanyAcronym($watchman, $company_acronym);
+          if( !is_object($wp) ){
+            $log[] = array( 'line' => $l, 'column' => 'O', 'error' => 'Não existe o nenhum posto de vigia com o nome "'.$post.'" da empresa "'.$company_acronym.'".');
+          } else {
+            $post_cache[$company_acronym.$post] = $wp->getNome();
+          }
+        }
+      }
+      
+    }
+    return $log;
+  }
+  
+  
+  public function executeLoadImportFile( sfWebRequest $request ){
+    
+  }
+  
+}
+
+       
+
+//        $objReader = new PHPExcel_Reader_Excel5();
+//        $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import_watch_info/import.xls');
+//
+//        //$l = 3;
+//        //$c = 0;
+//        //$objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
+//
+//        $giid = 0;
+//        $record = null;
+//        $sighting = null;
+//        $general_info = null;
+//
+//        //percorrer as linhas
+//        for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+//          $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
+//
+//          // criar nova watch info caso registo seja 'I'
+//          if(strcmp(strtoupper($code),'I') == 0){
+//              $wi = new WatchInfo();
+//              /*$barco = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
+//              if ($barco) $wi->setVesselId($barco->getId());
+//
+//              $skipper = SkipperPeer::getSkipperByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(18, $l)->getValue());
+//              if($skipper) $gi->setSkipperId($skipper->getId());
+//
+//              $guia = GuidePeer::getGuiaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(19, $l)->getValue());
+//              if($guia) $gi->setGuideId($guia->getId());
+//
+//              $empresa = CompanyPeer::getEmpresaByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(16, $l)->getValue());
+//              if($empresa){
+//                  $gi->setCompanyId($empresa->getId());
+//                  $gi->setBaseLatitude($empresa->getBaseLatitude());
+//                  $gi->setBaseLongitude($empresa->getBaseLongitude());
+//              }*/
+//
+//              $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
+//              $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
+//              $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+//              $dia = substr($formattedString,3,2);
+//              $mes = substr($formattedString,0,2);
+//              $ano = substr($formattedString,6,2);
+//
+//              $wi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
+//              //echo $formattedString;
+//              /*if($barco && $empresa){
+//                  $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $gi->getDate()));
+//              }*/
+//              $gi->save();
+//              $general_info = $gi;
+//          }
+//
+//          $sighting = new WatchSighting();
+//
+//          $sighting->setWatchInfoId($general_info->getId());
+//
 //          // inserir registos
-//          $codigo = CodePeer::getByAcronym(strtoupper($code));
-//          
-//          if($codigo) $record->setCodeId($codigo->getId());
-//          
+//          $codigo = WatchCodePeer::getByAcronym(strtoupper($code));
+//
+//          if($codigo) $sighting->setWatchCodeId($codigo->getId());
+//
 //          $vis = VisibilityPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $l)->getValue());
 //          if($vis) $record->setVisibilityId($vis->getId());
-//          
+//
 //          $sea = SeaStatePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue());
 //          if($sea) $record->setSeaStateId($sea->getId());
-//          
+//
 //          $value = $objPHPExcel->getActiveSheet()->getCell('C'.$l)->getValue();
 //          $formatCode = $objPHPExcel->getActiveSheet()->getStyle('C'.$l)->getNumberFormat()->getFormatCode();
 //          $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
-//          
+//
 //          //echo $formattedString;
 //          $record->setTime($formattedString);
-//          
+//
 //          $latitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $l)->getValue();
 //          if(strcmp(strtoupper($latitude),'BASE') == 0){
-//            $latitude = $general_info->getBaseLatitude();
+//              $latitude = $general_info->getBaseLatitude();
 //          }
 //          else{
-//            $latitude = mfUtils::convertLatLong($latitude);
+//              $latitude = mfUtils::convertLatLong($latitude);
 //          }
 //          $record->setLatitude($latitude);
-//          
+//
 //          $longitude = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $l)->getValue();
 //          if(strcmp(strtoupper($longitude),'BASE') == 0){
-//            $longitude = $general_info->getBaseLongitude();
+//              $longitude = $general_info->getBaseLongitude();
 //          }
 //          else{
-//            $longitude = mfUtils::convertLatLong($longitude);
+//              $longitude = mfUtils::convertLatLong($longitude);
 //          }
 //          $record->setLongitude($longitude);
-//          
+//
 //          $record->setNumVessels($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
-//          
+//
 //          $record->save();
-//          
+//
 //          // inserir sightings
 //          $sighting->setRecordId($record->getId());
-//          
+//
 //          $esp = SpeciePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $l)->getValue());
 //          if($esp) $sighting->setSpecieId($esp->getId());
-//          
+//
 //          $beh = BehaviourPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $l)->getValue());
 //          if($beh) $sighting->setBehaviourId($beh->getId());
-//          
+//
 //          $asso = AssociationPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $l)->getValue());
 //          if($asso) $sighting->setAssociationId($asso->getId());
-//          
+//
 //          $sighting->setAdults($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $l)->getValue());
 //          $sighting->setJuveniles($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $l)->getValue());
 //          $sighting->setCalves($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $l)->getValue());
 //          $sighting->setTotal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $l)->getValue());
 //          $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(15, $l)->getValue());
-//          
+//
 //          $sighting->save();
-        }
-      }
-      
-      $this->redirect('@watch_info');
-      
-    }
-  }
-}
+//        }

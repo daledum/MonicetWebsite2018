@@ -61,6 +61,22 @@ watch_sighting:
     column:               id
     with_wildcard_routes: true
 
+watch_info_show_import_file:
+  url:  /avistamentos/ficheiro-para-importacao/ver
+  params:
+    module:     watch_info
+    action:     showImportFile
+  requirements:
+    sf_method:  get
+    
+watch_info_load_import_file:
+  url:  /avistamentos/ficheiro-para-importacao/importar
+  params:
+    module:     watch_info
+    action:     loadImportFile
+  requirements:
+    sf_method:  post
+
 watch_info:
   class: sfPropelRouteCollection
   options:

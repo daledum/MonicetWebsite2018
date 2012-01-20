@@ -54,6 +54,16 @@ class WatchmanPeer extends BaseWatchmanPeer {
       }
     }
     
+    public static function getByNameAndCompanyAcronym($watchman_name, $company_acronym){
+      return WatchmanQuery::create()
+              ->filterByName($watchman_name)
+              ->useCompanyQuery()
+                ->filterByAcronym($company_acronym)
+              ->endUse()
+              ->findOne();
+    }
+    
+    
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
       $user = sfContext::getInstance()->getUser()->getGuardUser();

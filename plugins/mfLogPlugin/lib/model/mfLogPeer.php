@@ -63,4 +63,26 @@ class mfLogPeer extends BasemfLogPeer {
     	);
     } 
   }
+  
+  public static function pageNotFound(sfEvent $evento)
+  {
+  	$contexto = sfContext::getInstance();
+
+    $modulo = $contexto->getModuleName();
+    $accao = $contexto->getActionName();
+    $uri = $contexto->getRequest()->getUri();
+
+    $mensagem = sprintf('Erro 404: Alguem tentou aceder à página "%s", em %s. Acção - [%s], Módulo - [%s] ', $uri, date('Y-m-d H:i'), $accao, $modulo);
+
+    self::log($mensagem, self::ERROR404);
+
+    if ( sfConfig::get('app_mfLog_email', false) ){
+      $mailer = $contexto->getMailer()->composeAndSend(
+        sfConfig::get('app_mfLog_email_from'),
+        sfConfig::get('app_mfLog_email_to'),
+        sfConfig::get('app_mfLog_email_assunto', 'Erro 404'),
+        $mensagem
+      );
+    }
+  }
 }

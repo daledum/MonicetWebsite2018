@@ -52,6 +52,15 @@ class WatchPostPeer extends BaseWatchPostPeer {
         return false;
       }
     }
+  
+  public static function getByNameAndCompanyAcronym($post_name, $company_acronym){
+    return WatchPostQuery::create()
+            ->filterByName($post_name)
+            ->useCompanyQuery()
+              ->filterByAcronym($company_acronym)
+            ->endUse()
+            ->findOne();
+  }
 	
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
