@@ -411,7 +411,7 @@ class watch_infoActions extends autoWatch_infoActions
     $this->validation_log = $this->getValidationLog();
     
     $num_erros = count($this->validation_log);
-    if( $num_erros != 0 ){
+    if( $num_erros == 0 ){
       $this->valido = true;
     } else {
       $this->valido = false;
@@ -438,6 +438,7 @@ class watch_infoActions extends autoWatch_infoActions
     $comp_cache = array();
     $watchman_cache = array();
     $post_cache = array();
+    $vessel_cache = array();
     
     //para todas as linhas que tem código preencchido
     for($l=3 ; strcmp($activeSheet->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
@@ -453,12 +454,12 @@ class watch_infoActions extends autoWatch_infoActions
       $direction = trim($activeSheet->getCellByColumnAndRow(8, $l)->getValue());
       $horizontal = trim($activeSheet->getCellByColumnAndRow(9, $l)->getValue());
       $vertical = trim($activeSheet->getCellByColumnAndRow(10, $l)->getValue());
-      $comment = trim($activeSheet->getCellByColumnAndRow(11, $l)->getValue());
+      //$comment = trim($activeSheet->getCellByColumnAndRow(11, $l)->getValue());
       $company_acronym = trim($activeSheet->getCellByColumnAndRow(12, $l)->getValue());
       $watchman = trim($activeSheet->getCellByColumnAndRow(13, $l)->getValue());
       $post = trim($activeSheet->getCellByColumnAndRow(14, $l)->getValue());
-      $latitude = trim($activeSheet->getCellByColumnAndRow(15, $l)->getValue());
-      $longitude = trim($activeSheet->getCellByColumnAndRow(16, $l)->getValue());
+      //$latitude = trim($activeSheet->getCellByColumnAndRow(15, $l)->getValue());
+      //$longitude = trim($activeSheet->getCellByColumnAndRow(16, $l)->getValue());
       $vessel = trim($activeSheet->getCellByColumnAndRow(17, $l)->getValue());
       
       // testar campos individualmente
@@ -548,9 +549,17 @@ class watch_infoActions extends autoWatch_infoActions
         }
       }
       //horizontal
-      
+      if( strlen($horizontal) ){
+        if( !preg_match("/^[0-9]\.?[0-9]*([0-9]+)?$/", $horizontal) ){
+          $log[] = array( 'line' => $l, 'column' => 'J', 'error' => 'O valor da horizontal "'.$horizontal.'" tem que ser um número inteiro ou decimal. Ex 1 ou 1.123');
+        }
+      }
       //Vertical
-      
+      if( strlen($vertical) ){
+        if( !preg_match("/^[0-9]\.?[0-9]*([0-9]+)?$/", $vertical) ){
+          $log[] = array( 'line' => $l, 'column' => 'J', 'error' => 'O valor da vertical "'.$vertical.'" tem que ser um número inteiro ou decimal. Ex 1 ou 1.123');
+        }
+      }
       //Company
       if( strlen($company_acronym) ){
         if( !isset($comp_cache[$company_acronym]) ) {
@@ -571,7 +580,7 @@ class watch_infoActions extends autoWatch_infoActions
           if( !is_object($wm) ){
             $log[] = array( 'line' => $l, 'column' => 'N', 'error' => 'Não existe o nenhum vigia com o nome "'.$watchman.'" na empresa "'.$company_acronym.'".');
           } else {
-            $watchman_cache[$company_acronym.$watchman] = $wm->getNome();
+            $watchman_cache[$company_acronym.$watchman] = $wm->getName();
           }
         }
       }
@@ -582,7 +591,22 @@ class watch_infoActions extends autoWatch_infoActions
           if( !is_object($wp) ){
             $log[] = array( 'line' => $l, 'column' => 'O', 'error' => 'Não existe o nenhum posto de vigia com o nome "'.$post.'" da empresa "'.$company_acronym.'".');
           } else {
-            $post_cache[$company_acronym.$post] = $wp->getNome();
+            $post_cache[$company_acronym.$post] = $wp->getName();
+          }
+        }
+      }
+      //Latitude not used on import
+      
+      //Longitude not used on import
+      
+      //Vessel
+      if( strlen($vessel) ){
+        if( !isset($vessel_cache[$company_acronym.$vessel]) ) {
+          $vess = VesselPeer::getByNameAndCompanyAcronym($vessel, $company_acronym);
+          if( !is_object($vess) ){
+            $log[] = array( 'line' => $l, 'column' => 'R', 'error' => 'Não existe o nenhum barco com o nome "'.$post.'" da empresa "'.$company_acronym.'".');
+          } else {
+            $vessel_cache[$company_acronym.$vessel] = $vess->getName();
           }
         }
       }
