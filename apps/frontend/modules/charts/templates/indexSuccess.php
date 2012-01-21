@@ -38,49 +38,15 @@
                     </select>
                 </div>
                 <div id="chart-loading"></div>
-                <?php /*
-
-                <div class="vertical-space">
+                <div class="chart-text bar-chart">
+                    <?php print __('Percentage of trips in which the selected species were seen.'); ?>
                 </div>
-
-                <div class="filter-item">
-                  <label><?php echo __('Association') ?>:</label>
-                  <select id="association" class="filter-select">
-                    <option></option>
-                    <?php foreach($associations as $association): ?>
-                      <option value="<?php echo $association->getId(); ?>"><?php echo $association->getDescription(); ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                <div class="chart-text line-chart" style="display: none;">
+                    <?php print __('Monthly percentage of trips in which the selected species were seen.'); ?>
                 </div>
-                <div class="filter-item">
-                  <label><?php echo __('Behaviour') ?>:</label>
-                  <select id="behaviour" class="filter-select">
-                    <option></option>
-                    <?php foreach($behaviours as $behaviour): ?>
-                      <option value="<?php echo $behaviour->getId(); ?>"><?php echo $behaviour->getDescription(); ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                <div class="chart-text">
+                    <?php print __('Cliking on the species name will omit it from the graph, or show it again.'); ?>
                 </div>
-                <div class="filter-item">
-                  <label><?php echo __('Sea State') ?>:</label>
-                  <select id="sea-state" class="filter-select">
-                    <option></option>
-                    <?php foreach($sea_states as $sea_state): ?>
-                      <option value="<?php echo $sea_state->getId(); ?>"><?php echo $sea_state->getDescription(); ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="filter-item">
-                  <label><?php echo __('Visibility') ?>:</label>
-                  <select id="visibility" class="filter-select">
-                    <option></option>
-                    <?php foreach($visibilities as $visibility): ?>
-                      <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                 * 
-                 */ ?>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">
                 <!--<img id="chart-img-elem" src="http://chart.apis.google.com/chart?chf=bg,s,EAF4F800&chxl=1:|Sb|Tt&chxp=1,10,20&chxr=0,0,160&chxt=x,y&chbh=a&chs=600x220&cht=bhs&chco=4D89F9&chds=0,170&chd=t:10,50,60,80,40,60,30,50&chtt=APUE" width="600" height="300" alt="APUE" />-->

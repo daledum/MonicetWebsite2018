@@ -54,9 +54,14 @@ function updateChart() {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'bar';
           var stacking = 'normal';
+          $('.line-chart').hide();
+          $('.bar-chart').show();
+          
           if ($("input[name='chart-type']:checked").val() == 2) {
               chartType = 'line';
               stacking = null;
+              $('.line-chart').show();
+              $('.bar-chart').hide();
           }
           initChart(jsonRsp.series, jsonRsp.categories, chartType, stacking);
           $("#chart-loading").hide();

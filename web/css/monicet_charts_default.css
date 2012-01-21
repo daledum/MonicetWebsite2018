@@ -130,3 +130,13 @@
     background: transparent url('/images/chart-variations.png') no-repeat left top;
     margin-right: 3px;
 }
+
+.chart-text {
+  text-align: center;
+  color: #167B8B;
+}
+
+.bar-chart, .line-chart {
+  margin-top: 100px;
+  font-weight: bold;
+}
