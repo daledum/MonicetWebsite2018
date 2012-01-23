@@ -324,7 +324,7 @@ class watch_infoActions extends autoWatch_infoActions
           
           if($sighting->getDirectionId()){
             if( !isset($direction_cache[$sighting->getDirectionId()]) ) {
-              $direction_cache[$sighting->getDirectionId()] = $sighting->getDirection()->getCode();
+              $direction_cache[$sighting->getDirectionId()] = $sighting->getDirection()->getAcronym();
             }
             $array[0][] = $direction_cache[$sighting->getDirectionId()];
           } else {
