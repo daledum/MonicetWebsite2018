@@ -517,8 +517,6 @@ class watch_infoActions extends autoWatch_infoActions
             $specie_cache[$specie] = $sp->getCode();
           }
         }
-      } else {
-        $log[] = array( 'line' => $l, 'column' => 'E', 'error' => 'A espécie é um campo obrigatório');
       }
       //total
       if( strlen($total) ){
@@ -560,41 +558,48 @@ class watch_infoActions extends autoWatch_infoActions
           $log[] = array( 'line' => $l, 'column' => 'J', 'error' => 'O valor da vertical "'.$vertical.'" tem que ser um número inteiro ou decimal. Ex 1 ou 1.123');
         }
       }
-      //Company
-      if( strlen($company_acronym) ){
-        if( !isset($comp_cache[$company_acronym]) ) {
-          $comp = CompanyPeer::getByAcronym($company_acronym);
-          if( !is_object($comp) ){
-            $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'Não existe o acrónimo "'.$company_acronym.'" para a empresa.');
-          } else {
-            $comp_cache[$company_acronym] = $comp->getAcronym();
+      
+      // A seguinte informação só é lida quando o campo de data é preenchido, 
+      // e o campo de data respectivamente fica só no primeiro registo, 
+      // assim os seguintes são implicitamente parte do watch_info actual
+      if ( strlen($date) ) {
+        // Company
+        if( strlen($company_acronym) ){
+          if( !isset($comp_cache[$company_acronym]) ) {
+            $comp = CompanyPeer::getByAcronym($company_acronym);
+            if( !is_object($comp) ){
+              $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'Não existe o acrónimo "'.$company_acronym.'" para a empresa.');
+            } else {
+              $comp_cache[$company_acronym] = $comp->getAcronym();
+            }
+          }
+        } else {
+          $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'A empresa é um campo obrigatório');
+        }
+        //watchman
+        if( strlen($watchman) ){
+          if( !isset($watchman_cache[$company_acronym.$watchman]) ) {
+            $wm = WatchmanPeer::getByNameAndCompanyAcronym($watchman, $company_acronym);
+            if( !is_object($wm) ){
+              $log[] = array( 'line' => $l, 'column' => 'N', 'error' => 'Não existe o nenhum vigia com o nome "'.$watchman.'" na empresa "'.$company_acronym.'".');
+            } else {
+              $watchman_cache[$company_acronym.$watchman] = $wm->getName();
+            }
           }
         }
-      } else {
-        $log[] = array( 'line' => $l, 'column' => 'M', 'error' => 'A empresa é um campo obrigatório');
-      }
-      //watchman
-      if( strlen($watchman) ){
-        if( !isset($watchman_cache[$company_acronym.$watchman]) ) {
-          $wm = WatchmanPeer::getByNameAndCompanyAcronym($watchman, $company_acronym);
-          if( !is_object($wm) ){
-            $log[] = array( 'line' => $l, 'column' => 'N', 'error' => 'Não existe o nenhum vigia com o nome "'.$watchman.'" na empresa "'.$company_acronym.'".');
-          } else {
-            $watchman_cache[$company_acronym.$watchman] = $wm->getName();
+        //Watchpost
+        if( strlen($post) ){
+          if( !isset($post_cache[$company_acronym.$post]) ) {
+            $wp = WatchPostPeer::getByNameAndCompanyAcronym($post, $company_acronym);
+            if( !is_object($wp) ){
+              $log[] = array( 'line' => $l, 'column' => 'O', 'error' => 'Não existe o nenhum posto de vigia com o nome "'.$post.'" da empresa "'.$company_acronym.'".');
+            } else {
+              $post_cache[$company_acronym.$post] = $wp->getName();
+            }
           }
         }
       }
-      //Watchpost
-      if( strlen($post) ){
-        if( !isset($post_cache[$company_acronym.$post]) ) {
-          $wp = WatchPostPeer::getByNameAndCompanyAcronym($watchman, $company_acronym);
-          if( !is_object($wp) ){
-            $log[] = array( 'line' => $l, 'column' => 'O', 'error' => 'Não existe o nenhum posto de vigia com o nome "'.$post.'" da empresa "'.$company_acronym.'".');
-          } else {
-            $post_cache[$company_acronym.$post] = $wp->getName();
-          }
-        }
-      }
+      
       //Latitude not used on import
       
       //Longitude not used on import
