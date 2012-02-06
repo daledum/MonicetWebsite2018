@@ -622,11 +622,92 @@ class watch_infoActions extends autoWatch_infoActions
   
   
   public function executeLoadImportFile( sfWebRequest $request ){
+    $objReader = new PHPExcel_Reader_Excel5();
+    $objPHPExcel = $objReader->load(sfConfig::get('sf_upload_dir').'/import_watch_info/import.xls');
     
+    $l = 3;
+    $c = 0;
+    $objPHPExcel->getActiveSheet()->getCellByColumnAndRow($c, $l)->getValue();
+    $wiid = 0;
+    $sighting = null;
+    $watch_info = null;
+    
+    //percorrer as linhas
+    for($l=3 ; strcmp($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
+      $code = trim($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(1, $l)->getValue());
+      
+      // criar nova watch info caso registo seja 'I'
+      if(strcmp(strtoupper($code),'I') == 0){
+        $wi = new WatchInfo();
+        
+        $watch_post = WatchPostPeer::getWatchPostByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(14, $l)->getValue());
+        if ($watch_post) $wi->setWatchPostId($watch_post->getId());
+        
+        $watchman = WatchmanPeer::getWatchmanByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(13, $l)->getValue());
+        if ($watchman) $wi->setWatchmanId($watchman->getId());
+        
+        $company = CompanyPeer::getByAcronym($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(12, $l)->getValue());
+        if ($company) $wi->setCompanyId($company->getId());
+        
+        $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
+        $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
+        $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+        $dia = substr($formattedString,8,2);
+        $mes = substr($formattedString,5,2);
+        $ano = substr($formattedString,0,4);
+        
+        $wi->setDate($ano.'-'.$mes.'-'.$dia);
+        
+        if($company){
+          $wi->setCode(mfUtils::gerarCodigoWi($company->getId(), $wi->getDate()));
+        }
+        $wi->save();
+        $watch_info = $wi;
+      }
+      
+      $sighting = new WatchSighting();
+      
+      $sighting->setWatchInfoId($watch_info->getId());
+      
+      // inserir registos
+      $codigo = WatchCodePeer::getByAcronym(strtoupper($code));
+      
+      if($codigo) $sighting->setWatchCodeId($codigo->getId());
+      
+      $vis = WatchVisibilityPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(3, $l)->getValue());
+      if($vis) $sighting->setWatchVisibilityId($vis->getId());
+      
+      $value = $objPHPExcel->getActiveSheet()->getCell('C'.$l)->getValue();
+      $formatCode = $objPHPExcel->getActiveSheet()->getStyle('C'.$l)->getNumberFormat()->getFormatCode();
+      $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+      
+      //echo $formattedString;
+      $sighting->setTime($formattedString);
+      
+      $esp = SpeciePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(4, $l)->getValue());
+      if($esp) $sighting->setSpecieId($esp->getId());
+      
+      $beh = BehaviourPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(7, $l)->getValue());
+      if($beh) $sighting->setBehaviourId($beh->getId());
+      
+      $dir = DirectionPeer::getByAcronym($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(8, $l)->getValue());
+      if($dir) $sighting->setDirectionId($dir->getId());
+      
+      $vess = VesselPeer::getBarcoByNome($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(17, $l)->getValue());
+      if($vess) $sighting->setVesselId($dir->getId());
+      
+      $sighting->setHorizontal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(9, $l)->getValue());
+      $sighting->setVertical($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(10, $l)->getValue());
+      $sighting->setTotal($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue());
+      $sighting->setComments($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(11, $l)->getValue());
+      
+      $sighting->save();
+    }
+    
+    $this->redirect('@watch_info');
   }
-  
-}
 
+}
        
 
 //        $objReader = new PHPExcel_Reader_Excel5();

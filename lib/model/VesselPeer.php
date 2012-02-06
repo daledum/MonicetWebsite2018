@@ -29,8 +29,8 @@ class VesselPeer extends BaseVesselPeer {
   public static function getBarcoByNome($nome){
     $c = new Criteria();
     $c->add(VesselPeer::NAME, $nome, Criteria::LIKE);
-    $b = VesselPeer::doSelect($c);
-    return $b[0];
+    $b = VesselPeer::doSelectOne($c);
+    return $b;
   }
   
   public static function getByNameAndCompanyAcronym($vessel_name, $company_acronym){

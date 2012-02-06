@@ -17,5 +17,14 @@
  * @package    propel.generator.lib.model
  */
 class WatchVisibilityPeer extends BaseWatchVisibilityPeer {
-
+  
+  public static function getByCode($code){
+    return WatchVisibilityQuery::create()->filterByCode($code)->findOne();
+  }
+  
+  public static function getVisibilities(){
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(WatchVisibilityPeer::ID);
+    return WatchVisibilityPeer::doSelect($c);
+  }
 } // WatchVisibilityPeer

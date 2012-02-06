@@ -73,5 +73,15 @@ class mfUtils {
       $company = CompanyPeer::retrieveByPk($company_id);
       return strtoupper($company->getAcronym()) . substr(str_replace('-', '',$date), -6) . "-" . ($daily_number + 1);
   }
+  
+  public static function gerarCodigoWi($company_id, $date){
+      $daily_number = WatchInfoQuery::create()
+                        ->filterByCompanyId($company_id)
+                        ->filterByDate($date)
+                        ->count();
+      //$vessel = VesselPeer::retrieveByPK($vessel_id);
+      $company = CompanyPeer::retrieveByPk($company_id);
+      return strtoupper($company->getAcronym()) . substr(str_replace('-', '',$date), -6) . "-" . ($daily_number + 1);
+  }
 }
 ?>

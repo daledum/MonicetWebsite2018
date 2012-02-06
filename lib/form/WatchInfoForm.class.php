@@ -13,15 +13,15 @@ class WatchInfoForm extends BaseWatchInfoForm
   {
 	parent::processValues($values);
 	
-  $this->values['base_latitude'] = mfUtils::convertLatLong($this->values['base_latitude']);
-  $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);
+  /*$this->values['base_latitude'] = mfUtils::convertLatLong($this->values['base_latitude']);
+  $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);*/
   
   
   
 	if($this->isNew() || !$this->getObject()->getCode() || $this->getObject()->getCompanyId() != $this->values['company_id'] || $this->getObject()->getDate() != $this->values['date'])
 	{
 	  
-      $this->values['code'] = mfUtils::gerarCodigoGi($this->values['company_id'], $this->values['date']);
+      $this->values['code'] = mfUtils::gerarCodigoWi($this->values['company_id'], $this->values['date']);
 	}
 	return $this->values;
   }
