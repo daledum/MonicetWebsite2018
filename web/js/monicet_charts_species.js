@@ -1,4 +1,4 @@
-function initChart(series, categories, chartType, plotOptions, yAxisText) {
+function initChart(series, categories, chartType, plotOptions, yAxisText, tooltip) {
   var chart = new Highcharts.Chart({
       chart: {
          renderTo: 'chart-image',
@@ -23,12 +23,7 @@ function initChart(series, categories, chartType, plotOptions, yAxisText) {
             }
          }
       },
-      tooltip: {
-         formatter: function() {
-            return '<b>'+ this.x +'</b><br/>'+
-                this.series.name +': '+ this.y
-         }
-      },
+      tooltip: tooltip,
       plotOptions: plotOptions,
       series: series
    });
@@ -49,13 +44,15 @@ function updateChart() {
           if ($("#chart-type").val() == 0) {
               var plotOptions = { column: { pointPadding: 0.2, borderWidth: 0 }, series: { pointPadding: 0.1, groupPadding: 0.1, borderWidth: 0, shadow: false } };
               var yAxisText = 'Quantidade';
+              var tooltip = { formatter: function() { return '<b>'+ this.x + '</b><br/>' + this.series.name +': '+ this.y; } };
           }
           else {
               var plotOptions = { column: { stacking: 'percent' }, series: { pointPadding: 0.1, groupPadding: 0.1, borderWidth: 0, shadow: false } };
               var yAxisText = 'Percentagem';
+              var tooltip = { formatter: function() { return '<b>'+ this.x + '</b><br/>' + this.series.name +': '+ Math.round(this.percentage*100)/100 + '%'; } };
           }
           
-          initChart(jsonRsp.series, jsonRsp.categories, chartType, plotOptions, yAxisText);
+          initChart(jsonRsp.series, jsonRsp.categories, chartType, plotOptions, yAxisText, tooltip);
           $("#chart-loading").hide();
       }
   });
