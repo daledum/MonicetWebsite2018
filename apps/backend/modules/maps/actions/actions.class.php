@@ -118,7 +118,7 @@ class mapsActions extends sfActions
     
     $this->general_info = GeneralInfoPeer::retrieveByPk($request->getParameter('general_info_id'));
     
-    $this->sightings = SightingPeer::getByGeneralInfoId($request);
+    $this->sightings = SightingPeer::getByGeneralInfoIdForMap($request);
     
     $this->species = array();
     $this->species[] = SpeciePeer::retrieveByPk($this->sightings[0]->getSpecieId());

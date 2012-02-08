@@ -217,4 +217,11 @@ class SightingPeer extends BaseSightingPeer {
     return SightingPeer::doSelect($c);
   }
 
+  public static function getByGeneralInfoIdForMap($request){
+    $c = SightingPeer::getBasicCriteriaWithFilters();
+    $c->add(GeneralInfoPeer::ID, $request->getParameter('general_info_id'), Criteria::EQUAL);
+    $c->addAscendingOrderByColumn(SightingPeer::SPECIE_ID);
+    return SightingPeer::doSelect($c);
+  }
+
 } // SightingPeer
