@@ -68,7 +68,31 @@ class SpeciePeer extends BaseSpeciePeer {
     return SpeciePeer::doSelectOne($c);
   }
   
-  
+  public static function getSightedSpeciesOnYearAndMonth($year, $month = null){
+    if( !$month || $month == 0 ){
+      $dateBegin = $year.'-01-01';
+      $dateEnd = ($year+1).'-01-01';
+    } else {
+      $dateBegin = $year.'-'.$month.'-01';
+      $dateEnd = $year.'-'.($month+1).'-01';
+      if($month==12){
+        $dateEnd = ($year+1).'-01-01';
+      }
+    }
+    $query = SpecieQuery::create()
+            ->useSightingQuery()
+              ->useRecordQuery()
+                ->useGeneralInfoQuery()
+                  ->filterByDate($dateBegin, Criteria::GREATER_EQUAL)
+                  ->filterByDate($dateEnd, Criteria::LESS_THAN)
+                  ->filterByValid(true)
+                ->endUse()
+              ->endUse()
+            ->endUse()
+            ->distinct()
+            ->find();
+    return $query;
+  }
   
   
 } // SpeciePeer

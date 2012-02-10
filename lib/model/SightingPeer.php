@@ -127,14 +127,15 @@ class SightingPeer extends BaseSightingPeer {
   }
   
   public static function getAPUETotals($year, $month){
-    $date1 = $year."-";
-    $date2 = $year."-";
-    if( $month ) {
-      $date1 .= $month."-1";
-      $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+    if( !$month || $month == 0 ){
+      $dateBegin = $year.'-01-01';
+      $dateEnd = ($year+1).'-01-01';
     } else {
-      $date1 .= "1-1";
-      $date2 .= "12-31";
+      $dateBegin = $year.'-'.$month.'-01';
+      $dateEnd = $year.'-'.($month+1).'-01';
+      if($month==12){
+        $dateEnd = ($year+1).'-01-01';
+      }
     }
 
     $query = SightingQuery::create()
@@ -144,8 +145,8 @@ class SightingPeer extends BaseSightingPeer {
         ->filterByCodeId(array(3, 6), Criteria::IN)
         ->useGeneralInfoQuery()
           ->filterByValid(true)
-          ->filterByDate($date1, Criteria::GREATER_EQUAL)
-          ->filterByDate($date2, Criteria::LESS_EQUAL)
+          ->filterByDate($dateBegin, Criteria::GREATER_EQUAL)
+          ->filterByDate($dateEnd, Criteria::LESS_THAN)
         ->endUse()
       ->endUse()
       ->distinct()
@@ -185,7 +186,7 @@ class SightingPeer extends BaseSightingPeer {
       ->find();
     return $query;
     
-    return BasePeer::doSelect($c);
+    //return BasePeer::doSelect($c);
   }
   
 // I didn't removed, just in case ...

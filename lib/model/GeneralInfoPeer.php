@@ -76,23 +76,40 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
     }
 
   public static function getTotalForPeriod($type, $year, $month) {
-    $date1 = $year."-";
-    $date2 = $year."-";  
-    //if (($type == '1') && $month) {
-    if ($month) {
-        $date1 .= $month."-1";
-        $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+    if( !$month || $month == 0 ){
+      $dateBegin = $year.'-01-01';
+      $dateEnd = ($year+1).'-01-01';
     } else {
-        $date1 .= "1-1";
-        $date2 .= "12-31";
+      $dateBegin = $year.'-'.$month.'-01';
+      $dateEnd = $year.'-'.($month+1).'-01';
+      if($month==12){
+        $dateEnd = ($year+1).'-01-01';
+      }
     }
-    //TODO refactor
-    $c = new Criteria();
-    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
-    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
-    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
-
-    return GeneralInfoPeer::doCount($c);
+    $query = GeneralInfoQuery::create()
+            ->filterByValid(true)
+            ->filterByDate($dateBegin, Criteria::GREATER_EQUAL)
+            ->filterByDate($dateEnd, Criteria::LESS_THAN)
+            ->count();
+    return $query;
+            
+//    $date1 = $year."-";
+//    $date2 = $year."-";  
+//    //if (($type == '1') && $month) {
+//    if ($month) {
+//        $date1 .= $month."-1";
+//        $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
+//    } else {
+//        $date1 .= "1-1";
+//        $date2 .= "12-31";
+//    }
+//    //TODO refactor
+//    $c = new Criteria();
+//    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+//    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+//    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+//
+//    return GeneralInfoPeer::doCount($c);
   }
   
   public static function doSelectByPeriod($year, $month) {
@@ -114,6 +131,31 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
     $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
 
     return GeneralInfoPeer::doSelect($c);
+  }
+  
+  public static function countForSpecieOnMonth($specieId, $year, $month = null){
+    if( !$month || $month == 0){
+      $dateBegin = $year.'-01-01';
+      $dateEnd = ($year+1).'-01-01';
+    } else {
+      $dateBegin = $year.'-'.$month.'-01';
+      $dateEnd = $year.'-'.($month+1).'-01';
+      if($month==12){
+        $dateEnd = ($year+1).'-01-01';
+      }
+    }
+    $query = GeneralInfoQuery::create()
+            ->filterByDate($dateBegin, Criteria::GREATER_EQUAL)
+            ->filterByDate($dateEnd, Criteria::LESS_THAN)
+            ->filterByValid(true)
+            ->useRecordQuery()
+              ->useSightingQuery()
+                ->filterBySpecieId($specieId)
+              ->endUse()
+            ->endUse()
+            ->distinct()
+            ->count();
+    return $query;
   }
 } // GeneralInfoPeer
 
