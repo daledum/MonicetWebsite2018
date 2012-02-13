@@ -60,12 +60,12 @@ class chartsActions extends sfActions
         
     } else {
       $year = $request->getParameter('year', date('Y')); 
-      
+      $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $year);
       $sighted_species = SpeciePeer::getSightedSpeciesOnYearAndMonth($year);
       foreach( $sighted_species as $specie ) {
         $series[$specie->formattedString()] = array();
         for( $month=1; $month<=12; $month++) {
-          $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $year, $month);
+          //$gi_total = GeneralInfoPeer::getTotalForPeriod(2, $year, $month);
           $numGI = GeneralInfoPeer::countForSpecieOnMonth($specie->getId(), $year, $month);
           $series[$specie->formattedString()][$month] = round(($numGI / $gi_total) * 100, 0);;
         }
