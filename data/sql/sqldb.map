@@ -4,3 +4,5 @@ plugins.sfGuardPlugin.lib.model.schema.sql=propel
 plugins.mfLogPlugin.lib.model.schema.sql=propel
 plugins.mfMenuPlugin.lib.model.schema.sql=propel
 plugins.mfFormularioPlugin.lib.model.schema.sql=propel
+plugins.PhotoRepoPlugin.lib.model.schema.sql=propel
+plugins.photoRepoPlugin.lib.model.schema.sql=propel

@@ -1,7 +1,7 @@
 input[type=checkbox] {
   width: 20px !important;
 }
-.date_field {
+.date_field, #find_pendent_photos_date_from, #find_pendent_photos_date_to {
   width: 70px !important;
   border: 1px solid #5B8638 !important;
   background-color: #e4eae0 !important;
