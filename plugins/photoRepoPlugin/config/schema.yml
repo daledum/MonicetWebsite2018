@@ -1,0 +1,106 @@
+propel:
+  _attributes:        { package: plugins.photoRepoPlugin.lib.model }
+
+  uploaded_photo:    
+    _attributes:      { phpName: UploadedPhoto, idMethod: native }
+    id:               ~
+    uploader_name:    { type: VARCHAR, size: 255, required: true }
+    uploader_email:   { type: VARCHAR, size: 255, required: true }
+    photo_date:       { type: DATE }
+    photo:            { type: VARCHAR, size: 255, required: true }
+    comment:          { type: LONGVARCHAR }
+    processed:        { type: BOOLEAN, default: false }
+    created_at:       ~
+    
+  individual:
+    _attributes:      { phpName: Individual, idMethod: native, isI18N: true, i18nTable: individual_i18n }
+    id:               ~
+    specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
+    created_at:       ~
+    updated_at:       ~
+    
+  individual_i18n:
+    id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: individual, foreignReference: id, index: true }
+    culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
+    name:             { type: VARCHAR, size: 255 }
+    description:      { type: LONGVARCHAR }
+    
+  pattern:
+    _attributes:      { phpName: Pattern, idMethod: native }
+    id:                   ~
+    specie_id:            { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
+    image_tail:           { type: VARCHAR, size: 255, required: false }
+    lines_tail:           { type: INTEGER, required: true, default: 1 }
+    columns_tail:         { type: INTEGER, required: true, default: 1 }
+    image_dorsal_left:    { type: VARCHAR, size: 255, required: false }
+    lines_dorsal_left:    { type: INTEGER, required: true, default: 1 }
+    columns_dorsal_lef:   { type: INTEGER, required: true, default: 1 }
+    image_dorsal_right:   { type: VARCHAR, size: 255, required: false }
+    lines_dorsal_right:   { type: INTEGER, required: true, default: 1 }
+    columns_dorsal_right: { type: INTEGER, required: true, default: 1 }
+    created_at:           ~
+    updated_at:           ~
+  
+  mark:
+    _attributes:      { phpName: Mark, idMethod: native }
+    id:               ~
+    image:            { type: VARCHAR, size: 255, required: true }
+    created_at:       ~
+    updated_at:       ~
+    
+  observation_photo:
+    _attributes:      { phpName: ObservationPhoto, idMethod: native, isI18N: true, i18nTable: observation_photo_i18n }
+    id:               ~
+    code:             { type: VARCHAR, size: 255, required: true }
+    individual_id:    { type: INTEGER, foreignTable: individual, foreignReference: id, required: false, onDelete: cascade, index: true }
+    specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
+    island:           { type: VARCHAR, size: 255, required: false }
+    fin_side:         { type: VARCHAR, size: 255, required: false }
+    latitude:         { type: VARCHAR, size: 255, required: false }
+    longitude:        { type: VARCHAR, size: 255, required: false }
+    company:          { type: VARCHAR, size: 255, required: false }
+    photographer:     { type: VARCHAR, size: 255, required: false }
+    photographer_email: { type: VARCHAR, size: 255, required: false }
+    kind_of_photo:    { type: VARCHAR, size: 255, required: false }
+    photo_quality:    { type: VARCHAR, size: 255, required: false }
+    observation_date: { type: DATE, required: false }
+    created_at:       ~
+    updated_at:       ~
+    
+  observation_photo_i18n:
+    id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: observation_photo, foreignReference: id, index: true }
+    culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
+    legend:           { type: VARCHAR, size: 255, required: false }
+    comments:         { type: LONGVARCHAR, required: false }
+  
+  observation_photo_mark_tail:
+    _attributes:      { phpName: ObservationPhotoMarkTail, idMethod: native }
+    id:               ~
+    photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    mark_id:          { type: INTEGER, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
+    line:             { type: INTEGER, required: true }
+    column:           { type: INTEGER, required: true }
+    observation:      { type: VARCHAR, size: 255, required: false }
+    
+  observation_photo_mark_dorsal_left:
+    _attributes:      { phpName: ObservationPhotoMarkDorsalLeft, idMethod: native }
+    id:               ~
+    photo_id:         { type: integer, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
+    line:             { type: INTEGER, required: true }
+    column:           { type: INTEGER, required: true }
+    observation:      { type: VARCHAR, size: 255, required: false }
+    
+  observation_photo_mark_dorsal_right:
+    _attributes:      { phpName: ObservationPhotoMarkDorsalRight, idMethod: native }
+    id:               ~
+    photo_id:         { type: integer, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
+    line:             { type: INTEGER, required: true }
+    column:           { type: INTEGER, required: true }
+    observation:      { type: VARCHAR, size: 255, required: false }
+    
+  
+  
+    
+  

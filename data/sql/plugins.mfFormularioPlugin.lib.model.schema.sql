@@ -20,7 +20,7 @@ CREATE TABLE `mf_formulario`
 	`observacoes` TEXT,
 	`created_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=MyISAM;
+) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
 #-- mf_formulario_utilizador
@@ -42,7 +42,7 @@ CREATE TABLE `mf_formulario_utilizador`
 	CONSTRAINT `mf_formulario_utilizador_FK_2`
 		FOREIGN KEY (`utilizador_id`)
 		REFERENCES `sf_guard_user` (`id`)
-)Type=MyISAM;
+) ENGINE=MyISAM;
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

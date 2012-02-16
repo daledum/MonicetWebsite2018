@@ -12,5 +12,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('mfAdministracaoPlugin', 'mfLogPlugin', 'mfMenuPlugin', 'mfFormularioPlugin');
     $this->enablePlugins('sfFeed2Plugin');
     $this->enablePlugins('sfFormExtraPlugin');
+    $this->enablePlugins('photoRepoPlugin');
   }
 }

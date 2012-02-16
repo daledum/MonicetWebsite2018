@@ -48,4 +48,5 @@ all:
       - mfMenu
       - sfGuardAuth
       - sfGuardPermission
+      - prMain
     standard_helpers:       [Partial, Cache, I18N]

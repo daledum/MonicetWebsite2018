@@ -1,0 +1,45 @@
+recognition_of_cetaceans_app:
+  url:  /reconhecimento-de-cetaceos
+  params:
+    module:     prMain
+    action:     controlPanel
+  requirements:
+    sf_method:  get
+    
+pr_add_photos_bulk:
+  url:  /reconhecimento-de-cetaceos/upload-photos-bulk
+  params:
+    module:     prMain
+    action:     uploadPhotosBulk
+  requirements:
+    sf_method:  get
+    
+pr_process_add_photos_bulk:
+  url:  /reconhecimento-de-cetaceos/process-upload-photos-bulk
+  params:
+    module:     prMain
+    action:     processUploadPhotosBulk
+  requirements:
+    sf_method:  post
+    
+pr_pendent_photos_list:
+  url:  /reconhecimento-de-cetaceos/fotos/por-processar
+  params:
+    module:     prMain
+    action:     pendentPhotoList
+    
+pr_pendent_invalid_photos_delete:
+  url:  /reconhecimento-de-cetaceos/fotos/apagar-nomes-invalidos
+  params:
+    module:     prMain
+    action:     deleteInvalidPendentPhoto
+  requirements:
+    sf_method: post
+    
+pr_pendent_photo_delete:
+  url:  /reconhecimento-de-cetaceos/fotos/apagar/:filename
+  params:
+    module:     prMain
+    action:     deletePendentPhoto
+  requirements:
+    sf_method: post
