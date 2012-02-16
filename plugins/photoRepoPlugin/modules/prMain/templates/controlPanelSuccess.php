@@ -11,6 +11,7 @@
 
       <table cellspacing="0">
         <tbody>
+          <?php /* ?>
           <tr class="sf_admin_row even">
             <td width="400">Fotografias enviadas pelos utilizadores</td>
             <td width="50" style="text-align: right;"><?php echo $uploadPhotos ?></td>
@@ -20,6 +21,7 @@
               </ul>
             </td>
           </tr>
+          <?php */ ?>
           <tr class="sf_admin_row odd">
             <td width="400">Fotografias por processar</td>
             <td width="50" style="text-align: right;"><?php echo $notProcessedPhotos ?></td>
@@ -30,6 +32,7 @@
               </ul>
             </td>
           </tr>
+          <?php /* ?>
           <tr class="sf_admin_row even">
             <td width="400">Fotografias processadas</td>
             <td width="50" style="text-align: right;"><?php echo $processedPhotos ?></td>
@@ -59,6 +62,7 @@
               </ul>
             </td>
           </tr>
+          <?php */ ?>
         </tbody>
       </table>
     </div>

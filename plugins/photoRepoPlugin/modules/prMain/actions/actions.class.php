@@ -44,14 +44,10 @@ class prMainActions extends sfActions {
   
   public function executePendentPhotoList( sfWebRequest $request ){
     $this->form = new findPendentPhotosForm();
-    
-    if( $request->isMethod('post') ){
-      //$this->form->bind($request->getParameter('pesquisa_planos'));
-      $args = $request->getParameter('find_pendent_photos');
-      //fazer pesquisa
-      $this->argumentos = $args;
-      $this->resultados = $this->findPendentPhotos($args);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
-    }
+
+    $args = $request->getParameter('find_pendent_photos');
+    $this->argumentos = $args;
+    $this->resultados = $this->findPendentPhotos($args);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
     
     $this->invalidPhotos = $this->findInvalidNamePhotos();
   }
@@ -72,6 +68,19 @@ class prMainActions extends sfActions {
     $this->getUser()->setFlash('notice', 'As fotografias foram apagadas com sucesso.');
     $this->redirect('@pr_pendent_photos_list');
   }
+  
+  public function executeDeletePendentPhoto( sfWebRequest $request ){
+    $this->forward404Unless($request->isMethod('post'));
+    
+    $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('filename').'.jpg';
+    if( file_exists( $filename ) ){
+      unlink($filename);
+    }
+    $args = $request->getParameter('args');
+    $this->getUser()->setFlash('notice', 'A fotografia foi apagada com sucesso.');
+    $this->redirect('@pr_pendent_photos_list');
+  }
+  
   
   
   /**
@@ -106,6 +115,7 @@ class prMainActions extends sfActions {
   }
   
   function findPendentPhotos( $args = array() ){
+    //print_r($args);
     $results = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
     $dir = opendir($current_dir);        // Open the sucker
@@ -117,15 +127,15 @@ class prMainActions extends sfActions {
         $dateFile = substr($parts[0], 0, 4).'-'.substr($parts[0], 4, 2).'-'.substr($parts[0], 6, 2);
         
         //Date filter
-        if(strlen($args['date_from']) && !mfData::isPosteriorEqual($dateFile, $args['date_from'])){
+        if( isset($args['date_from']) && strlen($args['date_from']) && !mfData::isPosteriorEqual($dateFile, $args['date_from'])){
           $valid = false;
         }
-        if(strlen($args['date_to']) && !mfData::isAnteriorEqual($dateFile, $args['date_to'])){
+        if( isset($args['date_to']) && strlen($args['date_to']) && !mfData::isAnteriorEqual($dateFile, $args['date_to'])){
           $valid = false;
         }
         
         //Photographer filter
-        if( strlen($args['photographer']) && $args['photographer'] != $parts[1]){
+        if( isset($args['photographer']) &&  strlen($args['photographer']) && $args['photographer'] != $parts[1]){
           $valid = false;
         }
         

@@ -88,16 +88,17 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach( $resultados as $file ): ?>
-              <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
-                <td style="text-align: left;"><?php echo $file ?></td>
-                <td>
-                  <ul class="sf_admin_td_actions">
-                    <li class="sf_admin_action_show"><?php //echo link_to('Consultar planos', '@sf_guard_user_planos?id='.$sfGuardUser->getId() ) ?></li>
-                  </ul>
-                </td>
-              </tr>
-            <?php endforeach; ?>
+          <?php foreach( $resultados as $file ): ?>
+            <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
+              <td style="text-align: left;"><?php echo $file ?></td>
+              <td>
+                <ul class="sf_admin_td_actions">
+                  <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file, 0, -4)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro '.substr($file, 0, -4).'?')) ?></li>
+                  <li class="sf_admin_action_show"><?php //echo link_to('Consultar planos', '@sf_guard_user_planos?id='.$sfGuardUser->getId() ) ?></li>
+                </ul>
+              </td>
+            </tr>
+          <?php endforeach; ?>
           </tbody>
         </table>
       </div>

@@ -35,3 +35,11 @@ pr_pendent_invalid_photos_delete:
     action:     deleteInvalidPendentPhoto
   requirements:
     sf_method: post
+    
+pr_pendent_photo_delete:
+  url:  /reconhecimento-de-cetaceos/fotos/apagar/:filename
+  params:
+    module:     prMain
+    action:     deletePendentPhoto
+  requirements:
+    sf_method: post
