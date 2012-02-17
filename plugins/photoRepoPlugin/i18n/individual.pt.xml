@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Name</source>
+        <target>Nome</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Created at</source>
+        <target>Criado em</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Updated at</source>
+        <target>Actualizado em</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pt</source>
+        <target>Português</target>
+      </trans-unit>
+      <trans-unit>
+        <source>En</source>
+        <target>Inglês</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

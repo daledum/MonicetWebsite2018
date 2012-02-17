@@ -8,6 +8,6 @@ all:
     email:              true
     email_to:
       - vilarinho@morfose.net
-      #- antonio.pedro.couto@morfose.net
+      - antonio.pedro.couto@morfose.net
     email_from:         no-reply@morfose.net
     email_assunto:      monicet - lamentavelmente ocorreu uma excepção
