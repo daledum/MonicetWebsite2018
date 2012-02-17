@@ -72,7 +72,7 @@ class prMainActions extends sfActions {
   public function executeDeletePendentPhoto( sfWebRequest $request ){
     $this->forward404Unless($request->isMethod('post'));
     
-    $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('filename').'.jpg';
+    $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('filename').'.'.$request->getParameter('extension');
     if( file_exists( $filename ) ){
       unlink($filename);
     }
