@@ -129,8 +129,10 @@
 #sf_admin_container ul.sf_admin_actions {
   margin: 10px 0 0;
   list-style-type: none;
-  background-color: #e9e9e9;
-  padding: 5px 10px;
+  background-color: #E9E9E9;
+  padding: 5px 10px 5px;
+  height: 30px;
+  line-height: 30px;
   clear: both;
 }
 
@@ -181,6 +183,10 @@
 
 #sf_admin_container ul li.sf_admin_action_edit a {
   background: url('../images/icons/edit.png') no-repeat 0 0;
+}
+
+#sf_admin_container ul li.sf_admin_action_back a {
+  background: url('../images/icons/left.png') no-repeat 0 0;
 }
 
 #sf_admin_container .notice {
@@ -331,4 +337,18 @@
 
 strong {
     font-weight: bold;
+}
+
+/* EMBEDED FORMS*/
+#sf_fieldset_none table {
+  margin-bottom: 10px;
+}
+#sf_fieldset_none th {
+  background: #fff;
+  padding: 5px;
+}
+
+#sf_fieldset_none td {
+  padding: 5px;
+  background: #fff;
 }

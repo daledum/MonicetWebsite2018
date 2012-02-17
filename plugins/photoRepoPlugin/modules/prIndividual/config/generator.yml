@@ -1,0 +1,31 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Individual
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Individual
+    plural:                Individuals
+    route_prefix:          pr_individual
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  
+        specie:
+          label: "Espécie"
+        name:
+          label: "Nome"
+      list:    
+        title:  "Listagem de individuos"
+        display:  [ name, specie ]
+        batch_actions:  []
+      filter:  
+        class: false
+      form:    ~
+      edit:    
+        title: 'A editar o individuo "%%name%%"'
+      new:     
+        title: 'A adicionar novo individuo'  

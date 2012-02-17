@@ -49,4 +49,5 @@ all:
       - sfGuardAuth
       - sfGuardPermission
       - prMain
+      - prIndividual
     standard_helpers:       [Partial, Cache, I18N]

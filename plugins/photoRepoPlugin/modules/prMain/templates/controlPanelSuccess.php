@@ -42,27 +42,28 @@
               </ul>
             </td>
           </tr>
+          
           <tr class="sf_admin_row odd">
             <td width="400">Indíviduos</td>
             <td width="50" style="text-align: right;"><?php echo $individuals ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@homepage') ?></li>
-                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@homepage') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_individual') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@pr_individual_new') ?></li>
               </ul>
             </td>
           </tr>
+          <?php */ ?>
           <tr class="sf_admin_row even">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@homepage') ?></li>
-                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@homepage') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@specie') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@specie_new') ?></li>
               </ul>
             </td>
           </tr>
-          <?php */ ?>
         </tbody>
       </table>
     </div>

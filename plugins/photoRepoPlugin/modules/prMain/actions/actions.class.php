@@ -156,7 +156,7 @@ class prMainActions extends sfActions {
     while ($file = readdir($dir)) {
       if($file != '.' && $file != '..'){
         $parts = explode(".", $file);
-        if( !is_array($parts) || count($parts) != 2 || $parts[1] != 'jpg' ){
+        if( !is_array($parts) || count($parts) != 2 || ($parts[1] != 'jpg' && $parts[1] != 'JPG') ){
           $results[] = $file;
         } else {
           $nameParts = explode('-', $parts[0]);

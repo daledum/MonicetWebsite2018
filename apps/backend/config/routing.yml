@@ -1,3 +1,4 @@
+
 watch_post:
   class: sfPropelRouteCollection
   options:
