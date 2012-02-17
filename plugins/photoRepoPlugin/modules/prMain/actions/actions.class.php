@@ -23,33 +23,63 @@ class prMainActions extends sfActions {
       $values = $this->form->getValues();
       
       $file = $this->form->getValue('photo');
-      $destinyFolder = 'pr_repo_temp';
-      if( $values['photo']->getOriginalExtension() == '.jpg'){
-        $destinyFolder = 'pr_repo';
-      }
-      $fileAddress = sfConfig::get('sf_upload_dir').'/'.$destinyFolder.'/'.$values['photo']->getOriginalName();
-      $file->save( $fileAddress );
-      
-      $finalFileAddress = sfConfig::get('sf_upload_dir').'/pr_repo';
       if( $values['photo']->getOriginalExtension() == '.zip'){
-        system('unzip '.$fileAddress.' -d '.$finalFileAddress);
+        $ok = true;
+        // salvar ficheiro zip e descompactar na pasta temporária
+        $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/'.$values['photo']->getOriginalName();
+        $finalTempfileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/';
+        $file->save( $fileAddress );
+        system('unzip '.$fileAddress.' -d '.$finalTempfileAddress);
         system('rm '.$fileAddress);
+        
+        // validar o nome dos ficheiros
+        $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo_temp';
+        $dir = opendir($current_dir);        // Open the sucker
+        while ($file = readdir($dir)) {
+          if( $file != '.' && $file != '..' ){
+            if( !$this->validateFilename($file) ) {
+              $ok = false;
+            }
+          }
+        }
+        if( $ok ) {
+          system('cp '.$finalTempfileAddress.'* '.sfConfig::get('sf_upload_dir').'/pr_repo');
+          $this->getUser()->setFlash('notice', 'A fotografias foram carregadas com sucesso.');
+          system('rm '.$finalTempfileAddress.'*');
+          $this->redirect('@recognition_of_cetaceans_app');
+        } else {
+          system('rm '.$finalTempfileAddress.'*');
+          $this->getUser()->setFlash('error', 'Pelo menos um ficheiro contido no ficheiro .zip tem um formato inválido');
+        }
+        
+      } else {
+        if( in_array($values['photo']->getOriginalExtension(), array('.jpg', '.JPG'))){
+          if( $this->validateFileName($values['photo']->getOriginalName()) ) {
+            $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$values['photo']->getOriginalName();
+            $file->save( $fileAddress );
+            $this->getUser()->setFlash('notice', 'A fotografia foi carregada com sucesso.');
+            $this->redirect('@recognition_of_cetaceans_app');
+          } else {
+            $this->getUser()->setFlash('error', 'A fotografia enviada contém um formato inválido.');
+          }
+        } else {
+          $this->getUser()->setFlash('error', 'A fotografia enviada contém uma extensão inválida.');
+        }
       }
-      
-      $this->getUser()->setFlash('notice', 'As fotografias foram carregadas com sucesso.');
-      $this->redirect('@recognition_of_cetaceans_app');
     }
     $this->setTemplate('uploadPhotosBulk');
   }
   
   public function executePendentPhotoList( sfWebRequest $request ){
     $this->form = new findPendentPhotosForm();
+    
+    $this->sort = $request->getParameter('sort', 'asc');
 
     $args = $request->getParameter('find_pendent_photos');
     $this->argumentos = $args;
-    $this->resultados = $this->findPendentPhotos($args);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
+    $this->resultados = $this->findPendentPhotos($args, $this->sort);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
     
-    $this->invalidPhotos = $this->findInvalidNamePhotos();
+    $this->invalidPhotos = $this->findInvalidNamePhotos($this->sort);
   }
   
   public function executeDeleteInvalidPendentPhoto( sfWebRequest $request ){
@@ -114,7 +144,7 @@ class prMainActions extends sfActions {
     return $counter;
   }
   
-  function findPendentPhotos( $args = array() ){
+  function findPendentPhotos( $args = array(), $sort = 'asc' ){
     //print_r($args);
     $results = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
@@ -144,11 +174,17 @@ class prMainActions extends sfActions {
         }
       }
     }
-    sort($results);
+    
+    if( $sort == 'asc' ) {
+      sort($results);
+    } else {
+      rsort($results);
+    }
+    
     return $results;
   }
   
-  function findInvalidNamePhotos(){
+  function findInvalidNamePhotos( $sort = 'asc' ){
     $results = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
     $dir = opendir($current_dir);        // Open the sucker
@@ -166,7 +202,23 @@ class prMainActions extends sfActions {
         }
       }
     }
-    sort($results);
+    if( $sort == 'asc' ) {
+      sort($results);
+    } else {
+      rsort($results);
+    }
     return $results;
+  }
+  
+  function validateFilename($filename){
+    $valid = false;
+    $parts = explode(".", $filename);
+    if( is_array($parts) && count($parts) == 2 && ($parts[1] == 'jpg' || $parts[1] == 'JPG') ){
+      $nameParts = explode('-', $parts[0]);
+      if( is_array($nameParts) && count($nameParts) == 3 ){
+        $valid = true;
+      }
+    }
+    return $valid;
   }
 }

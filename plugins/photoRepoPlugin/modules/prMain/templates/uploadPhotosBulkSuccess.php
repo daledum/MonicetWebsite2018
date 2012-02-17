@@ -25,7 +25,7 @@
         </fieldset>
 
         <ul class="sf_admin_actions">
-          <li class="sf_admin_action_list"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Cancelar</a></li>
+          <li class="sf_admin_action_back"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Painel de controlo</a></li>
           <li class="sf_admin_action_save"><input type="submit" value="Enviar" /></li>
         </ul>
       </form>

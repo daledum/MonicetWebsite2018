@@ -34,7 +34,8 @@
           </div>
         </fieldset>
         <ul class="sf_admin_actions">
-          <li class="sf_admin_action_list"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Cancelar</a></li>
+          <li class="sf_admin_action_back"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Painel de controlo</a></li>
+          <li class="sf_admin_action_new"><?php echo link_to('Adicionar mais fotografias', '@pr_add_photos_bulk') ?></li>
           <li class="sf_admin_action_save"><input type="submit" value="Pesquisar" /></li>
           <?php if( count($invalidPhotos) ): ?>
             <li class="sf_admin_action_delete"><?php echo link_to('Apagar ficheiros inválidos', 'pr_pendent_invalid_photos_delete', array(), array( 'method' => 'post', 'confirm' => 'Tem a certeza que pretende remover os ficheiros inválidos?')) ?></li>
