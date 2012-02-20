@@ -1,0 +1,48 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Pattern
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Pattern
+    plural:                Patterns
+    route_prefix:          pr_pattern
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  
+        specie_id:
+          label: "Espécie"
+        specie:
+          label: "Espécie"
+        image_tail:
+          label: "Imagem (cauda)"
+        lines_tail:
+          label: "Linhas (cauda)"
+        columns_tail:
+          label: "Colunas (cauda)"
+        image_dorsal_left:
+          label: "Imagem (dorsal esquerda)"
+        lines_dorsal_left:
+          label: "Linhas (dorsal esquerda)"
+        columns_dorsal_left:
+          label: "Colunas (dorsal esquerda)"
+        image_dorsal_right:
+          label: "Imagem (dorsal direita)"
+        lines_dorsal_right:
+          label: "Linhas (dorsal direita)"
+        columns_dorsal_right:
+          label: "Colunas (dorsal direita)"
+      list:    
+        title: Listagem de padrões
+        display: [specie]
+        batch_actions: []
+      filter:  ~
+      form:    ~
+      edit:    
+        title: 'A editar o padrão da espécie "%%specie%%"'
+      new:     
+        title: 'A adicionar novo padrão'

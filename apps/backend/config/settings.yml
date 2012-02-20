@@ -50,4 +50,5 @@ all:
       - sfGuardPermission
       - prMain
       - prIndividual
+      - prPattern
     standard_helpers:       [Partial, Cache, I18N]

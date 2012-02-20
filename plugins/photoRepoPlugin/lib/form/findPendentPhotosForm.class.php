@@ -27,7 +27,6 @@ class findPendentPhotosForm extends sfForm
     
     
     // Photographers
-    // TODO Get Available photographers from fileNames 
     $photographers = $this->getPhotographerCodes();
     $this->widgetSchema['photographer'] = new sfWidgetFormChoice(array(
       'choices' => $photographers 

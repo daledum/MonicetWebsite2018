@@ -36,7 +36,7 @@ propel:
     columns_tail:         { type: INTEGER, required: true, default: 1 }
     image_dorsal_left:    { type: VARCHAR, size: 255, required: false }
     lines_dorsal_left:    { type: INTEGER, required: true, default: 1 }
-    columns_dorsal_lef:   { type: INTEGER, required: true, default: 1 }
+    columns_dorsal_left:  { type: INTEGER, required: true, default: 1 }
     image_dorsal_right:   { type: VARCHAR, size: 255, required: false }
     lines_dorsal_right:   { type: INTEGER, required: true, default: 1 }
     columns_dorsal_right: { type: INTEGER, required: true, default: 1 }

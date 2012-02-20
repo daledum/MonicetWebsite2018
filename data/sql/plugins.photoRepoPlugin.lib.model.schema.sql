@@ -83,7 +83,7 @@ CREATE TABLE `pattern`
 	`columns_tail` INTEGER default 1 NOT NULL,
 	`image_dorsal_left` VARCHAR(255),
 	`lines_dorsal_left` INTEGER default 1 NOT NULL,
-	`columns_dorsal_lef` INTEGER default 1 NOT NULL,
+	`columns_dorsal_left` INTEGER default 1 NOT NULL,
 	`image_dorsal_right` VARCHAR(255),
 	`lines_dorsal_right` INTEGER default 1 NOT NULL,
 	`columns_dorsal_right` INTEGER default 1 NOT NULL,

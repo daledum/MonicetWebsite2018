@@ -41,3 +41,33 @@ CREATE TABLE `individual_i18n`
 		FOREIGN KEY (`id`)
 		REFERENCES `individual` (`id`)
 ) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- pattern
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pattern`;
+
+
+CREATE TABLE `pattern`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`specie_id` INTEGER,
+	`image_tail` VARCHAR(255),
+	`lines_tail` INTEGER default 1 NOT NULL,
+	`columns_tail` INTEGER default 1 NOT NULL,
+	`image_dorsal_left` VARCHAR(255),
+	`lines_dorsal_left` INTEGER default 1 NOT NULL,
+	`columns_dorsal_left` INTEGER default 1 NOT NULL,
+	`image_dorsal_right` VARCHAR(255),
+	`lines_dorsal_right` INTEGER default 1 NOT NULL,
+	`columns_dorsal_right` INTEGER default 1 NOT NULL,
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	KEY `pattern_I_1`(`specie_id`),
+	CONSTRAINT `pattern_FK_1`
+		FOREIGN KEY (`specie_id`)
+		REFERENCES `specie` (`id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM;

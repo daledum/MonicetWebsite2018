@@ -53,5 +53,13 @@ pr_individual:
     column:               id
     with_wildcard_routes: true
     with_show:            true
-    #object_actions:       { show: get }
+    
+pr_pattern:
+  class: sfPropel15RouteCollection
+  options:
+    model:                Pattern
+    module:               prPattern
+    prefix_path:          /prPattern
+    column:               id
+    with_wildcard_routes: true
     

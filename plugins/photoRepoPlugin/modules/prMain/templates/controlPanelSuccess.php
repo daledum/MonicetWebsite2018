@@ -64,6 +64,17 @@
               </ul>
             </td>
           </tr>
+          
+          <tr class="sf_admin_row odd">
+            <td width="400">Padrões</td>
+            <td width="50" style="text-align: right;"><?php echo $patterns ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_pattern') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@pr_pattern_new') ?></li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
