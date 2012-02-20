@@ -113,8 +113,8 @@ propel:
       sea_state_id:     { type: integer, foreignTable: sea_state, foreignReference: id, required: true, onDelete: cascade }
       general_info_id:  { type: integer, foreignTable: general_info, foreignReference: id, required: true, onDelete: cascade }
       time:             { type: time, required: true }
-      latitude:         { type: varchar(45), required: true }
-      longitude:        { type: varchar(45), required: true }
+      latitude:         { type: varchar(45), required: false }
+      longitude:        { type: varchar(45), required: false }
       num_vessels:      { type: integer, default: 0, required: false }
       created_at:       ~
       updated_at:       ~
