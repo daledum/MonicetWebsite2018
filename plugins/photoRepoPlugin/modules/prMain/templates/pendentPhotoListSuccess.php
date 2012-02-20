@@ -84,7 +84,11 @@
         <table cellspacing="0">
           <thead>
             <tr>
-              <th width="300">Fotografia</th>
+              <th width="300">
+                <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$sort.'.png', array('alt' => __($sort, array(), 'sf_admin'), 'title' => __($sort, array(), 'sf_admin'))) ?>
+                <?php $ph = $sf_request->getParameterHolder()->get('find_pendent_photos') ?>
+                <?php echo link_to('Fotografia', '@pr_pendent_photos_list?find_pendent_photos[photographer]='.$ph['photographer'].'&find_pendent_photos[date_from]='.$ph['date_from'].'&find_pendent_photos[date_to]='.$ph['date_to'].'&sort='.($sort == 'asc' ? 'desc' : 'asc'), array(), array('method' => 'post')) ?>
+              </th>
               <th>Acções</th>
             </tr>
           </thead>
@@ -104,7 +108,7 @@
         </table>
       </div>
     <?php else: ?>
-        <div class="error">Não foram encontrados resultados com os critérios fornecidos</div>
+      <div class="error">Não foram encontrados resultados com os critérios fornecidos</div>
     <?php endif; ?>
   </div>
 <?php endif; ?>
