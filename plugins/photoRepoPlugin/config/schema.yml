@@ -15,6 +15,7 @@ propel:
   individual:
     _attributes:      { phpName: Individual, idMethod: native, isI18N: true, i18nTable: individual_i18n }
     id:               ~
+    name:             { type: VARCHAR, size: 255 }
     specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
     created_at:       ~
     updated_at:       ~
@@ -22,8 +23,9 @@ propel:
   individual_i18n:
     id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: individual, foreignReference: id, index: true }
     culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
-    name:             { type: VARCHAR, size: 255 }
-    description:      { type: LONGVARCHAR }
+    description1:     { type: LONGVARCHAR }
+    description2:     { type: LONGVARCHAR }
+    notes:            { type: LONGVARCHAR }
     
   pattern:
     _attributes:      { phpName: Pattern, idMethod: native }

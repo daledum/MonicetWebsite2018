@@ -12,13 +12,15 @@ abstract class BaseIndividualI18nFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
-      'name'        => new sfWidgetFormFilterInput(),
-      'description' => new sfWidgetFormFilterInput(),
+      'description1' => new sfWidgetFormFilterInput(),
+      'description2' => new sfWidgetFormFilterInput(),
+      'notes'        => new sfWidgetFormFilterInput(),
     ));
 
     $this->setValidators(array(
-      'name'        => new sfValidatorPass(array('required' => false)),
-      'description' => new sfValidatorPass(array('required' => false)),
+      'description1' => new sfValidatorPass(array('required' => false)),
+      'description2' => new sfValidatorPass(array('required' => false)),
+      'notes'        => new sfValidatorPass(array('required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('individual_i18n_filters[%s]');
@@ -36,10 +38,11 @@ abstract class BaseIndividualI18nFormFilter extends BaseFormFilterPropel
   public function getFields()
   {
     return array(
-      'id'          => 'ForeignKey',
-      'culture'     => 'Text',
-      'name'        => 'Text',
-      'description' => 'Text',
+      'id'           => 'ForeignKey',
+      'culture'      => 'Text',
+      'description1' => 'Text',
+      'description2' => 'Text',
+      'notes'        => 'Text',
     );
   }
 }

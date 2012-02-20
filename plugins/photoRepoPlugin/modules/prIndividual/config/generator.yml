@@ -4,7 +4,7 @@ generator:
     model_class:           Individual
     theme:                 mfAdmin
     non_verbose_templates: true
-    with_show:             false
+    with_show:             true
     singular:              Individual
     plural:                Individuals
     route_prefix:          pr_individual
@@ -21,9 +21,15 @@ generator:
       list:    
         title:  "Listagem de individuos"
         display:  [ name, specie ]
+        object_actions: 
+          show: 
+            label:   Mostrar
+            action:  show 
+          _edit:     ~
+          _delete:   ~
         batch_actions:  []
-      filter:  
-        class: false
+      filter: ~ 
+      #  class: false
       form:    ~
       edit:    
         title: 'A editar o individuo "%%name%%"'

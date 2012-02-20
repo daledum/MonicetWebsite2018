@@ -3,9 +3,10 @@
 class IndividualI18nForm extends BaseIndividualI18nForm
 {
   public function configure() {
-    $this->widgetSchema->setLabel('name', 'Nome');
-    $this->widgetSchema->setLabel('description', 'Descrição');
     
-    $this->validatorSchema['name'] = new sfValidatorString(array('max_length' => 255, 'required' => true));
+    $this->widgetSchema->setLabel('description1', 'Descrição 1');
+    $this->widgetSchema->setLabel('description2', 'Descrição 2');
+    $this->widgetSchema->setLabel('notes', 'Notas');
+   
   }
 }

@@ -33,6 +33,7 @@ DROP TABLE IF EXISTS `individual`;
 CREATE TABLE `individual`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255),
 	`specie_id` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
@@ -55,8 +56,9 @@ CREATE TABLE `individual_i18n`
 (
 	`id` INTEGER  NOT NULL,
 	`culture` VARCHAR(7)  NOT NULL,
-	`name` VARCHAR(255),
-	`description` TEXT,
+	`description1` TEXT,
+	`description2` TEXT,
+	`notes` TEXT,
 	PRIMARY KEY (`id`,`culture`),
 	KEY `individual_i18n_I_1`(`id`),
 	KEY `individual_i18n_I_2`(`culture`),

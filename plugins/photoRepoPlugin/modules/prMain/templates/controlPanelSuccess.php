@@ -42,7 +42,7 @@
               </ul>
             </td>
           </tr>
-          
+          <?php */ ?>
           <tr class="sf_admin_row odd">
             <td width="400">Indíviduos</td>
             <td width="50" style="text-align: right;"><?php echo $individuals ?></td>
@@ -53,7 +53,7 @@
               </ul>
             </td>
           </tr>
-          <?php */ ?>
+          
           <tr class="sf_admin_row even">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>

@@ -52,4 +52,6 @@ pr_individual:
     prefix_path:          /individuo
     column:               id
     with_wildcard_routes: true
+    with_show:            true
+    #object_actions:       { show: get }
     

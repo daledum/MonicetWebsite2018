@@ -24,8 +24,27 @@ class prIndividualActions extends autoPrIndividualActions {
   
   protected function buildCriteria()
   {
-    $criteria = new Criteria();
+    
+    if (null === $this->filters)
+    {
+      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    }
+
+    $criteria = $this->filters->buildCriteria($this->getFilters());
+
+    $this->addSortCriteria($criteria);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+    $criteria = $event->getReturnValue();
 
     return $criteria;
+    
+//    $criteria = new Criteria();
+//
+//    return $criteria;
+  }
+  
+  public function executeShow( sfWebRequest $request ) {
+    $this->individual = $this->getRoute()->getObject();
   }
 }
