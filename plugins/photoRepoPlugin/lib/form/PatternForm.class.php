@@ -10,7 +10,7 @@ class PatternForm extends BasePatternForm
     
     $this->validatorSchema['specie_id'] = new sfValidatorPropelChoice(array('model' => 'Specie', 'column' => 'id', 'required' => true));
     
-    $numberOptions = range(1,10);
+    $numberOptions = range(1,20);
     $numberOptionFields = array(
         'lines_tail', 'columns_tail', 
         'lines_dorsal_left', 'columns_dorsal_left',
@@ -26,13 +26,76 @@ class PatternForm extends BasePatternForm
       ));
     }
     
-    $photoFields = array(
-        array('field' => 'image_tail', 'required' => false, 'label' => ''),
-        array('field' => 'image_dorsal_left', 'required' => false, 'label' => ''),
-        array('field' => 'image_dorsal_right', 'required' => false, 'label' => '')
-    );
     
-    foreach( $photoFields as $field ){
+    
+    
+    $this->widgetSchema['image_tail'] = new sfWidgetFormInputFileEditable(array(
+      'is_image' => true,
+      'file_src' => ($this->getObject()->getImageTail()? '/uploads/pr_patterns/'.$this->getObject()->getImageTail(): null),
+      'edit_mode' => !$this->getObject()->isNew() && $this->getObject()->getImageTail()
+    ));
+    $this->widgetSchema['image_tail']->setAttribute('class', 'uploaded_image');
+
+    $this->validatorSchema['image_tail'] = new sfValidatorFile(array(
+      'required' => false,
+      'path' => sfConfig::get('sf_upload_dir').'/pr_patterns',
+      'mime_categories' => 'web_images',
+      'mime_type_guessers' => array(
+        array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromFileinfo'),
+        array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromMimeContentType'),
+        array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromFileBinary'),
+      )
+    ));
+    $this->validatorSchema['image_tail_delete'] = new sfValidatorPass();
+    
+    
+    
+    
+    
+    $this->widgetSchema['image_dorsal_left'] = new sfWidgetFormInputFileEditable(array(
+      'is_image' => true,
+      'file_src' => ($this->getObject()->getImageDorsalLeft()? '/uploads/pr_patterns/'.$this->getObject()->getImageDorsalLeft(): null),
+      'edit_mode' => !$this->getObject()->isNew() && $this->getObject()->getImageDorsalLeft()
+    ));
+    $this->widgetSchema['image_dorsal_left']->setAttribute('class', 'uploaded_image');
+
+    $this->validatorSchema['image_dorsal_left'] = new sfValidatorFile(array(
+      'required' => false,
+      'path' => sfConfig::get('sf_upload_dir').'/pr_patterns',
+      'mime_categories' => 'web_images',
+      'mime_type_guessers' => array(
+        array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromFileinfo'),
+        array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromMimeContentType'),
+        array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromFileBinary'),
+      )
+    ));
+    $this->validatorSchema['image_dorsal_left_delete'] = new sfValidatorPass();
+    
+    
+    
+    
+    $this->widgetSchema['image_dorsal_right'] = new sfWidgetFormInputFileEditable(array(
+      'is_image' => true,
+      'file_src' => ($this->getObject()->getImageDorsalRight()? '/uploads/pr_patterns/'.$this->getObject()->getImageDorsalRight(): null),
+      'edit_mode' => !$this->getObject()->isNew() && $this->getObject()->getImageDorsalRight()
+    ));
+    $this->widgetSchema['image_dorsal_right']->setAttribute('class', 'uploaded_image');
+
+    $this->validatorSchema['image_dorsal_right'] = new sfValidatorFile(array(
+      'required' => false,
+      'path' => sfConfig::get('sf_upload_dir').'/pr_patterns',
+      'mime_categories' => 'web_images',
+      'mime_type_guessers' => array(
+        array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromFileinfo'),
+        array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromMimeContentType'),
+        array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromFileBinary'),
+      )
+    ));
+    $this->validatorSchema['image_dorsal_right_delete'] = new sfValidatorPass();
+      
+      
+    /*  
+    foreach( $photoFields as $field ){  
       $this->widgetSchema[$field['field']] = new sfWidgetFormInputFile();
       $this->validatorSchema[$field['field']] = new sfValidatorFile(array(
         'required'      => $field['required'],
@@ -48,7 +111,7 @@ class PatternForm extends BasePatternForm
       ));
       $this->widgetSchema->setHelp($field['field'], 'Apenas ficheiros com extensão .jpg');
     }
-     
+    */ 
      
      
   }

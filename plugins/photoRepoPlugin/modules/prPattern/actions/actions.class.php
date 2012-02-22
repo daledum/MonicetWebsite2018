@@ -5,8 +5,7 @@ require_once dirname(__FILE__).'/../lib/prPatternGeneratorHelper.class.php';
 
 class prPatternActions extends autoPrPatternActions
 {
-  public function executeDelete(sfWebRequest $request)
-  {
+  public function executeDelete(sfWebRequest $request) {
     $request->checkCSRFProtection();
 
     $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
@@ -30,5 +29,9 @@ class prPatternActions extends autoPrPatternActions
     $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
 
     $this->redirect('@pr_pattern');
+  }
+  
+  public function executeShow( sfWebRequest $request ){
+    $this->pattern = $this->getRoute()->getObject();
   }
 }

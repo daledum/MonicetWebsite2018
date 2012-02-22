@@ -16,3 +16,8 @@
 	padding: 10px;
 	background: #FFFFFF;
 }
+
+.uploaded_image {
+  max-width: 400px;
+  margin-bottom: 10px;
+}

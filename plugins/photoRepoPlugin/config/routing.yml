@@ -59,7 +59,7 @@ pr_pattern:
   options:
     model:                Pattern
     module:               prPattern
-    prefix_path:          /prPattern
+    prefix_path:          /padrao
     column:               id
     with_wildcard_routes: true
     

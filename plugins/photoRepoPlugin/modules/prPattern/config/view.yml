@@ -1,2 +1,6 @@
+showSuccess:
+  stylesheets: [/photoRepoPlugin/css/pr.css]
+editSuccess:
+  stylesheets: [/photoRepoPlugin/css/pr.css]
 all:
   layout: mfAdminLayout

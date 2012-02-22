@@ -40,6 +40,12 @@ generator:
         title: Listagem de padrões
         display: [specie]
         batch_actions: []
+        object_actions: 
+          show: 
+            label:   Mostrar
+            action:  show 
+          _edit:     ~
+          _delete:   ~
       filter:  ~
       form:    ~
       edit:    
