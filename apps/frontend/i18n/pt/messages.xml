@@ -372,6 +372,22 @@
         <source>in maintenance</source>
         <target>em manutenção</target>
       </trans-unit>
+      <trans-unit id="94">
+        <source>Select All</source>
+        <target>Seleccionar Todas</target>
+      </trans-unit>
+      <trans-unit id="95">
+        <source>Select None</source>
+        <target>Seleccionar Nenhuma</target>
+      </trans-unit>
+      <trans-unit id="96">
+        <source>Four most seen</source>
+        <target>Quatro mais vistas</target>
+      </trans-unit>
+      <trans-unit id="97">
+        <source>Select Species</source>
+        <target>Seleccionar espécies</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

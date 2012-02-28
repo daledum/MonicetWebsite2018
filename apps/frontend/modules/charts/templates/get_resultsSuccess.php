@@ -1,15 +1,7 @@
 <?php
   
-  $selected = array(
-  	'Common dolphin (Dd)',
-  	'Golfinho comum (Dd)',
-  	'Sperm whale (Pm)',
-  	'Cachalote (Pm)',
-  	'Atlantic Spotted dolphin (Sf)',
-  	'Golfinho Pintado (Sf)',
-  	'Common bottlenose dolphin (Tt)',
-  	'Roaz (Tt)',
-  );
+  // número de espécies visíveis no inicio
+  //$counter = 4;
   
   $cats = '';
   foreach($categories as $c): 
@@ -17,14 +9,15 @@
   endforeach;
 
   $results = '';
-  foreach($series as $c => $d): 
+  foreach($totals as $c => $d): 
     $results .= "{\"name\": \"".$c."\", \"data\": [";  
-    foreach($d as $i):  
+    foreach($series[$c] as $i):  
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-	if (in_array($c, $selected)) {
+	if ($counter > 0) {
 		$results .= "]},";
+    $counter --;
 	}
 	else {
 		$results .= "], \"visible\":false},";

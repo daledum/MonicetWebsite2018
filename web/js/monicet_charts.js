@@ -49,7 +49,8 @@ function updateChart() {
              "behaviour": $("#behaviour").val(),
              "sea_state": $("#sea-state").val(),
              "visibility": $("#visibility").val(),
-             "type": $("input[name='chart-type']:checked").val()},
+             "type": $("input[name='chart-type']:checked").val(),
+             "select_all": $("#select-all-toggle").val()},
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'bar';
@@ -71,7 +72,11 @@ function updateChart() {
 
 $(function() {
   updateChart();
-
+  
+  $("#selected-species").change(function(){
+    $("#select-all-toggle").val($(this).val());
+  });
+  
   $("input[name='chart-type']").change(function() {
      if ($(this).val() == '2') {
          $("#month").attr('disabled', 'disabled');
@@ -83,4 +88,16 @@ $(function() {
   $(".chart-container .left-sidebar input, .chart-container .left-sidebar select").change(function(){
     updateChart();
   });
+  
+  $("#select-all").click(function(){
+    $("#select-all-toggle").val('all');
+    updateChart();
+  });
+  
+  $("#select-none").click(function(){
+    $("#select-all-toggle").val('none');
+    updateChart();
+  });
+  
+  
 });

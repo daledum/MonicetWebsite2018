@@ -37,6 +37,17 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="filter-item">
+                    <label><?php echo __('Select Species') ?>:</label>
+                    <!--<button id="select-all" type="button"><?php echo __('All') ?></button>
+                    <button id="select-none" type="button"><?php echo __('None') ?></button>-->
+                    <select id="selected-species" class="filter-select">
+                        <option value="custom"><?php print __('Four most seen') ?></option>
+                        <option value="all"><?php print __('Select All') ?></option>
+                        <option value="none"><?php print __('Select None') ?></option>
+                    </select>
+                    <input type="hidden" id="select-all-toggle" value="custom" />
+                </div>
                 <div id="chart-loading"></div>
                 <div class="chart-text bar-chart">
                     <?php print __('Percentage of trips in which the selected species were seen.'); ?>

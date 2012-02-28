@@ -67,7 +67,7 @@ class chartsActions extends sfActions
         for( $month=1; $month<=12; $month++) {
           $gi_total = GeneralInfoPeer::getTotalForPeriod(2, $year, $month);
           $numGI = GeneralInfoPeer::countForSpecieOnMonth($specie->getId(), $year, $month);
-          $series[$specie->formattedString()][$month] = round(($numGI / $gi_total) * 100, 0);;
+          $series[$specie->formattedString()][$month] = round(($numGI / $gi_total) * 100, 0);
         }
       }
       
@@ -75,6 +75,36 @@ class chartsActions extends sfActions
           $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
       }
     }
+    
+    //// ORDENAR AS ESPÉCIES
+    
+    // criar um array com os totais
+    $totals = array();
+    foreach($series as $specie => $values) {
+      $total = 0;
+      for( $month=1; $month<=12; $month++) {
+        $total += $values[$month];
+      }
+      $totals[$specie] = $total;
+    }
+    
+    // ordenar o array por ordem decrescente
+    arsort($totals);
+    
+    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 espécies com mais resultados
+    if ( $request->getParameter('select_all') != 'custom' ) {
+      if ( $request->getParameter('select_all') == 'all' ) {
+        $this->counter = count($totals);
+      }
+      else {
+        $this->counter = 0;
+      }
+    }
+    else {
+      $this->counter = 4;
+    }
+    
+    $this->totals = $totals;
     $this->series = $series;
     $this->categories = $categories;
   }
