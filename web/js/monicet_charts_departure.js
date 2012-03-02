@@ -26,7 +26,13 @@ function updateChart() {
   var series = [];
   $.ajax({
       url: "/admin.php/departureChartResults?_=" + Math.floor(Math.random()*1000001),
-      data: {"year": $("#year").val(), "month": $("#month").val(), "chart-type": $("#chart-type").val(), "company_id": $("#company_id").val()},
+      data: {
+        "year": $("#year").val(),
+        "month": $("#month").val(),
+        "chart-type": $("#chart-type").val(),
+        "company_id": $("#company_id").val(),
+        "select_all": $("#select-all-toggle").val(),
+      },
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           
@@ -47,6 +53,10 @@ function updateChart() {
 
 $(function() {
   updateChart();
+
+  $("#selected-results").change(function(){
+    $("#select-all-toggle").val($(this).val());
+  });
 
   $(".chart-container .left-sidebar input, .chart-container .left-sidebar select").change(function(){
     updateChart();

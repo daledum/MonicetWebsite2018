@@ -197,7 +197,21 @@ class chartsActions extends sfActions
     foreach(range(1, 12) as $monthNumber) {
         $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
     }
-    $this->series = $series;
+    
+    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 séries com mais resultados
+    if ( $request->getParameter('select_all') != 'custom' ) {
+      if ( $request->getParameter('select_all') == 'all' ) {
+        $this->counter = count($series);
+      }
+      else {
+        $this->counter = 0;
+      }
+    }
+    else {
+      $this->counter = 4;
+    }
+    
+    $this->series = $this->orderSeriesDesc($series);
     $this->categories = $categories;
   }
 
@@ -252,7 +266,22 @@ class chartsActions extends sfActions
     foreach(range(1, 12) as $monthNumber) {
         $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
     }
-    $this->series = $this->orderSpeciesDesc($series);
+    
+    
+    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 espécies com mais resultados
+    if ( $request->getParameter('select_all') != 'custom' ) {
+      if ( $request->getParameter('select_all') == 'all' ) {
+        $this->counter = count($series);
+      }
+      else {
+        $this->counter = 0;
+      }
+    }
+    else {
+      $this->counter = 4;
+    }
+    
+    $this->series = $this->orderSeriesDesc($series);
     $this->categories = $categories;
   }
 
@@ -361,56 +390,48 @@ class chartsActions extends sfActions
         }
     }
     
+    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 séries com mais resultados
+    if ( $request->getParameter('select_all') != 'custom' ) {
+      if ( $request->getParameter('select_all') == 'all' ) {
+        $this->counter = count($series);
+      }
+      else {
+        $this->counter = 0;
+      }
+    }
+    else {
+      $this->counter = 4;
+    }
     
-    //$series['values'] = $values;
-    
-    $this->series = $this->orderSpeciesDesc($series);
+    $this->series = $this->orderSeriesDesc($series);
     $this->categories = $categories;
   }
-
+  
+  /*
+   * Criar um array com as séries ordenadas por ordem decrescente
+   */
+  public function orderSeriesDesc($series) {
+    $totals = array();
+    foreach($series as $specie => $values) {
+      $total = 0;
+      for( $month=1; $month<=12; $month++) {
+        $total += $values[$month];
+      }
+      $totals[$specie] = $total;
+    }
     
-  public function orderSpeciesDesc($array) {
-      
-      $pos = 0;
-      $to_order = array();
-      
-      foreach ($array as $i => $values ) {
-          $sum = 0;
-          foreach ($values as $value) {
-              if ($value != "null") {
-                  $sum += $value;
-              }
-          }
-          $to_order[$pos] = array('index' => $i, 'value' => $sum);
-          $pos++;
-      }
-      
-      $ordered = array();
-      $is_ordered = false;
-      do {
-          $times = 0;
-          for ($i = 1; $i < count($to_order); $i++) {
-              if ($to_order[$i]['value'] > $to_order[$i-1]['value']) {
-                  $temp = $to_order[$i-1];
-                  $to_order[$i-1] = $to_order[$i];
-                  $to_order[$i] = $temp;
-                  $times++;
-              }
-          }
-          
-          if ($times == 0) {
-              $is_ordered = true;
-          }
-          
-      } while ($is_ordered == false);
-      
-      foreach ($to_order as $value) {
-          $ordered[$value['index']] = $array[$value['index']];
-      }
-      
-      return $ordered;
-      
+    // ordenar o array por ordem decrescente
+    arsort($totals);
+    
+    $ordered = array();
+    foreach ($totals as $code => $value) {
+      $ordered[$code] = $series[$code];
+    }
+    
+    return $ordered;
   }
-    
+  
+  
+  
   
 }

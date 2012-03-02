@@ -39,8 +39,6 @@
                 </div>
                 <div class="filter-item">
                     <label><?php echo __('Select Species') ?>:</label>
-                    <!--<button id="select-all" type="button"><?php echo __('All') ?></button>
-                    <button id="select-none" type="button"><?php echo __('None') ?></button>-->
                     <select id="selected-species" class="filter-select">
                         <option value="custom"><?php print __('Four most seen') ?></option>
                         <option value="all"><?php print __('Select All') ?></option>

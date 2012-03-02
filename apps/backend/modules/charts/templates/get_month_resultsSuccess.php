@@ -12,7 +12,13 @@
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-    $results .= "]},"; 
+    if ($counter > 0) {
+        $results .= "]},";
+        $counter--;
+    }
+    else {
+        $results .= "], \"visible\":false},";
+    }
   endforeach;
 ?>
 {

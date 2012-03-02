@@ -1,17 +1,14 @@
 <?php
   
-  // número de espécies visíveis no inicio
-  //$counter = 4;
-  
   $cats = '';
   foreach($categories as $c): 
     $cats .= "\"".$c."\","; 
   endforeach;
 
   $results = '';
-  foreach($totals as $c => $d): 
+  foreach($series as $c => $d): 
     $results .= "{\"name\": \"".$c."\", \"data\": [";  
-    foreach($series[$c] as $i):  
+    foreach($d as $i):
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);

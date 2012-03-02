@@ -27,6 +27,15 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <div class="filter-item">
+                    <label><?php echo __('Select Species', null, 'charts') ?>:</label>
+                    <select id="selected-species" class="filter-select">
+                        <option value="custom"><?php print __('Four most seen', null, 'charts') ?></option>
+                        <option value="all"><?php print __('Select All', null, 'charts') ?></option>
+                        <option value="none"><?php print __('Select None', null, 'charts') ?></option>
+                    </select>
+                    <input type="hidden" id="select-all-toggle" value="custom" />
+                </div>
                 <div id="chart-loading"></div>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">
