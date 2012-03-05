@@ -34,6 +34,15 @@
                     </select>
                 </div>
                 <?php endif; ?>
+                <div class="filter-item">
+                    <label><?php echo __('Select Results', null, 'charts') ?>:</label>
+                    <select id="selected-results" class="filter-select">
+                        <option value="custom"><?php print __('Four highest', null, 'charts') ?></option>
+                        <option value="all" selected="selected"><?php print __('Select All', null, 'charts') ?></option>
+                        <option value="none"><?php print __('Select None', null, 'charts') ?></option>
+                    </select>
+                    <input type="hidden" id="select-all-toggle" value="all" />
+                </div>
                 <div id="chart-loading"></div>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">

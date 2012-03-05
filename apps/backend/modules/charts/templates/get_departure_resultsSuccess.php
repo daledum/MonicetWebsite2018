@@ -6,16 +6,15 @@
   endforeach;
 
   $results = '';
-  $visible = 4;
   foreach($series as $c => $d): 
     $results .= "{\"name\": \"".$c."\", \"data\": [";  
     foreach($d as $i):  
       $results .= $i.",";  
     endforeach;
     $results = substr($results, 0, -1);
-    if ($visible > 0) {
+    if ($counter > 0) {
         $results .= "]},";
-        $visible--;
+        $counter--;
     }
     else {
         $results .= "], \"visible\":false},";

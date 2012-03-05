@@ -76,9 +76,27 @@ class chartsActions extends sfActions
       }
     }
     
-    //// ORDENAR AS ESPÉCIES
+    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 espécies com mais resultados
+    if ( $request->getParameter('select_all') != 'custom' ) {
+      if ( $request->getParameter('select_all') == 'all' ) {
+        $this->counter = count($series);
+      }
+      else {
+        $this->counter = 0;
+      }
+    }
+    else {
+      $this->counter = 4;
+    }
     
-    // criar um array com os totais
+    $this->series = $this->orderSeriesDesc($series);
+    $this->categories = $categories;
+  }
+
+  /*
+   * Criar um array com as séries ordenadas por ordem decrescente
+   */
+  public function orderSeriesDesc($series) {
     $totals = array();
     foreach($series as $specie => $values) {
       $total = 0;
@@ -91,21 +109,12 @@ class chartsActions extends sfActions
     // ordenar o array por ordem decrescente
     arsort($totals);
     
-    // mostrar todos ou nenhum, ou predefinidamente mostrar as 4 espécies com mais resultados
-    if ( $request->getParameter('select_all') != 'custom' ) {
-      if ( $request->getParameter('select_all') == 'all' ) {
-        $this->counter = count($totals);
-      }
-      else {
-        $this->counter = 0;
-      }
-    }
-    else {
-      $this->counter = 4;
+    $ordered = array();
+    foreach ($totals as $code => $value) {
+      $ordered[$code] = $series[$code];
     }
     
-    $this->totals = $totals;
-    $this->series = $series;
-    $this->categories = $categories;
+    return $ordered;
   }
+  
 }

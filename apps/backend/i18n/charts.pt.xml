@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Select Results</source>
+        <target>Seleccionar Resultados</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Select Species</source>
+        <target>Seleccionar Espécies</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Four highest</source>
+        <target>Quatro maiores</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Four most seen</source>
+        <target>Quatro mais vistas</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Select All</source>
+        <target>Seleccionar tudo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Select None</source>
+        <target>Desseleccionar tudo</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

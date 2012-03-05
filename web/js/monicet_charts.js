@@ -88,16 +88,4 @@ $(function() {
   $(".chart-container .left-sidebar input, .chart-container .left-sidebar select").change(function(){
     updateChart();
   });
-  
-  $("#select-all").click(function(){
-    $("#select-all-toggle").val('all');
-    updateChart();
-  });
-  
-  $("#select-none").click(function(){
-    $("#select-all-toggle").val('none');
-    updateChart();
-  });
-  
-  
 });
