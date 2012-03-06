@@ -86,6 +86,11 @@ class chartsActions extends sfActions
     
     $this->companies = CompanyPeer::doSelect(new Criteria());
     
+    if (!$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+        $user = $this->getUser()->getGuardUser();
+        $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    }
+    
   }
   
   public function executeDeparture(sfWebRequest $request) {
@@ -255,7 +260,13 @@ class chartsActions extends sfActions
                     $items[] = $specie->getId();
                     $data = array();
                     for ($i = 1; $i<=12; $i++) {
-                        $data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
+                        if ($company) {
+                            $data[] = $specie->getTotalMonthCompany($request->getParameter('year'), $i, $company->getId());
+                        }
+                        else {
+                            $data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
+                        }
+                        
                     }
                     $series[$specie->formattedString()] = $data;
                 }

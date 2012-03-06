@@ -33,6 +33,8 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php else: ?>
+                <input type="hidden" id="company_id" value="<?php print $user_company->getId(); ?>" />
                 <?php endif; ?>
                 <div class="filter-item">
                     <label><?php echo __('Select Results', null, 'charts'); ?>:</label>
