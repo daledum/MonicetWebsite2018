@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source>Uploader name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Uploader email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Photo date</source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source>Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.</source>
+        <target>Invalid file type, upload a .jpg or .zip </target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

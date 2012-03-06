@@ -16,7 +16,7 @@
 	    <div class="tooltip">
 			<span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Dataset" property="dct:title" rel="dct:type">MONICET</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.monicet.net/" property="cc:attributionName" rel="cc:attributionURL">MONICET database</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Atribuição-Uso Não-Comercial-Partilha nos termos da mesma licença 3.0 Unported License</a>. Permissions beyond the scope of this license may be available at <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.monicet.net/" rel="cc:morePermissions">http://www.monicet.net/</a>
 		</div>
-        <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;2011</p>
+        <p><?php echo __('developed by'); ?> <a href="http://www.morfose.net">morfose</a>&copy;<?php echo date("Y") ?></p>
     </div>
 </div>
 <script type="text/javascript">

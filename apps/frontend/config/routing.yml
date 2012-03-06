@@ -19,6 +19,10 @@ inquerito:
 background:
   url:      /:sf_culture/background
   param:    { module: background, action: index }
+  
+send_pictures:
+  url:      /:sf_culture/send-pictures
+  param:    { module: publicPictures, action: index }
 
 news_all:
   url:      /:sf_culture/news/all

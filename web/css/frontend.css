@@ -493,6 +493,19 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
   background-position: right -91px;
 }
 
+.sendPictures a {
+  display: inline-block;
+  padding: 25px 0px 9px 0px;
+  /*background: transparent url('/images/frontend/icons-monicet.png') no-repeat right top;*/
+}
+
+.date_field_frontend {
+  width: 60px;
+}
+#uploaded_photo_comment {
+  height: 50px;
+}
+
 .creative-commons {
 	text-align: left;
 	height: 60px !important;

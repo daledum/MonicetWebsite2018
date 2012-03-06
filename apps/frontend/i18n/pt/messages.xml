@@ -388,6 +388,62 @@
         <source>Select Species</source>
         <target>Seleccionar espécies</target>
       </trans-unit>
+      <trans-unit id="">
+        <source>You can send your photos of sightings of cetaceans.</source>
+        <target>Pode enviar as suas fotografias de avistamento de cetáceos.</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>To do this, you can use the form below.</source>
+        <target>Para tal pode utilizar o formulário abaixo.</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>We appreciate your cooperation.</source>
+        <target>Agradecemos a sua cooperação</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Send photo</source>
+        <target>Enviar fotografia</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source>Your photo was successfully sent to Monicet</source>
+        <target>A sua fotografia foi submetida com sucesso para Monicet</target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit id="">
+        <source></source>
+        <target></target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
