@@ -44,4 +44,20 @@ class Specie extends BaseSpecie {
     }
     return $counter;
   }
+  
+  public function getTotalMonthCompany($year, $month, $company_id) {
+    $g_infos = GeneralInfoPeer::doSelectByPeriod($year, $month);
+    $counter = 0;
+    foreach ($g_infos as $gi) {
+        if ($gi->getCompanyId() == $company_id) {
+            $species = $gi->getSpecies();
+            foreach ($species as $s) {
+                if ($s->getId() == $this->getId()) {
+                    $counter++;
+                }
+            }
+        }
+    }
+    return $counter;
+  }
 } // Specie

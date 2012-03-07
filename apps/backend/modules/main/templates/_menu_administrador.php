@@ -21,24 +21,24 @@
   </li>
   <li><a href="#">Administração mar</a>
     <ul>
-      <li><a href="<?php echo url_for('@specie_group') ?>">Grupos de espécies</a></li>
-      <li><a href="<?php echo url_for('@specie') ?>">Espécies</a></li>
-      <li><a href="<?php echo url_for('@association') ?>">Associações</a></li>
-      <li><a href="<?php echo url_for('@behaviour') ?>">Comportamento</a></li>
-      <?php /*<li><a href="<?php echo url_for('@code') ?>">Códigos</a></li>*/ ?>
-      <li><a href="<?php echo url_for('@sea_state') ?>">Estados do mar</a></li>
-      <li><a href="<?php echo url_for('@visibility') ?>">Visibilidade</a></li>
-      <li><a href="<?php echo url_for('@vessel') ?>">Barcos</a></li>
-      <li><a href="<?php echo url_for('@skipper') ?>">Skippers</a></li>
-      <li><a href="<?php echo url_for('@guide') ?>">Guias/Biólogos</a></li>
+      <li><?php echo link_to('Grupos de espécies','@specie_group') ?></li>
+      <li><?php echo link_to('Espécies','@specie') ?></li>
+      <li><?php echo link_to('Associações','@association') ?></li>
+      <li><?php echo link_to('Comportamento','@behaviour') ?></li>
+      <?php /*<li><?php echo link_to('Códigos','@code') ?></li>*/ ?>
+      <li><?php echo link_to('Estados do mar','@sea_state') ?></li>
+      <li><?php echo link_to('Visibilidade','@visibility') ?></li>
+      <li><?php echo link_to('Barcos','@vessel') ?></li>
+      <li><?php echo link_to('Skippers','@skipper') ?></li>
+      <li><?php echo link_to('Guias/Biólogos','@guide') ?></li>
     </ul>
   </li>
   <?php if($sf_user->isSuperAdmin()): ?>
-    <li><a href="<?php echo url_for('@general_info') ?>">Saídas</a></li>
+    <li><?php echo link_to('Saídas','@general_info') ?></li>
   <?php else: ?>
     <li><a href="#">Saídas</a>
       <ul>
-        <li><a href="<?php echo url_for('@general_info') ?>">As minhas saídas</a></li>
+        <li><?php echo link_to('As minhas saídas','@general_info') ?></li>
         <li><a href="#">Todas as saídas</a></li>
       </ul>
     </li>
@@ -48,15 +48,36 @@
     <ul>
       <li><a href="#">Mapas</a>
         <ul>
-          <li><a href="<?php echo url_for('@maps') ?>">Mapa Geral</a></li>
-          <li><a href="<?php echo url_for('@maps_time') ?>">Mapa Temporal</a></li>
+          <li><?php echo link_to('Mapa Geral','@maps') ?></li>
+          <li><?php echo link_to('Mapa Temporal','@maps_time') ?></li>
         </ul>
       </li>
       <li><a href="#">Gráficos</a>
         <ul>
-          <li><a href="<?php echo url_for('@charts') ?>">APUE</a></li>
+          <li><?php echo link_to('APUE','@charts') ?></li>
+          <li><a href="#">Distribuição Anual</a>
+            <ul>
+              <li><?php echo link_to('Barcos ou Guias','@month_chart') ?></li>
+              <li><?php echo link_to('Espécies','@species_chart') ?></li>
+              <li><?php echo link_to('Saídas com Avistamentos','@departure_chart') ?></li>
+            </ul>
+          </li>
         </ul>
       </li>
+    </ul>
+  </li>
+  <li><a href="#">Vigias</a>
+    <ul>
+      <li><a href=#>Avistamentos</a>
+        <ul>
+          <li><?php echo link_to('Públicos','@watch_info_wi_list') ?></li>
+          <li><?php echo link_to('Da Empresa','@watch_info') ?></li>
+        </ul>
+      </li>
+      <li><?php echo link_to('Códigos','@watch_code') ?></li>
+      <li><?php echo link_to('Vigias','@watchman') ?></li>
+      <li><?php echo link_to('Postos','@watch_post') ?></li>
+      <li><?php echo link_to('Visibilidade','@watch_visibility') ?></li>
     </ul>
   </li>
 </ul>
