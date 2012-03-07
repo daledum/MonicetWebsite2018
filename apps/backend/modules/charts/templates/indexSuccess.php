@@ -37,6 +37,15 @@
                     <input type="hidden" id="select-all-toggle" value="custom" />
                 </div>
                 <div id="chart-loading"></div>
+                <div class="chart-text bar-chart">
+                    <?php print __('Percentage of trips in which the selected species were seen.'); ?>
+                </div>
+                <div class="chart-text line-chart" style="display: none;">
+                    <?php print __('Monthly percentage of trips in which the selected species were seen.'); ?>
+                </div>
+                <div class="chart-text">
+                    <?php print __('Cliking on the species name will omit it from the graph, or show it again.'); ?>
+                </div>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">
                 <!--<img id="chart-img-elem" src="http://chart.apis.google.com/chart?chf=bg,s,EAF4F800&chxl=1:|Sb|Tt&chxp=1,10,20&chxr=0,0,160&chxt=x,y&chbh=a&chs=600x220&cht=bhs&chco=4D89F9&chds=0,170&chd=t:10,50,60,80,40,60,30,50&chtt=APUE" width="600" height="300" alt="APUE" />-->
