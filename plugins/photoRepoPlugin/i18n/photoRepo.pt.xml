@@ -30,7 +30,22 @@
         <source>Comment</source>
         <target>Comentário</target>
       </trans-unit>
-      
+      <trans-unit>
+        <source>yes</source>
+        <target>Sim</target>
+      </trans-unit>
+      <trans-unit>
+        <source>no</source>
+        <target>Não</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes or no</source>
+        <target> </target>
+      </trans-unit>
+      <trans-unit>
+        <source>is empty</source>
+        <target>vazio</target>
+      </trans-unit>
       <trans-unit>
         <source></source>
         <target></target>

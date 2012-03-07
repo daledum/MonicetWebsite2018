@@ -51,4 +51,5 @@ all:
       - prMain
       - prIndividual
       - prPattern
+      - prUploadedPhoto
     standard_helpers:       [Partial, Cache, I18N]

@@ -1,0 +1,1 @@
+<?php echo link_to('Ver fotografia', '/uploads/pr_public/'.$UploadedPhoto->getPhoto(), array('target' => '_blank') ) ?>

@@ -1,0 +1,5 @@
+indexSuccess:
+  javascripts:  [-*,"jquery-1.4.min.js", "jquery.modal.js", "jquery.tooltip.js", main, "jquery-ui-1.8.6.custom.min.js", jquery.ui.datepicker-pt-BR.min.js, datas.php ]
+  stylesheets:  ["jquery-theme/jquery-ui-1.8.6.custom.css" ]
+all:
+  layout: mfAdminLayout

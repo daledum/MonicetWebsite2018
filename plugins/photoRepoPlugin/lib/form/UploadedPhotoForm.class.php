@@ -19,7 +19,7 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
     ));
     
     $this->validatorSchema['photo'] = new sfValidatorFile(array(
-      'required' => true,
+      'required' => $this->isNew(),
       'path' => sfConfig::get('sf_upload_dir').'/pr_public',
       'mime_type_guessers' => array('guessFromFileBinary', 'guessFromFileinfo', 'guessFromMimeContentType'),
       'mime_types'    => array( 

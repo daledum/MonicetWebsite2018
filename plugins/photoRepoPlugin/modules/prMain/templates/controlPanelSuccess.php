@@ -11,17 +11,15 @@
 
       <table cellspacing="0">
         <tbody>
-          <?php /* ?>
           <tr class="sf_admin_row even">
             <td width="400">Fotografias enviadas pelos utilizadores</td>
-            <td width="50" style="text-align: right;"><?php echo $uploadPhotos ?></td>
+            <td width="50" style="text-align: right;"><?php echo $uploadPhotosNotProccessed.' de '.$uploadPhotos ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@homepage') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_uploaded_photo') ?></li>
               </ul>
             </td>
           </tr>
-          <?php */ ?>
           <tr class="sf_admin_row odd">
             <td width="400">Fotografias por processar</td>
             <td width="50" style="text-align: right;"><?php echo $notProcessedPhotos ?></td>

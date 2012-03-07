@@ -2,7 +2,8 @@
 
 class prMainActions extends sfActions {
   public function executeControlPanel(sfWebRequest $request) {
-    $this->uploadPhotos = UploadedPhotoPeer::countNotProcessed();
+    $this->uploadPhotos = UploadedPhotoQuery::create()->count();
+    $this->uploadPhotosNotProccessed = UploadedPhotoPeer::countNotProcessed();
     $this->notProcessedPhotos = $this->countNotProcessedPhotos();
     $this->processedPhotos = $this->countProcessedPhotos();
     $this->individuals = IndividualQuery::create()->count();

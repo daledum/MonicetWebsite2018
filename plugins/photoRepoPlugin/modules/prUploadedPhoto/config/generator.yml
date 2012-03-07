@@ -1,0 +1,39 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           UploadedPhoto
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              UploadedPhoto
+    plural:                UploadedPhotos
+    route_prefix:          pr_uploaded_photo
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:
+        uploader_name: 
+          label: "Nome"
+        uploader_email:
+          label: "E-mail"
+        photo_date: 
+          label: "Data da fotografia"
+          date_format: "yyyy-MM-dd"
+        photo:
+          label: "Fotografia(s)"
+        created_at:
+          label: "Data de submissão"
+          date_format: "yyyy-MM-dd"  
+        processed:
+          label: "Processada"
+      list:    
+        title: "Listagem de fotografias enviadas"
+        display: [uploader_name, uploader_email, photo_date, _photo, created_at, processed]
+        actions: []
+      filter:  ~
+      form:    ~
+      edit:    
+        title: "A editar dados da fotografia enviada"          
+      new:     ~

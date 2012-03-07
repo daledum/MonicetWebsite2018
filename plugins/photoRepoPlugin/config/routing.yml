@@ -63,3 +63,12 @@ pr_pattern:
     column:               id
     with_wildcard_routes: true
     
+pr_uploaded_photo:
+  class: sfPropel15RouteCollection
+  options:
+    model:                UploadedPhoto
+    module:               prUploadedPhoto
+    prefix_path:          /uploaded-photo
+    column:               id
+    with_wildcard_routes: true
+    

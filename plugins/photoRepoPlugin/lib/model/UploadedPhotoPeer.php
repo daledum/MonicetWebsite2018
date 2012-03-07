@@ -2,6 +2,6 @@
 
 class UploadedPhotoPeer extends BaseUploadedPhotoPeer {
   public static function countNotProcessed(){
-    return UploadedPhotoQuery::create()->filterByProcessed(false)->count();
+    return UploadedPhotoQuery::create()->filterByProcessed(0)->count();
   }
 } // UploadedPhotoPeer
