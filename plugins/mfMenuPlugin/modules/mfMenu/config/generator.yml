@@ -14,9 +14,11 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
-      list:
-        display:          [nome, mfMenuRelatedById, rota, sfGuardPermission, posicao]
+      fields:  
+        mfMenuRelatedByMenuPaiId:
+          label: "Menu pai"
+      list: 
+        display:          [nome, mfMenuRelatedByMenuPaiId, rota, sfGuardPermission, posicao]
       filter:  ~
       form:    ~
       edit:    ~
