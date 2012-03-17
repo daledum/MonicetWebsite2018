@@ -46,6 +46,7 @@ class UserPeer extends BaseUserPeer {
   		  'watch_visibility.*',
   		  'watchman.*',
   		  'wi_list.*',
+  		  'chart_iframe_information.*',
   		);
   		self::addPermissions($permissions, $sf_guard_user);
   	}
@@ -67,6 +68,7 @@ class UserPeer extends BaseUserPeer {
           'watch_sighting.*',
           'watch_visibility.*',
           'wi_list.*',
+          'chart_iframe_information.*',
         );
     	self::addPermissions($permissions, $sf_guard_user);
     }
@@ -83,6 +85,7 @@ class UserPeer extends BaseUserPeer {
           'watch_sighting.*',
           'watch_visibility.*',
           'wi_list.*',
+          'chart_iframe_information.*',
       );
     	self::addPermissions($permissions, $sf_guard_user);
     }

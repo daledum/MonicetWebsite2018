@@ -292,3 +292,14 @@ propel:
       observations:     { type: longvarchar }
       created_at:       ~
       updated_at:       ~
+      
+   chart_iframe_information:
+     _attributes: { phpName: ChartIframeInformation }
+     id:          ~
+     company_id:  { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+     hash:        { type: varchar(10), required: true }
+     graph_type:  { type: varchar(10), required: true }
+     year:        { type: integer, required: true }
+     chart_item:  { type: varchar(10), required: false }
+     chart_type:  { type: varchar(10), required: false }
+     selected:    { type: varchar(10), required: true }

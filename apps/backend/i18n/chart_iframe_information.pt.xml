@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Chart iframe information List</source>
+        <target>Lista de iframes</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company</source>
+        <target>Empresa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Graph type</source>
+        <target>Gráfico</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Year</source>
+        <target>Ano</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Edit Chart iframe information</source>
+        <target>A editar iframe</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Chart item</source>
+        <target>Item do gráfico</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Chart type</source>
+        <target>Tipo de apresentação</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Selected</source>
+        <target>Resultados seleccionados</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

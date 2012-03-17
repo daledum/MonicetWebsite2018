@@ -92,6 +92,22 @@ get_charts_results:
   url:   /chartResults
   param: { module: charts, action: get_results }
 
+get_month_charts_results:
+  url:   /monthChartResults
+  param: { module: charts, action: get_month_results }
+  
+get_species_charts_results:
+  url:   /speciesChartResults
+  param: { module: charts, action: get_species_results }
+  
+get_departure_charts_results:
+  url:   /departureChartResults
+  param: { module: charts, action: get_departure_results }
+
+charts_iframe:
+  url:   /:sf_culture/chartsIframe
+  param: { module: charts, action: iframe }
+
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }

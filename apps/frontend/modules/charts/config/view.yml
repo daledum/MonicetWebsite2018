@@ -4,3 +4,15 @@ all:
 indexSuccess:
   stylesheets: ["layout_charts_frontend.css", "monicet_charts_default.css", "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css"]
   javascripts: [-*, "jquery-1.4.2.min.js", "monicet_charts.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js", "jquery.tools.min.js", "creative_commons_baloon.js"]
+
+iframeMonthSuccess:
+  layout: for_iframe
+  javascripts: [-*, "jquery-1.4.2.min.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js", "jquery.tools.min.js", "monicet_charts_month.js"]
+  
+iframeSpeciesSuccess:
+  layout: for_iframe
+  javascripts: [-*, "jquery-1.4.2.min.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js", "jquery.tools.min.js", "monicet_charts_species.js"]
+  
+iframeDepartureSuccess:
+  layout: for_iframe
+  javascripts: [-*, "jquery-1.4.2.min.js", "jquery-ui-1.8.6.custom.min.js", "highcharts.js", "exporting.js", "jquery.tools.min.js", "monicet_charts_departure.js"]

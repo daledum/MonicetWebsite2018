@@ -45,7 +45,7 @@ function updateChart() {
   var categories = [];
   var series = [];
   $.ajax({
-      url: "/admin.php/monthChartResults?_=" + Math.floor(Math.random()*1000001),
+      url: "/index.php/monthChartResults?_=" + Math.floor(Math.random()*1000001),
       data: {
         "year": $("#year").val(),
         "month": $("#month").val(),

@@ -1,0 +1,25 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           ChartIframeInformation
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ChartIframeInformation
+    plural:                ChartIframeInformations
+    route_prefix:          chart_iframe_information
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        chart_iframe_information
+
+    config:
+      actions: ~
+      fields:  ~
+      list:
+        display:           [hash, company, graph_type, year]
+        peer_method:       doSelectByCompany
+        peer_count_method: doCountByCompany
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

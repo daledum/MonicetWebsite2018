@@ -8,9 +8,10 @@
         <div class="chart-container">
             <div class="left-sidebar">
                 <h2>Parâmetros do gráfico</h2><br/>
+                <form id="iframe_info" action="<?php echo url_for('charts/to_iframe'); ?>" method="post">
                 <div class="filter-item">
                     <label>Período:</label>
-                    <select id="year" class="filter-select">
+                    <select id="year" name="year" class="filter-select">
                     <?php foreach(range($lastYear, $firstYear) as $year): ?>
                         <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                     <?php endforeach; ?>
@@ -18,7 +19,7 @@
                 </div>
                 <div class="filter-item">
                 	<label>Item a mostrar:</label>
-                	<select id="chart-item" class="filter-select">
+                	<select id="chart-item" name="chart-item" class="filter-select">
                         <option value="0">Barcos</option>
                         <option value="1">Guias</option>
                     </select>
@@ -26,7 +27,7 @@
                 <?php if ($sf_user->isSuperAdmin()): ?>
                 <div class="filter-item">
                     <label>Empresa:</label>
-                    <select id="company_id" class="filter-select">
+                    <select id="company_id" name="company_id" class="filter-select">
                         <option value="0">(Todas)</option>
                         <?php foreach ($companies as $company): ?>
                             <option value="<?php print $company->getId() ?>"><?php print $company->getName() ?></option>
@@ -41,8 +42,13 @@
                         <option value="all" selected="selected"><?php print __('Select All', null, 'charts') ?></option>
                         <option value="none"><?php print __('Select None', null, 'charts') ?></option>
                     </select>
-                    <input type="hidden" id="select-all-toggle" value="all" />
                 </div>
+                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="all" />
+                <input type="hidden" id="graph_type" name="graph_type" value="month" />
+                <div class="filter-item">
+                    <input type="submit" value="<?php echo __('Save to iframe', null, 'charts') ?>" />
+                </div>
+                </form>
                 <div id="chart-loading"></div>
             </div>
             <div id="chart-image" class="chart-image" style="width:580px;height:400px;margin:0 auto">

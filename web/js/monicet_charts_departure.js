@@ -25,7 +25,7 @@ function updateChart() {
   var categories = [];
   var series = [];
   $.ajax({
-      url: "/admin.php/departureChartResults?_=" + Math.floor(Math.random()*1000001),
+      url: "/index.php/departureChartResults?_=" + Math.floor(Math.random()*1000001),
       data: {
         "year": $("#year").val(),
         "month": $("#month").val(),
