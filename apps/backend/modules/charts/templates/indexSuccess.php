@@ -8,19 +8,20 @@
         <div class="chart-container">
             <div class="left-sidebar">
                 <h2>Parâmetros do gráfico</h2><br/>
+                <form id="iframe_info" name="iframe_info" action="<?php echo url_for('charts/to_iframe'); ?>" method="post">
                 <div class="filter-item" style="margin-bottom: 10px;">
                     <label>Tipo de gráfico:</label>
-                    <input type="radio" name="chart-type" value="1" checked="checked" /><span class="chart-totals"></span>
-                    <input type="radio" name="chart-type" value="2" /><span class="chart-variations"></span>
+                    <input type="radio" id="chart-type" name="chart-type" value="1" checked="checked" /><span class="chart-totals"></span>
+                    <input type="radio" id="chart-type" name="chart-type" value="2" /><span class="chart-variations"></span>
                 </div>
                 <div class="filter-item">
                     <label>Período:</label>
-                    <select id="year" class="filter-select">
+                    <select id="year" name="year" class="filter-select">
                     <?php foreach(range($lastYear, $firstYear) as $year): ?>
                         <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                     <?php endforeach; ?>
                     </select>
-                    <select id="month" class="filter-select">
+                    <select id="month" name="month" class="filter-select">
                         <option value="0">(<?php echo __('All'); ?>)</option>
                         <?php foreach($months as $monthId => $monthName): ?>
                         <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
@@ -29,13 +30,18 @@
                 </div>
                 <div class="filter-item">
                     <label><?php echo __('Select Species', null, 'charts') ?>:</label>
-                    <select id="selected-species" class="filter-select">
+                    <select id="selected-species" name="selected-species" class="filter-select">
                         <option value="custom"><?php print __('Four most seen', null, 'charts') ?></option>
                         <option value="all"><?php print __('Select All', null, 'charts') ?></option>
                         <option value="none"><?php print __('Select None', null, 'charts') ?></option>
                     </select>
-                    <input type="hidden" id="select-all-toggle" value="custom" />
                 </div>
+                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="all" />
+                <input type="hidden" id="graph_type" name="graph_type" value="apue" />
+                <div class="filter-item">
+                    <input type="submit" value="<?php echo __('Save to iframe', null, 'charts') ?>" />
+                </div>
+                </form>
                 <div id="chart-loading"></div>
                 <div class="chart-text bar-chart">
                     <?php print __('Percentage of trips in which the selected species were seen.'); ?>
