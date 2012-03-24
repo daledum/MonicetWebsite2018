@@ -15,7 +15,7 @@
     <br />
     <p>Para utilizar o gráfico no seu site, coloque o seguinte código no local desejado:</p>
     <br />
-    <p><?php print htmlentities('<iframe src="'.$iframe_url.'" width="580" height="400"></iframe>') ?></p>
+    <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url.'" width="580" height="400"></iframe>') ?></p>
     <br />
     <iframe src="<?php print $iframe_url; ?>" width="580" height="400"></iframe>
   <?php endif; ?>
