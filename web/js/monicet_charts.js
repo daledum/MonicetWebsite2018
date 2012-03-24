@@ -31,7 +31,8 @@ function initChart(series, categories, chatType, stacking) {
       }
     },
     credits: {
-      enabled: false
+      href: 'http://www.monicet.net',
+      text: 'MONICET.net',
     },
     series: series
   });

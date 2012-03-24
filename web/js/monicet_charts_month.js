@@ -35,6 +35,10 @@ function initChart(series, categories, chatType, stacking, title) {
             stacking: 'normal',
          }
       },
+      credits: {
+        href: 'http://www.monicet.net',
+        text: 'MONICET.net',
+      },
       series: series
   });
 

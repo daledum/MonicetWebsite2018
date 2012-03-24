@@ -15,6 +15,10 @@ function initChart(series, categories, yAxis, tooltip) {
           enabled: true
       },
       tooltip: tooltip,
+      credits: {
+        href: 'http://www.monicet.net',
+        text: 'MONICET.net',
+      },
       series: series
    });
 
