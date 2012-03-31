@@ -15,6 +15,7 @@
                     <?php foreach(range($lastYear, $firstYear) as $year): ?>
                         <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
                     <?php endforeach; ?>
+                    <option value="0">(Todos)</option>
                     </select>
                 </div>
                 <div class="filter-item">
@@ -45,7 +46,7 @@
                         <option value="none"><?php print __('Select None', null, 'charts'); ?></option>
                     </select>
                 </div>
-                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="all" />
+                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="custom" />
                 <input type="hidden" id="graph_type" name="graph_type" value="species" />
                 <div class="filter-item">
                     <input type="submit" value="<?php echo __('Save to iframe', null, 'charts') ?>" />

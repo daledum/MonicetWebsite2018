@@ -24,13 +24,13 @@ class Vessel extends BaseVessel {
   
   public function getTotalMonth($year, $month) {
   	$g_infos = GeneralInfoPeer::doSelectByPeriod($year, $month);
-	$counter = 0;
-	foreach ($g_infos as $gi) {
-		if ($gi->getVesselId() == $this->getId()) {
-			$counter ++;
-		}
-	}
-	return $counter;
+  	$counter = 0;
+  	foreach ($g_infos as $gi) {
+  		if ($gi->getVesselId() == $this->getId()) {
+  			$counter ++;
+  		}
+  	}
+  	return $counter;
   }
   
 } // Vessel

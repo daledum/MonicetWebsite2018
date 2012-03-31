@@ -22,17 +22,8 @@ class chartsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
 
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
-    $firstGI = GeneralInfoPeer::doSelectOne($c);
-    $c = new Criteria();
-    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
-    $lastGI = GeneralInfoPeer::doSelectOne($c);
-    
-    $explodedLastDate = explode('-', $lastGI->getDate());
-    $explodedFirstDate = explode('-', $firstGI->getDate());
-    $this->firstYear = $explodedFirstDate[0];
-    $this->lastYear = $explodedLastDate[0];
+    $this->firstYear = GeneralInfoPeer::getFirstYear();
+    $this->lastYear = GeneralInfoPeer::getLastYear();
     
     $months = array();
     
@@ -50,17 +41,8 @@ class chartsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
 
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
-    $firstGI = GeneralInfoPeer::doSelectOne($c);
-    $c = new Criteria();
-    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
-    $lastGI = GeneralInfoPeer::doSelectOne($c);
-    
-    $explodedLastDate = explode('-', $lastGI->getDate());
-    $explodedFirstDate = explode('-', $firstGI->getDate());
-    $this->firstYear = $explodedFirstDate[0];
-    $this->lastYear = $explodedLastDate[0];
+    $this->firstYear = GeneralInfoPeer::getFirstYear();
+    $this->lastYear = GeneralInfoPeer::getLastYear();
     
     $this->companies = CompanyPeer::doSelect(new Criteria());
     
@@ -72,17 +54,8 @@ class chartsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
 
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
-    $firstGI = GeneralInfoPeer::doSelectOne($c);
-    $c = new Criteria();
-    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
-    $lastGI = GeneralInfoPeer::doSelectOne($c);
-    
-    $explodedLastDate = explode('-', $lastGI->getDate());
-    $explodedFirstDate = explode('-', $firstGI->getDate());
-    $this->firstYear = $explodedFirstDate[0];
-    $this->lastYear = $explodedLastDate[0];
+    $this->firstYear = GeneralInfoPeer::getFirstYear();
+    $this->lastYear = GeneralInfoPeer::getLastYear();
     
     $this->companies = CompanyPeer::doSelect(new Criteria());
     
@@ -99,17 +72,8 @@ class chartsActions extends sfActions
     $this->sea_states = SeaStatePeer::getSeaStates();
     $this->visibilities = VisibilityPeer::getvisibilities();
 
-    $c = new Criteria();
-    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
-    $firstGI = GeneralInfoPeer::doSelectOne($c);
-    $c = new Criteria();
-    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
-    $lastGI = GeneralInfoPeer::doSelectOne($c);
-    
-    $explodedLastDate = explode('-', $lastGI->getDate());
-    $explodedFirstDate = explode('-', $firstGI->getDate());
-    $this->firstYear = $explodedFirstDate[0];
-    $this->lastYear = $explodedLastDate[0];
+    $this->firstYear = GeneralInfoPeer::getFirstYear();
+    $this->lastYear = GeneralInfoPeer::getLastYear();
     
     $this->companies = CompanyPeer::doSelect(new Criteria());
     

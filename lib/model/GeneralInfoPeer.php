@@ -112,24 +112,62 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
 //    return GeneralInfoPeer::doCount($c);
   }
   
-  public static function doSelectByPeriod($year, $month) {
+  public static function doSelectByPeriod($year = 0, $month = 0) {
   	
-	$date1 = $year."-";
-    $date2 = $year."-";  
-    //if (($type == '1') && $month) {
-    if ($month) {
-        $date1 .= $month."-1";
-        $date2 .= $month."-" . idate('d', mktime(0, 0, 0, ($month + 1), 0, $year)); 
-    } else {
-        $date1 .= "1-1";
-        $date2 .= "12-31";
-    }
-    //TODO refactor
     $c = new Criteria();
-    $c->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
-    $c->addAnd(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
-    $c->addAnd(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
-
+    $c0 = $c->getNewCriterion(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    
+    if ($month) {
+      
+      if ($month < 10) $month = '0'.$month;
+      
+      if ($year) {
+        // Year
+        $date1 = $year."-";
+        $date2 = $year."-";
+        
+        // Month
+        $date1 .= ($month)? $month."-01" : "01-01" ;
+        $date2 .= ($month)? $month."-".idate('d', mktime(0, 0, 0, ($month - 1), 0, $year)) : "12-31" ;
+        
+        $c1 = $c->getNewCriterion(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+        $c2 = $c->getNewCriterion(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+        $c0->addAnd($c1);
+        $c0->addAnd($c2);
+      }
+      else {
+        $years = array();
+        for ($temp_year = GeneralInfoPeer::getFirstYear(); $temp_year <= GeneralInfoPeer::getLastYear(); $temp_year++) {
+          $temp = $temp_year.'-'.$month.'-%';
+          $years[] = $c->getNewCriterion(GeneralInfoPeer::DATE, $temp_year.'-'.$month.'-%', Criteria::LIKE);
+        }
+        
+        if (count($years) > 1) {
+          for ( $i = 1; $i < count($years); $i++) {
+            $years[0]->addOr($years[$i]);
+          }
+        }
+        
+        $c0->addAnd($years[0]);
+      }
+    }
+    else {
+      // Year
+      $date1 = ($year)? $year."-" : GeneralInfoPeer::getFirstYear()."-" ;
+      $date2 = ($year)? $year."-" : GeneralInfoPeer::getLastYear()."-" ;
+      
+      // Month & Day
+      $date1 .= "01-01";
+      $date2 .= "12-31";
+      
+      $c1 = $c->getNewCriterion(GeneralInfoPeer::DATE, $date1, Criteria::GREATER_EQUAL);
+      $c2 = $c->getNewCriterion(GeneralInfoPeer::DATE, $date2, Criteria::LESS_EQUAL);
+      $c0->addAnd($c1);
+      $c0->addAnd($c2);
+    }
+    
+    $c->addAnd($c0);
+    
     return GeneralInfoPeer::doSelect($c);
   }
   
@@ -157,6 +195,27 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
             ->count();
     return $query;
   }
+  
+  public static function getFirstYear() {
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(GeneralInfoPeer::DATE);
+    $firstGI = GeneralInfoPeer::doSelectOne($c);
+    $explodedFirstDate = explode('-', $firstGI->getDate());
+    $firstYear = $explodedFirstDate[0];
+    
+    return $firstYear;
+  }
+  
+  public static function getLastYear() {
+    $c = new Criteria();
+    $c->addDescendingOrderByColumn(GeneralInfoPeer::DATE);
+    $lastGI = GeneralInfoPeer::doSelectOne($c);
+    $explodedLastDate = explode('-', $lastGI->getDate());
+    $lastYear = $explodedLastDate[0];
+    
+    return $lastYear;
+  }
+  
 } // GeneralInfoPeer
 
 

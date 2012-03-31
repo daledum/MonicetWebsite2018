@@ -12,9 +12,10 @@
                 <div class="filter-item">
                     <label>Período:</label>
                     <select id="year" name="year" class="filter-select">
-                    <?php foreach(range($lastYear, $firstYear) as $year): ?>
-                        <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
-                    <?php endforeach; ?>
+                      <?php foreach(range($lastYear, $firstYear) as $year): ?>
+                          <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
+                      <?php endforeach; ?>
+                      <option value="0">(Todos)</option>
                     </select>
                 </div>
                 <div class="filter-item">

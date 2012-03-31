@@ -97,7 +97,9 @@ class chartsActions extends sfActions
   {
     $series = array();
     
-    $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), 0);
+    $year = ($request->getParameter('year'))? $request->getParameter('year') : 0 ;
+    
+    $g_infos = GeneralInfoPeer::doSelectByPeriod($year, 0);
     $items = array();
     
     if ($this->getUser()->isAuthenticated() && !$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
@@ -146,7 +148,7 @@ class chartsActions extends sfActions
                     
                     if ($valid) {
                         for ($i = 1; $i<=12; $i++) {
-                            $data[] = $vessel->getTotalMonth($request->getParameter('year'), $i);
+                            $data[] = $vessel->getTotalMonth($request->getParameter('year', 0), $i);
                         }
                         $series[$vessel->getName()] = $data;
                     }
@@ -192,7 +194,7 @@ class chartsActions extends sfActions
                     
                     if ($valid) {
                         for ($i = 1; $i<=12; $i++) {
-                            $data[] = $guide->getTotalMonth($request->getParameter('year'), $i);
+                            $data[] = $guide->getTotalMonth($request->getParameter('year', 0), $i);
                         }
                         $series[$guide->getName()] = $data;
                     }
@@ -224,9 +226,14 @@ class chartsActions extends sfActions
 
   public function executeGet_species_results(sfWebRequest $request)
   {
+    
+    ini_set("max_execution_time","120");
+    
     $series = array();
     
-    $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), 0);
+    $year = ($request->getParameter('year'))? $request->getParameter('year') : 0 ;
+    
+    $g_infos = GeneralInfoPeer::doSelectByPeriod($year, 0);
     $items = array();
     
     if ($this->getUser()->isAuthenticated() && !$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
@@ -238,24 +245,20 @@ class chartsActions extends sfActions
     }
     
     foreach ($g_infos as $gi) {
-        foreach ($gi->getSpecies() as $specie){
+        
+        $gi_species = $gi->getSpecies();
+        
+        foreach ($gi_species as $specie){
             
             $valid = false;
             if ($this->getUser()->isAuthenticated()) {
-                if ($this->getUser()->getGuardUser()->getIsSuperAdmin()) {
-                    if ($company) {
-                        if ($company->getId() == $gi->getCompanyId()) {
-                            $valid = true;
-                        }
-                    }
-                    else{
+                if ($company) {
+                    if ($company->getId() == $gi->getCompanyId()) {
                         $valid = true;
                     }
                 }
-                else {
-                    if ($gi->getCompanyId() == $company->getId()) {
-                        $valid = true;
-                    }
+                else{
+                    $valid = true;
                 }
             }
             else {
@@ -267,7 +270,13 @@ class chartsActions extends sfActions
                     $items[] = $specie->getId();
                     $data = array();
                     for ($i = 1; $i<=12; $i++) {
-                        $data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
+                        //$data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
+                        if ($company) {
+                            $data[] = $specie->getTotalMonthCompany($request->getParameter('year'), $i, $company->getId());
+                        }
+                        else {
+                            $data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
+                        }
                     }
                     $series[$specie->formattedString()] = $data;
                 }
@@ -301,6 +310,8 @@ class chartsActions extends sfActions
     $series = array();
     $values = array();
     
+    $year = ($request->getParameter('year'))? $request->getParameter('year') : 0 ;
+    
     if ($this->getUser()->isAuthenticated() && !$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
         $user = $this->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
@@ -313,7 +324,7 @@ class chartsActions extends sfActions
         foreach (range(1, 12) as $monthNumber) {
             $species = array();
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
-            $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), $monthNumber);
+            $g_infos = GeneralInfoPeer::doSelectByPeriod($year, $monthNumber);
             $total = count($g_infos);
             $with_species = 0;
             
@@ -366,7 +377,7 @@ class chartsActions extends sfActions
     elseif ($request->getParameter('chart-type') == 1) {
         foreach (range(1, 12) as $monthNumber) {
             $categories[] = date("M", mktime(0, 0, 0, $monthNumber, 1, 2000));
-            $g_infos = GeneralInfoPeer::doSelectByPeriod($request->getParameter('year'), $monthNumber);
+            $g_infos = GeneralInfoPeer::doSelectByPeriod($year, $monthNumber);
             $total = count($g_infos);
             $totalSighted = array();
             
