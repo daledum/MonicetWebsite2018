@@ -227,7 +227,7 @@ class chartsActions extends sfActions
   public function executeGet_species_results(sfWebRequest $request)
   {
     
-    ini_set("max_execution_time","120");
+    ini_set("max_execution_time","600");
     
     $series = array();
     
