@@ -229,7 +229,13 @@
               </select>
             </div>
             <?php else: ?>
-            <input type="hidden" id="company" name="company" value="<?php echo $user_company->getId() ?>" />
+              <div class="filter-item">
+              <label>Empresa:</label>
+              <select id="company" class="filter-select">
+                <option>(Todas)</option>
+                <option value="<?php echo $user_company->getId() ?>"><?php echo $user_company->getName() ?></option>
+              </select>
+              </div>
             <?php endif; ?>
             <div class="filter-item">
               <label>Associação:</label>
