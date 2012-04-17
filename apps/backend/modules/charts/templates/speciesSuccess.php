@@ -36,7 +36,13 @@
                     </select>
                 </div>
                 <?php else: ?>
-                <input type="hidden" id="company_id" value="<?php print $user_company->getId(); ?>" />
+                <div class="filter-item">
+                    <label>Empresa:</label>
+                    <select id="company_id" name="company_id" class="filter-select">
+                        <option value="0">(Todas)</option>
+                        <option value="<?php print $user_company->getId() ?>"><?php print $user_company->getName() ?></option>
+                    </select>
+                </div>
                 <?php endif; ?>
                 <div class="filter-item">
                     <label><?php echo __('Select Results', null, 'charts'); ?>:</label>

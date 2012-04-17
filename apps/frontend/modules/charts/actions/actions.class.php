@@ -239,9 +239,11 @@ class chartsActions extends sfActions
     if ($this->getUser()->isAuthenticated() && !$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
         $user = $this->getUser()->getGuardUser();
         $company = CompanyPeer::doSelectUserCompany($user->getId());
+        $company_id = $company->getId();
     }
     else {
         $company = CompanyPeer::retrieveByPK($request->getParameter('company_id'));
+        $company_id = $company ? $company->getId() : 0 ;
     }
     
     foreach ($g_infos as $gi) {
@@ -250,10 +252,12 @@ class chartsActions extends sfActions
         
         foreach ($gi_species as $specie){
             
+            $species_id = $specie->getId();
+            $gi_company_id = $gi->getCompanyId();
             $valid = false;
             if ($this->getUser()->isAuthenticated()) {
-                if ($company) {
-                    if ($company->getId() == $gi->getCompanyId()) {
+                if ($company_id) {
+                    if ($company_id == $gi_company_id) {
                         $valid = true;
                     }
                 }
@@ -266,13 +270,13 @@ class chartsActions extends sfActions
             }
             
             if ($valid) {
-                if (!in_array($specie->getId(),$items)) {
-                    $items[] = $specie->getId();
+                if (!in_array($species_id,$items)) {
+                    $items[] = $species_id;
                     $data = array();
                     for ($i = 1; $i<=12; $i++) {
                         //$data[] = $specie->getTotalMonth($request->getParameter('year'), $i);
                         if ($company) {
-                            $data[] = $specie->getTotalMonthCompany($request->getParameter('year'), $i, $company->getId());
+                            $data[] = $specie->getTotalMonthCompany($request->getParameter('year'), $i, $company_id);
                         }
                         else {
                             $data[] = $specie->getTotalMonth($request->getParameter('year'), $i);

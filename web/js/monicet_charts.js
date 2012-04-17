@@ -48,6 +48,7 @@ function updateChart() {
       data: {"year": $("#year").val(), "month": $("#month").val(), 
              "association": $("#association").val(), 
              "behaviour": $("#behaviour").val(),
+             "company": $("#company").val(),
              "sea_state": $("#sea-state").val(),
              "visibility": $("#visibility").val(),
              "type": $("input[name='chart-type']:checked").val(),
