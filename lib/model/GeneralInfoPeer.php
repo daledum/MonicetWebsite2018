@@ -75,7 +75,7 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
         return $query;
     }
 
-  public static function getTotalForPeriod($type, $year, $month) {
+  public static function getTotalForPeriod($type, $year, $month, $company_id = 0) {
     if( !$month || $month == 0 ){
       $dateBegin = $year.'-01-01';
       $dateEnd = ($year+1).'-01-01';
@@ -89,9 +89,11 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
     $query = GeneralInfoQuery::create()
             ->filterByValid(true)
             ->filterByDate($dateBegin, Criteria::GREATER_EQUAL)
-            ->filterByDate($dateEnd, Criteria::LESS_THAN)
-            ->count();
-    return $query;
+            ->filterByDate($dateEnd, Criteria::LESS_THAN);
+            if ($company_id != 0) {
+              $query->where('GeneralInfo.CompanyId = ?', $company_id);
+            }
+    return $query->count();
             
 //    $date1 = $year."-";
 //    $date2 = $year."-";  
@@ -171,7 +173,7 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
     return GeneralInfoPeer::doSelect($c);
   }
   
-  public static function countForSpecieOnMonth($specieId, $year, $month = null){
+  public static function countForSpecieOnMonth($specieId, $year, $month = null, $company_id = 0){
     if( !$month || $month == 0){
       $dateBegin = $year.'-01-01';
       $dateEnd = ($year+1).'-01-01';
@@ -191,9 +193,11 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
                 ->filterBySpecieId($specieId)
               ->endUse()
             ->endUse()
-            ->distinct()
-            ->count();
-    return $query;
+            ->distinct();
+            if ($company_id != 0) {
+              $query->where('GeneralInfo.CompanyId = ?', $company_id);
+            }
+    return $query->count();
   }
   
   public static function getFirstYear() {

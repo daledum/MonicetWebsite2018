@@ -68,7 +68,7 @@ class SpeciePeer extends BaseSpeciePeer {
     return SpeciePeer::doSelectOne($c);
   }
   
-  public static function getSightedSpeciesOnYearAndMonth($year, $month = null){
+  public static function getSightedSpeciesOnYearAndMonth($year, $month = null, $company_id = 0){
     if( !$month || $month == 0 ){
       $dateBegin = $year.'-01-01';
       $dateEnd = ($year+1).'-01-01';
@@ -89,9 +89,12 @@ class SpeciePeer extends BaseSpeciePeer {
                 ->endUse()
               ->endUse()
             ->endUse()
-            ->distinct()
-            ->find();
-    return $query;
+            ->distinct();
+            if ($company_id != 0) {
+              $query->where('GeneralInfo.CompanyId = ?', $company_id);
+            }
+            
+    return $query->find();
   }
   
   

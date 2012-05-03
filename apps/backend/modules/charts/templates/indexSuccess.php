@@ -28,6 +28,25 @@
                         <?php endforeach; ?>
                     </select>
                 </div>
+                <?php if($sf_user->isSuperAdmin()): ?>
+                <div class="filter-item">
+                  <label>Empresa:</label>
+                  <select id="company" class="filter-select">
+                    <option>(Todas)</option>
+                      <?php foreach($companies as $company): ?>
+                        <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
+                      <?php endforeach; ?>
+                  </select>
+                </div>
+                <?php else: ?>
+                <div class="filter-item">
+                  <label>Empresa:</label>
+                  <select id="company" class="filter-select">
+                    <option>(Todas)</option>
+                    <option value="<?php echo $user_company->getId() ?>"><?php echo $user_company->getName() ?></option>
+                  </select>
+                  </div>
+                <?php endif; ?>
                 <div class="filter-item">
                     <label><?php echo __('Select Species', null, 'charts') ?>:</label>
                     <select id="selected-species" name="selected-species" class="filter-select">
