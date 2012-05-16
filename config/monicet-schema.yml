@@ -300,6 +300,7 @@ propel:
      hash:        { type: varchar(10), required: true }
      graph_type:  { type: varchar(10), required: true }
      year:        { type: integer, required: true }
+     month:       { type: integer, required: false }
      chart_item:  { type: varchar(10), required: false }
      chart_type:  { type: varchar(10), required: false }
      selected:    { type: varchar(10), required: true }

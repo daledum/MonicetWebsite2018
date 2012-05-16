@@ -1057,6 +1057,7 @@ CREATE TABLE `chart_iframe_information`
 	`hash` VARCHAR(10)  NOT NULL,
 	`graph_type` VARCHAR(10)  NOT NULL,
 	`year` INTEGER  NOT NULL,
+	`month` INTEGER,
 	`chart_item` VARCHAR(10),
 	`chart_type` VARCHAR(10),
 	`selected` VARCHAR(10)  NOT NULL,
