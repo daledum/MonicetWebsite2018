@@ -89,26 +89,21 @@ class chartsActions extends sfActions
   public function executeTo_iframe(sfWebRequest $request) {
     
     $this->forward404Unless($request->isMethod('post'));
-    
-    if ($request->getPostParameter('graph_type') != 'apue') {
-      $this->iframe = new ChartIframeInformation();
+    $this->iframe = new ChartIframeInformation();
+    $hash = $this->generateIframeHash();
+    while (ChartIframeInformationPeer::retrieveByHash($hash)) {
       $hash = $this->generateIframeHash();
-      while (ChartIframeInformationPeer::retrieveByHash($hash)) {
-        $hash = $this->generateIframeHash();
-      }
-      $this->iframe->setHash($hash);
-      $this->iframe->setCompanyId($request->getPostParameter('company_id'));
-      $this->iframe->setGraphType($request->getPostParameter('graph_type'));
-      $this->iframe->setYear($request->getPostParameter('year'));
-      $this->iframe->setChartItem($request->getPostParameter('chart-item'));
-      $this->iframe->setChartType($request->getPostParameter('chart-type'));
-      $this->iframe->setSelected($request->getPostParameter('select-all-toggle'));
-      
-      $this->iframe->save();
     }
-    else {
-      $this->iframe_url = '/en/chartsIframe?graph_type=apue&chart_type='.$request->getPostParameter('chart-type').'&year='.$request->getPostParameter('year').'&month='.$request->getPostParameter('month').'&select_all_toggle='.$request->getPostParameter('select-all-toggle');
-    }
+    $this->iframe->setHash($hash);
+    $this->iframe->setCompanyId($request->getPostParameter('company_id'));
+    $this->iframe->setGraphType($request->getPostParameter('graph_type'));
+    $this->iframe->setYear($request->getPostParameter('year'));
+    $this->iframe->setMonth($request->getPostParameter('month'));
+    $this->iframe->setChartItem($request->getPostParameter('chart-item'));
+    $this->iframe->setChartType($request->getPostParameter('chart-type'));
+    $this->iframe->setSelected($request->getPostParameter('select-all-toggle'));
+    
+    $this->iframe->save();
   }
   
   /*

@@ -469,36 +469,28 @@ class chartsActions extends sfActions
   
   public function executeIframe(sfWebRequest $request) {
     
-    if ($request->getParameter('hash')) {
-      $iframe = ChartIframeInformationPeer::retrieveByHash($request->getParameter('hash'));
-      $this->forward404Unless($iframe);
-      
-      $this->company_id = $iframe->getCompanyId();
-      $this->year = $iframe->getYear();
-      $this->select_all_toggle = $iframe->getSelected();
-      
-      if ($iframe->getGraphType() == 'month') {
-        $this->chart_item = $iframe->getChartItem();
-        $this->setTemplate('iframeMonth');
-      }
-      elseif ($iframe->getGraphType() == 'species') {
-        $this->chart_type = $iframe->getChartType();
-        $this->setTemplate('iframeSpecies');
-      }
-      elseif ($iframe->getGraphType() == 'departure') {
-        $this->chart_type = $iframe->getChartType();
-        $this->setTemplate('iframeDeparture');
-      }
-      else {
-        $this->forward404();
-      }
+    $iframe = ChartIframeInformationPeer::retrieveByHash($request->getParameter('hash'));
+    $this->forward404Unless($iframe);
+    
+    $this->company_id = $iframe->getCompanyId();
+    $this->year = $iframe->getYear();
+    $this->month = $iframe->getMonth();
+    $this->select_all_toggle = $iframe->getSelected();
+    
+    if ($iframe->getGraphType() == 'month') {
+      $this->chart_item = $iframe->getChartItem();
+      $this->setTemplate('iframeMonth');
     }
-    elseif ($request->getParameter('graph_type') == 'apue') {
-      $this->chart_type = $request->getParameter('chart_type');
-      $this->year = $request->getParameter('year');
-      $this->month = $request->getParameter('month');
-      $this->company_id = $request->getParameter('company_id');
-      $this->select_all_toggle = $request->getParameter('select_all_toggle');
+    elseif ($iframe->getGraphType() == 'species') {
+      $this->chart_type = $iframe->getChartType();
+      $this->setTemplate('iframeSpecies');
+    }
+    elseif ($iframe->getGraphType() == 'departure') {
+      $this->chart_type = $iframe->getChartType();
+      $this->setTemplate('iframeDeparture');
+    }
+    elseif ($iframe->getGraphType() == 'apue') {
+      $this->chart_type = $iframe->getChartType();
       $this->setTemplate('iframeAPUE');
     }
     else {
