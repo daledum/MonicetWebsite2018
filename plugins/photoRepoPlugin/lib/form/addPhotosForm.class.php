@@ -16,10 +16,12 @@ class addPhotosForm extends sfForm
           'application/octet-stream', 'application/x-compress', 
           'application/x-compressed', 'multipart/x-zip'
           ),
+      'max_size' => 60000000,
     ), array(
-      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.'
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.',
+      'max_size'   => 'O ficheiro é demasiado grande. (%max_size%max. 60MB)'
     ));
-    $this->widgetSchema->setHelp('photo', 'Apenas ficheiros com extensão .jpg ou .zip');
+    $this->widgetSchema->setHelp('photo', 'Apenas ficheiros com extensão .jpg ou .zip, nomes sem espaços, tamanho de 60MB max.');
     $this->widgetSchema->setLabel('photo', 'Fotografia(s)');
     $this->widgetSchema->setNameFormat('add_photos[%s]');
     

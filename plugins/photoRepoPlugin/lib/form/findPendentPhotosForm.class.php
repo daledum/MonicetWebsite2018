@@ -7,6 +7,33 @@ class findPendentPhotosForm extends sfForm
       $args = $request->getParameter('find_pendent_photos');
     }
     
+    $date_type_options = array('no_date' => '', 'shoot' => 'Disparo', 'upload' => 'Upload');
+    
+    $this->widgetSchema['date_type'] = new sfWidgetFormChoice(array(
+      'choices' => $date_type_options
+    ));
+    $this->validatorSchema['date_type'] = new sfValidatorChoice(array(
+      'choices' => array_keys($date_type_options),
+    ));
+    $this->widgetSchema['date_type']->setLabel('Tipo de data');
+    if( isset($args['date_type']) ){
+      $this->widgetSchema['date_type']->setDefault($args['date_type']);
+    }
+    
+    $sort_options = array('asc' => 'Ascendente', 'desc' => 'Descendente');
+    
+    $this->widgetSchema['sort'] = new sfWidgetFormChoice(array(
+      'choices' => $sort_options
+    ));
+    $this->validatorSchema['sort'] = new sfValidatorChoice(array(
+      'choices' => array_keys($sort_options),
+    ));
+    $this->widgetSchema['sort']->setLabel('Ordenação');
+    if( isset($args['sort']) ){
+      $this->widgetSchema['sort']->setDefault($args['sort']);
+    }
+    
+    
     $this->widgetSchema['date_from'] = new sfWidgetFormInput();
     $this->widgetSchema['date_from']->setAttribute('class', 'date_field_from');
     $this->widgetSchema['date_from']->setAttribute('readonly', 'readonly');
@@ -39,6 +66,7 @@ class findPendentPhotosForm extends sfForm
     if( isset($args['photographer']) ){
       $this->widgetSchema['photographer']->setDefault($args['photographer']);
     }
+    
     
     $this->widgetSchema->setNameFormat('find_pendent_photos[%s]');
   }

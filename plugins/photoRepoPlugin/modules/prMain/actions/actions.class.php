@@ -27,6 +27,7 @@ class prMainActions extends sfActions {
       $file = $this->form->getValue('photo');
       if( $values['photo']->getOriginalExtension() == '.zip'){
         $ok = true;
+        $error_str = 'Ocorrreram os seguintes erros:<br/>';
         // salvar ficheiro zip e descompactar na pasta temporária
         $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/'.$values['photo']->getOriginalName();
         $finalTempfileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/';
@@ -40,18 +41,21 @@ class prMainActions extends sfActions {
         while ($file = readdir($dir)) {
           if( $file != '.' && $file != '..' ){
             if( !$this->validateFilename($file) ) {
+              $error_str .= 'O ficheiro "'.$file.'" não foi carregado pois tem um nome inválido.<br/>';
+              system('rm '.$finalTempfileAddress.'/'.$file);
               $ok = false;
+            } else {
+              system('mv '.$finalTempfileAddress.'/'.$file.' '.sfConfig::get('sf_upload_dir').'/pr_repo');
             }
           }
         }
         if( $ok ) {
-          system('cp '.$finalTempfileAddress.'* '.sfConfig::get('sf_upload_dir').'/pr_repo');
+          
           $this->getUser()->setFlash('notice', 'A fotografias foram carregadas com sucesso.');
-          system('rm '.$finalTempfileAddress.'*');
           $this->redirect('@recognition_of_cetaceans_app');
         } else {
-          system('rm '.$finalTempfileAddress.'*');
-          $this->getUser()->setFlash('error', 'Pelo menos um ficheiro contido no ficheiro .zip tem um formato inválido');
+          $this->getUser()->setFlash('error', 'Pelo menos um ficheiro contido no ficheiro .zip tem um formato inválido.<br/></br/>'.$error_str);
+          $this->redirect('@recognition_of_cetaceans_app');
         }
         
       } else {
@@ -76,12 +80,11 @@ class prMainActions extends sfActions {
     $this->form = new findPendentPhotosForm();
     
     $this->sort = $request->getParameter('sort', 'asc');
-
     $args = $request->getParameter('find_pendent_photos');
     $this->argumentos = $args;
-    $this->resultados = $this->findPendentPhotos($args, $this->sort);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
+    $this->resultados = $this->findPendentPhotos($args);/*mfPlanoPeer::pesquisaAlunosComPlanos($args);*/
     
-    $this->invalidPhotos = $this->findInvalidNamePhotos($this->sort);
+    $this->invalidPhotos = $this->findInvalidNamePhotos($args['sort']);
   }
   
   public function executeDeleteInvalidPendentPhoto( sfWebRequest $request ){
@@ -146,7 +149,7 @@ class prMainActions extends sfActions {
     return $counter;
   }
   
-  function findPendentPhotos( $args = array(), $sort = 'asc' ){
+    function findPendentPhotos( $args = array() ){
     //print_r($args);
     $results = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
@@ -156,16 +159,31 @@ class prMainActions extends sfActions {
       $parts = explode("-", $file);
       if (is_array($parts) && count($parts) == 3 ){
         $valid = true;
-        $dateFile = substr($parts[0], 0, 4).'-'.substr($parts[0], 4, 2).'-'.substr($parts[0], 6, 2);
         
-        //Date filter
-        if( isset($args['date_from']) && strlen($args['date_from']) && !mfData::isPosteriorEqual($dateFile, $args['date_from'])){
-          $valid = false;
-        }
-        if( isset($args['date_to']) && strlen($args['date_to']) && !mfData::isAnteriorEqual($dateFile, $args['date_to'])){
-          $valid = false;
+        
+        if($args['date_type'] == 'shoot'){
+          $dateFile = substr($parts[0], 0, 4).'-'.substr($parts[0], 4, 2).'-'.substr($parts[0], 6, 2);
+          //Date filter
+          if( isset($args['date_from']) && strlen($args['date_from']) && !mfData::isPosteriorEqual($dateFile, $args['date_from'])){
+            $valid = false;
+          }
+          if( isset($args['date_to']) && strlen($args['date_to']) && !mfData::isAnteriorEqual($dateFile, $args['date_to'])){
+            $valid = false;
+          }
         }
         
+        if($args['date_type'] == 'upload'){
+          $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file;
+          $dateUpload = date("Y-m-d", filemtime( $fileAddress));
+          //Date filter
+          if( isset($args['date_from']) && strlen($args['date_from']) && !mfData::isPosteriorEqual($dateUpload, $args['date_from'])){
+            $valid = false;
+          }
+          if( isset($args['date_to']) && strlen($args['date_to']) && !mfData::isAnteriorEqual($dateUpload, $args['date_to'])){
+            $valid = false;
+          }
+        }
+          
         //Photographer filter
         if( isset($args['photographer']) &&  strlen($args['photographer']) && $args['photographer'] != $parts[1]){
           $valid = false;
@@ -177,7 +195,7 @@ class prMainActions extends sfActions {
       }
     }
     
-    if( $sort == 'asc' ) {
+    if( $args['sort'] == 'asc' ) {
       sort($results);
     } else {
       rsort($results);

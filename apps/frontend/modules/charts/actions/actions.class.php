@@ -52,12 +52,18 @@ class chartsActions extends sfActions
         $sighted_species = SpeciePeer::getSightedSpeciesOnYearAndMonth($request->getParameter('year'), $request->getParameter('month'), $request->getParameter('company'));
         
         foreach( $sighted_species as $cont => $specie ) {
-          $categories[] = $specie->getCode();
+          
           $series[$specie->formattedString()] = array_fill(1, count($sighted_species), 0);
           $numGI = GeneralInfoPeer::countForSpecieOnMonth($specie->getId(), $request->getParameter('year'), $request->getParameter('month'), $request->getParameter('company'));
-          $series[$specie->formattedString()][$cont+1] = round(($numGI / $gi_total) * 100, 0);
+          //$series[$specie->formattedString()][$cont+1] = round(($numGI / $gi_total) * 100, 0);
+          $categories[$specie->getCode()] = round(($numGI / $gi_total) * 100, 0);
         }
-        
+        asort($categories);
+        $categories = array_keys($categories);
+        foreach($sighted_species as $cont => $specie){
+          $numGI = GeneralInfoPeer::countForSpecieOnMonth($specie->getId(), $request->getParameter('year'), $request->getParameter('month'), $request->getParameter('company'));
+          $series[$specie->formattedString()][array_search($specie->getCode(), $categories)+1] = round(($numGI / $gi_total) * 100, 0);
+        }
     } else {
       $year = $request->getParameter('year', date('Y')); 
       //$gi_total = GeneralInfoPeer::getTotalForPeriod(2, $year);
@@ -463,7 +469,6 @@ class chartsActions extends sfActions
     foreach ($totals as $code => $value) {
       $ordered[$code] = $series[$code];
     }
-    
     return $ordered;
   }
   

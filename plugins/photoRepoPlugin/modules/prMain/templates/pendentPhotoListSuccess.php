@@ -12,17 +12,10 @@
 
         <fieldset id="sf_fieldset_none">
           <div class="sf_admin_form_row sf_admin_text">
-            <?php echo $form['date_from']->renderError() ?>
+            <?php echo $form['date_type']->renderError() ?>
             <div>
-              <?php echo $form['date_from']->renderLabel() ?>
-              <?php echo $form['date_from']->render() ?>
-            </div>
-          </div>
-          <div class="sf_admin_form_row sf_admin_text">
-            <?php echo $form['date_to']->renderError() ?>
-            <div>
-              <?php echo $form['date_to']->renderLabel() ?>
-              <?php echo $form['date_to']->render() ?>
+              <?php echo $form['date_type']->renderLabel() ?>
+              <?php echo $form['date_type']->render() ?>&nbsp;&nbsp;&nbsp;Desde <?php echo $form['date_from']->render() ?> até <?php echo $form['date_to']->render() ?>
             </div>
           </div>
           <div class="sf_admin_form_row sf_admin_text">
@@ -30,6 +23,13 @@
             <div>
               <?php echo $form['photographer']->renderLabel() ?>
               <?php echo $form['photographer']->render() ?>
+            </div>
+          </div>
+          <div class="sf_admin_form_row sf_admin_text">
+            <?php echo $form['sort']->renderError() ?>
+            <div>
+              <?php echo $form['sort']->renderLabel() ?>
+              <?php echo $form['sort']->render() ?>
             </div>
           </div>
         </fieldset>
@@ -85,9 +85,17 @@
           <thead>
             <tr>
               <th width="300">
-                <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$sort.'.png', array('alt' => __($sort, array(), 'sf_admin'), 'title' => __($sort, array(), 'sf_admin'))) ?>
                 <?php $ph = $sf_request->getParameterHolder()->get('find_pendent_photos') ?>
-                <?php echo link_to('Fotografia', '@pr_pendent_photos_list?find_pendent_photos[photographer]='.$ph['photographer'].'&find_pendent_photos[date_from]='.$ph['date_from'].'&find_pendent_photos[date_to]='.$ph['date_to'].'&sort='.($sort == 'asc' ? 'desc' : 'asc'), array(), array('method' => 'post')) ?>
+                <?php if($ph['date_type'] == 'shoot' || (strlen($ph['photographer']) && $ph['date_type'] == 'no_date' ) ): ?>
+                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
+                <?php endif; ?>
+                Fotografia
+              </th>
+              <th>
+                <?php if($ph['date_type'] == 'upload'): ?>
+                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
+                <?php endif; ?>
+                Data de upload
               </th>
               <th>Acções</th>
             </tr>
@@ -96,6 +104,8 @@
           <?php foreach( $resultados as $file ): ?>
             <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
               <td style="text-align: left;"><?php echo $file ?></td>
+              <?php $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file; ?>
+              <td><?php echo date("Y-m-d", filemtime( $fileAddress)) ?></td>
               <td>
                 <ul class="sf_admin_td_actions">
                   <li class="sf_admin_action_show"><?php echo link_to('Ver fotografia', '/uploads/pr_repo/'.$file, array('target' => '_blank') ) ?></li>
