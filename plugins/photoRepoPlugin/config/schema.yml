@@ -73,10 +73,10 @@ propel:
     basic_behaviour:  { type: VARCHAR, size: 255, required: false }
     latitude:         { type: VARCHAR, size: 255, required: false }
     longitude:        { type: VARCHAR, size: 255, required: false }
-    company:          { type: INTEGER, foreignTable: company, foreignReference: id, required: false, onDelete: setnull, index: true }
-    vessel:           { type: INTEGER, foreignTable: vessel, foreignReference: id, required: false, onDelete: setnull, index: true }
+    company_id:       { type: INTEGER, foreignTable: company, foreignReference: id, required: false, onDelete: setnull, index: true }
+    vessel_id:        { type: INTEGER, foreignTable: vessel, foreignReference: id, required: false, onDelete: setnull, index: true }
     copyright:        { type: VARCHAR, size: 255, required: false }
-    photographer_id:  { type: INTEGER, foreignTable: photographer, foreignReference: id, required: false, index: true }
+    photographer_id:  { type: INTEGER, foreignTable: photographer, foreignReference: id, required: false, onDelete: setnull, index: true }
     kind_of_photo:    { type: VARCHAR, size: 255, required: false }
     photo_quality:    { type: VARCHAR, size: 255, required: false }
     notes:            { type: LONGVARCHAR, required: false }

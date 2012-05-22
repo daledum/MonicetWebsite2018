@@ -3,6 +3,7 @@ propel:
       id:               ~
       name:             { type: varchar(255), required: true }
       acronym:          { type: varchar(45), required: true }
+      rec_sec_code:     { type: varchar, size: 45 }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       telephone:        { type: varchar, size: 30 }
@@ -28,6 +29,7 @@ propel:
    vessel:
       id:               ~
       company_id:       { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }
+      rec_sec_code:     { type: varchar, size: 45 }
       name:             { type: varchar(255), required: true }
       length:           { type: integer, required: false }
       power:            { type: float, required: false }
@@ -159,6 +161,7 @@ propel:
       _attributes:      { isI18N: true, i18nTable: specie_i18n }
       id:               ~
       specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true, onDelete: cascade }
+      rec_sec_code:     { type: varchar, size: 45 }
       code:             { type: varchar(10), required: true }
       scientific_name:  { type: varchar(255) }
       created_at:       ~

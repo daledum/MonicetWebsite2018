@@ -114,6 +114,25 @@ CREATE TABLE `mark`
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
+#-- photographer
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `photographer`;
+
+
+CREATE TABLE `photographer`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`code` VARCHAR(255),
+	`name` VARCHAR(255),
+	`email` VARCHAR(255),
+	`cpoyright` VARCHAR(255),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
 #-- observation_photo
 #-----------------------------------------------------------------------------
 
@@ -127,28 +146,47 @@ CREATE TABLE `observation_photo`
 	`individual_id` INTEGER,
 	`specie_id` INTEGER,
 	`island` VARCHAR(255),
-	`fin_side` VARCHAR(255),
+	`body_part` VARCHAR(255),
+	`gender` VARCHAR(255),
+	`age_group` VARCHAR(255),
+	`basic_behaviour` VARCHAR(255),
 	`latitude` VARCHAR(255),
 	`longitude` VARCHAR(255),
-	`company` VARCHAR(255),
-	`photographer` VARCHAR(255),
-	`photographer_email` VARCHAR(255),
+	`company_id` INTEGER,
+	`vessel_id` INTEGER,
+	`copyright` VARCHAR(255),
+	`photographer_id` INTEGER,
 	`kind_of_photo` VARCHAR(255),
 	`photo_quality` VARCHAR(255),
-	`observation_date` DATE,
+	`notes` TEXT,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_I_1`(`individual_id`),
 	KEY `observation_photo_I_2`(`specie_id`),
+	KEY `observation_photo_I_3`(`company_id`),
+	KEY `observation_photo_I_4`(`vessel_id`),
+	KEY `observation_photo_I_5`(`photographer_id`),
 	CONSTRAINT `observation_photo_FK_1`
 		FOREIGN KEY (`individual_id`)
 		REFERENCES `individual` (`id`)
-		ON DELETE CASCADE,
+		ON DELETE SET NULL,
 	CONSTRAINT `observation_photo_FK_2`
 		FOREIGN KEY (`specie_id`)
 		REFERENCES `specie` (`id`)
-		ON DELETE CASCADE
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_3`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_4`
+		FOREIGN KEY (`vessel_id`)
+		REFERENCES `vessel` (`id`)
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_5`
+		FOREIGN KEY (`photographer_id`)
+		REFERENCES `photographer` (`id`)
+		ON DELETE SET NULL
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
