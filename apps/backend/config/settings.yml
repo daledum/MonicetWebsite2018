@@ -52,4 +52,5 @@ all:
       - prIndividual
       - prPattern
       - prUploadedPhoto
+      - prObservationPhoto
     standard_helpers:       [Partial, Cache, I18N]

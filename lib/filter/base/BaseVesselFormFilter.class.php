@@ -13,6 +13,7 @@ abstract class BaseVesselFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'company_id'   => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => true)),
+      'rec_cet_code' => new sfWidgetFormFilterInput(),
       'name'         => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'length'       => new sfWidgetFormFilterInput(),
       'power'        => new sfWidgetFormFilterInput(),
@@ -24,6 +25,7 @@ abstract class BaseVesselFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'company_id'   => new sfValidatorPropelChoice(array('required' => false, 'model' => 'Company', 'column' => 'id')),
+      'rec_cet_code' => new sfValidatorPass(array('required' => false)),
       'name'         => new sfValidatorPass(array('required' => false)),
       'length'       => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
       'power'        => new sfValidatorSchemaFilter('text', new sfValidatorNumber(array('required' => false))),
@@ -50,6 +52,7 @@ abstract class BaseVesselFormFilter extends BaseFormFilterPropel
     return array(
       'id'           => 'Number',
       'company_id'   => 'ForeignKey',
+      'rec_cet_code' => 'Text',
       'name'         => 'Text',
       'length'       => 'Number',
       'power'        => 'Number',

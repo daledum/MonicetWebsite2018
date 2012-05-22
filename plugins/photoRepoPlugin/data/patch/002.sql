@@ -101,9 +101,9 @@ CREATE TABLE `observation_photo_i18n`
 ) ENGINE=MyISAM;
 
 
-#--ALTER TABLE company ADD rec_set_code VARCHAR(45) after acronym;
-#--ALTER TABLE vessel ADD rec_set_code VARCHAR(45) after company_id;
-ALTER TABLE specie ADD rec_set_code VARCHAR(45) after specie_group_id;
+ALTER TABLE company ADD rec_cet_code VARCHAR(45) after acronym;
+ALTER TABLE vessel ADD rec_cet_code VARCHAR(45) after company_id;
+ALTER TABLE specie ADD rec_cet_code VARCHAR(45) after specie_group_id;
 
 
 # This restores the fkey checks, after having unset them earlier

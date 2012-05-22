@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           ObservationPhoto
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ObservationPhoto
+    plural:                ObservationPhotos
+    route_prefix:          pr_observation_photo
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

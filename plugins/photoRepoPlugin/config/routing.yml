@@ -72,3 +72,11 @@ pr_uploaded_photo:
     column:               id
     with_wildcard_routes: true
     
+pr_observation_photo:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhoto
+    module:               prObservationPhoto
+    prefix_path:          /observation-photo
+    column:               id
+    with_wildcard_routes: true

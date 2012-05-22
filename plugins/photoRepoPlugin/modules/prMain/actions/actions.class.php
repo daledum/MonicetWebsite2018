@@ -9,6 +9,8 @@ class prMainActions extends sfActions {
     $this->individuals = IndividualQuery::create()->count();
     $this->species = SpecieQuery::create()->count();
     $this->patterns = PatternQuery::create()->count();
+    $this->num_companies = CompanyQuery::create()->count();
+    $this->num_vessels = VesselQuery::create()->count();
   }
   
   public function executeUploadPhotosBulk( sfWebRequest $request ){

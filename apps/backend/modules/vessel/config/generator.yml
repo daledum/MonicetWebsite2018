@@ -19,9 +19,11 @@ generator:
         power:             { label: Potência (HP) }
         height:            { label: Altura (m) }
         observations:      { label: Observações }
+        rec_cet_code:
+          label:  "Cod. Rec. Cetáceos"
       list:
         title:             A listar Barcos
-        display:           [company, name, length, power, height]
+        display:           [company, rec_cet_code, name, length, power, height]
         #peer_method:       doSelectByCompany
       filter:              
         display:           [ company_id, name ]

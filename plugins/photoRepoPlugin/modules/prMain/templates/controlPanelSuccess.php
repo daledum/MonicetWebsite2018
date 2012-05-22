@@ -20,6 +20,7 @@
               </ul>
             </td>
           </tr>
+          
           <tr class="sf_admin_row odd">
             <td width="400">Fotografias por processar</td>
             <td width="50" style="text-align: right;"><?php echo $notProcessedPhotos ?></td>
@@ -40,7 +41,7 @@
               </ul>
             </td>
           </tr>
-          <?php */ ?>
+          
           <tr class="sf_admin_row odd">
             <td width="400">Indíviduos</td>
             <td width="50" style="text-align: right;"><?php echo $individuals ?></td>
@@ -51,7 +52,7 @@
               </ul>
             </td>
           </tr>
-          
+          <?php */ ?>
           <tr class="sf_admin_row even">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>
@@ -64,6 +65,29 @@
           </tr>
           
           <tr class="sf_admin_row odd">
+            <td width="400">Companhias</td>
+            <td width="50" style="text-align: right;"><?php echo $num_companies ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@company') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@company_new') ?></li>
+              </ul>
+            </td>
+          </tr>
+          
+          <tr class="sf_admin_row even">
+            <td width="400">Barcos</td>
+            <td width="50" style="text-align: right;"><?php echo $num_vessels ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@vessel') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@vessel_new') ?></li>
+              </ul>
+            </td>
+          </tr>
+          
+          <?php /* ?>
+          <tr class="sf_admin_row odd">
             <td width="400">Padrões</td>
             <td width="50" style="text-align: right;"><?php echo $patterns ?></td>
             <td>
@@ -73,6 +97,7 @@
               </ul>
             </td>
           </tr>
+          <?php */ ?>
         </tbody>
       </table>
     </div>

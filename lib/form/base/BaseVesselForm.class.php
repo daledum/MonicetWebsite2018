@@ -16,6 +16,7 @@ abstract class BaseVesselForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'           => new sfWidgetFormInputHidden(),
       'company_id'   => new sfWidgetFormPropelChoice(array('model' => 'Company', 'add_empty' => false)),
+      'rec_cet_code' => new sfWidgetFormInputText(),
       'name'         => new sfWidgetFormInputText(),
       'length'       => new sfWidgetFormInputText(),
       'power'        => new sfWidgetFormInputText(),
@@ -28,6 +29,7 @@ abstract class BaseVesselForm extends BaseFormPropel
     $this->setValidators(array(
       'id'           => new sfValidatorPropelChoice(array('model' => 'Vessel', 'column' => 'id', 'required' => false)),
       'company_id'   => new sfValidatorPropelChoice(array('model' => 'Company', 'column' => 'id')),
+      'rec_cet_code' => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'name'         => new sfValidatorString(array('max_length' => 255)),
       'length'       => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
       'power'        => new sfValidatorNumber(array('required' => false)),

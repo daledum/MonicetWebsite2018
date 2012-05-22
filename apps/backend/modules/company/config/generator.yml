@@ -19,8 +19,10 @@ generator:
         district:          { label: Distrito }
         municipality:      { label: Conselho }
         observations:      { label: Observações }
+        rec_cet_code:
+          label:    "Cod. Rec. Cetáceos"
       list:
-        display:           [acronym, name, base_latitude, base_longitude]
+        display:           [acronym, rec_cet_code, name, base_latitude, base_longitude]
         peer_method:       doSelectByCompany
       filter:
         class: false

@@ -16,6 +16,7 @@ abstract class BaseSpecieForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'              => new sfWidgetFormInputHidden(),
       'specie_group_id' => new sfWidgetFormPropelChoice(array('model' => 'SpecieGroup', 'add_empty' => false)),
+      'rec_cet_code'    => new sfWidgetFormInputText(),
       'code'            => new sfWidgetFormInputText(),
       'scientific_name' => new sfWidgetFormInputText(),
       'created_at'      => new sfWidgetFormDateTime(),
@@ -25,6 +26,7 @@ abstract class BaseSpecieForm extends BaseFormPropel
     $this->setValidators(array(
       'id'              => new sfValidatorPropelChoice(array('model' => 'Specie', 'column' => 'id', 'required' => false)),
       'specie_group_id' => new sfValidatorPropelChoice(array('model' => 'SpecieGroup', 'column' => 'id')),
+      'rec_cet_code'    => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'code'            => new sfValidatorString(array('max_length' => 10)),
       'scientific_name' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
