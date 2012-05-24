@@ -53,6 +53,11 @@ class chartsActions extends sfActions
     
     $this->companies = CompanyPeer::doSelect(new Criteria());
     
+    if (!$this->getUser()->getGuardUser()->getIsSuperAdmin()) {
+        $user = $this->getUser()->getGuardUser();
+        $this->user_company = CompanyPeer::doSelectUserCompany($user->getId());
+    }
+    
   }
   
   public function executeSpecies(sfWebRequest $request) {
