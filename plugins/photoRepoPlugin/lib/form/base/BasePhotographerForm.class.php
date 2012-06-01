@@ -18,17 +18,17 @@ abstract class BasePhotographerForm extends BaseFormPropel
       'code'       => new sfWidgetFormInputText(),
       'name'       => new sfWidgetFormInputText(),
       'email'      => new sfWidgetFormInputText(),
-      'cpoyright'  => new sfWidgetFormInputText(),
+      'copyright'  => new sfWidgetFormInputText(),
       'created_at' => new sfWidgetFormDateTime(),
       'updated_at' => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorPropelChoice(array('model' => 'Photographer', 'column' => 'id', 'required' => false)),
-      'code'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'code'       => new sfValidatorString(array('max_length' => 255)),
+      'name'       => new sfValidatorString(array('max_length' => 255)),
       'email'      => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'cpoyright'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'copyright'  => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
       'updated_at' => new sfValidatorDateTime(array('required' => false)),
     ));

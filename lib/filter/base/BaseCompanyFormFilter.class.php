@@ -14,7 +14,6 @@ abstract class BaseCompanyFormFilter extends BaseFormFilterPropel
     $this->setWidgets(array(
       'name'              => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'acronym'           => new sfWidgetFormFilterInput(array('with_empty' => false)),
-      'rec_cet_code'      => new sfWidgetFormFilterInput(),
       'base_latitude'     => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'base_longitude'    => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'telephone'         => new sfWidgetFormFilterInput(),
@@ -36,7 +35,6 @@ abstract class BaseCompanyFormFilter extends BaseFormFilterPropel
     $this->setValidators(array(
       'name'              => new sfValidatorPass(array('required' => false)),
       'acronym'           => new sfValidatorPass(array('required' => false)),
-      'rec_cet_code'      => new sfValidatorPass(array('required' => false)),
       'base_latitude'     => new sfValidatorPass(array('required' => false)),
       'base_longitude'    => new sfValidatorPass(array('required' => false)),
       'telephone'         => new sfValidatorPass(array('required' => false)),
@@ -98,7 +96,6 @@ abstract class BaseCompanyFormFilter extends BaseFormFilterPropel
       'id'                => 'Number',
       'name'              => 'Text',
       'acronym'           => 'Text',
-      'rec_cet_code'      => 'Text',
       'base_latitude'     => 'Text',
       'base_longitude'    => 'Text',
       'telephone'         => 'Text',

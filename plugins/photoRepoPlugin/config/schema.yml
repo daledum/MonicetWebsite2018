@@ -53,32 +53,48 @@ propel:
   photographer:
     id:               ~
     _attributes:      { phpName: Photographer, idMethod: native }
-    code:             { type: VARCHAR, size: 255 }
-    name:             { type: VARCHAR, size: 255 }
+    code:             { type: VARCHAR, size: 255, required: true }
+    name:             { type: VARCHAR, size: 255, required: true }
     email:            { type: VARCHAR, size: 255, required: false }
-    cpoyright:        { type: VARCHAR, size: 255, required: false }
+    copyright:        { type: VARCHAR, size: 255, required: false }
     created_at:       ~
     updated_at:       ~
+  
+  body_part:
+    _attributes:      { phpName: BodyPart, idMethod: native, isI18N: true, i18nTable: body_part_i18n }
+    id:               ~
+    code:             { type: VARCHAR, size: 255 }
+    created_at:       ~
+    updated_at:       ~
+    
+  body_part_i18n:
+    id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: body_part, foreignReference: id, index: true }
+    culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
+    description:      { type: VARCHAR, size: 255, required: false }
+
     
   observation_photo:
     _attributes:      { phpName: ObservationPhoto, idMethod: native, isI18N: true, i18nTable: observation_photo_i18n }
     id:               ~
     code:             { type: VARCHAR, size: 255, required: true }
+    file_name:        { type: VARCHAR, size: 255, required: true }
+    photo_date:       { type: DATE, required: false }
+    photo_time:       { type: TIME, required: false }
     individual_id:    { type: INTEGER, foreignTable: individual, foreignReference: id, required: false, onDelete: setnull, index: true }
-    specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: setnull, index: true }
-    island:           { type: VARCHAR, size: 255, required: false }
-    body_part:        { type: VARCHAR, size: 255, required: false }
+    specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, onDelete: setnull, index: true }
+    island:           { type: VARCHAR, size: 255 }
+    body_part_id:     { type: INTEGER, foreignTable: body_part, foreignReference: id, onDelete: setnull, index: true }
     gender:           { type: VARCHAR, size: 255, required: false }
     age_group:        { type: VARCHAR, size: 255, required: false }
-    basic_behaviour:  { type: VARCHAR, size: 255, required: false }
+    behaviour_id:     { type: INTEGER, foreignTable: behaviour, foreignReference: id, required: false, onDelete: setnull, index: true }
     latitude:         { type: VARCHAR, size: 255, required: false }
     longitude:        { type: VARCHAR, size: 255, required: false }
     company_id:       { type: INTEGER, foreignTable: company, foreignReference: id, required: false, onDelete: setnull, index: true }
     vessel_id:        { type: INTEGER, foreignTable: vessel, foreignReference: id, required: false, onDelete: setnull, index: true }
-    copyright:        { type: VARCHAR, size: 255, required: false }
     photographer_id:  { type: INTEGER, foreignTable: photographer, foreignReference: id, required: false, onDelete: setnull, index: true }
     kind_of_photo:    { type: VARCHAR, size: 255, required: false }
     photo_quality:    { type: VARCHAR, size: 255, required: false }
+    is_best:          { type: BOOLEAN, default: false }
     notes:            { type: LONGVARCHAR, required: false }
     created_at:       ~
     updated_at:       ~

@@ -86,6 +86,28 @@
             </td>
           </tr>
           
+          <tr class="sf_admin_row odd">
+            <td width="400">Fotógrafos</td>
+            <td width="50" style="text-align: right;"><?php echo $num_photographers ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_photographer') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@pr_photographer_new') ?></li>
+              </ul>
+            </td>
+          </tr>
+          
+          <tr class="sf_admin_row even">
+            <td width="400">Partes do corpo</td>
+            <td width="50" style="text-align: right;"><?php echo $num_body_parts ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_body_part') ?></li>
+                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@pr_body_part_new') ?></li>
+              </ul>
+            </td>
+          </tr>
+          
           <?php /* ?>
           <tr class="sf_admin_row odd">
             <td width="400">Padrões</td>

@@ -16,6 +16,31 @@ generator:
       fields:  ~
       list:    ~
       filter:  ~
-      form:    ~
-      edit:    ~
-      new:     ~
+      form:    
+        display:
+          NONE:
+            - code
+            - file_name
+            - photo_date
+            - photo_time
+          'Dados Biológicos':
+            - specie_id
+            - island
+            - body_part
+            - gender
+            - age_group
+            - behaviour_id
+            - latitude
+            - longitude
+            - notes
+          'Outros dados':
+            - company_id
+            - vessel_id
+            - photographer_id
+            - kind_of_photo
+            - photo_quality
+            
+      edit:    
+        title: "A editar uma fotografia de observação de cetáceos"
+      new:     
+        title: "A processar fotografia pendente"

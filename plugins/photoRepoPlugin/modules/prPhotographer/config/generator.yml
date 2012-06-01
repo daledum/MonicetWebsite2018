@@ -1,0 +1,25 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Photographer
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Photographer
+    plural:                Photographers
+    route_prefix:          pr_photographer
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    
+        title: "Listagem de fotógrafos"
+        display: [code, name, email, copyright]
+      filter:  ~
+      form:    ~
+      edit:    
+        title: "A editar um fotógrafo"
+      new:     
+        title: "A adicionar um novo fotógrafo"

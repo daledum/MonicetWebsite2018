@@ -1,15 +1,9 @@
 <?php
-
-/**
- * Photographer form.
- *
- * @package    ##PROJECT_NAME##
- * @subpackage form
- * @author     ##AUTHOR_NAME##
- */
 class PhotographerForm extends BasePhotographerForm
 {
-  public function configure()
-  {
+  public function configure() {
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('photographer');
+    
+    unset($this['created_at'], $this['updated_at']);
   }
 }

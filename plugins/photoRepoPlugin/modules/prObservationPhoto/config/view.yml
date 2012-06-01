@@ -1,2 +1,4 @@
+
 all:
+  stylesheets: [/photoRepoPlugin/css/pr.css]
   layout: mfAdminLayout

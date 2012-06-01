@@ -21,3 +21,26 @@
   max-width: 400px;
   margin-bottom: 10px;
 }
+
+.pendent_photo_container {
+    width: 700px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+#photo_details {
+    float: left;
+    width: 450px;
+    margin-left: 10px;
+}
+#photo_details img {
+    margin-bottom: 10px;
+    width: 450px;
+}
+.photo_exif {
+    float: right;
+    width: 430px;
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    padding: 10px;
+}

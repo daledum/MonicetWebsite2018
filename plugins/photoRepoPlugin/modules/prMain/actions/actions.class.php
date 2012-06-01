@@ -11,6 +11,8 @@ class prMainActions extends sfActions {
     $this->patterns = PatternQuery::create()->count();
     $this->num_companies = CompanyQuery::create()->count();
     $this->num_vessels = VesselQuery::create()->count();
+    $this->num_photographers = PhotographerQuery::create()->count();
+    $this->num_body_parts = BodyPartQuery::create()->count();
   }
   
   public function executeUploadPhotosBulk( sfWebRequest $request ){
@@ -48,6 +50,7 @@ class prMainActions extends sfActions {
               $ok = false;
             } else {
               system('mv '.$finalTempfileAddress.'/'.$file.' '.sfConfig::get('sf_upload_dir').'/pr_repo');
+              system('touch '.sfConfig::get('sf_upload_dir').'/pr_repo/'.$file);
             }
           }
         }
@@ -132,26 +135,33 @@ class prMainActions extends sfActions {
     while ($file = readdir($dir)) {
       $parts = explode(".", $file);
       if (is_array($parts) && count($parts) == 2 && in_array($parts[1], array('png', 'jpg', 'PNG', 'JPG'))){
-        $counter++;
+        $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
+        if( !$is_processed ){
+          $counter++;
+        }
       }
     }
     return $counter;
   }
   
   function countProcessedPhotos(){
-    $current_dir = sfConfig::get('sf_web_dir').'/images/pr';
+    $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo_final';
     $dir = opendir($current_dir);        // Open the sucker
     $counter = 0;
     while ($file = readdir($dir)) {
       $parts = explode(".", $file);
       if (is_array($parts) && count($parts) == 2 && in_array($parts[1], array('png', 'jpg', 'PNG', 'JPG'))){
-        $counter++;
+        // if alredy processed
+        $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
+        if( $is_processed ){
+          $counter++;
+        }
       }
     }
     return $counter;
   }
   
-    function findPendentPhotos( $args = array() ){
+  function findPendentPhotos( $args = array() ){
     //print_r($args);
     $results = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
@@ -191,6 +201,12 @@ class prMainActions extends sfActions {
           $valid = false;
         }
         
+        // if alredy processed
+        $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
+        if( $is_processed ){
+          $valid = false;
+        }
+        
         if( $valid ){
           $results[] = $file;
         }
@@ -213,21 +229,23 @@ class prMainActions extends sfActions {
     $counter = 0;
     while ($file = readdir($dir)) {
       if($file != '.' && $file != '..'){
+        
         $parts = explode(".", $file);
         if( !is_array($parts) || count($parts) != 2 || ($parts[1] != 'jpg' && $parts[1] != 'JPG') ){
-          $results[] = $file;
+          $results[] = array('file' => $file, 'motive' => 'Nome mal formado.' );
         } else {
           $nameParts = explode('-', $parts[0]);
           if( !is_array($nameParts) || count($nameParts) != 3 ){
-            $results[] = $file;
+            $results[] = array('file' => $file, 'motive' => 'Nome mal formado.' );
+          } else {
+            // se o nome está bem formado
+            $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
+            if( $is_processed ){
+              $results[] = array('file' => $file, 'motive' => 'Ficheiro já processado.' );
+            }
           }
         }
       }
-    }
-    if( $sort == 'asc' ) {
-      sort($results);
-    } else {
-      rsort($results);
     }
     return $results;
   }

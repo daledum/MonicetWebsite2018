@@ -58,12 +58,20 @@
           <thead>
             <tr>
               <th width="300">Fotografia</th>
+              <th width="300">Motivo</th>
+              <th>Acções</th>
             </tr>
           </thead>
           <tbody>
-            <?php foreach( $invalidPhotos as $file ): ?>
+            <?php foreach( $invalidPhotos as $file_info ): ?>
               <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
-                <td style="text-align: left;"><?php echo $file ?></td>
+                <td style="text-align: left;"><?php echo $file_info['file'] ?></td>
+                <td style="text-align: left;"><?php echo $file_info['motive'] ?></td>
+                <td>
+                    <ul class="sf_admin_td_actions">
+                      <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file_info['file'], 0, -4), 'extension' =>substr($file_info['file'], -3)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file_info['file'].'"?')) ?></li>
+                    </ul>
+                  </td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -91,7 +99,7 @@
                 <?php endif; ?>
                 Fotografia
               </th>
-              <th>
+              <th width="100">
                 <?php if($ph['date_type'] == 'upload'): ?>
                   <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
                 <?php endif; ?>

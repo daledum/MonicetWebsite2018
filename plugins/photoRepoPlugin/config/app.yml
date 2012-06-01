@@ -1,0 +1,21 @@
+all:
+  photoRepoPlugin:
+    exif_enabledFields:
+      - FileName
+      - FileSize
+      - Height
+      - Width
+      - ApertureFNumber
+      - UserComment
+      - Copyright
+      - ImageDescription
+      - Make
+      - Model
+      - DateTime
+      - Artist
+      - JPEGInterchangeFormatLength
+      - ExposureTime
+      - ISOSpeedRatings
+      - DateTimeOriginal
+      - DateTimeDigitized
+      - Flash  

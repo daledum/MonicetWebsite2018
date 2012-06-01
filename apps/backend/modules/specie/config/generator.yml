@@ -15,13 +15,11 @@ generator:
     config:
       actions: ~
       fields:  
-        rec_cet_code: 
-          label: "Código de Rec. de cetáceos"
         scientific_name:
           label: "Nome científico"
       list:
         peer_method:       doSelectWithI18n
-        display:           [specie_group, code, rec_cet_code, scientific_name, name]
+        display:           [specie_group, code, scientific_name, name]
       filter:  ~
       form:    ~
       edit:    ~

@@ -1,0 +1,59 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Required.</source>
+        <target>Campo obrigatório</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Invalid.</source>
+        <target>Campo inválido</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Code</source>
+        <target>Código</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Pt</source>
+        <target>Português</target>
+      </trans-unit>
+      <trans-unit>
+        <source>En</source>
+        <target>Inglês</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Description</source>
+        <target>Descrição</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes</source>
+        <target>Sim</target>
+      </trans-unit>
+      <trans-unit>
+        <source>no</source>
+        <target>Não</target>
+      </trans-unit>
+      <trans-unit>
+        <source>yes or no</source>
+        <target> </target>
+      </trans-unit>
+      <trans-unit>
+        <source>is empty</source>
+        <target>vazio</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

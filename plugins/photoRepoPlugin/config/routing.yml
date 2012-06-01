@@ -80,3 +80,21 @@ pr_observation_photo:
     prefix_path:          /observation-photo
     column:               id
     with_wildcard_routes: true
+    
+pr_photographer:
+  class: sfPropel15RouteCollection
+  options:
+    model:                Photographer
+    module:               prPhotographer
+    prefix_path:          /photographer
+    column:               id
+    with_wildcard_routes: true
+
+pr_body_part:
+  class: sfPropel15RouteCollection
+  options:
+    model:                BodyPart
+    module:               prBodyPart
+    prefix_path:          /body-part
+    column:               id
+    with_wildcard_routes: true
