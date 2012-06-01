@@ -931,6 +931,37 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       
     });
     
+    
+    $('#island').change(function(){
+      if ($(this).val() == 'smiguel') {
+        map.setOptions({center: new google.maps.LatLng(37.772886,-25.486908)});
+      }
+      else if ($(this).val() == 'smaria') {
+        map.setOptions({center: new google.maps.LatLng(36.980615,-25.114746)});
+      }
+      else if ($(this).val() == 'terceira') {
+        map.setOptions({center: new google.maps.LatLng(38.728376,-27.207642)});
+      }
+      else if ($(this).val() == 'pico') {
+        map.setOptions({center: new google.maps.LatLng(38.483695,-28.328247)});
+      }
+      else if ($(this).val() == 'faial') {
+        map.setOptions({center: new google.maps.LatLng(38.591114,-28.690796)});
+      }
+      else if ($(this).val() == 'sjorge') {
+        map.setOptions({center: new google.maps.LatLng(38.655488,-28.026123)});
+      }
+      else if ($(this).val() == 'graciosa') {
+        map.setOptions({center: new google.maps.LatLng(39.061849,-28.015137)});
+      }
+      else if ($(this).val() == 'flores') {
+        map.setOptions({center: new google.maps.LatLng(39.453161,-31.212158)});
+      }
+      else if ($(this).val() == 'corvo') {
+        map.setOptions({center: new google.maps.LatLng(39.702961,-31.103668)});
+      }
+    });
+    
   }
   
   

@@ -53,6 +53,18 @@ class mapsActions extends sfActions
     }
     
     $this->months = $months;
+    
+    $this->islands = array(
+      'São Miguel' => 'smiguel',
+      'Santa Maria' => 'smaria',
+      'Terceira' => 'terceira',
+      'Pico' => 'pico',
+      'Faial' => 'faial',
+      'São Jorge' => 'sjorge',
+      'Graciosa' => 'graciosa',
+      'Flores' => 'flores',
+      'Corvo' => 'corvo'
+    );
   }
   
   public function executeTime(sfWebRequest $request){
@@ -91,6 +103,18 @@ class mapsActions extends sfActions
     }
     
     $this->months = $months;
+    
+    $this->islands = array(
+      'São Miguel' => 'smiguel',
+      'Santa Maria' => 'smaria',
+      'Terceira' => 'terceira',
+      'Pico' => 'pico',
+      'Faial' => 'faial',
+      'São Jorge' => 'sjorge',
+      'Graciosa' => 'graciosa',
+      'Flores' => 'flores',
+      'Corvo' => 'corvo'
+    );
   }
   
   public function executeGInfoMap(sfWebRequest $request) {

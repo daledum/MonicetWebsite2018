@@ -1,2 +1,6 @@
-#User-agent: *
-#Disallow:
+User-agent: *
+Disallow: /en/maps
+Disallow: /pt/maps
+Disallow: /en/charts
+Disallow: /pt/charts
+Disallow: /admin.php

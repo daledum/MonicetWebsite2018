@@ -183,7 +183,7 @@
             <?php if($sf_user->isSuperAdmin()): ?>
               <div class="filter-item">
               <label>Empresa:</label>
-              <select id="company" class="filter-select">
+              <select id="company" name="company" class="filter-select">
                 <option></option>
                   <?php foreach($companies as $company): ?>
                     <option value="<?php echo $company->getId(); ?>"><?php echo $company->getName(); ?></option>
@@ -193,7 +193,7 @@
             <?php else: ?>
               <div class="filter-item">
               <label>Empresa:</label>
-              <select id="company" class="filter-select">
+              <select id="company" name="company" class="filter-select">
                 <option>(Todas)</option>
                 <option value="<?php echo $user_company->getId() ?>"><?php echo $user_company->getName() ?></option>
               </select>
@@ -201,7 +201,7 @@
             <?php endif; ?>
             <div class="filter-item">
               <label>Associação:</label>
-              <select id="association" class="filter-select">
+              <select id="association" name="association" class="filter-select">
                 <option></option>
                 <?php foreach($associations as $association): ?>
                   <option value="<?php echo $association->getId(); ?>"><?php echo $association->getDescription(); ?></option>
@@ -210,7 +210,7 @@
             </div>
             <div class="filter-item">
               <label>Comportamento:</label>
-              <select id="behaviour" class="filter-select">
+              <select id="behaviour" name="behaviour" class="filter-select">
                 <option></option>
                 <?php foreach($behaviours as $behaviour): ?>
                   <option value="<?php echo $behaviour->getId(); ?>"><?php echo $behaviour->getDescription(); ?></option>
@@ -219,7 +219,7 @@
             </div>
             <div class="filter-item">
               <label>Estado do mar:</label>
-              <select id="sea-state" class="filter-select">
+              <select id="sea-state" name="sea-state" class="filter-select">
                 <option></option>
                 <?php foreach($sea_states as $sea_state): ?>
                   <option value="<?php echo $sea_state->getId(); ?>"><?php echo $sea_state->getDescription(); ?></option>
@@ -228,7 +228,7 @@
             </div>
             <div class="filter-item">
               <label>Visibilidade:</label>
-              <select id="visibility" class="filter-select">
+              <select id="visibility" name="visibility" class="filter-select">
                 <option></option>
                 <?php foreach($visibilities as $visibility): ?>
                   <option value="<?php echo $visibility->getId(); ?>"><?php echo $visibility->getDescription(); ?></option>
@@ -237,10 +237,18 @@
             </div>
             <div class="filter-item">
               <label>Validação:</label>
-              <select id="valid" class="filter-select">
+              <select id="valid" name="valid" class="filter-select">
                 <option value="-1" selected="selected">Ambas</option>
                 <option value="0">Não Válidas</option>
                 <option value="1">Válidas</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label>Focar na ilha:</label>
+              <select id="island" name="island">
+                  <?php foreach($islands as $text => $value): ?>
+                    <option value="<?php echo $value; ?>"><?php echo $text; ?></option>
+                  <?php endforeach; ?>
               </select>
             </div>
           </div>
