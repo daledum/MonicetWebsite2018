@@ -106,4 +106,23 @@ class mapsActions extends sfActions
   }
   
   
+  public function executeIframe(sfWebRequest $request) {
+    
+    $this->active = 'maps';
+    
+    $this->speciesList = SpeciePeer::getAllOrderedFrontend();
+    
+    //$this->map_type = $request->getParameter('map_type');
+    $this->year = $request->getParameter('year');
+    $this->month = $request->getParameter('month');
+    $this->company = $request->getParameter('company');
+    $this->association = $request->getParameter('association');
+    $this->behaviour = $request->getParameter('behaviour');
+    $this->sea_state = $request->getParameter('sea-state');
+    $this->visibility = $request->getParameter('visibility');
+    $this->valid = $request->getParameter('valid');
+    $this->setTemplate('iframeDefault');
+  }
+  
+  
 }
