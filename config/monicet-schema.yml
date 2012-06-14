@@ -304,3 +304,9 @@ propel:
      chart_item:  { type: varchar(10), required: false }
      chart_type:  { type: varchar(10), required: false }
      selected:    { type: varchar(10), required: true }
+
+   map_iframe_information:
+     _attributes: { phpName: MapIframeInformation }
+     id:          ~
+     hash:        { type: varchar(10), required: true }
+     company_id:  { type: integer, foreignTable: company, foreignReference: id, required: true, onDelete: cascade }

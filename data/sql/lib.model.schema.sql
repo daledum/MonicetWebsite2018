@@ -1070,6 +1070,26 @@ CREATE TABLE `chart_iframe_information`
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
+#-- map_iframe_information
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `map_iframe_information`;
+
+
+CREATE TABLE `map_iframe_information`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`hash` VARCHAR(10)  NOT NULL,
+	`company_id` INTEGER  NOT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `map_iframe_information_FI_1` (`company_id`),
+	CONSTRAINT `map_iframe_information_FK_1`
+		FOREIGN KEY (`company_id`)
+		REFERENCES `company` (`id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
 #-- log
 #-----------------------------------------------------------------------------
 
