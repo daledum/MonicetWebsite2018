@@ -159,14 +159,23 @@ class mapsActions extends sfActions
   public function executeTo_iframe(sfWebRequest $request) {
     
     $this->forward404Unless($request->isMethod('post'));
-    $this->iframe_url = '/en/mapsIframe?company='.$request->getPostParameter('company').
-                                        '&association='.$request->getPostParameter('association').
-                                        '&behaviour='.$request->getPostParameter('behaviour').
-                                        '&sea-state='.$request->getPostParameter('sea-state').
-                                        '&visibility='.$request->getPostParameter('visibility').
-                                        '&valid='.$request->getPostParameter('valid').
-                                        '&year='.$request->getPostParameter('year').
-                                        '&month='.$request->getPostParameter('month');
+    
+    $this->company = $request->getPostParameter('company');
+    
+    $item = MapIframeInformationPeer::retrieveByCompany($company);
+    if ($item) {
+      $hash = $item->getHash();
+    }
+    else {
+      $hash = mfUtils::generateIframeHash();
+      
+      $iframe = new MapIframeInformation();
+      $iframe->setHash($hash);
+      $iframe->setCompanyId($this->company);
+      $iframe->save();
+    }
+    
+    $this->iframe_url = '/en/mapsIframe?hash='.$hash;
   }
   
 }

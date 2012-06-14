@@ -108,6 +108,11 @@ class mapsActions extends sfActions
   
   public function executeIframe(sfWebRequest $request) {
     
+    $iframe = MapIframeInformationPeer::retrieveByHash($request->getParameter('hash'));
+    $this->forward404Unless($iframe);
+    
+    $this->company = $iframe->getCompanyId();
+    
     $this->speciesList = SpeciePeer::getAllOrdered();
     $this->associations = AssociationPeer::getAssociations();
     $this->behaviours = BehaviourPeer::getBehaviours();
@@ -148,11 +153,7 @@ class mapsActions extends sfActions
       'Corvo' => 'corvo'
     );
     
-    $this->active = 'maps';
-    
     $this->speciesList = SpeciePeer::getAllOrderedFrontend();
-    
-    $this->company = $request->getParameter('company');
   }
   
   

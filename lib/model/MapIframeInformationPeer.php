@@ -18,5 +18,17 @@
  * @package    propel.generator.lib.model
  */
 class MapIframeInformationPeer extends BaseMapIframeInformationPeer {
-
+  
+  public static function retrieveByHash($hash) {
+    $c = new Criteria();
+    $c->add(MapIframeInformationPeer::HASH, $hash, Criteria::EQUAL);
+    return MapIframeInformationPeer::doSelectOne($c);
+  }
+  
+  public static function retrieveByCompany($company_id = NULL) {
+    $query = MapIframeInformationQuery::create()
+      ->filterByCompanyId($company_id)
+      ->findOne();
+    return $query;
+  }
 } // MapIframeInformationPeer
