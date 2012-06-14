@@ -137,16 +137,17 @@
   <div class="right-container">
     <div class="filters-sides filters-left"></div>
     <div class="right-side-bar">
-      
+      <form id="iframe_info" action="<?php echo url_for('maps/to_iframe'); ?>" method="post">
+        
       <!-- PERIOD -->
       <div class="filter-item">
           <label><?php echo __('Period') ?>:</label>
-          <select id="year" class="filter-select" style="width: 85px;">
+          <select id="year" name="year" class="filter-select" style="width: 85px;">
           <?php foreach(range($lastYear, $firstYear) as $year): ?>
               <option value="<?php echo $year; ?>"><?php echo $year; ?></option>
           <?php endforeach; ?>
           </select>
-          <select id="month" class="filter-select" style="width: 85px;">
+          <select id="month" name="month" class="filter-select" style="width: 85px;">
               <option value="0">(<?php echo __('All'); ?>)</option>
               <?php foreach($months as $monthId => $monthName): ?>
               <option value="<?php echo $monthId; ?>"><?php echo __($monthName); ?></option>
@@ -250,6 +251,7 @@
                     <option value="<?php echo $value; ?>"><?php echo $text; ?></option>
                   <?php endforeach; ?>
               </select>
+              <input type="submit" value="<?php echo __('Save to iframe', null, 'charts') ?>" />
             </div>
           </div>
         </div>
@@ -288,6 +290,8 @@
         </div>
         
       </div>
+      
+      </form>
     </div>
     <div class="filters-sides filters-right"></div>
   </div>
