@@ -4,6 +4,10 @@ $(function(){
 });  
 </script>
 <style type="text/css">
+  body {
+    background-color: #69c3cf;
+  }
+  
   .left-container {
     width: 100%;
     height: 100%;
