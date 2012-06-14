@@ -30,18 +30,16 @@ class WatchSightingForm extends BaseWatchSightingForm
         'choices' => array_keys($codes),
         'required' => true
     ));
-    
-    
-    $this->widgetSchema['vessel_id'] = new sfWidgetFormPropelChoice(array(
-        'model' => 'Vessel', 
-        'add_empty' => true,
-        'peer_method' => 'doSelectByCompany',
+   
+    $vessels = VesselPeer::doSelectListByCompany();
+    $this->widgetSchema['vessel_id'] = new sfWidgetFormChoice(array(
+        'choices' => $vessels,
+        'multiple' => false,
+        'expanded' => false
     ));
-    
-    $this->validatorSchema['vessel_id'] = new sfValidatorPropelChoice(array(
-        'model' => 'Vessel', 
-        'column' => 'id', 
-        'required' => false,
+    $this->validatorSchema['vessel_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($vessels),
+        'required' => false
     ));
     
   }

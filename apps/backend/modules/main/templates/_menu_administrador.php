@@ -33,17 +33,12 @@
       <li><?php echo link_to('Guias/Biólogos','@guide') ?></li>
     </ul>
   </li>
-  <?php if($sf_user->isSuperAdmin()): ?>
-    <li><?php echo link_to('Saídas','@general_info') ?></li>
-  <?php else: ?>
     <li><a href="#">Saídas</a>
       <ul>
-        <li><?php echo link_to('As minhas saídas','@general_info') ?></li>
-        <li><a href="#">Todas as saídas</a></li>
+        <li><?php echo link_to('Saídas da Empresa','@general_info') ?></li>
+        <li><?php echo link_to('Saídas Públicas','@general_info_gi_list') ?></li>
       </ul>
     </li>
-  <?php endif; ?>
-  
   <li><a href="#">Visualização</a>
     <ul>
       <li><a href="#">Mapas</a>
