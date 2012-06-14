@@ -38,6 +38,7 @@ $(document).ready(function(){
 	});
   }*/
   
+  
   $('#creditos').jqm({
     modal: true,
     trigger: 'a.creditos',

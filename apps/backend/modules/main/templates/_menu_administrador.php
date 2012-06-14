@@ -80,4 +80,5 @@
       <li><?php echo link_to('Visibilidade','@watch_visibility') ?></li>
     </ul>
   </li>
+  <li><?php echo link_to('Rec. cetáceos','@recognition_of_cetaceans_app') ?></li>
 </ul>
