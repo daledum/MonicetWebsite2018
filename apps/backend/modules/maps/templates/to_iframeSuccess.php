@@ -3,7 +3,9 @@
   <br />
   <p>Para utilizar o mapa no seu site, coloque o seguinte código no local desejado:</p>
   <br />
-  <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url.'" width="580" height="400"></iframe>') ?></p>
+  <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url.'" width="400" height="400"></iframe>') ?></p>
+  <br />
+  <p>As dimensões do iframe são personalizáveis, sendo o seguinte exemplo apenas demonstrativo da funcionalidade.</p>
   <br />
   <iframe src="<?php print $iframe_url; ?>" width="400" height="400"></iframe>
   <br />
