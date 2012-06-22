@@ -61,18 +61,10 @@ class GeneralInfoPeer extends BaseGeneralInfoPeer {
         return parent::doCount($criteria, $distinct, $con);
     }
     
-	public static function doSelectForPublicList($request=null) {
-      
-        $request = (! is_null($request) && $request instanceof sfWebRequest) ? $request : sfContext::getInstance()->getRequest();
-      	
-        $query = GeneralInfoQuery::create()
-            ->filterByValid(true);
-        //$ordem = 'GeneralInfoPeer::'.strtoupper($request->getParameter('sort', 'valid'));
-        $query = $query
-            ->orderBy(mfText::to_camel_case($request->getParameter('sort', 'valid'), true), $request->getParameter('order', 'desc'))
-            //->addDescendingOrderByColumn($ordem)
-        ->paginate($request->getParameter('page', 1), 20);
-        return $query;
+    public static function doSelectForPublicList(Criteria $criteria, PropelPDO $con = null) {
+    	
+		$criteria->addAnd(GeneralInfoPeer::VALID, true, Criteria::EQUAL);
+    	return parent::doSelect($criteria, $con);
     }
 
   public static function getTotalForPeriod($type, $year, $month, $company_id = 0) {

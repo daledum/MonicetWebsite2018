@@ -17,8 +17,10 @@ generator:
       fields:  
         date:
           date_format:     yyyy-MM-dd
+        first_hour:        { label: Time }
       list:
-        display:           [date]
+        display:           [date, first_hour]
+        sort:              [date, desc]
         peer_method:       doSelectForPublicList
         batch_actions:     {}
         actions:           {}
