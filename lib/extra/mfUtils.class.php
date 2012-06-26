@@ -83,8 +83,7 @@ class mfUtils {
       $company = CompanyPeer::retrieveByPk($company_id);
       return strtoupper($company->getAcronym()) . substr(str_replace('-', '',$date), -6) . "-" . ($daily_number + 1);
   }
-  
-  
+    
   public static function getGps($exifCoord, $hemi) {
 
     $degrees = count($exifCoord) > 0 ? self::gps2Num($exifCoord[0]) : 0;
@@ -110,6 +109,16 @@ class mfUtils {
       return floatval($parts[0]) / floatval($parts[1]);
   }
   
-  
+  public static function generateIframeHash( $length = 10 ) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+    $string = '';
+
+    for ($p = 0; $p < $length; $p++) {
+      $string .= $characters[mt_rand(0, strlen($characters))];
+    }
+
+    return $string;
+  }
+
 }
 ?>

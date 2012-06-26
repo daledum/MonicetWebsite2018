@@ -87,6 +87,15 @@ class GeneralInfo extends BaseGeneralInfo {
         
         return $total;
     }
+	
+	public function getFirstHour() {
+		$collRecord = RecordQuery::create()
+          ->filterByGeneralInfoId($this->getId())
+		  ->filterByCodeId(1)
+          ->findOne();
+			
+		return substr($collRecord->getTime(), 0, 5);
+	}
   
   
   

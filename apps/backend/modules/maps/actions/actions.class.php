@@ -156,4 +156,26 @@ class mapsActions extends sfActions
     
   }
   
+  public function executeTo_iframe(sfWebRequest $request) {
+    
+    $this->forward404Unless($request->isMethod('post'));
+    
+    $this->company = $request->getPostParameter('company');
+    
+    $item = MapIframeInformationPeer::retrieveByCompany($company);
+    if ($item) {
+      $hash = $item->getHash();
+    }
+    else {
+      $hash = mfUtils::generateIframeHash();
+      
+      $iframe = new MapIframeInformation();
+      $iframe->setHash($hash);
+      $iframe->setCompanyId($this->company);
+      $iframe->save();
+    }
+    
+    $this->iframe_url = '/en/mapsIframe?hash='.$hash;
+  }
+  
 }
