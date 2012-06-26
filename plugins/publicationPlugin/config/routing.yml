@@ -1,0 +1,8 @@
+publication:
+  class: sfPropel15RouteCollection
+  options:
+    model:                Publication
+    module:               publication
+    prefix_path:          /publication
+    column:               id
+    with_wildcard_routes: true

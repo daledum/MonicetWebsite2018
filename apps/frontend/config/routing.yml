@@ -107,6 +107,10 @@ get_departure_charts_results:
 charts_iframe:
   url:   /:sf_culture/chartsIframe
   param: { module: charts, action: iframe }
+  
+publication_all:
+  url:      /:sf_culture/publications
+  param:    { module: publicationMain, action: index }  
 
 default_index:
   url:   /:sf_culture/:module

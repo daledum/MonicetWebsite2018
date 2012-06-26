@@ -36,8 +36,8 @@ class prMainActions extends sfActions {
         $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/'.$values['photo']->getOriginalName();
         $finalTempfileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_temp/';
         $file->save( $fileAddress );
-        system('unzip '.$fileAddress.' -d '.$finalTempfileAddress);
-        system('rm '.$fileAddress);
+        @system('unzip '.$fileAddress.' -d '.$finalTempfileAddress);
+        @system('rm '.$fileAddress);
         
         // validar o nome dos ficheiros
         $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo_temp';
@@ -45,12 +45,16 @@ class prMainActions extends sfActions {
         while ($file = readdir($dir)) {
           if( $file != '.' && $file != '..' ){
             if( !$this->validateFilename($file) ) {
-              $error_str .= 'O ficheiro "'.$file.'" não foi carregado pois tem um nome inválido.<br/>';
-              system('rm '.$finalTempfileAddress.'/'.$file);
-              $ok = false;
+              if( $file != '__MACOSX') {
+                $error_str .= 'O ficheiro "'.$file.'" não foi carregado pois tem um nome inválido.<br/>';
+                @system('rm '.$finalTempfileAddress.'/'.$file);
+                $ok = false;
+              } else {
+                @system('rm -Rf '.$finalTempfileAddress.'/'.$file);
+              }
             } else {
-              system('mv '.$finalTempfileAddress.'/'.$file.' '.sfConfig::get('sf_upload_dir').'/pr_repo');
-              system('touch '.sfConfig::get('sf_upload_dir').'/pr_repo/'.$file);
+              @system('mv '.$finalTempfileAddress.'/'.$file.' '.sfConfig::get('sf_upload_dir').'/pr_repo');
+              @system('touch '.sfConfig::get('sf_upload_dir').'/pr_repo/'.$file);
             }
           }
         }

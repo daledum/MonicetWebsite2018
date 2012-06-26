@@ -48,10 +48,17 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
       if( $form->getObject()->isNew() ) {
-        system('mv '.sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file').' '.sfConfig::get('sf_upload_dir').'/pr_repo_final' );
+        $fileAddress =  sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file');
+        $dateUpload = date("Y-m-d H:i:s", filemtime( $fileAddress));
+        system('mv '.$fileAddress.' '.sfConfig::get('sf_upload_dir').'/pr_repo_final' );
       } 
 
       $ObservationPhoto = $form->save();
+      
+      if(isset($fileAddress)) {
+        $ObservationPhoto->setUploadedAt($dateUpload);
+        $ObservationPhoto->save();
+      }
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhoto)));
 

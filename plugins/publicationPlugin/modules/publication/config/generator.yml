@@ -1,0 +1,29 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           Publication
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              Publication
+    plural:                Publications
+    route_prefix:          publication
+    with_propel_route:     1
+    actions_base_class:    sfActions
+    i18n_catalogue:        publication
+
+    config:
+      actions: ~
+      fields:  ~
+      list: 
+        sort: [order]   
+        title: 'Listagem de publicações'
+        display: [title, _file_address, is_active, order]
+        batch_actions: []
+      filter:  
+        class: false
+      form:    ~
+      edit:    
+        title: "A editar publicação"
+      new:     
+        title: "Nova publicação"

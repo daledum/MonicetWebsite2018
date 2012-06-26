@@ -26,7 +26,7 @@ generator:
           'Dados Biológicos':
             - specie_id
             - island
-            - body_part
+            - body_part_id
             - gender
             - age_group
             - behaviour_id
@@ -36,9 +36,13 @@ generator:
           'Outros dados':
             - company_id
             - vessel_id
+            - sighting_id
             - photographer_id
             - kind_of_photo
             - photo_quality
+          'Legenda e descrição':
+            - pt
+            - en
             
       edit:    
         title: "A editar uma fotografia de observação de cetáceos"

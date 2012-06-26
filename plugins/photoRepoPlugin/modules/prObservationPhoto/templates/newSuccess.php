@@ -25,11 +25,15 @@
     </div>
     <div class="photo_exif" >
         <b>EXIF:</b><br/><br/>
-        <?php include_partial('prObservationPhoto/exif', array( 'exif' => $exif)); ?>
+        <?php if( is_array($exif) ): ?>
+          <?php include_partial('prObservationPhoto/exif', array( 'exif' => $exif)); ?>
+        <?php endif; ?>
     </div>
     
     <div class="photo_exif" >
         <b>IPTC:</b><br/><br/>
-        <?php include_partial('prObservationPhoto/iptc', array( 'iptc' => $iptc)); ?>
+        <?php if( is_array($iptc) ): ?>
+          <?php include_partial('prObservationPhoto/iptc', array( 'iptc' => $iptc)); ?>
+        <?php endif; ?>
     </div>
 </div>

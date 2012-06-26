@@ -1,0 +1,18 @@
+propel:
+  _attributes:        { package: plugins.publicationPlugin.lib.model }
+
+  publication:
+    _attributes:      { phpName: Publication, idMethod: native, isI18N: true, i18nTable: publication_i18n }
+    id:               ~
+    is_active:        { type: BOOLEAN, default: false }
+    order:            { type: INTEGER, required: false }
+    file_address:     { type: VARCHAR, size: 255, required: true }
+    created_at:       ~
+    updated_at:       ~
+    
+  publication_i18n:
+    id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: publication, foreignReference: id, index: true }
+    culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
+    title:            { type: VARCHAR, size: 255, required: true }
+    description:      { type: LONGVARCHAR, required: false }
+    

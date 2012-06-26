@@ -6,3 +6,4 @@ plugins.mfMenuPlugin.lib.model.schema.sql=propel
 plugins.mfFormularioPlugin.lib.model.schema.sql=propel
 plugins.PhotoRepoPlugin.lib.model.schema.sql=propel
 plugins.photoRepoPlugin.lib.model.schema.sql=propel
+plugins.publicationPlugin.lib.model.schema.sql=propel

@@ -3,6 +3,7 @@ propel:
       id:               ~
       name:             { type: varchar(255), required: true }
       acronym:          { type: varchar(45), required: true }
+      rec_cet_code:     { type: varchar, size: 45, requred: false }
       base_latitude:    { type: varchar(45), required: true }
       base_longitude:   { type: varchar(45), required: true }
       telephone:        { type: varchar, size: 30 }
@@ -161,6 +162,7 @@ propel:
       id:               ~
       specie_group_id:  { type: integer, foreignTable: specie_group, foreignReference: id, required: true, onDelete: cascade }
       code:             { type: varchar(10), required: true }
+      rec_cet_code:     { type: varchar, size: 45, required: false }
       scientific_name:  { type: varchar(255) }
       created_at:       ~
       updated_at:       ~
@@ -178,7 +180,7 @@ propel:
       association_id:   { type: integer, foreignTable: association, foreignReference: id, required: false, onDelete: cascade }
       adults:           { type: varchar(45), required: false }
       juveniles:        { type: varchar(45), required: false }
-      calves:             { type: varchar(45), required: false }
+      calves:           { type: varchar(45), required: false }
       total:            { type: integer, required: false }
       comments:         { type: longvarchar, required: false }
       created_at:       ~

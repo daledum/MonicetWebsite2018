@@ -94,8 +94,10 @@ propel:
     photographer_id:  { type: INTEGER, foreignTable: photographer, foreignReference: id, required: false, onDelete: setnull, index: true }
     kind_of_photo:    { type: VARCHAR, size: 255, required: false }
     photo_quality:    { type: VARCHAR, size: 255, required: false }
+    sighting_id:      { type: integer, foreignTable: sighting, foreignReference: id, required: false, onDelete: setnull, index: true }
     is_best:          { type: BOOLEAN, default: false }
     notes:            { type: LONGVARCHAR, required: false }
+    uploaded_at:      { type: TIMESTAMP, required: false }
     created_at:       ~
     updated_at:       ~
     

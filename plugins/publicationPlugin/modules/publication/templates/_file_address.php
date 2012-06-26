@@ -1,0 +1,1 @@
+<?php echo link_to('Download', '/uploads/publication/'.$Publication->getFileAddress(), array('target' => '_blank') ) ?>

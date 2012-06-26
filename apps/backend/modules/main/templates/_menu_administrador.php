@@ -7,6 +7,7 @@
       <li><?php echo link_to('Consórcios', '@consorcium_element') ?></li>
       <li><?php echo link_to('Equipa', '@team') ?></li>
       <li><?php echo link_to('Conteúdos do Site', '@content') ?></li>
+      <li><?php echo link_to('Publicações', '@publication') ?></li>
     </ul>
   </li>
   <li><a href="#">Administração</a>

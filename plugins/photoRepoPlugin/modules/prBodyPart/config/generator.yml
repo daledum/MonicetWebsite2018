@@ -13,7 +13,11 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
+      fields:  
+        code:
+          label: Código
+        description:
+          label: Descrição
       list:    
         title: "Listagem de partes do corpo de cetáceos"
         display: [code, description]

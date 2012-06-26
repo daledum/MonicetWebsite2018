@@ -55,4 +55,5 @@ all:
       - prObservationPhoto
       - prPhotographer
       - prBodyPart
+      - publication
     standard_helpers:       [Partial, Cache, I18N]

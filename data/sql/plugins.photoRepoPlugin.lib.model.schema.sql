@@ -196,8 +196,10 @@ CREATE TABLE `observation_photo`
 	`photographer_id` INTEGER,
 	`kind_of_photo` VARCHAR(255),
 	`photo_quality` VARCHAR(255),
+	`sighting_id` INTEGER,
 	`is_best` TINYINT default 0,
 	`notes` TEXT,
+	`uploaded_at` DATETIME,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -208,6 +210,7 @@ CREATE TABLE `observation_photo`
 	KEY `observation_photo_I_5`(`company_id`),
 	KEY `observation_photo_I_6`(`vessel_id`),
 	KEY `observation_photo_I_7`(`photographer_id`),
+	KEY `observation_photo_I_8`(`sighting_id`),
 	CONSTRAINT `observation_photo_FK_1`
 		FOREIGN KEY (`individual_id`)
 		REFERENCES `individual` (`id`)
@@ -235,6 +238,10 @@ CREATE TABLE `observation_photo`
 	CONSTRAINT `observation_photo_FK_7`
 		FOREIGN KEY (`photographer_id`)
 		REFERENCES `photographer` (`id`)
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_8`
+		FOREIGN KEY (`sighting_id`)
+		REFERENCES `sighting` (`id`)
 		ON DELETE SET NULL
 ) ENGINE=MyISAM;
 

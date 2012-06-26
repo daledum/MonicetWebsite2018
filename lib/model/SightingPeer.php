@@ -18,6 +18,36 @@
  */
 class SightingPeer extends BaseSightingPeer {
   
+  public static function getSightingsForSelect($date, $with_empty = true, $empty_msg = '', $empty_code = ''){
+    $objectos = SightingQuery::create()
+      ->useRecordQuery()
+        ->useGeneralInfoQuery()
+          ->filterByDate($date)
+          ->orderById()
+        ->endUse()
+        ->orderByTime()
+      ->endUse()
+      ->find();
+    
+    if($with_empty) {
+      return self::fromObjectosToArray($objectos, $empty=true, $empty_msg, $empty_code);
+    } 
+    return self::fromObjectosToArray($objectos, $empty=false, $empty_msg, $empty_code);
+  }
+  
+  public static function fromObjectosToArray( $objectos, $empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
+    $resultados = array();
+    if( $empty ) {
+      $resultados[$empty_code] = '---'.$empty_msg.'---';
+    }
+    foreach( $objectos as $objecto ) {
+      $record = $objecto->getRecord();
+      $gi = $record->getGeneralInfo();
+      $resultados[$objecto->getId()] = $objecto->getId().' - '.$gi->getVessel()->getName().' - '. $record->getTime('H:i').' - '.$record->getCode();
+    }
+    return $resultados;
+  }
+  
   public static function getBySpecie($specie_id){  
     $c = new Criteria();
     $c->add(SightingPeer::SPECIE_ID, $specie_id, Criteria::EQUAL);

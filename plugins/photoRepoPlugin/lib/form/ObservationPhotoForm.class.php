@@ -6,6 +6,8 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
     
+    $this->embedI18n(array('pt', 'en'));
+    
     unset(
       $this['created_at'], $this['updated_at']
     );
@@ -13,9 +15,24 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     $request = sfContext::getInstance()->getRequest();
     $object = $this->getObject();
     
+    $exif = $iptc =array();
+    
     if( $object->isNew()) {
+      // EXIF reading
+      $file_address = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file');
+      $exif = exif_read_data($file_address, 0, true);
+      
+      //IPTC reading
+      $size = getimagesize ( $file_address, $info);
+      if(is_array($info)) {    
+          $iptc = iptcparse($info["APP13"]);
+      }
+      $file = $request->getParameter('file');
+      $date = substr($file, 0, 4).'-'.substr($file, 4, 2).'-'.substr($file, 6, 2);
+        
       $this->widgetSchema['file_name'] = new sfWidgetFormInputHidden(array(), array('value' => $request->getParameter('file')));
     } else {
+      $date = $this->getObject()->getPhotoDate('Y-m-d');
       $this->widgetSchema['file_name'] = new sfWidgetFormInputHidden();
     }
       
@@ -40,10 +57,10 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     ));
     
     $body_parts = BodyPartPeer::getForSelect(true, '');
-    $this->widgetSchema['body_part'] = new sfWidgetFormChoice(array(
+    $this->widgetSchema['body_part_id'] = new sfWidgetFormChoice(array(
         'choices' => $body_parts,
     ));
-    $this->validatorSchema['body_part'] = new sfValidatorChoice(array(
+    $this->validatorSchema['body_part_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($body_parts),
     ));
     
@@ -92,6 +109,17 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         'required' => false,
     ));
     
+    $sightings = SightingPeer::getSightingsForSelect($date, $with_empty = true, $empty_msg = '', $empty_code = '');
+    $this->widgetSchema['sighting_id'] = new sfWidgetFormChoice(array(
+        'choices' => $sightings,
+    ));
+    $this->validatorSchema['sighting_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($sightings),
+        'required' => false,
+    ));
+    sfApplicationConfiguration::getActive()->loadHelpers(array('Url', 'Tag'));
+    $this->widgetSchema->setHelp('sighting_id', link_to( 'Lista de avistamentos', 'http://google.pt', array('popup' => true)));
+    
     
     $photographers = PhotographerPeer::getForSelect(true, '');
     $this->widgetSchema['photographer_id'] = new sfWidgetFormChoice(array(
@@ -121,8 +149,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     ));
     
     if( $object->isNew() ){
-        $file_address = $file_address = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file');
-        $exif = exif_read_data($file_address, 0, true);
+        
         $file = $exif['FILE']['FileName'];
         $file_parts = explode('.', $file);
         $this->widgetSchema['code']->setDefault($file_parts[0]);
@@ -133,28 +160,65 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         
         $dateTimeOriginal = $exif['EXIF']['DateTimeOriginal'];
         $dto_parts = explode(' ', $dateTimeOriginal);
-        $this->widgetSchema['photo_time']->setDefault($dto_parts[1]);
+        if(isset($dto_parts[1]) ) {
+          $this->widgetSchema['photo_time']->setDefault($dto_parts[1]);
+        }
+        
+        // specie
+        if(isset($exif['IFD0']['Software'])){
+          $specieStr = $exif['IFD0']['Software'];
+        } elseif( isset($iptc['2#015'][0])){
+          $specieStr = $iptc['2#015'][0];
+        }
+        if( isset($specieStr) ){
+          //$specieStr = ucfirst(strtolower($specieStr));
+          $specie = SpecieQuery::create()->filterByRecCetCode($specieStr)->findOne();
+          if( $specie ){
+            $this->widgetSchema['specie_id']->setDefault($specie->getId());
+          }
+        }
         
         $this->widgetSchema['island']->setDefault($exif['IFD0']['Make']);
         
+        // body part
+        if( isset($iptc['2#005'][0]) ){
+          $bodyPartStr = $iptc['2#005'][0];
+        } elseif( isset($iptc['2#020'][0]) ){
+          $bodyPartStr = $iptc['2#020'][0];
+        }
+        if( isset($bodyPartStr) ){
+          $bodyPart = BodyPartQuery::create()->filterByCode(trim($bodyPartStr))->findOne();
+          if( $bodyPart ) {
+            $this->widgetSchema['body_part_id']->setDefault($bodyPart->getId());
+          }
+        }
         
-        $iptc = array();
-        $size = getimagesize ( $file_address, $info);        
-        if(is_array($info)) {    
-            $iptc = iptcparse($info["APP13"]);
-        }
-        if( isset($iptc['2#090'][0]) ) {
-            $this->widgetSchema['latitude']->setDefault( substr(trim($iptc['2#090'][0]), 0, -1) );
-        }
-        if( isset($iptc['2#095'][0]) ) {
-            $this->widgetSchema['longitude']->setDefault( substr( trim($iptc['2#095'][0]), 0, -1) );    
+        if( isset($exif['GPS']['GPSLatitude']) && isset($exif['GPS']['GPSLatitudeRef']) ){
+          $lat = mfUtils::getGps($exif['GPS']['GPSLatitude'], $exif['GPS']['GPSLatitudeRef']);
+          $this->widgetSchema['latitude']->setDefault( $lat );
+          
+        } elseif( isset($iptc['2#090'][0]) ) {
+          $lat = explode(',', $iptc['2#090'][0]);
+          $this->widgetSchema['latitude']->setDefault( $lat[0] );
         }
         
-        $company_code = $exif['IFD0']['ImageDescription'];
-        $company = CompanyQuery::create()->filterByAcronym($company_code)->findOne();
-        if( $company ){
-            $this->widgetSchema['company_id']->setDefault($company->getId());
+        if( isset($exif['GPS']['GPSLongitude']) && isset($exif['GPS']['GPSLongitudeRef']) ){
+          $lat = mfUtils::getGps($exif['GPS']['GPSLongitude'], $exif['GPS']['GPSLongitudeRef']);
+          $this->widgetSchema['longitude']->setDefault( $lat );
+          
+        } elseif ( isset($iptc['2#095'][0]) ) {
+          $long = explode(',', $iptc['2#095'][0]);
+          $this->widgetSchema['longitude']->setDefault( $long[0] );    
         }
+        
+        if( isset($iptc['2#120'][0]) ) {
+          $company_code = $iptc['2#120'][0];
+          $company = CompanyQuery::create()->filterByRecCetCode($company_code)->findOne();
+          if( $company ){
+              $this->widgetSchema['company_id']->setDefault($company->getId());
+          }
+        }
+          
         $photographer = PhotographerQuery::create()->filterByCode($filenameparts[1])->findOne();
         if( $photographer ) {
             $this->widgetSchema['photographer_id']->setDefault($photographer->getId());

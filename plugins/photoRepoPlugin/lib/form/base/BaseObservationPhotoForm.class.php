@@ -33,8 +33,10 @@ abstract class BaseObservationPhotoForm extends BaseFormPropel
       'photographer_id' => new sfWidgetFormPropelChoice(array('model' => 'Photographer', 'add_empty' => true)),
       'kind_of_photo'   => new sfWidgetFormInputText(),
       'photo_quality'   => new sfWidgetFormInputText(),
+      'sighting_id'     => new sfWidgetFormPropelChoice(array('model' => 'Sighting', 'add_empty' => true)),
       'is_best'         => new sfWidgetFormInputCheckbox(),
       'notes'           => new sfWidgetFormTextarea(),
+      'uploaded_at'     => new sfWidgetFormDateTime(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
     ));
@@ -59,8 +61,10 @@ abstract class BaseObservationPhotoForm extends BaseFormPropel
       'photographer_id' => new sfValidatorPropelChoice(array('model' => 'Photographer', 'column' => 'id', 'required' => false)),
       'kind_of_photo'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'photo_quality'   => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'sighting_id'     => new sfValidatorPropelChoice(array('model' => 'Sighting', 'column' => 'id', 'required' => false)),
       'is_best'         => new sfValidatorBoolean(array('required' => false)),
       'notes'           => new sfValidatorString(array('required' => false)),
+      'uploaded_at'     => new sfValidatorDateTime(array('required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));

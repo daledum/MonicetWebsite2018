@@ -18,4 +18,10 @@ all:
       - ISOSpeedRatings
       - DateTimeOriginal
       - DateTimeDigitized
-      - Flash  
+      - Flash
+      - Software
+      - '0' 
+      - GPSLatitudeRef
+      - GPSLatitude
+      - GPSLongitudeRef
+      - GPSLongitude

@@ -64,7 +64,7 @@
             </tr>
           </thead>
           <tbody>
-            <?php foreach( $invalidPhotos as $file_info ): ?>
+            <?php foreach( $invalidPhotos as $cont =>$file_info ): ?>
               <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
                 <td style="text-align: left;"><?php echo $file_info['file'] ?></td>
                 <td style="text-align: left;"><?php echo $file_info['motive'] ?></td>
@@ -110,7 +110,7 @@
             </tr>
           </thead>
           <tbody>
-          <?php foreach( $resultados as $file ): ?>
+          <?php foreach( $resultados as $cont => $file ): ?>
             <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
               <td style="text-align: left;"><?php echo $file ?></td>
               <?php $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file; ?>
