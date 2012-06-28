@@ -5,6 +5,7 @@ class prMainActions extends sfActions {
     $this->uploadPhotos = UploadedPhotoQuery::create()->count();
     $this->uploadPhotosNotProccessed = UploadedPhotoPeer::countNotProcessed();
     $this->notProcessedPhotos = $this->countNotProcessedPhotos();
+    $this->notIdentifiedPhotos = ObservationPhotoQuery::create()->count();
     $this->processedPhotos = $this->countProcessedPhotos();
     $this->individuals = IndividualQuery::create()->count();
     $this->species = SpecieQuery::create()->count();

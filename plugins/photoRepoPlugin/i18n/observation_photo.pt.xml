@@ -115,12 +115,12 @@
         <target>Avistamento</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Uploaded at</source>
+        <target>Data do carregamento</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Individual</source>
+        <target>Indivíduo</target>
       </trans-unit>
       <trans-unit>
         <source></source>

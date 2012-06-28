@@ -1,0 +1,1 @@
+<?php echo (!$ObservationPhoto->getIndividual())? '&nbsp;': link_to($ObservationPhoto->getIndividual(), '@pr_individual', array() ) ?>

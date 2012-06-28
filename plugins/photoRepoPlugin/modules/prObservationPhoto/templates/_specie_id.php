@@ -1,0 +1,1 @@
+<?php echo (!$ObservationPhoto->getSpecie())? '&nbsp;': $ObservationPhoto->getSpecie()->getCode().' - '.$ObservationPhoto->getSpecie()->getName('pt') ?>

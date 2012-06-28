@@ -19,5 +19,6 @@ class UploadedPhotoFormFilter extends BaseUploadedPhotoFormFilter {
       'template' => 'De %from_date% a %to_date%',
       'with_empty' => false
     ));
+    
   }
 }

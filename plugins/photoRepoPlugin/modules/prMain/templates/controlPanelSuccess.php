@@ -31,16 +31,17 @@
               </ul>
             </td>
           </tr>
-          <?php /* ?>
+          
           <tr class="sf_admin_row even">
-            <td width="400">Fotografias processadas</td>
-            <td width="50" style="text-align: right;"><?php echo $processedPhotos ?></td>
+            <td width="400">Fotografias de observações</td>
+            <td width="50" style="text-align: right;"><?php echo $notIdentifiedPhotos ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@homepage') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo') ?></li>
               </ul>
             </td>
           </tr>
+          <?php /* ?>
           
           <tr class="sf_admin_row odd">
             <td width="400">Indíviduos</td>
@@ -53,7 +54,7 @@
             </td>
           </tr>
           <?php */ ?>
-          <tr class="sf_admin_row even">
+          <tr class="sf_admin_row odd">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>
             <td>
@@ -64,7 +65,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row odd">
+          <tr class="sf_admin_row even">
             <td width="400">Companhias</td>
             <td width="50" style="text-align: right;"><?php echo $num_companies ?></td>
             <td>
@@ -75,7 +76,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row even">
+          <tr class="sf_admin_row odd">
             <td width="400">Barcos</td>
             <td width="50" style="text-align: right;"><?php echo $num_vessels ?></td>
             <td>
@@ -86,7 +87,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row odd">
+          <tr class="sf_admin_row even">
             <td width="400">Fotógrafos</td>
             <td width="50" style="text-align: right;"><?php echo $num_photographers ?></td>
             <td>
@@ -97,7 +98,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row even">
+          <tr class="sf_admin_row odd">
             <td width="400">Partes do corpo</td>
             <td width="50" style="text-align: right;"><?php echo $num_body_parts ?></td>
             <td>
