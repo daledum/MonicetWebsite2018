@@ -34,6 +34,9 @@ abstract class BaseObservationPhotoFormFilter extends BaseFormFilterPropel
       'is_best'         => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'notes'           => new sfWidgetFormFilterInput(),
       'uploaded_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
+      'status'          => new sfWidgetFormFilterInput(),
+      'last_edited_by'  => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
+      'validated_by'    => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
@@ -61,6 +64,9 @@ abstract class BaseObservationPhotoFormFilter extends BaseFormFilterPropel
       'is_best'         => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'notes'           => new sfValidatorPass(array('required' => false)),
       'uploaded_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
+      'status'          => new sfValidatorPass(array('required' => false)),
+      'last_edited_by'  => new sfValidatorPropelChoice(array('required' => false, 'model' => 'sfGuardUser', 'column' => 'id')),
+      'validated_by'    => new sfValidatorPropelChoice(array('required' => false, 'model' => 'sfGuardUser', 'column' => 'id')),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
@@ -103,6 +109,9 @@ abstract class BaseObservationPhotoFormFilter extends BaseFormFilterPropel
       'is_best'         => 'Boolean',
       'notes'           => 'Text',
       'uploaded_at'     => 'Date',
+      'status'          => 'Text',
+      'last_edited_by'  => 'ForeignKey',
+      'validated_by'    => 'ForeignKey',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
     );

@@ -1,6 +1,12 @@
 propel:
   _attributes:        { package: plugins.photoRepoPlugin.lib.model }
 
+  pr_user:
+    _attributes:      { phpName: prUser, idMethod: native }
+    id:               ~
+    user_id:          { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: false, onDelete: setnull, index: true }
+    role:             { type: VARCHAR, size: 255, required: false }
+    
   uploaded_photo:    
     _attributes:      { phpName: UploadedPhoto, idMethod: native }
     id:               ~
@@ -98,6 +104,9 @@ propel:
     is_best:          { type: BOOLEAN, default: false }
     notes:            { type: LONGVARCHAR, required: false }
     uploaded_at:      { type: TIMESTAMP, required: false }
+    status:           { type: VARCHAR, size: 255, required: false }
+    last_edited_by:   { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: false, onDelete: setnull, index: true }
+    validated_by:     { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: false, onDelete: setnull, index: true }
     created_at:       ~
     updated_at:       ~
     

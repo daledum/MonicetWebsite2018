@@ -4,6 +4,26 @@
 SET FOREIGN_KEY_CHECKS = 0;
 
 #-----------------------------------------------------------------------------
+#-- pr_user
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pr_user`;
+
+
+CREATE TABLE `pr_user`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`user_id` INTEGER,
+	`role` VARCHAR(255),
+	PRIMARY KEY (`id`),
+	KEY `pr_user_I_1`(`user_id`),
+	CONSTRAINT `pr_user_FK_1`
+		FOREIGN KEY (`user_id`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE SET NULL
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
 #-- uploaded_photo
 #-----------------------------------------------------------------------------
 
@@ -200,6 +220,9 @@ CREATE TABLE `observation_photo`
 	`is_best` TINYINT default 0,
 	`notes` TEXT,
 	`uploaded_at` DATETIME,
+	`status` VARCHAR(255),
+	`last_edited_by` INTEGER,
+	`validated_by` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -211,6 +234,8 @@ CREATE TABLE `observation_photo`
 	KEY `observation_photo_I_6`(`vessel_id`),
 	KEY `observation_photo_I_7`(`photographer_id`),
 	KEY `observation_photo_I_8`(`sighting_id`),
+	KEY `observation_photo_I_9`(`last_edited_by`),
+	KEY `observation_photo_I_10`(`validated_by`),
 	CONSTRAINT `observation_photo_FK_1`
 		FOREIGN KEY (`individual_id`)
 		REFERENCES `individual` (`id`)
@@ -242,6 +267,14 @@ CREATE TABLE `observation_photo`
 	CONSTRAINT `observation_photo_FK_8`
 		FOREIGN KEY (`sighting_id`)
 		REFERENCES `sighting` (`id`)
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_9`
+		FOREIGN KEY (`last_edited_by`)
+		REFERENCES `sf_guard_user` (`id`)
+		ON DELETE SET NULL,
+	CONSTRAINT `observation_photo_FK_10`
+		FOREIGN KEY (`validated_by`)
+		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE SET NULL
 ) ENGINE=MyISAM;
 

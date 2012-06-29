@@ -37,6 +37,9 @@ abstract class BaseObservationPhotoForm extends BaseFormPropel
       'is_best'         => new sfWidgetFormInputCheckbox(),
       'notes'           => new sfWidgetFormTextarea(),
       'uploaded_at'     => new sfWidgetFormDateTime(),
+      'status'          => new sfWidgetFormInputText(),
+      'last_edited_by'  => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
+      'validated_by'    => new sfWidgetFormPropelChoice(array('model' => 'sfGuardUser', 'add_empty' => true)),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
     ));
@@ -65,6 +68,9 @@ abstract class BaseObservationPhotoForm extends BaseFormPropel
       'is_best'         => new sfValidatorBoolean(array('required' => false)),
       'notes'           => new sfValidatorString(array('required' => false)),
       'uploaded_at'     => new sfValidatorDateTime(array('required' => false)),
+      'status'          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'last_edited_by'  => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id', 'required' => false)),
+      'validated_by'    => new sfValidatorPropelChoice(array('model' => 'sfGuardUser', 'column' => 'id', 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));
