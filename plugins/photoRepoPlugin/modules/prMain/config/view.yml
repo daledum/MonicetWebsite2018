@@ -1,6 +1,6 @@
 pendentPhotoListSuccess:
-  javascripts: ['datepicker.js', 'date.js', ]
-  stylesheets: ['datepicker.css']
+  javascripts: ['datepicker.js', 'date.js', 'tooltip/main.js']
+  stylesheets: ['datepicker.css', tooltip/main.css]
 controlPanelSuccess:
   stylesheets: [/photoRepoPlugin/css/pr.css]
 all:

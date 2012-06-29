@@ -117,7 +117,7 @@
               <td><?php echo date("Y-m-d", filemtime( $fileAddress)) ?></td>
               <td>
                 <ul class="sf_admin_td_actions">
-                  <li class="sf_admin_action_show"><?php echo link_to('Ver fotografia', '/uploads/pr_repo/'.$file, array('target' => '_blank') ) ?></li>
+                  <li class="sf_admin_action_show"><?php echo link_to('Ver fotografia', '/uploads/pr_repo/'.$file, array('target' => '_blank', 'class' => 'preview') ) ?></li>
                   <li class="sf_admin_action_action"><?php echo link_to('Processar', '@pr_observation_photo_new?file='.$file) ?></li>
                   <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file, 0, -4), 'extension' =>substr($file, -3)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file.'"?')) ?></li>
                 </ul>
