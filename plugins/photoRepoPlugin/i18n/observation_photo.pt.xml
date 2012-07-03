@@ -123,6 +123,22 @@
         <target>Indivíduo</target>
       </trans-unit>
       <trans-unit>
+        <source>Status</source>
+        <target>Estado</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
         <source></source>
         <target></target>
       </trans-unit>

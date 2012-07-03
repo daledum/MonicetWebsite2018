@@ -18,3 +18,11 @@
     <?php include_partial('prObservationPhoto/form_footer', array('ObservationPhoto' => $ObservationPhoto, 'form' => $form, 'configuration' => $configuration)) ?>
   </div>
 </div>
+
+<?php 
+    include_partial('prObservationPhoto/photo_details', array( 
+        'fileAddress' => '/uploads/pr_repo_final/'.$ObservationPhoto->getFileName(), 
+        'exif' => $exif, 
+        'iptc' => $iptc
+    )); 
+?>

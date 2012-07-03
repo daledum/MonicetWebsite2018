@@ -20,20 +20,22 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
       $this['updated_at'],
       $this['created_at'],
       $this['sighting_id'],
-      $this['body_part']
+      $this['body_part'],
+      $this['last_edited_by'],
+      $this['validated_by']
     );
     
     $this->widgetSchema['photo_date'] = new sfWidgetFormFilterDate(array(
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
       'template' => 'De %from_date% a %to_date%',
-      'with_empty' => true
+      'with_empty' => false
     ));
     $this->widgetSchema['uploaded_at'] = new sfWidgetFormFilterDate(array(
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
       'template' => 'De %from_date% a %to_date%',
-      'with_empty' => true
+      'with_empty' => false
     ));
     
     $species = SpeciePeer::getForSelect(true, '');
@@ -60,6 +62,10 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
     $photographers = PhotographerPeer::getForSelect(true, '');
     $this->widgetSchema['photographer_id'] = new sfWidgetFormChoice(array(
         'choices' => $photographers,
+    ));
+    $status = ObservationPhoto::getForSelect(true, '');
+    $this->widgetSchema['status'] = new sfWidgetFormChoice(array(
+        'choices' => $status,
     ));
     
     $this->widgetSchema->moveField('uploaded_at', sfWidgetFormSchema::AFTER, 'photo_date');

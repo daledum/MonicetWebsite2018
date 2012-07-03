@@ -18,12 +18,15 @@
  */
 class SightingPeer extends BaseSightingPeer {
   
-  public static function getSightingsForSelect($date, $with_empty = true, $empty_msg = '', $empty_code = ''){
-    $objectos = SightingQuery::create()
+  public static function getSightingsForSelect($date, $companyId=null, $with_empty = true, $empty_msg = '', $empty_code = ''){
+      $query = SightingQuery::create()
       ->useRecordQuery()
         ->useGeneralInfoQuery()
-          ->filterByDate($date)
-          ->orderById()
+          ->filterByDate($date);
+          if( $companyId ) {
+              $query = $query->filterByCompanyId($companyId);
+          }
+          $objectos = $query->orderById()
         ->endUse()
         ->orderByTime()
       ->endUse()

@@ -71,6 +71,14 @@ pr_uploaded_photo:
     prefix_path:          /uploaded-photo
     column:               id
     with_wildcard_routes: true
+
+pr_observation_photo_validate:
+  url:  /observation-photo/:id/validate
+  params:
+    module:     prObservationPhoto
+    action:     validate
+  requirements:
+    sf_method: get
     
 pr_observation_photo:
   class: sfPropel15RouteCollection
@@ -98,3 +106,19 @@ pr_body_part:
     prefix_path:          /body-part
     column:               id
     with_wildcard_routes: true
+    
+ajax_get_sightings_by_company:
+  url:  /ajax/company/:company_id/sightings/on/:date
+  params:
+    module:     prObservationPhoto
+    action:     ajaxGetSightingsForCompany
+  requirements:
+    sf_method: post
+    
+get_sightings_by_date:
+  url:  /sightings/on/:date
+  params:
+    module:     prObservationPhoto
+    action:     getSightingsOnDate
+  requirements:
+    sf_method: get

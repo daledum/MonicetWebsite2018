@@ -3,36 +3,36 @@
 class mfData {
   public static function getDiaSemanaPT($diaSemana){
     $semana = array(
-        "Sun" => "Domingo", 
-        "Mon" => "Segunda-feira", 
-        "Tue" => "Terça-feira", 
-        "Wed" => "Quarta-feira", 
-        "Thu" => "Quinta-feira", 
-        "Fry" => "Quinta-feira", 
+        "Sun" => "Domingo",
+        "Mon" => "Segunda-feira",
+        "Tue" => "Terça-feira",
+        "Wed" => "Quarta-feira",
+        "Thu" => "Quinta-feira",
+        "Fry" => "Quinta-feira",
         "Sat" => "Sábado"
         );
-    return (isset($semana[$diaSemana]))? $semana[$diaSemana]: ''; 
+    return (isset($semana[$diaSemana]))? $semana[$diaSemana]: '';
   }
-  
+
   public static function getMesPT($mes){
     $meses = array(
-        "Jan" => "Janeiro", 
-        "Feb" => "Fevereiro", 
-        "Mar" => "Março", 
-        "Apr" => "Abril", 
-        "May" => "Maio", 
-        "Jun" => "Junho", 
-        "Jul" => "Julho", 
-        "Aug" => "Agosto", 
-        "Nov" => "Novembro", 
-        "Sep" => "Setembro", 
-        "Oct" => "Outubro", 
-        "Nov" => "Novembro", 
+        "Jan" => "Janeiro",
+        "Feb" => "Fevereiro",
+        "Mar" => "Março",
+        "Apr" => "Abril",
+        "May" => "Maio",
+        "Jun" => "Junho",
+        "Jul" => "Julho",
+        "Aug" => "Agosto",
+        "Nov" => "Novembro",
+        "Sep" => "Setembro",
+        "Oct" => "Outubro",
+        "Nov" => "Novembro",
         "Dec" => "Dezembro"
         );
-    return (isset($meses[$mes]))? $meses[$mes]: ''; 
+    return (isset($meses[$mes]))? $meses[$mes]: '';
   }
-  
+
   public static function getDataTextualPT( $date = null ){
     putenv("Atlantic/Azores");
     $result = '';
@@ -44,20 +44,20 @@ class mfData {
     }
     return $result;
   }
-  
+
   public static function getDatePlusOffset( $date, $dateFormat = 'Y-m-d', $year_off = 0, $month_off = 0, $day_off = 0, $hour_off = 0, $min_off = 0, $sec_off = 0 ) {
     $baseDate = strtotime($date);
-    
+
     $year = date('Y', $baseDate) + $year_off;
     $month = date('m', $baseDate) + $month_off;
     $day = date('d', $baseDate) + $day_off;
     $hour = date('H', $baseDate) + $hour_off;
     $min = date('H', $baseDate) + $min_off;
     $sec = date('H', $baseDate) + $sec_off;
-    
+
     return date( $dateFormat, mktime($hour, $minute, $second, $month, $day, $year));
   }
-  
+
   public static function getDatasDaSemanaDaData($dataNaSemana = null)
   {
     if(!$dataNaSemana)

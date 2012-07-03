@@ -109,7 +109,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         'required' => false,
     ));
     
-    $sightings = SightingPeer::getSightingsForSelect($date, $with_empty = true, $empty_msg = '', $empty_code = '');
+    $sightings = SightingPeer::getSightingsForSelect($date, $companyId = null, $with_empty = true, $empty_msg = '', $empty_code = '');
     $this->widgetSchema['sighting_id'] = new sfWidgetFormChoice(array(
         'choices' => $sightings,
     ));
@@ -118,7 +118,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         'required' => false,
     ));
     sfApplicationConfiguration::getActive()->loadHelpers(array('Url', 'Tag'));
-    $this->widgetSchema->setHelp('sighting_id', link_to( 'Lista de avistamentos', 'http://google.pt', array('popup' => true)));
+    $this->widgetSchema->setHelp('sighting_id', link_to( 'Lista de avistamentos', '@get_sightings_by_date?date='.$date, array( 'id' => 'link_to_sighting_list', 'popup' => true)));
     
     
     $photographers = PhotographerPeer::getForSelect(true, '');
@@ -127,7 +127,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     ));
     $this->validatorSchema['photographer_id'] = new sfValidatorChoice(array(
         'choices' => array_keys($photographers),
-        'required' => false,
+        'required' => true,
     ));
     
     $kind_of_photo = kind_of_photo::getForSelect(true, '');
