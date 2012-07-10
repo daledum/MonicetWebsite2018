@@ -1,7 +1,7 @@
 <div id="sf_admin_container">
   <h1>Importar ficheiro</h1>
   <form method="post" action="<?php echo url_for('general_info/upload') ?>" enctype="multipart/form-data">
-    <b style="margin: 10px;" >Seleccione o ficheiro a importar (.xls):</b>
+    <b style="margin: 10px;" >Seleccione o ficheiro a importar (.xls, baseado neste <a href="/gi_import_example.xls">ficheiro modelo</a>):</b>
     <br />
     <table>
       <?php echo $form ?>
