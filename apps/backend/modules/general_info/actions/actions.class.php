@@ -131,11 +131,11 @@ class general_infoActions extends autoGeneral_infoActions
             $value = $objPHPExcel->getActiveSheet()->getCell('A'.$l)->getValue();
             $formatCode = $objPHPExcel->getActiveSheet()->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
             $formattedString = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
-            $dia = substr($formattedString,3,2);
-            $mes = substr($formattedString,0,2);
-            $ano = substr($formattedString,6,2);
+            $dia = substr($formattedString,8,2);
+            $mes = substr($formattedString,5,2);
+            $ano = substr($formattedString,0,4);
             
-            $gi->setDate('20'.$ano.'-'.$mes.'-'.$dia);
+            $gi->setDate($ano.'-'.$mes.'-'.$dia);
             //echo $formattedString;
             if($barco && $empresa){
               $gi->setCode(mfUtils::gerarCodigoGi($empresa->getId(), $gi->getDate()));
