@@ -46,7 +46,7 @@ class SightingPeer extends BaseSightingPeer {
     foreach( $objectos as $objecto ) {
       $record = $objecto->getRecord();
       $gi = $record->getGeneralInfo();
-      $resultados[$objecto->getId()] = $objecto->getId().' - '.$gi->getVessel()->getName().' - '. $record->getTime('H:i').' - '.$record->getCode();
+      $resultados[$objecto->getId()] = $objecto->getId().' - '.(($gi->getVessel())? $gi->getVessel()->getName(): 'Sem barco' ).' - '. $record->getTime('H:i').' - '.$record->getCode();
     }
     return $resultados;
   }

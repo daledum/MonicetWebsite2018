@@ -115,35 +115,52 @@ propel:
     culture:          { isCulture: true, type: VARCHAR, size: 7, required: true, primaryKey: true, index: true }
     legend:           { type: VARCHAR, size: 255, required: false }
     comments:         { type: LONGVARCHAR, required: false }
-  
-  observation_photo_mark_tail:
-    _attributes:      { phpName: ObservationPhotoMarkTail, idMethod: native }
+    
+  observation_photo_tail:
+    _attributes:      { phpName: ObservationPhotoTail, idMethod: native }
     id:               ~
     photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_smooth:        { type: BOOLEAN, default: false }
+    is_irregular:     { type: BOOLEAN, default: false }
+  
+  observation_photo_tail_mark:
+    _attributes:      { phpName: ObservationPhotoTailMark, idMethod: native }
+    id:               ~
+    observation_photo_tail_id: { type: INTEGER, foreignTable: observation_photo_tail, foreignReference: id, required: true, onDelete: cascade, index: true }
     mark_id:          { type: INTEGER, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
     line:             { type: INTEGER, required: true }
     column:           { type: INTEGER, required: true }
     observation:      { type: VARCHAR, size: 255, required: false }
-    
-  observation_photo_mark_dorsal_left:
-    _attributes:      { phpName: ObservationPhotoMarkDorsalLeft, idMethod: native }
+  
+  observation_photo_dorsal_left:
+    _attributes:      { phpName: ObservationPhotoDorsalLeft, idMethod: native }
     id:               ~
-    photo_id:         { type: integer, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_smooth:        { type: BOOLEAN, default: false }
+    is_irregular:     { type: BOOLEAN, default: false }
+    
+  observation_photo_dorsal_left_mark:
+    _attributes:      { phpName: ObservationPhotoDorsalLeftMark, idMethod: native }
+    id:               ~
+    observation_photo_dorsal_left_id: { type: integer, foreignTable: observation_photo_dorsal_left, foreignReference: id, required: true, onDelete: cascade, index: true }
     mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
     line:             { type: INTEGER, required: true }
     column:           { type: INTEGER, required: true }
     observation:      { type: VARCHAR, size: 255, required: false }
     
-  observation_photo_mark_dorsal_right:
-    _attributes:      { phpName: ObservationPhotoMarkDorsalRight, idMethod: native }
+  observation_photo_dorsal_Right:
+    _attributes:      { phpName: ObservationPhotoDorsalRight, idMethod: native }
     id:               ~
-    photo_id:         { type: integer, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_smooth:        { type: BOOLEAN, default: false }
+    is_irregular:     { type: BOOLEAN, default: false }
+    
+  observation_photo_dorsal_right_mark:
+    _attributes:      { phpName: ObservationPhotoDorsalRightMark, idMethod: native }
+    id:               ~
+    observation_photo_dorsal_right_id: { type: integer, foreignTable: observation_photo_dorsal_right, foreignReference: id, required: true, onDelete: cascade, index: true }
     mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
     line:             { type: INTEGER, required: true }
     column:           { type: INTEGER, required: true }
     observation:      { type: VARCHAR, size: 255, required: false }
     
-  
-  
-    
-  
