@@ -11,7 +11,6 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
       $this['behaviour_id'],
       $this['age_group'],
       $this['photo_time'],
-      $this['individual_id'],
       $this['kind_of_photo'],
       $this['photo_quality'],
       $this['gender'],

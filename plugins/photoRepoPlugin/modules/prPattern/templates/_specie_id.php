@@ -1,0 +1,1 @@
+<?php echo (!$Pattern->getSpecie())? '&nbsp;': $Pattern->getSpecie()->getCode().' - '.$Pattern->getSpecie()->getName('pt') ?>

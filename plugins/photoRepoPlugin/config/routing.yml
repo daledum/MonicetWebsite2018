@@ -80,6 +80,14 @@ pr_observation_photo_validate:
   requirements:
     sf_method: get
     
+pr_observation_photo_characterize:
+  url:  /observation-photo/:id/characterize
+  params:
+    module:     prObservationPhoto
+    action:     characterize
+  requirements:
+    sf_method: get
+    
 pr_observation_photo:
   class: sfPropel15RouteCollection
   options:

@@ -44,3 +44,19 @@
     border: 1px solid #dddddd;
     padding: 10px;
 }
+
+
+.line_pattern {
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+    padding: 10px;
+    overflow: auto;
+}
+.line_pattern_photo, .line_pattern_pattern {
+    padding: 0 10px 0 0;
+    width: 350px;
+    float: left;
+}
+.line_pattern_photo img, .line_pattern_pattern img {
+    width: 350px;
+}

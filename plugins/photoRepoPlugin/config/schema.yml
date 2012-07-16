@@ -148,7 +148,7 @@ propel:
     column:           { type: INTEGER, required: true }
     observation:      { type: VARCHAR, size: 255, required: false }
     
-  observation_photo_dorsal_Right:
+  observation_photo_dorsal_right:
     _attributes:      { phpName: ObservationPhotoDorsalRight, idMethod: native }
     id:               ~
     photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }

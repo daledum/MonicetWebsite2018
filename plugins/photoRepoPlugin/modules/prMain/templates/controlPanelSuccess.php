@@ -109,8 +109,7 @@
             </td>
           </tr>
           
-          <?php /* ?>
-          <tr class="sf_admin_row odd">
+          <tr class="sf_admin_row even">
             <td width="400">Padrões</td>
             <td width="50" style="text-align: right;"><?php echo $patterns ?></td>
             <td>
@@ -120,7 +119,6 @@
               </ul>
             </td>
           </tr>
-          <?php */ ?>
         </tbody>
       </table>
     </div>

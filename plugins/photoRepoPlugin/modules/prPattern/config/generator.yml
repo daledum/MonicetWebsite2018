@@ -38,7 +38,7 @@ generator:
           label: "Colunas (dorsal direita)"
       list:    
         title: Listagem de padrões
-        display: [specie]
+        display: [_specie_id]
         batch_actions: []
         object_actions: 
           show: 

@@ -144,4 +144,17 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       }
       $this->gis = $gis->find();
   }
+  
+  public function executeCharacterize( sfWebRequest $request ) {
+    $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
+    
+    if($this->observationPhoto->getBodyPart()) {
+     $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
+     $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
+     $this->isRight = $this->observationPhoto->getBodyPart()->getCode() == body_part::R_SIGLA;
+    } else {
+      $this->isTail = $this->isLeft = $this->isRight = false;
+    }
+  }
 }

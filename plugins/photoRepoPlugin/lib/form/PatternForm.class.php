@@ -8,7 +8,13 @@ class PatternForm extends BasePatternForm
       $this['updated_at']
     );
     
-    $this->validatorSchema['specie_id'] = new sfValidatorPropelChoice(array('model' => 'Specie', 'column' => 'id', 'required' => true));
+    $species = SpeciePeer::getForSelect($with_empty = false, '');
+    $this->widgetSchema['specie_id'] = new sfWidgetFormChoice(array(
+        'choices' => $species,
+    ));
+    $this->validatorSchema['specie_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($species),
+    ));
     
     $numberOptions = range(1,20);
     $numberOptionFields = array(
@@ -112,7 +118,15 @@ class PatternForm extends BasePatternForm
       $this->widgetSchema->setHelp($field['field'], 'Apenas ficheiros com extensão .jpg');
     }
     */ 
-     
+    $this->validatorSchema->setPostValidator(
+            new sfValidatorPropelUnique(array(
+                'model' => 'Pattern', 
+                'column' => 'specie_id'
+                ), array(
+                   'invalid' => 'Esta espécie já tem um padrão definido.' 
+                )
+            ));
+
      
   }
 }
