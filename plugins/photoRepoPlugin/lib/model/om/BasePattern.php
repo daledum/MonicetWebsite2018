@@ -43,58 +43,16 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	protected $image_tail;
 
 	/**
-	 * The value for the lines_tail field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $lines_tail;
-
-	/**
-	 * The value for the columns_tail field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $columns_tail;
-
-	/**
 	 * The value for the image_dorsal_left field.
 	 * @var        string
 	 */
 	protected $image_dorsal_left;
 
 	/**
-	 * The value for the lines_dorsal_left field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $lines_dorsal_left;
-
-	/**
-	 * The value for the columns_dorsal_left field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $columns_dorsal_left;
-
-	/**
 	 * The value for the image_dorsal_right field.
 	 * @var        string
 	 */
 	protected $image_dorsal_right;
-
-	/**
-	 * The value for the lines_dorsal_right field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $lines_dorsal_right;
-
-	/**
-	 * The value for the columns_dorsal_right field.
-	 * Note: this column has a database default value of: 1
-	 * @var        int
-	 */
-	protected $columns_dorsal_right;
 
 	/**
 	 * The value for the created_at field.
@@ -114,6 +72,21 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	protected $aSpecie;
 
 	/**
+	 * @var        array PatternCellTail[] Collection to store aggregation of PatternCellTail objects.
+	 */
+	protected $collPatternCellTails;
+
+	/**
+	 * @var        array PatternCellDorsalLeft[] Collection to store aggregation of PatternCellDorsalLeft objects.
+	 */
+	protected $collPatternCellDorsalLefts;
+
+	/**
+	 * @var        array PatternCellDorsalRight[] Collection to store aggregation of PatternCellDorsalRight objects.
+	 */
+	protected $collPatternCellDorsalRights;
+
+	/**
 	 * Flag to prevent endless save loop, if this object is referenced
 	 * by another object which falls in this transaction.
 	 * @var        boolean
@@ -126,32 +99,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	 * @var        boolean
 	 */
 	protected $alreadyInValidation = false;
-
-	/**
-	 * Applies default values to this object.
-	 * This method should be called from the object's constructor (or
-	 * equivalent initialization method).
-	 * @see        __construct()
-	 */
-	public function applyDefaultValues()
-	{
-		$this->lines_tail = 1;
-		$this->columns_tail = 1;
-		$this->lines_dorsal_left = 1;
-		$this->columns_dorsal_left = 1;
-		$this->lines_dorsal_right = 1;
-		$this->columns_dorsal_right = 1;
-	}
-
-	/**
-	 * Initializes internal state of BasePattern object.
-	 * @see        applyDefaults()
-	 */
-	public function __construct()
-	{
-		parent::__construct();
-		$this->applyDefaultValues();
-	}
 
 	/**
 	 * Get the [id] column value.
@@ -184,26 +131,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Get the [lines_tail] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getLinesTail()
-	{
-		return $this->lines_tail;
-	}
-
-	/**
-	 * Get the [columns_tail] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getColumnsTail()
-	{
-		return $this->columns_tail;
-	}
-
-	/**
 	 * Get the [image_dorsal_left] column value.
 	 * 
 	 * @return     string
@@ -214,26 +141,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Get the [lines_dorsal_left] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getLinesDorsalLeft()
-	{
-		return $this->lines_dorsal_left;
-	}
-
-	/**
-	 * Get the [columns_dorsal_left] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getColumnsDorsalLeft()
-	{
-		return $this->columns_dorsal_left;
-	}
-
-	/**
 	 * Get the [image_dorsal_right] column value.
 	 * 
 	 * @return     string
@@ -241,26 +148,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	public function getImageDorsalRight()
 	{
 		return $this->image_dorsal_right;
-	}
-
-	/**
-	 * Get the [lines_dorsal_right] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getLinesDorsalRight()
-	{
-		return $this->lines_dorsal_right;
-	}
-
-	/**
-	 * Get the [columns_dorsal_right] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getColumnsDorsalRight()
-	{
-		return $this->columns_dorsal_right;
 	}
 
 	/**
@@ -404,46 +291,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	} // setImageTail()
 
 	/**
-	 * Set the value of [lines_tail] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setLinesTail($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->lines_tail !== $v || $this->isNew()) {
-			$this->lines_tail = $v;
-			$this->modifiedColumns[] = PatternPeer::LINES_TAIL;
-		}
-
-		return $this;
-	} // setLinesTail()
-
-	/**
-	 * Set the value of [columns_tail] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setColumnsTail($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->columns_tail !== $v || $this->isNew()) {
-			$this->columns_tail = $v;
-			$this->modifiedColumns[] = PatternPeer::COLUMNS_TAIL;
-		}
-
-		return $this;
-	} // setColumnsTail()
-
-	/**
 	 * Set the value of [image_dorsal_left] column.
 	 * 
 	 * @param      string $v new value
@@ -464,46 +311,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	} // setImageDorsalLeft()
 
 	/**
-	 * Set the value of [lines_dorsal_left] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setLinesDorsalLeft($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->lines_dorsal_left !== $v || $this->isNew()) {
-			$this->lines_dorsal_left = $v;
-			$this->modifiedColumns[] = PatternPeer::LINES_DORSAL_LEFT;
-		}
-
-		return $this;
-	} // setLinesDorsalLeft()
-
-	/**
-	 * Set the value of [columns_dorsal_left] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setColumnsDorsalLeft($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->columns_dorsal_left !== $v || $this->isNew()) {
-			$this->columns_dorsal_left = $v;
-			$this->modifiedColumns[] = PatternPeer::COLUMNS_DORSAL_LEFT;
-		}
-
-		return $this;
-	} // setColumnsDorsalLeft()
-
-	/**
 	 * Set the value of [image_dorsal_right] column.
 	 * 
 	 * @param      string $v new value
@@ -522,46 +329,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 
 		return $this;
 	} // setImageDorsalRight()
-
-	/**
-	 * Set the value of [lines_dorsal_right] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setLinesDorsalRight($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->lines_dorsal_right !== $v || $this->isNew()) {
-			$this->lines_dorsal_right = $v;
-			$this->modifiedColumns[] = PatternPeer::LINES_DORSAL_RIGHT;
-		}
-
-		return $this;
-	} // setLinesDorsalRight()
-
-	/**
-	 * Set the value of [columns_dorsal_right] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     Pattern The current object (for fluent API support)
-	 */
-	public function setColumnsDorsalRight($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->columns_dorsal_right !== $v || $this->isNew()) {
-			$this->columns_dorsal_right = $v;
-			$this->modifiedColumns[] = PatternPeer::COLUMNS_DORSAL_RIGHT;
-		}
-
-		return $this;
-	} // setColumnsDorsalRight()
 
 	/**
 	 * Sets the value of [created_at] column to a normalized version of the date/time value specified.
@@ -671,30 +438,6 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
-			if ($this->lines_tail !== 1) {
-				return false;
-			}
-
-			if ($this->columns_tail !== 1) {
-				return false;
-			}
-
-			if ($this->lines_dorsal_left !== 1) {
-				return false;
-			}
-
-			if ($this->columns_dorsal_left !== 1) {
-				return false;
-			}
-
-			if ($this->lines_dorsal_right !== 1) {
-				return false;
-			}
-
-			if ($this->columns_dorsal_right !== 1) {
-				return false;
-			}
-
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -720,16 +463,10 @@ abstract class BasePattern extends BaseObject  implements Persistent
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->specie_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
 			$this->image_tail = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-			$this->lines_tail = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-			$this->columns_tail = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-			$this->image_dorsal_left = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-			$this->lines_dorsal_left = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
-			$this->columns_dorsal_left = ($row[$startcol + 7] !== null) ? (int) $row[$startcol + 7] : null;
-			$this->image_dorsal_right = ($row[$startcol + 8] !== null) ? (string) $row[$startcol + 8] : null;
-			$this->lines_dorsal_right = ($row[$startcol + 9] !== null) ? (int) $row[$startcol + 9] : null;
-			$this->columns_dorsal_right = ($row[$startcol + 10] !== null) ? (int) $row[$startcol + 10] : null;
-			$this->created_at = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
-			$this->updated_at = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
+			$this->image_dorsal_left = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+			$this->image_dorsal_right = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+			$this->created_at = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->updated_at = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -738,7 +475,7 @@ abstract class BasePattern extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 13; // 13 = PatternPeer::NUM_COLUMNS - PatternPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 7; // 7 = PatternPeer::NUM_COLUMNS - PatternPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Pattern object", $e);
@@ -804,6 +541,12 @@ abstract class BasePattern extends BaseObject  implements Persistent
 		if ($deep) {  // also de-associate any related objects?
 
 			$this->aSpecie = null;
+			$this->collPatternCellTails = null;
+
+			$this->collPatternCellDorsalLefts = null;
+
+			$this->collPatternCellDorsalRights = null;
+
 		} // if (deep)
 	}
 
@@ -993,6 +736,30 @@ abstract class BasePattern extends BaseObject  implements Persistent
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
+			if ($this->collPatternCellTails !== null) {
+				foreach ($this->collPatternCellTails as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collPatternCellDorsalLefts !== null) {
+				foreach ($this->collPatternCellDorsalLefts as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collPatternCellDorsalRights !== null) {
+				foreach ($this->collPatternCellDorsalRights as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 
 		}
@@ -1076,6 +843,30 @@ abstract class BasePattern extends BaseObject  implements Persistent
 			}
 
 
+				if ($this->collPatternCellTails !== null) {
+					foreach ($this->collPatternCellTails as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collPatternCellDorsalLefts !== null) {
+					foreach ($this->collPatternCellDorsalLefts as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collPatternCellDorsalRights !== null) {
+					foreach ($this->collPatternCellDorsalRights as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
 
 			$this->alreadyInValidation = false;
 		}
@@ -1119,33 +910,15 @@ abstract class BasePattern extends BaseObject  implements Persistent
 				return $this->getImageTail();
 				break;
 			case 3:
-				return $this->getLinesTail();
-				break;
-			case 4:
-				return $this->getColumnsTail();
-				break;
-			case 5:
 				return $this->getImageDorsalLeft();
 				break;
-			case 6:
-				return $this->getLinesDorsalLeft();
-				break;
-			case 7:
-				return $this->getColumnsDorsalLeft();
-				break;
-			case 8:
+			case 4:
 				return $this->getImageDorsalRight();
 				break;
-			case 9:
-				return $this->getLinesDorsalRight();
-				break;
-			case 10:
-				return $this->getColumnsDorsalRight();
-				break;
-			case 11:
+			case 5:
 				return $this->getCreatedAt();
 				break;
-			case 12:
+			case 6:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -1175,16 +948,10 @@ abstract class BasePattern extends BaseObject  implements Persistent
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getSpecieId(),
 			$keys[2] => $this->getImageTail(),
-			$keys[3] => $this->getLinesTail(),
-			$keys[4] => $this->getColumnsTail(),
-			$keys[5] => $this->getImageDorsalLeft(),
-			$keys[6] => $this->getLinesDorsalLeft(),
-			$keys[7] => $this->getColumnsDorsalLeft(),
-			$keys[8] => $this->getImageDorsalRight(),
-			$keys[9] => $this->getLinesDorsalRight(),
-			$keys[10] => $this->getColumnsDorsalRight(),
-			$keys[11] => $this->getCreatedAt(),
-			$keys[12] => $this->getUpdatedAt(),
+			$keys[3] => $this->getImageDorsalLeft(),
+			$keys[4] => $this->getImageDorsalRight(),
+			$keys[5] => $this->getCreatedAt(),
+			$keys[6] => $this->getUpdatedAt(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aSpecie) {
@@ -1231,33 +998,15 @@ abstract class BasePattern extends BaseObject  implements Persistent
 				$this->setImageTail($value);
 				break;
 			case 3:
-				$this->setLinesTail($value);
-				break;
-			case 4:
-				$this->setColumnsTail($value);
-				break;
-			case 5:
 				$this->setImageDorsalLeft($value);
 				break;
-			case 6:
-				$this->setLinesDorsalLeft($value);
-				break;
-			case 7:
-				$this->setColumnsDorsalLeft($value);
-				break;
-			case 8:
+			case 4:
 				$this->setImageDorsalRight($value);
 				break;
-			case 9:
-				$this->setLinesDorsalRight($value);
-				break;
-			case 10:
-				$this->setColumnsDorsalRight($value);
-				break;
-			case 11:
+			case 5:
 				$this->setCreatedAt($value);
 				break;
-			case 12:
+			case 6:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -1287,16 +1036,10 @@ abstract class BasePattern extends BaseObject  implements Persistent
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setSpecieId($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setImageTail($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setLinesTail($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setColumnsTail($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setImageDorsalLeft($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setLinesDorsalLeft($arr[$keys[6]]);
-		if (array_key_exists($keys[7], $arr)) $this->setColumnsDorsalLeft($arr[$keys[7]]);
-		if (array_key_exists($keys[8], $arr)) $this->setImageDorsalRight($arr[$keys[8]]);
-		if (array_key_exists($keys[9], $arr)) $this->setLinesDorsalRight($arr[$keys[9]]);
-		if (array_key_exists($keys[10], $arr)) $this->setColumnsDorsalRight($arr[$keys[10]]);
-		if (array_key_exists($keys[11], $arr)) $this->setCreatedAt($arr[$keys[11]]);
-		if (array_key_exists($keys[12], $arr)) $this->setUpdatedAt($arr[$keys[12]]);
+		if (array_key_exists($keys[3], $arr)) $this->setImageDorsalLeft($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setImageDorsalRight($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
 	}
 
 	/**
@@ -1311,14 +1054,8 @@ abstract class BasePattern extends BaseObject  implements Persistent
 		if ($this->isColumnModified(PatternPeer::ID)) $criteria->add(PatternPeer::ID, $this->id);
 		if ($this->isColumnModified(PatternPeer::SPECIE_ID)) $criteria->add(PatternPeer::SPECIE_ID, $this->specie_id);
 		if ($this->isColumnModified(PatternPeer::IMAGE_TAIL)) $criteria->add(PatternPeer::IMAGE_TAIL, $this->image_tail);
-		if ($this->isColumnModified(PatternPeer::LINES_TAIL)) $criteria->add(PatternPeer::LINES_TAIL, $this->lines_tail);
-		if ($this->isColumnModified(PatternPeer::COLUMNS_TAIL)) $criteria->add(PatternPeer::COLUMNS_TAIL, $this->columns_tail);
 		if ($this->isColumnModified(PatternPeer::IMAGE_DORSAL_LEFT)) $criteria->add(PatternPeer::IMAGE_DORSAL_LEFT, $this->image_dorsal_left);
-		if ($this->isColumnModified(PatternPeer::LINES_DORSAL_LEFT)) $criteria->add(PatternPeer::LINES_DORSAL_LEFT, $this->lines_dorsal_left);
-		if ($this->isColumnModified(PatternPeer::COLUMNS_DORSAL_LEFT)) $criteria->add(PatternPeer::COLUMNS_DORSAL_LEFT, $this->columns_dorsal_left);
 		if ($this->isColumnModified(PatternPeer::IMAGE_DORSAL_RIGHT)) $criteria->add(PatternPeer::IMAGE_DORSAL_RIGHT, $this->image_dorsal_right);
-		if ($this->isColumnModified(PatternPeer::LINES_DORSAL_RIGHT)) $criteria->add(PatternPeer::LINES_DORSAL_RIGHT, $this->lines_dorsal_right);
-		if ($this->isColumnModified(PatternPeer::COLUMNS_DORSAL_RIGHT)) $criteria->add(PatternPeer::COLUMNS_DORSAL_RIGHT, $this->columns_dorsal_right);
 		if ($this->isColumnModified(PatternPeer::CREATED_AT)) $criteria->add(PatternPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(PatternPeer::UPDATED_AT)) $criteria->add(PatternPeer::UPDATED_AT, $this->updated_at);
 
@@ -1384,16 +1121,36 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	{
 		$copyObj->setSpecieId($this->specie_id);
 		$copyObj->setImageTail($this->image_tail);
-		$copyObj->setLinesTail($this->lines_tail);
-		$copyObj->setColumnsTail($this->columns_tail);
 		$copyObj->setImageDorsalLeft($this->image_dorsal_left);
-		$copyObj->setLinesDorsalLeft($this->lines_dorsal_left);
-		$copyObj->setColumnsDorsalLeft($this->columns_dorsal_left);
 		$copyObj->setImageDorsalRight($this->image_dorsal_right);
-		$copyObj->setLinesDorsalRight($this->lines_dorsal_right);
-		$copyObj->setColumnsDorsalRight($this->columns_dorsal_right);
 		$copyObj->setCreatedAt($this->created_at);
 		$copyObj->setUpdatedAt($this->updated_at);
+
+		if ($deepCopy) {
+			// important: temporarily setNew(false) because this affects the behavior of
+			// the getter/setter methods for fkey referrer objects.
+			$copyObj->setNew(false);
+
+			foreach ($this->getPatternCellTails() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addPatternCellTail($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getPatternCellDorsalLefts() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addPatternCellDorsalLeft($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getPatternCellDorsalRights() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addPatternCellDorsalRight($relObj->copy($deepCopy));
+				}
+			}
+
+		} // if ($deepCopy)
+
 
 		$copyObj->setNew(true);
 		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1487,6 +1244,333 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collPatternCellTails collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addPatternCellTails()
+	 */
+	public function clearPatternCellTails()
+	{
+		$this->collPatternCellTails = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collPatternCellTails collection.
+	 *
+	 * By default this just sets the collPatternCellTails collection to an empty array (like clearcollPatternCellTails());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initPatternCellTails()
+	{
+		$this->collPatternCellTails = new PropelObjectCollection();
+		$this->collPatternCellTails->setModel('PatternCellTail');
+	}
+
+	/**
+	 * Gets an array of PatternCellTail objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Pattern is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array PatternCellTail[] List of PatternCellTail objects
+	 * @throws     PropelException
+	 */
+	public function getPatternCellTails($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellTails || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellTails) {
+				// return empty collection
+				$this->initPatternCellTails();
+			} else {
+				$collPatternCellTails = PatternCellTailQuery::create(null, $criteria)
+					->filterByPattern($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collPatternCellTails;
+				}
+				$this->collPatternCellTails = $collPatternCellTails;
+			}
+		}
+		return $this->collPatternCellTails;
+	}
+
+	/**
+	 * Returns the number of related PatternCellTail objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related PatternCellTail objects.
+	 * @throws     PropelException
+	 */
+	public function countPatternCellTails(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellTails || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellTails) {
+				return 0;
+			} else {
+				$query = PatternCellTailQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPattern($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collPatternCellTails);
+		}
+	}
+
+	/**
+	 * Method called to associate a PatternCellTail object to this object
+	 * through the PatternCellTail foreign key attribute.
+	 *
+	 * @param      PatternCellTail $l PatternCellTail
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addPatternCellTail(PatternCellTail $l)
+	{
+		if ($this->collPatternCellTails === null) {
+			$this->initPatternCellTails();
+		}
+		if (!$this->collPatternCellTails->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collPatternCellTails[]= $l;
+			$l->setPattern($this);
+		}
+	}
+
+	/**
+	 * Clears out the collPatternCellDorsalLefts collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addPatternCellDorsalLefts()
+	 */
+	public function clearPatternCellDorsalLefts()
+	{
+		$this->collPatternCellDorsalLefts = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collPatternCellDorsalLefts collection.
+	 *
+	 * By default this just sets the collPatternCellDorsalLefts collection to an empty array (like clearcollPatternCellDorsalLefts());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initPatternCellDorsalLefts()
+	{
+		$this->collPatternCellDorsalLefts = new PropelObjectCollection();
+		$this->collPatternCellDorsalLefts->setModel('PatternCellDorsalLeft');
+	}
+
+	/**
+	 * Gets an array of PatternCellDorsalLeft objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Pattern is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array PatternCellDorsalLeft[] List of PatternCellDorsalLeft objects
+	 * @throws     PropelException
+	 */
+	public function getPatternCellDorsalLefts($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellDorsalLefts || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellDorsalLefts) {
+				// return empty collection
+				$this->initPatternCellDorsalLefts();
+			} else {
+				$collPatternCellDorsalLefts = PatternCellDorsalLeftQuery::create(null, $criteria)
+					->filterByPattern($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collPatternCellDorsalLefts;
+				}
+				$this->collPatternCellDorsalLefts = $collPatternCellDorsalLefts;
+			}
+		}
+		return $this->collPatternCellDorsalLefts;
+	}
+
+	/**
+	 * Returns the number of related PatternCellDorsalLeft objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related PatternCellDorsalLeft objects.
+	 * @throws     PropelException
+	 */
+	public function countPatternCellDorsalLefts(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellDorsalLefts || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellDorsalLefts) {
+				return 0;
+			} else {
+				$query = PatternCellDorsalLeftQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPattern($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collPatternCellDorsalLefts);
+		}
+	}
+
+	/**
+	 * Method called to associate a PatternCellDorsalLeft object to this object
+	 * through the PatternCellDorsalLeft foreign key attribute.
+	 *
+	 * @param      PatternCellDorsalLeft $l PatternCellDorsalLeft
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addPatternCellDorsalLeft(PatternCellDorsalLeft $l)
+	{
+		if ($this->collPatternCellDorsalLefts === null) {
+			$this->initPatternCellDorsalLefts();
+		}
+		if (!$this->collPatternCellDorsalLefts->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collPatternCellDorsalLefts[]= $l;
+			$l->setPattern($this);
+		}
+	}
+
+	/**
+	 * Clears out the collPatternCellDorsalRights collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addPatternCellDorsalRights()
+	 */
+	public function clearPatternCellDorsalRights()
+	{
+		$this->collPatternCellDorsalRights = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collPatternCellDorsalRights collection.
+	 *
+	 * By default this just sets the collPatternCellDorsalRights collection to an empty array (like clearcollPatternCellDorsalRights());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initPatternCellDorsalRights()
+	{
+		$this->collPatternCellDorsalRights = new PropelObjectCollection();
+		$this->collPatternCellDorsalRights->setModel('PatternCellDorsalRight');
+	}
+
+	/**
+	 * Gets an array of PatternCellDorsalRight objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this Pattern is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array PatternCellDorsalRight[] List of PatternCellDorsalRight objects
+	 * @throws     PropelException
+	 */
+	public function getPatternCellDorsalRights($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellDorsalRights || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellDorsalRights) {
+				// return empty collection
+				$this->initPatternCellDorsalRights();
+			} else {
+				$collPatternCellDorsalRights = PatternCellDorsalRightQuery::create(null, $criteria)
+					->filterByPattern($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collPatternCellDorsalRights;
+				}
+				$this->collPatternCellDorsalRights = $collPatternCellDorsalRights;
+			}
+		}
+		return $this->collPatternCellDorsalRights;
+	}
+
+	/**
+	 * Returns the number of related PatternCellDorsalRight objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related PatternCellDorsalRight objects.
+	 * @throws     PropelException
+	 */
+	public function countPatternCellDorsalRights(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collPatternCellDorsalRights || null !== $criteria) {
+			if ($this->isNew() && null === $this->collPatternCellDorsalRights) {
+				return 0;
+			} else {
+				$query = PatternCellDorsalRightQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPattern($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collPatternCellDorsalRights);
+		}
+	}
+
+	/**
+	 * Method called to associate a PatternCellDorsalRight object to this object
+	 * through the PatternCellDorsalRight foreign key attribute.
+	 *
+	 * @param      PatternCellDorsalRight $l PatternCellDorsalRight
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addPatternCellDorsalRight(PatternCellDorsalRight $l)
+	{
+		if ($this->collPatternCellDorsalRights === null) {
+			$this->initPatternCellDorsalRights();
+		}
+		if (!$this->collPatternCellDorsalRights->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collPatternCellDorsalRights[]= $l;
+			$l->setPattern($this);
+		}
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -1494,20 +1578,13 @@ abstract class BasePattern extends BaseObject  implements Persistent
 		$this->id = null;
 		$this->specie_id = null;
 		$this->image_tail = null;
-		$this->lines_tail = null;
-		$this->columns_tail = null;
 		$this->image_dorsal_left = null;
-		$this->lines_dorsal_left = null;
-		$this->columns_dorsal_left = null;
 		$this->image_dorsal_right = null;
-		$this->lines_dorsal_right = null;
-		$this->columns_dorsal_right = null;
 		$this->created_at = null;
 		$this->updated_at = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
-		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);
@@ -1525,8 +1602,26 @@ abstract class BasePattern extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
+			if ($this->collPatternCellTails) {
+				foreach ((array) $this->collPatternCellTails as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collPatternCellDorsalLefts) {
+				foreach ((array) $this->collPatternCellDorsalLefts as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collPatternCellDorsalRights) {
+				foreach ((array) $this->collPatternCellDorsalRights as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
+		$this->collPatternCellTails = null;
+		$this->collPatternCellDorsalLefts = null;
+		$this->collPatternCellDorsalRights = null;
 		$this->aSpecie = null;
 	}
 

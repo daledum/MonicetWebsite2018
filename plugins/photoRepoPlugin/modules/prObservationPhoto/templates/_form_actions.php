@@ -8,7 +8,8 @@
     <?php $userId = $sf_user->getGuardUser()->getId(); ?>
     <?php $lastEditedBy = $form->getObject()->getLastEditedBy(); ?>
     <?php $status = $form->getObject()->getStatus() ?>
-    <?php if( $status == ObservationPhoto::FA_SIGLA && $lastEditedBy == $userId ): ?>
+    <!-- For Approval and user not equal to last_edited -->
+    <?php if( $status == ObservationPhoto::FA_SIGLA && $lastEditedBy != $userId ): ?>
         <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$form->getObject()->getId() ) ?>">Validar</a></li>
     <?php endif; ?>
     <?php echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>

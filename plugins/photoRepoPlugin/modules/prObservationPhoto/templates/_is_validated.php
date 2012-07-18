@@ -1,1 +1,5 @@
-<?php echo (!$ObservationPhoto->getPhotographer())? '&nbsp;': $ObservationPhoto->getPhotographer()->getCode().' - '.$ObservationPhoto->getPhotographer()->getName() ?>
+<?php if ($ObservationPhoto->getStatus() == ObservationPhoto::A_SIGLA): ?>
+  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/tick.png', array('alt' => __('Checked', array(), 'sf_admin'), 'title' => __('Checked', array(), 'sf_admin'))) ?>
+<?php else: ?>
+  &nbsp;
+<?php endif; ?>

@@ -27,6 +27,7 @@ generator:
           - _specie_id
           - island
           - _photographer_id
+          - _is_validated
       filter:  ~
       form:    
         display:

@@ -40,14 +40,8 @@ class PatternTableMap extends TableMap {
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addForeignKey('SPECIE_ID', 'SpecieId', 'INTEGER', 'specie', 'ID', false, null, null);
 		$this->addColumn('IMAGE_TAIL', 'ImageTail', 'VARCHAR', false, 255, null);
-		$this->addColumn('LINES_TAIL', 'LinesTail', 'INTEGER', true, null, 1);
-		$this->addColumn('COLUMNS_TAIL', 'ColumnsTail', 'INTEGER', true, null, 1);
 		$this->addColumn('IMAGE_DORSAL_LEFT', 'ImageDorsalLeft', 'VARCHAR', false, 255, null);
-		$this->addColumn('LINES_DORSAL_LEFT', 'LinesDorsalLeft', 'INTEGER', true, null, 1);
-		$this->addColumn('COLUMNS_DORSAL_LEFT', 'ColumnsDorsalLeft', 'INTEGER', true, null, 1);
 		$this->addColumn('IMAGE_DORSAL_RIGHT', 'ImageDorsalRight', 'VARCHAR', false, 255, null);
-		$this->addColumn('LINES_DORSAL_RIGHT', 'LinesDorsalRight', 'INTEGER', true, null, 1);
-		$this->addColumn('COLUMNS_DORSAL_RIGHT', 'ColumnsDorsalRight', 'INTEGER', true, null, 1);
 		$this->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null, null);
 		$this->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null, null);
 		// validators
@@ -59,6 +53,9 @@ class PatternTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Specie', 'Specie', RelationMap::MANY_TO_ONE, array('specie_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('PatternCellTail', 'PatternCellTail', RelationMap::ONE_TO_MANY, array('id' => 'pattern_id', ), 'CASCADE', null);
+    $this->addRelation('PatternCellDorsalLeft', 'PatternCellDorsalLeft', RelationMap::ONE_TO_MANY, array('id' => 'pattern_id', ), 'CASCADE', null);
+    $this->addRelation('PatternCellDorsalRight', 'PatternCellDorsalRight', RelationMap::ONE_TO_MANY, array('id' => 'pattern_id', ), 'CASCADE', null);
 	} // buildRelations()
 
 	/**

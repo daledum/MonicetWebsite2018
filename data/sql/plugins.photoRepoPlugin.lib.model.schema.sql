@@ -99,14 +99,8 @@ CREATE TABLE `pattern`
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`specie_id` INTEGER,
 	`image_tail` VARCHAR(255),
-	`lines_tail` INTEGER default 1 NOT NULL,
-	`columns_tail` INTEGER default 1 NOT NULL,
 	`image_dorsal_left` VARCHAR(255),
-	`lines_dorsal_left` INTEGER default 1 NOT NULL,
-	`columns_dorsal_left` INTEGER default 1 NOT NULL,
 	`image_dorsal_right` VARCHAR(255),
-	`lines_dorsal_right` INTEGER default 1 NOT NULL,
-	`columns_dorsal_right` INTEGER default 1 NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
@@ -114,6 +108,69 @@ CREATE TABLE `pattern`
 	CONSTRAINT `pattern_FK_1`
 		FOREIGN KEY (`specie_id`)
 		REFERENCES `specie` (`id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- pattern_cell_tail
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pattern_cell_tail`;
+
+
+CREATE TABLE `pattern_cell_tail`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `pattern_cell_tail_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_tail_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- pattern_cell_dorsal_left
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pattern_cell_dorsal_left`;
+
+
+CREATE TABLE `pattern_cell_dorsal_left`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `pattern_cell_dorsal_left_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_dorsal_left_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
+		ON DELETE CASCADE
+) ENGINE=MyISAM;
+
+#-----------------------------------------------------------------------------
+#-- pattern_cell_dorsal_right
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `pattern_cell_dorsal_right`;
+
+
+CREATE TABLE `pattern_cell_dorsal_right`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
+	PRIMARY KEY (`id`),
+	KEY `pattern_cell_dorsal_right_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_dorsal_right_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=MyISAM;
 

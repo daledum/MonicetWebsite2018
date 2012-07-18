@@ -2,61 +2,52 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'pattern' table.
+ * Base static class for performing query and update operations on the 'pattern_cell_dorsal_left' table.
  *
  * 
  *
  * @package    propel.generator.plugins.photoRepoPlugin.lib.model.om
  */
-abstract class BasePatternPeer {
+abstract class BasePatternCellDorsalLeftPeer {
 
 	/** the default database name for this class */
 	const DATABASE_NAME = 'propel';
 
 	/** the table name for this class */
-	const TABLE_NAME = 'pattern';
+	const TABLE_NAME = 'pattern_cell_dorsal_left';
 
 	/** the related Propel class for this table */
-	const OM_CLASS = 'Pattern';
+	const OM_CLASS = 'PatternCellDorsalLeft';
 
 	/** A class that can be returned by this peer. */
-	const CLASS_DEFAULT = 'plugins.photoRepoPlugin.lib.model.Pattern';
+	const CLASS_DEFAULT = 'plugins.photoRepoPlugin.lib.model.PatternCellDorsalLeft';
 
 	/** the related TableMap class for this table */
-	const TM_CLASS = 'PatternTableMap';
+	const TM_CLASS = 'PatternCellDorsalLeftTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 7;
+	const NUM_COLUMNS = 4;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
 	/** the column name for the ID field */
-	const ID = 'pattern.ID';
+	const ID = 'pattern_cell_dorsal_left.ID';
 
-	/** the column name for the SPECIE_ID field */
-	const SPECIE_ID = 'pattern.SPECIE_ID';
+	/** the column name for the PATTERN_ID field */
+	const PATTERN_ID = 'pattern_cell_dorsal_left.PATTERN_ID';
 
-	/** the column name for the IMAGE_TAIL field */
-	const IMAGE_TAIL = 'pattern.IMAGE_TAIL';
+	/** the column name for the NAME field */
+	const NAME = 'pattern_cell_dorsal_left.NAME';
 
-	/** the column name for the IMAGE_DORSAL_LEFT field */
-	const IMAGE_DORSAL_LEFT = 'pattern.IMAGE_DORSAL_LEFT';
-
-	/** the column name for the IMAGE_DORSAL_RIGHT field */
-	const IMAGE_DORSAL_RIGHT = 'pattern.IMAGE_DORSAL_RIGHT';
-
-	/** the column name for the CREATED_AT field */
-	const CREATED_AT = 'pattern.CREATED_AT';
-
-	/** the column name for the UPDATED_AT field */
-	const UPDATED_AT = 'pattern.UPDATED_AT';
+	/** the column name for the POINTS field */
+	const POINTS = 'pattern_cell_dorsal_left.POINTS';
 
 	/**
-	 * An identiy map to hold any loaded instances of Pattern objects.
+	 * An identiy map to hold any loaded instances of PatternCellDorsalLeft objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
 	 * queries.
-	 * @var        array Pattern[]
+	 * @var        array PatternCellDorsalLeft[]
 	 */
 	public static $instances = array();
 
@@ -75,12 +66,12 @@ abstract class BasePatternPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'SpecieId', 'ImageTail', 'ImageDorsalLeft', 'ImageDorsalRight', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'specieId', 'imageTail', 'imageDorsalLeft', 'imageDorsalRight', 'createdAt', 'updatedAt', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::SPECIE_ID, self::IMAGE_TAIL, self::IMAGE_DORSAL_LEFT, self::IMAGE_DORSAL_RIGHT, self::CREATED_AT, self::UPDATED_AT, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'SPECIE_ID', 'IMAGE_TAIL', 'IMAGE_DORSAL_LEFT', 'IMAGE_DORSAL_RIGHT', 'CREATED_AT', 'UPDATED_AT', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'specie_id', 'image_tail', 'image_dorsal_left', 'image_dorsal_right', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'PatternId', 'Name', 'Points', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'patternId', 'name', 'points', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::PATTERN_ID, self::NAME, self::POINTS, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PATTERN_ID', 'NAME', 'POINTS', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'pattern_id', 'name', 'points', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	/**
@@ -90,12 +81,12 @@ abstract class BasePatternPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'SpecieId' => 1, 'ImageTail' => 2, 'ImageDorsalLeft' => 3, 'ImageDorsalRight' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'specieId' => 1, 'imageTail' => 2, 'imageDorsalLeft' => 3, 'imageDorsalRight' => 4, 'createdAt' => 5, 'updatedAt' => 6, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::SPECIE_ID => 1, self::IMAGE_TAIL => 2, self::IMAGE_DORSAL_LEFT => 3, self::IMAGE_DORSAL_RIGHT => 4, self::CREATED_AT => 5, self::UPDATED_AT => 6, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'SPECIE_ID' => 1, 'IMAGE_TAIL' => 2, 'IMAGE_DORSAL_LEFT' => 3, 'IMAGE_DORSAL_RIGHT' => 4, 'CREATED_AT' => 5, 'UPDATED_AT' => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'specie_id' => 1, 'image_tail' => 2, 'image_dorsal_left' => 3, 'image_dorsal_right' => 4, 'created_at' => 5, 'updated_at' => 6, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PatternId' => 1, 'Name' => 2, 'Points' => 3, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'patternId' => 1, 'name' => 2, 'points' => 3, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PATTERN_ID => 1, self::NAME => 2, self::POINTS => 3, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PATTERN_ID' => 1, 'NAME' => 2, 'POINTS' => 3, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'pattern_id' => 1, 'name' => 2, 'points' => 3, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
 	);
 
 	/**
@@ -144,12 +135,12 @@ abstract class BasePatternPeer {
 	 *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
 	 * </code>
 	 * @param      string $alias The alias for the current table.
-	 * @param      string $column The column name for current table. (i.e. PatternPeer::COLUMN_NAME).
+	 * @param      string $column The column name for current table. (i.e. PatternCellDorsalLeftPeer::COLUMN_NAME).
 	 * @return     string
 	 */
 	public static function alias($alias, $column)
 	{
-		return str_replace(PatternPeer::TABLE_NAME.'.', $alias.'.', $column);
+		return str_replace(PatternCellDorsalLeftPeer::TABLE_NAME.'.', $alias.'.', $column);
 	}
 
 	/**
@@ -167,21 +158,15 @@ abstract class BasePatternPeer {
 	public static function addSelectColumns(Criteria $criteria, $alias = null)
 	{
 		if (null === $alias) {
-			$criteria->addSelectColumn(PatternPeer::ID);
-			$criteria->addSelectColumn(PatternPeer::SPECIE_ID);
-			$criteria->addSelectColumn(PatternPeer::IMAGE_TAIL);
-			$criteria->addSelectColumn(PatternPeer::IMAGE_DORSAL_LEFT);
-			$criteria->addSelectColumn(PatternPeer::IMAGE_DORSAL_RIGHT);
-			$criteria->addSelectColumn(PatternPeer::CREATED_AT);
-			$criteria->addSelectColumn(PatternPeer::UPDATED_AT);
+			$criteria->addSelectColumn(PatternCellDorsalLeftPeer::ID);
+			$criteria->addSelectColumn(PatternCellDorsalLeftPeer::PATTERN_ID);
+			$criteria->addSelectColumn(PatternCellDorsalLeftPeer::NAME);
+			$criteria->addSelectColumn(PatternCellDorsalLeftPeer::POINTS);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
-			$criteria->addSelectColumn($alias . '.SPECIE_ID');
-			$criteria->addSelectColumn($alias . '.IMAGE_TAIL');
-			$criteria->addSelectColumn($alias . '.IMAGE_DORSAL_LEFT');
-			$criteria->addSelectColumn($alias . '.IMAGE_DORSAL_RIGHT');
-			$criteria->addSelectColumn($alias . '.CREATED_AT');
-			$criteria->addSelectColumn($alias . '.UPDATED_AT');
+			$criteria->addSelectColumn($alias . '.PATTERN_ID');
+			$criteria->addSelectColumn($alias . '.NAME');
+			$criteria->addSelectColumn($alias . '.POINTS');
 		}
 	}
 
@@ -201,26 +186,26 @@ abstract class BasePatternPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(PatternPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(PatternCellDorsalLeftPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			PatternPeer::addSelectColumns($criteria);
+			PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		}
 
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 		$criteria->setDbName(self::DATABASE_NAME); // Set the correct dbName
 
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 		// BasePeer returns a PDOStatement
@@ -239,7 +224,7 @@ abstract class BasePatternPeer {
 	 *
 	 * @param      Criteria $criteria object used to create the SELECT statement.
 	 * @param      PropelPDO $con
-	 * @return     Pattern
+	 * @return     PatternCellDorsalLeft
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -247,7 +232,7 @@ abstract class BasePatternPeer {
 	{
 		$critcopy = clone $criteria;
 		$critcopy->setLimit(1);
-		$objects = PatternPeer::doSelect($critcopy, $con);
+		$objects = PatternCellDorsalLeftPeer::doSelect($critcopy, $con);
 		if ($objects) {
 			return $objects[0];
 		}
@@ -264,7 +249,7 @@ abstract class BasePatternPeer {
 	 */
 	public static function doSelect(Criteria $criteria, PropelPDO $con = null)
 	{
-		return PatternPeer::populateObjects(PatternPeer::doSelectStmt($criteria, $con));
+		return PatternCellDorsalLeftPeer::populateObjects(PatternCellDorsalLeftPeer::doSelectStmt($criteria, $con));
 	}
 	/**
 	 * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -282,12 +267,12 @@ abstract class BasePatternPeer {
 	public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		if (!$criteria->hasSelectClause()) {
 			$criteria = clone $criteria;
-			PatternPeer::addSelectColumns($criteria);
+			PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		}
 
 		// Set the correct dbName
@@ -295,7 +280,7 @@ abstract class BasePatternPeer {
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 
@@ -311,10 +296,10 @@ abstract class BasePatternPeer {
 	 * to the cache in order to ensure that the same objects are always returned by doSelect*()
 	 * and retrieveByPK*() calls.
 	 *
-	 * @param      Pattern $value A Pattern object.
+	 * @param      PatternCellDorsalLeft $value A PatternCellDorsalLeft object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(Pattern $obj, $key = null)
+	public static function addInstanceToPool(PatternCellDorsalLeft $obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -332,18 +317,18 @@ abstract class BasePatternPeer {
 	 * methods in your stub classes -- you may need to explicitly remove objects
 	 * from the cache in order to prevent returning objects that no longer exist.
 	 *
-	 * @param      mixed $value A Pattern object or a primary key value.
+	 * @param      mixed $value A PatternCellDorsalLeft object or a primary key value.
 	 */
 	public static function removeInstanceFromPool($value)
 	{
 		if (Propel::isInstancePoolingEnabled() && $value !== null) {
-			if (is_object($value) && $value instanceof Pattern) {
+			if (is_object($value) && $value instanceof PatternCellDorsalLeft) {
 				$key = (string) $value->getId();
 			} elseif (is_scalar($value)) {
 				// assume we've been passed a primary key
 				$key = (string) $value;
 			} else {
-				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Pattern object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+				$e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or PatternCellDorsalLeft object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
 				throw $e;
 			}
 
@@ -358,7 +343,7 @@ abstract class BasePatternPeer {
 	 * a multi-column primary key, a serialize()d version of the primary key will be returned.
 	 *
 	 * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-	 * @return     Pattern Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+	 * @return     PatternCellDorsalLeft Found object or NULL if 1) no instance exists for specified key or 2) instance pooling has been disabled.
 	 * @see        getPrimaryKeyHash()
 	 */
 	public static function getInstanceFromPool($key)
@@ -382,20 +367,11 @@ abstract class BasePatternPeer {
 	}
 	
 	/**
-	 * Method to invalidate the instance pool of all tables related to pattern
+	 * Method to invalidate the instance pool of all tables related to pattern_cell_dorsal_left
 	 * by a foreign key with ON DELETE CASCADE
 	 */
 	public static function clearRelatedInstancePool()
 	{
-		// Invalidate objects in PatternCellTailPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		PatternCellTailPeer::clearInstancePool();
-		// Invalidate objects in PatternCellDorsalLeftPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		PatternCellDorsalLeftPeer::clearInstancePool();
-		// Invalidate objects in PatternCellDorsalRightPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		PatternCellDorsalRightPeer::clearInstancePool();
 	}
 
 	/**
@@ -443,11 +419,11 @@ abstract class BasePatternPeer {
 		$results = array();
 	
 		// set the class once to avoid overhead in the loop
-		$cls = PatternPeer::getOMClass(false);
+		$cls = PatternCellDorsalLeftPeer::getOMClass(false);
 		// populate the object(s)
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key = PatternPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj = PatternPeer::getInstanceFromPool($key))) {
+			$key = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj = PatternCellDorsalLeftPeer::getInstanceFromPool($key))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj->hydrate($row, 0, true); // rehydrate
@@ -456,7 +432,7 @@ abstract class BasePatternPeer {
 				$obj = new $cls();
 				$obj->hydrate($row);
 				$results[] = $obj;
-				PatternPeer::addInstanceToPool($obj, $key);
+				PatternCellDorsalLeftPeer::addInstanceToPool($obj, $key);
 			} // if key exists
 		}
 		$stmt->closeCursor();
@@ -469,27 +445,27 @@ abstract class BasePatternPeer {
 	 * @param      int $startcol The 0-based offset for reading from the resultset row.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
-	 * @return     array (Pattern object, last column rank)
+	 * @return     array (PatternCellDorsalLeft object, last column rank)
 	 */
 	public static function populateObject($row, $startcol = 0)
 	{
-		$key = PatternPeer::getPrimaryKeyHashFromRow($row, $startcol);
-		if (null !== ($obj = PatternPeer::getInstanceFromPool($key))) {
+		$key = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, $startcol);
+		if (null !== ($obj = PatternCellDorsalLeftPeer::getInstanceFromPool($key))) {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + PatternPeer::NUM_COLUMNS;
+			$col = $startcol + PatternCellDorsalLeftPeer::NUM_COLUMNS;
 		} else {
-			$cls = PatternPeer::OM_CLASS;
+			$cls = PatternCellDorsalLeftPeer::OM_CLASS;
 			$obj = new $cls();
 			$col = $obj->hydrate($row, $startcol);
-			PatternPeer::addInstanceToPool($obj, $key);
+			PatternCellDorsalLeftPeer::addInstanceToPool($obj, $key);
 		}
 		return array($obj, $col);
 	}
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related Specie table
+	 * Returns the number of rows matching criteria, joining the related Pattern table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -497,7 +473,7 @@ abstract class BasePatternPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinSpecie(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinPattern(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -505,14 +481,14 @@ abstract class BasePatternPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(PatternPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(PatternCellDorsalLeftPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			PatternPeer::addSelectColumns($criteria);
+			PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -521,15 +497,15 @@ abstract class BasePatternPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(PatternPeer::SPECIE_ID, SpeciePeer::ID, $join_behavior);
+		$criteria->addJoin(PatternCellDorsalLeftPeer::PATTERN_ID, PatternPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 		$stmt = BasePeer::doCount($criteria, $con);
@@ -545,15 +521,15 @@ abstract class BasePatternPeer {
 
 
 	/**
-	 * Selects a collection of Pattern objects pre-filled with their Specie objects.
+	 * Selects a collection of PatternCellDorsalLeft objects pre-filled with their Pattern objects.
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Pattern objects.
+	 * @return     array Array of PatternCellDorsalLeft objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinSpecie(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinPattern(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -562,50 +538,50 @@ abstract class BasePatternPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
+		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
+		$startcol = (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
 		PatternPeer::addSelectColumns($criteria);
-		$startcol = (PatternPeer::NUM_COLUMNS - PatternPeer::NUM_LAZY_LOAD_COLUMNS);
-		SpeciePeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(PatternPeer::SPECIE_ID, SpeciePeer::ID, $join_behavior);
+		$criteria->addJoin(PatternCellDorsalLeftPeer::PATTERN_ID, PatternPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = PatternPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = PatternPeer::getInstanceFromPool($key1))) {
+			$key1 = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = PatternCellDorsalLeftPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
 
-				$cls = PatternPeer::getOMClass(false);
+				$cls = PatternCellDorsalLeftPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				PatternPeer::addInstanceToPool($obj1, $key1);
+				PatternCellDorsalLeftPeer::addInstanceToPool($obj1, $key1);
 			} // if $obj1 already loaded
 
-			$key2 = SpeciePeer::getPrimaryKeyHashFromRow($row, $startcol);
+			$key2 = PatternPeer::getPrimaryKeyHashFromRow($row, $startcol);
 			if ($key2 !== null) {
-				$obj2 = SpeciePeer::getInstanceFromPool($key2);
+				$obj2 = PatternPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = SpeciePeer::getOMClass(false);
+					$cls = PatternPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol);
-					SpeciePeer::addInstanceToPool($obj2, $key2);
+					PatternPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 already loaded
 
-				// Add the $obj1 (Pattern) to $obj2 (Specie)
-				$obj2->addPattern($obj1);
+				// Add the $obj1 (PatternCellDorsalLeft) to $obj2 (Pattern)
+				$obj2->addPatternCellDorsalLeft($obj1);
 
 			} // if joined row was not null
 
@@ -633,14 +609,14 @@ abstract class BasePatternPeer {
 		// We need to set the primary table name, since in the case that there are no WHERE columns
 		// it will be impossible for the BasePeer::createSelectSql() method to determine which
 		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(PatternPeer::TABLE_NAME);
+		$criteria->setPrimaryTableName(PatternCellDorsalLeftPeer::TABLE_NAME);
 
 		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
 			$criteria->setDistinct();
 		}
 
 		if (!$criteria->hasSelectClause()) {
-			PatternPeer::addSelectColumns($criteria);
+			PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		}
 		
 		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
@@ -649,15 +625,15 @@ abstract class BasePatternPeer {
 		$criteria->setDbName(self::DATABASE_NAME);
 
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(PatternPeer::SPECIE_ID, SpeciePeer::ID, $join_behavior);
+		$criteria->addJoin(PatternCellDorsalLeftPeer::PATTERN_ID, PatternPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 		$stmt = BasePeer::doCount($criteria, $con);
@@ -672,12 +648,12 @@ abstract class BasePatternPeer {
 	}
 
 	/**
-	 * Selects a collection of Pattern objects pre-filled with all related objects.
+	 * Selects a collection of PatternCellDorsalLeft objects pre-filled with all related objects.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of Pattern objects.
+	 * @return     array Array of PatternCellDorsalLeft objects.
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
@@ -690,53 +666,53 @@ abstract class BasePatternPeer {
 			$criteria->setDbName(self::DATABASE_NAME);
 		}
 
+		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
+		$startcol2 = (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
+
 		PatternPeer::addSelectColumns($criteria);
-		$startcol2 = (PatternPeer::NUM_COLUMNS - PatternPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + (PatternPeer::NUM_COLUMNS - PatternPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		SpeciePeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (SpeciePeer::NUM_COLUMNS - SpeciePeer::NUM_LAZY_LOAD_COLUMNS);
-
-		$criteria->addJoin(PatternPeer::SPECIE_ID, SpeciePeer::ID, $join_behavior);
+		$criteria->addJoin(PatternCellDorsalLeftPeer::PATTERN_ID, PatternPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
 		{
-		  call_user_func($sf_hook, 'BasePatternPeer', $criteria, $con);
+		  call_user_func($sf_hook, 'BasePatternCellDorsalLeftPeer', $criteria, $con);
 		}
 
 		$stmt = BasePeer::doSelect($criteria, $con);
 		$results = array();
 
 		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = PatternPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = PatternPeer::getInstanceFromPool($key1))) {
+			$key1 = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, 0);
+			if (null !== ($obj1 = PatternCellDorsalLeftPeer::getInstanceFromPool($key1))) {
 				// We no longer rehydrate the object, since this can cause data loss.
 				// See http://www.propelorm.org/ticket/509
 				// $obj1->hydrate($row, 0, true); // rehydrate
 			} else {
-				$cls = PatternPeer::getOMClass(false);
+				$cls = PatternCellDorsalLeftPeer::getOMClass(false);
 
 				$obj1 = new $cls();
 				$obj1->hydrate($row);
-				PatternPeer::addInstanceToPool($obj1, $key1);
+				PatternCellDorsalLeftPeer::addInstanceToPool($obj1, $key1);
 			} // if obj1 already loaded
 
-			// Add objects for joined Specie rows
+			// Add objects for joined Pattern rows
 
-			$key2 = SpeciePeer::getPrimaryKeyHashFromRow($row, $startcol2);
+			$key2 = PatternPeer::getPrimaryKeyHashFromRow($row, $startcol2);
 			if ($key2 !== null) {
-				$obj2 = SpeciePeer::getInstanceFromPool($key2);
+				$obj2 = PatternPeer::getInstanceFromPool($key2);
 				if (!$obj2) {
 
-					$cls = SpeciePeer::getOMClass(false);
+					$cls = PatternPeer::getOMClass(false);
 
 					$obj2 = new $cls();
 					$obj2->hydrate($row, $startcol2);
-					SpeciePeer::addInstanceToPool($obj2, $key2);
+					PatternPeer::addInstanceToPool($obj2, $key2);
 				} // if obj2 loaded
 
-				// Add the $obj1 (Pattern) to the collection in $obj2 (Specie)
-				$obj2->addPattern($obj1);
+				// Add the $obj1 (PatternCellDorsalLeft) to the collection in $obj2 (Pattern)
+				$obj2->addPatternCellDorsalLeft($obj1);
 			} // if joined row not null
 
 			$results[] = $obj1;
@@ -762,10 +738,10 @@ abstract class BasePatternPeer {
 	 */
 	public static function buildTableMap()
 	{
-	  $dbMap = Propel::getDatabaseMap(BasePatternPeer::DATABASE_NAME);
-	  if (!$dbMap->hasTable(BasePatternPeer::TABLE_NAME))
+	  $dbMap = Propel::getDatabaseMap(BasePatternCellDorsalLeftPeer::DATABASE_NAME);
+	  if (!$dbMap->hasTable(BasePatternCellDorsalLeftPeer::TABLE_NAME))
 	  {
-	    $dbMap->addTableObject(new PatternTableMap());
+	    $dbMap->addTableObject(new PatternCellDorsalLeftTableMap());
 	  }
 	}
 
@@ -782,13 +758,13 @@ abstract class BasePatternPeer {
 	 */
 	public static function getOMClass($withPrefix = true)
 	{
-		return $withPrefix ? PatternPeer::CLASS_DEFAULT : PatternPeer::OM_CLASS;
+		return $withPrefix ? PatternCellDorsalLeftPeer::CLASS_DEFAULT : PatternCellDorsalLeftPeer::OM_CLASS;
 	}
 
 	/**
-	 * Method perform an INSERT on the database, given a Pattern or Criteria object.
+	 * Method perform an INSERT on the database, given a PatternCellDorsalLeft or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Pattern object containing data that is used to create the INSERT statement.
+	 * @param      mixed $values Criteria or PatternCellDorsalLeft object containing data that is used to create the INSERT statement.
 	 * @param      PropelPDO $con the PropelPDO connection to use
 	 * @return     mixed The new primary key.
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -797,17 +773,17 @@ abstract class BasePatternPeer {
 	public static function doInsert($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 		} else {
-			$criteria = $values->buildCriteria(); // build Criteria from Pattern object
+			$criteria = $values->buildCriteria(); // build Criteria from PatternCellDorsalLeft object
 		}
 
-		if ($criteria->containsKey(PatternPeer::ID) && $criteria->keyContainsValue(PatternPeer::ID) ) {
-			throw new PropelException('Cannot insert a value for auto-increment primary key ('.PatternPeer::ID.')');
+		if ($criteria->containsKey(PatternCellDorsalLeftPeer::ID) && $criteria->keyContainsValue(PatternCellDorsalLeftPeer::ID) ) {
+			throw new PropelException('Cannot insert a value for auto-increment primary key ('.PatternCellDorsalLeftPeer::ID.')');
 		}
 
 
@@ -829,9 +805,9 @@ abstract class BasePatternPeer {
 	}
 
 	/**
-	 * Method perform an UPDATE on the database, given a Pattern or Criteria object.
+	 * Method perform an UPDATE on the database, given a PatternCellDorsalLeft or Criteria object.
 	 *
-	 * @param      mixed $values Criteria or Pattern object containing data that is used to create the UPDATE statement.
+	 * @param      mixed $values Criteria or PatternCellDorsalLeft object containing data that is used to create the UPDATE statement.
 	 * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 * @throws     PropelException Any exceptions caught during processing will be
@@ -840,7 +816,7 @@ abstract class BasePatternPeer {
 	public static function doUpdate($values, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		$selectCriteria = new Criteria(self::DATABASE_NAME);
@@ -848,15 +824,15 @@ abstract class BasePatternPeer {
 		if ($values instanceof Criteria) {
 			$criteria = clone $values; // rename for clarity
 
-			$comparison = $criteria->getComparison(PatternPeer::ID);
-			$value = $criteria->remove(PatternPeer::ID);
+			$comparison = $criteria->getComparison(PatternCellDorsalLeftPeer::ID);
+			$value = $criteria->remove(PatternCellDorsalLeftPeer::ID);
 			if ($value) {
-				$selectCriteria->add(PatternPeer::ID, $value, $comparison);
+				$selectCriteria->add(PatternCellDorsalLeftPeer::ID, $value, $comparison);
 			} else {
-				$selectCriteria->setPrimaryTableName(PatternPeer::TABLE_NAME);
+				$selectCriteria->setPrimaryTableName(PatternCellDorsalLeftPeer::TABLE_NAME);
 			}
 
-		} else { // $values is Pattern object
+		} else { // $values is PatternCellDorsalLeft object
 			$criteria = $values->buildCriteria(); // gets full criteria
 			$selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
 		}
@@ -868,27 +844,26 @@ abstract class BasePatternPeer {
 	}
 
 	/**
-	 * Method to DELETE all rows from the pattern table.
+	 * Method to DELETE all rows from the pattern_cell_dorsal_left table.
 	 *
 	 * @return     int The number of affected rows (if supported by underlying database driver).
 	 */
 	public static function doDeleteAll($con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 		$affectedRows = 0; // initialize var to track total num of affected rows
 		try {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
-			$affectedRows += PatternPeer::doOnDeleteCascade(new Criteria(PatternPeer::DATABASE_NAME), $con);
-			$affectedRows += BasePeer::doDeleteAll(PatternPeer::TABLE_NAME, $con, PatternPeer::DATABASE_NAME);
+			$affectedRows += BasePeer::doDeleteAll(PatternCellDorsalLeftPeer::TABLE_NAME, $con, PatternCellDorsalLeftPeer::DATABASE_NAME);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
 			// instances get re-added by the select statement contained therein).
-			PatternPeer::clearInstancePool();
-			PatternPeer::clearRelatedInstancePool();
+			PatternCellDorsalLeftPeer::clearInstancePool();
+			PatternCellDorsalLeftPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -898,9 +873,9 @@ abstract class BasePatternPeer {
 	}
 
 	/**
-	 * Method perform a DELETE on the database, given a Pattern or Criteria object OR a primary key value.
+	 * Method perform a DELETE on the database, given a PatternCellDorsalLeft or Criteria object OR a primary key value.
 	 *
-	 * @param      mixed $values Criteria or Pattern object or primary key or array of primary keys
+	 * @param      mixed $values Criteria or PatternCellDorsalLeft object or primary key or array of primary keys
 	 *              which is used to create the DELETE statement
 	 * @param      PropelPDO $con the connection to use
 	 * @return     int 	The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -911,18 +886,28 @@ abstract class BasePatternPeer {
 	 public static function doDelete($values, PropelPDO $con = null)
 	 {
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
 
 		if ($values instanceof Criteria) {
+			// invalidate the cache for all objects of this type, since we have no
+			// way of knowing (without running a query) what objects should be invalidated
+			// from the cache based on this Criteria.
+			PatternCellDorsalLeftPeer::clearInstancePool();
 			// rename for clarity
 			$criteria = clone $values;
-		} elseif ($values instanceof Pattern) { // it's a model object
+		} elseif ($values instanceof PatternCellDorsalLeft) { // it's a model object
+			// invalidate the cache for this single object
+			PatternCellDorsalLeftPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else { // it's a primary key, or an array of pks
 			$criteria = new Criteria(self::DATABASE_NAME);
-			$criteria->add(PatternPeer::ID, (array) $values, Criteria::IN);
+			$criteria->add(PatternCellDorsalLeftPeer::ID, (array) $values, Criteria::IN);
+			// invalidate the cache for this object(s)
+			foreach ((array) $values as $singleval) {
+				PatternCellDorsalLeftPeer::removeInstanceFromPool($singleval);
+			}
 		}
 
 		// Set the correct dbName
@@ -935,25 +920,8 @@ abstract class BasePatternPeer {
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
 			
-			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
-			$c = clone $criteria;
-			$affectedRows += PatternPeer::doOnDeleteCascade($c, $con);
-			
-			// Because this db requires some delete cascade/set null emulation, we have to
-			// clear the cached instance *after* the emulation has happened (since
-			// instances get re-added by the select statement contained therein).
-			if ($values instanceof Criteria) {
-				PatternPeer::clearInstancePool();
-			} elseif ($values instanceof Pattern) { // it's a model object
-				PatternPeer::removeInstanceFromPool($values);
-			} else { // it's a primary key, or an array of pks
-				foreach ((array) $values as $singleval) {
-					PatternPeer::removeInstanceFromPool($singleval);
-				}
-			}
-			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
-			PatternPeer::clearRelatedInstancePool();
+			PatternCellDorsalLeftPeer::clearRelatedInstancePool();
 			$con->commit();
 			return $affectedRows;
 		} catch (PropelException $e) {
@@ -963,68 +931,24 @@ abstract class BasePatternPeer {
 	}
 
 	/**
-	 * This is a method for emulating ON DELETE CASCADE for DBs that don't support this
-	 * feature (like MySQL or SQLite).
-	 *
-	 * This method is not very speedy because it must perform a query first to get
-	 * the implicated records and then perform the deletes by calling those Peer classes.
-	 *
-	 * This method should be used within a transaction if possible.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      PropelPDO $con
-	 * @return     int The number of affected rows (if supported by underlying database driver).
-	 */
-	protected static function doOnDeleteCascade(Criteria $criteria, PropelPDO $con)
-	{
-		// initialize var to track total num of affected rows
-		$affectedRows = 0;
-
-		// first find the objects that are implicated by the $criteria
-		$objects = PatternPeer::doSelect($criteria, $con);
-		foreach ($objects as $obj) {
-
-
-			// delete related PatternCellTail objects
-			$criteria = new Criteria(PatternCellTailPeer::DATABASE_NAME);
-			
-			$criteria->add(PatternCellTailPeer::PATTERN_ID, $obj->getId());
-			$affectedRows += PatternCellTailPeer::doDelete($criteria, $con);
-
-			// delete related PatternCellDorsalLeft objects
-			$criteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
-			
-			$criteria->add(PatternCellDorsalLeftPeer::PATTERN_ID, $obj->getId());
-			$affectedRows += PatternCellDorsalLeftPeer::doDelete($criteria, $con);
-
-			// delete related PatternCellDorsalRight objects
-			$criteria = new Criteria(PatternCellDorsalRightPeer::DATABASE_NAME);
-			
-			$criteria->add(PatternCellDorsalRightPeer::PATTERN_ID, $obj->getId());
-			$affectedRows += PatternCellDorsalRightPeer::doDelete($criteria, $con);
-		}
-		return $affectedRows;
-	}
-
-	/**
-	 * Validates all modified columns of given Pattern object.
+	 * Validates all modified columns of given PatternCellDorsalLeft object.
 	 * If parameter $columns is either a single column name or an array of column names
 	 * than only those columns are validated.
 	 *
 	 * NOTICE: This does not apply to primary or foreign keys for now.
 	 *
-	 * @param      Pattern $obj The object to validate.
+	 * @param      PatternCellDorsalLeft $obj The object to validate.
 	 * @param      mixed $cols Column name or array of column names.
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(Pattern $obj, $cols = null)
+	public static function doValidate(PatternCellDorsalLeft $obj, $cols = null)
 	{
 		$columns = array();
 
 		if ($cols) {
-			$dbMap = Propel::getDatabaseMap(PatternPeer::DATABASE_NAME);
-			$tableMap = $dbMap->getTable(PatternPeer::TABLE_NAME);
+			$dbMap = Propel::getDatabaseMap(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$tableMap = $dbMap->getTable(PatternCellDorsalLeftPeer::TABLE_NAME);
 
 			if (! is_array($cols)) {
 				$cols = array($cols);
@@ -1040,7 +964,7 @@ abstract class BasePatternPeer {
 
 		}
 
-		return BasePeer::doValidate(PatternPeer::DATABASE_NAME, PatternPeer::TABLE_NAME, $columns);
+		return BasePeer::doValidate(PatternCellDorsalLeftPeer::DATABASE_NAME, PatternCellDorsalLeftPeer::TABLE_NAME, $columns);
 	}
 
 	/**
@@ -1048,23 +972,23 @@ abstract class BasePatternPeer {
 	 *
 	 * @param      int $pk the primary key.
 	 * @param      PropelPDO $con the connection to use
-	 * @return     Pattern
+	 * @return     PatternCellDorsalLeft
 	 */
 	public static function retrieveByPK($pk, PropelPDO $con = null)
 	{
 
-		if (null !== ($obj = PatternPeer::getInstanceFromPool((string) $pk))) {
+		if (null !== ($obj = PatternCellDorsalLeftPeer::getInstanceFromPool((string) $pk))) {
 			return $obj;
 		}
 
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria = new Criteria(PatternPeer::DATABASE_NAME);
-		$criteria->add(PatternPeer::ID, $pk);
+		$criteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+		$criteria->add(PatternCellDorsalLeftPeer::ID, $pk);
 
-		$v = PatternPeer::doSelect($criteria, $con);
+		$v = PatternCellDorsalLeftPeer::doSelect($criteria, $con);
 
 		return !empty($v) > 0 ? $v[0] : null;
 	}
@@ -1080,16 +1004,16 @@ abstract class BasePatternPeer {
 	public static function retrieveByPKs($pks, PropelPDO $con = null)
 	{
 		if ($con === null) {
-			$con = Propel::getConnection(PatternPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+			$con = Propel::getConnection(PatternCellDorsalLeftPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
 		$objs = null;
 		if (empty($pks)) {
 			$objs = array();
 		} else {
-			$criteria = new Criteria(PatternPeer::DATABASE_NAME);
-			$criteria->add(PatternPeer::ID, $pks, Criteria::IN);
-			$objs = PatternPeer::doSelect($criteria, $con);
+			$criteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$criteria->add(PatternCellDorsalLeftPeer::ID, $pks, Criteria::IN);
+			$objs = PatternCellDorsalLeftPeer::doSelect($criteria, $con);
 		}
 		return $objs;
 	}
@@ -1121,15 +1045,15 @@ abstract class BasePatternPeer {
 	{
 	  if (preg_match('/^do(Select|Count)(Join(All(Except)?)?|Stmt)?/', $method, $match))
 	  {
-	    return sprintf('BasePatternPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
+	    return sprintf('BasePatternCellDorsalLeftPeer:%s:%1$s', 'Count' == $match[1] ? 'doCount' : $match[0]);
 	  }
 	
 	  throw new LogicException(sprintf('Unrecognized function "%s"', $method));
 	}
 
-} // BasePatternPeer
+} // BasePatternCellDorsalLeftPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BasePatternPeer::buildTableMap();
+BasePatternCellDorsalLeftPeer::buildTableMap();
 

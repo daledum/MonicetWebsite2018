@@ -5,149 +5,89 @@ DROP TABLE IF EXISTS `observation_photo_mark_dorsal_right`;
 DROP TABLE IF EXISTS `observation_photo_mark_dorsal_left`;
 
 #-----------------------------------------------------------------------------
-#-- observation_photo_tail
+#-- pattern
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `observation_photo_tail`;
+DROP TABLE IF EXISTS `pattern`;
 
 
-CREATE TABLE `observation_photo_tail`
+CREATE TABLE `pattern`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`photo_id` INTEGER  NOT NULL,
-	`is_smooth` TINYINT default 0,
-	`is_irregular` TINYINT default 0,
+	`specie_id` INTEGER,
+	`image_tail` VARCHAR(255),
+	`image_dorsal_left` VARCHAR(255),
+	`image_dorsal_right` VARCHAR(255),
+	`created_at` DATETIME,
+	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
-	KEY `observation_photo_tail_I_1`(`photo_id`),
-	CONSTRAINT `observation_photo_tail_FK_1`
-		FOREIGN KEY (`photo_id`)
-		REFERENCES `observation_photo` (`id`)
+	KEY `pattern_I_1`(`specie_id`),
+	CONSTRAINT `pattern_FK_1`
+		FOREIGN KEY (`specie_id`)
+		REFERENCES `specie` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- observation_photo_tail_mark
+#-- pattern_cell_tail
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `observation_photo_tail_mark`;
+DROP TABLE IF EXISTS `pattern_cell_tail`;
 
 
-CREATE TABLE `observation_photo_tail_mark`
+CREATE TABLE `pattern_cell_tail`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`observation_photo_tail_id` INTEGER  NOT NULL,
-	`mark_id` INTEGER  NOT NULL,
-	`line` INTEGER  NOT NULL,
-	`column` INTEGER  NOT NULL,
-	`observation` VARCHAR(255),
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`),
-	KEY `observation_photo_tail_mark_I_1`(`observation_photo_tail_id`),
-	KEY `observation_photo_tail_mark_I_2`(`mark_id`),
-	CONSTRAINT `observation_photo_tail_mark_FK_1`
-		FOREIGN KEY (`observation_photo_tail_id`)
-		REFERENCES `observation_photo_tail` (`id`)
-		ON DELETE CASCADE,
-	CONSTRAINT `observation_photo_tail_mark_FK_2`
-		FOREIGN KEY (`mark_id`)
-		REFERENCES `mark` (`id`)
+	KEY `pattern_cell_tail_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_tail_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- observation_photo_dorsal_left
+#-- pattern_cell_dorsal_left
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `observation_photo_dorsal_left`;
+DROP TABLE IF EXISTS `pattern_cell_dorsal_left`;
 
 
-CREATE TABLE `observation_photo_dorsal_left`
+CREATE TABLE `pattern_cell_dorsal_left`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`photo_id` INTEGER  NOT NULL,
-	`is_smooth` TINYINT default 0,
-	`is_irregular` TINYINT default 0,
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`),
-	KEY `observation_photo_dorsal_left_I_1`(`photo_id`),
-	CONSTRAINT `observation_photo_dorsal_left_FK_1`
-		FOREIGN KEY (`photo_id`)
-		REFERENCES `observation_photo` (`id`)
+	KEY `pattern_cell_dorsal_left_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_dorsal_left_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=MyISAM;
 
 #-----------------------------------------------------------------------------
-#-- observation_photo_dorsal_left_mark
+#-- pattern_cell_dorsal_right
 #-----------------------------------------------------------------------------
 
-DROP TABLE IF EXISTS `observation_photo_dorsal_left_mark`;
+DROP TABLE IF EXISTS `pattern_cell_dorsal_right`;
 
 
-CREATE TABLE `observation_photo_dorsal_left_mark`
+CREATE TABLE `pattern_cell_dorsal_right`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`observation_photo_dorsal_left_id` INTEGER  NOT NULL,
-	`mark_id` INTEGER  NOT NULL,
-	`line` INTEGER  NOT NULL,
-	`column` INTEGER  NOT NULL,
-	`observation` VARCHAR(255),
+	`pattern_id` INTEGER  NOT NULL,
+	`name` VARCHAR(255)  NOT NULL,
+	`points` VARCHAR(255)  NOT NULL,
 	PRIMARY KEY (`id`),
-	KEY `observation_photo_dorsal_left_mark_I_1`(`observation_photo_dorsal_left_id`),
-	KEY `observation_photo_dorsal_left_mark_I_2`(`mark_id`),
-	CONSTRAINT `observation_photo_dorsal_left_mark_FK_1`
-		FOREIGN KEY (`observation_photo_dorsal_left_id`)
-		REFERENCES `observation_photo_dorsal_left` (`id`)
-		ON DELETE CASCADE,
-	CONSTRAINT `observation_photo_dorsal_left_mark_FK_2`
-		FOREIGN KEY (`mark_id`)
-		REFERENCES `mark` (`id`)
-		ON DELETE CASCADE
-) ENGINE=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- observation_photo_dorsal_right
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `observation_photo_dorsal_right`;
-
-
-CREATE TABLE `observation_photo_dorsal_right`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`photo_id` INTEGER  NOT NULL,
-	`is_smooth` TINYINT default 0,
-	`is_irregular` TINYINT default 0,
-	PRIMARY KEY (`id`),
-	KEY `observation_photo_dorsal_right_I_1`(`photo_id`),
-	CONSTRAINT `observation_photo_dorsal_right_FK_1`
-		FOREIGN KEY (`photo_id`)
-		REFERENCES `observation_photo` (`id`)
-		ON DELETE CASCADE
-) ENGINE=MyISAM;
-
-#-----------------------------------------------------------------------------
-#-- observation_photo_dorsal_right_mark
-#-----------------------------------------------------------------------------
-
-DROP TABLE IF EXISTS `observation_photo_dorsal_right_mark`;
-
-
-CREATE TABLE `observation_photo_dorsal_right_mark`
-(
-	`id` INTEGER  NOT NULL AUTO_INCREMENT,
-	`observation_photo_dorsal_right_id` INTEGER  NOT NULL,
-	`mark_id` INTEGER  NOT NULL,
-	`line` INTEGER  NOT NULL,
-	`column` INTEGER  NOT NULL,
-	`observation` VARCHAR(255),
-	PRIMARY KEY (`id`),
-	KEY `observation_photo_dorsal_right_mark_I_1`(`observation_photo_dorsal_right_id`),
-	KEY `observation_photo_dorsal_right_mark_I_2`(`mark_id`),
-	CONSTRAINT `observation_photo_dorsal_right_mark_FK_1`
-		FOREIGN KEY (`observation_photo_dorsal_right_id`)
-		REFERENCES `observation_photo_dorsal_right` (`id`)
-		ON DELETE CASCADE,
-	CONSTRAINT `observation_photo_dorsal_right_mark_FK_2`
-		FOREIGN KEY (`mark_id`)
-		REFERENCES `mark` (`id`)
+	KEY `pattern_cell_dorsal_right_I_1`(`pattern_id`),
+	CONSTRAINT `pattern_cell_dorsal_right_FK_1`
+		FOREIGN KEY (`pattern_id`)
+		REFERENCES `pattern` (`id`)
 		ON DELETE CASCADE
 ) ENGINE=MyISAM;
 

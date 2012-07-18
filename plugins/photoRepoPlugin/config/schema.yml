@@ -38,16 +38,31 @@ propel:
     id:                   ~
     specie_id:            { type: integer, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
     image_tail:           { type: VARCHAR, size: 255, required: false }
-    lines_tail:           { type: INTEGER, required: true, default: 1 }
-    columns_tail:         { type: INTEGER, required: true, default: 1 }
     image_dorsal_left:    { type: VARCHAR, size: 255, required: false }
-    lines_dorsal_left:    { type: INTEGER, required: true, default: 1 }
-    columns_dorsal_left:  { type: INTEGER, required: true, default: 1 }
     image_dorsal_right:   { type: VARCHAR, size: 255, required: false }
-    lines_dorsal_right:   { type: INTEGER, required: true, default: 1 }
-    columns_dorsal_right: { type: INTEGER, required: true, default: 1 }
     created_at:           ~
     updated_at:           ~
+    
+  pattern_cell_tail:
+    _attributes:      { phpName: PatternCellTail, idMethod: native }
+    id:
+    pattern_id:       { type: integer, foreignTable: pattern, foreignReference: id, required: true, onDelete: cascade, index: true }
+    name:             { type: VARCHAR, size: 255, required: true }
+    points:           { type: VARCHAR, size: 255, required: true }
+  
+  pattern_cell_dorsal_left:
+    _attributes:      { phpName: PatternCellDorsalLeft, idMethod: native }
+    id:
+    pattern_id:       { type: integer, foreignTable: pattern, foreignReference: id, required: true, onDelete: cascade, index: true }
+    name:             { type: VARCHAR, size: 255, required: true }
+    points:           { type: VARCHAR, size: 255, required: true }
+    
+  pattern_cell_dorsal_right:
+    _attributes:      { phpName: PatternCellDorsalRight, idMethod: native }
+    id:
+    pattern_id:       { type: integer, foreignTable: pattern, foreignReference: id, required: true, onDelete: cascade, index: true }
+    name:             { type: VARCHAR, size: 255, required: true }
+    points:           { type: VARCHAR, size: 255, required: true }
   
   mark:
     _attributes:      { phpName: Mark, idMethod: native }

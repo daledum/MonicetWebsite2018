@@ -16,25 +16,6 @@ class PatternForm extends BasePatternForm
         'choices' => array_keys($species),
     ));
     
-    $numberOptions = range(1,20);
-    $numberOptionFields = array(
-        'lines_tail', 'columns_tail', 
-        'lines_dorsal_left', 'columns_dorsal_left',
-        'lines_dorsal_right', 'columns_dorsal_right'
-    );
-    foreach( $numberOptionFields as $field ){
-      $this->widgetSchema[$field] = new sfWidgetFormChoice(array(
-        'choices' => array_combine($numberOptions, $numberOptions) 
-      ));
-      $this->validatorSchema[$field] = new sfValidatorChoice(array(
-        'choices' => $numberOptions,
-        'required' => false
-      ));
-    }
-    
-    
-    
-    
     $this->widgetSchema['image_tail'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
       'file_src' => ($this->getObject()->getImageTail()? '/uploads/pr_patterns/'.$this->getObject()->getImageTail(): null),
@@ -98,26 +79,22 @@ class PatternForm extends BasePatternForm
       )
     ));
     $this->validatorSchema['image_dorsal_right_delete'] = new sfValidatorPass();
-      
-      
-    /*  
-    foreach( $photoFields as $field ){  
-      $this->widgetSchema[$field['field']] = new sfWidgetFormInputFile();
-      $this->validatorSchema[$field['field']] = new sfValidatorFile(array(
-        'required'      => $field['required'],
-        'path'          =>  sfConfig::get('sf_upload_dir').'/pr_patterns',
-        'mime_type_guessers' => array('guessFromFileBinary', 'guessFromFileinfo', 'guessFromMimeContentType'),
-        'mime_types'    => array( 
-            'image/jpeg', 'image/jpg', 'image/jp_', 'application/jpg', 
-            'application/x-jpg', 'image/pjpeg', 'image/pipeg', 
-            'image/vnd.swiftview-jpeg'
-            ),
-      ), array(
-        'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg.'
+    
+    $this->embedRelation('PatternCellTail', array(
+        'title'  => 'Áreas do padrão da cauda',
       ));
-      $this->widgetSchema->setHelp($field['field'], 'Apenas ficheiros com extensão .jpg');
-    }
-    */ 
+    $this->widgetSchema->moveField('Áreas do padrão da cauda', sfWidgetFormSchema::AFTER, 'image_tail');
+    
+    $this->embedRelation('PatternCellDorsalLeft', array(
+        'title'  => 'Áreas do padrão dorsal esquerdo',
+      ));
+    $this->widgetSchema->moveField('Áreas do padrão dorsal esquerdo', sfWidgetFormSchema::AFTER, 'image_dorsal_left');
+    
+    $this->embedRelation('PatternCellDorsalRight', array(
+        'title'  => 'Áreas do padrão dorsal direito',
+      ));
+    $this->widgetSchema->moveField('Áreas do padrão dorsal direito', sfWidgetFormSchema::AFTER, 'image_dorsal_right');
+      
     $this->validatorSchema->setPostValidator(
             new sfValidatorPropelUnique(array(
                 'model' => 'Pattern', 

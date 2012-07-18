@@ -127,8 +127,8 @@
         <target>Estado</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Is validated</source>
+        <target>Validada</target>
       </trans-unit>
       <trans-unit>
         <source></source>
