@@ -1,15 +1,12 @@
 <?php
-
-/**
- * PatternCellDorsalRight form.
- *
- * @package    ##PROJECT_NAME##
- * @subpackage form
- * @author     ##AUTHOR_NAME##
- */
 class PatternCellDorsalRightForm extends BasePatternCellDorsalRightForm
 {
   public function configure()
   {
+    unset($this['points']);
+//    $this->widgetSchema->setHelp('points', 'X1,Y1,X2,Y2,...,XnYn');
+//    $this->validatorSchema['points'] = new sfValidatorRegex(array(
+//        'pattern' => '/^[1-9][0-9]*,[1-9][0-9]*(,[1-9][0-9]*,[1-9][0-9]*)*$/'
+//      ));
   }
 }
