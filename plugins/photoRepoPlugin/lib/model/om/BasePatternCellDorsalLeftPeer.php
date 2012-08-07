@@ -372,6 +372,15 @@ abstract class BasePatternCellDorsalLeftPeer {
 	 */
 	public static function clearRelatedInstancePool()
 	{
+		// Invalidate objects in ObservationPhotoDorsalLeftMarkPeer instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		ObservationPhotoDorsalLeftMarkPeer::clearInstancePool();
+		// Invalidate objects in ObservationPhotoDorsalLeftMarkPeer instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		ObservationPhotoDorsalLeftMarkPeer::clearInstancePool();
+		// Invalidate objects in ObservationPhotoDorsalLeftMarkPeer instance pool, 
+		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
+		ObservationPhotoDorsalLeftMarkPeer::clearInstancePool();
 	}
 
 	/**
@@ -858,6 +867,8 @@ abstract class BasePatternCellDorsalLeftPeer {
 			// use transaction because $criteria could contain info
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
+			$affectedRows += PatternCellDorsalLeftPeer::doOnDeleteCascade(new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME), $con);
+			PatternCellDorsalLeftPeer::doOnDeleteSetNull(new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME), $con);
 			$affectedRows += BasePeer::doDeleteAll(PatternCellDorsalLeftPeer::TABLE_NAME, $con, PatternCellDorsalLeftPeer::DATABASE_NAME);
 			// Because this db requires some delete cascade/set null emulation, we have to
 			// clear the cached instance *after* the emulation has happened (since
@@ -890,24 +901,14 @@ abstract class BasePatternCellDorsalLeftPeer {
 		}
 
 		if ($values instanceof Criteria) {
-			// invalidate the cache for all objects of this type, since we have no
-			// way of knowing (without running a query) what objects should be invalidated
-			// from the cache based on this Criteria.
-			PatternCellDorsalLeftPeer::clearInstancePool();
 			// rename for clarity
 			$criteria = clone $values;
 		} elseif ($values instanceof PatternCellDorsalLeft) { // it's a model object
-			// invalidate the cache for this single object
-			PatternCellDorsalLeftPeer::removeInstanceFromPool($values);
 			// create criteria based on pk values
 			$criteria = $values->buildPkeyCriteria();
 		} else { // it's a primary key, or an array of pks
 			$criteria = new Criteria(self::DATABASE_NAME);
 			$criteria->add(PatternCellDorsalLeftPeer::ID, (array) $values, Criteria::IN);
-			// invalidate the cache for this object(s)
-			foreach ((array) $values as $singleval) {
-				PatternCellDorsalLeftPeer::removeInstanceFromPool($singleval);
-			}
 		}
 
 		// Set the correct dbName
@@ -920,6 +921,27 @@ abstract class BasePatternCellDorsalLeftPeer {
 			// for more than one table or we could emulating ON DELETE CASCADE, etc.
 			$con->beginTransaction();
 			
+			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
+			$c = clone $criteria;
+			$affectedRows += PatternCellDorsalLeftPeer::doOnDeleteCascade($c, $con);
+			
+			// cloning the Criteria in case it's modified by doSelect() or doSelectStmt()
+			$c = clone $criteria;
+			PatternCellDorsalLeftPeer::doOnDeleteSetNull($c, $con);
+			
+			// Because this db requires some delete cascade/set null emulation, we have to
+			// clear the cached instance *after* the emulation has happened (since
+			// instances get re-added by the select statement contained therein).
+			if ($values instanceof Criteria) {
+				PatternCellDorsalLeftPeer::clearInstancePool();
+			} elseif ($values instanceof PatternCellDorsalLeft) { // it's a model object
+				PatternCellDorsalLeftPeer::removeInstanceFromPool($values);
+			} else { // it's a primary key, or an array of pks
+				foreach ((array) $values as $singleval) {
+					PatternCellDorsalLeftPeer::removeInstanceFromPool($singleval);
+				}
+			}
+			
 			$affectedRows += BasePeer::doDelete($criteria, $con);
 			PatternCellDorsalLeftPeer::clearRelatedInstancePool();
 			$con->commit();
@@ -927,6 +949,77 @@ abstract class BasePatternCellDorsalLeftPeer {
 		} catch (PropelException $e) {
 			$con->rollBack();
 			throw $e;
+		}
+	}
+
+	/**
+	 * This is a method for emulating ON DELETE CASCADE for DBs that don't support this
+	 * feature (like MySQL or SQLite).
+	 *
+	 * This method is not very speedy because it must perform a query first to get
+	 * the implicated records and then perform the deletes by calling those Peer classes.
+	 *
+	 * This method should be used within a transaction if possible.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      PropelPDO $con
+	 * @return     int The number of affected rows (if supported by underlying database driver).
+	 */
+	protected static function doOnDeleteCascade(Criteria $criteria, PropelPDO $con)
+	{
+		// initialize var to track total num of affected rows
+		$affectedRows = 0;
+
+		// first find the objects that are implicated by the $criteria
+		$objects = PatternCellDorsalLeftPeer::doSelect($criteria, $con);
+		foreach ($objects as $obj) {
+
+
+			// delete related ObservationPhotoDorsalLeftMark objects
+			$criteria = new Criteria(ObservationPhotoDorsalLeftMarkPeer::DATABASE_NAME);
+			
+			$criteria->add(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID, $obj->getId());
+			$affectedRows += ObservationPhotoDorsalLeftMarkPeer::doDelete($criteria, $con);
+		}
+		return $affectedRows;
+	}
+
+	/**
+	 * This is a method for emulating ON DELETE SET NULL DBs that don't support this
+	 * feature (like MySQL or SQLite).
+	 *
+	 * This method is not very speedy because it must perform a query first to get
+	 * the implicated records and then perform the deletes by calling those Peer classes.
+	 *
+	 * This method should be used within a transaction if possible.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      PropelPDO $con
+	 * @return     void
+	 */
+	protected static function doOnDeleteSetNull(Criteria $criteria, PropelPDO $con)
+	{
+
+		// first find the objects that are implicated by the $criteria
+		$objects = PatternCellDorsalLeftPeer::doSelect($criteria, $con);
+		foreach ($objects as $obj) {
+
+			// set fkey col in related ObservationPhotoDorsalLeftMark rows to NULL
+			$selectCriteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$updateValues = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$selectCriteria->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, $obj->getId());
+			$updateValues->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, null);
+
+			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
+
+			// set fkey col in related ObservationPhotoDorsalLeftMark rows to NULL
+			$selectCriteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$updateValues = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
+			$selectCriteria->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, $obj->getId());
+			$updateValues->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, null);
+
+			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
+
 		}
 	}
 

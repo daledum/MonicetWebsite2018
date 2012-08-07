@@ -146,15 +146,33 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   }
   
   public function executeCharacterize( sfWebRequest $request ) {
+    //$this->tailConfiguration = new prObservationPhotoTailGeneratorConfiguration();
+    
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
     
     if($this->observationPhoto->getBodyPart()) {
      $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
+     if( $this->isTail ) {
+       $this->observationPhotoTail = ObservationPhotoTailPeer::get_or_create($photoId = $this->observationPhoto->getId());
+       $this->tailForm = new ObservationPhotoTailForm($this->observationPhotoTail);
+     }
+     
      $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
+     if( $this->isLeft ) {
+       $this->observationPhotoDorsalLeft = ObservationPhotoDorsalLeftPeer::get_or_create($photoId = $this->observationPhoto->getId());
+       $this->dorsalLeftForm = new ObservationPhotoDorsalLeftForm($this->observationPhotoDorsalLeft);
+     }
+     
      $this->isRight = $this->observationPhoto->getBodyPart()->getCode() == body_part::R_SIGLA;
+     if( $this->isRight ) {
+       $this->observationPhotoDorsalRight = ObservationPhotoDorsalRightPeer::get_or_create($photoId = $this->observationPhoto->getId());
+       $this->dorsalRightForm = new ObservationPhotoDorsalRightForm($this->observationPhotoDorsalRight);
+     }
+      
     } else {
       $this->isTail = $this->isLeft = $this->isRight = false;
+      $this->tailForm = $this->dorsalLeftForm = $this->dorsalRightForm = false;
     }
   }
 }

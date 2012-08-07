@@ -37,28 +37,36 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	protected $observation_photo_dorsal_right_id;
 
 	/**
-	 * The value for the mark_id field.
+	 * The value for the pattern_cell_dorsal_right_id field.
 	 * @var        int
 	 */
-	protected $mark_id;
+	protected $pattern_cell_dorsal_right_id;
 
 	/**
-	 * The value for the line field.
+	 * The value for the is_wide field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $is_wide;
+
+	/**
+	 * The value for the is_deep field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $is_deep;
+
+	/**
+	 * The value for the continues_from_cell_id field.
 	 * @var        int
 	 */
-	protected $line;
+	protected $continues_from_cell_id;
 
 	/**
-	 * The value for the column field.
+	 * The value for the continues_on_cell_id field.
 	 * @var        int
 	 */
-	protected $column;
-
-	/**
-	 * The value for the observation field.
-	 * @var        string
-	 */
-	protected $observation;
+	protected $continues_on_cell_id;
 
 	/**
 	 * @var        ObservationPhotoDorsalRight
@@ -66,9 +74,19 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	protected $aObservationPhotoDorsalRight;
 
 	/**
-	 * @var        Mark
+	 * @var        PatternCellDorsalRight
 	 */
-	protected $aMark;
+	protected $aPatternCellDorsalRightRelatedByPatternCellDorsalRightId;
+
+	/**
+	 * @var        PatternCellDorsalRight
+	 */
+	protected $aPatternCellDorsalRightRelatedByContinuesFromCellId;
+
+	/**
+	 * @var        PatternCellDorsalRight
+	 */
+	protected $aPatternCellDorsalRightRelatedByContinuesOnCellId;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -83,6 +101,28 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	 * @var        boolean
 	 */
 	protected $alreadyInValidation = false;
+
+	/**
+	 * Applies default values to this object.
+	 * This method should be called from the object's constructor (or
+	 * equivalent initialization method).
+	 * @see        __construct()
+	 */
+	public function applyDefaultValues()
+	{
+		$this->is_wide = false;
+		$this->is_deep = false;
+	}
+
+	/**
+	 * Initializes internal state of BaseObservationPhotoDorsalRightMark object.
+	 * @see        applyDefaults()
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->applyDefaultValues();
+	}
 
 	/**
 	 * Get the [id] column value.
@@ -105,43 +145,53 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	}
 
 	/**
-	 * Get the [mark_id] column value.
+	 * Get the [pattern_cell_dorsal_right_id] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getMarkId()
+	public function getPatternCellDorsalRightId()
 	{
-		return $this->mark_id;
+		return $this->pattern_cell_dorsal_right_id;
 	}
 
 	/**
-	 * Get the [line] column value.
+	 * Get the [is_wide] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsWide()
+	{
+		return $this->is_wide;
+	}
+
+	/**
+	 * Get the [is_deep] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsDeep()
+	{
+		return $this->is_deep;
+	}
+
+	/**
+	 * Get the [continues_from_cell_id] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getLine()
+	public function getContinuesFromCellId()
 	{
-		return $this->line;
+		return $this->continues_from_cell_id;
 	}
 
 	/**
-	 * Get the [column] column value.
+	 * Get the [continues_on_cell_id] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getColumn()
+	public function getContinuesOnCellId()
 	{
-		return $this->column;
-	}
-
-	/**
-	 * Get the [observation] column value.
-	 * 
-	 * @return     string
-	 */
-	public function getObservation()
-	{
-		return $this->observation;
+		return $this->continues_on_cell_id;
 	}
 
 	/**
@@ -189,88 +239,116 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	} // setObservationPhotoDorsalRightId()
 
 	/**
-	 * Set the value of [mark_id] column.
+	 * Set the value of [pattern_cell_dorsal_right_id] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
 	 */
-	public function setMarkId($v)
+	public function setPatternCellDorsalRightId($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->mark_id !== $v) {
-			$this->mark_id = $v;
-			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::MARK_ID;
+		if ($this->pattern_cell_dorsal_right_id !== $v) {
+			$this->pattern_cell_dorsal_right_id = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::PATTERN_CELL_DORSAL_RIGHT_ID;
 		}
 
-		if ($this->aMark !== null && $this->aMark->getId() !== $v) {
-			$this->aMark = null;
+		if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId !== null && $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->getId() !== $v) {
+			$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = null;
 		}
 
 		return $this;
-	} // setMarkId()
+	} // setPatternCellDorsalRightId()
 
 	/**
-	 * Set the value of [line] column.
+	 * Set the value of [is_wide] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
+	 */
+	public function setIsWide($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_wide !== $v || $this->isNew()) {
+			$this->is_wide = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::IS_WIDE;
+		}
+
+		return $this;
+	} // setIsWide()
+
+	/**
+	 * Set the value of [is_deep] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
+	 */
+	public function setIsDeep($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_deep !== $v || $this->isNew()) {
+			$this->is_deep = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::IS_DEEP;
+		}
+
+		return $this;
+	} // setIsDeep()
+
+	/**
+	 * Set the value of [continues_from_cell_id] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
 	 */
-	public function setLine($v)
+	public function setContinuesFromCellId($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->line !== $v) {
-			$this->line = $v;
-			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::LINE;
+		if ($this->continues_from_cell_id !== $v) {
+			$this->continues_from_cell_id = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::CONTINUES_FROM_CELL_ID;
+		}
+
+		if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId !== null && $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->getId() !== $v) {
+			$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = null;
 		}
 
 		return $this;
-	} // setLine()
+	} // setContinuesFromCellId()
 
 	/**
-	 * Set the value of [column] column.
+	 * Set the value of [continues_on_cell_id] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
 	 */
-	public function setColumn($v)
+	public function setContinuesOnCellId($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->column !== $v) {
-			$this->column = $v;
-			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::COLUMN;
+		if ($this->continues_on_cell_id !== $v) {
+			$this->continues_on_cell_id = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::CONTINUES_ON_CELL_ID;
+		}
+
+		if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId !== null && $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->getId() !== $v) {
+			$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = null;
 		}
 
 		return $this;
-	} // setColumn()
-
-	/**
-	 * Set the value of [observation] column.
-	 * 
-	 * @param      string $v new value
-	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
-	 */
-	public function setObservation($v)
-	{
-		if ($v !== null) {
-			$v = (string) $v;
-		}
-
-		if ($this->observation !== $v) {
-			$this->observation = $v;
-			$this->modifiedColumns[] = ObservationPhotoDorsalRightMarkPeer::OBSERVATION;
-		}
-
-		return $this;
-	} // setObservation()
+	} // setContinuesOnCellId()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -282,6 +360,14 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->is_wide !== false) {
+				return false;
+			}
+
+			if ($this->is_deep !== false) {
+				return false;
+			}
+
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -306,10 +392,11 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 
 			$this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
 			$this->observation_photo_dorsal_right_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
-			$this->mark_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
-			$this->line = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
-			$this->column = ($row[$startcol + 4] !== null) ? (int) $row[$startcol + 4] : null;
-			$this->observation = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+			$this->pattern_cell_dorsal_right_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
+			$this->is_wide = ($row[$startcol + 3] !== null) ? (boolean) $row[$startcol + 3] : null;
+			$this->is_deep = ($row[$startcol + 4] !== null) ? (boolean) $row[$startcol + 4] : null;
+			$this->continues_from_cell_id = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+			$this->continues_on_cell_id = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -318,7 +405,7 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 6; // 6 = ObservationPhotoDorsalRightMarkPeer::NUM_COLUMNS - ObservationPhotoDorsalRightMarkPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 7; // 7 = ObservationPhotoDorsalRightMarkPeer::NUM_COLUMNS - ObservationPhotoDorsalRightMarkPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ObservationPhotoDorsalRightMark object", $e);
@@ -344,8 +431,14 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 		if ($this->aObservationPhotoDorsalRight !== null && $this->observation_photo_dorsal_right_id !== $this->aObservationPhotoDorsalRight->getId()) {
 			$this->aObservationPhotoDorsalRight = null;
 		}
-		if ($this->aMark !== null && $this->mark_id !== $this->aMark->getId()) {
-			$this->aMark = null;
+		if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId !== null && $this->pattern_cell_dorsal_right_id !== $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->getId()) {
+			$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = null;
+		}
+		if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId !== null && $this->continues_from_cell_id !== $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->getId()) {
+			$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = null;
+		}
+		if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId !== null && $this->continues_on_cell_id !== $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->getId()) {
+			$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = null;
 		}
 	} // ensureConsistency
 
@@ -387,7 +480,9 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 		if ($deep) {  // also de-associate any related objects?
 
 			$this->aObservationPhotoDorsalRight = null;
-			$this->aMark = null;
+			$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = null;
+			$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = null;
+			$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = null;
 		} // if (deep)
 	}
 
@@ -542,11 +637,25 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 				$this->setObservationPhotoDorsalRight($this->aObservationPhotoDorsalRight);
 			}
 
-			if ($this->aMark !== null) {
-				if ($this->aMark->isModified() || $this->aMark->isNew()) {
-					$affectedRows += $this->aMark->save($con);
+			if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId !== null) {
+				if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->isModified() || $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->isNew()) {
+					$affectedRows += $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->save($con);
 				}
-				$this->setMark($this->aMark);
+				$this->setPatternCellDorsalRightRelatedByPatternCellDorsalRightId($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId);
+			}
+
+			if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId !== null) {
+				if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId->isModified() || $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->isNew()) {
+					$affectedRows += $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->save($con);
+				}
+				$this->setPatternCellDorsalRightRelatedByContinuesFromCellId($this->aPatternCellDorsalRightRelatedByContinuesFromCellId);
+			}
+
+			if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId !== null) {
+				if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId->isModified() || $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->isNew()) {
+					$affectedRows += $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->save($con);
+				}
+				$this->setPatternCellDorsalRightRelatedByContinuesOnCellId($this->aPatternCellDorsalRightRelatedByContinuesOnCellId);
 			}
 
 			if ($this->isNew() ) {
@@ -649,9 +758,21 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 				}
 			}
 
-			if ($this->aMark !== null) {
-				if (!$this->aMark->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aMark->getValidationFailures());
+			if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId !== null) {
+				if (!$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->getValidationFailures());
+				}
+			}
+
+			if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId !== null) {
+				if (!$this->aPatternCellDorsalRightRelatedByContinuesFromCellId->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->getValidationFailures());
+				}
+			}
+
+			if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId !== null) {
+				if (!$this->aPatternCellDorsalRightRelatedByContinuesOnCellId->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->getValidationFailures());
 				}
 			}
 
@@ -701,16 +822,19 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 				return $this->getObservationPhotoDorsalRightId();
 				break;
 			case 2:
-				return $this->getMarkId();
+				return $this->getPatternCellDorsalRightId();
 				break;
 			case 3:
-				return $this->getLine();
+				return $this->getIsWide();
 				break;
 			case 4:
-				return $this->getColumn();
+				return $this->getIsDeep();
 				break;
 			case 5:
-				return $this->getObservation();
+				return $this->getContinuesFromCellId();
+				break;
+			case 6:
+				return $this->getContinuesOnCellId();
 				break;
 			default:
 				return null;
@@ -738,17 +862,24 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 		$result = array(
 			$keys[0] => $this->getId(),
 			$keys[1] => $this->getObservationPhotoDorsalRightId(),
-			$keys[2] => $this->getMarkId(),
-			$keys[3] => $this->getLine(),
-			$keys[4] => $this->getColumn(),
-			$keys[5] => $this->getObservation(),
+			$keys[2] => $this->getPatternCellDorsalRightId(),
+			$keys[3] => $this->getIsWide(),
+			$keys[4] => $this->getIsDeep(),
+			$keys[5] => $this->getContinuesFromCellId(),
+			$keys[6] => $this->getContinuesOnCellId(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aObservationPhotoDorsalRight) {
 				$result['ObservationPhotoDorsalRight'] = $this->aObservationPhotoDorsalRight->toArray($keyType, $includeLazyLoadColumns, true);
 			}
-			if (null !== $this->aMark) {
-				$result['Mark'] = $this->aMark->toArray($keyType, $includeLazyLoadColumns, true);
+			if (null !== $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId) {
+				$result['PatternCellDorsalRightRelatedByPatternCellDorsalRightId'] = $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->toArray($keyType, $includeLazyLoadColumns, true);
+			}
+			if (null !== $this->aPatternCellDorsalRightRelatedByContinuesFromCellId) {
+				$result['PatternCellDorsalRightRelatedByContinuesFromCellId'] = $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->toArray($keyType, $includeLazyLoadColumns, true);
+			}
+			if (null !== $this->aPatternCellDorsalRightRelatedByContinuesOnCellId) {
+				$result['PatternCellDorsalRightRelatedByContinuesOnCellId'] = $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->toArray($keyType, $includeLazyLoadColumns, true);
 			}
 		}
 		return $result;
@@ -788,16 +919,19 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 				$this->setObservationPhotoDorsalRightId($value);
 				break;
 			case 2:
-				$this->setMarkId($value);
+				$this->setPatternCellDorsalRightId($value);
 				break;
 			case 3:
-				$this->setLine($value);
+				$this->setIsWide($value);
 				break;
 			case 4:
-				$this->setColumn($value);
+				$this->setIsDeep($value);
 				break;
 			case 5:
-				$this->setObservation($value);
+				$this->setContinuesFromCellId($value);
+				break;
+			case 6:
+				$this->setContinuesOnCellId($value);
 				break;
 		} // switch()
 	}
@@ -825,10 +959,11 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 
 		if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
 		if (array_key_exists($keys[1], $arr)) $this->setObservationPhotoDorsalRightId($arr[$keys[1]]);
-		if (array_key_exists($keys[2], $arr)) $this->setMarkId($arr[$keys[2]]);
-		if (array_key_exists($keys[3], $arr)) $this->setLine($arr[$keys[3]]);
-		if (array_key_exists($keys[4], $arr)) $this->setColumn($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setObservation($arr[$keys[5]]);
+		if (array_key_exists($keys[2], $arr)) $this->setPatternCellDorsalRightId($arr[$keys[2]]);
+		if (array_key_exists($keys[3], $arr)) $this->setIsWide($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setIsDeep($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setContinuesFromCellId($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setContinuesOnCellId($arr[$keys[6]]);
 	}
 
 	/**
@@ -842,10 +977,11 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 
 		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::ID, $this->id);
 		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::OBSERVATION_PHOTO_DORSAL_RIGHT_ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::OBSERVATION_PHOTO_DORSAL_RIGHT_ID, $this->observation_photo_dorsal_right_id);
-		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::MARK_ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::MARK_ID, $this->mark_id);
-		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::LINE)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::LINE, $this->line);
-		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::COLUMN)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::COLUMN, $this->column);
-		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::OBSERVATION)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::OBSERVATION, $this->observation);
+		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::PATTERN_CELL_DORSAL_RIGHT_ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::PATTERN_CELL_DORSAL_RIGHT_ID, $this->pattern_cell_dorsal_right_id);
+		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::IS_WIDE)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::IS_WIDE, $this->is_wide);
+		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::IS_DEEP)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::IS_DEEP, $this->is_deep);
+		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::CONTINUES_FROM_CELL_ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::CONTINUES_FROM_CELL_ID, $this->continues_from_cell_id);
+		if ($this->isColumnModified(ObservationPhotoDorsalRightMarkPeer::CONTINUES_ON_CELL_ID)) $criteria->add(ObservationPhotoDorsalRightMarkPeer::CONTINUES_ON_CELL_ID, $this->continues_on_cell_id);
 
 		return $criteria;
 	}
@@ -908,10 +1044,11 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	public function copyInto($copyObj, $deepCopy = false)
 	{
 		$copyObj->setObservationPhotoDorsalRightId($this->observation_photo_dorsal_right_id);
-		$copyObj->setMarkId($this->mark_id);
-		$copyObj->setLine($this->line);
-		$copyObj->setColumn($this->column);
-		$copyObj->setObservation($this->observation);
+		$copyObj->setPatternCellDorsalRightId($this->pattern_cell_dorsal_right_id);
+		$copyObj->setIsWide($this->is_wide);
+		$copyObj->setIsDeep($this->is_deep);
+		$copyObj->setContinuesFromCellId($this->continues_from_cell_id);
+		$copyObj->setContinuesOnCellId($this->continues_on_cell_id);
 
 		$copyObj->setNew(true);
 		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1005,26 +1142,26 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	}
 
 	/**
-	 * Declares an association between this object and a Mark object.
+	 * Declares an association between this object and a PatternCellDorsalRight object.
 	 *
-	 * @param      Mark $v
+	 * @param      PatternCellDorsalRight $v
 	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
-	public function setMark(Mark $v = null)
+	public function setPatternCellDorsalRightRelatedByPatternCellDorsalRightId(PatternCellDorsalRight $v = null)
 	{
 		if ($v === null) {
-			$this->setMarkId(NULL);
+			$this->setPatternCellDorsalRightId(NULL);
 		} else {
-			$this->setMarkId($v->getId());
+			$this->setPatternCellDorsalRightId($v->getId());
 		}
 
-		$this->aMark = $v;
+		$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = $v;
 
 		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the Mark object, it will not be re-added.
+		// If this object has already been added to the PatternCellDorsalRight object, it will not be re-added.
 		if ($v !== null) {
-			$v->addObservationPhotoDorsalRightMark($this);
+			$v->addObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId($this);
 		}
 
 		return $this;
@@ -1032,25 +1169,123 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 
 
 	/**
-	 * Get the associated Mark object
+	 * Get the associated PatternCellDorsalRight object
 	 *
 	 * @param      PropelPDO Optional Connection object.
-	 * @return     Mark The associated Mark object.
+	 * @return     PatternCellDorsalRight The associated PatternCellDorsalRight object.
 	 * @throws     PropelException
 	 */
-	public function getMark(PropelPDO $con = null)
+	public function getPatternCellDorsalRightRelatedByPatternCellDorsalRightId(PropelPDO $con = null)
 	{
-		if ($this->aMark === null && ($this->mark_id !== null)) {
-			$this->aMark = MarkQuery::create()->findPk($this->mark_id, $con);
+		if ($this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId === null && ($this->pattern_cell_dorsal_right_id !== null)) {
+			$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = PatternCellDorsalRightQuery::create()->findPk($this->pattern_cell_dorsal_right_id, $con);
 			/* The following can be used additionally to
 				 guarantee the related object contains a reference
 				 to this object.  This level of coupling may, however, be
 				 undesirable since it could result in an only partially populated collection
 				 in the referenced object.
-				 $this->aMark->addObservationPhotoDorsalRightMarks($this);
+				 $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId->addObservationPhotoDorsalRightMarksRelatedByPatternCellDorsalRightId($this);
 			 */
 		}
-		return $this->aMark;
+		return $this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId;
+	}
+
+	/**
+	 * Declares an association between this object and a PatternCellDorsalRight object.
+	 *
+	 * @param      PatternCellDorsalRight $v
+	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setPatternCellDorsalRightRelatedByContinuesFromCellId(PatternCellDorsalRight $v = null)
+	{
+		if ($v === null) {
+			$this->setContinuesFromCellId(NULL);
+		} else {
+			$this->setContinuesFromCellId($v->getId());
+		}
+
+		$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the PatternCellDorsalRight object, it will not be re-added.
+		if ($v !== null) {
+			$v->addObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated PatternCellDorsalRight object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     PatternCellDorsalRight The associated PatternCellDorsalRight object.
+	 * @throws     PropelException
+	 */
+	public function getPatternCellDorsalRightRelatedByContinuesFromCellId(PropelPDO $con = null)
+	{
+		if ($this->aPatternCellDorsalRightRelatedByContinuesFromCellId === null && ($this->continues_from_cell_id !== null)) {
+			$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = PatternCellDorsalRightQuery::create()->findPk($this->continues_from_cell_id, $con);
+			/* The following can be used additionally to
+				 guarantee the related object contains a reference
+				 to this object.  This level of coupling may, however, be
+				 undesirable since it could result in an only partially populated collection
+				 in the referenced object.
+				 $this->aPatternCellDorsalRightRelatedByContinuesFromCellId->addObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId($this);
+			 */
+		}
+		return $this->aPatternCellDorsalRightRelatedByContinuesFromCellId;
+	}
+
+	/**
+	 * Declares an association between this object and a PatternCellDorsalRight object.
+	 *
+	 * @param      PatternCellDorsalRight $v
+	 * @return     ObservationPhotoDorsalRightMark The current object (for fluent API support)
+	 * @throws     PropelException
+	 */
+	public function setPatternCellDorsalRightRelatedByContinuesOnCellId(PatternCellDorsalRight $v = null)
+	{
+		if ($v === null) {
+			$this->setContinuesOnCellId(NULL);
+		} else {
+			$this->setContinuesOnCellId($v->getId());
+		}
+
+		$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = $v;
+
+		// Add binding for other direction of this n:n relationship.
+		// If this object has already been added to the PatternCellDorsalRight object, it will not be re-added.
+		if ($v !== null) {
+			$v->addObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($this);
+		}
+
+		return $this;
+	}
+
+
+	/**
+	 * Get the associated PatternCellDorsalRight object
+	 *
+	 * @param      PropelPDO Optional Connection object.
+	 * @return     PatternCellDorsalRight The associated PatternCellDorsalRight object.
+	 * @throws     PropelException
+	 */
+	public function getPatternCellDorsalRightRelatedByContinuesOnCellId(PropelPDO $con = null)
+	{
+		if ($this->aPatternCellDorsalRightRelatedByContinuesOnCellId === null && ($this->continues_on_cell_id !== null)) {
+			$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = PatternCellDorsalRightQuery::create()->findPk($this->continues_on_cell_id, $con);
+			/* The following can be used additionally to
+				 guarantee the related object contains a reference
+				 to this object.  This level of coupling may, however, be
+				 undesirable since it could result in an only partially populated collection
+				 in the referenced object.
+				 $this->aPatternCellDorsalRightRelatedByContinuesOnCellId->addObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId($this);
+			 */
+		}
+		return $this->aPatternCellDorsalRightRelatedByContinuesOnCellId;
 	}
 
 	/**
@@ -1060,13 +1295,15 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 	{
 		$this->id = null;
 		$this->observation_photo_dorsal_right_id = null;
-		$this->mark_id = null;
-		$this->line = null;
-		$this->column = null;
-		$this->observation = null;
+		$this->pattern_cell_dorsal_right_id = null;
+		$this->is_wide = null;
+		$this->is_deep = null;
+		$this->continues_from_cell_id = null;
+		$this->continues_on_cell_id = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
+		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);
@@ -1087,7 +1324,9 @@ abstract class BaseObservationPhotoDorsalRightMark extends BaseObject  implement
 		} // if ($deep)
 
 		$this->aObservationPhotoDorsalRight = null;
-		$this->aMark = null;
+		$this->aPatternCellDorsalRightRelatedByPatternCellDorsalRightId = null;
+		$this->aPatternCellDorsalRightRelatedByContinuesFromCellId = null;
+		$this->aPatternCellDorsalRightRelatedByContinuesOnCellId = null;
 	}
 
 	/**

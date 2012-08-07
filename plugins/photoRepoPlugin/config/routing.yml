@@ -115,6 +115,33 @@ pr_body_part:
     column:               id
     with_wildcard_routes: true
     
+observation_photo_tail:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoTail
+    module:               prObservationPhotoTail
+    prefix_path:          /prObservationPhotoTail
+    column:               id
+    with_wildcard_routes: true
+    
+observation_photo_dorsal_right:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoDorsalRight
+    module:               prObservationPhotoDorsalRight
+    prefix_path:          /prObservationPhotoDorsalRight
+    column:               id
+    with_wildcard_routes: true
+
+observation_photo_dorsal_left:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoDorsalLeft
+    module:               prObservationPhotoDorsalLeft
+    prefix_path:          /prObservationPhotoDorsalLeft
+    column:               id
+    with_wildcard_routes: true
+    
 ajax_get_sightings_by_company:
   url:  /ajax/company/:company_id/sightings/on/:date
   params:
@@ -130,3 +157,4 @@ get_sightings_by_date:
     action:     getSightingsOnDate
   requirements:
     sf_method: get
+    

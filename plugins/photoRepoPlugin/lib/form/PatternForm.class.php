@@ -31,14 +31,18 @@ class PatternForm extends BasePatternForm
         array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromFileinfo'),
         array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromMimeContentType'),
         array($this->getValue('image_tail') ? $this->getValue('image_tail') : new sfValidatorFile(), 'guessFromFileBinary'),
-      )
+      ),
+      'mime_types'    => array( 
+          'image/jpeg', 'image/jpg', 'image/jp_', 'application/jpg', 
+          'application/x-jpg', 'image/pjpeg', 'image/pipeg', 
+          'image/vnd.swiftview-jpeg', 'image/x-xbitmap'
+          )
+    ), array(
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg'
     ));
     $this->validatorSchema['image_tail_delete'] = new sfValidatorPass();
     
-    
-    
-    
-    
+
     $this->widgetSchema['image_dorsal_left'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
       'file_src' => ($this->getObject()->getImageDorsalLeft()? '/uploads/pr_patterns/'.$this->getObject()->getImageDorsalLeft(): null),
@@ -54,7 +58,14 @@ class PatternForm extends BasePatternForm
         array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromFileinfo'),
         array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromMimeContentType'),
         array($this->getValue('image_dorsal_left') ? $this->getValue('image_dorsal_left') : new sfValidatorFile(), 'guessFromFileBinary'),
-      )
+      ),
+      'mime_types'    => array( 
+          'image/jpeg', 'image/jpg', 'image/jp_', 'application/jpg', 
+          'application/x-jpg', 'image/pjpeg', 'image/pipeg', 
+          'image/vnd.swiftview-jpeg', 'image/x-xbitmap'
+          )
+    ), array(
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg'
     ));
     $this->validatorSchema['image_dorsal_left_delete'] = new sfValidatorPass();
     
@@ -76,7 +87,14 @@ class PatternForm extends BasePatternForm
         array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromFileinfo'),
         array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromMimeContentType'),
         array($this->getValue('image_dorsal_right') ? $this->getValue('image_dorsal_right') : new sfValidatorFile(), 'guessFromFileBinary'),
-      )
+      ),
+      'mime_types'    => array( 
+          'image/jpeg', 'image/jpg', 'image/jp_', 'application/jpg', 
+          'application/x-jpg', 'image/pjpeg', 'image/pipeg', 
+          'image/vnd.swiftview-jpeg', 'image/x-xbitmap'
+          )
+    ), array(
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg'
     ));
     $this->validatorSchema['image_dorsal_right_delete'] = new sfValidatorPass();
     

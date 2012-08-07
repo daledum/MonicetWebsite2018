@@ -1,18 +1,18 @@
 <?php
-
-
-
-/**
- * Skeleton subclass for performing query and update operations on the 'observation_photo_dorsal_right' table.
- *
- * 
- *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- * @package    propel.generator.plugins.photoRepoPlugin.lib.model
- */
 class ObservationPhotoDorsalRightPeer extends BaseObservationPhotoDorsalRightPeer {
-
+  public static function get_or_create( $photoId ) {
+    if( !$photoId ) {
+      throw new Exception('Missing photo_id');
+    } else {
+      $observationPhotoDorsalRight = ObservationPhotoDorsalRightQuery::create()
+              ->filterById( $photoId )
+              ->findOne();
+      if( !$observationPhotoDorsalRight ){
+        $observationPhotoDorsalRight = new ObservationPhotoDorsalRight();
+        $observationPhotoDorsalRight->setPhotoId($photoId);
+        $observationPhotoDorsalRight->save();
+      }
+      return $observationPhotoDorsalRight;
+    }
+  }
 } // ObservationPhotoDorsalRightPeer

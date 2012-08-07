@@ -27,7 +27,11 @@
     float: left;
     margin-bottom: 20px;
 }
-
+.characterize_photo_container {
+    width: 450px;
+    float: left;
+    margin-bottom: 20px;
+}
 #photo_details {
     float: left;
     width: 450px;
@@ -59,4 +63,17 @@
 }
 .line_pattern_photo img, .line_pattern_pattern img {
     width: 350px;
+}
+.characterize_photo_image {
+    width: 780px;
+    float: right;
+    text-align: right;
+    padding: 0 0 10px 10px;
+}
+.characterize_photo_pattern {
+    padding: 0 0 10px 0;
+}
+
+.characterize_block {
+    width: 1240px;
 }

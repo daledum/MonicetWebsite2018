@@ -16,19 +16,21 @@ abstract class BaseObservationPhotoDorsalRightMarkForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                                => new sfWidgetFormInputHidden(),
       'observation_photo_dorsal_right_id' => new sfWidgetFormPropelChoice(array('model' => 'ObservationPhotoDorsalRight', 'add_empty' => false)),
-      'mark_id'                           => new sfWidgetFormPropelChoice(array('model' => 'Mark', 'add_empty' => false)),
-      'line'                              => new sfWidgetFormInputText(),
-      'column'                            => new sfWidgetFormInputText(),
-      'observation'                       => new sfWidgetFormInputText(),
+      'pattern_cell_dorsal_right_id'      => new sfWidgetFormPropelChoice(array('model' => 'PatternCellDorsalRight', 'add_empty' => false)),
+      'is_wide'                           => new sfWidgetFormInputCheckbox(),
+      'is_deep'                           => new sfWidgetFormInputCheckbox(),
+      'continues_from_cell_id'            => new sfWidgetFormPropelChoice(array('model' => 'PatternCellDorsalRight', 'add_empty' => true)),
+      'continues_on_cell_id'              => new sfWidgetFormPropelChoice(array('model' => 'PatternCellDorsalRight', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'                                => new sfValidatorPropelChoice(array('model' => 'ObservationPhotoDorsalRightMark', 'column' => 'id', 'required' => false)),
       'observation_photo_dorsal_right_id' => new sfValidatorPropelChoice(array('model' => 'ObservationPhotoDorsalRight', 'column' => 'id')),
-      'mark_id'                           => new sfValidatorPropelChoice(array('model' => 'Mark', 'column' => 'id')),
-      'line'                              => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'column'                            => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'observation'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'pattern_cell_dorsal_right_id'      => new sfValidatorPropelChoice(array('model' => 'PatternCellDorsalRight', 'column' => 'id')),
+      'is_wide'                           => new sfValidatorBoolean(array('required' => false)),
+      'is_deep'                           => new sfValidatorBoolean(array('required' => false)),
+      'continues_from_cell_id'            => new sfValidatorPropelChoice(array('model' => 'PatternCellDorsalRight', 'column' => 'id', 'required' => false)),
+      'continues_on_cell_id'              => new sfValidatorPropelChoice(array('model' => 'PatternCellDorsalRight', 'column' => 'id', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('observation_photo_dorsal_right_mark[%s]');

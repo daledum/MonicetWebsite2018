@@ -64,13 +64,6 @@ propel:
     name:             { type: VARCHAR, size: 255, required: true }
     points:           { type: VARCHAR, size: 255, required: true }
   
-  mark:
-    _attributes:      { phpName: Mark, idMethod: native }
-    id:               ~
-    image:            { type: VARCHAR, size: 255, required: true }
-    created_at:       ~
-    updated_at:       ~
-    
   photographer:
     id:               ~
     _attributes:      { phpName: Photographer, idMethod: native }
@@ -142,10 +135,11 @@ propel:
     _attributes:      { phpName: ObservationPhotoTailMark, idMethod: native }
     id:               ~
     observation_photo_tail_id: { type: INTEGER, foreignTable: observation_photo_tail, foreignReference: id, required: true, onDelete: cascade, index: true }
-    mark_id:          { type: INTEGER, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
-    line:             { type: INTEGER, required: true }
-    column:           { type: INTEGER, required: true }
-    observation:      { type: VARCHAR, size: 255, required: false }
+    pattern_cell_tail_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_wide:          { type: BOOLEAN, default: false }
+    is_deep:          { type: BOOLEAN, default: false }
+    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: false, onDelete: setnull, index: true }
+    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: false, onDelete: setnull, index: true }
   
   observation_photo_dorsal_left:
     _attributes:      { phpName: ObservationPhotoDorsalLeft, idMethod: native }
@@ -158,10 +152,11 @@ propel:
     _attributes:      { phpName: ObservationPhotoDorsalLeftMark, idMethod: native }
     id:               ~
     observation_photo_dorsal_left_id: { type: integer, foreignTable: observation_photo_dorsal_left, foreignReference: id, required: true, onDelete: cascade, index: true }
-    mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
-    line:             { type: INTEGER, required: true }
-    column:           { type: INTEGER, required: true }
-    observation:      { type: VARCHAR, size: 255, required: false }
+    pattern_cell_dorsal_left_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_wide:          { type: BOOLEAN, default: false }
+    is_deep:          { type: BOOLEAN, default: false }
+    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: false, onDelete: setnull, index: true }
+    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: false, onDelete: setnull, index: true }
     
   observation_photo_dorsal_right:
     _attributes:      { phpName: ObservationPhotoDorsalRight, idMethod: native }
@@ -174,8 +169,8 @@ propel:
     _attributes:      { phpName: ObservationPhotoDorsalRightMark, idMethod: native }
     id:               ~
     observation_photo_dorsal_right_id: { type: integer, foreignTable: observation_photo_dorsal_right, foreignReference: id, required: true, onDelete: cascade, index: true }
-    mark_id:          { type: integer, foreignTable: mark, foreignReference: id, required: true, onDelete: cascade, index: true }
-    line:             { type: INTEGER, required: true }
-    column:           { type: INTEGER, required: true }
-    observation:      { type: VARCHAR, size: 255, required: false }
-    
+    pattern_cell_dorsal_right_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: true, onDelete: cascade, index: true }
+    is_wide:          { type: BOOLEAN, default: false }
+    is_deep:          { type: BOOLEAN, default: false }
+    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: false, onDelete: setnull, index: true }
+    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: false, onDelete: setnull, index: true }

@@ -53,6 +53,9 @@ all:
       - prPattern
       - prUploadedPhoto
       - prObservationPhoto
+      - prObservationPhotoTail
+      - prObservationPhotoDorsalLeft
+      - prObservationPhotoDorsalRight
       - prPhotographer
       - prBodyPart
       - publication

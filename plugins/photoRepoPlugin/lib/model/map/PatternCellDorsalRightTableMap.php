@@ -50,6 +50,9 @@ class PatternCellDorsalRightTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Pattern', 'Pattern', RelationMap::MANY_TO_ONE, array('pattern_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('ObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId', 'ObservationPhotoDorsalRightMark', RelationMap::ONE_TO_MANY, array('id' => 'pattern_cell_dorsal_right_id', ), 'CASCADE', null);
+    $this->addRelation('ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId', 'ObservationPhotoDorsalRightMark', RelationMap::ONE_TO_MANY, array('id' => 'continues_from_cell_id', ), 'SET NULL', null);
+    $this->addRelation('ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId', 'ObservationPhotoDorsalRightMark', RelationMap::ONE_TO_MANY, array('id' => 'continues_on_cell_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 	/**

@@ -50,6 +50,9 @@ class PatternCellTailTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('Pattern', 'Pattern', RelationMap::MANY_TO_ONE, array('pattern_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('ObservationPhotoTailMarkRelatedByPatternCellTailId', 'ObservationPhotoTailMark', RelationMap::ONE_TO_MANY, array('id' => 'pattern_cell_tail_id', ), 'CASCADE', null);
+    $this->addRelation('ObservationPhotoTailMarkRelatedByContinuesFromCellId', 'ObservationPhotoTailMark', RelationMap::ONE_TO_MANY, array('id' => 'continues_from_cell_id', ), 'SET NULL', null);
+    $this->addRelation('ObservationPhotoTailMarkRelatedByContinuesOnCellId', 'ObservationPhotoTailMark', RelationMap::ONE_TO_MANY, array('id' => 'continues_on_cell_id', ), 'SET NULL', null);
 	} // buildRelations()
 
 	/**

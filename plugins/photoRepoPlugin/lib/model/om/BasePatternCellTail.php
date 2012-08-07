@@ -54,6 +54,21 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 	protected $aPattern;
 
 	/**
+	 * @var        array ObservationPhotoTailMark[] Collection to store aggregation of ObservationPhotoTailMark objects.
+	 */
+	protected $collObservationPhotoTailMarksRelatedByPatternCellTailId;
+
+	/**
+	 * @var        array ObservationPhotoTailMark[] Collection to store aggregation of ObservationPhotoTailMark objects.
+	 */
+	protected $collObservationPhotoTailMarksRelatedByContinuesFromCellId;
+
+	/**
+	 * @var        array ObservationPhotoTailMark[] Collection to store aggregation of ObservationPhotoTailMark objects.
+	 */
+	protected $collObservationPhotoTailMarksRelatedByContinuesOnCellId;
+
+	/**
 	 * Flag to prevent endless save loop, if this object is referenced
 	 * by another object which falls in this transaction.
 	 * @var        boolean
@@ -301,6 +316,12 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 		if ($deep) {  // also de-associate any related objects?
 
 			$this->aPattern = null;
+			$this->collObservationPhotoTailMarksRelatedByPatternCellTailId = null;
+
+			$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId = null;
+
+			$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId = null;
+
 		} // if (deep)
 	}
 
@@ -478,6 +499,30 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 				$this->resetModified(); // [HL] After being saved an object is no longer 'modified'
 			}
 
+			if ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId !== null) {
+				foreach ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId !== null) {
+				foreach ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
+			if ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId !== null) {
+				foreach ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId as $referrerFK) {
+					if (!$referrerFK->isDeleted()) {
+						$affectedRows += $referrerFK->save($con);
+					}
+				}
+			}
+
 			$this->alreadyInSave = false;
 
 		}
@@ -560,6 +605,30 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 				$failureMap = array_merge($failureMap, $retval);
 			}
 
+
+				if ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId !== null) {
+					foreach ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId !== null) {
+					foreach ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
+
+				if ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId !== null) {
+					foreach ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId as $referrerFK) {
+						if (!$referrerFK->validate($columns)) {
+							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+						}
+					}
+				}
 
 
 			$this->alreadyInValidation = false;
@@ -790,6 +859,32 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 		$copyObj->setName($this->name);
 		$copyObj->setPoints($this->points);
 
+		if ($deepCopy) {
+			// important: temporarily setNew(false) because this affects the behavior of
+			// the getter/setter methods for fkey referrer objects.
+			$copyObj->setNew(false);
+
+			foreach ($this->getObservationPhotoTailMarksRelatedByPatternCellTailId() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addObservationPhotoTailMarkRelatedByPatternCellTailId($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getObservationPhotoTailMarksRelatedByContinuesFromCellId() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addObservationPhotoTailMarkRelatedByContinuesFromCellId($relObj->copy($deepCopy));
+				}
+			}
+
+			foreach ($this->getObservationPhotoTailMarksRelatedByContinuesOnCellId() as $relObj) {
+				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+					$copyObj->addObservationPhotoTailMarkRelatedByContinuesOnCellId($relObj->copy($deepCopy));
+				}
+			}
+
+		} // if ($deepCopy)
+
+
 		$copyObj->setNew(true);
 		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
 	}
@@ -882,6 +977,408 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 	}
 
 	/**
+	 * Clears out the collObservationPhotoTailMarksRelatedByPatternCellTailId collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addObservationPhotoTailMarksRelatedByPatternCellTailId()
+	 */
+	public function clearObservationPhotoTailMarksRelatedByPatternCellTailId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByPatternCellTailId = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collObservationPhotoTailMarksRelatedByPatternCellTailId collection.
+	 *
+	 * By default this just sets the collObservationPhotoTailMarksRelatedByPatternCellTailId collection to an empty array (like clearcollObservationPhotoTailMarksRelatedByPatternCellTailId());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initObservationPhotoTailMarksRelatedByPatternCellTailId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByPatternCellTailId = new PropelObjectCollection();
+		$this->collObservationPhotoTailMarksRelatedByPatternCellTailId->setModel('ObservationPhotoTailMark');
+	}
+
+	/**
+	 * Gets an array of ObservationPhotoTailMark objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this PatternCellTail is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 * @throws     PropelException
+	 */
+	public function getObservationPhotoTailMarksRelatedByPatternCellTailId($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByPatternCellTailId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByPatternCellTailId) {
+				// return empty collection
+				$this->initObservationPhotoTailMarksRelatedByPatternCellTailId();
+			} else {
+				$collObservationPhotoTailMarksRelatedByPatternCellTailId = ObservationPhotoTailMarkQuery::create(null, $criteria)
+					->filterByPatternCellTailRelatedByPatternCellTailId($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collObservationPhotoTailMarksRelatedByPatternCellTailId;
+				}
+				$this->collObservationPhotoTailMarksRelatedByPatternCellTailId = $collObservationPhotoTailMarksRelatedByPatternCellTailId;
+			}
+		}
+		return $this->collObservationPhotoTailMarksRelatedByPatternCellTailId;
+	}
+
+	/**
+	 * Returns the number of related ObservationPhotoTailMark objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related ObservationPhotoTailMark objects.
+	 * @throws     PropelException
+	 */
+	public function countObservationPhotoTailMarksRelatedByPatternCellTailId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByPatternCellTailId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByPatternCellTailId) {
+				return 0;
+			} else {
+				$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPatternCellTailRelatedByPatternCellTailId($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collObservationPhotoTailMarksRelatedByPatternCellTailId);
+		}
+	}
+
+	/**
+	 * Method called to associate a ObservationPhotoTailMark object to this object
+	 * through the ObservationPhotoTailMark foreign key attribute.
+	 *
+	 * @param      ObservationPhotoTailMark $l ObservationPhotoTailMark
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addObservationPhotoTailMarkRelatedByPatternCellTailId(ObservationPhotoTailMark $l)
+	{
+		if ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId === null) {
+			$this->initObservationPhotoTailMarksRelatedByPatternCellTailId();
+		}
+		if (!$this->collObservationPhotoTailMarksRelatedByPatternCellTailId->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collObservationPhotoTailMarksRelatedByPatternCellTailId[]= $l;
+			$l->setPatternCellTailRelatedByPatternCellTailId($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this PatternCellTail is new, it will return
+	 * an empty collection; or if this PatternCellTail has previously
+	 * been saved, it will retrieve related ObservationPhotoTailMarksRelatedByPatternCellTailId from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in PatternCellTail.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 */
+	public function getObservationPhotoTailMarksRelatedByPatternCellTailIdJoinObservationPhotoTail($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+		$query->joinWith('ObservationPhotoTail', $join_behavior);
+
+		return $this->getObservationPhotoTailMarksRelatedByPatternCellTailId($query, $con);
+	}
+
+	/**
+	 * Clears out the collObservationPhotoTailMarksRelatedByContinuesFromCellId collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addObservationPhotoTailMarksRelatedByContinuesFromCellId()
+	 */
+	public function clearObservationPhotoTailMarksRelatedByContinuesFromCellId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collObservationPhotoTailMarksRelatedByContinuesFromCellId collection.
+	 *
+	 * By default this just sets the collObservationPhotoTailMarksRelatedByContinuesFromCellId collection to an empty array (like clearcollObservationPhotoTailMarksRelatedByContinuesFromCellId());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initObservationPhotoTailMarksRelatedByContinuesFromCellId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId = new PropelObjectCollection();
+		$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId->setModel('ObservationPhotoTailMark');
+	}
+
+	/**
+	 * Gets an array of ObservationPhotoTailMark objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this PatternCellTail is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 * @throws     PropelException
+	 */
+	public function getObservationPhotoTailMarksRelatedByContinuesFromCellId($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId) {
+				// return empty collection
+				$this->initObservationPhotoTailMarksRelatedByContinuesFromCellId();
+			} else {
+				$collObservationPhotoTailMarksRelatedByContinuesFromCellId = ObservationPhotoTailMarkQuery::create(null, $criteria)
+					->filterByPatternCellTailRelatedByContinuesFromCellId($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collObservationPhotoTailMarksRelatedByContinuesFromCellId;
+				}
+				$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId = $collObservationPhotoTailMarksRelatedByContinuesFromCellId;
+			}
+		}
+		return $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId;
+	}
+
+	/**
+	 * Returns the number of related ObservationPhotoTailMark objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related ObservationPhotoTailMark objects.
+	 * @throws     PropelException
+	 */
+	public function countObservationPhotoTailMarksRelatedByContinuesFromCellId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId) {
+				return 0;
+			} else {
+				$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPatternCellTailRelatedByContinuesFromCellId($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId);
+		}
+	}
+
+	/**
+	 * Method called to associate a ObservationPhotoTailMark object to this object
+	 * through the ObservationPhotoTailMark foreign key attribute.
+	 *
+	 * @param      ObservationPhotoTailMark $l ObservationPhotoTailMark
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addObservationPhotoTailMarkRelatedByContinuesFromCellId(ObservationPhotoTailMark $l)
+	{
+		if ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId === null) {
+			$this->initObservationPhotoTailMarksRelatedByContinuesFromCellId();
+		}
+		if (!$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId[]= $l;
+			$l->setPatternCellTailRelatedByContinuesFromCellId($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this PatternCellTail is new, it will return
+	 * an empty collection; or if this PatternCellTail has previously
+	 * been saved, it will retrieve related ObservationPhotoTailMarksRelatedByContinuesFromCellId from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in PatternCellTail.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 */
+	public function getObservationPhotoTailMarksRelatedByContinuesFromCellIdJoinObservationPhotoTail($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+		$query->joinWith('ObservationPhotoTail', $join_behavior);
+
+		return $this->getObservationPhotoTailMarksRelatedByContinuesFromCellId($query, $con);
+	}
+
+	/**
+	 * Clears out the collObservationPhotoTailMarksRelatedByContinuesOnCellId collection
+	 *
+	 * This does not modify the database; however, it will remove any associated objects, causing
+	 * them to be refetched by subsequent calls to accessor method.
+	 *
+	 * @return     void
+	 * @see        addObservationPhotoTailMarksRelatedByContinuesOnCellId()
+	 */
+	public function clearObservationPhotoTailMarksRelatedByContinuesOnCellId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId = null; // important to set this to NULL since that means it is uninitialized
+	}
+
+	/**
+	 * Initializes the collObservationPhotoTailMarksRelatedByContinuesOnCellId collection.
+	 *
+	 * By default this just sets the collObservationPhotoTailMarksRelatedByContinuesOnCellId collection to an empty array (like clearcollObservationPhotoTailMarksRelatedByContinuesOnCellId());
+	 * however, you may wish to override this method in your stub class to provide setting appropriate
+	 * to your application -- for example, setting the initial array to the values stored in database.
+	 *
+	 * @return     void
+	 */
+	public function initObservationPhotoTailMarksRelatedByContinuesOnCellId()
+	{
+		$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId = new PropelObjectCollection();
+		$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId->setModel('ObservationPhotoTailMark');
+	}
+
+	/**
+	 * Gets an array of ObservationPhotoTailMark objects which contain a foreign key that references this object.
+	 *
+	 * If the $criteria is not null, it is used to always fetch the results from the database.
+	 * Otherwise the results are fetched from the database the first time, then cached.
+	 * Next time the same method is called without $criteria, the cached collection is returned.
+	 * If this PatternCellTail is new, it will return
+	 * an empty collection or the current collection; the criteria is ignored on a new object.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 * @throws     PropelException
+	 */
+	public function getObservationPhotoTailMarksRelatedByContinuesOnCellId($criteria = null, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId) {
+				// return empty collection
+				$this->initObservationPhotoTailMarksRelatedByContinuesOnCellId();
+			} else {
+				$collObservationPhotoTailMarksRelatedByContinuesOnCellId = ObservationPhotoTailMarkQuery::create(null, $criteria)
+					->filterByPatternCellTailRelatedByContinuesOnCellId($this)
+					->find($con);
+				if (null !== $criteria) {
+					return $collObservationPhotoTailMarksRelatedByContinuesOnCellId;
+				}
+				$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId = $collObservationPhotoTailMarksRelatedByContinuesOnCellId;
+			}
+		}
+		return $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId;
+	}
+
+	/**
+	 * Returns the number of related ObservationPhotoTailMark objects.
+	 *
+	 * @param      Criteria $criteria
+	 * @param      boolean $distinct
+	 * @param      PropelPDO $con
+	 * @return     int Count of related ObservationPhotoTailMark objects.
+	 * @throws     PropelException
+	 */
+	public function countObservationPhotoTailMarksRelatedByContinuesOnCellId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	{
+		if(null === $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId) {
+				return 0;
+			} else {
+				$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+				if($distinct) {
+					$query->distinct();
+				}
+				return $query
+					->filterByPatternCellTailRelatedByContinuesOnCellId($this)
+					->count($con);
+			}
+		} else {
+			return count($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId);
+		}
+	}
+
+	/**
+	 * Method called to associate a ObservationPhotoTailMark object to this object
+	 * through the ObservationPhotoTailMark foreign key attribute.
+	 *
+	 * @param      ObservationPhotoTailMark $l ObservationPhotoTailMark
+	 * @return     void
+	 * @throws     PropelException
+	 */
+	public function addObservationPhotoTailMarkRelatedByContinuesOnCellId(ObservationPhotoTailMark $l)
+	{
+		if ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId === null) {
+			$this->initObservationPhotoTailMarksRelatedByContinuesOnCellId();
+		}
+		if (!$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId[]= $l;
+			$l->setPatternCellTailRelatedByContinuesOnCellId($this);
+		}
+	}
+
+
+	/**
+	 * If this collection has already been initialized with
+	 * an identical criteria, it returns the collection.
+	 * Otherwise if this PatternCellTail is new, it will return
+	 * an empty collection; or if this PatternCellTail has previously
+	 * been saved, it will retrieve related ObservationPhotoTailMarksRelatedByContinuesOnCellId from storage.
+	 *
+	 * This method is protected by default in order to keep the public
+	 * api reasonable.  You can provide public methods for those you
+	 * actually need in PatternCellTail.
+	 *
+	 * @param      Criteria $criteria optional Criteria object to narrow the query
+	 * @param      PropelPDO $con optional connection object
+	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
+	 * @return     PropelCollection|array ObservationPhotoTailMark[] List of ObservationPhotoTailMark objects
+	 */
+	public function getObservationPhotoTailMarksRelatedByContinuesOnCellIdJoinObservationPhotoTail($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	{
+		$query = ObservationPhotoTailMarkQuery::create(null, $criteria);
+		$query->joinWith('ObservationPhotoTail', $join_behavior);
+
+		return $this->getObservationPhotoTailMarksRelatedByContinuesOnCellId($query, $con);
+	}
+
+	/**
 	 * Clears the current object and sets all attributes to their default values
 	 */
 	public function clear()
@@ -910,8 +1407,26 @@ abstract class BasePatternCellTail extends BaseObject  implements Persistent
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
+			if ($this->collObservationPhotoTailMarksRelatedByPatternCellTailId) {
+				foreach ((array) $this->collObservationPhotoTailMarksRelatedByPatternCellTailId as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collObservationPhotoTailMarksRelatedByContinuesFromCellId) {
+				foreach ((array) $this->collObservationPhotoTailMarksRelatedByContinuesFromCellId as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
+			if ($this->collObservationPhotoTailMarksRelatedByContinuesOnCellId) {
+				foreach ((array) $this->collObservationPhotoTailMarksRelatedByContinuesOnCellId as $o) {
+					$o->clearAllReferences($deep);
+				}
+			}
 		} // if ($deep)
 
+		$this->collObservationPhotoTailMarksRelatedByPatternCellTailId = null;
+		$this->collObservationPhotoTailMarksRelatedByContinuesFromCellId = null;
+		$this->collObservationPhotoTailMarksRelatedByContinuesOnCellId = null;
 		$this->aPattern = null;
 	}
 

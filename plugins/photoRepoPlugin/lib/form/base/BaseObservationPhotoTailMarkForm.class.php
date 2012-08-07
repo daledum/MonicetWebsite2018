@@ -16,19 +16,21 @@ abstract class BaseObservationPhotoTailMarkForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'                        => new sfWidgetFormInputHidden(),
       'observation_photo_tail_id' => new sfWidgetFormPropelChoice(array('model' => 'ObservationPhotoTail', 'add_empty' => false)),
-      'mark_id'                   => new sfWidgetFormPropelChoice(array('model' => 'Mark', 'add_empty' => false)),
-      'line'                      => new sfWidgetFormInputText(),
-      'column'                    => new sfWidgetFormInputText(),
-      'observation'               => new sfWidgetFormInputText(),
+      'pattern_cell_tail_id'      => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => false)),
+      'is_wide'                   => new sfWidgetFormInputCheckbox(),
+      'is_deep'                   => new sfWidgetFormInputCheckbox(),
+      'continues_from_cell_id'    => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => true)),
+      'continues_on_cell_id'      => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
       'id'                        => new sfValidatorPropelChoice(array('model' => 'ObservationPhotoTailMark', 'column' => 'id', 'required' => false)),
       'observation_photo_tail_id' => new sfValidatorPropelChoice(array('model' => 'ObservationPhotoTail', 'column' => 'id')),
-      'mark_id'                   => new sfValidatorPropelChoice(array('model' => 'Mark', 'column' => 'id')),
-      'line'                      => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'column'                    => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647)),
-      'observation'               => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'pattern_cell_tail_id'      => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id')),
+      'is_wide'                   => new sfValidatorBoolean(array('required' => false)),
+      'is_deep'                   => new sfValidatorBoolean(array('required' => false)),
+      'continues_from_cell_id'    => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id', 'required' => false)),
+      'continues_on_cell_id'      => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('observation_photo_tail_mark[%s]');

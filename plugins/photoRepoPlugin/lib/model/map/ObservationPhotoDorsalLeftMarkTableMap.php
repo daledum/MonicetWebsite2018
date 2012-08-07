@@ -39,10 +39,11 @@ class ObservationPhotoDorsalLeftMarkTableMap extends TableMap {
 		// columns
 		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
 		$this->addForeignKey('OBSERVATION_PHOTO_DORSAL_LEFT_ID', 'ObservationPhotoDorsalLeftId', 'INTEGER', 'observation_photo_dorsal_left', 'ID', true, null, null);
-		$this->addForeignKey('MARK_ID', 'MarkId', 'INTEGER', 'mark', 'ID', true, null, null);
-		$this->addColumn('LINE', 'Line', 'INTEGER', true, null, null);
-		$this->addColumn('COLUMN', 'Column', 'INTEGER', true, null, null);
-		$this->addColumn('OBSERVATION', 'Observation', 'VARCHAR', false, 255, null);
+		$this->addForeignKey('PATTERN_CELL_DORSAL_LEFT_ID', 'PatternCellDorsalLeftId', 'INTEGER', 'pattern_cell_dorsal_left', 'ID', true, null, null);
+		$this->addColumn('IS_WIDE', 'IsWide', 'BOOLEAN', false, null, false);
+		$this->addColumn('IS_DEEP', 'IsDeep', 'BOOLEAN', false, null, false);
+		$this->addForeignKey('CONTINUES_FROM_CELL_ID', 'ContinuesFromCellId', 'INTEGER', 'pattern_cell_dorsal_left', 'ID', false, null, null);
+		$this->addForeignKey('CONTINUES_ON_CELL_ID', 'ContinuesOnCellId', 'INTEGER', 'pattern_cell_dorsal_left', 'ID', false, null, null);
 		// validators
 	} // initialize()
 
@@ -52,7 +53,9 @@ class ObservationPhotoDorsalLeftMarkTableMap extends TableMap {
 	public function buildRelations()
 	{
     $this->addRelation('ObservationPhotoDorsalLeft', 'ObservationPhotoDorsalLeft', RelationMap::MANY_TO_ONE, array('observation_photo_dorsal_left_id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('Mark', 'Mark', RelationMap::MANY_TO_ONE, array('mark_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('PatternCellDorsalLeftRelatedByPatternCellDorsalLeftId', 'PatternCellDorsalLeft', RelationMap::MANY_TO_ONE, array('pattern_cell_dorsal_left_id' => 'id', ), 'CASCADE', null);
+    $this->addRelation('PatternCellDorsalLeftRelatedByContinuesFromCellId', 'PatternCellDorsalLeft', RelationMap::MANY_TO_ONE, array('continues_from_cell_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('PatternCellDorsalLeftRelatedByContinuesOnCellId', 'PatternCellDorsalLeft', RelationMap::MANY_TO_ONE, array('continues_on_cell_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
 	/**

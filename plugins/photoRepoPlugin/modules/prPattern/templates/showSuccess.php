@@ -17,13 +17,9 @@
           <td>
             <table cellspacing="0" class="show_table">
               <tbody>
-                <tr class="sf_admin_row odd">
-                  <th style="width: 70px;">Linhas:</th>
-                  <td><?php echo $pattern->getLinesTail() ?></td>
-                </tr>
                 <tr class="sf_admin_row even">
-                  <th style="width: 70px;">Colunas:</th>
-                  <td><?php echo $pattern->getColumnsTail() ?></td>
+                  <th style="width: 70px;">Áreas:</th>
+                  <td><?php echo $pattern->tailAreasToString() ?></td>
                 </tr>
                 <tr class="sf_admin_row odd">
                   <th style="width: 70px;">Padrão:</th>
@@ -43,13 +39,9 @@
           <td>
             <table cellspacing="0" class="show_table">
               <tbody>
-                <tr class="sf_admin_row odd">
-                  <th style="width: 70px;">Linhas:</th>
-                  <td><?php echo $pattern->getLinesDorsalLeft() ?></td>
-                </tr>
                 <tr class="sf_admin_row even">
-                  <th style="width: 70px;">Colunas:</th>
-                  <td><?php echo $pattern->getColumnsDorsalLeft() ?></td>
+                  <th style="width: 70px;">Áreas:</th>
+                  <td><?php echo $pattern->dorsalLeftAreasToString() ?></td>
                 </tr>
                 <tr class="sf_admin_row odd">
                   <th style="width: 70px;">Padrão:</th>
@@ -69,13 +61,9 @@
           <td>
             <table cellspacing="0" class="show_table">
               <tbody>
-                <tr class="sf_admin_row odd">
-                  <th style="width: 70px;">Linhas:</th>
-                  <td><?php echo $pattern->getLinesDorsalRight() ?></td>
-                </tr>
                 <tr class="sf_admin_row even">
-                  <th style="width: 70px;">Colunas:</th>
-                  <td><?php echo $pattern->getColumnsDorsalRight() ?></td>
+                  <th style="width: 70px;">Áreas:</th>
+                  <td><?php $pattern->dorsalRightAreasToString() ?></td>
                 </tr>
                 <tr class="sf_admin_row odd">
                   <th style="width: 70px;">Padrão:</th>
