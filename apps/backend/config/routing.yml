@@ -245,6 +245,22 @@ general_info:
     prefix_path:          /general_info
     column:               id
     with_wildcard_routes: true
+    
+general_info_show_import_file:
+  url:  /saidas/ficheiro-para-importacao/ver
+  params:
+    module:     general_info
+    action:     showImportFile
+  requirements:
+    sf_method:  get
+    
+general_info_load_import_file:
+  url:  /saidas/ficheiro-para-importacao/importar
+  params:
+    module:     general_info
+    action:     loadImportFile
+  requirements:
+    sf_method:  post
 
 vessel:
   class: sfPropelRouteCollection
