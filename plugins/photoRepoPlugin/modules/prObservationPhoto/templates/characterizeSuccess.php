@@ -29,7 +29,7 @@
           'fieldsetName' => 'Dorsal esquerda',
           'patternImage' => $pattern->getImageDorsalLeft(),
           'formRouteDestination' => '@observation_photo_dorsal_left',
-          'relatedMarks' => $tailForm->getObject()->getObservationPhotoDorsalLeftMarks()
+          'relatedMarks' => $dorsalLeftForm->getObject()->getObservationPhotoDorsalLeftMarks()
       )) ?>
     <? endif; ?>
     
@@ -42,7 +42,7 @@
           'fieldsetName' => 'Dorsal direita',
           'patternImage' => $pattern->getImageDorsalRight(),
           'formRouteDestination' => '@observation_photo_dorsal_right',
-          'relatedMarks' => $tailForm->getObject()->getObservationPhotoDorsalRightMarks()
+          'relatedMarks' => $dorsalRightForm->getObject()->getObservationPhotoDorsalRightMarks()
       )) ?>
     <? endif; ?>
   </div>
