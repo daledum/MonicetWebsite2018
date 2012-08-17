@@ -73,17 +73,26 @@
               <div class="form_line_characterization">
                 <?php echo $form['is_cutted_point']->renderLabel() ?>
                 <div class="content"><?php echo $form['is_cutted_point']->render() ?></div>
-                <div class="help"><?php echo $form['is_cutted_point']->renderHelp() ?></div>
+                <?php echo $form['is_cutted_point']->renderHelp() ?></div>
               </div>
             </div>
           <?php endif; ?>
-
+          
           <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
-            <?php echo $form['Marcas']->renderError() ?>
             <div class="form_line_characterization">
               <?php echo $form['Marcas']->renderLabel() ?>
+              <div class="content">
+                <?php foreach( $relatedMarks as $mark ): ?>
+                  <?php echo $mark ?> &nbsp;&nbsp;&nbsp;<?php echo link_to('Apagar', '@recognition_of_cetaceans_app', 'confirm=Tem a certezaque pretende apagar esta marca??') ?><br/>
+                <?php endforeach; ?>
+              </div>
+            </div>
+          </div>
+
+          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+            <div class="form_line_characterization">
+              Nova marca
               <div class="content"><?php echo $form['Marcas']->render() ?></div>
-              <div class="help"><?php echo $form['Marcas']->renderHelp() ?></div>
             </div>
           </div>
 

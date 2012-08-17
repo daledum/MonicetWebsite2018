@@ -15,7 +15,8 @@
           'helper' => $helper,
           'fieldsetName' => 'Cauda',
           'patternImage' => $pattern->getImageTail(),
-          'formRouteDestination' => '@observation_photo_tail'
+          'formRouteDestination' => '@observation_photo_tail',
+          'relatedMarks' => $tailForm->getObject()->getObservationPhotoTailMarks()
       )) ?>
     <? endif; ?>
     
@@ -27,7 +28,8 @@
           'helper' => $helper,
           'fieldsetName' => 'Dorsal esquerda',
           'patternImage' => $pattern->getImageDorsalLeft(),
-          'formRouteDestination' => '@observation_photo_dorsal_left'
+          'formRouteDestination' => '@observation_photo_dorsal_left',
+          'relatedMarks' => $tailForm->getObject()->getObservationPhotoDorsalLeftMarks()
       )) ?>
     <? endif; ?>
     
@@ -39,7 +41,8 @@
           'helper' => $helper,
           'fieldsetName' => 'Dorsal direita',
           'patternImage' => $pattern->getImageDorsalRight(),
-          'formRouteDestination' => '@observation_photo_dorsal_right'
+          'formRouteDestination' => '@observation_photo_dorsal_right',
+          'relatedMarks' => $tailForm->getObject()->getObservationPhotoDorsalRightMarks()
       )) ?>
     <? endif; ?>
   </div>
