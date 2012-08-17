@@ -156,7 +156,19 @@
       </trans-unit>
       <trans-unit>
         <source>Is deep</source>
-        <target>Profunda</target>
+        <target>Estreita</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Is cutted point</source>
+        <target>Ponta cortada</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Is cutted point left</source>
+        <target>Ponta esquerda cortada</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Is cutted point right</source>
+        <target>Ponta direita cortada</target>
       </trans-unit>
       <trans-unit>
         <source>Continues from cell</source>

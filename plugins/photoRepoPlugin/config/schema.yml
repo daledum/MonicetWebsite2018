@@ -130,6 +130,8 @@ propel:
     photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_smooth:        { type: BOOLEAN, default: false }
     is_irregular:     { type: BOOLEAN, default: false }
+    is_cutted_point_left:  { type: BOOLEAN, default: false }
+    is_cutted_point_right:  { type: BOOLEAN, default: false }
   
   observation_photo_tail_mark:
     _attributes:      { phpName: ObservationPhotoTailMark, idMethod: native }
@@ -147,6 +149,7 @@ propel:
     photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_smooth:        { type: BOOLEAN, default: false }
     is_irregular:     { type: BOOLEAN, default: false }
+    is_cutted_point:  { type: BOOLEAN, default: false }
     
   observation_photo_dorsal_left_mark:
     _attributes:      { phpName: ObservationPhotoDorsalLeftMark, idMethod: native }
@@ -164,6 +167,7 @@ propel:
     photo_id:         { type: INTEGER, foreignTable: observation_photo, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_smooth:        { type: BOOLEAN, default: false }
     is_irregular:     { type: BOOLEAN, default: false }
+    is_cutted_point:  { type: BOOLEAN, default: false }
     
   observation_photo_dorsal_right_mark:
     _attributes:      { phpName: ObservationPhotoDorsalRightMark, idMethod: native }

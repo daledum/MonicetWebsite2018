@@ -41,6 +41,7 @@ class ObservationPhotoDorsalRightTableMap extends TableMap {
 		$this->addForeignKey('PHOTO_ID', 'PhotoId', 'INTEGER', 'observation_photo', 'ID', true, null, null);
 		$this->addColumn('IS_SMOOTH', 'IsSmooth', 'BOOLEAN', false, null, false);
 		$this->addColumn('IS_IRREGULAR', 'IsIrregular', 'BOOLEAN', false, null, false);
+		$this->addColumn('IS_CUTTED_POINT', 'IsCuttedPoint', 'BOOLEAN', false, null, false);
 		// validators
 	} // initialize()
 

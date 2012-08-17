@@ -22,11 +22,11 @@ generator:
         display:
           - code
           - _individual_id
-          - _photo_date
-          - _photo_time
+          #- _photo_date
+          #- _photo_time
           - _specie_id
           - island
-          - _photographer_id
+          #- _photographer_id
           - _is_validated
       filter:  ~
       form:    

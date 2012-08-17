@@ -51,6 +51,13 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 	protected $is_irregular;
 
 	/**
+	 * The value for the is_cutted_point field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $is_cutted_point;
+
+	/**
 	 * @var        ObservationPhoto
 	 */
 	protected $aObservationPhoto;
@@ -84,6 +91,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 	{
 		$this->is_smooth = false;
 		$this->is_irregular = false;
+		$this->is_cutted_point = false;
 	}
 
 	/**
@@ -134,6 +142,16 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 	public function getIsIrregular()
 	{
 		return $this->is_irregular;
+	}
+
+	/**
+	 * Get the [is_cutted_point] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsCuttedPoint()
+	{
+		return $this->is_cutted_point;
 	}
 
 	/**
@@ -221,6 +239,26 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 	} // setIsIrregular()
 
 	/**
+	 * Set the value of [is_cutted_point] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     ObservationPhotoDorsalLeft The current object (for fluent API support)
+	 */
+	public function setIsCuttedPoint($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_cutted_point !== $v || $this->isNew()) {
+			$this->is_cutted_point = $v;
+			$this->modifiedColumns[] = ObservationPhotoDorsalLeftPeer::IS_CUTTED_POINT;
+		}
+
+		return $this;
+	} // setIsCuttedPoint()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -235,6 +273,10 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 			}
 
 			if ($this->is_irregular !== false) {
+				return false;
+			}
+
+			if ($this->is_cutted_point !== false) {
 				return false;
 			}
 
@@ -264,6 +306,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 			$this->photo_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
 			$this->is_smooth = ($row[$startcol + 2] !== null) ? (boolean) $row[$startcol + 2] : null;
 			$this->is_irregular = ($row[$startcol + 3] !== null) ? (boolean) $row[$startcol + 3] : null;
+			$this->is_cutted_point = ($row[$startcol + 4] !== null) ? (boolean) $row[$startcol + 4] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -272,7 +315,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = ObservationPhotoDorsalLeftPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 5; // 5 = ObservationPhotoDorsalLeftPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ObservationPhotoDorsalLeft object", $e);
@@ -661,6 +704,9 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 			case 3:
 				return $this->getIsIrregular();
 				break;
+			case 4:
+				return $this->getIsCuttedPoint();
+				break;
 			default:
 				return null;
 				break;
@@ -689,6 +735,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 			$keys[1] => $this->getPhotoId(),
 			$keys[2] => $this->getIsSmooth(),
 			$keys[3] => $this->getIsIrregular(),
+			$keys[4] => $this->getIsCuttedPoint(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aObservationPhoto) {
@@ -737,6 +784,9 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 			case 3:
 				$this->setIsIrregular($value);
 				break;
+			case 4:
+				$this->setIsCuttedPoint($value);
+				break;
 		} // switch()
 	}
 
@@ -765,6 +815,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 		if (array_key_exists($keys[1], $arr)) $this->setPhotoId($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setIsSmooth($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setIsIrregular($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setIsCuttedPoint($arr[$keys[4]]);
 	}
 
 	/**
@@ -780,6 +831,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 		if ($this->isColumnModified(ObservationPhotoDorsalLeftPeer::PHOTO_ID)) $criteria->add(ObservationPhotoDorsalLeftPeer::PHOTO_ID, $this->photo_id);
 		if ($this->isColumnModified(ObservationPhotoDorsalLeftPeer::IS_SMOOTH)) $criteria->add(ObservationPhotoDorsalLeftPeer::IS_SMOOTH, $this->is_smooth);
 		if ($this->isColumnModified(ObservationPhotoDorsalLeftPeer::IS_IRREGULAR)) $criteria->add(ObservationPhotoDorsalLeftPeer::IS_IRREGULAR, $this->is_irregular);
+		if ($this->isColumnModified(ObservationPhotoDorsalLeftPeer::IS_CUTTED_POINT)) $criteria->add(ObservationPhotoDorsalLeftPeer::IS_CUTTED_POINT, $this->is_cutted_point);
 
 		return $criteria;
 	}
@@ -844,6 +896,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 		$copyObj->setPhotoId($this->photo_id);
 		$copyObj->setIsSmooth($this->is_smooth);
 		$copyObj->setIsIrregular($this->is_irregular);
+		$copyObj->setIsCuttedPoint($this->is_cutted_point);
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1143,6 +1196,7 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 		$this->photo_id = null;
 		$this->is_smooth = null;
 		$this->is_irregular = null;
+		$this->is_cutted_point = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

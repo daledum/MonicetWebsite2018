@@ -51,6 +51,20 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 	protected $is_irregular;
 
 	/**
+	 * The value for the is_cutted_point_left field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $is_cutted_point_left;
+
+	/**
+	 * The value for the is_cutted_point_right field.
+	 * Note: this column has a database default value of: false
+	 * @var        boolean
+	 */
+	protected $is_cutted_point_right;
+
+	/**
 	 * @var        ObservationPhoto
 	 */
 	protected $aObservationPhoto;
@@ -84,6 +98,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 	{
 		$this->is_smooth = false;
 		$this->is_irregular = false;
+		$this->is_cutted_point_left = false;
+		$this->is_cutted_point_right = false;
 	}
 
 	/**
@@ -134,6 +150,26 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 	public function getIsIrregular()
 	{
 		return $this->is_irregular;
+	}
+
+	/**
+	 * Get the [is_cutted_point_left] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsCuttedPointLeft()
+	{
+		return $this->is_cutted_point_left;
+	}
+
+	/**
+	 * Get the [is_cutted_point_right] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsCuttedPointRight()
+	{
+		return $this->is_cutted_point_right;
 	}
 
 	/**
@@ -221,6 +257,46 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 	} // setIsIrregular()
 
 	/**
+	 * Set the value of [is_cutted_point_left] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     ObservationPhotoTail The current object (for fluent API support)
+	 */
+	public function setIsCuttedPointLeft($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_cutted_point_left !== $v || $this->isNew()) {
+			$this->is_cutted_point_left = $v;
+			$this->modifiedColumns[] = ObservationPhotoTailPeer::IS_CUTTED_POINT_LEFT;
+		}
+
+		return $this;
+	} // setIsCuttedPointLeft()
+
+	/**
+	 * Set the value of [is_cutted_point_right] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     ObservationPhotoTail The current object (for fluent API support)
+	 */
+	public function setIsCuttedPointRight($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_cutted_point_right !== $v || $this->isNew()) {
+			$this->is_cutted_point_right = $v;
+			$this->modifiedColumns[] = ObservationPhotoTailPeer::IS_CUTTED_POINT_RIGHT;
+		}
+
+		return $this;
+	} // setIsCuttedPointRight()
+
+	/**
 	 * Indicates whether the columns in this object are only set to default values.
 	 *
 	 * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -235,6 +311,14 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 			}
 
 			if ($this->is_irregular !== false) {
+				return false;
+			}
+
+			if ($this->is_cutted_point_left !== false) {
+				return false;
+			}
+
+			if ($this->is_cutted_point_right !== false) {
 				return false;
 			}
 
@@ -264,6 +348,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 			$this->photo_id = ($row[$startcol + 1] !== null) ? (int) $row[$startcol + 1] : null;
 			$this->is_smooth = ($row[$startcol + 2] !== null) ? (boolean) $row[$startcol + 2] : null;
 			$this->is_irregular = ($row[$startcol + 3] !== null) ? (boolean) $row[$startcol + 3] : null;
+			$this->is_cutted_point_left = ($row[$startcol + 4] !== null) ? (boolean) $row[$startcol + 4] : null;
+			$this->is_cutted_point_right = ($row[$startcol + 5] !== null) ? (boolean) $row[$startcol + 5] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -272,7 +358,7 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 4; // 4 = ObservationPhotoTailPeer::NUM_COLUMNS - ObservationPhotoTailPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = ObservationPhotoTailPeer::NUM_COLUMNS - ObservationPhotoTailPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ObservationPhotoTail object", $e);
@@ -661,6 +747,12 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 			case 3:
 				return $this->getIsIrregular();
 				break;
+			case 4:
+				return $this->getIsCuttedPointLeft();
+				break;
+			case 5:
+				return $this->getIsCuttedPointRight();
+				break;
 			default:
 				return null;
 				break;
@@ -689,6 +781,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 			$keys[1] => $this->getPhotoId(),
 			$keys[2] => $this->getIsSmooth(),
 			$keys[3] => $this->getIsIrregular(),
+			$keys[4] => $this->getIsCuttedPointLeft(),
+			$keys[5] => $this->getIsCuttedPointRight(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aObservationPhoto) {
@@ -737,6 +831,12 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 			case 3:
 				$this->setIsIrregular($value);
 				break;
+			case 4:
+				$this->setIsCuttedPointLeft($value);
+				break;
+			case 5:
+				$this->setIsCuttedPointRight($value);
+				break;
 		} // switch()
 	}
 
@@ -765,6 +865,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 		if (array_key_exists($keys[1], $arr)) $this->setPhotoId($arr[$keys[1]]);
 		if (array_key_exists($keys[2], $arr)) $this->setIsSmooth($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setIsIrregular($arr[$keys[3]]);
+		if (array_key_exists($keys[4], $arr)) $this->setIsCuttedPointLeft($arr[$keys[4]]);
+		if (array_key_exists($keys[5], $arr)) $this->setIsCuttedPointRight($arr[$keys[5]]);
 	}
 
 	/**
@@ -780,6 +882,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 		if ($this->isColumnModified(ObservationPhotoTailPeer::PHOTO_ID)) $criteria->add(ObservationPhotoTailPeer::PHOTO_ID, $this->photo_id);
 		if ($this->isColumnModified(ObservationPhotoTailPeer::IS_SMOOTH)) $criteria->add(ObservationPhotoTailPeer::IS_SMOOTH, $this->is_smooth);
 		if ($this->isColumnModified(ObservationPhotoTailPeer::IS_IRREGULAR)) $criteria->add(ObservationPhotoTailPeer::IS_IRREGULAR, $this->is_irregular);
+		if ($this->isColumnModified(ObservationPhotoTailPeer::IS_CUTTED_POINT_LEFT)) $criteria->add(ObservationPhotoTailPeer::IS_CUTTED_POINT_LEFT, $this->is_cutted_point_left);
+		if ($this->isColumnModified(ObservationPhotoTailPeer::IS_CUTTED_POINT_RIGHT)) $criteria->add(ObservationPhotoTailPeer::IS_CUTTED_POINT_RIGHT, $this->is_cutted_point_right);
 
 		return $criteria;
 	}
@@ -844,6 +948,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 		$copyObj->setPhotoId($this->photo_id);
 		$copyObj->setIsSmooth($this->is_smooth);
 		$copyObj->setIsIrregular($this->is_irregular);
+		$copyObj->setIsCuttedPointLeft($this->is_cutted_point_left);
+		$copyObj->setIsCuttedPointRight($this->is_cutted_point_right);
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -1143,6 +1249,8 @@ abstract class BaseObservationPhotoTail extends BaseObject  implements Persisten
 		$this->photo_id = null;
 		$this->is_smooth = null;
 		$this->is_irregular = null;
+		$this->is_cutted_point_left = null;
+		$this->is_cutted_point_right = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();

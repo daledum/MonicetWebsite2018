@@ -10,11 +10,15 @@
  * @method     ObservationPhotoTailQuery orderByPhotoId($order = Criteria::ASC) Order by the photo_id column
  * @method     ObservationPhotoTailQuery orderByIsSmooth($order = Criteria::ASC) Order by the is_smooth column
  * @method     ObservationPhotoTailQuery orderByIsIrregular($order = Criteria::ASC) Order by the is_irregular column
+ * @method     ObservationPhotoTailQuery orderByIsCuttedPointLeft($order = Criteria::ASC) Order by the is_cutted_point_left column
+ * @method     ObservationPhotoTailQuery orderByIsCuttedPointRight($order = Criteria::ASC) Order by the is_cutted_point_right column
  *
  * @method     ObservationPhotoTailQuery groupById() Group by the id column
  * @method     ObservationPhotoTailQuery groupByPhotoId() Group by the photo_id column
  * @method     ObservationPhotoTailQuery groupByIsSmooth() Group by the is_smooth column
  * @method     ObservationPhotoTailQuery groupByIsIrregular() Group by the is_irregular column
+ * @method     ObservationPhotoTailQuery groupByIsCuttedPointLeft() Group by the is_cutted_point_left column
+ * @method     ObservationPhotoTailQuery groupByIsCuttedPointRight() Group by the is_cutted_point_right column
  *
  * @method     ObservationPhotoTailQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ObservationPhotoTailQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -35,11 +39,15 @@
  * @method     ObservationPhotoTail findOneByPhotoId(int $photo_id) Return the first ObservationPhotoTail filtered by the photo_id column
  * @method     ObservationPhotoTail findOneByIsSmooth(boolean $is_smooth) Return the first ObservationPhotoTail filtered by the is_smooth column
  * @method     ObservationPhotoTail findOneByIsIrregular(boolean $is_irregular) Return the first ObservationPhotoTail filtered by the is_irregular column
+ * @method     ObservationPhotoTail findOneByIsCuttedPointLeft(boolean $is_cutted_point_left) Return the first ObservationPhotoTail filtered by the is_cutted_point_left column
+ * @method     ObservationPhotoTail findOneByIsCuttedPointRight(boolean $is_cutted_point_right) Return the first ObservationPhotoTail filtered by the is_cutted_point_right column
  *
  * @method     array findById(int $id) Return ObservationPhotoTail objects filtered by the id column
  * @method     array findByPhotoId(int $photo_id) Return ObservationPhotoTail objects filtered by the photo_id column
  * @method     array findByIsSmooth(boolean $is_smooth) Return ObservationPhotoTail objects filtered by the is_smooth column
  * @method     array findByIsIrregular(boolean $is_irregular) Return ObservationPhotoTail objects filtered by the is_irregular column
+ * @method     array findByIsCuttedPointLeft(boolean $is_cutted_point_left) Return ObservationPhotoTail objects filtered by the is_cutted_point_left column
+ * @method     array findByIsCuttedPointRight(boolean $is_cutted_point_right) Return ObservationPhotoTail objects filtered by the is_cutted_point_right column
  *
  * @package    propel.generator.plugins.photoRepoPlugin.lib.model.om
  */
@@ -229,6 +237,40 @@ abstract class BaseObservationPhotoTailQuery extends ModelCriteria
 			$is_irregular = in_array(strtolower($isIrregular), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
 		}
 		return $this->addUsingAlias(ObservationPhotoTailPeer::IS_IRREGULAR, $isIrregular, $comparison);
+	}
+
+	/**
+	 * Filter the query on the is_cutted_point_left column
+	 * 
+	 * @param     boolean|string $isCuttedPointLeft The value to use as filter.
+	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ObservationPhotoTailQuery The current query, for fluid interface
+	 */
+	public function filterByIsCuttedPointLeft($isCuttedPointLeft = null, $comparison = null)
+	{
+		if (is_string($isCuttedPointLeft)) {
+			$is_cutted_point_left = in_array(strtolower($isCuttedPointLeft), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+		}
+		return $this->addUsingAlias(ObservationPhotoTailPeer::IS_CUTTED_POINT_LEFT, $isCuttedPointLeft, $comparison);
+	}
+
+	/**
+	 * Filter the query on the is_cutted_point_right column
+	 * 
+	 * @param     boolean|string $isCuttedPointRight The value to use as filter.
+	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ObservationPhotoTailQuery The current query, for fluid interface
+	 */
+	public function filterByIsCuttedPointRight($isCuttedPointRight = null, $comparison = null)
+	{
+		if (is_string($isCuttedPointRight)) {
+			$is_cutted_point_right = in_array(strtolower($isCuttedPointRight), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+		}
+		return $this->addUsingAlias(ObservationPhotoTailPeer::IS_CUTTED_POINT_RIGHT, $isCuttedPointRight, $comparison);
 	}
 
 	/**

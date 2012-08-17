@@ -353,6 +353,8 @@ CREATE TABLE `observation_photo_tail`
 	`photo_id` INTEGER  NOT NULL,
 	`is_smooth` TINYINT default 0,
 	`is_irregular` TINYINT default 0,
+	`is_cutted_point_left` TINYINT default 0,
+	`is_cutted_point_right` TINYINT default 0,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_tail_I_1`(`photo_id`),
 	CONSTRAINT `observation_photo_tail_FK_1`
@@ -413,6 +415,7 @@ CREATE TABLE `observation_photo_dorsal_left`
 	`photo_id` INTEGER  NOT NULL,
 	`is_smooth` TINYINT default 0,
 	`is_irregular` TINYINT default 0,
+	`is_cutted_point` TINYINT default 0,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_dorsal_left_I_1`(`photo_id`),
 	CONSTRAINT `observation_photo_dorsal_left_FK_1`
@@ -473,6 +476,7 @@ CREATE TABLE `observation_photo_dorsal_right`
 	`photo_id` INTEGER  NOT NULL,
 	`is_smooth` TINYINT default 0,
 	`is_irregular` TINYINT default 0,
+	`is_cutted_point` TINYINT default 0,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_dorsal_right_I_1`(`photo_id`),
 	CONSTRAINT `observation_photo_dorsal_right_FK_1`

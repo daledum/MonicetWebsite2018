@@ -8,52 +8,87 @@
     
       <div class="characterize_photo_pattern">
         <?php if($pattern): ?>
-          <?php if($pattern->getImageTail()): ?>
+        
+          <?php if($patternImage ): ?>
             <img width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
-            <?php else: ?>
-              <p>Padrão indisponível.</p>
-            <?php endif; ?>
+          <?php else: ?>
+            <p>Padrão indisponível.</p>
+          <?php endif; ?>
+            
         <?php else: ?>
           <p>Padrão indisponível.</p>
         <?php endif; ?>
       </div>
-    
-      <fieldset id="sf_fieldset_none">
-        <h2><?php echo $fieldsetName ?></h2>
-        <?php echo $form->renderHiddenFields(false) ?>
+      <div id="form_characterization_box">
+        <fieldset id="sf_fieldset_none">
+          <h2><?php echo $fieldsetName ?></h2>
+          <?php echo $form->renderHiddenFields(false) ?>
 
-        <?php if ($form->hasGlobalErrors()): ?>
-          <?php echo $form->renderGlobalErrors() ?>
-        <?php endif; ?>
+          <?php if ($form->hasGlobalErrors()): ?>
+            <?php echo $form->renderGlobalErrors() ?>
+          <?php endif; ?>
 
-        <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
-          <?php echo $form['is_smooth']->renderError() ?>
-          <div>
-            <?php echo $form['is_smooth']->renderLabel() ?>
-            <div class="content"><?php echo $form['is_smooth']->render() ?></div>
-            <div class="help"><?php echo $form['is_smooth']->renderHelp() ?></div>
+          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+            <?php echo $form['is_smooth']->renderError() ?>
+            <div class="form_line_characterization">
+              <?php echo $form['is_smooth']->renderLabel() ?>
+              <div class="content"><?php echo $form['is_smooth']->render() ?></div>
+              <div class="help"><?php echo $form['is_smooth']->renderHelp() ?></div>
+            </div>
           </div>
-        </div>
-        <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
-          <?php echo $form['is_irregular']->renderError() ?>
-          <div>
-            <?php echo $form['is_irregular']->renderLabel() ?>
-            <div class="content"><?php echo $form['is_irregular']->render() ?></div>
-            <div class="help"><?php echo $form['is_irregular']->renderHelp() ?></div>
+          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+            <?php echo $form['is_irregular']->renderError() ?>
+            <div class="form_line_characterization">
+              <?php echo $form['is_irregular']->renderLabel() ?>
+              <div class="content"><?php echo $form['is_irregular']->render() ?></div>
+              <div class="help"><?php echo $form['is_irregular']->renderHelp() ?></div>
+            </div>
           </div>
-        </div>
 
-        <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
-          <?php echo $form['Marcas']->renderError() ?>
-          <div>
-            <?php echo $form['Marcas']->renderLabel() ?>
-            <div class="content"><?php echo $form['Marcas']->render() ?></div>
-            <div class="help"><?php echo $form['Marcas']->renderHelp() ?></div>
+          <?php if(isset($form['is_cutted_point_left'])): ?>
+            <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+              <?php echo $form['is_cutted_point_left']->renderError() ?>
+              <div class="form_line_characterization">
+                <?php echo $form['is_cutted_point_left']->renderLabel() ?>
+                <div class="content"><?php echo $form['is_cutted_point_left']->render() ?></div>
+                <div class="help"><?php echo $form['is_cutted_point_left']->renderHelp() ?></div>
+              </div>
+            </div>
+          <?php endif; ?>
+
+          <?php if(isset($form['is_cutted_point_right'])): ?>
+            <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+              <?php echo $form['is_cutted_point_right']->renderError() ?>
+              <div class="form_line_characterization">
+                <?php echo $form['is_cutted_point_right']->renderLabel() ?>
+                <div class="content"><?php echo $form['is_cutted_point_right']->render() ?></div>
+                <div class="help"><?php echo $form['is_cutted_point_right']->renderHelp() ?></div>
+              </div>
+            </div>
+          <?php endif; ?>
+
+          <?php if(isset($form['is_cutted_point'])): ?>
+            <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+              <?php echo $form['is_cutted_point']->renderError() ?>
+              <div class="form_line_characterization">
+                <?php echo $form['is_cutted_point']->renderLabel() ?>
+                <div class="content"><?php echo $form['is_cutted_point']->render() ?></div>
+                <div class="help"><?php echo $form['is_cutted_point']->renderHelp() ?></div>
+              </div>
+            </div>
+          <?php endif; ?>
+
+          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+            <?php echo $form['Marcas']->renderError() ?>
+            <div class="form_line_characterization">
+              <?php echo $form['Marcas']->renderLabel() ?>
+              <div class="content"><?php echo $form['Marcas']->render() ?></div>
+              <div class="help"><?php echo $form['Marcas']->renderHelp() ?></div>
+            </div>
           </div>
-        </div>
 
-      </fieldset>
-
+        </fieldset>
+      </div>
       <ul class="sf_admin_actions">
         <?php echo $helper->linkToList(array(  'params' =>   array(  ),  'class_suffix' => 'list',  'label' => 'Back to list',)) ?>
         <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>

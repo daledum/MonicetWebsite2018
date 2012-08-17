@@ -26,7 +26,7 @@ abstract class BaseObservationPhotoTailPeer {
 	const TM_CLASS = 'ObservationPhotoTailTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 6;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -42,6 +42,12 @@ abstract class BaseObservationPhotoTailPeer {
 
 	/** the column name for the IS_IRREGULAR field */
 	const IS_IRREGULAR = 'observation_photo_tail.IS_IRREGULAR';
+
+	/** the column name for the IS_CUTTED_POINT_LEFT field */
+	const IS_CUTTED_POINT_LEFT = 'observation_photo_tail.IS_CUTTED_POINT_LEFT';
+
+	/** the column name for the IS_CUTTED_POINT_RIGHT field */
+	const IS_CUTTED_POINT_RIGHT = 'observation_photo_tail.IS_CUTTED_POINT_RIGHT';
 
 	/**
 	 * An identiy map to hold any loaded instances of ObservationPhotoTail objects.
@@ -66,12 +72,12 @@ abstract class BaseObservationPhotoTailPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'PhotoId', 'IsSmooth', 'IsIrregular', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'photoId', 'isSmooth', 'isIrregular', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::PHOTO_ID, self::IS_SMOOTH, self::IS_IRREGULAR, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PHOTO_ID', 'IS_SMOOTH', 'IS_IRREGULAR', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'photo_id', 'is_smooth', 'is_irregular', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'PhotoId', 'IsSmooth', 'IsIrregular', 'IsCuttedPointLeft', 'IsCuttedPointRight', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'photoId', 'isSmooth', 'isIrregular', 'isCuttedPointLeft', 'isCuttedPointRight', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::PHOTO_ID, self::IS_SMOOTH, self::IS_IRREGULAR, self::IS_CUTTED_POINT_LEFT, self::IS_CUTTED_POINT_RIGHT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PHOTO_ID', 'IS_SMOOTH', 'IS_IRREGULAR', 'IS_CUTTED_POINT_LEFT', 'IS_CUTTED_POINT_RIGHT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'photo_id', 'is_smooth', 'is_irregular', 'is_cutted_point_left', 'is_cutted_point_right', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -81,12 +87,12 @@ abstract class BaseObservationPhotoTailPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PhotoId' => 1, 'IsSmooth' => 2, 'IsIrregular' => 3, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'photoId' => 1, 'isSmooth' => 2, 'isIrregular' => 3, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PHOTO_ID => 1, self::IS_SMOOTH => 2, self::IS_IRREGULAR => 3, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PHOTO_ID' => 1, 'IS_SMOOTH' => 2, 'IS_IRREGULAR' => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'photo_id' => 1, 'is_smooth' => 2, 'is_irregular' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PhotoId' => 1, 'IsSmooth' => 2, 'IsIrregular' => 3, 'IsCuttedPointLeft' => 4, 'IsCuttedPointRight' => 5, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'photoId' => 1, 'isSmooth' => 2, 'isIrregular' => 3, 'isCuttedPointLeft' => 4, 'isCuttedPointRight' => 5, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PHOTO_ID => 1, self::IS_SMOOTH => 2, self::IS_IRREGULAR => 3, self::IS_CUTTED_POINT_LEFT => 4, self::IS_CUTTED_POINT_RIGHT => 5, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PHOTO_ID' => 1, 'IS_SMOOTH' => 2, 'IS_IRREGULAR' => 3, 'IS_CUTTED_POINT_LEFT' => 4, 'IS_CUTTED_POINT_RIGHT' => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'photo_id' => 1, 'is_smooth' => 2, 'is_irregular' => 3, 'is_cutted_point_left' => 4, 'is_cutted_point_right' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -162,11 +168,15 @@ abstract class BaseObservationPhotoTailPeer {
 			$criteria->addSelectColumn(ObservationPhotoTailPeer::PHOTO_ID);
 			$criteria->addSelectColumn(ObservationPhotoTailPeer::IS_SMOOTH);
 			$criteria->addSelectColumn(ObservationPhotoTailPeer::IS_IRREGULAR);
+			$criteria->addSelectColumn(ObservationPhotoTailPeer::IS_CUTTED_POINT_LEFT);
+			$criteria->addSelectColumn(ObservationPhotoTailPeer::IS_CUTTED_POINT_RIGHT);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.PHOTO_ID');
 			$criteria->addSelectColumn($alias . '.IS_SMOOTH');
 			$criteria->addSelectColumn($alias . '.IS_IRREGULAR');
+			$criteria->addSelectColumn($alias . '.IS_CUTTED_POINT_LEFT');
+			$criteria->addSelectColumn($alias . '.IS_CUTTED_POINT_RIGHT');
 		}
 	}
 

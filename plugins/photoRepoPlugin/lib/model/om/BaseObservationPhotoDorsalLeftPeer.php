@@ -26,7 +26,7 @@ abstract class BaseObservationPhotoDorsalLeftPeer {
 	const TM_CLASS = 'ObservationPhotoDorsalLeftTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 4;
+	const NUM_COLUMNS = 5;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -42,6 +42,9 @@ abstract class BaseObservationPhotoDorsalLeftPeer {
 
 	/** the column name for the IS_IRREGULAR field */
 	const IS_IRREGULAR = 'observation_photo_dorsal_left.IS_IRREGULAR';
+
+	/** the column name for the IS_CUTTED_POINT field */
+	const IS_CUTTED_POINT = 'observation_photo_dorsal_left.IS_CUTTED_POINT';
 
 	/**
 	 * An identiy map to hold any loaded instances of ObservationPhotoDorsalLeft objects.
@@ -66,12 +69,12 @@ abstract class BaseObservationPhotoDorsalLeftPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'PhotoId', 'IsSmooth', 'IsIrregular', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'photoId', 'isSmooth', 'isIrregular', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::PHOTO_ID, self::IS_SMOOTH, self::IS_IRREGULAR, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PHOTO_ID', 'IS_SMOOTH', 'IS_IRREGULAR', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'photo_id', 'is_smooth', 'is_irregular', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'PhotoId', 'IsSmooth', 'IsIrregular', 'IsCuttedPoint', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'photoId', 'isSmooth', 'isIrregular', 'isCuttedPoint', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::PHOTO_ID, self::IS_SMOOTH, self::IS_IRREGULAR, self::IS_CUTTED_POINT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'PHOTO_ID', 'IS_SMOOTH', 'IS_IRREGULAR', 'IS_CUTTED_POINT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'photo_id', 'is_smooth', 'is_irregular', 'is_cutted_point', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	/**
@@ -81,12 +84,12 @@ abstract class BaseObservationPhotoDorsalLeftPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PhotoId' => 1, 'IsSmooth' => 2, 'IsIrregular' => 3, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'photoId' => 1, 'isSmooth' => 2, 'isIrregular' => 3, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PHOTO_ID => 1, self::IS_SMOOTH => 2, self::IS_IRREGULAR => 3, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PHOTO_ID' => 1, 'IS_SMOOTH' => 2, 'IS_IRREGULAR' => 3, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'photo_id' => 1, 'is_smooth' => 2, 'is_irregular' => 3, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'PhotoId' => 1, 'IsSmooth' => 2, 'IsIrregular' => 3, 'IsCuttedPoint' => 4, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'photoId' => 1, 'isSmooth' => 2, 'isIrregular' => 3, 'isCuttedPoint' => 4, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::PHOTO_ID => 1, self::IS_SMOOTH => 2, self::IS_IRREGULAR => 3, self::IS_CUTTED_POINT => 4, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'PHOTO_ID' => 1, 'IS_SMOOTH' => 2, 'IS_IRREGULAR' => 3, 'IS_CUTTED_POINT' => 4, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'photo_id' => 1, 'is_smooth' => 2, 'is_irregular' => 3, 'is_cutted_point' => 4, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, )
 	);
 
 	/**
@@ -162,11 +165,13 @@ abstract class BaseObservationPhotoDorsalLeftPeer {
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftPeer::PHOTO_ID);
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftPeer::IS_SMOOTH);
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftPeer::IS_IRREGULAR);
+			$criteria->addSelectColumn(ObservationPhotoDorsalLeftPeer::IS_CUTTED_POINT);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.PHOTO_ID');
 			$criteria->addSelectColumn($alias . '.IS_SMOOTH');
 			$criteria->addSelectColumn($alias . '.IS_IRREGULAR');
+			$criteria->addSelectColumn($alias . '.IS_CUTTED_POINT');
 		}
 	}
 

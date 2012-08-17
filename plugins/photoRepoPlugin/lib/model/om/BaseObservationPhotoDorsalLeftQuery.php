@@ -10,11 +10,13 @@
  * @method     ObservationPhotoDorsalLeftQuery orderByPhotoId($order = Criteria::ASC) Order by the photo_id column
  * @method     ObservationPhotoDorsalLeftQuery orderByIsSmooth($order = Criteria::ASC) Order by the is_smooth column
  * @method     ObservationPhotoDorsalLeftQuery orderByIsIrregular($order = Criteria::ASC) Order by the is_irregular column
+ * @method     ObservationPhotoDorsalLeftQuery orderByIsCuttedPoint($order = Criteria::ASC) Order by the is_cutted_point column
  *
  * @method     ObservationPhotoDorsalLeftQuery groupById() Group by the id column
  * @method     ObservationPhotoDorsalLeftQuery groupByPhotoId() Group by the photo_id column
  * @method     ObservationPhotoDorsalLeftQuery groupByIsSmooth() Group by the is_smooth column
  * @method     ObservationPhotoDorsalLeftQuery groupByIsIrregular() Group by the is_irregular column
+ * @method     ObservationPhotoDorsalLeftQuery groupByIsCuttedPoint() Group by the is_cutted_point column
  *
  * @method     ObservationPhotoDorsalLeftQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ObservationPhotoDorsalLeftQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -35,11 +37,13 @@
  * @method     ObservationPhotoDorsalLeft findOneByPhotoId(int $photo_id) Return the first ObservationPhotoDorsalLeft filtered by the photo_id column
  * @method     ObservationPhotoDorsalLeft findOneByIsSmooth(boolean $is_smooth) Return the first ObservationPhotoDorsalLeft filtered by the is_smooth column
  * @method     ObservationPhotoDorsalLeft findOneByIsIrregular(boolean $is_irregular) Return the first ObservationPhotoDorsalLeft filtered by the is_irregular column
+ * @method     ObservationPhotoDorsalLeft findOneByIsCuttedPoint(boolean $is_cutted_point) Return the first ObservationPhotoDorsalLeft filtered by the is_cutted_point column
  *
  * @method     array findById(int $id) Return ObservationPhotoDorsalLeft objects filtered by the id column
  * @method     array findByPhotoId(int $photo_id) Return ObservationPhotoDorsalLeft objects filtered by the photo_id column
  * @method     array findByIsSmooth(boolean $is_smooth) Return ObservationPhotoDorsalLeft objects filtered by the is_smooth column
  * @method     array findByIsIrregular(boolean $is_irregular) Return ObservationPhotoDorsalLeft objects filtered by the is_irregular column
+ * @method     array findByIsCuttedPoint(boolean $is_cutted_point) Return ObservationPhotoDorsalLeft objects filtered by the is_cutted_point column
  *
  * @package    propel.generator.plugins.photoRepoPlugin.lib.model.om
  */
@@ -229,6 +233,23 @@ abstract class BaseObservationPhotoDorsalLeftQuery extends ModelCriteria
 			$is_irregular = in_array(strtolower($isIrregular), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
 		}
 		return $this->addUsingAlias(ObservationPhotoDorsalLeftPeer::IS_IRREGULAR, $isIrregular, $comparison);
+	}
+
+	/**
+	 * Filter the query on the is_cutted_point column
+	 * 
+	 * @param     boolean|string $isCuttedPoint The value to use as filter.
+	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ObservationPhotoDorsalLeftQuery The current query, for fluid interface
+	 */
+	public function filterByIsCuttedPoint($isCuttedPoint = null, $comparison = null)
+	{
+		if (is_string($isCuttedPoint)) {
+			$is_cutted_point = in_array(strtolower($isCuttedPoint), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+		}
+		return $this->addUsingAlias(ObservationPhotoDorsalLeftPeer::IS_CUTTED_POINT, $isCuttedPoint, $comparison);
 	}
 
 	/**
