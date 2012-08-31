@@ -5,7 +5,7 @@ class ObservationPhotoTailPeer extends BaseObservationPhotoTailPeer {
       throw new Exception('Missing photo_id');
     } else {
       $observationPhotoTail = ObservationPhotoTailQuery::create()
-              ->filterById( $photoId )
+              ->filterByPhotoId( $photoId )
               ->findOne();
       if( !$observationPhotoTail ){
         $observationPhotoTail = new ObservationPhotoTail();

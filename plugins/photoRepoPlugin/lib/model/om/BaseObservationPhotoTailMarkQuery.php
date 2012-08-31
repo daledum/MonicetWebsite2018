@@ -11,16 +11,14 @@
  * @method     ObservationPhotoTailMarkQuery orderByPatternCellTailId($order = Criteria::ASC) Order by the pattern_cell_tail_id column
  * @method     ObservationPhotoTailMarkQuery orderByIsWide($order = Criteria::ASC) Order by the is_wide column
  * @method     ObservationPhotoTailMarkQuery orderByIsDeep($order = Criteria::ASC) Order by the is_deep column
- * @method     ObservationPhotoTailMarkQuery orderByContinuesFromCellId($order = Criteria::ASC) Order by the continues_from_cell_id column
- * @method     ObservationPhotoTailMarkQuery orderByContinuesOnCellId($order = Criteria::ASC) Order by the continues_on_cell_id column
+ * @method     ObservationPhotoTailMarkQuery orderByToCellId($order = Criteria::ASC) Order by the to_cell_id column
  *
  * @method     ObservationPhotoTailMarkQuery groupById() Group by the id column
  * @method     ObservationPhotoTailMarkQuery groupByObservationPhotoTailId() Group by the observation_photo_tail_id column
  * @method     ObservationPhotoTailMarkQuery groupByPatternCellTailId() Group by the pattern_cell_tail_id column
  * @method     ObservationPhotoTailMarkQuery groupByIsWide() Group by the is_wide column
  * @method     ObservationPhotoTailMarkQuery groupByIsDeep() Group by the is_deep column
- * @method     ObservationPhotoTailMarkQuery groupByContinuesFromCellId() Group by the continues_from_cell_id column
- * @method     ObservationPhotoTailMarkQuery groupByContinuesOnCellId() Group by the continues_on_cell_id column
+ * @method     ObservationPhotoTailMarkQuery groupByToCellId() Group by the to_cell_id column
  *
  * @method     ObservationPhotoTailMarkQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method     ObservationPhotoTailMarkQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -34,13 +32,9 @@
  * @method     ObservationPhotoTailMarkQuery rightJoinPatternCellTailRelatedByPatternCellTailId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PatternCellTailRelatedByPatternCellTailId relation
  * @method     ObservationPhotoTailMarkQuery innerJoinPatternCellTailRelatedByPatternCellTailId($relationAlias = null) Adds a INNER JOIN clause to the query using the PatternCellTailRelatedByPatternCellTailId relation
  *
- * @method     ObservationPhotoTailMarkQuery leftJoinPatternCellTailRelatedByContinuesFromCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PatternCellTailRelatedByContinuesFromCellId relation
- * @method     ObservationPhotoTailMarkQuery rightJoinPatternCellTailRelatedByContinuesFromCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PatternCellTailRelatedByContinuesFromCellId relation
- * @method     ObservationPhotoTailMarkQuery innerJoinPatternCellTailRelatedByContinuesFromCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the PatternCellTailRelatedByContinuesFromCellId relation
- *
- * @method     ObservationPhotoTailMarkQuery leftJoinPatternCellTailRelatedByContinuesOnCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PatternCellTailRelatedByContinuesOnCellId relation
- * @method     ObservationPhotoTailMarkQuery rightJoinPatternCellTailRelatedByContinuesOnCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PatternCellTailRelatedByContinuesOnCellId relation
- * @method     ObservationPhotoTailMarkQuery innerJoinPatternCellTailRelatedByContinuesOnCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the PatternCellTailRelatedByContinuesOnCellId relation
+ * @method     ObservationPhotoTailMarkQuery leftJoinPatternCellTailRelatedByToCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the PatternCellTailRelatedByToCellId relation
+ * @method     ObservationPhotoTailMarkQuery rightJoinPatternCellTailRelatedByToCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the PatternCellTailRelatedByToCellId relation
+ * @method     ObservationPhotoTailMarkQuery innerJoinPatternCellTailRelatedByToCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the PatternCellTailRelatedByToCellId relation
  *
  * @method     ObservationPhotoTailMark findOne(PropelPDO $con = null) Return the first ObservationPhotoTailMark matching the query
  * @method     ObservationPhotoTailMark findOneOrCreate(PropelPDO $con = null) Return the first ObservationPhotoTailMark matching the query, or a new ObservationPhotoTailMark object populated from the query conditions when no match is found
@@ -50,16 +44,14 @@
  * @method     ObservationPhotoTailMark findOneByPatternCellTailId(int $pattern_cell_tail_id) Return the first ObservationPhotoTailMark filtered by the pattern_cell_tail_id column
  * @method     ObservationPhotoTailMark findOneByIsWide(boolean $is_wide) Return the first ObservationPhotoTailMark filtered by the is_wide column
  * @method     ObservationPhotoTailMark findOneByIsDeep(boolean $is_deep) Return the first ObservationPhotoTailMark filtered by the is_deep column
- * @method     ObservationPhotoTailMark findOneByContinuesFromCellId(int $continues_from_cell_id) Return the first ObservationPhotoTailMark filtered by the continues_from_cell_id column
- * @method     ObservationPhotoTailMark findOneByContinuesOnCellId(int $continues_on_cell_id) Return the first ObservationPhotoTailMark filtered by the continues_on_cell_id column
+ * @method     ObservationPhotoTailMark findOneByToCellId(int $to_cell_id) Return the first ObservationPhotoTailMark filtered by the to_cell_id column
  *
  * @method     array findById(int $id) Return ObservationPhotoTailMark objects filtered by the id column
  * @method     array findByObservationPhotoTailId(int $observation_photo_tail_id) Return ObservationPhotoTailMark objects filtered by the observation_photo_tail_id column
  * @method     array findByPatternCellTailId(int $pattern_cell_tail_id) Return ObservationPhotoTailMark objects filtered by the pattern_cell_tail_id column
  * @method     array findByIsWide(boolean $is_wide) Return ObservationPhotoTailMark objects filtered by the is_wide column
  * @method     array findByIsDeep(boolean $is_deep) Return ObservationPhotoTailMark objects filtered by the is_deep column
- * @method     array findByContinuesFromCellId(int $continues_from_cell_id) Return ObservationPhotoTailMark objects filtered by the continues_from_cell_id column
- * @method     array findByContinuesOnCellId(int $continues_on_cell_id) Return ObservationPhotoTailMark objects filtered by the continues_on_cell_id column
+ * @method     array findByToCellId(int $to_cell_id) Return ObservationPhotoTailMark objects filtered by the to_cell_id column
  *
  * @package    propel.generator.plugins.photoRepoPlugin.lib.model.om
  */
@@ -283,24 +275,24 @@ abstract class BaseObservationPhotoTailMarkQuery extends ModelCriteria
 	}
 
 	/**
-	 * Filter the query on the continues_from_cell_id column
+	 * Filter the query on the to_cell_id column
 	 * 
-	 * @param     int|array $continuesFromCellId The value to use as filter.
+	 * @param     int|array $toCellId The value to use as filter.
 	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
 	 */
-	public function filterByContinuesFromCellId($continuesFromCellId = null, $comparison = null)
+	public function filterByToCellId($toCellId = null, $comparison = null)
 	{
-		if (is_array($continuesFromCellId)) {
+		if (is_array($toCellId)) {
 			$useMinMax = false;
-			if (isset($continuesFromCellId['min'])) {
-				$this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $continuesFromCellId['min'], Criteria::GREATER_EQUAL);
+			if (isset($toCellId['min'])) {
+				$this->addUsingAlias(ObservationPhotoTailMarkPeer::TO_CELL_ID, $toCellId['min'], Criteria::GREATER_EQUAL);
 				$useMinMax = true;
 			}
-			if (isset($continuesFromCellId['max'])) {
-				$this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $continuesFromCellId['max'], Criteria::LESS_EQUAL);
+			if (isset($toCellId['max'])) {
+				$this->addUsingAlias(ObservationPhotoTailMarkPeer::TO_CELL_ID, $toCellId['max'], Criteria::LESS_EQUAL);
 				$useMinMax = true;
 			}
 			if ($useMinMax) {
@@ -310,38 +302,7 @@ abstract class BaseObservationPhotoTailMarkQuery extends ModelCriteria
 				$comparison = Criteria::IN;
 			}
 		}
-		return $this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $continuesFromCellId, $comparison);
-	}
-
-	/**
-	 * Filter the query on the continues_on_cell_id column
-	 * 
-	 * @param     int|array $continuesOnCellId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
-	 */
-	public function filterByContinuesOnCellId($continuesOnCellId = null, $comparison = null)
-	{
-		if (is_array($continuesOnCellId)) {
-			$useMinMax = false;
-			if (isset($continuesOnCellId['min'])) {
-				$this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $continuesOnCellId['min'], Criteria::GREATER_EQUAL);
-				$useMinMax = true;
-			}
-			if (isset($continuesOnCellId['max'])) {
-				$this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $continuesOnCellId['max'], Criteria::LESS_EQUAL);
-				$useMinMax = true;
-			}
-			if ($useMinMax) {
-				return $this;
-			}
-			if (null === $comparison) {
-				$comparison = Criteria::IN;
-			}
-		}
-		return $this->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $continuesOnCellId, $comparison);
+		return $this->addUsingAlias(ObservationPhotoTailMarkPeer::TO_CELL_ID, $toCellId, $comparison);
 	}
 
 	/**
@@ -480,24 +441,24 @@ abstract class BaseObservationPhotoTailMarkQuery extends ModelCriteria
 	 *
 	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
 	 */
-	public function filterByPatternCellTailRelatedByContinuesFromCellId($patternCellTail, $comparison = null)
+	public function filterByPatternCellTailRelatedByToCellId($patternCellTail, $comparison = null)
 	{
 		return $this
-			->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $patternCellTail->getId(), $comparison);
+			->addUsingAlias(ObservationPhotoTailMarkPeer::TO_CELL_ID, $patternCellTail->getId(), $comparison);
 	}
 
 	/**
-	 * Adds a JOIN clause to the query using the PatternCellTailRelatedByContinuesFromCellId relation
+	 * Adds a JOIN clause to the query using the PatternCellTailRelatedByToCellId relation
 	 * 
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
 	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
 	 */
-	public function joinPatternCellTailRelatedByContinuesFromCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function joinPatternCellTailRelatedByToCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('PatternCellTailRelatedByContinuesFromCellId');
+		$relationMap = $tableMap->getRelation('PatternCellTailRelatedByToCellId');
 		
 		// create a ModelJoin object for this join
 		$join = new ModelJoin();
@@ -512,14 +473,14 @@ abstract class BaseObservationPhotoTailMarkQuery extends ModelCriteria
 			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
 			$this->addJoinObject($join, $relationAlias);
 		} else {
-			$this->addJoinObject($join, 'PatternCellTailRelatedByContinuesFromCellId');
+			$this->addJoinObject($join, 'PatternCellTailRelatedByToCellId');
 		}
 		
 		return $this;
 	}
 
 	/**
-	 * Use the PatternCellTailRelatedByContinuesFromCellId relation PatternCellTail object
+	 * Use the PatternCellTailRelatedByToCellId relation PatternCellTail object
 	 *
 	 * @see       useQuery()
 	 * 
@@ -529,75 +490,11 @@ abstract class BaseObservationPhotoTailMarkQuery extends ModelCriteria
 	 *
 	 * @return    PatternCellTailQuery A secondary query class using the current class as primary query
 	 */
-	public function usePatternCellTailRelatedByContinuesFromCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function usePatternCellTailRelatedByToCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		return $this
-			->joinPatternCellTailRelatedByContinuesFromCellId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'PatternCellTailRelatedByContinuesFromCellId', 'PatternCellTailQuery');
-	}
-
-	/**
-	 * Filter the query by a related PatternCellTail object
-	 *
-	 * @param     PatternCellTail $patternCellTail  the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
-	 */
-	public function filterByPatternCellTailRelatedByContinuesOnCellId($patternCellTail, $comparison = null)
-	{
-		return $this
-			->addUsingAlias(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $patternCellTail->getId(), $comparison);
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the PatternCellTailRelatedByContinuesOnCellId relation
-	 * 
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    ObservationPhotoTailMarkQuery The current query, for fluid interface
-	 */
-	public function joinPatternCellTailRelatedByContinuesOnCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('PatternCellTailRelatedByContinuesOnCellId');
-		
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-		
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'PatternCellTailRelatedByContinuesOnCellId');
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Use the PatternCellTailRelatedByContinuesOnCellId relation PatternCellTail object
-	 *
-	 * @see       useQuery()
-	 * 
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    PatternCellTailQuery A secondary query class using the current class as primary query
-	 */
-	public function usePatternCellTailRelatedByContinuesOnCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		return $this
-			->joinPatternCellTailRelatedByContinuesOnCellId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'PatternCellTailRelatedByContinuesOnCellId', 'PatternCellTailQuery');
+			->joinPatternCellTailRelatedByToCellId($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'PatternCellTailRelatedByToCellId', 'PatternCellTailQuery');
 	}
 
 	/**

@@ -65,7 +65,7 @@
     width: 350px;
 }
 .characterize_photo_image {
-    width: 780px;
+    width: 730px;
     float: right;
     text-align: right;
     padding: 0 0 10px 10px;
@@ -75,9 +75,12 @@
 }
 
 .characterize_block {
-    width: 1240px;
+    width: 1200px;
 }
 
 #form_characterization_box label {
   width: 11em;
+}
+.form_line_characterization {
+    min-height: 24px;
 }

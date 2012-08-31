@@ -158,3 +158,29 @@ get_sightings_by_date:
   requirements:
     sf_method: get
     
+observation_photo_dorsal_left_mark:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoDorsalLeftMark
+    module:               prObservationPhotoDorsalLeftMark
+    prefix_path:          /prObservationPhotoDorsalLeftMark
+    column:               id
+    with_wildcard_routes: true
+
+observation_photo_dorsal_right_mark:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoDorsalRightMark
+    module:               prObservationPhotoDorsalRightMark
+    prefix_path:          /prObservationPhotoDorsalRightMark
+    column:               id
+    with_wildcard_routes: true
+
+observation_photo_tail_mark:
+  class: sfPropel15RouteCollection
+  options:
+    model:                ObservationPhotoTailMark
+    module:               prObservationPhotoTailMark
+    prefix_path:          /prObservationPhotoTailMark
+    column:               id
+    with_wildcard_routes: true

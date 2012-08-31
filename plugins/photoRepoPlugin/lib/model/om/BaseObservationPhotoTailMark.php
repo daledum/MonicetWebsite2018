@@ -57,16 +57,10 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	protected $is_deep;
 
 	/**
-	 * The value for the continues_from_cell_id field.
+	 * The value for the to_cell_id field.
 	 * @var        int
 	 */
-	protected $continues_from_cell_id;
-
-	/**
-	 * The value for the continues_on_cell_id field.
-	 * @var        int
-	 */
-	protected $continues_on_cell_id;
+	protected $to_cell_id;
 
 	/**
 	 * @var        ObservationPhotoTail
@@ -81,12 +75,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	/**
 	 * @var        PatternCellTail
 	 */
-	protected $aPatternCellTailRelatedByContinuesFromCellId;
-
-	/**
-	 * @var        PatternCellTail
-	 */
-	protected $aPatternCellTailRelatedByContinuesOnCellId;
+	protected $aPatternCellTailRelatedByToCellId;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -175,23 +164,13 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	}
 
 	/**
-	 * Get the [continues_from_cell_id] column value.
+	 * Get the [to_cell_id] column value.
 	 * 
 	 * @return     int
 	 */
-	public function getContinuesFromCellId()
+	public function getToCellId()
 	{
-		return $this->continues_from_cell_id;
-	}
-
-	/**
-	 * Get the [continues_on_cell_id] column value.
-	 * 
-	 * @return     int
-	 */
-	public function getContinuesOnCellId()
-	{
-		return $this->continues_on_cell_id;
+		return $this->to_cell_id;
 	}
 
 	/**
@@ -303,52 +282,28 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	} // setIsDeep()
 
 	/**
-	 * Set the value of [continues_from_cell_id] column.
+	 * Set the value of [to_cell_id] column.
 	 * 
 	 * @param      int $v new value
 	 * @return     ObservationPhotoTailMark The current object (for fluent API support)
 	 */
-	public function setContinuesFromCellId($v)
+	public function setToCellId($v)
 	{
 		if ($v !== null) {
 			$v = (int) $v;
 		}
 
-		if ($this->continues_from_cell_id !== $v) {
-			$this->continues_from_cell_id = $v;
-			$this->modifiedColumns[] = ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID;
+		if ($this->to_cell_id !== $v) {
+			$this->to_cell_id = $v;
+			$this->modifiedColumns[] = ObservationPhotoTailMarkPeer::TO_CELL_ID;
 		}
 
-		if ($this->aPatternCellTailRelatedByContinuesFromCellId !== null && $this->aPatternCellTailRelatedByContinuesFromCellId->getId() !== $v) {
-			$this->aPatternCellTailRelatedByContinuesFromCellId = null;
-		}
-
-		return $this;
-	} // setContinuesFromCellId()
-
-	/**
-	 * Set the value of [continues_on_cell_id] column.
-	 * 
-	 * @param      int $v new value
-	 * @return     ObservationPhotoTailMark The current object (for fluent API support)
-	 */
-	public function setContinuesOnCellId($v)
-	{
-		if ($v !== null) {
-			$v = (int) $v;
-		}
-
-		if ($this->continues_on_cell_id !== $v) {
-			$this->continues_on_cell_id = $v;
-			$this->modifiedColumns[] = ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID;
-		}
-
-		if ($this->aPatternCellTailRelatedByContinuesOnCellId !== null && $this->aPatternCellTailRelatedByContinuesOnCellId->getId() !== $v) {
-			$this->aPatternCellTailRelatedByContinuesOnCellId = null;
+		if ($this->aPatternCellTailRelatedByToCellId !== null && $this->aPatternCellTailRelatedByToCellId->getId() !== $v) {
+			$this->aPatternCellTailRelatedByToCellId = null;
 		}
 
 		return $this;
-	} // setContinuesOnCellId()
+	} // setToCellId()
 
 	/**
 	 * Indicates whether the columns in this object are only set to default values.
@@ -395,8 +350,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 			$this->pattern_cell_tail_id = ($row[$startcol + 2] !== null) ? (int) $row[$startcol + 2] : null;
 			$this->is_wide = ($row[$startcol + 3] !== null) ? (boolean) $row[$startcol + 3] : null;
 			$this->is_deep = ($row[$startcol + 4] !== null) ? (boolean) $row[$startcol + 4] : null;
-			$this->continues_from_cell_id = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
-			$this->continues_on_cell_id = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
+			$this->to_cell_id = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -405,7 +359,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 7; // 7 = ObservationPhotoTailMarkPeer::NUM_COLUMNS - ObservationPhotoTailMarkPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 6; // 6 = ObservationPhotoTailMarkPeer::NUM_COLUMNS - ObservationPhotoTailMarkPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ObservationPhotoTailMark object", $e);
@@ -434,11 +388,8 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 		if ($this->aPatternCellTailRelatedByPatternCellTailId !== null && $this->pattern_cell_tail_id !== $this->aPatternCellTailRelatedByPatternCellTailId->getId()) {
 			$this->aPatternCellTailRelatedByPatternCellTailId = null;
 		}
-		if ($this->aPatternCellTailRelatedByContinuesFromCellId !== null && $this->continues_from_cell_id !== $this->aPatternCellTailRelatedByContinuesFromCellId->getId()) {
-			$this->aPatternCellTailRelatedByContinuesFromCellId = null;
-		}
-		if ($this->aPatternCellTailRelatedByContinuesOnCellId !== null && $this->continues_on_cell_id !== $this->aPatternCellTailRelatedByContinuesOnCellId->getId()) {
-			$this->aPatternCellTailRelatedByContinuesOnCellId = null;
+		if ($this->aPatternCellTailRelatedByToCellId !== null && $this->to_cell_id !== $this->aPatternCellTailRelatedByToCellId->getId()) {
+			$this->aPatternCellTailRelatedByToCellId = null;
 		}
 	} // ensureConsistency
 
@@ -481,8 +432,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 
 			$this->aObservationPhotoTail = null;
 			$this->aPatternCellTailRelatedByPatternCellTailId = null;
-			$this->aPatternCellTailRelatedByContinuesFromCellId = null;
-			$this->aPatternCellTailRelatedByContinuesOnCellId = null;
+			$this->aPatternCellTailRelatedByToCellId = null;
 		} // if (deep)
 	}
 
@@ -644,18 +594,11 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 				$this->setPatternCellTailRelatedByPatternCellTailId($this->aPatternCellTailRelatedByPatternCellTailId);
 			}
 
-			if ($this->aPatternCellTailRelatedByContinuesFromCellId !== null) {
-				if ($this->aPatternCellTailRelatedByContinuesFromCellId->isModified() || $this->aPatternCellTailRelatedByContinuesFromCellId->isNew()) {
-					$affectedRows += $this->aPatternCellTailRelatedByContinuesFromCellId->save($con);
+			if ($this->aPatternCellTailRelatedByToCellId !== null) {
+				if ($this->aPatternCellTailRelatedByToCellId->isModified() || $this->aPatternCellTailRelatedByToCellId->isNew()) {
+					$affectedRows += $this->aPatternCellTailRelatedByToCellId->save($con);
 				}
-				$this->setPatternCellTailRelatedByContinuesFromCellId($this->aPatternCellTailRelatedByContinuesFromCellId);
-			}
-
-			if ($this->aPatternCellTailRelatedByContinuesOnCellId !== null) {
-				if ($this->aPatternCellTailRelatedByContinuesOnCellId->isModified() || $this->aPatternCellTailRelatedByContinuesOnCellId->isNew()) {
-					$affectedRows += $this->aPatternCellTailRelatedByContinuesOnCellId->save($con);
-				}
-				$this->setPatternCellTailRelatedByContinuesOnCellId($this->aPatternCellTailRelatedByContinuesOnCellId);
+				$this->setPatternCellTailRelatedByToCellId($this->aPatternCellTailRelatedByToCellId);
 			}
 
 			if ($this->isNew() ) {
@@ -764,15 +707,9 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 				}
 			}
 
-			if ($this->aPatternCellTailRelatedByContinuesFromCellId !== null) {
-				if (!$this->aPatternCellTailRelatedByContinuesFromCellId->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aPatternCellTailRelatedByContinuesFromCellId->getValidationFailures());
-				}
-			}
-
-			if ($this->aPatternCellTailRelatedByContinuesOnCellId !== null) {
-				if (!$this->aPatternCellTailRelatedByContinuesOnCellId->validate($columns)) {
-					$failureMap = array_merge($failureMap, $this->aPatternCellTailRelatedByContinuesOnCellId->getValidationFailures());
+			if ($this->aPatternCellTailRelatedByToCellId !== null) {
+				if (!$this->aPatternCellTailRelatedByToCellId->validate($columns)) {
+					$failureMap = array_merge($failureMap, $this->aPatternCellTailRelatedByToCellId->getValidationFailures());
 				}
 			}
 
@@ -831,10 +768,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 				return $this->getIsDeep();
 				break;
 			case 5:
-				return $this->getContinuesFromCellId();
-				break;
-			case 6:
-				return $this->getContinuesOnCellId();
+				return $this->getToCellId();
 				break;
 			default:
 				return null;
@@ -865,8 +799,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 			$keys[2] => $this->getPatternCellTailId(),
 			$keys[3] => $this->getIsWide(),
 			$keys[4] => $this->getIsDeep(),
-			$keys[5] => $this->getContinuesFromCellId(),
-			$keys[6] => $this->getContinuesOnCellId(),
+			$keys[5] => $this->getToCellId(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aObservationPhotoTail) {
@@ -875,11 +808,8 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 			if (null !== $this->aPatternCellTailRelatedByPatternCellTailId) {
 				$result['PatternCellTailRelatedByPatternCellTailId'] = $this->aPatternCellTailRelatedByPatternCellTailId->toArray($keyType, $includeLazyLoadColumns, true);
 			}
-			if (null !== $this->aPatternCellTailRelatedByContinuesFromCellId) {
-				$result['PatternCellTailRelatedByContinuesFromCellId'] = $this->aPatternCellTailRelatedByContinuesFromCellId->toArray($keyType, $includeLazyLoadColumns, true);
-			}
-			if (null !== $this->aPatternCellTailRelatedByContinuesOnCellId) {
-				$result['PatternCellTailRelatedByContinuesOnCellId'] = $this->aPatternCellTailRelatedByContinuesOnCellId->toArray($keyType, $includeLazyLoadColumns, true);
+			if (null !== $this->aPatternCellTailRelatedByToCellId) {
+				$result['PatternCellTailRelatedByToCellId'] = $this->aPatternCellTailRelatedByToCellId->toArray($keyType, $includeLazyLoadColumns, true);
 			}
 		}
 		return $result;
@@ -928,10 +858,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 				$this->setIsDeep($value);
 				break;
 			case 5:
-				$this->setContinuesFromCellId($value);
-				break;
-			case 6:
-				$this->setContinuesOnCellId($value);
+				$this->setToCellId($value);
 				break;
 		} // switch()
 	}
@@ -962,8 +889,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 		if (array_key_exists($keys[2], $arr)) $this->setPatternCellTailId($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setIsWide($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setIsDeep($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setContinuesFromCellId($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setContinuesOnCellId($arr[$keys[6]]);
+		if (array_key_exists($keys[5], $arr)) $this->setToCellId($arr[$keys[5]]);
 	}
 
 	/**
@@ -980,8 +906,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::PATTERN_CELL_TAIL_ID)) $criteria->add(ObservationPhotoTailMarkPeer::PATTERN_CELL_TAIL_ID, $this->pattern_cell_tail_id);
 		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::IS_WIDE)) $criteria->add(ObservationPhotoTailMarkPeer::IS_WIDE, $this->is_wide);
 		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::IS_DEEP)) $criteria->add(ObservationPhotoTailMarkPeer::IS_DEEP, $this->is_deep);
-		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID)) $criteria->add(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $this->continues_from_cell_id);
-		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID)) $criteria->add(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $this->continues_on_cell_id);
+		if ($this->isColumnModified(ObservationPhotoTailMarkPeer::TO_CELL_ID)) $criteria->add(ObservationPhotoTailMarkPeer::TO_CELL_ID, $this->to_cell_id);
 
 		return $criteria;
 	}
@@ -1047,8 +972,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 		$copyObj->setPatternCellTailId($this->pattern_cell_tail_id);
 		$copyObj->setIsWide($this->is_wide);
 		$copyObj->setIsDeep($this->is_deep);
-		$copyObj->setContinuesFromCellId($this->continues_from_cell_id);
-		$copyObj->setContinuesOnCellId($this->continues_on_cell_id);
+		$copyObj->setToCellId($this->to_cell_id);
 
 		$copyObj->setNew(true);
 		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
@@ -1197,20 +1121,20 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	 * @return     ObservationPhotoTailMark The current object (for fluent API support)
 	 * @throws     PropelException
 	 */
-	public function setPatternCellTailRelatedByContinuesFromCellId(PatternCellTail $v = null)
+	public function setPatternCellTailRelatedByToCellId(PatternCellTail $v = null)
 	{
 		if ($v === null) {
-			$this->setContinuesFromCellId(NULL);
+			$this->setToCellId(NULL);
 		} else {
-			$this->setContinuesFromCellId($v->getId());
+			$this->setToCellId($v->getId());
 		}
 
-		$this->aPatternCellTailRelatedByContinuesFromCellId = $v;
+		$this->aPatternCellTailRelatedByToCellId = $v;
 
 		// Add binding for other direction of this n:n relationship.
 		// If this object has already been added to the PatternCellTail object, it will not be re-added.
 		if ($v !== null) {
-			$v->addObservationPhotoTailMarkRelatedByContinuesFromCellId($this);
+			$v->addObservationPhotoTailMarkRelatedByToCellId($this);
 		}
 
 		return $this;
@@ -1224,68 +1148,19 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 	 * @return     PatternCellTail The associated PatternCellTail object.
 	 * @throws     PropelException
 	 */
-	public function getPatternCellTailRelatedByContinuesFromCellId(PropelPDO $con = null)
+	public function getPatternCellTailRelatedByToCellId(PropelPDO $con = null)
 	{
-		if ($this->aPatternCellTailRelatedByContinuesFromCellId === null && ($this->continues_from_cell_id !== null)) {
-			$this->aPatternCellTailRelatedByContinuesFromCellId = PatternCellTailQuery::create()->findPk($this->continues_from_cell_id, $con);
+		if ($this->aPatternCellTailRelatedByToCellId === null && ($this->to_cell_id !== null)) {
+			$this->aPatternCellTailRelatedByToCellId = PatternCellTailQuery::create()->findPk($this->to_cell_id, $con);
 			/* The following can be used additionally to
 				 guarantee the related object contains a reference
 				 to this object.  This level of coupling may, however, be
 				 undesirable since it could result in an only partially populated collection
 				 in the referenced object.
-				 $this->aPatternCellTailRelatedByContinuesFromCellId->addObservationPhotoTailMarksRelatedByContinuesFromCellId($this);
+				 $this->aPatternCellTailRelatedByToCellId->addObservationPhotoTailMarksRelatedByToCellId($this);
 			 */
 		}
-		return $this->aPatternCellTailRelatedByContinuesFromCellId;
-	}
-
-	/**
-	 * Declares an association between this object and a PatternCellTail object.
-	 *
-	 * @param      PatternCellTail $v
-	 * @return     ObservationPhotoTailMark The current object (for fluent API support)
-	 * @throws     PropelException
-	 */
-	public function setPatternCellTailRelatedByContinuesOnCellId(PatternCellTail $v = null)
-	{
-		if ($v === null) {
-			$this->setContinuesOnCellId(NULL);
-		} else {
-			$this->setContinuesOnCellId($v->getId());
-		}
-
-		$this->aPatternCellTailRelatedByContinuesOnCellId = $v;
-
-		// Add binding for other direction of this n:n relationship.
-		// If this object has already been added to the PatternCellTail object, it will not be re-added.
-		if ($v !== null) {
-			$v->addObservationPhotoTailMarkRelatedByContinuesOnCellId($this);
-		}
-
-		return $this;
-	}
-
-
-	/**
-	 * Get the associated PatternCellTail object
-	 *
-	 * @param      PropelPDO Optional Connection object.
-	 * @return     PatternCellTail The associated PatternCellTail object.
-	 * @throws     PropelException
-	 */
-	public function getPatternCellTailRelatedByContinuesOnCellId(PropelPDO $con = null)
-	{
-		if ($this->aPatternCellTailRelatedByContinuesOnCellId === null && ($this->continues_on_cell_id !== null)) {
-			$this->aPatternCellTailRelatedByContinuesOnCellId = PatternCellTailQuery::create()->findPk($this->continues_on_cell_id, $con);
-			/* The following can be used additionally to
-				 guarantee the related object contains a reference
-				 to this object.  This level of coupling may, however, be
-				 undesirable since it could result in an only partially populated collection
-				 in the referenced object.
-				 $this->aPatternCellTailRelatedByContinuesOnCellId->addObservationPhotoTailMarksRelatedByContinuesOnCellId($this);
-			 */
-		}
-		return $this->aPatternCellTailRelatedByContinuesOnCellId;
+		return $this->aPatternCellTailRelatedByToCellId;
 	}
 
 	/**
@@ -1298,8 +1173,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 		$this->pattern_cell_tail_id = null;
 		$this->is_wide = null;
 		$this->is_deep = null;
-		$this->continues_from_cell_id = null;
-		$this->continues_on_cell_id = null;
+		$this->to_cell_id = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
@@ -1325,8 +1199,7 @@ abstract class BaseObservationPhotoTailMark extends BaseObject  implements Persi
 
 		$this->aObservationPhotoTail = null;
 		$this->aPatternCellTailRelatedByPatternCellTailId = null;
-		$this->aPatternCellTailRelatedByContinuesFromCellId = null;
-		$this->aPatternCellTailRelatedByContinuesOnCellId = null;
+		$this->aPatternCellTailRelatedByToCellId = null;
 	}
 
 	/**

@@ -54,8 +54,11 @@ all:
       - prUploadedPhoto
       - prObservationPhoto
       - prObservationPhotoTail
+      - prObservationPhotoTailMark
       - prObservationPhotoDorsalLeft
+      - prObservationPhotoDorsalLeftMark
       - prObservationPhotoDorsalRight
+      - prObservationPhotoDorsalRightMark
       - prPhotographer
       - prBodyPart
       - publication

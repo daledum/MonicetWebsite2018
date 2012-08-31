@@ -18,7 +18,7 @@ class prObservationPhotoTailActions extends autoPrObservationPhotoTailActions
 
       $this->getUser()->setFlash('notice', $notice);
       
-      $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoTail->getPhotoId());
+      $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoTail->getObservationPhotoId());
     }
     else
     {

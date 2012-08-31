@@ -175,8 +175,20 @@
         <target>Continuação da célula</target>
       </trans-unit>
       <trans-unit>
-        <source>Continues on cell</source>
-        <target>Continua na célula</target>
+        <source>To cell</source>
+        <target>Até à célula</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Is featured</source>
+        <target>Caracterizada</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
       </trans-unit>
       <trans-unit>
         <source></source>

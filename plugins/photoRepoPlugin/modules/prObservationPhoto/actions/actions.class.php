@@ -150,7 +150,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
-    
     if($this->observationPhoto->getBodyPart()) {
      $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
      if( $this->isTail ) {

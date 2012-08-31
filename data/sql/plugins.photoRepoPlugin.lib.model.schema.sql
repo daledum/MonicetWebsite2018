@@ -377,13 +377,11 @@ CREATE TABLE `observation_photo_tail_mark`
 	`pattern_cell_tail_id` INTEGER  NOT NULL,
 	`is_wide` TINYINT default 0,
 	`is_deep` TINYINT default 0,
-	`continues_from_cell_id` INTEGER,
-	`continues_on_cell_id` INTEGER,
+	`to_cell_id` INTEGER,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_tail_mark_I_1`(`observation_photo_tail_id`),
 	KEY `observation_photo_tail_mark_I_2`(`pattern_cell_tail_id`),
-	KEY `observation_photo_tail_mark_I_3`(`continues_from_cell_id`),
-	KEY `observation_photo_tail_mark_I_4`(`continues_on_cell_id`),
+	KEY `observation_photo_tail_mark_I_3`(`to_cell_id`),
 	CONSTRAINT `observation_photo_tail_mark_FK_1`
 		FOREIGN KEY (`observation_photo_tail_id`)
 		REFERENCES `observation_photo_tail` (`id`)
@@ -393,11 +391,7 @@ CREATE TABLE `observation_photo_tail_mark`
 		REFERENCES `pattern_cell_tail` (`id`)
 		ON DELETE CASCADE,
 	CONSTRAINT `observation_photo_tail_mark_FK_3`
-		FOREIGN KEY (`continues_from_cell_id`)
-		REFERENCES `pattern_cell_tail` (`id`)
-		ON DELETE SET NULL,
-	CONSTRAINT `observation_photo_tail_mark_FK_4`
-		FOREIGN KEY (`continues_on_cell_id`)
+		FOREIGN KEY (`to_cell_id`)
 		REFERENCES `pattern_cell_tail` (`id`)
 		ON DELETE SET NULL
 ) ENGINE=MyISAM;
@@ -438,13 +432,11 @@ CREATE TABLE `observation_photo_dorsal_left_mark`
 	`pattern_cell_dorsal_left_id` INTEGER  NOT NULL,
 	`is_wide` TINYINT default 0,
 	`is_deep` TINYINT default 0,
-	`continues_from_cell_id` INTEGER,
-	`continues_on_cell_id` INTEGER,
+	`to_cell_id` INTEGER,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_dorsal_left_mark_I_1`(`observation_photo_dorsal_left_id`),
 	KEY `observation_photo_dorsal_left_mark_I_2`(`pattern_cell_dorsal_left_id`),
-	KEY `observation_photo_dorsal_left_mark_I_3`(`continues_from_cell_id`),
-	KEY `observation_photo_dorsal_left_mark_I_4`(`continues_on_cell_id`),
+	KEY `observation_photo_dorsal_left_mark_I_3`(`to_cell_id`),
 	CONSTRAINT `observation_photo_dorsal_left_mark_FK_1`
 		FOREIGN KEY (`observation_photo_dorsal_left_id`)
 		REFERENCES `observation_photo_dorsal_left` (`id`)
@@ -454,11 +446,7 @@ CREATE TABLE `observation_photo_dorsal_left_mark`
 		REFERENCES `pattern_cell_dorsal_left` (`id`)
 		ON DELETE CASCADE,
 	CONSTRAINT `observation_photo_dorsal_left_mark_FK_3`
-		FOREIGN KEY (`continues_from_cell_id`)
-		REFERENCES `pattern_cell_dorsal_left` (`id`)
-		ON DELETE SET NULL,
-	CONSTRAINT `observation_photo_dorsal_left_mark_FK_4`
-		FOREIGN KEY (`continues_on_cell_id`)
+		FOREIGN KEY (`to_cell_id`)
 		REFERENCES `pattern_cell_dorsal_left` (`id`)
 		ON DELETE SET NULL
 ) ENGINE=MyISAM;
@@ -499,13 +487,11 @@ CREATE TABLE `observation_photo_dorsal_right_mark`
 	`pattern_cell_dorsal_right_id` INTEGER  NOT NULL,
 	`is_wide` TINYINT default 0,
 	`is_deep` TINYINT default 0,
-	`continues_from_cell_id` INTEGER,
-	`continues_on_cell_id` INTEGER,
+	`to_cell_id` INTEGER,
 	PRIMARY KEY (`id`),
 	KEY `observation_photo_dorsal_right_mark_I_1`(`observation_photo_dorsal_right_id`),
 	KEY `observation_photo_dorsal_right_mark_I_2`(`pattern_cell_dorsal_right_id`),
-	KEY `observation_photo_dorsal_right_mark_I_3`(`continues_from_cell_id`),
-	KEY `observation_photo_dorsal_right_mark_I_4`(`continues_on_cell_id`),
+	KEY `observation_photo_dorsal_right_mark_I_3`(`to_cell_id`),
 	CONSTRAINT `observation_photo_dorsal_right_mark_FK_1`
 		FOREIGN KEY (`observation_photo_dorsal_right_id`)
 		REFERENCES `observation_photo_dorsal_right` (`id`)
@@ -515,11 +501,7 @@ CREATE TABLE `observation_photo_dorsal_right_mark`
 		REFERENCES `pattern_cell_dorsal_right` (`id`)
 		ON DELETE CASCADE,
 	CONSTRAINT `observation_photo_dorsal_right_mark_FK_3`
-		FOREIGN KEY (`continues_from_cell_id`)
-		REFERENCES `pattern_cell_dorsal_right` (`id`)
-		ON DELETE SET NULL,
-	CONSTRAINT `observation_photo_dorsal_right_mark_FK_4`
-		FOREIGN KEY (`continues_on_cell_id`)
+		FOREIGN KEY (`to_cell_id`)
 		REFERENCES `pattern_cell_dorsal_right` (`id`)
 		ON DELETE SET NULL
 ) ENGINE=MyISAM;

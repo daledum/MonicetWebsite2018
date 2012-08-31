@@ -28,13 +28,9 @@
  * @method     PatternCellDorsalRightQuery rightJoinObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId relation
  * @method     PatternCellDorsalRightQuery innerJoinObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId($relationAlias = null) Adds a INNER JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByPatternCellDorsalRightId relation
  *
- * @method     PatternCellDorsalRightQuery leftJoinObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId relation
- * @method     PatternCellDorsalRightQuery rightJoinObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId relation
- * @method     PatternCellDorsalRightQuery innerJoinObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId relation
- *
- * @method     PatternCellDorsalRightQuery leftJoinObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId relation
- * @method     PatternCellDorsalRightQuery rightJoinObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId relation
- * @method     PatternCellDorsalRightQuery innerJoinObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId relation
+ * @method     PatternCellDorsalRightQuery leftJoinObservationPhotoDorsalRightMarkRelatedByToCellId($relationAlias = null) Adds a LEFT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByToCellId relation
+ * @method     PatternCellDorsalRightQuery rightJoinObservationPhotoDorsalRightMarkRelatedByToCellId($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByToCellId relation
+ * @method     PatternCellDorsalRightQuery innerJoinObservationPhotoDorsalRightMarkRelatedByToCellId($relationAlias = null) Adds a INNER JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByToCellId relation
  *
  * @method     PatternCellDorsalRight findOne(PropelPDO $con = null) Return the first PatternCellDorsalRight matching the query
  * @method     PatternCellDorsalRight findOneOrCreate(PropelPDO $con = null) Return the first PatternCellDorsalRight matching the query, or a new PatternCellDorsalRight object populated from the query conditions when no match is found
@@ -385,24 +381,24 @@ abstract class BasePatternCellDorsalRightQuery extends ModelCriteria
 	 *
 	 * @return    PatternCellDorsalRightQuery The current query, for fluid interface
 	 */
-	public function filterByObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($observationPhotoDorsalRightMark, $comparison = null)
+	public function filterByObservationPhotoDorsalRightMarkRelatedByToCellId($observationPhotoDorsalRightMark, $comparison = null)
 	{
 		return $this
-			->addUsingAlias(PatternCellDorsalRightPeer::ID, $observationPhotoDorsalRightMark->getContinuesFromCellId(), $comparison);
+			->addUsingAlias(PatternCellDorsalRightPeer::ID, $observationPhotoDorsalRightMark->getToCellId(), $comparison);
 	}
 
 	/**
-	 * Adds a JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId relation
+	 * Adds a JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByToCellId relation
 	 * 
 	 * @param     string $relationAlias optional alias for the relation
 	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
 	 *
 	 * @return    PatternCellDorsalRightQuery The current query, for fluid interface
 	 */
-	public function joinObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function joinObservationPhotoDorsalRightMarkRelatedByToCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId');
+		$relationMap = $tableMap->getRelation('ObservationPhotoDorsalRightMarkRelatedByToCellId');
 		
 		// create a ModelJoin object for this join
 		$join = new ModelJoin();
@@ -417,14 +413,14 @@ abstract class BasePatternCellDorsalRightQuery extends ModelCriteria
 			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
 			$this->addJoinObject($join, $relationAlias);
 		} else {
-			$this->addJoinObject($join, 'ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId');
+			$this->addJoinObject($join, 'ObservationPhotoDorsalRightMarkRelatedByToCellId');
 		}
 		
 		return $this;
 	}
 
 	/**
-	 * Use the ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId relation ObservationPhotoDorsalRightMark object
+	 * Use the ObservationPhotoDorsalRightMarkRelatedByToCellId relation ObservationPhotoDorsalRightMark object
 	 *
 	 * @see       useQuery()
 	 * 
@@ -434,75 +430,11 @@ abstract class BasePatternCellDorsalRightQuery extends ModelCriteria
 	 *
 	 * @return    ObservationPhotoDorsalRightMarkQuery A secondary query class using the current class as primary query
 	 */
-	public function useObservationPhotoDorsalRightMarkRelatedByContinuesFromCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
+	public function useObservationPhotoDorsalRightMarkRelatedByToCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
 	{
 		return $this
-			->joinObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'ObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId', 'ObservationPhotoDorsalRightMarkQuery');
-	}
-
-	/**
-	 * Filter the query by a related ObservationPhotoDorsalRightMark object
-	 *
-	 * @param     ObservationPhotoDorsalRightMark $observationPhotoDorsalRightMark  the related object to use as filter
-	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
-	 *
-	 * @return    PatternCellDorsalRightQuery The current query, for fluid interface
-	 */
-	public function filterByObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($observationPhotoDorsalRightMark, $comparison = null)
-	{
-		return $this
-			->addUsingAlias(PatternCellDorsalRightPeer::ID, $observationPhotoDorsalRightMark->getContinuesOnCellId(), $comparison);
-	}
-
-	/**
-	 * Adds a JOIN clause to the query using the ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId relation
-	 * 
-	 * @param     string $relationAlias optional alias for the relation
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    PatternCellDorsalRightQuery The current query, for fluid interface
-	 */
-	public function joinObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		$tableMap = $this->getTableMap();
-		$relationMap = $tableMap->getRelation('ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId');
-		
-		// create a ModelJoin object for this join
-		$join = new ModelJoin();
-		$join->setJoinType($joinType);
-		$join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
-		if ($previousJoin = $this->getPreviousJoin()) {
-			$join->setPreviousJoin($previousJoin);
-		}
-		
-		// add the ModelJoin to the current object
-		if($relationAlias) {
-			$this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
-			$this->addJoinObject($join, $relationAlias);
-		} else {
-			$this->addJoinObject($join, 'ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId');
-		}
-		
-		return $this;
-	}
-
-	/**
-	 * Use the ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId relation ObservationPhotoDorsalRightMark object
-	 *
-	 * @see       useQuery()
-	 * 
-	 * @param     string $relationAlias optional alias for the relation,
-	 *                                   to be used as main alias in the secondary query
-	 * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
-	 *
-	 * @return    ObservationPhotoDorsalRightMarkQuery A secondary query class using the current class as primary query
-	 */
-	public function useObservationPhotoDorsalRightMarkRelatedByContinuesOnCellIdQuery($relationAlias = null, $joinType = Criteria::LEFT_JOIN)
-	{
-		return $this
-			->joinObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relationAlias, $joinType)
-			->useQuery($relationAlias ? $relationAlias : 'ObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId', 'ObservationPhotoDorsalRightMarkQuery');
+			->joinObservationPhotoDorsalRightMarkRelatedByToCellId($relationAlias, $joinType)
+			->useQuery($relationAlias ? $relationAlias : 'ObservationPhotoDorsalRightMarkRelatedByToCellId', 'ObservationPhotoDorsalRightMarkQuery');
 	}
 
 	/**

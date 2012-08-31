@@ -140,8 +140,7 @@ propel:
     pattern_cell_tail_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_wide:          { type: BOOLEAN, default: false }
     is_deep:          { type: BOOLEAN, default: false }
-    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: false, onDelete: setnull, index: true }
-    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: false, onDelete: setnull, index: true }
+    to_cell_id:       { type: INTEGER, foreignTable: pattern_cell_tail, foreignReference: id, required: false, onDelete: setnull, index: true }
   
   observation_photo_dorsal_left:
     _attributes:      { phpName: ObservationPhotoDorsalLeft, idMethod: native }
@@ -158,8 +157,7 @@ propel:
     pattern_cell_dorsal_left_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_wide:          { type: BOOLEAN, default: false }
     is_deep:          { type: BOOLEAN, default: false }
-    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: false, onDelete: setnull, index: true }
-    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: false, onDelete: setnull, index: true }
+    to_cell_id:       { type: INTEGER, foreignTable: pattern_cell_dorsal_left, foreignReference: id, required: false, onDelete: setnull, index: true }
     
   observation_photo_dorsal_right:
     _attributes:      { phpName: ObservationPhotoDorsalRight, idMethod: native }
@@ -176,5 +174,4 @@ propel:
     pattern_cell_dorsal_right_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: true, onDelete: cascade, index: true }
     is_wide:          { type: BOOLEAN, default: false }
     is_deep:          { type: BOOLEAN, default: false }
-    continues_from_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: false, onDelete: setnull, index: true }
-    continues_on_cell_id: { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: false, onDelete: setnull, index: true }
+    to_cell_id:       { type: INTEGER, foreignTable: pattern_cell_dorsal_right, foreignReference: id, required: false, onDelete: setnull, index: true }

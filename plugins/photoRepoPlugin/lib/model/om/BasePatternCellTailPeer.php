@@ -378,9 +378,6 @@ abstract class BasePatternCellTailPeer {
 		// Invalidate objects in ObservationPhotoTailMarkPeer instance pool, 
 		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
 		ObservationPhotoTailMarkPeer::clearInstancePool();
-		// Invalidate objects in ObservationPhotoTailMarkPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		ObservationPhotoTailMarkPeer::clearInstancePool();
 	}
 
 	/**
@@ -1007,16 +1004,8 @@ abstract class BasePatternCellTailPeer {
 			// set fkey col in related ObservationPhotoTailMark rows to NULL
 			$selectCriteria = new Criteria(PatternCellTailPeer::DATABASE_NAME);
 			$updateValues = new Criteria(PatternCellTailPeer::DATABASE_NAME);
-			$selectCriteria->add(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, $obj->getId());
-			$updateValues->add(ObservationPhotoTailMarkPeer::CONTINUES_FROM_CELL_ID, null);
-
-			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
-
-			// set fkey col in related ObservationPhotoTailMark rows to NULL
-			$selectCriteria = new Criteria(PatternCellTailPeer::DATABASE_NAME);
-			$updateValues = new Criteria(PatternCellTailPeer::DATABASE_NAME);
-			$selectCriteria->add(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, $obj->getId());
-			$updateValues->add(ObservationPhotoTailMarkPeer::CONTINUES_ON_CELL_ID, null);
+			$selectCriteria->add(ObservationPhotoTailMarkPeer::TO_CELL_ID, $obj->getId());
+			$updateValues->add(ObservationPhotoTailMarkPeer::TO_CELL_ID, null);
 
 			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
 

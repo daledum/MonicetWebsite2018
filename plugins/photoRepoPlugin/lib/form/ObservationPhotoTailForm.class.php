@@ -6,10 +6,10 @@ class ObservationPhotoTailForm extends BaseObservationPhotoTailForm
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
     $this->widgetSchema['photo_id'] = new sfWidgetFormInputHidden();
     
-    $this->embedRelation('ObservationPhotoTailMark', array(
+    /*$this->embedRelation('ObservationPhotoTailMark', array(
         'title'  => 'Marcas',
         'empty_label' => 'marca',
-      ));
+      ));*/
     
   }
 }

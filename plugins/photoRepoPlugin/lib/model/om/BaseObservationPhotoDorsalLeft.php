@@ -1154,35 +1154,10 @@ abstract class BaseObservationPhotoDorsalLeft extends BaseObject  implements Per
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array ObservationPhotoDorsalLeftMark[] List of ObservationPhotoDorsalLeftMark objects
 	 */
-	public function getObservationPhotoDorsalLeftMarksJoinPatternCellDorsalLeftRelatedByContinuesFromCellId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getObservationPhotoDorsalLeftMarksJoinPatternCellDorsalLeftRelatedByToCellId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = ObservationPhotoDorsalLeftMarkQuery::create(null, $criteria);
-		$query->joinWith('PatternCellDorsalLeftRelatedByContinuesFromCellId', $join_behavior);
-
-		return $this->getObservationPhotoDorsalLeftMarks($query, $con);
-	}
-
-
-	/**
-	 * If this collection has already been initialized with
-	 * an identical criteria, it returns the collection.
-	 * Otherwise if this ObservationPhotoDorsalLeft is new, it will return
-	 * an empty collection; or if this ObservationPhotoDorsalLeft has previously
-	 * been saved, it will retrieve related ObservationPhotoDorsalLeftMarks from storage.
-	 *
-	 * This method is protected by default in order to keep the public
-	 * api reasonable.  You can provide public methods for those you
-	 * actually need in ObservationPhotoDorsalLeft.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-	 * @return     PropelCollection|array ObservationPhotoDorsalLeftMark[] List of ObservationPhotoDorsalLeftMark objects
-	 */
-	public function getObservationPhotoDorsalLeftMarksJoinPatternCellDorsalLeftRelatedByContinuesOnCellId($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$query = ObservationPhotoDorsalLeftMarkQuery::create(null, $criteria);
-		$query->joinWith('PatternCellDorsalLeftRelatedByContinuesOnCellId', $join_behavior);
+		$query->joinWith('PatternCellDorsalLeftRelatedByToCellId', $join_behavior);
 
 		return $this->getObservationPhotoDorsalLeftMarks($query, $con);
 	}

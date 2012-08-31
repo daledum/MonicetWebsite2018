@@ -42,8 +42,7 @@ class ObservationPhotoTailMarkTableMap extends TableMap {
 		$this->addForeignKey('PATTERN_CELL_TAIL_ID', 'PatternCellTailId', 'INTEGER', 'pattern_cell_tail', 'ID', true, null, null);
 		$this->addColumn('IS_WIDE', 'IsWide', 'BOOLEAN', false, null, false);
 		$this->addColumn('IS_DEEP', 'IsDeep', 'BOOLEAN', false, null, false);
-		$this->addForeignKey('CONTINUES_FROM_CELL_ID', 'ContinuesFromCellId', 'INTEGER', 'pattern_cell_tail', 'ID', false, null, null);
-		$this->addForeignKey('CONTINUES_ON_CELL_ID', 'ContinuesOnCellId', 'INTEGER', 'pattern_cell_tail', 'ID', false, null, null);
+		$this->addForeignKey('TO_CELL_ID', 'ToCellId', 'INTEGER', 'pattern_cell_tail', 'ID', false, null, null);
 		// validators
 	} // initialize()
 
@@ -54,8 +53,7 @@ class ObservationPhotoTailMarkTableMap extends TableMap {
 	{
     $this->addRelation('ObservationPhotoTail', 'ObservationPhotoTail', RelationMap::MANY_TO_ONE, array('observation_photo_tail_id' => 'id', ), 'CASCADE', null);
     $this->addRelation('PatternCellTailRelatedByPatternCellTailId', 'PatternCellTail', RelationMap::MANY_TO_ONE, array('pattern_cell_tail_id' => 'id', ), 'CASCADE', null);
-    $this->addRelation('PatternCellTailRelatedByContinuesFromCellId', 'PatternCellTail', RelationMap::MANY_TO_ONE, array('continues_from_cell_id' => 'id', ), 'SET NULL', null);
-    $this->addRelation('PatternCellTailRelatedByContinuesOnCellId', 'PatternCellTail', RelationMap::MANY_TO_ONE, array('continues_on_cell_id' => 'id', ), 'SET NULL', null);
+    $this->addRelation('PatternCellTailRelatedByToCellId', 'PatternCellTail', RelationMap::MANY_TO_ONE, array('to_cell_id' => 'id', ), 'SET NULL', null);
 	} // buildRelations()
 
 	/**

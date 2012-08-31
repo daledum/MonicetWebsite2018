@@ -61,12 +61,7 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	/**
 	 * @var        array ObservationPhotoDorsalRightMark[] Collection to store aggregation of ObservationPhotoDorsalRightMark objects.
 	 */
-	protected $collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId;
-
-	/**
-	 * @var        array ObservationPhotoDorsalRightMark[] Collection to store aggregation of ObservationPhotoDorsalRightMark objects.
-	 */
-	protected $collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId;
+	protected $collObservationPhotoDorsalRightMarksRelatedByToCellId;
 
 	/**
 	 * Flag to prevent endless save loop, if this object is referenced
@@ -318,9 +313,7 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 			$this->aPattern = null;
 			$this->collObservationPhotoDorsalRightMarksRelatedByPatternCellDorsalRightId = null;
 
-			$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = null;
-
-			$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = null;
+			$this->collObservationPhotoDorsalRightMarksRelatedByToCellId = null;
 
 		} // if (deep)
 	}
@@ -507,16 +500,8 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 				}
 			}
 
-			if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId !== null) {
-				foreach ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId as $referrerFK) {
-					if (!$referrerFK->isDeleted()) {
-						$affectedRows += $referrerFK->save($con);
-					}
-				}
-			}
-
-			if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId !== null) {
-				foreach ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId as $referrerFK) {
+			if ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId !== null) {
+				foreach ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId as $referrerFK) {
 					if (!$referrerFK->isDeleted()) {
 						$affectedRows += $referrerFK->save($con);
 					}
@@ -614,16 +599,8 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 					}
 				}
 
-				if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId !== null) {
-					foreach ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId as $referrerFK) {
-						if (!$referrerFK->validate($columns)) {
-							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
-						}
-					}
-				}
-
-				if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId !== null) {
-					foreach ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId as $referrerFK) {
+				if ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId !== null) {
+					foreach ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId as $referrerFK) {
 						if (!$referrerFK->validate($columns)) {
 							$failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
 						}
@@ -870,15 +847,9 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 				}
 			}
 
-			foreach ($this->getObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId() as $relObj) {
+			foreach ($this->getObservationPhotoDorsalRightMarksRelatedByToCellId() as $relObj) {
 				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId($relObj->copy($deepCopy));
-				}
-			}
-
-			foreach ($this->getObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId() as $relObj) {
-				if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
-					$copyObj->addObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId($relObj->copy($deepCopy));
+					$copyObj->addObservationPhotoDorsalRightMarkRelatedByToCellId($relObj->copy($deepCopy));
 				}
 			}
 
@@ -1111,32 +1082,32 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	}
 
 	/**
-	 * Clears out the collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId collection
+	 * Clears out the collObservationPhotoDorsalRightMarksRelatedByToCellId collection
 	 *
 	 * This does not modify the database; however, it will remove any associated objects, causing
 	 * them to be refetched by subsequent calls to accessor method.
 	 *
 	 * @return     void
-	 * @see        addObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId()
+	 * @see        addObservationPhotoDorsalRightMarksRelatedByToCellId()
 	 */
-	public function clearObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId()
+	public function clearObservationPhotoDorsalRightMarksRelatedByToCellId()
 	{
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = null; // important to set this to NULL since that means it is uninitialized
+		$this->collObservationPhotoDorsalRightMarksRelatedByToCellId = null; // important to set this to NULL since that means it is uninitialized
 	}
 
 	/**
-	 * Initializes the collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId collection.
+	 * Initializes the collObservationPhotoDorsalRightMarksRelatedByToCellId collection.
 	 *
-	 * By default this just sets the collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId collection to an empty array (like clearcollObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId());
+	 * By default this just sets the collObservationPhotoDorsalRightMarksRelatedByToCellId collection to an empty array (like clearcollObservationPhotoDorsalRightMarksRelatedByToCellId());
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
 	 * @return     void
 	 */
-	public function initObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId()
+	public function initObservationPhotoDorsalRightMarksRelatedByToCellId()
 	{
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = new PropelObjectCollection();
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId->setModel('ObservationPhotoDorsalRightMark');
+		$this->collObservationPhotoDorsalRightMarksRelatedByToCellId = new PropelObjectCollection();
+		$this->collObservationPhotoDorsalRightMarksRelatedByToCellId->setModel('ObservationPhotoDorsalRightMark');
 	}
 
 	/**
@@ -1153,23 +1124,23 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	 * @return     PropelCollection|array ObservationPhotoDorsalRightMark[] List of ObservationPhotoDorsalRightMark objects
 	 * @throws     PropelException
 	 */
-	public function getObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId($criteria = null, PropelPDO $con = null)
+	public function getObservationPhotoDorsalRightMarksRelatedByToCellId($criteria = null, PropelPDO $con = null)
 	{
-		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId) {
+		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByToCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByToCellId) {
 				// return empty collection
-				$this->initObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId();
+				$this->initObservationPhotoDorsalRightMarksRelatedByToCellId();
 			} else {
-				$collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria)
-					->filterByPatternCellDorsalRightRelatedByContinuesFromCellId($this)
+				$collObservationPhotoDorsalRightMarksRelatedByToCellId = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria)
+					->filterByPatternCellDorsalRightRelatedByToCellId($this)
 					->find($con);
 				if (null !== $criteria) {
-					return $collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId;
+					return $collObservationPhotoDorsalRightMarksRelatedByToCellId;
 				}
-				$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = $collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId;
+				$this->collObservationPhotoDorsalRightMarksRelatedByToCellId = $collObservationPhotoDorsalRightMarksRelatedByToCellId;
 			}
 		}
-		return $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId;
+		return $this->collObservationPhotoDorsalRightMarksRelatedByToCellId;
 	}
 
 	/**
@@ -1181,10 +1152,10 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	 * @return     int Count of related ObservationPhotoDorsalRightMark objects.
 	 * @throws     PropelException
 	 */
-	public function countObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+	public function countObservationPhotoDorsalRightMarksRelatedByToCellId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
 	{
-		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId) {
+		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByToCellId || null !== $criteria) {
+			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByToCellId) {
 				return 0;
 			} else {
 				$query = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria);
@@ -1192,11 +1163,11 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 					$query->distinct();
 				}
 				return $query
-					->filterByPatternCellDorsalRightRelatedByContinuesFromCellId($this)
+					->filterByPatternCellDorsalRightRelatedByToCellId($this)
 					->count($con);
 			}
 		} else {
-			return count($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId);
+			return count($this->collObservationPhotoDorsalRightMarksRelatedByToCellId);
 		}
 	}
 
@@ -1208,14 +1179,14 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	 * @return     void
 	 * @throws     PropelException
 	 */
-	public function addObservationPhotoDorsalRightMarkRelatedByContinuesFromCellId(ObservationPhotoDorsalRightMark $l)
+	public function addObservationPhotoDorsalRightMarkRelatedByToCellId(ObservationPhotoDorsalRightMark $l)
 	{
-		if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId === null) {
-			$this->initObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId();
+		if ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId === null) {
+			$this->initObservationPhotoDorsalRightMarksRelatedByToCellId();
 		}
-		if (!$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId->contains($l)) { // only add it if the **same** object is not already associated
-			$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId[]= $l;
-			$l->setPatternCellDorsalRightRelatedByContinuesFromCellId($this);
+		if (!$this->collObservationPhotoDorsalRightMarksRelatedByToCellId->contains($l)) { // only add it if the **same** object is not already associated
+			$this->collObservationPhotoDorsalRightMarksRelatedByToCellId[]= $l;
+			$l->setPatternCellDorsalRightRelatedByToCellId($this);
 		}
 	}
 
@@ -1225,7 +1196,7 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	 * an identical criteria, it returns the collection.
 	 * Otherwise if this PatternCellDorsalRight is new, it will return
 	 * an empty collection; or if this PatternCellDorsalRight has previously
-	 * been saved, it will retrieve related ObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId from storage.
+	 * been saved, it will retrieve related ObservationPhotoDorsalRightMarksRelatedByToCellId from storage.
 	 *
 	 * This method is protected by default in order to keep the public
 	 * api reasonable.  You can provide public methods for those you
@@ -1236,146 +1207,12 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
 	 * @return     PropelCollection|array ObservationPhotoDorsalRightMark[] List of ObservationPhotoDorsalRightMark objects
 	 */
-	public function getObservationPhotoDorsalRightMarksRelatedByContinuesFromCellIdJoinObservationPhotoDorsalRight($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public function getObservationPhotoDorsalRightMarksRelatedByToCellIdJoinObservationPhotoDorsalRight($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$query = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria);
 		$query->joinWith('ObservationPhotoDorsalRight', $join_behavior);
 
-		return $this->getObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId($query, $con);
-	}
-
-	/**
-	 * Clears out the collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId collection
-	 *
-	 * This does not modify the database; however, it will remove any associated objects, causing
-	 * them to be refetched by subsequent calls to accessor method.
-	 *
-	 * @return     void
-	 * @see        addObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId()
-	 */
-	public function clearObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId()
-	{
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = null; // important to set this to NULL since that means it is uninitialized
-	}
-
-	/**
-	 * Initializes the collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId collection.
-	 *
-	 * By default this just sets the collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId collection to an empty array (like clearcollObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId());
-	 * however, you may wish to override this method in your stub class to provide setting appropriate
-	 * to your application -- for example, setting the initial array to the values stored in database.
-	 *
-	 * @return     void
-	 */
-	public function initObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId()
-	{
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = new PropelObjectCollection();
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId->setModel('ObservationPhotoDorsalRightMark');
-	}
-
-	/**
-	 * Gets an array of ObservationPhotoDorsalRightMark objects which contain a foreign key that references this object.
-	 *
-	 * If the $criteria is not null, it is used to always fetch the results from the database.
-	 * Otherwise the results are fetched from the database the first time, then cached.
-	 * Next time the same method is called without $criteria, the cached collection is returned.
-	 * If this PatternCellDorsalRight is new, it will return
-	 * an empty collection or the current collection; the criteria is ignored on a new object.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @return     PropelCollection|array ObservationPhotoDorsalRightMark[] List of ObservationPhotoDorsalRightMark objects
-	 * @throws     PropelException
-	 */
-	public function getObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId($criteria = null, PropelPDO $con = null)
-	{
-		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId) {
-				// return empty collection
-				$this->initObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId();
-			} else {
-				$collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria)
-					->filterByPatternCellDorsalRightRelatedByContinuesOnCellId($this)
-					->find($con);
-				if (null !== $criteria) {
-					return $collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId;
-				}
-				$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = $collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId;
-			}
-		}
-		return $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId;
-	}
-
-	/**
-	 * Returns the number of related ObservationPhotoDorsalRightMark objects.
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct
-	 * @param      PropelPDO $con
-	 * @return     int Count of related ObservationPhotoDorsalRightMark objects.
-	 * @throws     PropelException
-	 */
-	public function countObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
-	{
-		if(null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId || null !== $criteria) {
-			if ($this->isNew() && null === $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId) {
-				return 0;
-			} else {
-				$query = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria);
-				if($distinct) {
-					$query->distinct();
-				}
-				return $query
-					->filterByPatternCellDorsalRightRelatedByContinuesOnCellId($this)
-					->count($con);
-			}
-		} else {
-			return count($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId);
-		}
-	}
-
-	/**
-	 * Method called to associate a ObservationPhotoDorsalRightMark object to this object
-	 * through the ObservationPhotoDorsalRightMark foreign key attribute.
-	 *
-	 * @param      ObservationPhotoDorsalRightMark $l ObservationPhotoDorsalRightMark
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function addObservationPhotoDorsalRightMarkRelatedByContinuesOnCellId(ObservationPhotoDorsalRightMark $l)
-	{
-		if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId === null) {
-			$this->initObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId();
-		}
-		if (!$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId->contains($l)) { // only add it if the **same** object is not already associated
-			$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId[]= $l;
-			$l->setPatternCellDorsalRightRelatedByContinuesOnCellId($this);
-		}
-	}
-
-
-	/**
-	 * If this collection has already been initialized with
-	 * an identical criteria, it returns the collection.
-	 * Otherwise if this PatternCellDorsalRight is new, it will return
-	 * an empty collection; or if this PatternCellDorsalRight has previously
-	 * been saved, it will retrieve related ObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId from storage.
-	 *
-	 * This method is protected by default in order to keep the public
-	 * api reasonable.  You can provide public methods for those you
-	 * actually need in PatternCellDorsalRight.
-	 *
-	 * @param      Criteria $criteria optional Criteria object to narrow the query
-	 * @param      PropelPDO $con optional connection object
-	 * @param      string $join_behavior optional join type to use (defaults to Criteria::LEFT_JOIN)
-	 * @return     PropelCollection|array ObservationPhotoDorsalRightMark[] List of ObservationPhotoDorsalRightMark objects
-	 */
-	public function getObservationPhotoDorsalRightMarksRelatedByContinuesOnCellIdJoinObservationPhotoDorsalRight($criteria = null, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$query = ObservationPhotoDorsalRightMarkQuery::create(null, $criteria);
-		$query->joinWith('ObservationPhotoDorsalRight', $join_behavior);
-
-		return $this->getObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId($query, $con);
+		return $this->getObservationPhotoDorsalRightMarksRelatedByToCellId($query, $con);
 	}
 
 	/**
@@ -1412,21 +1249,15 @@ abstract class BasePatternCellDorsalRight extends BaseObject  implements Persist
 					$o->clearAllReferences($deep);
 				}
 			}
-			if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId) {
-				foreach ((array) $this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId as $o) {
-					$o->clearAllReferences($deep);
-				}
-			}
-			if ($this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId) {
-				foreach ((array) $this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId as $o) {
+			if ($this->collObservationPhotoDorsalRightMarksRelatedByToCellId) {
+				foreach ((array) $this->collObservationPhotoDorsalRightMarksRelatedByToCellId as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 		} // if ($deep)
 
 		$this->collObservationPhotoDorsalRightMarksRelatedByPatternCellDorsalRightId = null;
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesFromCellId = null;
-		$this->collObservationPhotoDorsalRightMarksRelatedByContinuesOnCellId = null;
+		$this->collObservationPhotoDorsalRightMarksRelatedByToCellId = null;
 		$this->aPattern = null;
 	}
 

@@ -19,8 +19,7 @@ abstract class BaseObservationPhotoTailMarkForm extends BaseFormPropel
       'pattern_cell_tail_id'      => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => false)),
       'is_wide'                   => new sfWidgetFormInputCheckbox(),
       'is_deep'                   => new sfWidgetFormInputCheckbox(),
-      'continues_from_cell_id'    => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => true)),
-      'continues_on_cell_id'      => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => true)),
+      'to_cell_id'                => new sfWidgetFormPropelChoice(array('model' => 'PatternCellTail', 'add_empty' => true)),
     ));
 
     $this->setValidators(array(
@@ -29,8 +28,7 @@ abstract class BaseObservationPhotoTailMarkForm extends BaseFormPropel
       'pattern_cell_tail_id'      => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id')),
       'is_wide'                   => new sfValidatorBoolean(array('required' => false)),
       'is_deep'                   => new sfValidatorBoolean(array('required' => false)),
-      'continues_from_cell_id'    => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id', 'required' => false)),
-      'continues_on_cell_id'      => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id', 'required' => false)),
+      'to_cell_id'                => new sfValidatorPropelChoice(array('model' => 'PatternCellTail', 'column' => 'id', 'required' => false)),
     ));
 
     $this->widgetSchema->setNameFormat('observation_photo_tail_mark[%s]');

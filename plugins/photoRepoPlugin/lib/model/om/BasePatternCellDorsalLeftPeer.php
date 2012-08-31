@@ -378,9 +378,6 @@ abstract class BasePatternCellDorsalLeftPeer {
 		// Invalidate objects in ObservationPhotoDorsalLeftMarkPeer instance pool, 
 		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
 		ObservationPhotoDorsalLeftMarkPeer::clearInstancePool();
-		// Invalidate objects in ObservationPhotoDorsalLeftMarkPeer instance pool, 
-		// since one or more of them may be deleted by ON DELETE CASCADE/SETNULL rule.
-		ObservationPhotoDorsalLeftMarkPeer::clearInstancePool();
 	}
 
 	/**
@@ -1007,16 +1004,8 @@ abstract class BasePatternCellDorsalLeftPeer {
 			// set fkey col in related ObservationPhotoDorsalLeftMark rows to NULL
 			$selectCriteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
 			$updateValues = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
-			$selectCriteria->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, $obj->getId());
-			$updateValues->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, null);
-
-			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
-
-			// set fkey col in related ObservationPhotoDorsalLeftMark rows to NULL
-			$selectCriteria = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
-			$updateValues = new Criteria(PatternCellDorsalLeftPeer::DATABASE_NAME);
-			$selectCriteria->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, $obj->getId());
-			$updateValues->add(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, null);
+			$selectCriteria->add(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, $obj->getId());
+			$updateValues->add(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, null);
 
 			BasePeer::doUpdate($selectCriteria, $updateValues, $con); // use BasePeer because generated Peer doUpdate() methods only update using pkey
 

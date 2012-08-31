@@ -1,0 +1,21 @@
+generator:
+  class: sfPropelGenerator
+  param:
+    model_class:           ObservationPhotoDorsalLeftMark
+    theme:                 mfAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ObservationPhotoDorsalLeftMark
+    plural:                ObservationPhotoDorsalLeftMarks
+    route_prefix:          observation_photo_dorsal_left_mark
+    with_propel_route:     1
+    actions_base_class:    sfActions
+
+    config:
+      actions: ~
+      fields:  ~
+      list:    ~
+      filter:  ~
+      form:    ~
+      edit:    ~
+      new:     ~

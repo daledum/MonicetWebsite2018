@@ -1,0 +1,1 @@
+<?php echo (!$ObservationPhoto->getCompany())? '&nbsp;': $ObservationPhoto->getCompany()->getRecCetCode() ?>

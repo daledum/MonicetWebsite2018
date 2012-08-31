@@ -26,7 +26,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	const TM_CLASS = 'ObservationPhotoDorsalLeftMarkTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 7;
+	const NUM_COLUMNS = 6;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -46,11 +46,8 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	/** the column name for the IS_DEEP field */
 	const IS_DEEP = 'observation_photo_dorsal_left_mark.IS_DEEP';
 
-	/** the column name for the CONTINUES_FROM_CELL_ID field */
-	const CONTINUES_FROM_CELL_ID = 'observation_photo_dorsal_left_mark.CONTINUES_FROM_CELL_ID';
-
-	/** the column name for the CONTINUES_ON_CELL_ID field */
-	const CONTINUES_ON_CELL_ID = 'observation_photo_dorsal_left_mark.CONTINUES_ON_CELL_ID';
+	/** the column name for the TO_CELL_ID field */
+	const TO_CELL_ID = 'observation_photo_dorsal_left_mark.TO_CELL_ID';
 
 	/**
 	 * An identiy map to hold any loaded instances of ObservationPhotoDorsalLeftMark objects.
@@ -75,12 +72,12 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'ObservationPhotoDorsalLeftId', 'PatternCellDorsalLeftId', 'IsWide', 'IsDeep', 'ContinuesFromCellId', 'ContinuesOnCellId', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'observationPhotoDorsalLeftId', 'patternCellDorsalLeftId', 'isWide', 'isDeep', 'continuesFromCellId', 'continuesOnCellId', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::OBSERVATION_PHOTO_DORSAL_LEFT_ID, self::PATTERN_CELL_DORSAL_LEFT_ID, self::IS_WIDE, self::IS_DEEP, self::CONTINUES_FROM_CELL_ID, self::CONTINUES_ON_CELL_ID, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'OBSERVATION_PHOTO_DORSAL_LEFT_ID', 'PATTERN_CELL_DORSAL_LEFT_ID', 'IS_WIDE', 'IS_DEEP', 'CONTINUES_FROM_CELL_ID', 'CONTINUES_ON_CELL_ID', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'observation_photo_dorsal_left_id', 'pattern_cell_dorsal_left_id', 'is_wide', 'is_deep', 'continues_from_cell_id', 'continues_on_cell_id', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'ObservationPhotoDorsalLeftId', 'PatternCellDorsalLeftId', 'IsWide', 'IsDeep', 'ToCellId', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'observationPhotoDorsalLeftId', 'patternCellDorsalLeftId', 'isWide', 'isDeep', 'toCellId', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::OBSERVATION_PHOTO_DORSAL_LEFT_ID, self::PATTERN_CELL_DORSAL_LEFT_ID, self::IS_WIDE, self::IS_DEEP, self::TO_CELL_ID, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'OBSERVATION_PHOTO_DORSAL_LEFT_ID', 'PATTERN_CELL_DORSAL_LEFT_ID', 'IS_WIDE', 'IS_DEEP', 'TO_CELL_ID', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'observation_photo_dorsal_left_id', 'pattern_cell_dorsal_left_id', 'is_wide', 'is_deep', 'to_cell_id', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -90,12 +87,12 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ObservationPhotoDorsalLeftId' => 1, 'PatternCellDorsalLeftId' => 2, 'IsWide' => 3, 'IsDeep' => 4, 'ContinuesFromCellId' => 5, 'ContinuesOnCellId' => 6, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'observationPhotoDorsalLeftId' => 1, 'patternCellDorsalLeftId' => 2, 'isWide' => 3, 'isDeep' => 4, 'continuesFromCellId' => 5, 'continuesOnCellId' => 6, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::OBSERVATION_PHOTO_DORSAL_LEFT_ID => 1, self::PATTERN_CELL_DORSAL_LEFT_ID => 2, self::IS_WIDE => 3, self::IS_DEEP => 4, self::CONTINUES_FROM_CELL_ID => 5, self::CONTINUES_ON_CELL_ID => 6, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'OBSERVATION_PHOTO_DORSAL_LEFT_ID' => 1, 'PATTERN_CELL_DORSAL_LEFT_ID' => 2, 'IS_WIDE' => 3, 'IS_DEEP' => 4, 'CONTINUES_FROM_CELL_ID' => 5, 'CONTINUES_ON_CELL_ID' => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'observation_photo_dorsal_left_id' => 1, 'pattern_cell_dorsal_left_id' => 2, 'is_wide' => 3, 'is_deep' => 4, 'continues_from_cell_id' => 5, 'continues_on_cell_id' => 6, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'ObservationPhotoDorsalLeftId' => 1, 'PatternCellDorsalLeftId' => 2, 'IsWide' => 3, 'IsDeep' => 4, 'ToCellId' => 5, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'observationPhotoDorsalLeftId' => 1, 'patternCellDorsalLeftId' => 2, 'isWide' => 3, 'isDeep' => 4, 'toCellId' => 5, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::OBSERVATION_PHOTO_DORSAL_LEFT_ID => 1, self::PATTERN_CELL_DORSAL_LEFT_ID => 2, self::IS_WIDE => 3, self::IS_DEEP => 4, self::TO_CELL_ID => 5, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'OBSERVATION_PHOTO_DORSAL_LEFT_ID' => 1, 'PATTERN_CELL_DORSAL_LEFT_ID' => 2, 'IS_WIDE' => 3, 'IS_DEEP' => 4, 'TO_CELL_ID' => 5, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'observation_photo_dorsal_left_id' => 1, 'pattern_cell_dorsal_left_id' => 2, 'is_wide' => 3, 'is_deep' => 4, 'to_cell_id' => 5, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, )
 	);
 
 	/**
@@ -172,16 +169,14 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID);
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::IS_WIDE);
 			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::IS_DEEP);
-			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID);
-			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID);
+			$criteria->addSelectColumn(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.OBSERVATION_PHOTO_DORSAL_LEFT_ID');
 			$criteria->addSelectColumn($alias . '.PATTERN_CELL_DORSAL_LEFT_ID');
 			$criteria->addSelectColumn($alias . '.IS_WIDE');
 			$criteria->addSelectColumn($alias . '.IS_DEEP');
-			$criteria->addSelectColumn($alias . '.CONTINUES_FROM_CELL_ID');
-			$criteria->addSelectColumn($alias . '.CONTINUES_ON_CELL_ID');
+			$criteria->addSelectColumn($alias . '.TO_CELL_ID');
 		}
 	}
 
@@ -592,7 +587,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByContinuesFromCellId table
+	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByToCellId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -600,7 +595,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinPatternCellDorsalLeftRelatedByContinuesFromCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinPatternCellDorsalLeftRelatedByToCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -627,63 +622,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 			$con = Propel::getConnection(ObservationPhotoDorsalLeftMarkPeer::DATABASE_NAME, Propel::CONNECTION_READ);
 		}
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseObservationPhotoDorsalLeftMarkPeer', $criteria, $con);
-		}
-
-		$stmt = BasePeer::doCount($criteria, $con);
-
-		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$count = (int) $row[0];
-		} else {
-			$count = 0; // no rows returned; we infer that means 0 matches.
-		}
-		$stmt->closeCursor();
-		return $count;
-	}
-
-
-	/**
-	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByContinuesOnCellId table
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     int Number of matching rows.
-	 */
-	public static function doCountJoinPatternCellDorsalLeftRelatedByContinuesOnCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		// we're going to modify criteria, so copy it first
-		$criteria = clone $criteria;
-
-		// We need to set the primary table name, since in the case that there are no WHERE columns
-		// it will be impossible for the BasePeer::createSelectSql() method to determine which
-		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(ObservationPhotoDorsalLeftMarkPeer::TABLE_NAME);
-
-		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->setDistinct();
-		}
-
-		if (!$criteria->hasSelectClause()) {
-			ObservationPhotoDorsalLeftMarkPeer::addSelectColumns($criteria);
-		}
-		
-		$criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-		
-		// Set the correct dbName
-		$criteria->setDbName(self::DATABASE_NAME);
-
-		if ($con === null) {
-			$con = Propel::getConnection(ObservationPhotoDorsalLeftMarkPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -856,7 +795,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinPatternCellDorsalLeftRelatedByContinuesFromCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinPatternCellDorsalLeftRelatedByToCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
@@ -869,7 +808,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 		$startcol = (ObservationPhotoDorsalLeftMarkPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftMarkPeer::NUM_LAZY_LOAD_COLUMNS);
 		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -908,79 +847,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 				} // if obj2 already loaded
 
 				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to $obj2 (PatternCellDorsalLeft)
-				$obj2->addObservationPhotoDorsalLeftMarkRelatedByContinuesFromCellId($obj1);
-
-			} // if joined row was not null
-
-			$results[] = $obj1;
-		}
-		$stmt->closeCursor();
-		return $results;
-	}
-
-
-	/**
-	 * Selects a collection of ObservationPhotoDorsalLeftMark objects pre-filled with their PatternCellDorsalLeft objects.
-	 * @param      Criteria  $criteria
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of ObservationPhotoDorsalLeftMark objects.
-	 * @throws     PropelException Any exceptions caught during processing will be
-	 *		 rethrown wrapped into a PropelException.
-	 */
-	public static function doSelectJoinPatternCellDorsalLeftRelatedByContinuesOnCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$criteria = clone $criteria;
-
-		// Set the correct dbName if it has not been overridden
-		if ($criteria->getDbName() == Propel::getDefaultDB()) {
-			$criteria->setDbName(self::DATABASE_NAME);
-		}
-
-		ObservationPhotoDorsalLeftMarkPeer::addSelectColumns($criteria);
-		$startcol = (ObservationPhotoDorsalLeftMarkPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftMarkPeer::NUM_LAZY_LOAD_COLUMNS);
-		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseObservationPhotoDorsalLeftMarkPeer', $criteria, $con);
-		}
-
-		$stmt = BasePeer::doSelect($criteria, $con);
-		$results = array();
-
-		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = ObservationPhotoDorsalLeftMarkPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = ObservationPhotoDorsalLeftMarkPeer::getInstanceFromPool($key1))) {
-				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://www.propelorm.org/ticket/509
-				// $obj1->hydrate($row, 0, true); // rehydrate
-			} else {
-
-				$cls = ObservationPhotoDorsalLeftMarkPeer::getOMClass(false);
-
-				$obj1 = new $cls();
-				$obj1->hydrate($row);
-				ObservationPhotoDorsalLeftMarkPeer::addInstanceToPool($obj1, $key1);
-			} // if $obj1 already loaded
-
-			$key2 = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, $startcol);
-			if ($key2 !== null) {
-				$obj2 = PatternCellDorsalLeftPeer::getInstanceFromPool($key2);
-				if (!$obj2) {
-
-					$cls = PatternCellDorsalLeftPeer::getOMClass(false);
-
-					$obj2 = new $cls();
-					$obj2->hydrate($row, $startcol);
-					PatternCellDorsalLeftPeer::addInstanceToPool($obj2, $key2);
-				} // if obj2 already loaded
-
-				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to $obj2 (PatternCellDorsalLeft)
-				$obj2->addObservationPhotoDorsalLeftMarkRelatedByContinuesOnCellId($obj1);
+				$obj2->addObservationPhotoDorsalLeftMarkRelatedByToCellId($obj1);
 
 			} // if joined row was not null
 
@@ -1031,9 +898,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 
 		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1083,16 +948,11 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		$startcol5 = $startcol4 + (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
-		$startcol6 = $startcol5 + (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
-
 		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::OBSERVATION_PHOTO_DORSAL_LEFT_ID, ObservationPhotoDorsalLeftPeer::ID, $join_behavior);
 
 		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1168,25 +1028,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 				} // if obj4 loaded
 
 				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to the collection in $obj4 (PatternCellDorsalLeft)
-				$obj4->addObservationPhotoDorsalLeftMarkRelatedByContinuesFromCellId($obj1);
-			} // if joined row not null
-
-			// Add objects for joined PatternCellDorsalLeft rows
-
-			$key5 = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, $startcol5);
-			if ($key5 !== null) {
-				$obj5 = PatternCellDorsalLeftPeer::getInstanceFromPool($key5);
-				if (!$obj5) {
-
-					$cls = PatternCellDorsalLeftPeer::getOMClass(false);
-
-					$obj5 = new $cls();
-					$obj5->hydrate($row, $startcol5);
-					PatternCellDorsalLeftPeer::addInstanceToPool($obj5, $key5);
-				} // if obj5 loaded
-
-				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to the collection in $obj5 (PatternCellDorsalLeft)
-				$obj5->addObservationPhotoDorsalLeftMarkRelatedByContinuesOnCellId($obj1);
+				$obj4->addObservationPhotoDorsalLeftMarkRelatedByToCellId($obj1);
 			} // if joined row not null
 
 			$results[] = $obj1;
@@ -1234,9 +1076,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	
 		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1313,7 +1153,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 
 
 	/**
-	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByContinuesFromCellId table
+	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByToCellId table
 	 *
 	 * @param      Criteria $criteria
 	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
@@ -1321,63 +1161,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
 	 * @return     int Number of matching rows.
 	 */
-	public static function doCountJoinAllExceptPatternCellDorsalLeftRelatedByContinuesFromCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		// we're going to modify criteria, so copy it first
-		$criteria = clone $criteria;
-
-		// We need to set the primary table name, since in the case that there are no WHERE columns
-		// it will be impossible for the BasePeer::createSelectSql() method to determine which
-		// tables go into the FROM clause.
-		$criteria->setPrimaryTableName(ObservationPhotoDorsalLeftMarkPeer::TABLE_NAME);
-		
-		if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
-			$criteria->setDistinct();
-		}
-
-		if (!$criteria->hasSelectClause()) {
-			ObservationPhotoDorsalLeftMarkPeer::addSelectColumns($criteria);
-		}
-		
-		$criteria->clearOrderByColumns(); // ORDER BY should not affect count
-		
-		// Set the correct dbName
-		$criteria->setDbName(self::DATABASE_NAME);
-
-		if ($con === null) {
-			$con = Propel::getConnection(ObservationPhotoDorsalLeftMarkPeer::DATABASE_NAME, Propel::CONNECTION_READ);
-		}
-	
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::OBSERVATION_PHOTO_DORSAL_LEFT_ID, ObservationPhotoDorsalLeftPeer::ID, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseObservationPhotoDorsalLeftMarkPeer', $criteria, $con);
-		}
-
-		$stmt = BasePeer::doCount($criteria, $con);
-
-		if ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$count = (int) $row[0];
-		} else {
-			$count = 0; // no rows returned; we infer that means 0 matches.
-		}
-		$stmt->closeCursor();
-		return $count;
-	}
-
-
-	/**
-	 * Returns the number of rows matching criteria, joining the related PatternCellDorsalLeftRelatedByContinuesOnCellId table
-	 *
-	 * @param      Criteria $criteria
-	 * @param      boolean $distinct Whether to select only distinct columns; deprecated: use Criteria->setDistinct() instead.
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     int Number of matching rows.
-	 */
-	public static function doCountJoinAllExceptPatternCellDorsalLeftRelatedByContinuesOnCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doCountJoinAllExceptPatternCellDorsalLeftRelatedByToCellId(Criteria $criteria, $distinct = false, PropelPDO $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		// we're going to modify criteria, so copy it first
 		$criteria = clone $criteria;
@@ -1454,14 +1238,9 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
 		$startcol4 = $startcol3 + (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
 
-		PatternCellDorsalLeftPeer::addSelectColumns($criteria);
-		$startcol5 = $startcol4 + (PatternCellDorsalLeftPeer::NUM_COLUMNS - PatternCellDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
-
 		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::PATTERN_CELL_DORSAL_LEFT_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_FROM_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::CONTINUES_ON_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
+		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::TO_CELL_ID, PatternCellDorsalLeftPeer::ID, $join_behavior);
 
 		// symfony_behaviors behavior
 		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
@@ -1521,26 +1300,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 				} // if $obj3 already loaded
 
 				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to the collection in $obj3 (PatternCellDorsalLeft)
-				$obj3->addObservationPhotoDorsalLeftMarkRelatedByContinuesFromCellId($obj1);
-
-			} // if joined row is not null
-
-				// Add objects for joined PatternCellDorsalLeft rows
-
-				$key4 = PatternCellDorsalLeftPeer::getPrimaryKeyHashFromRow($row, $startcol4);
-				if ($key4 !== null) {
-					$obj4 = PatternCellDorsalLeftPeer::getInstanceFromPool($key4);
-					if (!$obj4) {
-	
-						$cls = PatternCellDorsalLeftPeer::getOMClass(false);
-
-					$obj4 = new $cls();
-					$obj4->hydrate($row, $startcol4);
-					PatternCellDorsalLeftPeer::addInstanceToPool($obj4, $key4);
-				} // if $obj4 already loaded
-
-				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to the collection in $obj4 (PatternCellDorsalLeft)
-				$obj4->addObservationPhotoDorsalLeftMarkRelatedByContinuesOnCellId($obj1);
+				$obj3->addObservationPhotoDorsalLeftMarkRelatedByToCellId($obj1);
 
 			} // if joined row is not null
 
@@ -1631,7 +1391,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 
 
 	/**
-	 * Selects a collection of ObservationPhotoDorsalLeftMark objects pre-filled with all related objects except PatternCellDorsalLeftRelatedByContinuesFromCellId.
+	 * Selects a collection of ObservationPhotoDorsalLeftMark objects pre-filled with all related objects except PatternCellDorsalLeftRelatedByToCellId.
 	 *
 	 * @param      Criteria  $criteria
 	 * @param      PropelPDO $con
@@ -1640,86 +1400,7 @@ abstract class BaseObservationPhotoDorsalLeftMarkPeer {
 	 * @throws     PropelException Any exceptions caught during processing will be
 	 *		 rethrown wrapped into a PropelException.
 	 */
-	public static function doSelectJoinAllExceptPatternCellDorsalLeftRelatedByContinuesFromCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
-	{
-		$criteria = clone $criteria;
-
-		// Set the correct dbName if it has not been overridden
-		// $criteria->getDbName() will return the same object if not set to another value
-		// so == check is okay and faster
-		if ($criteria->getDbName() == Propel::getDefaultDB()) {
-			$criteria->setDbName(self::DATABASE_NAME);
-		}
-
-		ObservationPhotoDorsalLeftMarkPeer::addSelectColumns($criteria);
-		$startcol2 = (ObservationPhotoDorsalLeftMarkPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftMarkPeer::NUM_LAZY_LOAD_COLUMNS);
-
-		ObservationPhotoDorsalLeftPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ObservationPhotoDorsalLeftPeer::NUM_COLUMNS - ObservationPhotoDorsalLeftPeer::NUM_LAZY_LOAD_COLUMNS);
-
-		$criteria->addJoin(ObservationPhotoDorsalLeftMarkPeer::OBSERVATION_PHOTO_DORSAL_LEFT_ID, ObservationPhotoDorsalLeftPeer::ID, $join_behavior);
-
-		// symfony_behaviors behavior
-		foreach (sfMixer::getCallables(self::getMixerPreSelectHook(__FUNCTION__)) as $sf_hook)
-		{
-		  call_user_func($sf_hook, 'BaseObservationPhotoDorsalLeftMarkPeer', $criteria, $con);
-		}
-
-
-		$stmt = BasePeer::doSelect($criteria, $con);
-		$results = array();
-
-		while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-			$key1 = ObservationPhotoDorsalLeftMarkPeer::getPrimaryKeyHashFromRow($row, 0);
-			if (null !== ($obj1 = ObservationPhotoDorsalLeftMarkPeer::getInstanceFromPool($key1))) {
-				// We no longer rehydrate the object, since this can cause data loss.
-				// See http://www.propelorm.org/ticket/509
-				// $obj1->hydrate($row, 0, true); // rehydrate
-			} else {
-				$cls = ObservationPhotoDorsalLeftMarkPeer::getOMClass(false);
-
-				$obj1 = new $cls();
-				$obj1->hydrate($row);
-				ObservationPhotoDorsalLeftMarkPeer::addInstanceToPool($obj1, $key1);
-			} // if obj1 already loaded
-
-				// Add objects for joined ObservationPhotoDorsalLeft rows
-
-				$key2 = ObservationPhotoDorsalLeftPeer::getPrimaryKeyHashFromRow($row, $startcol2);
-				if ($key2 !== null) {
-					$obj2 = ObservationPhotoDorsalLeftPeer::getInstanceFromPool($key2);
-					if (!$obj2) {
-	
-						$cls = ObservationPhotoDorsalLeftPeer::getOMClass(false);
-
-					$obj2 = new $cls();
-					$obj2->hydrate($row, $startcol2);
-					ObservationPhotoDorsalLeftPeer::addInstanceToPool($obj2, $key2);
-				} // if $obj2 already loaded
-
-				// Add the $obj1 (ObservationPhotoDorsalLeftMark) to the collection in $obj2 (ObservationPhotoDorsalLeft)
-				$obj2->addObservationPhotoDorsalLeftMark($obj1);
-
-			} // if joined row is not null
-
-			$results[] = $obj1;
-		}
-		$stmt->closeCursor();
-		return $results;
-	}
-
-
-	/**
-	 * Selects a collection of ObservationPhotoDorsalLeftMark objects pre-filled with all related objects except PatternCellDorsalLeftRelatedByContinuesOnCellId.
-	 *
-	 * @param      Criteria  $criteria
-	 * @param      PropelPDO $con
-	 * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-	 * @return     array Array of ObservationPhotoDorsalLeftMark objects.
-	 * @throws     PropelException Any exceptions caught during processing will be
-	 *		 rethrown wrapped into a PropelException.
-	 */
-	public static function doSelectJoinAllExceptPatternCellDorsalLeftRelatedByContinuesOnCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
+	public static function doSelectJoinAllExceptPatternCellDorsalLeftRelatedByToCellId(Criteria $criteria, $con = null, $join_behavior = Criteria::LEFT_JOIN)
 	{
 		$criteria = clone $criteria;
 
