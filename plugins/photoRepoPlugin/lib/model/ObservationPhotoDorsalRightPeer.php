@@ -5,7 +5,7 @@ class ObservationPhotoDorsalRightPeer extends BaseObservationPhotoDorsalRightPee
       throw new Exception('Missing photo_id');
     } else {
       $observationPhotoDorsalRight = ObservationPhotoDorsalRightQuery::create()
-              ->filterById( $photoId )
+              ->filterByPhotoId( $photoId )
               ->findOne();
       if( !$observationPhotoDorsalRight ){
         $observationPhotoDorsalRight = new ObservationPhotoDorsalRight();

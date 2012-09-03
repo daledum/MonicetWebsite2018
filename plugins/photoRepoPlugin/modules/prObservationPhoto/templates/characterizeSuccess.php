@@ -29,6 +29,11 @@
     <?php endif; ?>
     
     <?php if( $isLeft && $dorsalLeftForm ): ?>
+      <?php 
+        $relatedMarks = $dorsalLeftForm->getObject()->getObservationPhotoDorsalLeftMarks();
+        $markForm = new ObservationPhotoDorsalLeftMarkForm();
+        $markForm->setDefault('observation_photo_dorsal_left_id', $dorsalLeftForm->getObject()->getId());
+      ?>
       <?php include_partial('prObservationPhoto/form_marks', array(
           'form' => $dorsalLeftForm,
           'pattern' => $pattern,
@@ -37,11 +42,19 @@
           'fieldsetName' => 'Dorsal esquerda',
           'patternImage' => $pattern->getImageDorsalLeft(),
           'formRouteDestination' => '@observation_photo_dorsal_left',
-          'relatedMarks' => $dorsalLeftForm->getObject()->getObservationPhotoDorsalLeftMarks()
+          'relatedMarks' => $relatedMarks,
+          'routeDeleteMark' => 'observation_photo_dorsal_left_mark_delete',
+          'markForm' => $markForm,
+          'markFormRouteDestination' => '@observation_photo_dorsal_left_mark'
       )) ?>
     <?php endif; ?>
     
     <?php if( $isRight && $dorsalRightForm ): ?>
+      <?php 
+        $relatedMarks = $dorsalRightForm->getObject()->getObservationPhotoDorsalRightMarks();
+        $markForm = new ObservationPhotoDorsalRightMarkForm();
+        $markForm->setDefault('observation_photo_dorsal_right_id', $dorsalRightForm->getObject()->getId());
+      ?>
       <?php include_partial('prObservationPhoto/form_marks', array(
           'form' => $dorsalRightForm,
           'pattern' => $pattern,
@@ -50,7 +63,10 @@
           'fieldsetName' => 'Dorsal direita',
           'patternImage' => $pattern->getImageDorsalRight(),
           'formRouteDestination' => '@observation_photo_dorsal_right',
-          'relatedMarks' => $dorsalRightForm->getObject()->getObservationPhotoDorsalRightMarks()
+          'relatedMarks' => $relatedMarks,
+          'routeDeleteMark' => 'observation_photo_dorsal_right_mark_delete',
+          'markForm' => $markForm,
+          'markFormRouteDestination' => '@observation_photo_dorsal_right_mark'
       )) ?>
     <?php endif; ?>
   </div>

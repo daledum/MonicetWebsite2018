@@ -2,14 +2,13 @@
 
 class ObservationPhotoDorsalLeftMark extends BaseObservationPhotoDorsalLeftMark {
   public function __toString(){
-    $cell = ($this->getPatternCellDorsalLeftId())? $this->getPatternCellTailRelatedByPatternCellDorsalLeftId()->getName(): '';
+    $cell = ($this->getPatternCellDorsalLeftId())? $this->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId()->getName(): '';
     
     $isWide = ($this->getIsWide())? 'Larga, ': '';
     $isDeep = ($this->getIsDeep())? 'Estreita, ': '';
     
-    $from = ($this->getContinuesFromCellId())? sprintf('[%s', $this->getPatternCellDorsalLeftRelatedByContinuesFromCellId()->getName()): '';
-    $to = ($this->getContinuesOnCellId())? sprintf('%s]', $this->getPatternCellDorsalLeftRelatedByContinuesOnCellId()->getName()): '';
+    $to = ($this->getToCellId())? sprintf('- %s', $this->getPatternCellDorsalLeftRelatedByToCellId()->getName()): '';
     
-    return sprintf("%s, %s%s%s%s", $cell, $isWide, $isDeep, $from, $to);
+    return sprintf("%s%s [%s%s]", $isWide, $isDeep, $cell, $to);
   }
 } 

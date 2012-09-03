@@ -82,5 +82,12 @@
   width: 11em;
 }
 .form_line_characterization {
-    min-height: 24px;
+    min-height: 20px;
+}
+#mark_content{
+    padding-left: 12em !important;
+}
+
+.content select {
+    border: 1px solid #dddddd;
 }

@@ -1,18 +1,13 @@
 <?php
-
-
-
-/**
- * Skeleton subclass for performing query and update operations on the 'observation_photo_dorsal_right_mark' table.
- *
- * 
- *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- * @package    propel.generator.plugins.photoRepoPlugin.lib.model
- */
 class ObservationPhotoDorsalRightMarkPeer extends BaseObservationPhotoDorsalRightMarkPeer {
-
+  public function __toString(){
+    $cell = ($this->getPatternCellDorsalRightId())? $this->getPatternCellTailRelatedByPatternCellDorsalRightId()->getName(): '';
+    
+    $isWide = ($this->getIsWide())? 'Larga, ': '';
+    $isDeep = ($this->getIsDeep())? 'Estreita, ': '';
+    
+    $to = ($this->getToCellId())? sprintf('- %s', $this->getPatternCellDorsalRightRelatedByToCellId()->getName()): '';
+    
+    return sprintf("%s%s [%s%s]", $isWide, $isDeep, $cell, $to);
+  }
 } // ObservationPhotoDorsalRightMarkPeer
