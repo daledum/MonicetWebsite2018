@@ -1,6 +1,6 @@
 <div id="photo_details">
     <div id="photo_photo">
-        <img src="<?php echo url_for( $fileAddress ) ?>" />
+      <img class="to_zoom" src="<?php echo url_for( $fileAddress ) ?>" />
     </div>
     <div class="photo_exif" >
         <b>EXIF:</b><br/><br/>

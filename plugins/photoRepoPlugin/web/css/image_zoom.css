@@ -1,0 +1,8 @@
+.zoomIcon { 
+        width:33px; 
+        height:33px; 
+        position:absolute; 
+        top:0;
+        right:0;
+        background:url(/photoRepoPlugin/zoom/icon.png);
+    }

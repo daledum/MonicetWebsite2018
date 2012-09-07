@@ -4,7 +4,7 @@
     <?php if($pattern): ?>
 
       <?php if($patternImage ): ?>
-        <img width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
+        <img class="to_zoom" width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
       <?php else: ?>
         <p>Padrão indisponível.</p>
       <?php endif; ?>
@@ -125,9 +125,8 @@
       </ul>
     </form>
   </div>
-  
 </div>
 
 <div class="characterize_photo_image">
-  <img width="730" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" />
+  <img class="to_zoom" width="730" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" />
 </div>
