@@ -28,8 +28,9 @@ generator:
           - island
           - _company_id
           #- _photographer_id
-          - _is_featured
-          - _is_validated
+          #- _is_featured
+          #- _is_validated
+          - _status
       filter:  ~
       form:    
         display:

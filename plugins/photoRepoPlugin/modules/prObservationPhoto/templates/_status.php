@@ -1,0 +1,1 @@
+<?php echo ObservationPhoto::getDescription($ObservationPhoto->getStatus()) ?>

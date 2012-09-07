@@ -94,8 +94,11 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $sf_user = SfContext::getInstance()->getUser();
       $ObservationPhoto->setStatus('for_approval');
       $ObservationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
-      $ObservationPhoto->save();
       
+      $ObservationPhoto->save();
+      if( $isNew ){
+        $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+      }
       if(isset($fileAddress)) {
         $ObservationPhoto->setUploadedAt($dateUpload);
         $ObservationPhoto->save();
