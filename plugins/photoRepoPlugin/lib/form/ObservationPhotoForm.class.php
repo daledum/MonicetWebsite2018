@@ -9,7 +9,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     $this->embedI18n(array('pt', 'en'));
     
     unset(
-      $this['created_at'], $this['updated_at']
+      $this['created_at'], $this['updated_at'], $this['status']
     );
     
     $request = sfContext::getInstance()->getRequest();

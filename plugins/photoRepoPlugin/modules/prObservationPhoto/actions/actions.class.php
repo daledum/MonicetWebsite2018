@@ -91,27 +91,30 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       } 
 
       $ObservationPhoto = $form->save();
-      $sf_user = SfContext::getInstance()->getUser();
-      $ObservationPhoto->setStatus('for_approval');
-      $ObservationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
-      
-      $ObservationPhoto->save();
       if( $isNew ){
         $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+      } else {
+        if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA) ) ) {
+          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+          $ObservationPhoto->save();
+        }
       }
+      
       if(isset($fileAddress)) {
         $ObservationPhoto->setUploadedAt($dateUpload);
-        $ObservationPhoto->save();
       }
-
+      
+      $sf_user = SfContext::getInstance()->getUser();
+      $ObservationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
+      $ObservationPhoto->save();
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhoto)));
 
       $this->getUser()->setFlash('notice', $notice);
-      if( $isNew ) {
-          $this->redirect(array('sf_route' => 'pr_pendent_photos_list'));
-      } else {
-          $this->redirect('@pr_observation_photo_edit?id='.$ObservationPhoto->getId());
-      }
+//      if( $isNew ) {
+//          $this->redirect(array('sf_route' => 'pr_pendent_photos_list'));
+//      } else {
+//          $this->redirect('@pr_observation_photo_edit?id='.$ObservationPhoto->getId());
+//      }
     }
     else
     {
@@ -122,8 +125,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   public function executeValidate( sfWebRequest $request ) {
       $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
       $userId = $this->getUser()->getGuardUSer()->getId();
-      if( $userId != $observationPhoto->getLastEditedBy()) {
-          $observationPhoto->setStatus(observationPhoto::A_SIGLA);
+      if( $userId != $observationPhoto->getLastEditedBy() && $observationPhoto->getStatus() == ObservationPhoto::FA_SIGLA ) {
+          $observationPhoto->setStatus(observationPhoto::V_SIGLA);
           $observationPhoto->setValidatedBy($userId);
           $observationPhoto->save();
           $this->getUser()->setFlash('notice', 'Fotografia validada com sucesso');
@@ -176,5 +179,9 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->isTail = $this->isLeft = $this->isRight = false;
       $this->tailForm = $this->dorsalLeftForm = $this->dorsalRightForm = false;
     }
+  }
+  
+  public function executeIdentify( sfWebRequest $request ) {
+    $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
   }
 }

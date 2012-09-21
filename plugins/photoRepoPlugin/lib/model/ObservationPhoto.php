@@ -3,11 +3,11 @@
 
 class ObservationPhoto extends BaseObservationPhoto {
   const NEW_SIGLA = 'new';
-  const NEW_DESC  = 'Nova';
-  const C_SIGLA   = 'Characterized';
-  const C_DESC    = 'Caracterizada';
+  const NEW_DESC  = 'Para caracterizar';
+  const C_SIGLA   = 'characterized';
+  const C_DESC    = 'Para identificar';
   const FA_SIGLA  = 'for_approval';
-  const FA_DESC   = 'Para aprovação';
+  const FA_DESC   = 'Para validar';
   const V_SIGLA   = 'validated';
   const V_DESC    = 'Validada';
 

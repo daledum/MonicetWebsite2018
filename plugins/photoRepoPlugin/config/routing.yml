@@ -88,6 +88,14 @@ pr_observation_photo_characterize:
   requirements:
     sf_method: get
     
+pr_observation_photo_identify:
+  url:  /observation-photo/:id/identify
+  params:
+    module:     prObservationPhoto
+    action:     identify
+  requirements:
+    sf_method: get
+    
 pr_observation_photo:
   class: sfPropel15RouteCollection
   options:

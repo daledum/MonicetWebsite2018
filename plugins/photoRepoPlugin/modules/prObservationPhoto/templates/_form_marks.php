@@ -4,7 +4,7 @@
     <?php if($pattern): ?>
 
       <?php if($patternImage ): ?>
-        <img class="to_zoom" width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
+        <img id="pattern-image" width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
       <?php else: ?>
         <p>Padrão indisponível.</p>
       <?php endif; ?>
@@ -37,6 +37,7 @@
       </div>
       <ul class="sf_admin_actions">
           <?php echo $helper->linkToSave($markForm->getObject(), array( 'params' => array(  ), 'class_suffix' => 'save', 'label' => 'Adicionar marca',)) ?>
+        
       </ul>
     </form>
   </div>
@@ -120,13 +121,62 @@
         </fieldset>
       </div>
       <ul class="sf_admin_actions">
-        <?php echo $helper->linkToList(array(  'params' =>   array(  ),  'class_suffix' => 'list',  'label' => 'Back to list',)) ?>
+        <?php echo $helper->linkToList(array(  'params' =>   array(  ),  'class_suffix' => 'list',  'label' => 'Voltar',)) ?>
         <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
+        <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Identificar</a></li>
       </ul>
     </form>
   </div>
 </div>
 
+<style>
+    .viewer
+    {
+        width: 728px;
+        height: 450px;
+        border: 1px solid #cccccc;
+        position: relative;
+    }
+
+    .wrapper
+    {
+        overflow: hidden;
+    }
+</style>
+
+<?php /* ?>
 <div class="characterize_photo_image">
-  <img class="to_zoom" width="730" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" />
+  <img id="photo-to-zoom" class="zoom" width="730" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" />
 </div>
+<?php */ ?>
+
+<div class="characterize_photo_image wrapper">
+    <div id="viewer2" class="viewer"></div>
+</div>
+
+<script type="text/javascript">
+    var $ = jQuery;
+    $(document).ready(function(){
+//          var iv1 = $("#viewer").iviewer({
+//               src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>", 
+//               update_on_resize: false,
+//               zoom_animation: false,
+//               mousewheel: false,
+//               onMouseMove: function(ev, coords) { },
+//               onStartDrag: function(ev, coords) { return false; }, //this image will not be dragged
+//               onDrag: function(ev, coords) { }
+//          });
+//
+//           $("#in").click(function(){ iv1.iviewer('zoom_by', 1); }); 
+//           $("#out").click(function(){ iv1.iviewer('zoom_by', -1); }); 
+//           $("#fit").click(function(){ iv1.iviewer('fit'); }); 
+//           $("#orig").click(function(){ iv1.iviewer('set_zoom', 100); }); 
+//           $("#update").click(function(){ iv1.iviewer('update_container_info'); });
+
+          var iv2 = $("#viewer2").iviewer(
+          {
+              src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+          });
+
+    });
+</script>
