@@ -150,11 +150,16 @@ class general_infoActions extends autoGeneral_infoActions
     $watchman_cache = array();
     $post_cache = array();
     $vessel_cache = array();
-    
+
     //para todas as linhas que tem código preencchido
     for($l=3 ; strcmp($activeSheet->getCellByColumnAndRow(2, $l)->getValue(),'') != 0 ; $l++){
       // colunas
       $date = trim($activeSheet->getCellByColumnAndRow(0, $l)->getValue());
+
+      $value = trim($activeSheet->getCellByColumnAndRow(0, $l)->getValue());
+      $formatCode = $activeSheet->getStyle('A'.$l)->getNumberFormat()->getFormatCode();
+      $date = PHPExcel_Style_NumberFormat::toFormattedString($value, $formatCode);
+
       $code = trim($activeSheet->getCellByColumnAndRow(1, $l)->getValue());
       $time = trim($activeSheet->getCellByColumnAndRow(2, $l)->getValue());
       $formatTime = $objPHPExcel->getActiveSheet()->getStyle('C'.$l)->getNumberFormat()->getFormatCode();
