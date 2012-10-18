@@ -21,6 +21,14 @@ class kind_of_photo {
     
     return $resultados;
   }
+  
+  public static function getValueForSigla( $sigla ) {
+    $resultados[self::BACKLIGHT_SIGLA] = self::BACKLIGHT_DESC;
+    $resultados[self::NORMAL_SIGLA]    = self::NORMAL_DESC;
+    $resultados[self::BAD_ANGLE_SIGLA] = self::BAD_ANGLE_DESC;
+    $resultados[self::OTHERS_SIGLA]    = self::OTHERS_DESC;
+    return isset($resultados[$sigla])? $resultados[$sigla]: '';
+  }
 }
 
 ?>

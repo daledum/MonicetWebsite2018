@@ -4,7 +4,7 @@ generator:
     model_class:           ObservationPhoto
     theme:                 mfAdmin
     non_verbose_templates: true
-    with_show:             false
+    with_show:             true
     singular:              ObservationPhoto
     plural:                ObservationPhotos
     route_prefix:          pr_observation_photo
@@ -16,7 +16,7 @@ generator:
       actions: ~
       fields:  ~
       list:    
-        title: "Listagem de fotografias de observações"
+        title: "Listagem de fotografias de observações por analisar"
         actions: {}
         batch_actions: {}
         display:

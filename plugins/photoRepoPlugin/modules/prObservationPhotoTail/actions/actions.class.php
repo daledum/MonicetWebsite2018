@@ -13,6 +13,11 @@ class prObservationPhotoTailActions extends autoPrObservationPhotoTailActions
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
       $ObservationPhotoTail = $form->save();
+      $ObservationPhoto = $ObservationPhotoTail->getObservationPhoto();
+      if( $ObservationPhoto->getStatus() == ObservationPhoto::NEW_SIGLA) {
+        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+        $ObservationPhoto->save();
+      }
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTail)));
 

@@ -12,7 +12,7 @@ class ObservationPhotoDorsalLeftPeer extends BaseObservationPhotoDorsalLeftPeer 
         $observationPhotoDorsalLeft->setPhotoId($photoId);
         $observationPhotoDorsalLeft->save();
         $photo = $observationPhotoDorsalLeft->getObservationPhoto();
-        $photo->setStatus(ObservationPhoto::C_SIGLA);
+        $photo->setStatus(ObservationPhoto::NEW_SIGLA);
         $photo->save();
       }
       return $observationPhotoDorsalLeft;

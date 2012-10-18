@@ -30,7 +30,7 @@
 .characterize_photo_container {
     width: 450px;
     float: left;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 #photo_details {
     float: left;
@@ -90,4 +90,19 @@
 
 .content select {
     border: 1px solid #dddddd;
+}
+
+#pr_ob_photo_show_info {
+    border: 1px solid #dddddd;
+    padding: 10px;
+    overflow: auto;
+    margin-bottom: 10px;
+}
+#pr_ob_photo_show_data {
+    float: left;
+    width: 725px;
+    border: 1px solid #dddddd;
+    padding: 5px;
+    overflow: auto;
+    margin: 0 0 10px 10px;
 }

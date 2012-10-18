@@ -18,6 +18,13 @@ class photo_quality {
     
     return $resultados;
   }
+  
+  public static function getValueForSigla( $sigla ) {
+    $resultados[self::LOW_SIGLA]    = self::LOW_DESC;
+    $resultados[self::NORMAL_SIGLA] = self::NORMAL_DESC;
+    $resultados[self::HIGH_SIGLA]   = self::HIGH_DESC;
+    return isset($resultados[$sigla])? $resultados[$sigla]: '';
+  }
 }
 
 ?>

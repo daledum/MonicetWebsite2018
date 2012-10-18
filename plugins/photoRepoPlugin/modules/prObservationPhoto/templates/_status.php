@@ -1,1 +1,1 @@
-<?php echo ObservationPhoto::getDescription($ObservationPhoto->getStatus()) ?>
+<?php echo ObservationPhoto::getValueForSiglaStatus($ObservationPhoto->getStatus()) ?>

@@ -24,7 +24,7 @@ class ObservationPhoto extends BaseObservationPhoto {
     return $resultados;
   }
   
-  public static function getDescription( $sigla ) {
+  public static function getValueForSiglaStatus( $sigla ) {
     $resultados[self::NEW_SIGLA] = self::NEW_DESC;
     $resultados[self::C_SIGLA] = self::C_DESC;
     $resultados[self::FA_SIGLA] = self::FA_DESC;

@@ -12,7 +12,7 @@ class ObservationPhotoTailPeer extends BaseObservationPhotoTailPeer {
         $observationPhotoTail->setPhotoId($photoId);
         $observationPhotoTail->save();
         $photo = $observationPhotoTail->getObservationPhoto();
-        $photo->setStatus(ObservationPhoto::C_SIGLA);
+        $photo->setStatus(ObservationPhoto::NEW_SIGLA);
         $photo->save();
       }
       return $observationPhotoTail;

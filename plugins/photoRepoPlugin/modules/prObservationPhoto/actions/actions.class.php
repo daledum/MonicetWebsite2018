@@ -184,4 +184,50 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   public function executeIdentify( sfWebRequest $request ) {
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
   }
+  
+  public function executeShow( sfWebRequest $request ) {
+    $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    
+    $file_address = sfConfig::get('sf_upload_dir').'/pr_repo_final/'.$this->observationPhoto->getFileName();
+    $this->forward404Unless(file_exists( $file_address ));
+    
+    $this->exif = exif_read_data($file_address, 0, true);
+    
+    $this->iptc = array();
+    $size = getimagesize ( $file_address, $info);        
+    if(is_array($info)) {    
+        $this->iptc = iptcparse($info["APP13"]);
+    }
+    
+    $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
+    $this->patternImage = false;
+    $this->relatedMarks = array();
+    if($this->observationPhoto->getBodyPart()) {
+      $photoId = $this->observationPhoto->getId();
+      $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
+      if( $this->isTail && $this->pattern ) {
+        $this->patternImage = $this->pattern->getImageTail();
+        $this->observationPhotoPart = ObservationPhotoTailPeer::get_or_create($photoId);
+        $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoTailMarks();
+      }
+
+      $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
+      if( $this->isLeft && $this->pattern ) {
+        $this->patternImage = $this->pattern->getImageDorsalLeft();
+        $this->observationPhotoPart = ObservationPhotoDorsalLeftPeer::get_or_create($photoId);
+        $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoDorsalLeftMarks();
+      }
+
+      $this->isRight = $this->observationPhoto->getBodyPart()->getCode() == body_part::R_SIGLA;
+      if( $this->isRight && $this->pattern ) {
+        $this->patternImage = $this->pattern->getImageDorsalRight();
+        $this->observationPhotoPart = ObservationPhotoDorsalRightPeer::get_or_create($photoId);
+        $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoDorsalRightMarks();
+      }
+
+    } else {
+     //$this->isTail = $this->isLeft = $this->isRight = false;
+     //$this->tailForm = $this->dorsalLeftForm = $this->dorsalRightForm = false;
+    }
+  }
 }

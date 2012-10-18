@@ -18,6 +18,13 @@ class age_group {
     
     return $resultados;
   }
+  
+  public static function getValueForSigla( $sigla ) {
+    $resultados[self::CUB_SIGLA] = self::CUB_DESC;
+    $resultados[self::JUVENILE_SIGLA] = self::JUVENILE_DESC;
+    $resultados[self::ADULT_SIGLA] = self::ADULT_DESC;
+    return isset($resultados[$sigla])? $resultados[$sigla]: '';
+  }
 }
 
 ?>
