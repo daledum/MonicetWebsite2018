@@ -71,6 +71,12 @@ pr_uploaded_photo:
     prefix_path:          /uploaded-photo
     column:               id
     with_wildcard_routes: true
+    
+pr_observation_photo_validated:
+  url:  /observation-photo/catalog
+  params:
+    module:     prObservationPhoto
+    action:     catalog
 
 pr_observation_photo_validate:
   url:  /observation-photo/:id/validate

@@ -4,6 +4,23 @@ require_once dirname(__FILE__).'/../lib/prObservationPhotoGeneratorConfiguration
 require_once dirname(__FILE__).'/../lib/prObservationPhotoGeneratorHelper.class.php';
 
 class prObservationPhotoActions extends autoPrObservationPhotoActions {
+  
+  public function executeIndex(sfWebRequest $request)
+  {
+    // sorting
+    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
+      $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+    }
+
+    // pager
+    if ($request->getParameter('page')) {
+      $this->setPage($request->getParameter('page'));
+    }
+
+    $this->pager = $this->getPager($states=array(ObservationPhoto::V_SIGLA), $in=false);
+    $this->sort = $this->getSort();
+  }
+  
   public function executeNew(sfWebRequest $request){
     $this->forward404Unless($request->getParameter('file'));
     $file_address = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file');
@@ -202,8 +219,10 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
     $this->patternImage = false;
     $this->relatedMarks = array();
-    if($this->observationPhoto->getBodyPart()) {
-      $photoId = $this->observationPhoto->getId();
+    $photoId = $this->observationPhoto->getId();
+    $bodyPart = $this->observationPhoto->getBodyPart();
+    $allowedBodyParts = array(body_part::F_SIGLA, body_part::L_SIGLA, body_part::R_SIGLA);
+    if($bodyPart && in_array($bodyPart, $allowedBodyParts)) {
       $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
       if( $this->isTail && $this->pattern ) {
         $this->patternImage = $this->pattern->getImageTail();
@@ -226,8 +245,57 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       }
 
     } else {
-     //$this->isTail = $this->isLeft = $this->isRight = false;
+     $this->isTail = $this->isLeft = $this->isRight = false;
+     $this->pattern = NULL;
      //$this->tailForm = $this->dorsalLeftForm = $this->dorsalRightForm = false;
     }
+  }
+  
+  protected function getPager($states=array(), $in=true)
+  {
+    $pager = $this->configuration->getPager('ObservationPhoto');
+    $pager->setCriteria($this->buildCriteriaUseState($states, $in));
+    $pager->setPage($this->getPage());
+    $pager->setPeerMethod($this->configuration->getPeerMethod());
+    $pager->setPeerCountMethod($this->configuration->getPeerCountMethod());
+    $pager->init();
+
+    return $pager;
+  }
+  
+  protected function buildCriteriaUseState($states=array(), $in=true)
+  {
+    if (null === $this->filters){
+      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    }
+
+    $criteria = $this->filters->buildCriteria($this->getFilters());
+    if(count($states)){
+      $selected_criteria = $in? Criteria::IN: Criteria::NOT_IN;
+      $criteria->add(ObservationPhotoPeer::STATUS, $states, $selected_criteria);
+    }
+
+    $this->addSortCriteria($criteria);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+    $criteria = $event->getReturnValue();
+
+    return $criteria;
+  }
+  
+  public function executeCatalog(sfWebRequest $request)
+  {
+    // sorting
+    if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
+      $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
+    }
+
+    // pager
+    if ($request->getParameter('page')) {
+      $this->setPage($request->getParameter('page'));
+    }
+
+    $this->pager = $this->getPager($states=array(ObservationPhoto::V_SIGLA), $in=true);
+    $this->sort = $this->getSort();
   }
 }

@@ -62,10 +62,15 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
     $this->widgetSchema['photographer_id'] = new sfWidgetFormChoice(array(
         'choices' => $photographers,
     ));
-    $status = ObservationPhoto::getForSelect(true, '');
-    $this->widgetSchema['status'] = new sfWidgetFormChoice(array(
-        'choices' => $status,
-    ));
+    if( sfContext::getInstance()->getActionName() != 'catalog') {
+      $status = ObservationPhoto::getForSelectForFilter(true, '');
+      $this->widgetSchema['status'] = new sfWidgetFormChoice(array(
+          'choices' => $status,
+      ));
+    } else {
+      unset($this['status']);
+    }
+      
     
     $this->widgetSchema->moveField('uploaded_at', sfWidgetFormSchema::AFTER, 'photo_date');
   }

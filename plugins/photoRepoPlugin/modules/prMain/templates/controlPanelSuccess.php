@@ -34,16 +34,26 @@
           
           <tr class="sf_admin_row even">
             <td width="400">Fotografias de observações</td>
-            <td width="50" style="text-align: right;"><?php echo $notIdentifiedPhotos ?></td>
+            <td width="50" style="text-align: right;"><?php echo $notValidated ?></td>
             <td>
               <ul class="sf_admin_td_actions">
                 <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo') ?></li>
               </ul>
             </td>
           </tr>
-          <?php /* ?>
           
           <tr class="sf_admin_row odd">
+            <td width="400">Fotografias validadas</td>
+            <td width="50" style="text-align: right;"><?php echo $validated ?></td>
+            <td>
+              <ul class="sf_admin_td_actions">
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo_validated') ?></li>
+              </ul>
+            </td>
+          </tr>
+          <?php /* ?>
+          
+          <tr class="sf_admin_row even">
             <td width="400">Indíviduos</td>
             <td width="50" style="text-align: right;"><?php echo $individuals ?></td>
             <td>

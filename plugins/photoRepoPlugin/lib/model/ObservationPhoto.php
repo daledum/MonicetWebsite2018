@@ -23,6 +23,17 @@ class ObservationPhoto extends BaseObservationPhoto {
 
     return $resultados;
   }
+  public static function getForSelectForFilter($empty=false, $empty_msg = 'Todas', $empty_code = '' ){
+    $resultados = array();
+    if( $empty ) {
+        $resultados[$empty_code] = '---'.$empty_msg.'---';
+    }
+    $resultados[self::NEW_SIGLA] = self::NEW_DESC;
+    $resultados[self::C_SIGLA] = self::C_DESC;
+    $resultados[self::FA_SIGLA] = self::FA_DESC;
+
+    return $resultados;
+  }
   
   public static function getValueForSiglaStatus( $sigla ) {
     $resultados[self::NEW_SIGLA] = self::NEW_DESC;

@@ -64,7 +64,8 @@
   </div>
   
   <ul class="sf_admin_actions">
-    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Regressar à listagem</a></li>
+    <li class="sf_admin_action_list">
+      <a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Regressar à listagem</a></li>
     
     <?php if($observationPhoto->getSpecie()->countPatterns()): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_characterize?id='.$observationPhoto->getId()) ?>">Caracterizar</a></li>
