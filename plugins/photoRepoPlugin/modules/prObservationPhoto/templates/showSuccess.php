@@ -5,7 +5,7 @@
 <div id="sf_admin_container">
   <h1><?php echo 'A vizualizar a fotografia "'.$observationPhoto->getCode().'"'; ?></h1>
   <div class="characterize_block" >
-    <div class="sf_admin_content characterize_photo_container">
+    <div class="sf_admin_content characterize_photo_container_show">
       <?php if($pattern): ?>
         <div id="pr_ob_photo_show_info">
           <b>Caracterização</b><br/>
@@ -28,9 +28,19 @@
         </div>
       <?php endif; ?>
       
-      <div class="characterize_photo_pattern">
-        <img id="pattern-image" width="450" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" />
+      <div class="characterize_photo_pattern wrapper">
+        <div id="viewer2" class="viewer-view" width="750" height="500"></div>
       </div>
+
+      <script type="text/javascript">
+          var $ = jQuery;
+          $(document).ready(function(){
+                var iv2 = $("#viewer2").iviewer(
+                {
+                    src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+                });
+          });
+      </script>
       
       <?php /* ?>
       <div class="characterize_photo_pattern">
@@ -41,19 +51,20 @@
         <?php endif; ?>
       </div>
       <?php*/ ?>
-      
-      <div class="photo_exif" >
-        <b>EXIF:</b><br/><br/>
-        <?php if( is_array($exif) ): ?>
-          <?php include_partial('prObservationPhoto/exif', array( 'exif' => $exif)); ?>
-        <?php endif; ?>
-      </div>
+      <div id="exif-iptc-container" >
+        <div class="photo_exif_show" >
+          <b>EXIF:</b><br/><br/>
+          <?php if( is_array($exif) ): ?>
+            <?php include_partial('prObservationPhoto/exif', array( 'exif' => $exif)); ?>
+          <?php endif; ?>
+        </div>
 
-      <div class="photo_exif" >
-        <b>IPTC:</b><br/><br/>
-        <?php if( is_array($iptc) ): ?>
-          <?php include_partial('prObservationPhoto/iptc', array( 'iptc' => $iptc)); ?>
-        <?php endif; ?>
+        <div class="photo_iptc_show" >
+          <b>IPTC:</b><br/><br/>
+          <?php if( is_array($iptc) ): ?>
+            <?php include_partial('prObservationPhoto/iptc', array( 'iptc' => $iptc)); ?>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </div>

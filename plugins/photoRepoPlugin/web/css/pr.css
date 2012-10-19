@@ -27,10 +27,15 @@
     float: left;
     margin-bottom: 20px;
 }
-.characterize_photo_container {
-    width: 450px;
+.characterize_photo_container, .characterize_photo_container_show {
     float: left;
     margin-bottom: 10px;
+}
+.characterize_photo_container {
+    width: 450px;
+}
+.characterize_photo_container_show {
+    width: 750px;
 }
 #photo_details {
     float: left;
@@ -49,6 +54,23 @@
     padding: 10px;
 }
 
+#exif-iptc-container {
+    overflow: auto;
+    width: 750px;
+}
+.photo_exif_show {
+    float: left;
+    width: 400px;
+    border: 1px solid #dddddd;
+    padding: 10px;
+}
+.photo_iptc_show {
+    float: left;
+    width: 305px;
+    border: 1px solid #dddddd;
+    border-left-width: 0;
+    padding: 10px;
+}
 
 .line_pattern {
     margin-bottom: 10px;
@@ -93,6 +115,7 @@
 }
 
 #pr_ob_photo_show_info {
+    width: 725px;
     border: 1px solid #dddddd;
     padding: 10px;
     overflow: auto;
@@ -100,9 +123,26 @@
 }
 #pr_ob_photo_show_data {
     float: left;
-    width: 725px;
+    width: 425px;
     border: 1px solid #dddddd;
     padding: 5px;
     overflow: auto;
     margin: 0 0 10px 10px;
+}
+
+.viewer, .viewer-view {
+    width: 728px;
+    height: 450px;
+    border: 1px solid #cccccc;
+    position: relative;
+}
+.viewer{
+    width: 728px;
+}
+.viewer-view {
+    width: 745px;
+}
+
+.wrapper {
+    overflow: hidden;
 }

@@ -1,6 +1,9 @@
 identifySuccess:
   javascripts:  [ -*, "https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js", /photoRepoPlugin/js/slides.jquery.js, /photoRepoPlugin/js/identify.js ]
-  stylesheets:  [ ] 
+  stylesheets:  [ ]
+showSuccess:
+  javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
+  stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css ]
 characterizeSuccess:
   javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
   stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css ]
