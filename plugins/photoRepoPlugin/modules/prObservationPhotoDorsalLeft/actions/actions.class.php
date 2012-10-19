@@ -24,10 +24,9 @@ class prObservationPhotoDorsalLeftActions extends autoPrObservationPhotoDorsalLe
       $this->getUser()->setFlash('notice', $notice);
       
       $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoDorsalLeft->getPhotoId());
-    }
-    else
-    {
-      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    } else {
+      $this->getUser()->setFlash('error', 'Aconteceram erros na submissão do formulário. '.$form->getErrorSchema());
+      $this->redirect('@pr_observation_photo_characterize?id='.$form->getObject()->getPhotoId());
     }
   }
 }

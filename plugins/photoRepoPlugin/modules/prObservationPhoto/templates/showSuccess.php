@@ -42,15 +42,6 @@
           });
       </script>
       
-      <?php /* ?>
-      <div class="characterize_photo_pattern">
-        <?php if($pattern && $patternImage): ?>
-          <img id="pattern-image" width="450" src="<?php echo url_for( '/uploads/pr_patterns/'.$patternImage ) ?>" />
-        <?php else: ?>
-          <p>Padrão indisponível.</p>
-        <?php endif; ?>
-      </div>
-      <?php*/ ?>
       <div id="exif-iptc-container" >
         <div class="photo_exif_show" >
           <b>EXIF:</b><br/><br/>

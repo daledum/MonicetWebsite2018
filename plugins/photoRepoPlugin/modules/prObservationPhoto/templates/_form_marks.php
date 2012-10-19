@@ -53,6 +53,10 @@
           <?php if ($form->hasGlobalErrors()): ?>
             <?php echo $form->renderGlobalErrors() ?>
           <?php endif; ?>
+          
+          <?php if ($sf_user->hasFlash('error')): ?>
+            <div class="error"><?php echo __($sf_user->getFlash('error'), array(), 'sf_admin') ?></div>
+          <?php endif; ?>
 
           <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
             <?php echo $form['is_smooth']->renderError() ?>
@@ -121,7 +125,7 @@
         </fieldset>
       </div>
       <ul class="sf_admin_actions">
-        <?php echo $helper->linkToList(array(  'params' =>   array(  ),  'class_suffix' => 'list',  'label' => 'Voltar',)) ?>
+        <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Voltar</a></li>
         <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
         <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Identificar</a></li>
       </ul>

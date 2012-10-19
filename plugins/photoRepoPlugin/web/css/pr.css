@@ -131,16 +131,16 @@
 }
 
 .viewer, .viewer-view {
-    width: 728px;
-    height: 450px;
     border: 1px solid #cccccc;
     position: relative;
 }
 .viewer{
     width: 728px;
+    height: 650px;
 }
 .viewer-view {
     width: 745px;
+    height: 450px;
 }
 
 .wrapper {
