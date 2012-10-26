@@ -33,7 +33,7 @@
           </tr>
           
           <tr class="sf_admin_row even">
-            <td width="400">Fotografias de observações</td>
+            <td width="400">Fotografias por analisar</td>
             <td width="50" style="text-align: right;"><?php echo $notValidated ?></td>
             <td>
               <ul class="sf_admin_td_actions">
@@ -43,7 +43,7 @@
           </tr>
           
           <tr class="sf_admin_row odd">
-            <td width="400">Fotografias validadas</td>
+            <td width="400">Catálogo</td>
             <td width="50" style="text-align: right;"><?php echo $validated ?></td>
             <td>
               <ul class="sf_admin_td_actions">

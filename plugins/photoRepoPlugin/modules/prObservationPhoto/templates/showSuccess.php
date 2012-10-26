@@ -35,10 +35,9 @@
       <script type="text/javascript">
           var $ = jQuery;
           $(document).ready(function(){
-                var iv2 = $("#viewer2").iviewer(
-                {
-                    src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
-                });
+              var iv2 = $("#viewer2").iviewer({
+                  src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+              });
           });
       </script>
       
@@ -66,8 +65,8 @@
   </div>
   
   <ul class="sf_admin_actions">
-    <li class="sf_admin_action_list">
-      <a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Regressar à listagem</a></li>
+    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Listagem por analisar</a></li>
+    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
     
     <?php if($observationPhoto->getSpecie()->countPatterns()): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_characterize?id='.$observationPhoto->getId()) ?>">Caracterizar</a></li>
@@ -87,6 +86,9 @@
     <?php endif; ?>
       
     <li class="sf_admin_action_edit"><a href="<?php echo url_for('@pr_observation_photo_edit?id='.$observationPhoto->getId()) ?>">editar</a></li>
-    <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
+    
+    <?php if( $observationPhoto->getStatus() != ObservationPhoto::V_SIGLA ): ?>
+      <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
+    <?php endif; ?>
   </ul>
 </div>

@@ -3,31 +3,60 @@
 
 
 <div id="sf_admin_container">
-  <div class="characterize_block" >
-    <h1><?php echo __('A identificar a fotografia "%fotografia%"', array('%fotografia%' => $observationPhoto->getCode()), 'messages') ?></h1>
-    <?php include_partial('prObservationPhoto/flashes') ?>
+  <h1><?php echo __('A identificar a fotografia "%fotografia%"', array('%fotografia%' => $observationPhoto->getCode()), 'messages') ?></h1>
+  <?php include_partial('prObservationPhoto/flashes') ?>
+  
+  <div id="identify_main_block" >
     
-    
-    <div id="slides">
-      <div class="slides_container">
-        <div class="slide">
-          <h1>First Slide</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-          <p><a href="#3" class="link">ir para 3</a></p>
-        </div>
-        <div class="slide">
-          <h1>Second Slide</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-        </div>
-        <div class="slide">
-          <h1>Third Slide</h1>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-          <p><a href="#1" class="link">ir para 1</a></p>
-        </div>
-      </div>
-      <a href="#" class="prev">Anterior</a>
-      <a href="#" class="next">Seguinte</a>
+    <div id="identify_main_block_image1">
+      <div id="identify_viewer_image1" class="identify_viewer_image1"></div>
     </div>
     
-  </div>    
+    <div id="identify_main_block_image2">
+      <div id="identify_viewer_image2" class="identify_viewer_image1"></div>
+    </div>
+    
+    <div class="identify_actions">
+      <b>Acções</b><br/><br/>
+      <ul>
+        <li class="sf_admin_action_action identify_li"><?php echo link_to('Link 1', '@homepage') ?></li>
+        <li class="sf_admin_action_list identify_li"><?php echo link_to('Link 2', '@homepage') ?></li>
+        <li class="sf_admin_action_new identify_li"><?php echo link_to('Link 3', '@homepage') ?></li>
+      </ul>
+    </div>
+    
+  </div>
+  
+  <div id="identify_results_block">
+    <div id="identify_results_dropdown_block">
+      <select>
+        <option value="">Prioridade 1</option>
+        <option value="">Prioridade 2</option>
+        <option value="">Prioridade 3</option>
+        <option value="">Prioridade n</option>
+      </select>
+    </div>
+    <div id="identify_results">
+      Possíveis positivos
+    </div>
+  </div>
+  
+  <ul class="sf_admin_actions">
+    <li class="sf_admin_action_list">
+      <a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Regressar à listagem</a></li>
+  </ul>
+  
 </div>
+
+
+<script type="text/javascript">
+    var $ = jQuery;
+    $(document).ready(function(){
+          var iv1 = $("#identify_viewer_image1").iviewer({
+              src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+          });
+          var iv2 = $("#identify_viewer_image2").iviewer({
+              src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+          });
+    });
+</script>
