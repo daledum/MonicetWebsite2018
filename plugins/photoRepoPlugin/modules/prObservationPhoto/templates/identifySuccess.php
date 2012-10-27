@@ -15,16 +15,14 @@
     <div id="identify_main_block_image2">
       <div id="identify_viewer_image2" class="identify_viewer_image1"></div>
     </div>
-    
+    <?php /* ?>
     <div class="identify_actions">
       <b>Acções</b><br/><br/>
       <ul>
-        <li class="sf_admin_action_action identify_li"><?php echo link_to('Link 1', '@homepage') ?></li>
-        <li class="sf_admin_action_list identify_li"><?php echo link_to('Link 2', '@homepage') ?></li>
-        <li class="sf_admin_action_new identify_li"><?php echo link_to('Link 3', '@homepage') ?></li>
+        
       </ul>
     </div>
-    
+    <?php */ ?>
   </div>
   
   <div id="identify_results_block">
@@ -35,15 +33,30 @@
         <option value="">Prioridade 3</option>
         <option value="">Prioridade n</option>
       </select>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="#" id="ui-carousel-prev">Anterior</a> | 
+      <a href="#" id="ui-carousel-next">Seguinte</a> | <span id="selected_checkboxes"></span>
     </div>
     <div id="identify_results">
-      Possíveis positivos
+      <form>
+        <div id="carousel">
+          <?php for($i=1; $i<=10; $i++): ?>
+            <div>
+              <img width="165" height="150" src="<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>" alt="<?php echo $i ?>"/>
+              <input class="checkbox_item" type="checkbox" id="<?php echo $i.'xyz' ?>" name="<?php echo $i ?>">
+            </div>
+          <?php endfor; ?>
+        </div>
+      </form>
+      
     </div>
   </div>
   
   <ul class="sf_admin_actions">
-    <li class="sf_admin_action_list">
-      <a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Regressar à listagem</a></li>
+    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Regressar à listagem</a></li>
+    <li class="sf_admin_action_action"><?php echo link_to('Link 1', '@homepage') ?></li>
+    <li class="sf_admin_action_list"><?php echo link_to('Link 2', '@homepage') ?></li>
+    <li class="sf_admin_action_new"><?php echo link_to('Link 3', '@homepage') ?></li>
   </ul>
   
 </div>
