@@ -18,9 +18,11 @@ generator:
           label: "Espécie"
         name:
           label: "Nome"
+        specie_id:
+          label: "Espécie"
       list:    
         title:  "Listagem de individuos"
-        display:  [ name, specie ]
+        display:  [ name, _specie_id ]
         object_actions: 
           show: 
             label:   Mostrar

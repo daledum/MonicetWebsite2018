@@ -1,0 +1,1 @@
+<?php echo (!$Individual->getSpecie())? '&nbsp;': $Individual->getSpecie()->getCode().' - '.$Individual->getSpecie()->getName('pt') ?>

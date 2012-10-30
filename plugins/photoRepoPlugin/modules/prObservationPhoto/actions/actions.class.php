@@ -200,6 +200,19 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
   public function executeIdentify( sfWebRequest $request ) {
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    $priorityResults = array();
+    for( $i=1; $i <= 6; $i++ ){
+      $priorityResults['priority_'.$i] = array();
+    }
+    $this->priorityKeyValues = array();
+    $this->priorityKeyValues['priority_1'] = 'A';
+    $this->priorityKeyValues['priority_2'] = 'B';
+    $this->priorityKeyValues['priority_3'] = 'C';
+    $this->priorityKeyValues['priority_4'] = 'D';
+    $this->priorityKeyValues['priority_5'] = 'E';
+    $this->priorityKeyValues['priority_6'] = 'F';
+    
+    $this->priorityResults = $priorityResults;
   }
   
   public function executeShow( sfWebRequest $request ) {
@@ -297,5 +310,43 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
 
     $this->pager = $this->getPager($states=array(ObservationPhoto::V_SIGLA), $in=true);
     $this->sort = $this->getSort();
+  }
+  
+  public function executeNewIndividualByPhoto( sfWebRequest $request ) {
+    $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    $individual = new Individual();
+    $individual->setName(IndividualPeer::getFirstAvailableName($observationPhoto));
+    $individual->setSpecie($observationPhoto->getSpecie());
+    $individual->save();
+    
+    $observationPhoto->setIndividual($individual);
+    $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+    $observationPhoto->save();
+    $this->redirect('@pr_individual_edit?id='.$individual->getId());
+  }
+  
+  public function executeAssociateIndividualByPhoto( sfWebRequest $request ) {
+    $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    $this->forward404Unless($individual = IndividualPeer::retrieveByPK($request->getParameter('individual_id')));
+    $this->forward404Unless($observationPhoto->getSpecieId() == $individual->getSpecieId());
+    
+    $observationPhoto->setIndividual($individual);
+    $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+    $observationPhoto->save();
+    $this->redirect('@pr_individual_edit?id='.$individual->getId());
+  }
+  
+  public function executeDefineAsBest( sfWebRequest $request ) {
+    $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    $this->forward404Unless($observationPhoto->getIndividualId());
+    
+    $relatedPhotos = $observationPhoto->getIndividual()->getObservationPhotos();
+    foreach( $relatedPhotos as $relatedPhoto ) {
+      $relatedPhoto->setIsBest(false);
+      $relatedPhoto->save();
+    }
+    $observationPhoto->setIsBest(true);
+    $observationPhoto->save();
+    $this->redirect('@pr_individual_show?id='.$observationPhoto->getIndividualId());
   }
 }

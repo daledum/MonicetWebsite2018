@@ -44,6 +44,30 @@ pr_pendent_photo_delete:
   requirements:
     sf_method: post
     
+pr_new_individual_by_photo:
+  url:  /observation-photo/:id/new-individual
+  params:
+    module:     prObservationPhoto
+    action:     newIndividualByPhoto
+  requirements:
+    sf_method: post
+    
+pr_associate_individual_by_photo:
+  url:  /observation-photo/:id/associate/individual/:individual_id
+  params:
+    module:     prObservationPhoto
+    action:     associateIndividualByPhoto
+  requirements:
+    sf_method: post
+    
+pr_define_as_best:
+  url:  /observation-photo/:id/define-as-best
+  params:
+    module:     prObservationPhoto
+    action:     defineAsBest
+  requirements:
+    sf_method: post
+    
 pr_individual:
   class: sfPropel15RouteCollection
   options:

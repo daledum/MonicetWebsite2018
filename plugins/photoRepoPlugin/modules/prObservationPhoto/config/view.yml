@@ -1,7 +1,7 @@
 identifySuccess:
   #javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
-  javascripts:  [ -*, jquery-1.4.2.min.js, jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js, /photoRepoPlugin/rcarousel/widget/lib/jquery.ui.core.min.js, /photoRepoPlugin/rcarousel/widget/lib/jquery.ui.widget.min.js, /photoRepoPlugin/rcarousel/widget/lib/jquery.ui.rcarousel.min.js, /photoRepoPlugin/js/identify.js ]
-  stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css, /photoRepoPlugin/rcarousel/widget/css/rcarousel.css ]
+  javascripts:  [ -*, jquery-1.4.2.min.js, jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js, /photoRepoPlugin/liquidcarousel/js/jquery.liquidcarousel.js, /photoRepoPlugin/js/identify.js ]
+  stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css, /photoRepoPlugin/liquidcarousel/css/liquidcarousel.css ]
 showSuccess:
   javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
   stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css ]

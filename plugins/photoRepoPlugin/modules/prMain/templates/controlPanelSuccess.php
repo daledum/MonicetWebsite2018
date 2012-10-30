@@ -51,19 +51,17 @@
               </ul>
             </td>
           </tr>
-          <?php /* ?>
           
           <tr class="sf_admin_row even">
-            <td width="400">Indíviduos</td>
+            <td width="400">Individuos</td>
             <td width="50" style="text-align: right;"><?php echo $individuals ?></td>
             <td>
               <ul class="sf_admin_td_actions">
                 <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_individual') ?></li>
-                <li class="sf_admin_action_new"><?php echo link_to('Adicionar', '@pr_individual_new') ?></li>
               </ul>
             </td>
           </tr>
-          <?php */ ?>
+          
           <tr class="sf_admin_row odd">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>

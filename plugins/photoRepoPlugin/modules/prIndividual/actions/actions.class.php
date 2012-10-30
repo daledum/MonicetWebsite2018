@@ -38,13 +38,41 @@ class prIndividualActions extends autoPrIndividualActions {
     $criteria = $event->getReturnValue();
 
     return $criteria;
-    
-//    $criteria = new Criteria();
-//
-//    return $criteria;
+  }
+  
+  protected function processForm(sfWebRequest $request, sfForm $form)
+  {
+    $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
+    if ($form->isValid())
+    {
+      $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
+
+      $Individual = $form->save();
+
+      $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $Individual)));
+
+      if ($request->hasParameter('_save_and_add'))
+      {
+        $this->getUser()->setFlash('notice', $notice.' You can add another one below.');
+
+        $this->redirect('@pr_individual_new');
+      }
+      else
+      {
+        $this->getUser()->setFlash('notice', $notice);
+
+        $this->redirect(array('sf_route' => 'pr_individual_show', 'sf_subject' => $Individual));
+      }
+    }
+    else
+    {
+      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+    }
   }
   
   public function executeShow( sfWebRequest $request ) {
     $this->individual = $this->getRoute()->getObject();
+    $this->fotografias = $this->individual->getObservationPhotos();
+    $this->numFotografias = count($this->fotografias);
   }
 }

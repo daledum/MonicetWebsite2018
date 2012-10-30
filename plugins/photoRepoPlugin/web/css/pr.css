@@ -147,11 +147,12 @@
     height: 350px;
 }
 
-.wrapper {
+/*.wrapper {
     overflow: hidden;
-}
+}*/
 
 #identify_main_block {
+    width: 1189px;
     border: 1px solid #dddddd;
     padding: 5px;
     min-height: 350px;
@@ -180,9 +181,9 @@
 #identify_results_block {
     border: 1px solid #dddddd;
     padding: 5px;
-    min-height: 200px;
+    height: 220px;
     border-top-width: 0;
-    overflow: auto;
+    overflow: hidden;
 }
 
 #identify_results_dropdown_block {
@@ -190,6 +191,17 @@
     padding: 5px;
 }
 #identify_results {
-    /*background-color: #ddd;*/
     height: 170px;
+}
+#sf_admin_container ul li a.clean {
+    background: none;
+    padding: 0;
+}
+
+.best {
+    border: 3px solid #5B8638;
+}
+.not_best {
+    padding: 3px;
+    margin-bottom: 5px;
 }

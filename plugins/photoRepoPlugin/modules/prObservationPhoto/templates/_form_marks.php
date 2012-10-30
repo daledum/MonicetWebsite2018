@@ -127,7 +127,16 @@
       <ul class="sf_admin_actions">
         <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo'.(($observationPhoto->getStatus() == ObservationPhoto::V_SIGLA)? '_validated': '')) ?>">Voltar</a></li>
         <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
-        <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Identificar</a></li>
+        
+        <?php //Photos in characterized state  ?>
+        <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA)) ): ?>
+          <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
+        <?php endif; ?>
+
+        <?php //Photos in new state that havent any pattern associated to their specie ?>
+        <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::NEW_SIGLA)) && !count($observationPhoto->getSpecie()->getPatterns()) ): ?>
+          <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
+        <?php endif; ?>
       </ul>
     </form>
   </div>
@@ -140,9 +149,8 @@
 <script type="text/javascript">
     var $ = jQuery;
     $(document).ready(function(){
-          var iv2 = $("#viewer2").iviewer(
-          {
-              src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
-          });
+      var iv2 = $("#viewer2").iviewer({
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+      });
     });
 </script>
