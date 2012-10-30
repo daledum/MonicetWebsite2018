@@ -93,10 +93,11 @@ input:focus, textarea:focus {
 }
 
 label {
+    text-align: left;
     font-weight: bold;
-    color: #167b8b;
-    width: 100px !important;
-    float: left;
+    color: #167B8B;
+    width: 48px !important;
+    display: block;
 }
 
 textarea {
@@ -482,7 +483,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 
 .left-sidebar {
     float: left;
-    width: 300px;
+    width: 185px;
     height: 490px;
     border-right: 1px solid #5FB1C3;
 }
@@ -495,26 +496,48 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     float: left;
     text-align: center;
     padding: 20px 14px 20px 14px;
-    width:580px;
+    width:700px;
     height:470px;
     margin:0 auto;
 }
 
-.photos-list {
-    width:580px;
-    height:440px;
+.photos-list, .photo-page-container {
+    width: 720px;
+    height: 440px;
 }
 
-.photo {
+.photo-list-item {
     float: left;
     margin: 5px;
     width: 130px;
     height: 135px;
 }
 
-.photo img {
+.photo-list-item img {
     max-width: 130px;
     max-height: 120px;
+}
+
+.photo-page-container .photo {
+    width:720px;
+    height: 160px;
+}
+
+.photo-page-container img {
+    float: left;
+    max-width: 200px;
+    max-height: 150px;
+}
+
+.photo-page-container .map {
+    background-color: lightblue;
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+.photo-page-container .carroussel {
+    background-color: lightgreen;
+    height: 100px;
 }
 
 .right-content .pagination {

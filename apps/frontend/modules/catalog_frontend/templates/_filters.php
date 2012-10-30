@@ -5,6 +5,8 @@
         <option value="2">2</option>
         <option value="3">3</option>
     </select>
+</div>
+<div class="filter-item">
     <label><?php echo __('Period'); ?>:</label>
     <select id="year" class="filter-select">
     <?php foreach(range($lastYear, $firstYear) as $year): ?>

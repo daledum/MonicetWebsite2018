@@ -19,4 +19,9 @@ class catalog_frontendActions extends sfActions
   {
     //$this->forward('default', 'module');
   }
+
+  public function executePhoto(sfWebRequest $request)
+  {
+
+  }
 }

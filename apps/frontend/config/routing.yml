@@ -120,6 +120,10 @@ catalog_frontend:
   url:   /:sf_culture/catalog_frontend
   param: { module: catalog_frontend, action: index }
 
+catalog_frontend_photo:
+  url:   /:sf_culture/catalog_frontend/photo
+  param: { module: catalog_frontend, action: photo }
+
 default_index:
   url:   /:sf_culture/:module
   param: { action: index }

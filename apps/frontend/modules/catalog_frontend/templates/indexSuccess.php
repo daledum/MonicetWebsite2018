@@ -1,6 +1,6 @@
 <div class="photos-list">
-    <?php for ($i = 0; $i < 12; $i++): ?>
-    <div class="photo">
+    <?php for ($i = 0; $i < 15; $i++): ?>
+    <div class="photo-list-item">
         <a href="#">
             <img src="http://monicet/uploads/pr_repo/20110715-ARC-IMG_0006c1.JPG" />
             <div class="photo-description">DBUAC-Dd-120001</div>
