@@ -9,7 +9,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     $this->embedI18n(array('pt', 'en'));
     
     unset(
-      $this['created_at'], $this['updated_at'], $this['status']
+      $this['created_at'], $this['updated_at'], $this['status'], $this['individual_id']
     );
     
     $request = sfContext::getInstance()->getRequest();
@@ -223,6 +223,15 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         if( $photographer ) {
             $this->widgetSchema['photographer_id']->setDefault($photographer->getId());
         } 
+    }
+    
+  }
+  
+  protected function doSave( $con = null ){
+    parent::doSave($con);
+    if ( $filename = $this->getObject()->getFileName() ){
+      $file_address = sfConfig::get('sf_upload_dir').'/pr_repo_final';
+      WideImage::load($file_address.'/'.$filename)->resize(165, 150, 'outside')->crop('center', 'center', 165, 150)->saveToFile($file_address.'/tn_165x150_'.$filename);
     }
     
   }

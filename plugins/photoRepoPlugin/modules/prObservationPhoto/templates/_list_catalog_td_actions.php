@@ -13,7 +13,7 @@
     <?php endif; ?>
       
     <?php //Photos in characterized state  ?>
-    <?php if(in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA)) ): ?>
+    <?php if(in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA, ObservationPhoto::FA_SIGLA, ObservationPhoto::V_SIGLA)) ): ?>
       <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$ObservationPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
       

@@ -215,13 +215,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $priorityResults = array();
     if( $pattern ) {
-      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $complete=true, $best=true);
-      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $complete=true);
-      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $best=true);
-      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true);
+      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=true, $best=true);
+      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=true, $best=null);
+      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $complete=null, $best=true);
+      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $complete=null, $best=null);
     }
-    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $best=true);
-    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto);
+    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=null, $best=true);
+    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=null, $best=null);
     
     $this->priorityResults = $priorityResults;
   }
@@ -332,8 +332,9 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+    $observationPhoto->setIsBest(true);
     $observationPhoto->save();
-    $this->redirect('@pr_individual_edit?id='.$individual->getId());
+    $this->redirect('@pr_individual_show?id='.$individual->getId());
   }
   
   public function executeAssociateIndividualByPhoto( sfWebRequest $request ) {

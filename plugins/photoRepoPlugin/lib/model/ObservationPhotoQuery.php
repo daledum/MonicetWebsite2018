@@ -9,7 +9,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $query = $query->filterByStatus(ObservationPhoto::V_SIGLA);
     
     // Same specie
-    $query = $query->useIndividualQuery()->filterBySpecieId($observationPhoto->getSpecieId())->endUse();
+    $query = $query->filterBySpecieId($observationPhoto->getSpecieId());
     
     // filter photos with same complete characterization
     if( $complete ){
@@ -20,11 +20,12 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     if( $partial ){
       $query = self::_partialCharacterizationQuery($observationPhoto, $query);
     }
-        
     // only photos marked as best
-    if( $best ) {
+    if( $best ){
       $query = $query->filterByIsBest(true);
     }
+    
+    $query = $query->orderByPhotoDate('desc');
     
     return $query->find();
   }

@@ -54,7 +54,7 @@
                       <td width="170">
                         <?php if(isset($fotografias[$position])): ?>
                           <a target="blank" href="<?php echo url_for('/uploads/pr_repo_final/'.$fotografias[$position]->getFileName()) ?>">
-                            <img width="165" height="150" id ="<?php echo $fotografias[$position]->getFileName() ?>" src="/uploads/pr_repo_final/<?php echo $fotografias[$position]->getFileName() ?>" alt="<?php echo $fotografias[$position]->getFileName() ?>" class="<?php echo $fotografias[$position]->getIsBest()? 'best': 'not_best' ?>"/>
+                            <img width="165" id ="<?php echo $fotografias[$position]->getFileName() ?>" src="/uploads/pr_repo_final/tn_165x150_<?php echo $fotografias[$position]->getFileName() ?>" alt="<?php echo $fotografias[$position]->getFileName() ?>" class="<?php echo $fotografias[$position]->getIsBest()? 'best': 'not_best' ?>"/>
                           </a>
                           <?php if($fotografias[$position]->getIsBest()): ?>
                             A melhor
@@ -75,6 +75,9 @@
     </table>
 
     <ul class="sf_admin_actions">
+      <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
+      <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Fotografias por analisar</a></li>
+      <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_individual') ?>">Listagem de individuos</a></li>
       <li class="sf_admin_action_edit"><?php echo link_to('Editar', '@pr_individual_edit?id='.$individual->getId()) ?></li>
     </ul>
