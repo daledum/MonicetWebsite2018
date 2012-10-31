@@ -200,17 +200,28 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
   public function executeIdentify( sfWebRequest $request ) {
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
-    $priorityResults = array();
-    for( $i=1; $i <= 6; $i++ ){
-      $priorityResults['priority_'.$i] = array();
-    }
+    $pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
     $this->priorityKeyValues = array();
-    $this->priorityKeyValues['priority_1'] = 'A';
-    $this->priorityKeyValues['priority_2'] = 'B';
-    $this->priorityKeyValues['priority_3'] = 'C';
-    $this->priorityKeyValues['priority_4'] = 'D';
-    $this->priorityKeyValues['priority_5'] = 'E';
-    $this->priorityKeyValues['priority_6'] = 'F';
+    if( $pattern ) {
+      $this->priorityKeyValues['priority_1'] = 'Com o mesmo conjunto de marcas (melhor)';
+      $this->priorityKeyValues['priority_2'] = 'Com o mesmo conjunto de marcas (todas)';
+      $this->priorityKeyValues['priority_3'] = 'Com sub-conjuntos de marcas (melhor)';
+      $this->priorityKeyValues['priority_4'] = 'Com sub-conjuntos de marcas (todas)';
+    }
+    // common priorities
+    $this->priorityKeyValues['priority_5'] = 'Todos os individuos da mesma espécie (melhor)';
+    $this->priorityKeyValues['priority_6'] = 'Todos os individuos da mesma espécie (todas)';
+    
+    
+    $priorityResults = array();
+    if( $pattern ) {
+      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $complete=true, $best=true);
+      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $complete=true);
+      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $best=true);
+      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true);
+    }
+    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $best=true);
+    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto);
     
     $this->priorityResults = $priorityResults;
   }

@@ -181,7 +181,7 @@
 #identify_results_block {
     border: 1px solid #dddddd;
     padding: 5px;
-    height: 220px;
+    height: 230px;
     border-top-width: 0;
     overflow: hidden;
 }
@@ -196,6 +196,10 @@
 #sf_admin_container ul li a.clean {
     background: none;
     padding: 0;
+}
+
+.checkbox_item {
+    margin-top: 10px;
 }
 
 .best {

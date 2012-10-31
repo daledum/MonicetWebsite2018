@@ -2,13 +2,14 @@ $(document).ready(function(){
     
     $('.carousel_selector').each(function(index, domElem){
         // creates a carousel for eache selector option and hides all carousels except the first
-        $('#'+$(domElem).val()).liquidcarousel({height:165, duration:800, hidearrows: false});
+        $('#'+$(domElem).val()).liquidcarousel({height:175, duration:800, hidearrows: false});
         if( index != 0 ) {
             $('#'+$(domElem).val()).hide('fast');
             $('#empty_'+$(domElem).val()).hide('fast');
         }
         
     });
+    
     
     // switches visibility to selected carousel
     $('#priority_selector').change(function(domElem){
