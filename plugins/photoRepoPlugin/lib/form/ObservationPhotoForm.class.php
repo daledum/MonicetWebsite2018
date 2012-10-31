@@ -232,6 +232,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     if ( $filename = $this->getObject()->getFileName() ){
       $file_address = sfConfig::get('sf_upload_dir').'/pr_repo_final';
       WideImage::load($file_address.'/'.$filename)->resize(165, 150, 'outside')->crop('center', 'center', 165, 150)->saveToFile($file_address.'/tn_165x150_'.$filename);
+      WideImage::load($file_address.'/'.$filename)->resize(130, 120, 'outside')->crop('center', 'center', 130, 120)->saveToFile($file_address.'/tn_130x120_'.$filename);
     }
     
   }
