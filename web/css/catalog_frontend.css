@@ -1,0 +1,613 @@
+html {
+    height:100%;
+}
+
+body {
+    height: 100%;
+    font-size: 11px;
+    font-family:  "Lucida Sans", Verdana, sans-serif;
+    background-color: #56a9bc;
+}
+
+#_div_page {
+    width: 100%;
+    height: 692px;
+    background-image: url("/images/frontend/bg_monicet.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    padding-top: 93px;
+}
+
+#_a_logo {
+    position: relative;
+    top: -22px;
+    left: 10px;
+}
+
+#_div_background {
+    height: 780px;
+    background-image: url("/images/frontend/bg_gradient.png");
+    background-repeat: repeat-x;
+    background-color: #56a9bc;
+}
+
+.albums li {
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+.albums li span {
+    margin-left: 10px;
+    font-size: 10px;
+    color: #666666;
+}
+
+.albums li a {
+    background-image: url("/images/frontend/album_icon.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    padding: 3px 0px 3px 30px;
+}
+
+ul.gallery, ul.gallery li {
+  display: inline;
+  margin-right: 5px;
+}
+
+#_div_header {
+    background-color: #dcedeb;
+    border-top-style: solid;
+    border-top-color: #167b8b;
+    border-top-width: 4px;
+    width: 100%;
+    height: 136px;
+}
+
+#_ul_languages {
+    float: none;
+    display: inline-block;
+    padding-left: 60%;
+    width: 120px;
+    margin: auto;
+    padding-bottom: 0px;
+}
+
+.back-to-home {
+  display: inline-block;
+  width: 200px;
+  margin: auto;
+  text-align: left;
+}
+
+input, textarea {
+    border: 1px solid #167b8b;
+    margin: 5px 10px;
+    padding: 5px 5px;
+    width: 400px;
+    color: #167b8b;
+}
+
+input:focus, textarea:focus {
+    border-color: #75D1E0;
+}
+
+label {
+    text-align: left;
+    font-weight: bold;
+    color: #167B8B;
+    width: 48px !important;
+    display: block;
+}
+
+textarea {
+    height: 100px;
+}
+
+.success {
+    color: #2fa0b1;
+    font-weight: bold;
+    background-image: url('/mfAdministracaoPlugin/images/icons/tick.png');
+    background-position: left;
+    background-repeat: no-repeat;
+    padding: 5px 20px;
+}
+
+.error_list {
+    color: red;
+}
+
+button {
+    border: 1px solid #167b8b;
+    color: #167b8b;
+    font-weight: bold;
+    background-color: #dcedeb;
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 5px 8px;
+}
+
+.local-researchers, .consultants {
+    float: left;
+    display: inline;
+    width: 250px;
+}
+
+.consultants {
+    margin-left: 10px;
+}
+
+.flag {
+   width: 20px;
+   height: 14px;
+}
+
+#_div_en_language {
+    background-image: url("/images/en.png");
+}
+
+#_div_en_language:hover {
+    background-image: url("/images/en_hover.png");
+}
+
+#_div_pt_language {
+    background-image: url("/images/pt.png");
+}
+
+#_div_pt_language:hover {
+    background-image: url("/images/pt_hover.png");
+}
+
+#_div_en_language, #_div_pt_language {
+    width: 20px;
+    height: 14px;
+    margin-left: 4px;
+    display: inline;
+    float: right;
+}
+
+#_span_feed:hover {
+    background-image: url("/images/frontend/feed-icon-hover.png");
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+#_span_feed {
+    background-image: url("/images/frontend/feed-icon-small.png");
+    background-repeat: no-repeat;
+    background-position: left;
+    width: 20px;
+    height: 20px;
+}
+
+#_div_main {
+    width: 100%;
+    height: 573px;
+}
+
+#_div_main_left {
+    float: left;
+    display: inline;
+    width: 165px;
+    height: auto;
+}
+
+#_div_main_recent_news {
+    float: left;
+    display: inline;
+    background-image: url("/images/frontend/bg_news_panel.png");
+    width: 180px;
+    height: 275px;
+}
+
+#_div_main_recent_news_header {
+    padding-top: 13px;
+    padding-right: 24px;
+    color: #2d606d;
+    font-weight: bold;
+    font-size: 13px;
+    text-align: right;
+}
+
+#_ul_recent_news {
+    margin: 25px 15px 20px;
+    color: #2d606d;
+}
+
+#_ul_recent_news li {
+    margin-bottom: 15px;
+}
+
+#_p_see_all_news {
+    margin: 10px 15px;
+}
+
+#_div_main_content {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    outline: none !important;
+    text-align: center;
+}
+
+#_div_main_content a:hover {
+    color: #75d1e0;
+}
+
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+#_div_main_center {
+    float: left;
+    display: inline;
+    height: 571px;
+    width: 100%;
+    /*background-image: url("/images/frontend/bg_content.png");*/
+    background-image: none;
+    /*background-color: #FFFFFF;*/
+    padding: 0px;
+    margin: 0px;
+}
+
+#_ul_main_menu {
+    text-align: right;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 25px 11px 0 0;
+}
+
+#_ul_main_menu li {
+    height: 30px;
+}
+
+.menu-active a {
+    color: #ffffff !important;
+}
+
+#_ul_consorcium {
+    margin: auto;
+    width: 375px;
+}
+
+#_ul_support li {
+    float: left;
+    display: inline;
+    margin-right: 10px;
+}
+
+a, a:active, a:focus, a:link, a:visited {
+    color: #2d606d;
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+.content {
+    text-align: justify;
+    line-height: 18px;
+    color: #0c333d;
+    padding: 5px;
+}
+
+h2 {
+    color: #2d606d;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+h3 {
+    padding-top: 10px;
+    color: #2d606d;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+._ul_base li {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+._ul_base > li {
+    margin-bottom: 20px;
+}
+
+.team_key_item {
+    font-weight: bold;
+}
+
+._p_article_headline {
+    color: #2d606d;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+._p_article_date {
+    font-size: 10px;
+    color: #707070;
+    margin: 8px;
+}
+
+._p_article_body {
+    color: #2d606d;
+    text-align: justify;
+    margin: 5px 20px;
+    line-height: 18px;
+}
+._p_article_body a {
+    font-weight: bold;
+}
+._p_news_pages_navigation {
+    text-align: center;
+    color: #2d606d;
+}
+
+/* scroll */
+
+.jScrollPaneContainer {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.jScrollPaneTrack {
+    position: absolute;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background: #7dc1cf;
+}
+
+.jScrollPaneDrag {
+    position: absolute;
+    background: #2d606d;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.jScrollPaneDragTop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.jScrollPaneDragBottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+a.jScrollArrowUp {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    background-image: url("/images/frontend/arrow_up.png");
+    height: 9px;
+}
+
+a.jScrollArrowUp:hover {
+    background-image: url("/images/frontend/arrow_up_hover.png");
+}
+
+a.jScrollArrowDown {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    right: 0;
+    text-indent: -2000px;
+    overflow: hidden;
+    background-image: url("/images/frontend/arrow_down.png");
+    height: 9px;
+}
+
+a.jScrollArrowDown:hover {
+    background-image: url("/images/frontend/arrow_down_hover.png");
+}
+
+a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+    background-color: #f00;
+}
+
+/* WINDOW */
+
+#dv{
+  height: 15px;
+}
+
+.title-w{
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.text-w{
+  font-size: 12px;
+  display: inline-block;
+}
+
+#loading{
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 15px;
+  width: 15px;
+  background-image: url("/images/backend/icons_gmaps/loading_frontend.gif");
+}
+
+/* WINDOW END */
+
+/* CHARTS */
+
+.main-container {
+  height: 91%;
+}
+
+#catalog-container-div{
+  margin-left: auto;
+  margin-right: auto;
+  height: 520px;
+  width: 96%;
+  display:inline-block;
+  float: left;
+  padding-bottom: 15px;
+  background-image: url("/images/frontend/background-map.png");
+  background-repeat: repeat-x;
+}
+
+.left-container {
+    display: inline-block;
+    height: 100%;
+    margin: auto;
+    text-align: left;
+}
+
+.catalog-container {
+    margin: 20px 0px;
+ }
+
+.left-sidebar {
+    float: left;
+    width: 185px;
+    height: 490px;
+    border-right: 1px solid #5FB1C3;
+}
+
+.left-sidebar-title {
+    margin-bottom: 20px;
+}
+
+.right-content {
+    float: left;
+    text-align: center;
+    padding: 20px 14px 20px 14px;
+    width:700px;
+    height:470px;
+    margin:0 auto;
+}
+
+.photos-list, .photo-page-container {
+    width: 720px;
+    height: 440px;
+}
+
+.photo-list-item {
+    float: left;
+    margin: 5px;
+    width: 130px;
+    height: 135px;
+}
+
+.photo-list-item img {
+    max-width: 130px;
+    max-height: 120px;
+}
+
+.photo-page-container .photo {
+    width:720px;
+    height: 160px;
+}
+
+.photo-page-container img {
+    float: left;
+    max-width: 200px;
+    max-height: 150px;
+}
+
+.photo-page-container .map {
+    background-color: lightblue;
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+.photo-page-container .carroussel {
+    background-color: lightgreen;
+    height: 100px;
+}
+
+.right-content .pagination {
+    text-align: right;
+}
+
+.right-content .pagination li {
+    display: inline-block;
+}
+
+.vertical-space {
+    margin-bottom: 70px;
+}
+
+.filter-item {
+  text-align: right;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.filter-item select {
+    width: 175px;
+}
+
+.container-div {
+    width: 930px !important;
+}
+
+#_ul_languages {
+    padding-left: 635px !important;
+}
+
+.filter-item input {
+  width: 20px;
+}
+
+.maps div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+
+.charts div {
+  background-image: url('/images/frontend/icons-monicet.png');
+  height: 25px;
+  width: 29px;
+  display: inline-block;
+}
+
+.chart-totals, .chart-variations {
+    padding: 10px 13px 2px;
+}
+
+.chart-totals {
+    background: transparent url('/images/chart-totals.png') no-repeat left top;
+    margin-right: 10px;
+}
+
+.chart-variations {
+    background: transparent url('/images/chart-variations.png') no-repeat left top;
+    margin-right: 3px;
+}
+
+.chart-text {
+  text-align: center;
+  color: #167B8B;
+}
+
+.bar-chart, .line-chart {
+  margin-top: 100px;
+  font-weight: bold;
+}
