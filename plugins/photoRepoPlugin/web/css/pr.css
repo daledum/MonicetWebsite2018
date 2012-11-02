@@ -185,7 +185,9 @@
     border-top-width: 0;
     overflow: hidden;
 }
-
+.carousel_div {
+    width: 1187px;
+}
 #identify_results_dropdown_block {
     height: 20px;
     padding: 5px;

@@ -32,13 +32,13 @@
         <?php //echo $key ?>
         <?php //print_r($priorityResults[$key]->getData()) ?>
         <?php if( count($priorityResults[$key]) ): ?>
-          <div id="<?php echo $key ?>" class="liquid" >
+          <div id="<?php echo $key ?>" class="liquid carousel_div" >
             <span class="previous"></span>
             <div class="wrapper">
               <ul>
                 <?php foreach( $priorityResults[$key] as $OBPhoto ): ?>
                   <li>
-                    <img width="165" height="150" id="photo_<?php echo $key.'_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>"/>
+                    <img width="163" height="150" id="photo_<?php echo $key.'_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>"/>
                     <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo $key.'_'.$OBPhoto->getId() ?>" name="<?php echo $key.'_'.$OBPhoto->getId() ?>">
                     <?php echo $OBPhoto->getIndividual()->getName() ?>
                     <script>
