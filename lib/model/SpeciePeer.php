@@ -97,22 +97,26 @@ class SpeciePeer extends BaseSpeciePeer {
     return $query->find();
   }
   
-  public static function getForSelect($with_empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
+  public static function getForSelect($with_empty = false, $empty_msg = 'Todas', $empty_code = '', $descLength=null, $lang='pt' ) {
     $objectos = SpecieQuery::create()->orderByCode()->useSpecieI18nQuery()->orderByName()->endUse()->find();
     
     if($with_empty) {
-      return self::fromObjectosToArray($objectos, $empty=true, $empty_msg, $empty_code);
+      return self::fromObjectosToArray($objectos, $empty=true, $empty_msg, $empty_code, $descLength, $lang);
     } 
-    return self::fromObjectosToArray($objectos, $empty=false, $empty_msg, $empty_code);
+    return self::fromObjectosToArray($objectos, $empty=false, $empty_msg, $empty_code, $descLength, $lang);
   }
   
-  public static function fromObjectosToArray( $objectos, $empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
+  public static function fromObjectosToArray( $objectos, $empty = false, $empty_msg = 'Todas', $empty_code = '', $desLength=null, $lang='pt' ) {
     $resultados = array();
     if( $empty ) {
       $resultados[$empty_code] = '---'.$empty_msg.'---';
     }
     foreach( $objectos as $objecto ) {
-        $resultados[$objecto->getId()] = $objecto->getCode().' - '. $objecto->getName('pt').' - '.$objecto->getScientificName();
+      if($desLength) {
+        $resultados[$objecto->getId()] = $objecto->getCode().' - '. substr($objecto->getName($lang).' - '.$objecto->getScientificName(), 0, $desLength);
+      } else {
+        $resultados[$objecto->getId()] = $objecto->getCode().' - '. $objecto->getName($lang).' - '.$objecto->getScientificName();
+      }
     }
     return $resultados;
   }

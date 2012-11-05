@@ -483,7 +483,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 
 .left-sidebar {
     float: left;
-    width: 185px;
+    width: 315px;
     height: 490px;
     border-right: 1px solid #5FB1C3;
 }
@@ -496,13 +496,13 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     float: left;
     text-align: center;
     padding: 20px 14px 20px 14px;
-    width:700px;
+    width: 570px;
     height:470px;
     margin:0 auto;
 }
 
 .photos-list, .photo-page-container {
-    width: 720px;
+    width: 590px;
     height: 440px;
 }
 
@@ -559,7 +559,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .filter-item select {
-    width: 175px;
+    width: 305px;
 }
 
 .container-div {
@@ -610,4 +610,15 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 .bar-chart, .line-chart {
   margin-top: 100px;
   font-weight: bold;
+}
+
+#date-range-box {
+    text-align: left;
+    color: #167B8B;
+}
+#date-range-box input {
+    height: 12px;
+}
+.catalog_label {
+    width: 150px !important;
 }

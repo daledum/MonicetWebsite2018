@@ -1,6 +1,6 @@
 <ul class="sf_admin_actions">
-  <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
-  <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Fotografias por analisar</a></li>
+  <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Foto. por processar</a></li>
+  <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Foto. por analisar</a></li>
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
   
   <?php if ($form->isNew()): ?>

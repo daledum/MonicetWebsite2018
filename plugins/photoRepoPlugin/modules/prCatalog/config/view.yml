@@ -1,0 +1,4 @@
+all:
+  layout:      layout_catalog
+  javascripts: [ -*,"jquery-1.4.min.js", "jquery-ui-1.8.6.custom.min.js", jquery.ui.datepicker-pt-BR.min.js, datas.php, /photoRepoPlugin/js/filter_change.js ]
+  stylesheets: [ "frontend.css", /photoRepoPlugin/css/catalog_frontend.css, "container_layout.css", "jquery-theme/jquery-ui-1.8.6.custom.css" ]

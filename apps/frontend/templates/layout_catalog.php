@@ -52,13 +52,7 @@
                             <div class="container-side container-left"></div>
                             <div class="container-div">
                                 <div class="catalog-container">
-                                    <div class="left-sidebar">
-                                        <div class="left-sidebar-title"><h2><?php echo __('Observations Catalog'); ?></h2></div>
-                                        <?php include_partial('catalog_frontend/filters'); ?>
-                                    </div>
-                                    <div class="right-content">
-                                        <?php echo $sf_content; ?>
-                                    </div>
+                                  <?php echo $sf_content; ?>
                                 </div>
                             </div>
                             <div class="container-side container-right"></div>

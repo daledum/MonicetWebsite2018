@@ -1,3 +1,0 @@
-all:
-  layout:      layout_catalog
-  stylesheets: [ "frontend.css", "catalog_frontend.css", "container_layout.css" ]

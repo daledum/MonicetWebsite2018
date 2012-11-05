@@ -6,6 +6,15 @@ recognition_of_cetaceans_app:
   requirements:
     sf_method:  get
     
+pr_catalog:
+  url:   /:sf_culture/catalog
+  param: { module: prCatalog, action: index }
+
+pr_catalog_photo:
+  url:   /:sf_culture/catalog/photo
+  param: { module: prCatalog, action: photo }
+  
+    
 pr_add_photos_bulk:
   url:  /reconhecimento-de-cetaceos/upload-photos-bulk
   params:
@@ -97,7 +106,7 @@ pr_uploaded_photo:
     with_wildcard_routes: true
     
 pr_observation_photo_validated:
-  url:  /observation-photo/catalog
+  url:  /observation-photo/catalog-admin
   params:
     module:     prObservationPhoto
     action:     catalog

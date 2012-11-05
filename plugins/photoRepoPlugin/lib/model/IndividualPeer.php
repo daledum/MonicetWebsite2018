@@ -19,4 +19,45 @@ class IndividualPeer extends BaseIndividualPeer {
     
     return sprintf("DBUAC-%s-%s%s", strtoupper($specieCode), $year, sprintf("%03d",$position));
   }
+  
+  public static function filter($args) {
+    $request = sfContext::getInstance()->getRequest();
+    
+    $query = IndividualQuery::create();
+    
+    if( isset( $args['specie_id'] ) && $args['specie_id'] != '' ) {
+      $query = $query->filterBySpecieId($args['specie_id']);
+    }
+      
+    $query = $query->useObservationPhotoQuery();
+      
+      $query = $query->filterByStatus('validated');
+      
+      //var_dump($args);
+      if( isset( $args['island'] ) && $args['island'] != '' ) {
+        $query = $query->filterByIsland($args['island']);
+      }
+      
+      if( isset( $args['photographer_id'] ) && $args['photographer_id'] != '' ) {
+        $query = $query->filterByPhotographerId($args['photographer_id']);
+      }
+      
+      if( isset( $args['company_id'] ) && $args['company_id'] != '' ) {
+        $query = $query->filterByCompanyId($args['company_id']);
+      }
+      
+      if( (isset( $args['photo_date']['from'] ) && $args['photo_date']['from'] != '' ) || (isset( $args['photo_date']['to'] ) && $args['photo_date']['to'] != '' ))  {
+        $query = $query->useSightingQuery()->useRecordQuery()->useGeneralInfoQuery();
+          if( isset( $args['photo_date']['from'] ) && $args['photo_date']['from'] != '' ) {
+            $query = $query->filterByDate($args['photo_date']['from'], Criteria::GREATER_EQUAL);
+          }
+        $query = $query->endUse()->endUse()->endUse();
+      }
+      
+    $query = $query->endUse();
+    
+    $query = $query->orderByCreatedAt(Criteria::DESC);
+    
+    return $query->paginate($request->getParameter('page', 1), 12);
+  }
 } // IndividualPeer
