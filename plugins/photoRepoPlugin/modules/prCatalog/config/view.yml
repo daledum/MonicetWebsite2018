@@ -1,3 +1,7 @@
+individualSuccess:
+  javascripts: [ "http://maps.google.com/maps/api/js?sensor=false&language=pt", /photoRepoPlugin/js/gmaps.js, /photoRepoPlugin/liquidcarousel/js/jquery.liquidcarousel.js ]
+  stylesheets: [ /photoRepoPlugin/liquidcarousel/css/liquidcarousel_frontend.css ]
+
 all:
   layout:      layout_catalog
   javascripts: [ -*,"jquery-1.4.min.js", "jquery-ui-1.8.6.custom.min.js", jquery.ui.datepicker-pt-BR.min.js, datas.php, /photoRepoPlugin/js/filter_change.js ]

@@ -19,8 +19,14 @@ class prCatalogActions extends sfActions
     $this->pager = IndividualPeer::filter($this->formSubmitedValues);
   }
 
-  public function executePhoto(sfWebRequest $request)
+  public function executeIndividual(sfWebRequest $request)
   {
-
+    $this->pr_frontend_filter = new frontendFilterForm();
+    $this->formSubmitedValues = $request->getParameter('catalog_filter');
+    if($this->formSubmitedValues){
+      $this->pr_frontend_filter->bind($this->formSubmitedValues);
+    }
+    
+    $this->forward404Unless($this->individual = IndividualPeer::retrieveByPK($request->getParameter('id')));
   }
 }

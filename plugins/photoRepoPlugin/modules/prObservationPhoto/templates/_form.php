@@ -5,7 +5,7 @@
   <?php if( !$sf_request->hasParameter('file')): ?>
     <?php echo form_tag_for($form, '@pr_observation_photo') ?>
   <?php else: ?>
-    <form action="<?php echo url_for('@pr_observation_photo_'.( ($form->getObject()->isNew())? 'create': 'update' ).'?file='.$sf_request->getParameter('file'), $form->getObject()) ?>" method="post">
+    <form action="<?php echo url_for('@pr_observation_photo_'.( ($form->getObject()->isNew())? 'create?': 'update?id='.$form->getObject()->getId().'&' ).'file='.$sf_request->getParameter('file'), $form->getObject()) ?>" method="post">
   <?php endif; ?>
     <?php echo $form->renderHiddenFields(false) ?>
 

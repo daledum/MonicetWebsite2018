@@ -10,9 +10,9 @@ pr_catalog:
   url:   /:sf_culture/catalog
   param: { module: prCatalog, action: index }
 
-pr_catalog_photo:
-  url:   /:sf_culture/catalog/photo
-  param: { module: prCatalog, action: photo }
+pr_catalog_individual:
+  url:   /:sf_culture/catalog/individual/:id
+  param: { module: prCatalog, action: individual }
   
     
 pr_add_photos_bulk:

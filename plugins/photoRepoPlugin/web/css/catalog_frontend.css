@@ -492,18 +492,21 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     margin-bottom: 20px;
 }
 
-.right-content {
+.right-content, .right-content-individual {
     float: left;
     text-align: center;
     padding: 20px 14px 20px 14px;
-    width: 570px;
+    width: 584px;
     height:470px;
     margin:0 auto;
+}
+.right-content-individual {
+    padding: 0 14px;
 }
 
 .photos-list, .photo-page-container {
     width: 590px;
-    height: 440px;
+    height: 470px;
 }
 
 .photo-list-item {
@@ -518,26 +521,20 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     max-height: 120px;
 }
 
-.photo-page-container .photo {
-    width:720px;
-    height: 160px;
+.photo-page-container .photo_and_content {
+    height: 200px;
 }
 
 .photo-page-container img {
     float: left;
-    max-width: 200px;
-    max-height: 150px;
+    max-width: 230px;
+    max-height: 190px;
 }
 
-.photo-page-container .map {
+.photo-page-container #map {
     background-color: lightblue;
-    height: 200px;
+    height: 170px;
     margin-bottom: 5px;
-}
-
-.photo-page-container .carroussel {
-    background-color: lightgreen;
-    height: 100px;
 }
 
 .right-content .pagination {
@@ -622,3 +619,6 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 .catalog_label {
     width: 150px !important;
 }
+
+#map label { width: auto; display:inline; }
+#map img { max-width: none; max-height: none; }
