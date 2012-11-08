@@ -691,6 +691,7 @@ CREATE TABLE `specie`
 	`code` VARCHAR(10)  NOT NULL,
 	`rec_cet_code` VARCHAR(45),
 	`scientific_name` VARCHAR(255),
+	`color` VARCHAR(10),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),

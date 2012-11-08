@@ -19,6 +19,7 @@ abstract class BaseSpecieForm extends BaseFormPropel
       'code'            => new sfWidgetFormInputText(),
       'rec_cet_code'    => new sfWidgetFormInputText(),
       'scientific_name' => new sfWidgetFormInputText(),
+      'color'           => new sfWidgetFormInputText(),
       'created_at'      => new sfWidgetFormDateTime(),
       'updated_at'      => new sfWidgetFormDateTime(),
     ));
@@ -29,6 +30,7 @@ abstract class BaseSpecieForm extends BaseFormPropel
       'code'            => new sfValidatorString(array('max_length' => 10)),
       'rec_cet_code'    => new sfValidatorString(array('max_length' => 45, 'required' => false)),
       'scientific_name' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'color'           => new sfValidatorString(array('max_length' => 10, 'required' => false)),
       'created_at'      => new sfValidatorDateTime(array('required' => false)),
       'updated_at'      => new sfValidatorDateTime(array('required' => false)),
     ));

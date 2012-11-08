@@ -1,9 +1,10 @@
-function initChart(series, categories, chatType, stacking) {
+function initChart(series, categories, colors, chatType, stacking) {
   var chart = new Highcharts.Chart({
     chart: {
       renderTo: 'chart-image',
       defaultSeriesType: chatType
     },
+    colors: colors,
     title: {
       text: ' '
     },
@@ -45,8 +46,8 @@ function updateChart() {
   var series = [];
   $.ajax({
       url: "/index.php/chartResults?_=" + Math.floor(Math.random()*1000001),
-      data: {"year": $("#year").val(), "month": $("#month").val(), 
-             "association": $("#association").val(), 
+      data: {"year": $("#year").val(), "month": $("#month").val(),
+             "association": $("#association").val(),
              "behaviour": $("#behaviour").val(),
              "company": $("#company").val(),
              "sea_state": $("#sea-state").val(),
@@ -59,14 +60,14 @@ function updateChart() {
           var stacking = 'normal';
           $('.line-chart').hide();
           $('.bar-chart').show();
-          
+
           if ($("input[name='chart-type']:checked").val() == 2) {
               chartType = 'line';
               stacking = null;
               $('.line-chart').show();
               $('.bar-chart').hide();
           }
-          initChart(jsonRsp.series, jsonRsp.categories, chartType, stacking);
+          initChart(jsonRsp.series, jsonRsp.categories, jsonRsp.colors, chartType, stacking);
           $("#chart-loading").hide();
       }
   });
@@ -74,11 +75,11 @@ function updateChart() {
 
 $(function() {
   updateChart();
-  
+
   $("#selected-species").change(function(){
     $("#select-all-toggle").val($(this).val());
   });
-  
+
   $("input[name='chart-type']").change(function() {
      if ($(this).val() == '2') {
          $("#month").attr('disabled', 'disabled');

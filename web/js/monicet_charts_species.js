@@ -1,9 +1,10 @@
-function initChart(series, categories, chartType, plotOptions, yAxisText, tooltip) {
+function initChart(series, categories, colors, chartType, plotOptions, yAxisText, tooltip) {
   var chart = new Highcharts.Chart({
       chart: {
          renderTo: 'chart-image',
          defaultSeriesType: chartType
       },
+      colors: colors,
       title: {
          text: 'Gráfico de Espécies'
       },
@@ -49,7 +50,7 @@ function updateChart() {
       success: function(rsp) {
           var jsonRsp = $.parseJSON(rsp);
           var chartType = 'column';
-          
+
           if ($("#chart-type").val() == 0) {
               var plotOptions = { column: { pointPadding: 0.2, borderWidth: 0 }, series: { pointPadding: 0.1, groupPadding: 0.1, borderWidth: 0, shadow: false } };
               var yAxisText = 'Quantidade';
@@ -60,8 +61,8 @@ function updateChart() {
               var yAxisText = 'Percentagem';
               var tooltip = { formatter: function() { return '<b>'+ this.x + '</b><br/>' + this.series.name +': '+ Math.round(this.percentage*100)/100 + '%'; } };
           }
-          
-          initChart(jsonRsp.series, jsonRsp.categories, chartType, plotOptions, yAxisText, tooltip);
+
+          initChart(jsonRsp.series, jsonRsp.categories, jsonRsp.colors, chartType, plotOptions, yAxisText, tooltip);
           $("#chart-loading").hide();
       }
   });
@@ -69,11 +70,11 @@ function updateChart() {
 
 $(function() {
   updateChart();
-  
+
   $("#selected-species").change(function(){
     $("#select-all-toggle").val($(this).val());
   });
-  
+
   $(".chart-container .left-sidebar input, .chart-container .left-sidebar select").change(function(){
     updateChart();
   });
