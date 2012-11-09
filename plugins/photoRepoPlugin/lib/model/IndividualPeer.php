@@ -58,6 +58,8 @@ class IndividualPeer extends BaseIndividualPeer {
     
     $query = $query->orderByCreatedAt(Criteria::DESC);
     
+    $query = $query->setDistinct();
+    
     return $query->paginate($request->getParameter('page', 1), 12);
   }
 } // IndividualPeer

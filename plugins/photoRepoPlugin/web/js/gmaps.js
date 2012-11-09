@@ -61,13 +61,15 @@ function initialize(container, gmap_items, zoom) {
     if(gmap_arr.length > 1) {
        map.fitBounds(bounds);
     }
-
+    
+    var icon = '/images/backend/icons_gmaps/c25.png'
+    
     for(var i=0; i<gmap_arr.length; i++) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(gmap_arr[i].latitude, gmap_arr[i].longitude), 
             map: map, 
             title:"",
-            icon: '' 
+            icon: icon 
         });
 
         info(marker, gmap_arr[i].desc, gmap_arr[i].auto_show_info);

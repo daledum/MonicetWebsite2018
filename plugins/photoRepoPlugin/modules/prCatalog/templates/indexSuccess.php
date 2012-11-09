@@ -33,10 +33,11 @@
   <div class="photos-list">
     <?php if( $pager->getNbResults() > 0 ): ?>
       <?php foreach($pager->getResults() as $individual): ?>
+        <?php $bestPhoto = $individual->getBestObservationPhoto() ?>
         <div class="photo-list-item">
           <a href="<?php echo url_for('@pr_catalog_individual?id='.$individual->getId(). $urlArgsStr) ?>">
-            <?php if(file_exists(sfConfig::get('sf_upload_dir').'/pr_repo_final/tn_130x120_'.$individual->getBestObservationPhoto()->getFileName()) ): ?>
-              <img width="130" height="120" src="<?php echo url_for( '/uploads/pr_repo_final/tn_130x120_'.$individual->getBestObservationPhoto()->getFileName() ) ?>" />
+            <?php if(file_exists(sfConfig::get('sf_upload_dir').'/pr_repo_final/tn_130x120_'.$bestPhoto->getFileName()) ): ?>
+              <img width="130" height="120" src="<?php echo url_for( '/uploads/pr_repo_final/tn_130x120_'.$bestPhoto->getFileName() ) ?>" />
             <?php endif; ?>
             <div class="photo-description"><?php echo $individual->getName() ?></div>
           </a>
@@ -46,6 +47,7 @@
       Não existem observações para os critérios seleccionados.
     <?php endif; ?>
   </div>
+
   <?php  if ($pager->haveToPaginate()): ?>
     <p class="_p_news_pages_navigation">
     <?php echo link_to('&laquo; ' . __('first'), 'prCatalog/index?page=' . $pager->getFirstPage() . $urlArgsStr) ?>&nbsp;&nbsp;&nbsp;

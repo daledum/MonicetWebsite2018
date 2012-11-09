@@ -1,0 +1,28 @@
+.container-side {
+  margin-left: auto;
+  margin-right: auto;
+  width: 15px;
+  display: inline-block;
+  float: left;
+  height: 655px;
+}
+
+.container-left{
+  background-image: url("/images/frontend/catalog-left.png");
+}
+
+.container-right{
+  background-image: url("/images/frontend/catalog-right.png");
+}
+
+.container-div {
+  margin-left: auto;
+  margin-right: auto;
+  height: 655px;
+  width: 94%;
+  display:inline-block;
+  float: left;
+  padding-bottom: 10px;
+  background-image: url("/images/frontend/background-catalog.png");
+  background-repeat: repeat-x;
+}

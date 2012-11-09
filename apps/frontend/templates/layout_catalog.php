@@ -60,7 +60,7 @@
                       </div>
                   </div>
               </div>
-              <div style="display: block; height: 20px; position: absolute; margin: auto; text-align: center; width: 100%; top: 745px;">
+              <div style="display: block; height: 20px; position: absolute; margin: auto; text-align: center; width: 100%; top: 870px;">
                 <?php include_component('consorcium', 'consorciumElements') ?>
                 <ul style="clear: both; display: inline-block; height: 40px; margin: auto; position: relative; width: 40px;"><li><?php echo link_to('Admin','/admin.php') ?></li></ul>
               </div>

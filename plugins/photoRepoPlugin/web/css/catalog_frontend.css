@@ -11,7 +11,7 @@ body {
 
 #_div_page {
     width: 100%;
-    height: 692px;
+    height: 790px;
     background-image: url("/images/frontend/bg_monicet.png");
     background-position: center top;
     background-repeat: no-repeat;
@@ -26,7 +26,7 @@ body {
 }
 
 #_div_background {
-    height: 780px;
+    height: 900px;
     background-image: url("/images/frontend/bg_gradient.png");
     background-repeat: repeat-x;
     background-color: #56a9bc;
@@ -182,7 +182,7 @@ button {
 
 #_div_main {
     width: 100%;
-    height: 573px;
+    height: 705px;
 }
 
 #_div_main_left {
@@ -245,7 +245,7 @@ em {
 #_div_main_center {
     float: left;
     display: inline;
-    height: 571px;
+    height: 710px;
     width: 100%;
     /*background-image: url("/images/frontend/bg_content.png");*/
     background-image: none;
@@ -455,7 +455,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 /* CHARTS */
 
 .main-container {
-  height: 91%;
+  height: 100%;
 }
 
 #catalog-container-div{
@@ -472,7 +472,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 
 .left-container {
     display: inline-block;
-    height: 100%;
+    height: 650px;
     margin: auto;
     text-align: left;
 }
@@ -484,7 +484,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 .left-sidebar {
     float: left;
     width: 315px;
-    height: 490px;
+    height: 610px;
     border-right: 1px solid #5FB1C3;
 }
 
@@ -497,7 +497,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     text-align: center;
     padding: 20px 14px 20px 14px;
     width: 584px;
-    height:470px;
+    height: 610px;
     margin:0 auto;
 }
 .right-content-individual {
@@ -506,7 +506,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 
 .photos-list, .photo-page-container {
     width: 590px;
-    height: 470px;
+    height: 585px;
 }
 
 .photo-list-item {
@@ -522,18 +522,39 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .photo-page-container .photo_and_content {
-    height: 200px;
+    height: 220px;
 }
 
-.photo-page-container img {
+#photo-img img {
     float: left;
-    max-width: 230px;
     max-height: 190px;
+    width: 230px;
+}
+#photo-content {
+    float: right;
+    width: 320px;
+    height: 150px;
+    border:1px solid #DDDDDD;
+    -moz-border-radius:10px 10px 10px 10px;
+    -webkit-border-radius:10px 10px 10px 10px;
+    border-radius:10px 10px 10px 10px;
+    padding:10px;
+    text-align: left;
+}
+.popup-content-gmaps {
+    text-align: left;
+}
+
+#photo-download {
+    text-align: right;
+    float: right;
+    width: 320px;
+    padding: 10px 0 0 0;
 }
 
 .photo-page-container #map {
     background-color: lightblue;
-    height: 170px;
+    height: 200px;
     margin-bottom: 5px;
 }
 
@@ -622,3 +643,9 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 
 #map label { width: auto; display:inline; }
 #map img { max-width: none; max-height: none; }
+
+.catalog_h2 {
+    text-align: left;
+    padding-bottom: 5px;
+    padding-top: 10px;
+}
