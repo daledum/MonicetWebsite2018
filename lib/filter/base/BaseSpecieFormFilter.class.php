@@ -16,6 +16,7 @@ abstract class BaseSpecieFormFilter extends BaseFormFilterPropel
       'code'            => new sfWidgetFormFilterInput(array('with_empty' => false)),
       'rec_cet_code'    => new sfWidgetFormFilterInput(),
       'scientific_name' => new sfWidgetFormFilterInput(),
+      'color'           => new sfWidgetFormFilterInput(),
       'created_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'      => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
     ));
@@ -25,6 +26,7 @@ abstract class BaseSpecieFormFilter extends BaseFormFilterPropel
       'code'            => new sfValidatorPass(array('required' => false)),
       'rec_cet_code'    => new sfValidatorPass(array('required' => false)),
       'scientific_name' => new sfValidatorPass(array('required' => false)),
+      'color'           => new sfValidatorPass(array('required' => false)),
       'created_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'      => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
     ));
@@ -49,6 +51,7 @@ abstract class BaseSpecieFormFilter extends BaseFormFilterPropel
       'code'            => 'Text',
       'rec_cet_code'    => 'Text',
       'scientific_name' => 'Text',
+      'color'           => 'Text',
       'created_at'      => 'Date',
       'updated_at'      => 'Date',
     );

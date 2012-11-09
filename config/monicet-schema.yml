@@ -164,9 +164,10 @@ propel:
       code:             { type: varchar(10), required: true }
       rec_cet_code:     { type: varchar, size: 45, required: false }
       scientific_name:  { type: varchar(255) }
+      color:            { type: varchar(10) }
       created_at:       ~
       updated_at:       ~
-      
+
    specie_i18n:
      id:           { type: integer, required: true, primaryKey: true, foreignTable: specie, foreignReference: id }
      culture:      { isCulture: true, type: varchar, size: 7, required: true, primaryKey: true }
