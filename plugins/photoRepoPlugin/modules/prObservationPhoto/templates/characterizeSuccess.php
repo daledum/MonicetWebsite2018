@@ -4,8 +4,15 @@
 
 <div id="sf_admin_container">
   <div class="characterize_block" >
-      <h1><?php echo __('A caracterizar fotografia "%fotografia%"', array('%fotografia%' => $observationPhoto->getCode()), 'messages') ?></h1>
-    <?php include_partial('prObservationPhoto/flashes') ?>
+    <h1><?php echo __('A caracterizar fotografia "%fotografia%"', array('%fotografia%' => $observationPhoto->getCode()), 'messages') ?></h1>
+    
+    <?php if ($sf_user->hasFlash('notice')): ?>
+      <div class="notice"><?php echo __($sf_user->getFlash('notice'), array(), 'sf_admin') ?></div>
+    <?php endif; ?>
+
+    <?php if ($sf_user->hasFlash('error')): ?>
+      <div class="error"><?php echo __($sf_user->getFlash('error'), array(), 'sf_admin') ?></div>
+    <?php endif; ?>
     
     <?php if( $isTail && $tailForm ): ?>
       <?php 

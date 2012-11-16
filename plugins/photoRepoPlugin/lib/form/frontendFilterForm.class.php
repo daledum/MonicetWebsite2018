@@ -3,7 +3,7 @@ class frontendFilterForm extends sfForm
 {
   public function configure()
   {
-    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('mf_copia');
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('frontend_filter');
     
     $culture = sfContext::getInstance()->getUser()->getCulture();
     

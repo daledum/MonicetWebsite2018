@@ -34,6 +34,12 @@ $(document).ready(function(){
         }
     });
     
+    
+    //$('#observation_photo_tail_mark_is_wide')
+    
+    
+    
+    
     $('#observation_photo_dorsal_left_is_smooth').change(function(){
         if($('#observation_photo_dorsal_left_is_smooth').attr('checked') == true) { 
             var any_filled = testFilled('#observation_photo_dorsal_left_is_irregular, #observation_photo_dorsal_left_is_cutted_point, #mark_content');

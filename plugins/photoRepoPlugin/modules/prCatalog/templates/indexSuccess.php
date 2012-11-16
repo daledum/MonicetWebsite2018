@@ -42,13 +42,14 @@
             <div class="photo-description"><?php echo $individual->getName() ?></div>
           </a>
         </div>
+        
       <?php endforeach; ?>
     <?php else: ?>
       Não existem observações para os critérios seleccionados.
     <?php endif; ?>
   </div>
 
-  <?php  if ($pager->haveToPaginate()): ?>
+  <?php  if( $pager->haveToPaginate() ): ?>
     <p class="_p_news_pages_navigation">
     <?php echo link_to('&laquo; ' . __('first'), 'prCatalog/index?page=' . $pager->getFirstPage() . $urlArgsStr) ?>&nbsp;&nbsp;&nbsp;
     <?php echo link_to('&lt;', 'prCatalog/index?page='.$pager->getPreviousPage() . $urlArgsStr) ?>&nbsp;

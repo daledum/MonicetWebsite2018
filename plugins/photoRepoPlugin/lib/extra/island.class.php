@@ -36,6 +36,21 @@ class island {
     
     return $resultados;
   }
+  
+  public static function getDescriptionBySigla($sigla ){
+    $resultados = array();
+    $resultados[self::SMG_SIGLA] = self::SMG_DESC;
+    $resultados[self::SMA_SIGLA] = self::SMA_DESC;
+    $resultados[self::TER_SIGLA] = self::TER_DESC;
+    $resultados[self::GRA_SIGLA] = self::GRA_DESC;
+    $resultados[self::SJO_SIGLA] = self::SJO_DESC;
+    $resultados[self::PIC_SIGLA] = self::PIC_DESC;
+    $resultados[self::FAI_SIGLA] = self::FAI_DESC;
+    $resultados[self::FLO_SIGLA] = self::FLO_DESC;
+    $resultados[self::COR_SIGLA] = self::COR_DESC;
+    
+    return ( isset($resultados[$sigla]) )? $resultados[$sigla] :$sigla;
+  }
 }
 
 ?>

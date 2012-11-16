@@ -31,7 +31,9 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
       
       $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoTailMark->getObservationPhotoTail()->getPhotoId());
     } else {
+      $OPTail = ObservationPhotoTailPeer::retrieveByPK($this->form['observation_photo_tail_id']->getValue());
       $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+      $this->redirect('@pr_observation_photo_characterize?id='.$OPTail->getPhotoId());
     }
   }
 }

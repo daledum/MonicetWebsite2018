@@ -10,5 +10,19 @@ class ObservationPhotoTailMarkForm extends BaseObservationPhotoTailMarkForm
     
     $this->widgetSchema->moveField('pattern_cell_tail_id', sfWidgetFormSchema::AFTER, 'is_deep');
     
+    $oneRequired = new sfValidatorCallback(array( 'callback' => array($this, 'checkOneRequired') ));
+    
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorAnd(array(
+        $oneRequired
+      ))
+    );
+  }
+  
+  public function checkOneRequired($validator, $values) {
+    if( !$values['is_wide'] && !$values['is_deep']) {
+      throw new sfValidatorError($validator, '<br/> - As opções "Larga" e "Estreita", uma delas tem que estar seleccionada.');
+    }
+    return $values;
   }
 }
