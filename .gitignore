@@ -9,4 +9,4 @@ nbproject
 .settings
 data/sql/backup_*
 web/*_dev.php
-
+plugins/photoRepoPlugin/web/export_individual
