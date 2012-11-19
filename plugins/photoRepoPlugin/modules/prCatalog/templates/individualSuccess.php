@@ -38,7 +38,7 @@
           
           <?php $lastTenObservationDates = $individual->getLastTenObservationDates() ?>   
           <?php if( strlen($lastTenObservationDates) ): ?>
-            <b><?php echo __('Observations', null, 'catalog') ?>:</b> <?php echo $lastTenObservationDates ?><br/>
+            <b><?php echo __('Sightings', null, 'catalog') ?>:</b> <?php echo $lastTenObservationDates ?><br/>
           <?php endif; ?>
           
           <?php if(strlen($individual->getNotes()) ): ?>
@@ -47,7 +47,7 @@
         </div>
         
         <div id="photo-download">
-          <a href="">Download</a>
+          <?php echo link_to('Download','@pr_catalog_export_individual?name='.$individual->getName()) ?>
         </div>
       </div>
       

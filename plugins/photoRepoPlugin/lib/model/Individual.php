@@ -33,8 +33,7 @@ class Individual extends BaseIndividual {
     return $query->find();
   }
   
-  public function getLastTenObservationDates() {
-    $limit = 10;
+  public function getObservationDates($limit = null) {
     $sightings = $this->getSightings($limit);
     $resultStr = '';
     
@@ -42,10 +41,26 @@ class Individual extends BaseIndividual {
       $resultStr .= $sighting->getRecord()->getGeneralInfo()->getDate(', Y-m-d');
     }
     
-    if(count($sightings) == $limit ) {
-      $resultStr .= ', ...';
+    if( !is_null($limit) ) {
+      if(count($sightings) == $limit ) {
+        $resultStr .= ', ...';
+      }
     }
     
     return substr($resultStr, 2);
   }
+  
+  public function getLastTenObservationDates() {
+    $limit = 10;
+    return $this->getObservationDates($limit);
+  }
+  
+  public function getLastValidObservationPhoto(){
+    $query = ObservationPhotoQuery::create()
+            ->filterByIndividualId($this->getId())
+            ->filterByStatus(ObservationPhoto::V_SIGLA)
+            ->orderByPhotoDate(Criteria::DESC);
+    return $query->findOne();
+  }
+  
 } // Individual

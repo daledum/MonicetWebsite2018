@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="en_US" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>Observations catalog</source>
+        <target>Catálogo de observações</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Period (Sigthings)</source>
+        <target>Intervalo (avistamentos)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Specie</source>
+        <target>Espécie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Gender</source>
+        <target>Sexo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Male</source>
+        <target>Masculino</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Female</source>
+        <target>Feminino</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Age group</source>
+        <target>Grupo etário</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Sightings</source>
+        <target>Avistamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Notes</source>
+        <target>Notas</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Observations map</source>
+        <target>Mapa de observações</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Individual album</source>
+        <target>Album de fotografias de avistamentos</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source>Date</source>
+        <target>Data</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Time</source>
+        <target>Hora</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Island</source>
+        <target>Ilha</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Body part</source>
+        <target>Parte do corpo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Behaviour</source>
+        <target>Comportamento</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Company</source>
+        <target>Empresa</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Vessel</source>
+        <target>Barco</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Photographer</source>
+        <target>Fotógrafo</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Kind of photo</source>
+        <target>Tipo de fotografia</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Photo quality</source>
+        <target>Qualidade da fotografia</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

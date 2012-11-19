@@ -48,7 +48,8 @@
 		}
 
 		public static function translate( $text, $dictionary = 'messages' ){
-			sfLoader::loadHelpers('I18N');
+			//sfLoader::loadHelpers('I18N');
+                        sfContext::getInstance()->getConfiguration()->loadHelpers('I18N');
 			if ( is_string( $text ) ){
 				$str = __( $text, null, $dictionary );
 			}else if( is_array( $text ) ){

@@ -14,6 +14,13 @@ pr_catalog_individual:
   url:   /:sf_culture/catalog/individual/:id
   param: { module: prCatalog, action: individual }
   
+pr_catalog_export_individual:
+  url:   /:sf_culture/catalog/export/:name
+  param: { module: prCatalog, action: exportIndividual }
+  
+pr_catalog_download_individual:
+  url:   /:sf_culture/catalog/download/:name
+  param: { module: prCatalog, action: downloadIndividual }
     
 pr_add_photos_bulk:
   url:  /reconhecimento-de-cetaceos/upload-photos-bulk

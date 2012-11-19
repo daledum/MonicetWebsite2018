@@ -15,7 +15,7 @@ class importXlsForm extends sfForm{
     $this->setValidators(array(
       'ficheiro' => new sfValidatorFile(array(
         'path' => sfConfig::get('sf_upload_dir').'/import/',
-        'mime_types' => array('application/vnd.ms-office', 'application/excel', 'application/vnd.ms-excel', 'application/x-excel', 'application/x-msexcel', 'application/octet-stream'),
+        'mime_types' => array('application/msword', 'application/vnd.ms-office', 'application/excel', 'application/vnd.ms-excel', 'application/x-excel', 'application/x-msexcel', 'application/octet-stream'),
       ), array(
         'mime_types' => 'Tipo de ficheiro inválido (%mime_type%), carregue um ficheiro .xls.'
       ))

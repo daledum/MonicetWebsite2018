@@ -1,6 +1,12 @@
 <?php
 
 class IndividualPeer extends BaseIndividualPeer {
+  public static function retrieveByName($name){
+    $query = IndividualQuery::create()->filterByName($name);
+    return $query->findOne(); 
+  }
+
+
   public static function getFirstAvailableName($observationPhoto){
     $year = date('y');
     $specieCode = $observationPhoto->getSpecie()->getCode();
