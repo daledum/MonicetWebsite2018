@@ -65,8 +65,16 @@
   </div>
   
   <ul class="sf_admin_actions">
-    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Listagem por analisar</a></li>
+    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Foto. por processar</a></li>
+    <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Foto. por analisar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
+  </ul>
+  
+  <ul class="sf_admin_actions">
+    
+    <?php if( $observationPhoto->getStatus() != ObservationPhoto::V_SIGLA ): ?>
+      <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
+    <?php endif; ?>
     
     <?php if($observationPhoto->getSpecie()->countPatterns()): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_characterize?id='.$observationPhoto->getId()) ?>">Caracterizar</a></li>
@@ -87,8 +95,5 @@
       
     <li class="sf_admin_action_edit"><a href="<?php echo url_for('@pr_observation_photo_edit?id='.$observationPhoto->getId()) ?>">editar</a></li>
     
-    <?php if( $observationPhoto->getStatus() != ObservationPhoto::V_SIGLA ): ?>
-      <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
-    <?php endif; ?>
   </ul>
 </div>
