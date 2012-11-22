@@ -54,23 +54,24 @@
       <script type="text/javascript">
         var gmap_items = {};
         
-        <?php foreach( $individual->getSightings() as $key => $sighting ):  ?>
-          <?php $record = $sighting->getRecord() ?>
-          <?php $latitude = $record->getLatitude() ?>
-          <?php $longitude = $record->getLongitude() ?>
-            
-          <?php $coordinatesTitle = __('Coordinates', null, 'catalog') ?>
-          <?php $dateTitle = __('Date', null, 'catalog') ?>
-          <?php $timeTitle = __('Time', null, 'catalog') ?>
-            
-          <?php if( strlen($latitude) && strlen($longitude) ): ?>
-            <?php $descStr = sprintf("<b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/>", $coordinatesTitle, $latitude, $longitude * (-1), $dateTitle, $record->getGeneralInfo()->getDate('Y-m-d')) ?>
-            gmap_items["<?php echo $key ?>"] = {
-                "latitude": <?php echo $latitude ?>,
-                "longitude": <?php echo $longitude * (-1) ?>,
-                "desc": '<div class="popup-content-gmaps"><?php echo $descStr ?></div>',
-                "auto_show_info": false
-            };
+        <?php $coordinatesTitle = __('Coordinates', null, 'catalog') ?>
+        <?php $dateTitle = __('Date', null, 'catalog') ?>
+        <?php $timeTitle = __('Time', null, 'catalog') ?>
+          
+        <?php foreach( $individual->getObservationPhotos() as $OBPhoto ): ?>
+          <?php if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA)): ?>
+            <?php if( strlen($OBPhoto->getLatitude()) && strlen($OBPhoto->getLongitude())): ?>
+              <?php $latitude = $OBPhoto->getLatitude() ?>
+              <?php $longitude = $OBPhoto->getLongitude() ?>
+              <?php ?>
+              <?php $descStr = sprintf("<b>%s</b><br/><b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/>",$OBPhoto->getCode() , $coordinatesTitle, $latitude, $longitude, $dateTitle, $OBPhoto->getPhotoDate('Y-m-d')) ?>
+                gmap_items["<?php echo $OBPhoto->getId() ?>"] = {
+                    "latitude": <?php echo $latitude  ?>,
+                    "longitude": <?php echo $longitude ?>,
+                    "desc": '<div class="popup-content-gmaps"><?php echo $descStr ?></div>',
+                    "auto_show_info": false
+                };
+            <?php endif; ?>
           <?php endif; ?>
         <?php endforeach; ?>
         

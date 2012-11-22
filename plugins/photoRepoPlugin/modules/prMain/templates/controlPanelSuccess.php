@@ -61,7 +61,7 @@
               </ul>
             </td>
           </tr>
-          
+          <?php /* ?>
           <tr class="sf_admin_row odd">
             <td width="400">Espécies</td>
             <td width="50" style="text-align: right;"><?php echo $species ?></td>
@@ -94,8 +94,8 @@
               </ul>
             </td>
           </tr>
-          
-          <tr class="sf_admin_row even">
+          <?php */ ?>
+          <tr class="sf_admin_row odd">
             <td width="400">Fotógrafos</td>
             <td width="50" style="text-align: right;"><?php echo $num_photographers ?></td>
             <td>
@@ -106,7 +106,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row odd">
+          <tr class="sf_admin_row even">
             <td width="400">Partes do corpo</td>
             <td width="50" style="text-align: right;"><?php echo $num_body_parts ?></td>
             <td>
@@ -117,7 +117,7 @@
             </td>
           </tr>
           
-          <tr class="sf_admin_row even">
+          <tr class="sf_admin_row odd">
             <td width="400">Padrões</td>
             <td width="50" style="text-align: right;"><?php echo $patterns ?></td>
             <td>

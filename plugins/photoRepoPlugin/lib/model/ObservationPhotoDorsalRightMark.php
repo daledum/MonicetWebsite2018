@@ -2,8 +2,8 @@
 
 class ObservationPhotoDorsalRightMark extends BaseObservationPhotoDorsalRightMark {
   public function __toString(){
-    $cell = ($this->getPatternCellDorsalRightId())? $this->getPatternCellDorsaRightRelatedByPatternCellDorsalRightId()->getName(): '';
-    
+    $cell = ($this->getPatternCellDorsalRightId())? $this->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId()->getName(): '';
+
     $isWide = ($this->getIsWide())? 'Larga, ': '';
     $isDeep = ($this->getIsDeep())? 'Estreita, ': '';
     
