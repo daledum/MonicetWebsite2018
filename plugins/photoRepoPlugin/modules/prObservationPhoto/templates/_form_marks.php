@@ -20,7 +20,14 @@
         <fieldset id="sf_fieldset_none">
           <h2>Nova marca</h2>
           <?php echo $markForm->renderHiddenFields(true) ?>
-
+          
+          <?php if ($sf_user->hasFlash('mark_error')): ?>
+            <div class="error"><?php echo __($sf_user->getFlash('mark_error'), array(), 'sf_admin') ?></div>
+          <?php endif; ?>
+          <?php if ($sf_user->hasFlash('mark_notice')): ?>
+            <div class="error"><?php echo __($sf_user->getFlash('mark_notice'), array(), 'sf_admin') ?></div>
+          <?php endif; ?>
+            
           <?php foreach( $markForm as $cont => $markFormElement): ?>
             <?php if( !in_array($cont, array('id', 'observation_photo_tail_id', 'observation_photo_dorsal_left_id', 'observation_photo_dorsal_right_id', '_csrf_token'))): ?>
               <div class="sf_admin_form_row sf_admin_text">

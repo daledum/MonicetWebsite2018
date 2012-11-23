@@ -13,7 +13,73 @@ $(document).ready(function(){
             }
         });
         return result;
-    }   
+    };   
+    
+    // deal with combination of fields on Tail mark Form
+    $('#observation_photo_tail_mark_is_wide').change(function(){
+        if($('#observation_photo_tail_mark_is_wide').attr('checked') == true) { 
+            $('#observation_photo_tail_mark_is_deep').removeAttr("checked");
+            $('#observation_photo_tail_mark_is_deep').attr("disabled", "disabled");
+        } else {
+            $('#observation_photo_tail_mark_is_deep').removeAttr("disabled");
+            $('#observation_photo_tail_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    $('#observation_photo_tail_mark_is_deep').change(function(){
+        if($('#observation_photo_tail_mark_is_deep').attr('checked') == true) { 
+            $('#observation_photo_tail_mark_is_wide').removeAttr("checked");
+            $('#observation_photo_tail_mark_is_wide').attr("disabled", "disabled");
+            $('#observation_photo_tail_mark_to_cell_id').attr("disabled", "disabled");
+            $('#observation_photo_tail_mark_to_cell_id').attr("value", "");
+        } else {
+            $('#observation_photo_tail_mark_is_wide').removeAttr("disabled");
+            $('#observation_photo_tail_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    // deal with combination of fields on Dorsal Left mark Form
+    $('#observation_photo_dorsal_left_mark_is_wide').change(function(){
+        if($('#observation_photo_dorsal_left_mark_is_wide').attr('checked') == true) { 
+            $('#observation_photo_dorsal_left_mark_is_deep').removeAttr("checked");
+            $('#observation_photo_dorsal_left_mark_is_deep').attr("disabled", "disabled");
+        } else {
+            $('#observation_photo_dorsal_left_mark_is_deep').removeAttr("disabled");
+            $('#observation_photo_dorsal_left_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    $('#observation_photo_dorsal_left_mark_is_deep').change(function(){
+        if($('#observation_photo_dorsal_left_mark_is_deep').attr('checked') == true) { 
+            $('#observation_photo_dorsal_left_mark_is_wide').removeAttr("checked");
+            $('#observation_photo_dorsal_left_mark_is_wide').attr("disabled", "disabled");
+            $('#observation_photo_dorsal_left_mark_to_cell_id').attr("disabled", "disabled");
+            $('#observation_photo_dorsal_left_mark_to_cell_id').attr("value", "");
+        } else {
+            $('#observation_photo_dorsal_left_mark_is_wide').removeAttr("disabled");
+            $('#observation_photo_dorsal_left_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    // deal with combination of fields on Dorsal Right mark Form
+    $('#observation_photo_dorsal_right_mark_is_wide').change(function(){
+        if($('#observation_photo_dorsal_right_mark_is_wide').attr('checked') == true) { 
+            $('#observation_photo_dorsal_right_mark_is_deep').removeAttr("checked");
+            $('#observation_photo_dorsal_right_mark_is_deep').attr("disabled", "disabled");
+        } else {
+            $('#observation_photo_dorsal_right_mark_is_deep').removeAttr("disabled");
+            $('#observation_photo_dorsal_right_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    $('#observation_photo_dorsal_right_mark_is_deep').change(function(){
+        if($('#observation_photo_dorsal_right_mark_is_deep').attr('checked') == true) { 
+            $('#observation_photo_dorsal_right_mark_is_wide').removeAttr("checked");
+            $('#observation_photo_dorsal_right_mark_is_wide').attr("disabled", "disabled");
+            $('#observation_photo_dorsal_right_mark_to_cell_id').attr("disabled", "disabled");
+            $('#observation_photo_dorsal_right_mark_to_cell_id').attr("value", "id");
+        } else {
+            $('#observation_photo_dorsal_right_mark_is_wide').removeAttr("disabled");
+            $('#observation_photo_dorsal_right_mark_to_cell_id').removeAttr("disabled");
+        }
+    });
+    
+    
     
     $('#observation_photo_tail_is_smooth').change(function(){
         if($('#observation_photo_tail_is_smooth').attr('checked') == true) { 
@@ -33,11 +99,6 @@ $(document).ready(function(){
             $('#observation_photo_tail_is_cutted_point_right').removeAttr("disabled");
         }
     });
-    
-    
-    //$('#observation_photo_tail_mark_is_wide')
-    
-    
     
     
     $('#observation_photo_dorsal_left_is_smooth').change(function(){

@@ -31,7 +31,14 @@ class prObservationPhotoDorsalLeftMarkActions extends autoPrObservationPhotoDors
       
       $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoDorsalLeftMark->getObservationPhotoDorsalLeft()->getPhotoId());
     } else {
-      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+      $OPDorsalLeft = ObservationPhotoDorsalLeftPeer::retrieveByPK($this->form['observation_photo_dorsal_left_id']->getValue());
+      $errors = $this->form->getGlobalErrors();
+      $errorStr = '';
+      foreach( $errors as $name => $error ) {
+        $errorStr .= $error;
+      }
+      $this->getUser()->setFlash('mark_error', 'A marca não foi adicionada devido a erros.'.$errorStr);
+      $this->redirect('@pr_observation_photo_characterize?id='.$OPDorsalLeft->getPhotoId());
     }
   }
 }

@@ -23,6 +23,9 @@ class ObservationPhotoTailMarkForm extends BaseObservationPhotoTailMarkForm
     if( !$values['is_wide'] && !$values['is_deep']) {
       throw new sfValidatorError($validator, '<br/> - As opções "Larga" e "Estreita", uma delas tem que estar seleccionada.');
     }
+    if( $values['is_wide'] && $values['is_deep']) {
+      throw new sfValidatorError($validator, '<br/> - As opções "Larga" e "Estreita", só uma delas pode que estar seleccionada.');
+    }
     return $values;
   }
 }

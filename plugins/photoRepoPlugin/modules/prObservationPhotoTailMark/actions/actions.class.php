@@ -27,12 +27,17 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTailMark)));
 
-      $this->getUser()->setFlash('notice', $notice);
+      $this->getUser()->setFlash('mark_notice', $notice);
       
       $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoTailMark->getObservationPhotoTail()->getPhotoId());
     } else {
       $OPTail = ObservationPhotoTailPeer::retrieveByPK($this->form['observation_photo_tail_id']->getValue());
-      $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
+      $errors = $this->form->getGlobalErrors();
+      $errorStr = '';
+      foreach( $errors as $name => $error ) {
+        $errorStr .= $error;
+      }
+      $this->getUser()->setFlash('mark_error', 'A marca não foi adicionada devido a erros.'.$errorStr);
       $this->redirect('@pr_observation_photo_characterize?id='.$OPTail->getPhotoId());
     }
   }
