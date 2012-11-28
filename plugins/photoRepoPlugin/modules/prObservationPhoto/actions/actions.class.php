@@ -361,4 +361,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $observationPhoto->save();
     $this->redirect('@pr_individual_show?id='.$observationPhoto->getIndividualId());
   }
+  
+  public function executeAjaxFilterSightings( sfWebRequest $request ) {
+    $ob_date = $request->getParameter('ob_date', null);
+    $specieId = $request->getParameter('specie_id', null);
+    $companyId = $request->getParameter('company_id', null);
+    $vesselId = $request->getParameter('vessel_id', null);
+    $sightings = SightingPeer::getSightingsForSelectAjax($ob_date, $specieId, $companyId, $vesselId);
+    $this->sightings = $sightings;
+  }
 }

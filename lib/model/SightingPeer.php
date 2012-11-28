@@ -18,6 +18,32 @@
  */
 class SightingPeer extends BaseSightingPeer {
   
+  public static function getSightingsForSelectAjax($ob_date=null, $specieId=null, $companyId=null, $vesselId=null){
+    $query = SightingQuery::create();
+      if( $specieId ){
+        $query = $query->filterBySpecieId($specieId);
+      }  
+
+      $query = $query->useRecordQuery();
+        $query = $query->useGeneralInfoQuery();
+          if( $ob_date ){
+            $query = $query->filterByDate($ob_date);
+          }
+          if( $companyId ) {
+              $query = $query->filterByCompanyId($companyId);
+          }
+          if( $vesselId ) {
+              $query = $query->filterByVesselId($vesselId);
+          }
+          $query = $query->orderById();
+        $query = $query->endUse();
+        $query = $query->orderByTime();
+      $query = $query->endUse();
+    $objects = $query->find();
+    
+    return self::fromObjectosToArray($objects, true, '', '');
+  }
+  
   public static function getSightingsForSelect($date, $companyId=null, $with_empty = true, $empty_msg = '', $empty_code = ''){
       $query = SightingQuery::create()
       ->useRecordQuery()

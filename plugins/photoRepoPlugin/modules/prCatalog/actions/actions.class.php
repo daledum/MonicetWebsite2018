@@ -85,12 +85,14 @@ class prCatalogActions extends sfActions
         fwrite($index, '<div class="photo-data">' );
           fwrite($index, '<table width="100%">' );
             $specie = $individual->getSpecie();
-            fwrite($index, '<tr class="odd"><th width="90">'.mfText::translate('Name', 'export_individual').':</th><td>'.$individual->getName().'</td></tr>' );
+            fwrite($index, '<tr class="odd"><th width="120">'.mfText::translate('Name', 'export_individual').':</th><td>'.$individual->getName().'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Specie', 'export_individual').':</th><td>'.( (!is_null($specie))? $specie->getCode().' - '. $specie->getName().' - '.$specie->getScientificName() : '').'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Gender', 'export_individual').':</th><td>'.mfText::translate($bestPhoto->getGender(), 'export_individual').'</td></tr>' );
             $lastObservationPhoto = $individual->getLastValidObservationPhoto();
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Age group', 'export_individual').':</th><td>'.mfText::translate(age_group::getValueForSigla($lastObservationPhoto->getAgeGroup()), 'export_individual').'</td></tr>' );
-            fwrite($index, '<tr class="odd"><th>'.mfText::translate('Sightings', 'export_individual').':</th><td>'.$individual->getObservationDates().'</td></tr>' );
+            $dates = $individual->getObservationDates();
+            $dates_part = explode(', ', $dates);
+            fwrite($index, '<tr class="odd"><th>'.mfText::translate('Sightings', 'export_individual').' ('.count($dates_part).'):</th><td>'.$dates.'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Notes', 'export_individual').':</th><td>'.$individual->getNotes().'</td></tr>' );
           fwrite($index, '</table>' );
         fwrite($index, '</div>' );

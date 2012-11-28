@@ -238,3 +238,11 @@ observation_photo_tail_mark:
     prefix_path:          /prObservationPhotoTailMark
     column:               id
     with_wildcard_routes: true
+    
+ajax_filter_sightings:
+  url:  /ajax/filter-sightings
+  params:
+    module:     prObservationPhoto
+    action:     ajaxFilterSightings
+  requirements:
+    sf_method: get

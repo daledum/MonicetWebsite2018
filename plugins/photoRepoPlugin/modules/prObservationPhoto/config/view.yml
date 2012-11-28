@@ -1,3 +1,5 @@
+ajaxFilterSightingsSuccess:
+  has_layout: false
 identifySuccess:
   #javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
   javascripts:  [ -*, jquery-1.4.2.min.js, jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js, /photoRepoPlugin/liquidcarousel/js/jquery.liquidcarousel.js, /photoRepoPlugin/js/identify.js ]
@@ -9,10 +11,10 @@ characterizeSuccess:
   javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js, /photoRepoPlugin/js/characterise.js ]
   stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css ]
 newSuccess:
-  javascripts:  [ /photoRepoPlugin/js/get_sightings_for_company.js ]
+  javascripts:  [ /photoRepoPlugin/js/get_sightings_for_company.js, /photoRepoPlugin/js/ajax_filter_sightings.js ]
   stylesheets:  []
 editSuccess:
-  javascripts:  [ /photoRepoPlugin/js/get_sightings_for_company.js ]
+  javascripts:  [ /photoRepoPlugin/js/get_sightings_for_company.js, /photoRepoPlugin/js/ajax_filter_sightings.js ]
   stylesheets:  []
 indexSuccess:
   javascripts:  [-*,"jquery-1.4.min.js", "jquery.modal.js", "jquery.tooltip.js", main, "jquery-ui-1.8.6.custom.min.js", jquery.ui.datepicker-pt-BR.min.js, datas.php, 'tooltip/main.js' ]
