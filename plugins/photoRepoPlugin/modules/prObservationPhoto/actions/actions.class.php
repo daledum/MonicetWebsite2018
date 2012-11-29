@@ -275,6 +275,29 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  protected function buildCriteria()
+  {
+    if (null === $this->filters)
+    {
+      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    }
+
+    $criteria = $this->filters->buildCriteria($this->getFilters());
+    $action = sfContext::getInstance()->getActionName();
+    if( $action == 'catalog' ){
+      $criteria->add(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA);
+    } else {
+      $c = $criteria->getNewCriterion(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA, Criteria::NOT_EQUAL);
+      $criteria->addAnd($c);
+    }
+
+    $this->addSortCriteria($criteria);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+    $criteria = $event->getReturnValue();
+
+    return $criteria;
+  }
 //  protected function getPager($catalog=false)
 //  {
 //    $pager = $this->configuration->getPager('ObservationPhoto');
