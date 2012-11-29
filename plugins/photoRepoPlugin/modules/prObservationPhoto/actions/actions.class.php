@@ -17,7 +17,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->setPage($request->getParameter('page'));
     }
 
-    $this->pager = $this->getPager($states=array(ObservationPhoto::V_SIGLA), $in=false);
+    $this->pager = $this->getPager();
     $this->sort = $this->getSort();
   }
   
@@ -142,7 +142,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   public function executeValidate( sfWebRequest $request ) {
       $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
       $userId = $this->getUser()->getGuardUSer()->getId();
-      if( $userId != $observationPhoto->getLastEditedBy() && $observationPhoto->getStatus() == ObservationPhoto::FA_SIGLA ) {
+      if( /*$userId != $observationPhoto->getLastEditedBy() &&*/ $observationPhoto->getStatus() == ObservationPhoto::FA_SIGLA ) {
           $observationPhoto->setStatus(observationPhoto::V_SIGLA);
           $observationPhoto->setValidatedBy($userId);
           $observationPhoto->save();
@@ -275,37 +275,37 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
-  protected function getPager($states=array(), $in=true)
-  {
-    $pager = $this->configuration->getPager('ObservationPhoto');
-    $pager->setCriteria($this->buildCriteriaUseState($states, $in));
-    $pager->setPage($this->getPage());
-    $pager->setPeerMethod($this->configuration->getPeerMethod());
-    $pager->setPeerCountMethod($this->configuration->getPeerCountMethod());
-    $pager->init();
-
-    return $pager;
-  }
-  
-  protected function buildCriteriaUseState($states=array(), $in=true)
-  {
-    if (null === $this->filters){
-      $this->filters = $this->configuration->getFilterForm($this->getFilters());
-    }
-
-    $criteria = $this->filters->buildCriteria($this->getFilters());
-    if(count($states)){
-      $selected_criteria = $in? Criteria::IN: Criteria::NOT_IN;
-      $criteria->add(ObservationPhotoPeer::STATUS, $states, $selected_criteria);
-    }
-
-    $this->addSortCriteria($criteria);
-
-    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
-    $criteria = $event->getReturnValue();
-
-    return $criteria;
-  }
+//  protected function getPager($catalog=false)
+//  {
+//    $pager = $this->configuration->getPager('ObservationPhoto');
+//    $pager->setCriteria($this->buildCriteriaUseState($catalog));
+//    $pager->setPage($this->getPage());
+//    $pager->setPeerMethod($this->configuration->getPeerMethod());
+//    $pager->setPeerCountMethod($this->configuration->getPeerCountMethod());
+//    $pager->init();
+//
+//    return $pager;
+//  }
+//  
+//  protected function buildCriteriaUseState($catalog=false)
+//  {
+//    if (null === $this->filters){
+//      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+//    }
+//
+//    $criteria = $this->filters->buildCriteria($this->getFilters());
+//    
+//    if(!$catalog){
+//      $criteria->add(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA, Criteria::NOT_EQUAL);
+//    }
+//
+//    $this->addSortCriteria($criteria);
+//
+//    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+//    $criteria = $event->getReturnValue();
+//
+//    return $criteria;
+//  }
   
   public function executeCatalog(sfWebRequest $request)
   {
@@ -319,7 +319,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->setPage($request->getParameter('page'));
     }
 
-    $this->pager = $this->getPager($states=array(ObservationPhoto::V_SIGLA), $in=true);
+    $this->pager = $this->getPager($catalog=true);
     $this->sort = $this->getSort();
   }
   

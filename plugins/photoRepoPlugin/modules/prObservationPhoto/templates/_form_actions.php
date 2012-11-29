@@ -21,7 +21,7 @@
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_characterize?id='.$OBPhoto->getId()) ?>">Caracterizar</a></li>
     <?php endif; ?>
       
-    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::C_SIGLA)) ): ?>
+    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::C_SIGLA, ObservationPhoto::V_SIGLA)) ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$OBPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
     
@@ -30,7 +30,7 @@
     <?php endif; ?>
    
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
-    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $OBPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
+    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) /*&& $OBPhoto->getLastEditedBy() != $sessionUser->getId()*/ ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$OBPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
       

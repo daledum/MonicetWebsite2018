@@ -19,9 +19,7 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
       $this['updated_at'],
       $this['created_at'],
       $this['sighting_id'],
-      $this['body_part'],
-      $this['last_edited_by'],
-      $this['validated_by']
+      $this['body_part']
     );
     
     $this->widgetSchema['photo_date'] = new sfWidgetFormFilterDate(array(
@@ -67,8 +65,10 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
       $this->widgetSchema['status'] = new sfWidgetFormChoice(array(
           'choices' => $status,
       ));
+      unset($this['validated_by']);
     } else {
       unset($this['status']);
+      
     }
       
     

@@ -87,7 +87,7 @@
         </tr>
         <tr class="sf_admin_row even">
           <th>Avistamento:</th>
-          <td><?php echo $observationPhoto->getSightingId()? $observationPhoto->getSighting(): '' ?></td>
+          <td><?php echo $observationPhoto->getSightingId()? $observationPhoto->getSightingId(): '' ?></td>
         </tr>
         <tr class="sf_admin_row odd">
           <th>Melhor fotografia:</th>
