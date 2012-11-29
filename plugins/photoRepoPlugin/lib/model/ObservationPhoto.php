@@ -64,4 +64,53 @@ class ObservationPhoto extends BaseObservationPhoto {
       parent::delete();
     }
   }
+  
+  public function statusUpdate($action){
+    if(in_array($action, array('edit', 'characterize', 'identify', 'validate', 'change_marks')) ){
+      $sessionUser = $sf_user->getGuardUser();
+      switch ( $this->getStatus() ){
+        case self::NEW_SIGLA:
+          $numPatterns = $this->getSpecie()->countPatterns();
+          if( $action == 'characterize' && $numPatterns ){
+            $this->setStatus(self::C_SIGLA);
+            $this->save();
+          }
+          if( $action == 'identify' && !$numPatterns ){
+            $this->setStatus(self::FA_SIGLA);
+            $this->setLastEditedBy($sessionUser);
+            $this->save();
+          }
+          break;
+          
+        case self::C_SIGLA:
+          if( $action == 'identify'){
+            $this->setStatus(self::FA_SIGLA);
+            $this->setLastEditedBy($sessionUser);
+            $this->save();
+          }
+          break;
+          
+        case self::FA_SIGLA:
+          if( $action == 'identify' || $action == 'edit' || $action == 'characterize' || $action == 'change_marks' ){
+            $this->setLastEditedBy($sessionUser);
+            $this->save();
+          }
+          if( $action == 'validate' ){
+            $this->setStatus(self::V_SIGLA);
+            $this->setLastEditedBy($sessionUser);
+            $this->setValidatedBy($sessionUser);
+            $this->save();
+          }
+          break;
+          
+        case self::V_SIGLA:
+          if( $action == 'identify' || $action == 'edit' || $action == 'characterize' || $action == 'change_marks' ){
+            $this->setStatus(self::FA_SIGLA);
+            $this->setLastEditedBy($sessionUser);
+            $this->save();
+          }
+          break;
+      }
+    }
+  }
 } // ObservationPhoto

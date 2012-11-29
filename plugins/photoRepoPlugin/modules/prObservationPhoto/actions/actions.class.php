@@ -330,6 +330,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $individual->setSpecie($observationPhoto->getSpecie());
     $individual->save();
     
+    $sf_user = SfContext::getInstance()->getUser();
+    $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
     $observationPhoto->setIsBest(true);
@@ -342,6 +344,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->forward404Unless($individual = IndividualPeer::retrieveByPK($request->getParameter('individual_id')));
     $this->forward404Unless($observationPhoto->getSpecieId() == $individual->getSpecieId());
     
+    $sf_user = SfContext::getInstance()->getUser();
+    $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
     $observationPhoto->save();

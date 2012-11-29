@@ -11,11 +11,16 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
     $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
     
     $observationPhotoId = $this->getRoute()->getObject()->getObservationPhotoTail()->getPhotoId();
+    
+    $ObservationPhoto = $this->getRoute()->getObject()->getObservationPhotoTail()->getObservationPhoto();
+    $ObservationPhoto->statusUpdate($action='change_marks');
+      
     $this->getRoute()->getObject()->delete();
 
     $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
 
     $this->redirect('@pr_observation_photo_characterize?id='.$observationPhotoId);
+    
   }
   
   protected function processForm(sfWebRequest $request, sfForm $form) {
@@ -23,6 +28,9 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
     if ($form->isValid()) {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
+      $ObservationPhoto = $form->getObject()->getObservationPhotoTail()->getObservationPhoto();
+      $ObservationPhoto->statusUpdate($action='change_marks');
+    
       $ObservationPhotoTailMark = $form->save();
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTailMark)));

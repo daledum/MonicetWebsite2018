@@ -11,6 +11,10 @@ class prObservationPhotoDorsalLeftMarkActions extends autoPrObservationPhotoDors
     $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $this->getRoute()->getObject())));
     
     $observationPhotoId = $this->getRoute()->getObject()->getObservationPhotoDorsalLeft()->getPhotoId();
+    
+    $ObservationPhoto = $this->getRoute()->getObject()->getObservationPhotoDorslLeft()->getObservationPhoto();
+    $ObservationPhoto->statusUpdate($action='change_marks');
+    
     $this->getRoute()->getObject()->delete();
 
     $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
@@ -23,6 +27,9 @@ class prObservationPhotoDorsalLeftMarkActions extends autoPrObservationPhotoDors
     if ($form->isValid()) {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
+      $ObservationPhoto = $form->getObject()->getObservationPhotoDorsalLeft()->getObservationPhoto();
+      $ObservationPhoto->statusUpdate($action='change_marks');
+      
       $ObservationPhotoDorsalLeftMark = $form->save();
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoDorsalLeftMark)));

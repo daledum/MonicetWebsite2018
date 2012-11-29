@@ -9,10 +9,10 @@ class prMainActions extends sfActions {
     $this->validated = ObservationPhotoQuery::create()->filterByStatus(ObservationPhoto::V_SIGLA)->count();
     $this->processedPhotos = $this->countProcessedPhotos();
     $this->individuals = IndividualQuery::create()->count();
-    $this->species = SpecieQuery::create()->count();
+    //$this->species = SpecieQuery::create()->count();
     $this->patterns = PatternQuery::create()->count();
-    $this->num_companies = CompanyQuery::create()->count();
-    $this->num_vessels = VesselQuery::create()->count();
+    //$this->num_companies = CompanyQuery::create()->count();
+    //$this->num_vessels = VesselQuery::create()->count();
     $this->num_photographers = PhotographerQuery::create()->count();
     $this->num_body_parts = BodyPartQuery::create()->count();
   }
