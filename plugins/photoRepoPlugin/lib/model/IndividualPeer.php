@@ -66,6 +66,6 @@ class IndividualPeer extends BaseIndividualPeer {
     
     $query = $query->setDistinct();
     
-    return $query->paginate($request->getParameter('page', 1), 12);
+    return $query->paginate($request->getParameter('page', 1), 16);
   }
 } // IndividualPeer
