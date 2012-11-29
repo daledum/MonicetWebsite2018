@@ -89,12 +89,10 @@ class chartsActions extends sfActions
     if ( $request->getParameter('select_all') != 'custom' ) {
       if ( $request->getParameter('select_all') == 'all' ) {
         $this->counter = count($series);
-      }
-      else {
+      } else {
         $this->counter = 0;
       }
-    }
-    else {
+    } else {
       $this->counter = 4;
     }
 

@@ -18,10 +18,7 @@
  */
 class SeaStatePeer extends BaseSeaStatePeer {
   public static function getByCode($code){
-    $c = new Criteria();
-    $c->add(SeaStatePeer::CODE, $code);
-    $s = SeaStatePeer::doSelect($c);
-    return $s[0];
+    return SeaStateQuery::create()->filterByCode($code)->findOne();
   }
   
   public static function getSeaStates(){

@@ -358,8 +358,10 @@ class general_infoActions extends autoGeneral_infoActions
 
       $vis = VisibilityPeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(5, $l)->getValue());
       if($vis) $record->setVisibilityId($vis->getId());
-
-      $sea = SeaStatePeer::getByCode($objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue());
+      
+      $seaCode = $objPHPExcel->getActiveSheet()->getCellByColumnAndRow(6, $l)->getValue();
+      $sea = SeaStatePeer::getByCode($seaCode);
+      
       if($sea) $record->setSeaStateId($sea->getId());
 
       $value = $objPHPExcel->getActiveSheet()->getCell('C'.$l)->getValue();
@@ -406,7 +408,7 @@ class general_infoActions extends autoGeneral_infoActions
       $sighting->save();
     }
 
-    $this->redirect('@general_info');
+    $this->redirect('general_info/sheet?giid='.$general_info->getId());
   }
 
   public function executeDownload(sfWebRequest $request){
