@@ -27,11 +27,11 @@ class prObservationPhotoDorsalLeftMarkActions extends autoPrObservationPhotoDors
     if ($form->isValid()) {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
 
-      $ObservationPhoto = $form->getObject()->getObservationPhotoDorsalLeft()->getObservationPhoto();
+      $ObservationPhotoDorsalLeftMark = $form->save();
+      
+      $ObservationPhoto = $ObservationPhotoDorsalLeftMark->getObservationPhotoDorsalLeft()->getObservationPhoto();
       $ObservationPhoto->statusUpdate($action='change_marks');
       
-      $ObservationPhotoDorsalLeftMark = $form->save();
-
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoDorsalLeftMark)));
 
       $this->getUser()->setFlash('notice', $notice);

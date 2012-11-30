@@ -47,6 +47,102 @@ class ObservationPhoto extends BaseObservationPhoto {
       return $this->getFileName();
   }
   
+  public function completeToString(){
+    $result = '';
+    // for tail observation photos
+    if( $this->getBodyPart()->getCode() == body_part::F_SIGLA ) {
+      $result .= 'Barbatana caudal';
+      foreach($this->getObservationPhotoTails() as $OBPhotoTail) {
+        if( $OBPhotoTail->getIsSmooth()){
+          $result .= ', Lisa';
+        }
+        if( $OBPhotoTail->getIsIrregular()){
+          $result .= ', Irregular';
+        }
+        if( $OBPhotoTail->getIsCuttedPointLeft()){
+          $result .= ', P.E. cortada';
+        }
+        if( $OBPhotoTail->getIsCuttedPointRight()){
+          $result .= ', P.D. cortada';
+        }
+        $nMarks = $OBPhotoTail->countObservationPhotoTailMarks();
+        $i = 1;
+        if( $nMarks > 0) {
+          $result .= ' [ ';
+          foreach($OBPhotoTail->getObservationPhotoTailMarks() as $mark ){
+            if( $mark->getIsWide() ) $result .= 'Larga ';
+            if( $mark->getIsDeep() ) $result .= 'Estreita ';
+            if( $mark->getPatternCellTailId() ) $result .= $mark->getPatternCellTailRelatedByPatternCellTailId()->getName();
+            if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellTailRelatedByToCellId()->getName();
+            if( $i != $nMarks ) $result .= ', ';
+            $i++;
+          }
+          $result .= ' ]';
+        }
+      }
+    }
+    //for dorsal left observation photos
+    if( $this->getBodyPart()->getCode() == body_part::L_SIGLA ) {
+      $result .= 'Dorsal lado esq';
+      foreach($this->getObservationPhotoDorsalLefts() as $OBPhotoDorsalLeft) {
+        if( $OBPhotoDorsalLeft->getIsSmooth()){
+          $result .= ', Lisa';
+        }
+        if( $OBPhotoDorsalLeft->getIsIrregular()){
+          $result .= ', Irregular';
+        }
+        if( $OBPhotoDorsalLeft->getIsCuttedPoint()){
+          $result .= ', P. cortada';
+        }
+        $nMarks = $OBPhotoDorsalLeft->countObservationPhotoDorsalLeftMarks();
+        $i = 1;
+        if( $nMarks > 0) {
+          $result .= ' [ ';
+          foreach($OBPhotoDorsalLeft->getObservationPhotoDorsalLeftMarks() as $mark ){
+            if( $mark->getIsWide() ) $result .= 'Larga ';
+            if( $mark->getIsDeep() ) $result .= 'Estreita ';
+            if( $mark->getPatternCellDorsalLeftId() ) $result .= $mark->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId()->getName();
+            if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalLeftRelatedByToCellId()->getName();
+            if( $i != $nMarks ) $result .= ', ';
+            $i++;
+          }
+          $result .= ' ]';
+        }
+      }
+    }
+    //for dorsal Right observation photos
+    if( $this->getBodyPart()->getCode() == body_part::R_SIGLA ) {
+      $result .= 'Dorsal lado dir';
+      foreach($this->getObservationPhotoDorsalRights() as $OBPhotoDorsalRight) {
+        if( $OBPhotoDorsalRight->getIsSmooth()){
+          $result .= ', Lisa';
+        }
+        if( $OBPhotoDorsalRight->getIsIrregular()){
+          $result .= ', Irregular';
+        }
+        if( $OBPhotoDorsalRight->getIsCuttedPoint()){
+          $result .= ', P. cortada';
+        }
+        $nMarks = $OBPhotoDorsalRight->countObservationPhotoDorsalRightMarks();
+        $i = 1;
+        if( $nMarks > 0) {
+          $result .= ' [ ';
+          foreach($OBPhotoDorsalRight->getObservationPhotoDorsalRightMarks() as $mark ){
+            if( $mark->getIsWide() ) $result .= 'Larga ';
+            if( $mark->getIsDeep() ) $result .= 'Estreita ';
+            if( $mark->getPatternCellDorsalRightId() ) $result .= $mark->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId()->getName();
+            if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalRightRelatedByToCellId()->getName();
+            if( $i != $nMarks ) $result .= ', ';
+            $i++;
+          }
+          $result .= ' ]';
+        }
+      }
+    }
+    
+    return $result;
+  }
+  
   public function delete(PropelPDO $con = null) {
     if( $this->getStatus() != ObservationPhoto::V_SIGLA ) {
       $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
@@ -67,7 +163,7 @@ class ObservationPhoto extends BaseObservationPhoto {
   
   public function statusUpdate($action){
     if(in_array($action, array('edit', 'characterize', 'identify', 'validate', 'change_marks')) ){
-      $sessionUser = $sf_user->getGuardUser();
+      $sessionUser = sfContext::getInstance()->getUser()->getGuardUser();
       switch ( $this->getStatus() ){
         case self::NEW_SIGLA:
           $numPatterns = $this->getSpecie()->countPatterns();

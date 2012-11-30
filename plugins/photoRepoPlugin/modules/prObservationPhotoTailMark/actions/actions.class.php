@@ -27,12 +27,12 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid()) {
       $notice = $form->getObject()->isNew() ? 'The item was created successfully.' : 'The item was updated successfully.';
-
-      $ObservationPhoto = $form->getObject()->getObservationPhotoTail()->getObservationPhoto();
-      $ObservationPhoto->statusUpdate($action='change_marks');
     
       $ObservationPhotoTailMark = $form->save();
-
+      
+      $ObservationPhoto = $ObservationPhotoTailMark->getObservationPhotoTail()->getObservationPhoto();
+      $ObservationPhoto->statusUpdate($action='change_marks');
+      
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTailMark)));
 
       $this->getUser()->setFlash('mark_notice', $notice);

@@ -215,13 +215,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $priorityResults = array();
     if( $pattern ) {
-      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=true, $best=true);
-      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=true, $best=null);
-      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $complete=null, $best=true);
-      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=true, $complete=null, $best=null);
+      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=null, $complete=true, $best=true);
+      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=null, $complete=true, $best=null);
+      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=true, $complete=null, $best=true);
+      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=true, $complete=null, $best=null);
     }
-    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=null, $best=true);
-    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $partial=null, $complete=null, $best=null);
+    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=true);
+    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
     
     $this->priorityResults = $priorityResults;
   }

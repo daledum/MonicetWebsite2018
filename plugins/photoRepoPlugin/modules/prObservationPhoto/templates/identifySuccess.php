@@ -18,12 +18,14 @@
   
   <div id="identify_results_block">
     <div id="identify_results_dropdown_block">
-      Prioridade: 
+      <b>Prioridade</b>: 
       <select id="priority_selector">
         <?php foreach( $priorityKeyValues as $key => $priorityKeyValue ): ?>
           <option value="<?php echo $key ?>" class="carousel_selector"><?php echo $priorityKeyValue ?></option>
         <?php endforeach; ?>
       </select>
+      &nbsp;&nbsp;&nbsp;
+      <b>Fotografia</b>: <?php echo $observationPhoto->completeToString() ?>
     </div>
     
     <form>
@@ -38,9 +40,11 @@
               <ul>
                 <?php foreach( $priorityResults[$key] as $OBPhoto ): ?>
                   <li>
-                    <img width="163" id="photo_<?php echo $key.'_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>"/>
+                    <img width="163" id="photo_<?php echo $key.'_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>" title="<?php echo $OBPhoto->completeToString() ?>"/>
                     <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo $key.'_'.$OBPhoto->getId() ?>" name="<?php echo $key.'_'.$OBPhoto->getId() ?>">
-                    <?php echo $OBPhoto->getIndividual()->getName() ?>
+                    <?php if($OBPhoto->getIndividualId()): ?>
+                      <?php echo $OBPhoto->getIndividual()->getName() ?>
+                    <?php endif; ?>
                     <script>
                       $(document).ready(function(){
                         
