@@ -1,48 +1,98 @@
 <?php
 class mfUtils {
-  public static function convertLatLong($value)
-  {
-  	$len = strlen($value);
-    if (strcmp(substr($value,0,1),'-') != 0){
-      if ($len > 7)
-      {
-        $degrees = (int)substr($value, 0, 2);
-        $minutes = (int)substr($value, 4, 2);
-        
-        if ((strlen(strstr($value, '\'')) > 1) || (strlen(strstr($value, '"')) == 1) || (strlen(strstr($value, '\'\'')) == 2))
-        {
-          $seconds = (int)substr($value, 7, 2);
-          return round($degrees + ($minutes + ($seconds)/60)/60, 4);
-        }
-        else {
-          $seconds = (int)substr($value, 7, 3);
-          return round($degrees + ($minutes + $seconds/1000)/60, 4);
-        }
-        
-      }
-      return $value;
-    }
-    else{
-      if ($len > 8)
-      {
-        $degrees = (int)substr($value, 1, 3);
-        $minutes = (int)substr($value, 5, 3);
-        
-        if ((strlen(strstr($value, '\'')) > 1) || (strlen(strstr($value, '"')) == 1) || (strlen(strstr($value, '\'\'')) == 2))
-        {
-          $seconds = (int)substr($value, 8, 3);
-          return round($degrees + ($minutes + ($seconds)/60)/60, 4);
-        }
-        else {
-          $seconds = (int)substr($value, 8, 4);
-          return round($degrees + ($minutes + $seconds/1000)/60, 4);
+  public static function convertLatLong($value, $decimalParts=4) {
+    // coordTypes 1-[DDºMM,MMMM], 2-[GGºMM'SS"], 3-[DD,DDDD]
+    if( strlen($value) > 7 ) {
+      // replace , to .
+      $value = str_replace(',', '.', $value);
+      
+      $coordType = 3;
+      if( substr_count($value, 'º') ) {
+        if(substr_count($value, '"') ){
+          $coordType = 2;
+        } else {
+          $coordType = 1;
         }
       }
+
+      $negative = false;
+      // remove sign in case of negative values
+      if( substr($value,0,1) == '-' ) {
+        $value = substr($value, 1);
+        $negative = true;
+      }
+
+      $rtrnValue = '';
+      $valueParts = explode('º', $value);
+      switch($coordType){
+        case 1: 
+          $degrees = $valueParts[0];
+          $minutes = $valueParts[1];
+          $rtrnValue = $degrees + $minutes / 60;
+          break;
+        case 2: 
+          $degrees = $valueParts[0];
+          $minutesPart = explode("'", substr($valueParts[1], -1));
+          $minutes = $minutesPart[0];
+          $seconds = $minutesPart[1];
+          $rtrnValue = $degrees + $minutes / 60 + $seconds / 3600;
+          break;
+        case 3:
+          $rtrnValue = $value;
+          break;
+      }
+
+      if( $negative ) {
+        $value = $value * (-1);
+      }
+
+      return round($rtrnValue, $decimalParts);
+    } else {
       return $value;
     }
-    
-    
   }
+//  public static function convertLatLong($value) {
+//  	$len = strlen($value);
+//    if (strcmp(substr($value,0,1),'-') != 0){
+//      if ($len > 7)
+//      {
+//        $degrees = (int)substr($value, 0, 2);
+//        $minutes = (int)substr($value, 4, 2);
+//        
+//        if ((strlen(strstr($value, '\'')) > 1) || (strlen(strstr($value, '"')) == 1) || (strlen(strstr($value, '\'\'')) == 2))
+//        {
+//          $seconds = (int)substr($value, 7, 2);
+//          return round($degrees + ($minutes + ($seconds)/60)/60, 4);
+//        }
+//        else {
+//          $seconds = (int)substr($value, 7, 3);
+//          return round($degrees + ($minutes + $seconds/1000)/60, 4);
+//        }
+//        
+//      }
+//      return $value;
+//    }
+//    else{
+//      if ($len > 8)
+//      {
+//        $degrees = (int)substr($value, 1, 3);
+//        $minutes = (int)substr($value, 5, 3);
+//        
+//        if ((strlen(strstr($value, '\'')) > 1) || (strlen(strstr($value, '"')) == 1) || (strlen(strstr($value, '\'\'')) == 2))
+//        {
+//          $seconds = (int)substr($value, 8, 3);
+//          return round($degrees + ($minutes + ($seconds)/60)/60, 4);
+//        }
+//        else {
+//          $seconds = (int)substr($value, 8, 4);
+//          return round($degrees + ($minutes + $seconds/1000)/60, 4);
+//        }
+//      }
+//      return $value;
+//    }
+//    
+//    
+//  }
   
   public static function fromObjectsToArray( $objects )
   {
