@@ -5,6 +5,34 @@ require_once dirname(__FILE__).'/../lib/prObservationPhotoGeneratorHelper.class.
 
 class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
+  public function executeFilter(sfWebRequest $request)
+  {
+    $this->setPage(1);
+
+    $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    
+    $template = $request->getParameter('template', 'index');
+
+    $this->filters->bind($request->getParameter($this->filters->getName()));
+    if ($this->filters->isValid())
+    {
+      $this->setFilters($this->filters->getValues());
+      if( $template == 'catalog' ){
+        $this->redirect('@pr_observation_photo?template=catalog');
+      }
+      $this->redirect('@pr_observation_photo');
+    }
+
+    $this->pager = $this->getPager();
+    $this->sort = $this->getSort();
+
+    if( $template == 'catalog' ){
+      $this->setTemplate('catalog');
+    } else {
+      $this->setTemplate('index');
+    }
+  }
+  
   public function executeIndex(sfWebRequest $request)
   {
     // sorting
@@ -19,6 +47,18 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
 
     $this->pager = $this->getPager();
     $this->sort = $this->getSort();
+    
+//    print_r($this->pager->getNbResults());
+//    foreach ($this->pager->getResults() as $i => $result){
+//      echo $result;
+//    }
+
+    $this->template = $request->getParameter('template', 'index');
+    if( !in_array($this->template, array('catalog', 'index') ) ) {
+      $this->template = 'index';
+    }
+    
+    $this->setTemplate($this->template);
   }
   
   public function executeNew(sfWebRequest $request){
@@ -275,16 +315,22 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  
   protected function buildCriteria()
   {
-    if (null === $this->filters)
-    {
+    if (null === $this->filters) {
       $this->filters = $this->configuration->getFilterForm($this->getFilters());
     }
 
     $criteria = $this->filters->buildCriteria($this->getFilters());
-    $action = sfContext::getInstance()->getActionName();
-    if( $action == 'catalog' ){
+    $request = sfContext::getInstance()->getRequest();
+    $template = $request->getParameter('template', 'index');
+    $clean = ($request->getParameter('do', null) == 'clean')? true: false;
+    if( $clean ) {
+      $criteria = new Criteria();
+      $this->getUser()->setAttribute('prObservationPhoto.filters', array(), 'admin_module');
+    }
+    if( $template == 'catalog' ){
       $criteria->add(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA);
     } else {
       $c = $criteria->getNewCriterion(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA, Criteria::NOT_EQUAL);
@@ -298,37 +344,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
 
     return $criteria;
   }
-//  protected function getPager($catalog=false)
-//  {
-//    $pager = $this->configuration->getPager('ObservationPhoto');
-//    $pager->setCriteria($this->buildCriteriaUseState($catalog));
-//    $pager->setPage($this->getPage());
-//    $pager->setPeerMethod($this->configuration->getPeerMethod());
-//    $pager->setPeerCountMethod($this->configuration->getPeerCountMethod());
-//    $pager->init();
-//
-//    return $pager;
-//  }
-//  
-//  protected function buildCriteriaUseState($catalog=false)
-//  {
-//    if (null === $this->filters){
-//      $this->filters = $this->configuration->getFilterForm($this->getFilters());
-//    }
-//
-//    $criteria = $this->filters->buildCriteria($this->getFilters());
-//    
-//    if(!$catalog){
-//      $criteria->add(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA, Criteria::NOT_EQUAL);
-//    }
-//
-//    $this->addSortCriteria($criteria);
-//
-//    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
-//    $criteria = $event->getReturnValue();
-//
-//    return $criteria;
-//  }
   
   public function executeCatalog(sfWebRequest $request)
   {

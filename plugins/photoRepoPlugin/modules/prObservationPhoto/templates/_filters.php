@@ -8,8 +8,12 @@
   <?php if ($form->hasGlobalErrors()): ?>
     <?php echo $form->renderGlobalErrors() ?>
   <?php endif; ?>
-
-  <form action="<?php echo url_for('pr_observation_photo_collection', array('action' => 'filter')) ?>" method="post">
+  
+  <?php if($sf_request->getParameter('template', 'index') == 'catalog'): ?>
+    <form action="<?php echo url_for('pr_observation_photo_collection', array('action' => 'filter', 'template' => 'catalog')) ?>" method="post">
+  <?php else: ?>
+    <form action="<?php echo url_for('pr_observation_photo_collection', array('action' => 'filter')) ?>" method="post">
+  <?php endif; ?>
     <table cellspacing="0">
       <tfoot>
         <tr>

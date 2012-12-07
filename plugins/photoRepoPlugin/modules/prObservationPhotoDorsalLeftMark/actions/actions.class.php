@@ -12,7 +12,7 @@ class prObservationPhotoDorsalLeftMarkActions extends autoPrObservationPhotoDors
     
     $observationPhotoId = $this->getRoute()->getObject()->getObservationPhotoDorsalLeft()->getPhotoId();
     
-    $ObservationPhoto = $this->getRoute()->getObject()->getObservationPhotoDorslLeft()->getObservationPhoto();
+    $ObservationPhoto = $this->getRoute()->getObject()->getObservationPhotoDorsalLeft()->getObservationPhoto();
     $ObservationPhoto->statusUpdate($action='change_marks');
     
     $this->getRoute()->getObject()->delete();

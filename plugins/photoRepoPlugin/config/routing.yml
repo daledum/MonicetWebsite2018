@@ -151,6 +151,7 @@ pr_observation_photo:
     column:               id
     with_wildcard_routes: true
     
+    
 pr_photographer:
   class: sfPropel15RouteCollection
   options:

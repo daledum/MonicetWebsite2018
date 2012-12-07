@@ -5,6 +5,7 @@ require_once dirname(__FILE__).'/../lib/prObservationPhotoTailMarkGeneratorHelpe
 
 
 class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkActions {
+  
   public function executeDelete(sfWebRequest $request){
     $request->checkCSRFProtection();
 
