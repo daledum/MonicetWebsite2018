@@ -1,3 +1,24 @@
+<?php 
+  $urlArgs = array(
+      'specie_id' => isset($formSubmitedValues['specie_id'])? $formSubmitedValues['specie_id']: '',
+      'island' => isset($formSubmitedValues['island'])? $formSubmitedValues['island']: '',
+      'photographer_id' => isset($formSubmitedValues['photographer_id'])? $formSubmitedValues['photographer_id']: '',
+      'company_id' => isset($formSubmitedValues['company_id'])? $formSubmitedValues['company_id']: '',
+      'photo_date' => array(
+          'from' => isset($formSubmitedValues['photo_date']['from'])? $formSubmitedValues['photo_date']['from']: '',
+          'to' => isset($formSubmitedValues['photo_date']['to'])? $formSubmitedValues['photo_date']['to']: ''
+      )
+  );
+  $urlArgsStr = '';
+  foreach ($urlArgs as $key => $value) {
+    $urlArgsStr .= '&catalog_filter['.$key.']='.$value;
+    if( $key == 'photo_date') {
+      $urlArgsStr .= '&catalog_filter['.$key.'][from]='.$value['from'];
+      $urlArgsStr .= '&catalog_filter['.$key.'][to]='.$value['to'];
+    }
+  }
+?>
+
 <div class="left-sidebar">
     <div class="left-sidebar-title"><h2><?php echo __('Observations Catalog', null, 'catalog'); ?></h2></div>
     <form id="catalog-filter-form" action="<?php echo url_for('@pr_catalog') ?>" method="get">

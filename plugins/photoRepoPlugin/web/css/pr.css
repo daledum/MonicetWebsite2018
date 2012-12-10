@@ -189,12 +189,24 @@
     width: 1187px;
 }
 #identify_results_dropdown_block {
+    overflow: auto;
+}
+#identify_priority {
     height: 20px;
     padding: 5px;
+    float: left;
+    width: 370px;
+}
+#identify_description {
+    padding: 5px;
+    float: right;
+    width: 780px;
 }
 #identify_results {
     height: 170px;
 }
+
+
 #sf_admin_container ul li a.clean {
     background: none;
     padding: 0;

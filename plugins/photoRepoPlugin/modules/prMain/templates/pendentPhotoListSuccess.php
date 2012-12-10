@@ -36,7 +36,7 @@
         </fieldset>
         <ul class="sf_admin_actions">
           <li class="sf_admin_action_back"><a href="<?php echo url_for('@recognition_of_cetaceans_app') ?>">Painel de controlo</a></li>
-          <li class="sf_admin_action_back"><a href="<?php echo url_for('@pr_observation_photo') ?>">Fotografias de observações</a></li>
+          <li class="sf_admin_action_back"><a href="<?php echo url_for('@pr_observation_photo') ?>">Fotografias para analisar</a></li>
           <li class="sf_admin_action_new"><?php echo link_to('Adicionar mais fotografias', '@pr_add_photos_bulk') ?></li>
           <li class="sf_admin_action_save"><input type="submit" value="Pesquisar" /></li>
           <?php if( count($invalidPhotos) ): ?>

@@ -36,15 +36,24 @@
                   <div id="_div_main_content">
                       <div class="main-container">
                           <h2><?php echo __('Observations catalog', null, 'catalog'); ?></h2>
-                          <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>"><?php echo __('Back to Home') ?></a> | <a href="<?php echo url_for('@pr_catalog') ?>"><?php echo __('Clean filter', null, 'frontend') ?></a></div>
+                          <div class="back-to-home">
+                            <a href="<?php echo url_for('@homepage') ?>"><?php echo __('Back to Home') ?></a> 
+                            <?php if (has_slot('filter_links')): ?>
+                              <?php include_slot('filter_links') ?>
+                            <?php endif; ?>
+                          </div>
 
                           <!-- LANGUAGE -->
                           <div id="_ul_languages" style="display: inline-block">
-                            <?php if($sf_user->getCulture() == "pt"): ?>
-                               <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+                            <?php if (has_slot('filter_links_language')): ?>
+                              <?php include_slot('filter_links_language') ?>
                             <?php else: ?>
-                               <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
-                            <?php endif ?>
+                              <?php if($sf_user->getCulture() == "pt"): ?>
+                                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+                              <?php else: ?>
+                                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
+                              <?php endif ?>
+                            <?php endif; ?>
                           </div>
 
                           <!-- CONTENT CONTAINER -->

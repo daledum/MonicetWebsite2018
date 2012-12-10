@@ -75,7 +75,7 @@ ul.gallery, ul.gallery li {
 
 .back-to-home {
   display: inline-block;
-  width: 250px;
+  width: 400px;
   margin: auto;
   text-align: left;
 }
@@ -585,7 +585,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 #_ul_languages {
-    padding-left: 535px !important;
+    padding-left: 420px !important;
 }
 
 .filter-item input {

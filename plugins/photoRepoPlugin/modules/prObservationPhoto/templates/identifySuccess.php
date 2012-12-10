@@ -18,14 +18,17 @@
   
   <div id="identify_results_block">
     <div id="identify_results_dropdown_block">
-      <b>Prioridade</b>: 
-      <select id="priority_selector">
-        <?php foreach( $priorityKeyValues as $key => $priorityKeyValue ): ?>
-          <option value="<?php echo $key ?>" class="carousel_selector"><?php echo $priorityKeyValue ?></option>
-        <?php endforeach; ?>
-      </select>
-      &nbsp;&nbsp;&nbsp;
-      <b>Fotografia</b>: <?php echo $observationPhoto->completeToString() ?>
+      <div id="identify_priority">
+        <b>Prioridade</b>: 
+        <select id="priority_selector">
+          <?php foreach( $priorityKeyValues as $key => $priorityKeyValue ): ?>
+            <option value="<?php echo $key ?>" class="carousel_selector"><?php echo $priorityKeyValue ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div id="identify_description">
+        <b>Fotografia</b>: <?php echo $observationPhoto->completeToString() ?>
+      </div>
     </div>
     
     <form>

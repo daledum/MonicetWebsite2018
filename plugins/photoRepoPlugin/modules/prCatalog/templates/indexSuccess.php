@@ -1,12 +1,3 @@
-<div class="left-sidebar">
-    <div class="left-sidebar-title"><h2><?php echo __('Observations catalog', null, 'catalog'); ?></h2></div>
-    <form id="catalog-filter-form" method="get">
-      <?php include_partial('prCatalog/filters', array(
-          'pr_frontend_filter' => $pr_frontend_filter
-      )); ?>
-    </form>
-</div>
-
 <?php 
   $urlArgs = array(
       'specie_id' => isset($formSubmitedValues['specie_id'])? $formSubmitedValues['specie_id']: '',
@@ -27,6 +18,15 @@
     }
   }
 ?>
+
+<div class="left-sidebar">
+    <div class="left-sidebar-title"><h2><?php echo __('Observations catalog', null, 'catalog'); ?></h2></div>
+    <form id="catalog-filter-form" method="get">
+      <?php include_partial('prCatalog/filters', array(
+          'pr_frontend_filter' => $pr_frontend_filter
+      )); ?>
+    </form>
+</div>
 
 <div class="right-content">
   <?php //print_r($results) ?>

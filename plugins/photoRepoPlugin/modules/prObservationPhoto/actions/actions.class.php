@@ -405,6 +405,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   }
   
   public function executeAjaxFilterSightings( sfWebRequest $request ) {
+    $this->OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
     $ob_date = $request->getParameter('ob_date', null);
     $specieId = $request->getParameter('specie_id', null);
     $companyId = $request->getParameter('company_id', null);
