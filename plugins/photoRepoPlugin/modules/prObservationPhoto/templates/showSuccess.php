@@ -76,18 +76,14 @@
       <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
     <?php endif; ?>
     
-    <?php if($observationPhoto->getSpecie()->countPatterns()): ?>
-      <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_characterize?id='.$observationPhoto->getId()) ?>">Caracterizar</a></li>
+    <?php if($observationPhoto->isCharacterizable()): ?>
+      <li class="sf_admin_action_edit"><?php echo link_to('Caracterizar', '@pr_observation_photo_characterize?id='.$observationPhoto->getId() ) ?></li>
     <?php endif; ?>
       
-    <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA, ObservationPhoto::V_SIGLA)) ): ?>
-      <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
+    <?php if( $observationPhoto->isIdentifyable() ): ?>
+      <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
-    
-    <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::NEW_SIGLA)) && !count($observationPhoto->getSpecie()->getPatterns()) ): ?>
-      <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
-    <?php endif; ?>
-   
+      
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
     <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) /*&& $observationPhoto->getLastEditedBy() != $sessionUser->getId()*/ ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>

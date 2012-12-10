@@ -12,19 +12,14 @@
     
     <li class="sf_admin_action_show"><?php echo link_to('Fotografia', '/uploads/pr_repo_final/'.$ObservationPhoto->getFileName(), array('target' => '_blank', 'class' => 'preview') ) ?></li>
     
-    <?php if($ObservationPhoto->getSpecie()->countPatterns()): ?>
+    <?php if($ObservationPhoto->isCharacterizable()): ?>
       <li class="sf_admin_action_edit"><?php echo link_to('Caracterizar', '@pr_observation_photo_characterize?id='.$ObservationPhoto->getId() ) ?></li>
     <?php endif; ?>
       
-    <?php //Photos in characterized state  ?>
-    <?php if(in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA, ObservationPhoto::FA_SIGLA, ObservationPhoto::V_SIGLA)) ): ?>
+    <?php if( $ObservationPhoto->isIdentifyable() ): ?>
       <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$ObservationPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
       
-    <?php //Photos in new state that havent any pattern associated to their specie ?>
-    <?php if(in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::NEW_SIGLA)) && !count($ObservationPhoto->getSpecie()->getPatterns()) ): ?>
-      <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$ObservationPhoto->getId()) ?>">Identificar</a></li>
-    <?php endif; ?>
   </ul>
 </td>
 <?php endif; ?>

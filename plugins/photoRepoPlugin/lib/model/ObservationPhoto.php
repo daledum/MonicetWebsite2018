@@ -143,6 +143,47 @@ class ObservationPhoto extends BaseObservationPhoto {
     return $result;
   }
   
+  public function isCharacterizable(){
+    $specie = $this->getSpecie();
+    $bodyPart = $this->getBodyPart();
+    if( !$this->getSpecie() || !in_array($bodyPart, array(body_part::F_SIGLA, body_part::L_SIGLA, body_part::R_SIGLA)) ){
+      return false;
+    }
+    
+    $patternSpecie = PatternQuery::create()
+          ->filterBySpecieId($this->getSpecieId())
+          ->findOne();
+    
+    if( !$patternSpecie ){
+      
+      return false;
+    }
+    
+    switch ($bodyPart){
+      case body_part::F_SIGLA:
+        return (strlen($patternSpecie->getImageTail()) > 0)? true: false;
+        break;
+      case body_part::L_SIGLA:
+        return (strlen($patternSpecie->getImageDorsalLeft()) > 0)? true: false;
+        break;
+      case body_part::R_SIGLA:
+        return (strlen($patternSpecie->getImageDorsalRight()) > 0)? true: false;
+        break;
+      default:
+        return false;
+        break;
+    }
+  }
+  
+  public function isIdentifyable(){
+    if( in_array($this->getStatus(), array( ObservationPhoto::C_SIGLA, ObservationPhoto::FA_SIGLA, ObservationPhoto::V_SIGLA )) ) {
+      return true;
+    } elseif ( !$this->isCharacterizable() && $this->getStatus() == ObservationPhoto::NEW_SIGLA) {
+      return true;
+    }
+    return false;
+  }
+  
   public function delete(PropelPDO $con = null) {
     if( $this->getStatus() != ObservationPhoto::V_SIGLA ) {
       $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
