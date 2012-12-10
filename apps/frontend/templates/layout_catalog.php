@@ -36,7 +36,7 @@
                   <div id="_div_main_content">
                       <div class="main-container">
                           <h2><?php echo __('Observations catalog', null, 'catalog'); ?></h2>
-                          <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>">« <?php echo __('Back to Home') ?></a></div>
+                          <div class="back-to-home"><a href="<?php echo url_for('@homepage') ?>"><?php echo __('Back to Home') ?></a> | <a href="<?php echo url_for('@pr_catalog') ?>"><?php echo __('Clean filter', null, 'frontend') ?></a></div>
 
                           <!-- LANGUAGE -->
                           <div id="_ul_languages" style="display: inline-block">

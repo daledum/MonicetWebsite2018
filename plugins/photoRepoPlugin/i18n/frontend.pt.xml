@@ -3,12 +3,12 @@
   <file orginal="global" source-language="en_US" datatype="plaintext">
     <body>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>From %from_date% to %to_date%</source>
+        <target>De %from_date% a %to_date%</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Clean filter</source>
+        <target>Limpar filtro</target>
       </trans-unit>
       <trans-unit>
         <source></source>

@@ -36,7 +36,7 @@
             <b><?php echo __('Age group', null, 'catalog') ?>:</b> <?php echo __(age_group::getValueForSigla($age_group), null, 'catalog') ?><br/>
           <?php endif; ?>
           
-          <?php $lastTenObservationDates = $individual->getLastTenObservationDates() ?>   
+          <?php $lastTenObservationDates = $individual->getLastTenObservationDates() ?> 
           <?php if( strlen($lastTenObservationDates) ): ?>
             <b><?php echo __('Sightings', null, 'catalog') ?>:</b> <?php echo $lastTenObservationDates ?><br/>
           <?php endif; ?>

@@ -3,7 +3,7 @@ class frontendFilterForm extends sfForm
 {
   public function configure()
   {
-    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('frontend_filter');
+    $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('frontend');
     
     $culture = sfContext::getInstance()->getUser()->getCulture();
     
@@ -19,7 +19,7 @@ class frontendFilterForm extends sfForm
     $this->widgetSchema['photo_date'] = new sfWidgetFormFilterDate(array(
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
-      'template' => 'De %from_date% a %to_date%',
+      'template' => 'From %from_date% to %to_date%',
       'with_empty' => false
     ));
     

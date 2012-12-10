@@ -12,7 +12,7 @@ class Individual extends BaseIndividual {
     return $query->findOne();
   }
   
-  public function getSightings($limit = null) {
+  public function getSightings($limit=null) {
     $sightingIds = array();
     foreach($this->getObservationPhotos() as $OPhoto) {
       if( $OPhoto->getSightingId() && $OPhoto->getStatus(ObservationPhoto::V_SIGLA) ) {

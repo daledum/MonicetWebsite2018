@@ -47,7 +47,7 @@
             <td width="50" style="text-align: right;"><?php echo $validated ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo_validated') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?template=catalog') ?></li>
               </ul>
             </td>
           </tr>
