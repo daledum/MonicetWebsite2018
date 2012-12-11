@@ -9,6 +9,23 @@ class ObservationPhotoDorsalLeftMarkForm extends BaseObservationPhotoDorsalLeftM
     $this->widgetSchema['observation_photo_dorsal_left_id'] = new sfWidgetFormInputHidden();
     
     $this->widgetSchema->moveField('pattern_cell_dorsal_left_id', sfWidgetFormSchema::AFTER, 'is_deep');
+    
+    $OBPhoto = ObservationPhotoPeer::retrieveByPK( sfContext::getInstance()->getRequest()->getParameter('id') );
+    
+    $cells = PatternCellDorsalLeftPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+    $this->widgetSchema['pattern_cell_dorsal_left_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['pattern_cell_dorsal_left_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
+    $cells = PatternCellDorsalLeftPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+    $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
   
     $oneRequired = new sfValidatorCallback(array( 'callback' => array($this, 'checkOneRequired') ));
     

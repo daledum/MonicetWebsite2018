@@ -8,6 +8,23 @@ class ObservationPhotoTailMarkForm extends BaseObservationPhotoTailMarkForm
     
     $this->widgetSchema['observation_photo_tail_id'] = new sfWidgetFormInputHidden();
     
+    $OBPhoto = ObservationPhotoPeer::retrieveByPK( sfContext::getInstance()->getRequest()->getParameter('id') );
+    
+    $cells = PatternCellTailPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+    $this->widgetSchema['pattern_cell_tail_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['pattern_cell_tail_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
+    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+    $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
+    
     $this->widgetSchema->moveField('pattern_cell_tail_id', sfWidgetFormSchema::AFTER, 'is_deep');
     
     $oneRequired = new sfValidatorCallback(array( 'callback' => array($this, 'checkOneRequired') ));

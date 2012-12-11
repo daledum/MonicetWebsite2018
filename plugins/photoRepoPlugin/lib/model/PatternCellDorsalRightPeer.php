@@ -1,18 +1,34 @@
 <?php
 
-
-
-/**
- * Skeleton subclass for performing query and update operations on the 'pattern_cell_dorsal_right' table.
- *
- * 
- *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- * @package    propel.generator.plugins.photoRepoPlugin.lib.model
- */
 class PatternCellDorsalRightPeer extends BasePatternCellDorsalRightPeer {
 
+  
+  public static function getForSelect($specieId = null, $with_empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
+    if( !$specieId) {
+      return array();
+    }
+    
+    $objectos = PatternCellDorsalRightQuery::create()
+            ->usePatternQuery()
+              ->filterBySpecieId($specieId)
+            ->endUse()
+            ->orderByName()
+            ->find();
+    
+    if($with_empty) {
+      return self::fromObjectosToArray($objectos, $empty=true, $empty_msg, $empty_code);
+    } 
+    return self::fromObjectosToArray($objectos, $empty=false, $empty_msg, $empty_code);
+  }
+  
+  public static function fromObjectosToArray( $objectos, $empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
+    $resultados = array();
+    if( $empty ) {
+      $resultados[$empty_code] = '---'.$empty_msg.'---';
+    }
+    foreach( $objectos as $objecto ) {
+        $resultados[$objecto->getId()] = $objecto->getName();
+    }
+    return $resultados;
+  }
 } // PatternCellDorsalRightPeer

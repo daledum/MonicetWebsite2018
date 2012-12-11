@@ -5,10 +5,26 @@ class ObservationPhotoDorsalRightMarkForm extends BaseObservationPhotoDorsalRigh
   public function configure()
   {
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
+    $this->widgetSchema->moveField('pattern_cell_dorsal_right_id', sfWidgetFormSchema::AFTER, 'is_deep');
     
     $this->widgetSchema['observation_photo_dorsal_right_id'] = new sfWidgetFormInputHidden();
     
-    $this->widgetSchema->moveField('pattern_cell_dorsal_right_id', sfWidgetFormSchema::AFTER, 'is_deep');
+    $OBPhoto = ObservationPhotoPeer::retrieveByPK( sfContext::getInstance()->getRequest()->getParameter('id') );
+    
+    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+    $this->widgetSchema['pattern_cell_dorsal_right_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['pattern_cell_dorsal_right_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
+    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+    $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
+        'choices' => $cells,
+    ));
+    $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
+        'choices' => array_keys($cells),
+    ));
     
     $oneRequired = new sfValidatorCallback(array( 'callback' => array($this, 'checkOneRequired') ));
     
