@@ -8,7 +8,7 @@ class IndividualPeer extends BaseIndividualPeer {
 
 
   public static function getFirstAvailableName($observationPhoto){
-    $year = date('y');
+    $year = $observationPhoto->getPhotoDate('y');
     $specieCode = $observationPhoto->getSpecie()->getCode();
     
     $initialPosition = $position = $lastPosition = 1;

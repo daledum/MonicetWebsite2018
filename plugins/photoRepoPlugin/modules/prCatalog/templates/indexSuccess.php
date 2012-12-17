@@ -37,9 +37,9 @@
         <div class="photo-list-item">
           <a href="<?php echo url_for('@pr_catalog_individual?id='.$individual->getId(). $urlArgsStr) ?>">
             <?php if(file_exists(sfConfig::get('sf_upload_dir').'/pr_repo_final/tn_130x120_'.$bestPhoto->getFileName()) ): ?>
-              <img width="130" height="120" src="<?php echo url_for( '/uploads/pr_repo_final/tn_130x120_'.$bestPhoto->getFileName() ) ?>" />
+              <img width="130" height="120" src="<?php echo url_for( '/uploads/pr_repo_final/tn_130x120_'.$bestPhoto->getFileName() ) ?>" title="<?php echo $individual->countValidObservationPhotos().' '.__('Associated photo(s)', null, 'catalog') ?>" />
             <?php endif; ?>
-            <div class="photo-description"><?php echo $individual->getName() ?></div>
+            <div class="photo-description"><?php echo $individual->getName() ?> </div>
           </a>
         </div>
         

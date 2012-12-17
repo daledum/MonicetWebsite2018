@@ -89,7 +89,8 @@
     var $ = jQuery;
     $(document).ready(function(){
       var iv1 = $("#identify_viewer_image1").iviewer({
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>",
+        onClick: function(){alert('<?php echo $observationPhoto->getHtmlResume(); ?>')}
       });
       var iv2 = $("#identify_viewer_image2").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"

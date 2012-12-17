@@ -90,7 +90,7 @@ class prCatalogActions extends sfActions
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Gender', 'export_individual').':</th><td>'.mfText::translate($bestPhoto->getGender(), 'export_individual').'</td></tr>' );
             $lastObservationPhoto = $individual->getLastValidObservationPhoto();
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Age group', 'export_individual').':</th><td>'.mfText::translate(age_group::getValueForSigla($lastObservationPhoto->getAgeGroup()), 'export_individual').'</td></tr>' );
-            $dates = $individual->getObservationDates();
+            $dates = $individual->getObservationPhotoDates();
             $dates_part = explode(', ', $dates);
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Sightings', 'export_individual').' ('.count($dates_part).'):</th><td>'.$dates.'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Notes', 'export_individual').':</th><td>'.$individual->getNotes().'</td></tr>' );

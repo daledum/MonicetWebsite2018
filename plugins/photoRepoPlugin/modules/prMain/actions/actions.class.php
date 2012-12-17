@@ -170,6 +170,7 @@ class prMainActions extends sfActions {
   function findPendentPhotos( $args = array() ){
     //print_r($args);
     $results = array();
+    $resultsByUploadDate = array();
     $current_dir = sfConfig::get('sf_upload_dir').'/pr_repo';
     $dir = opendir($current_dir);        // Open the sucker
     $counter = 0;
@@ -178,6 +179,8 @@ class prMainActions extends sfActions {
       if (is_array($parts) && count($parts) == 3 ){
         $valid = true;
         
+        $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file;
+        $dateUpload = date("Y-m-d", filemtime( $fileAddress));
         
         if($args['date_type'] == 'shoot'){
           $dateFile = substr($parts[0], 0, 4).'-'.substr($parts[0], 4, 2).'-'.substr($parts[0], 6, 2);
@@ -191,8 +194,6 @@ class prMainActions extends sfActions {
         }
         
         if($args['date_type'] == 'upload'){
-          $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file;
-          $dateUpload = date("Y-m-d", filemtime( $fileAddress));
           //Date filter
           if( isset($args['date_from']) && strlen($args['date_from']) && !mfData::isPosteriorEqual($dateUpload, $args['date_from'])){
             $valid = false;
@@ -215,8 +216,18 @@ class prMainActions extends sfActions {
         
         if( $valid ){
           $results[] = $file;
+          $resultsByUploadDate[$dateUpload.$file] = $file;
         }
       }
+    }
+    
+    if($args['date_type'] == 'upload'){
+      if( $args['sort'] == 'asc' ) {
+        ksort($resultsByUploadDate);
+      } else {
+        krsort($resultsByUploadDate);
+      }
+      return $resultsByUploadDate;
     }
     
     if( $args['sort'] == 'asc' ) {

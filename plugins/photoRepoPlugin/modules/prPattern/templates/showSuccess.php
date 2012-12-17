@@ -63,7 +63,7 @@
               <tbody>
                 <tr class="sf_admin_row even">
                   <th style="width: 70px;">Áreas:</th>
-                  <td><?php $pattern->dorsalRightAreasToString() ?></td>
+                  <td><?php echo $pattern->dorsalRightAreasToString() ?></td>
                 </tr>
                 <tr class="sf_admin_row odd">
                   <th style="width: 70px;">Padrão:</th>

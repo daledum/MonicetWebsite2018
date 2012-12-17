@@ -103,7 +103,8 @@
               </th>
               <th width="100">
                 <?php if($ph['date_type'] == 'upload'): ?>
-                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
+                  <?php $iconName = ($ph['sort'] == 'asc')? 'desc' :'asc'; ?>
+                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$iconName.'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
                 <?php endif; ?>
                 Data de upload
               </th>

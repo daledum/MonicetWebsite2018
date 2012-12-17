@@ -28,6 +28,7 @@ class Pattern extends BasePattern {
   }
   
   public function dorsalLeftAreasToString() {
+    echo 'b';
     $str = '';
     $pattern_cell_names = array();
     foreach( $this->getPatternCellDorsalLefts() as $cell ) {

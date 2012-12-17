@@ -12,6 +12,16 @@ class Individual extends BaseIndividual {
     return $query->findOne();
   }
   
+  public function getValidObservationPhotos(){
+    $query = ObservationPhotoQuery::create()
+            ->filterByIndividualId($this->getId())
+            ->filterByStatus(ObservationPhoto::V_SIGLA);
+    return $query->find();
+  }
+  public function countValidObservationPhotos(){
+    return count($this->getValidObservationPhotos());
+  }
+  
   public function getSightings($limit=null) {
     $sightingIds = array();
     foreach($this->getObservationPhotos() as $OPhoto) {
@@ -50,9 +60,36 @@ class Individual extends BaseIndividual {
     return substr($resultStr, 2);
   }
   
+  public function getObservationPhotoDates($limit = null) {
+    $query = ObservationPhotoQuery::create()
+            ->filterByIndividualId($this->getId())
+            ->orderByPhotoDate(Criteria::DESC)
+            ->limit($limit);
+    $OBPhotos = $query->find();
+    
+    $resultStr = '';
+    foreach( $OBPhotos as $OBPhoto ){
+      $resultStr .= $OBPhoto->getPhotoDate(', Y-m-d');
+    }
+    
+    if( !is_null($limit) ) {
+      if(count($OBPhotos) == $limit ) {
+        $resultStr .= ', ...';
+      }
+    }
+    
+    
+    return substr($resultStr, 2);
+  }
+  
   public function getLastTenObservationDates() {
     $limit = 10;
     return $this->getObservationDates($limit);
+  }
+  
+  public function getLastTenObservationPhotoDates() {
+    $limit = 10;
+    return $this->getObservationPhotoDates($limit);
   }
   
   public function getLastValidObservationPhoto(){
