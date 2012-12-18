@@ -78,7 +78,6 @@ class Individual extends BaseIndividual {
       }
     }
     
-    
     return substr($resultStr, 2);
   }
   

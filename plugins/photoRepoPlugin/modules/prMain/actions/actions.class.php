@@ -103,9 +103,8 @@ class prMainActions extends sfActions {
     $this->forward404Unless($request->isMethod('post'));
     
     $invalidPhotos = $this->findInvalidNamePhotos();
-    
     foreach( $invalidPhotos as $invalidPhoto) {
-      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto;
+      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto['file'];
       if( file_exists( $filename ) ){
         unlink($filename);
       }
@@ -251,6 +250,7 @@ class prMainActions extends sfActions {
         if( !is_array($parts) || count($parts) != 2 || ($parts[1] != 'jpg' && $parts[1] != 'JPG') ){
           $results[] = array('file' => $file, 'motive' => 'Nome mal formado.' );
         } else {
+          
           $nameParts = explode('-', $parts[0]);
           if( !is_array($nameParts) || count($nameParts) != 3 ){
             $results[] = array('file' => $file, 'motive' => 'Nome mal formado.' );

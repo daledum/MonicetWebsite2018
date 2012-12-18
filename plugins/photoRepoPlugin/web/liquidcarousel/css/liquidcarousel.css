@@ -5,6 +5,10 @@
 	border-radius:10px 10px 10px 10px;
 	padding:10px 0;
 }
+.wrapper {
+    width: 840px;
+    float: left;
+}
 .liquid .previous {
 	display:block;
 	height:126px;
@@ -23,16 +27,20 @@
 	margin: 15px 0 0 0;
 	padding:0;
 }
+
 .liquid ul {
+    
     list-style: none outside none;
 }
 .liquid ul li {
-	width:170px;
-	padding:0 2px;
-	margin:0;
+    display: inline;
+    width: 140px;
+    height: 155px;
+    padding:0 1px;;
+    margin:0;
 }
 .liquid ul li img {
-	-moz-box-shadow: 5px 5px 3px #222;
-   	-webkit-box-shadow: 5px 5px 3px #222;
-   	box-shadow: 5px 5px 3px #222;
+    -moz-box-shadow: 5px 5px 3px #222;
+    -webkit-box-shadow: 5px 5px 3px #222;
+    box-shadow: 5px 5px 3px #222;
 }

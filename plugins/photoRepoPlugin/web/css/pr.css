@@ -152,7 +152,7 @@
 }*/
 
 #identify_main_block {
-    width: 1189px;
+    width: 1187px;
     border: 1px solid #dddddd;
     padding: 5px;
     min-height: 350px;
@@ -184,9 +184,11 @@
     height: 230px;
     border-top-width: 0;
     overflow: hidden;
+    width: 1187px;
 }
 .carousel_div {
-    width: 1187px;
+    width: 972px;
+    height: 165px;
 }
 #identify_results_dropdown_block {
     overflow: auto;
@@ -198,13 +200,48 @@
     width: 370px;
 }
 #identify_description {
+    height: 32px;
     padding: 5px;
-    float: right;
-    width: 780px;
+    width: 960px;
+    text-align: left;
+    float: left;
 }
 #identify_results {
-    height: 170px;
+    width: 974px;
+    height: 190px;
+    float: left;
 }
+
+#identify_form_box {
+    float: left;
+    width: 190px;
+    height: 230px;
+    padding: 10px;
+    background-color: #e0e0e0;
+}
+
+.identify_row {
+    height: 28px;
+    width: 190px;
+}
+
+.identify_row label {
+    width: 150px !important;
+    text-align: right !important;
+    padding: 0 0 3px 0 !important;
+    margin: 3px;
+}
+.identify_row input {
+    margin: 5px;
+}
+
+#identify_result_box {
+    float: right;
+    overflow: hidden;
+    width: 975px;
+}
+
+
 
 
 #sf_admin_container ul li a.clean {

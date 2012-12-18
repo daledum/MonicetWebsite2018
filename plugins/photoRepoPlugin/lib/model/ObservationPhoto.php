@@ -51,32 +51,33 @@ class ObservationPhoto extends BaseObservationPhoto {
     $html = '';
     $html .= $this->getCode().'\\n';
     $html .= $this->getPhotoDate('Y-m-d').' '.$this->getPhotoTime('H:i').'\\n';
-    if( $this->getSpecieId() ){
-      $specie = $this->getSpecie();
-      $html .= $specie->getCode().' - '. $specie->getName().' - '.$specie->getScientificName().'\\n';
-    }
-    if( $this->getBodyPartId() ){
-      $bodyPart = $this->getBodyPart();
-      $html .= $bodyPart->getCode().' - '. $bodyPart->getDescription('pt').'\\n';
-    }
+//    if( $this->getSpecieId() ){
+//      $specie = $this->getSpecie();
+//      $html .= $specie->getCode().' - '. $specie->getName().' - '.$specie->getScientificName().'\\n';
+//    }
+//    if( $this->getBodyPartId() ){
+//      $bodyPart = $this->getBodyPart();
+//      $html .= $bodyPart->getCode().' - '. $bodyPart->getDescription('pt').'\\n';
+//    }
     
-    $html .= $this->getGender().'\\n';
+//    $html .= $this->getGender().'\\n';
+    
     if( $this->getLatitude() && $this->getLongitude() ) {
       $html .= $this->getLatitude().' | '.$this->getLongitude().'\\n';
     }
     
     if($this->getCompanyId()) {
       $company = $this->getCompany();
-      $html .= $company->getRecCetCode().' - '. $company.'\\n';  
+      $html .= $company->getRecCetCode().' - '. $company;  
     }
-    if($this->getVesselId()) {
-      $vessel = $this->getVessel();
-      $html .= $vessel->getRecCetCode().' - '. $vessel->getName().'\\n';  
-    }
-    if($this->getPhotographerId()) {
-      $photographer = $this->getPhotographer();
-      $html .= $photographer->getCode().' - '. $photographer->getName().'\\n';  
-    }
+//    if($this->getVesselId()) {
+//      $vessel = $this->getVessel();
+//      $html .= $vessel->getRecCetCode().' - '. $vessel->getName().'\\n';  
+//    }
+//    if($this->getPhotographerId()) {
+//      $photographer = $this->getPhotographer();
+//      $html .= $photographer->getCode().' - '. $photographer->getName().'\\n';  
+//    }
     
     return $html;
   }

@@ -17,62 +17,93 @@
   </div>
   
   <div id="identify_results_block">
-    <div id="identify_results_dropdown_block">
-      <div id="identify_priority">
-        <b>Prioridade</b>: 
-        <select id="priority_selector">
-          <?php foreach( $priorityKeyValues as $key => $priorityKeyValue ): ?>
-            <option value="<?php echo $key ?>" class="carousel_selector"><?php echo $priorityKeyValue ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
+    <div id="identify_form_box" >
+      <form>
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="same" id="identify_form_choices_same">
+          <label for="identify_form_choices_same">Caracterização igual</label>
+        </div>
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="best" id="identify_form_choices_best">
+          <label for="identify_form_choices_best">Melhores fotografias</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="smoth" id="identify_form_choices_smoth">
+          <label for="identify_form_choices_smoth">Lisa</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="irregular" id="identify_form_choices_irregular">
+          <label for="identify_form_choices_irregular">Irregular</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
+          <label for="identify_form_choices_cutted_point">Ponta cortada</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left" id="identify_form_choices_cutted_point_left">
+          <label for="identify_form_choices_cutted_point_left">Ponta esquerda cortada</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="cutted_point_right" id="identify_form_choices_cutted_point_right">
+          <label for="identify_form_choices_cutted_point_right">Ponta direita cortada</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="marks" id="identify_form_choices_marks">
+          <label for="identify_form_choices_marks">Marcas</label></li>
+        </div>
+      </form>
+    </div>
+    
+    <div id="identify_result_box">
       <div id="identify_description">
         <b>Fotografia</b>: <?php echo $observationPhoto->completeToString() ?>
       </div>
-    </div>
-    
-    <form>
-      <?php //echo $pattern ?>
-      <?php foreach( $priorityKeyValues as $key => $priorityKeyValue ): ?>
-        <?php //echo $key ?>
-        <?php //print_r($priorityResults[$key]->getData()) ?>
-        <?php if( count($priorityResults[$key]) ): ?>
-          <div id="<?php echo $key ?>" class="liquid carousel_div" >
+      <div id="identify_results">
+        <form>
+          <div id="carousel_results" class="liquid carousel_div" >
             <span class="previous"></span>
-            <div class="wrapper">
+            <div class="wrapper" >
               <ul>
-                <?php foreach( $priorityResults[$key] as $OBPhoto ): ?>
-                  <li>
-                    <img width="163" id="photo_<?php echo $key.'_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>" title="<?php echo $OBPhoto->completeToString() ?>"/>
-                    <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo $key.'_'.$OBPhoto->getId() ?>" name="<?php echo $key.'_'.$OBPhoto->getId() ?>">
-                    <?php if($OBPhoto->getIndividualId()): ?>
-                      <?php echo $OBPhoto->getIndividual()->getName() ?>
-                    <?php endif; ?>
-                    <script>
-                      $(document).ready(function(){
+                <?php $Pcounter = 1 ?>
+                <?php foreach( $priorityResults['priority_6'] as $OBPhoto ): ?>
+                  <?php if( $Pcounter < 10 ): ?>
+                    <li>
+                      <img width="155" id="photo_<?php echo '6_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>" title="<?php echo $OBPhoto->completeToString() ?>"/>
+                      <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo '6_'.$OBPhoto->getId() ?>" name="<?php echo '6_'.$OBPhoto->getId() ?>"/>
+                      <?php if($OBPhoto->getIndividualId()): ?>
+                        <?php echo $OBPhoto->getIndividual()->getName() ?>
+                      <?php endif; ?>
                         
-                        //alert($(this).attr('src'));
-                        $(<?php echo sprintf("'#photo_%s_%s'", $key, $OBPhoto->getId()) ?>).click(function(){
-                          //alert($(this)+'clicked');
-                          $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
-                          $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
-                          $("#associate_individual_li").show();
+                      <script>
+                        $(document).ready(function(){
+
+                          //alert($(this).attr('src'));
+                          $(<?php echo sprintf("'#photo_%s_%s'", 6, $OBPhoto->getId()) ?>).click(function(){
+                            //alert($(this)+'clicked');
+                            $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
+                            $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
+                            $("#associate_individual_li").show();
+                          });
                         });
-                      });
-                    </script>
-                  </li>
+                      </script>
+                    </li>
+                    <?php $Pcounter += 1; ?>
+                  <?php endif; ?>
                 <?php endforeach; ?>
               </ul>
+
             </div>
             <span class="next"></span>
           </div>
-        <?php else: ?>
-          <div id="empty_<?php echo $key ?>">
-            Não foram encontrados individuos para esta prioridade.
-          </div>
-        <?php endif; ?>
-      <?php endforeach; ?>
-    </form>
+        </form>
+      </div>
+    </div>
   </div>
   
   <ul class="sf_admin_actions">
@@ -90,7 +121,9 @@
     $(document).ready(function(){
       var iv1 = $("#identify_viewer_image1").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>",
-        onClick: function(){alert('<?php echo $observationPhoto->getHtmlResume(); ?>')}
+        onMouseMove: function(){
+          $('#identify_viewer_image1 img').attr('title', '<?php echo $observationPhoto->getHtmlResume(); ?>');
+        }
       });
       var iv2 = $("#identify_viewer_image2").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"

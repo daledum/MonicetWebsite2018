@@ -58,8 +58,9 @@
           <?php endif; ?>
           
           <?php $lastTenObservationPhotoDates = $individual->getLastTenObservationPhotoDates() ?> 
-          <?php if( strlen($lastTenObservationDates) ): ?>
-            <b><?php echo __('Sightings', null, 'catalog') ?>:</b> <?php echo $lastTenObservationPhotoDates ?><br/>
+          <?php if( strlen($lastTenObservationPhotoDates) ): ?>
+            <?php $n_sightings = explode(',', $individual->getObservationPhotoDates()); ?>
+            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo count($n_sightings) ?>):</b> <?php echo $lastTenObservationPhotoDates ?><br/>
           <?php endif; ?>
           
           <?php if(strlen($individual->getNotes()) ): ?>
