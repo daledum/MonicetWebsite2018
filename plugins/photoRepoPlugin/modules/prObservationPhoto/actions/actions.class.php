@@ -198,7 +198,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       
       $this->sightings = SightingPeer::getSightingsForSelect($request->getParameter('date'), $request->getParameter('company_id'), $with_empty = true, $empty_msg = '', $empty_code = '');
   }
-
+  
   public function executeGetSightingsOnDate( sfWebRequest $request ) {
       $gis = GeneralInfoQuery::create()
               ->filterByDate($request->getParameter('date'));
@@ -244,31 +244,21 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
     
-//    $pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
-//    $this->priorityKeyValues = array();
-//    if( $pattern ) {
-//      $this->priorityKeyValues['priority_1'] = 'Com o mesmo conjunto de marcas (melhor)';
-//      $this->priorityKeyValues['priority_2'] = 'Com o mesmo conjunto de marcas (todas)';
-//      $this->priorityKeyValues['priority_3'] = 'Com sub-conjuntos de marcas (melhor)';
-//      $this->priorityKeyValues['priority_4'] = 'Com sub-conjuntos de marcas (todas)';
-//    }
-//    // common priorities
-//    $this->priorityKeyValues['priority_5'] = 'Todos os individuos da mesma espécie (melhor)';
-//    $this->priorityKeyValues['priority_6'] = 'Todos os individuos da mesma espécie (todas)';
+    $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
+    $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
+    $this->isRight = $this->observationPhoto->getBodyPart()->getCode() == body_part::R_SIGLA;
+  }
+  
+  public function executeAjaxGetPossibleMatches( sfWebRequest $request ){
     
+    $args = $request->getParameter('identify_form');
+    //print_r($args);
+    $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($args['observation_photo_id']));
     
-    $priorityResults = array();
-//    if( $pattern ) {
-//      $priorityResults['priority_1'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=null, $complete=true, $best=true);
-//      $priorityResults['priority_2'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=null, $complete=true, $best=null);
-//      $priorityResults['priority_3'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=true, $complete=null, $best=true);
-//      $priorityResults['priority_4'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=true, $partial=true, $complete=null, $best=null);
-//    }
-//    $priorityResults['priority_5'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=true);
-    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
-    
-    $this->priorityResults = $priorityResults;
-    
+    $this->OBPhotos = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args['choices']);
+//    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
+//    
+//    $this->priorityResults = $priorityResults;
   }
   
   public function executeShow( sfWebRequest $request ) {

@@ -18,19 +18,26 @@
   
   <div id="identify_results_block">
     <div id="identify_form_box" >
-      <form>
+      <form id="identify_form">
         <div class="identify_row">
+          <input name="identify_form[observation_photo_id]" type="hidden" value="<?php echo $observationPhoto->getId() ?>" id="identify_form_observation_photo">
           <input name="identify_form[choices][]" type="checkbox" value="same" id="identify_form_choices_same">
           <label for="identify_form_choices_same">Caracterização igual</label>
         </div>
+        
         <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="best" id="identify_form_choices_best">
           <label for="identify_form_choices_best">Melhores fotografias</label>
         </div>
         
         <div class="identify_row">
-          <input name="identify_form[choices][]" type="checkbox" value="smoth" id="identify_form_choices_smoth">
-          <label for="identify_form_choices_smoth">Lisa</label>
+          <input name="identify_form[choices][]" type="checkbox" value="same_body_part" id="identify_form_choices_same_body_part">
+          <label for="identify_form_choices_same_body_part">Parte do corpo igual</label>
+        </div>
+        
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="smooth" id="identify_form_choices_smooth">
+          <label for="identify_form_choices_smooth">Lisa</label>
         </div>
         
         <div class="identify_row">
@@ -38,20 +45,22 @@
           <label for="identify_form_choices_irregular">Irregular</label>
         </div>
         
-        <div class="identify_row">
-          <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
-          <label for="identify_form_choices_cutted_point">Ponta cortada</label>
-        </div>
-        
-        <div class="identify_row">
-          <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left" id="identify_form_choices_cutted_point_left">
-          <label for="identify_form_choices_cutted_point_left">Ponta esquerda cortada</label>
-        </div>
-        
-        <div class="identify_row">
-          <input name="identify_form[choices][]" type="checkbox" value="cutted_point_right" id="identify_form_choices_cutted_point_right">
-          <label for="identify_form_choices_cutted_point_right">Ponta direita cortada</label>
-        </div>
+        <?php if( !$isTail ): ?>
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
+            <label for="identify_form_choices_cutted_point">Ponta cortada</label>
+          </div>
+        <?php else: ?>
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left" id="identify_form_choices_cutted_point_left">
+            <label for="identify_form_choices_cutted_point_left">Ponta esquerda cortada</label>
+          </div>
+
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point_right" id="identify_form_choices_cutted_point_right">
+            <label for="identify_form_choices_cutted_point_right">Ponta direita cortada</label>
+          </div>
+        <?php endif; ?>
         
         <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="marks" id="identify_form_choices_marks">
@@ -68,37 +77,7 @@
         <form>
           <div id="carousel_results" class="liquid carousel_div" >
             <span class="previous"></span>
-            <div class="wrapper" >
-              <ul>
-                <?php $Pcounter = 1 ?>
-                <?php foreach( $priorityResults['priority_6'] as $OBPhoto ): ?>
-                  <?php if( $Pcounter < 10 ): ?>
-                    <li>
-                      <img width="155" id="photo_<?php echo '6_'.$OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>" title="<?php echo $OBPhoto->completeToString() ?>"/>
-                      <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo '6_'.$OBPhoto->getId() ?>" name="<?php echo '6_'.$OBPhoto->getId() ?>"/>
-                      <?php if($OBPhoto->getIndividualId()): ?>
-                        <?php echo $OBPhoto->getIndividual()->getName() ?>
-                      <?php endif; ?>
-                        
-                      <script>
-                        $(document).ready(function(){
-
-                          //alert($(this).attr('src'));
-                          $(<?php echo sprintf("'#photo_%s_%s'", 6, $OBPhoto->getId()) ?>).click(function(){
-                            //alert($(this)+'clicked');
-                            $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
-                            $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
-                            $("#associate_individual_li").show();
-                          });
-                        });
-                      </script>
-                    </li>
-                    <?php $Pcounter += 1; ?>
-                  <?php endif; ?>
-                <?php endforeach; ?>
-              </ul>
-
-            </div>
+            <div class="wrapper" id="ajax_wrapper_droper" ></div>
             <span class="next"></span>
           </div>
         </form>

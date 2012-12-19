@@ -205,6 +205,14 @@ ajax_get_sightings_by_company:
   requirements:
     sf_method: post
     
+ajax_get_possible_matches:
+  url:  /ajax/observation-photo/possible-matches
+  params:
+    module:     prObservationPhoto
+    action:     ajaxGetPossibleMatches
+  requirements:
+    sf_method: post
+    
 get_sightings_by_date:
   url:  /sightings/on/:date
   params:
