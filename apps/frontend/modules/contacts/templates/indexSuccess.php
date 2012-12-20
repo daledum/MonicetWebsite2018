@@ -7,7 +7,7 @@
     <tr>
       <td>&nbsp;</td>
       <td>
-        <button type="submit" value="<?php echo _("Send"); ?>"><?php echo _("Send"); ?></button>&nbsp;&nbsp;&nbsp;
+        <button type="submit" value="<?php echo __("Send"); ?>"><?php echo __("Send"); ?></button>&nbsp;&nbsp;&nbsp;
       </td>
     </tr>
   </table>
