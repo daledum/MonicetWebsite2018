@@ -6,4 +6,5 @@
 
 all:
   mail:
-    webmaster: info@monicet.net
+    webmaster: website@monicet.net
+    to_contacts: josemnazevedo@monicet.net

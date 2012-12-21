@@ -23,7 +23,8 @@ class contactsActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
     $this->form = new ContactForm();
-    $this->webmaster = sfConfig::get('app_mail_webmaster');
+    $this->from = sfConfig::get('app_mail_webmaster');
+    $this->to = sfConfig::get('app_mail_to_contacts');
     $this->content = ContentPeer::getContent('Contacts');
 
     if ($request->isMethod('post'))
@@ -33,8 +34,8 @@ class contactsActions extends sfActions
       if ($this->form->isValid())
       {
         $message = $this->getMailer()->compose(
-          $this->webmaster,
-          $this->webmaster,
+          $this->from,
+          $this->to,
           "[Sítio Web Monicet] " . $this->form->getValue('subject'),
           $this->form->getValue('message') . "\n\nEnviado em: " . date("Y-m-d H:i") . " por " . $this->form->getValue('email') 
         );

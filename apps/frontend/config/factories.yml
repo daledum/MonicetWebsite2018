@@ -53,5 +53,5 @@ all:
           host:       smtp.gmail.com
           port:       465
           encryption: ssl
-          username:   suporte@morfosof.com
-          password:   m2r3QE#
+          username:   website@monicet.net
+          password:   L5ekP7LD

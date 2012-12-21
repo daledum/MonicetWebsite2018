@@ -36,7 +36,7 @@ $(document).ready(function(){
         type: 'POST',
         success: function(transport, html){
             //alert(transport);
-            $('#ajax_wrapper_droper').html(transport);
+            $('#carousel_results').html(transport);
             $('#carousel_results').liquidcarousel({height:165, duration:800, hidearrows: false});
         }
     });
@@ -49,7 +49,7 @@ $(document).ready(function(){
             type: 'POST',
             success: function(transport, html){
                 //alert(transport);
-                $('#ajax_wrapper_droper').html(transport);
+                $('#carousel_results').html(transport);
                 $('#carousel_results').liquidcarousel({height:165, duration:800, hidearrows: false});
             }
         });

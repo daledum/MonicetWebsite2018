@@ -75,11 +75,7 @@
       </div>
       <div id="identify_results">
         <form>
-          <div id="carousel_results" class="liquid carousel_div" >
-            <span class="previous"></span>
-            <div class="wrapper" id="ajax_wrapper_droper" ></div>
-            <span class="next"></span>
-          </div>
+          <div id="carousel_results" class="liquid carousel_div"></div>
         </form>
       </div>
     </div>
