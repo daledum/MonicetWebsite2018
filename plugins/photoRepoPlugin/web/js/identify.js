@@ -37,7 +37,7 @@ $(document).ready(function(){
         success: function(transport, html){
             //alert(transport);
             $('#carousel_results').html(transport);
-            $('#carousel_results').liquidcarousel({height:165, duration:800, hidearrows: false});
+            $('#carousel_results').liquidcarousel({height:165, duration:600, hidearrows: false});
         }
     });
     
@@ -50,7 +50,7 @@ $(document).ready(function(){
             success: function(transport, html){
                 //alert(transport);
                 $('#carousel_results').html(transport);
-                $('#carousel_results').liquidcarousel({height:165, duration:800, hidearrows: false});
+                $('#carousel_results').liquidcarousel({height:165, duration:600, hidearrows: false});
             }
         });
     });

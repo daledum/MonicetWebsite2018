@@ -9,22 +9,27 @@ class ObservationPhotoDorsalRightMarkForm extends BaseObservationPhotoDorsalRigh
     
     $this->widgetSchema['observation_photo_dorsal_right_id'] = new sfWidgetFormInputHidden();
     
-    $OBPhoto = ObservationPhotoPeer::retrieveByPK( sfContext::getInstance()->getRequest()->getParameter('id') );
+    $request = sfContext::getInstance()->getRequest();
+    $module = sfContext::getInstance()->getModuleName();
+    if( $module == 'prObservationPhoto' ){
+      $OBPhoto = ObservationPhotoPeer::retrieveByPK( $request->getParameter('id') );
     
-    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
-    $this->widgetSchema['pattern_cell_dorsal_right_id'] = new sfWidgetFormChoice(array(
-        'choices' => $cells,
-    ));
-    $this->validatorSchema['pattern_cell_dorsal_right_id'] = new sfValidatorChoice(array(
-        'choices' => array_keys($cells),
-    ));
-    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
-    $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
-        'choices' => $cells,
-    ));
-    $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
-        'choices' => array_keys($cells),
-    ));
+      $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+      $this->widgetSchema['pattern_cell_dorsal_right_id'] = new sfWidgetFormChoice(array(
+          'choices' => $cells,
+      ));
+      $this->validatorSchema['pattern_cell_dorsal_right_id'] = new sfValidatorChoice(array(
+          'choices' => array_keys($cells),
+      ));
+      $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+      $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
+          'choices' => $cells,
+      ));
+      $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
+          'choices' => array_keys($cells),
+          'required' => false
+      ));
+    }
     
     $oneRequired = new sfValidatorCallback(array( 'callback' => array($this, 'checkOneRequired') ));
     

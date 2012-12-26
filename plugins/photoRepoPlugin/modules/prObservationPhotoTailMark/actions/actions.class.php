@@ -23,7 +23,7 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
     $this->redirect('@pr_observation_photo_characterize?id='.$observationPhotoId);
     
   }
-  
+    
   protected function processForm(sfWebRequest $request, sfForm $form) {
     $form->bind($request->getParameter($form->getName()), $request->getFiles($form->getName()));
     if ($form->isValid()) {
@@ -46,7 +46,7 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
       foreach( $errors as $name => $error ) {
         $errorStr .= $error;
       }
-      $this->getUser()->setFlash('mark_error', 'A marca não foi adicionada devido a erros.'.$errorStr);
+      $this->getUser()->setFlash('mark_error', 'A marca não foi adicionada devido a erros.'.$this->form->getErrorSchema().$errorStr);
       $this->redirect('@pr_observation_photo_characterize?id='.$OPTail->getPhotoId());
     }
   }

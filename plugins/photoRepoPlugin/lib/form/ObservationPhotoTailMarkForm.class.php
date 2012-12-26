@@ -7,23 +7,27 @@ class ObservationPhotoTailMarkForm extends BaseObservationPhotoTailMarkForm
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
     
     $this->widgetSchema['observation_photo_tail_id'] = new sfWidgetFormInputHidden();
-    
-    $OBPhoto = ObservationPhotoPeer::retrieveByPK( sfContext::getInstance()->getRequest()->getParameter('id') );
-    
-    $cells = PatternCellTailPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
-    $this->widgetSchema['pattern_cell_tail_id'] = new sfWidgetFormChoice(array(
-        'choices' => $cells,
-    ));
-    $this->validatorSchema['pattern_cell_tail_id'] = new sfValidatorChoice(array(
-        'choices' => array_keys($cells),
-    ));
-    $cells = PatternCellDorsalRightPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
-    $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
-        'choices' => $cells,
-    ));
-    $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
-        'choices' => array_keys($cells),
-    ));
+    $request = sfContext::getInstance()->getRequest();
+    $module = sfContext::getInstance()->getModuleName();
+    if( $module == 'prObservationPhoto' ){
+      $OBPhoto = ObservationPhotoPeer::retrieveByPK( $request->getParameter('id') );
+      
+      $cells = PatternCellTailPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+      $this->widgetSchema['pattern_cell_tail_id'] = new sfWidgetFormChoice(array(
+          'choices' => $cells,
+      ));
+      $this->validatorSchema['pattern_cell_tail_id'] = new sfValidatorChoice(array(
+          'choices' => array_keys($cells),
+      ));
+      $cells = PatternCellTailPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+      $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
+          'choices' => $cells,
+      ));
+      $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
+          'choices' => array_keys($cells),
+          'required' => false
+      ));
+    }
     
     $this->widgetSchema->moveField('pattern_cell_tail_id', sfWidgetFormSchema::AFTER, 'is_deep');
     
