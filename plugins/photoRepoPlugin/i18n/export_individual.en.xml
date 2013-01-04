@@ -47,8 +47,8 @@
         <target>Adult</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Specie</source>
+        <target>Species</target>
       </trans-unit>
       <trans-unit>
         <source></source>

@@ -1,4 +1,4 @@
-<p class="content"><?php echo __('The easiest way to reach us is by e-mail. Just write to %1% or use the form below', array('%1%' => $webmaster)); ?></p>
+<p class="content"><?php echo __('The easiest way to reach us is by e-mail. Just write to %1% or use the form below', array('%1%' => $to)); ?></p>
 <br />
 <?php if (! $sf_user->getFlash('success')): ?>
 <form action="<?php echo url_for('contacts/index') ?>" method="post">

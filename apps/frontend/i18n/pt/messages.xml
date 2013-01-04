@@ -417,6 +417,10 @@
         <target>Publicações</target>
       </trans-unit>
       <trans-unit id="">
+        <source>captcha_error</source>
+        <target>Capctha inválido.</target>
+      </trans-unit>
+      <trans-unit id="">
         <source></source>
         <target></target>
       </trans-unit>

@@ -11,3 +11,6 @@ all:
       - antonio.pedro.couto@morfose.net
     email_from:         no-reply@morfose.net
     email_assunto:      monicet - lamentavelmente ocorreu uma excepção
+    
+  recaptcha_public_key: 6Le5GNsSAAAAAME0SqyhUd0lrKoR8bFbrQHRDJrN
+  recaptcha_private_key: 6Le5GNsSAAAAAJznq97aKjgy2L7vyhk5o92_GCG6

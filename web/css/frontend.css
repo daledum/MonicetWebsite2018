@@ -533,3 +533,6 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 	color: #333;
 	z-index: 1;
 }
+#recaptcha_widget_div{
+    margin-left: 10px;
+}

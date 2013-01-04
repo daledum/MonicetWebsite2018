@@ -29,7 +29,13 @@ class contactsActions extends sfActions
 
     if ($request->isMethod('post'))
     {
-      $this->form->bind($request->getParameter('contact'));
+      $data = $request->getPostParameter('contact', false);
+      $captcha = array();
+      $captcha['recaptcha_challenge_field'] = $this->getRequestParameter('recaptcha_challenge_field');
+      $captcha['recaptcha_response_field'] = $this->getRequestParameter('recaptcha_response_field');
+      $data['captcha'] = $captcha;
+
+      $this->form->bind($data);
 
       if ($this->form->isValid())
       {

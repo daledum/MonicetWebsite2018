@@ -184,6 +184,10 @@
         <source>Photo Albums</source>
         <target>Albums</target>
       </trans-unit>
+      <trans-unit id="46">
+        <source>captcha_error</source>
+        <target>Invalid captcha.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -62,7 +62,9 @@ class IndividualPeer extends BaseIndividualPeer {
       
     $query = $query->endUse();
     
-    $query = $query->orderByCreatedAt(Criteria::DESC);
+    $query = $query->orderByName(Criteria::DESC);
+    
+    //$query = $query->orderByCreatedAt(Criteria::DESC);
     
     $query = $query->setDistinct();
     
