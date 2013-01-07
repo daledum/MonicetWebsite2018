@@ -1,7 +1,7 @@
 $(document).ready(function(){
     //initial state
-    var field_group = '#identify_form_choices_smooth, #identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right, #identify_form_choices_marks';
-    var opposite_to_smooth = '#identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right, #identify_form_choices_marks';
+    var field_group = '#identify_form_choices_smooth, #identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right, #identify_form_choices_all_complete_marks, #identify_form_choices_any_complete_marks, #identify_form_choices_partial_marks';
+    var opposite_to_smooth = '#identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right, #identify_form_choices_all_complete_marks, #identify_form_choices_any_complete_marks, #identify_form_choices_partial_marks';
     
     //define complete caracterization as default
     $('#identify_form_choices_same').attr('checked','checked');
@@ -19,13 +19,38 @@ $(document).ready(function(){
             $(field_group).removeAttr("disabled");
         }
     });
-    //switch between smoth and irregular
+    //switch between smooth and irregular
     $('#identify_form_choices_smooth').change(function(){
         if($('#identify_form_choices_smooth').attr('checked') == true){
             $(opposite_to_smooth).removeAttr("checked");
             $(opposite_to_smooth).attr("disabled", "disabled");
         } else {
             $(opposite_to_smooth).removeAttr("disabled");
+        }
+    });
+    //switch between all_complete_marks, any_complete_marks and partial_marks
+    $('#identify_form_choices_all_complete_marks').change(function(){
+        if($('#identify_form_choices_all_complete_marks').attr('checked') == true){
+            $('#identify_form_choices_any_complete_marks, #identify_form_choices_partial_marks').removeAttr("checked");
+            $('#identify_form_choices_any_complete_marks, #identify_form_choices_partial_marks').attr("disabled", "disabled");
+        } else {
+            $('#identify_form_choices_any_complete_marks, #identify_form_choices_partial_marks').removeAttr("disabled");
+        }
+    });
+    $('#identify_form_choices_any_complete_marks').change(function(){
+        if($('#identify_form_choices_any_complete_marks').attr('checked') == true){
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_partial_marks').removeAttr("checked");
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_partial_marks').attr("disabled", "disabled");
+        } else {
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_partial_marks').removeAttr("disabled");
+        }
+    });
+    $('#identify_form_choices_partial_marks').change(function(){
+        if($('#identify_form_choices_partial_marks').attr('checked') == true){
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_any_complete_marks').removeAttr("checked");
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_any_complete_marks').attr("disabled", "disabled");
+        } else {
+            $('#identify_form_choices_all_complete_marks, #identify_form_choices_any_complete_marks').removeAttr("disabled");
         }
     });
     

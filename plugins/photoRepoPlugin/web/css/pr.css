@@ -214,25 +214,26 @@
 
 #identify_form_box {
     float: left;
-    width: 190px;
+    width: 200px;
     height: 230px;
-    padding: 10px;
+    padding: 5px;
     background-color: #e0e0e0;
 }
 
 .identify_row {
-    height: 28px;
-    width: 190px;
+    height: 22px;
+    width: 203px;
 }
 
 .identify_row label {
-    width: 150px !important;
+    width: 170px !important;
     text-align: right !important;
-    padding: 0 0 3px 0 !important;
-    margin: 3px;
+    padding: 0 0 1px 0 !important;
+    margin: 3px 0px 0 3px;
 }
 .identify_row input {
-    margin: 5px;
+    margin: 5px 0px 0 5px;
+    width: 15px !important;
 }
 
 #identify_result_box {

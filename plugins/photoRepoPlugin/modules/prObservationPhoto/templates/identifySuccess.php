@@ -45,12 +45,12 @@
           <label for="identify_form_choices_irregular">Irregular</label>
         </div>
         
-        <?php if( !$isTail ): ?>
+        <?php if( $isLeft || $isRight ): ?>
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
             <label for="identify_form_choices_cutted_point">Ponta cortada</label>
           </div>
-        <?php else: ?>
+        <?php elseif( $isTail ): ?>
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left" id="identify_form_choices_cutted_point_left">
             <label for="identify_form_choices_cutted_point_left">Ponta esquerda cortada</label>
@@ -62,10 +62,22 @@
           </div>
         <?php endif; ?>
         
-        <div class="identify_row">
-          <input name="identify_form[choices][]" type="checkbox" value="marks" id="identify_form_choices_marks">
-          <label for="identify_form_choices_marks">Marcas</label></li>
-        </div>
+        <?php if( $isTail || $isLeft || $isRight): ?>
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="all_complete_marks" id="identify_form_choices_all_complete_marks">
+            <label for="identify_form_choices_all_complete_marks">Marcas completas (todas)</label></li>
+          </div>
+
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="any_complete_marks" id="identify_form_choices_any_complete_marks">
+            <label for="identify_form_choices_any_complete_marks">Marcas completas (algumas)</label></li>
+          </div>
+
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="partial_marks" id="identify_form_choices_partial_marks">
+            <label for="identify_form_choices_partial_marks">Marcas parciais</label></li>
+          </div>
+        <?php endif; ?>
       </form>
     </div>
     

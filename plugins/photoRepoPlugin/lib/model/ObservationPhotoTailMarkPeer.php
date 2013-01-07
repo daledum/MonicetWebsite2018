@@ -1,18 +1,17 @@
 <?php
 
-
-
-/**
- * Skeleton subclass for performing query and update operations on the 'observation_photo_tail_mark' table.
- *
- * 
- *
- * You should add additional methods to this class to meet the
- * application requirements.  This class will only be generated as
- * long as it does not already exist in the output directory.
- *
- * @package    propel.generator.plugins.photoRepoPlugin.lib.model
- */
 class ObservationPhotoTailMarkPeer extends BaseObservationPhotoTailMarkPeer {
-
+  public static function getAllObservationPhotoIds(){
+    $all_regs = self::doSelect(new Criteria());
+    $ids = array();
+    foreach( $all_regs as $reg ){
+      $OBPhoto = $reg->getObservationPhotoTail()->getObservationPhoto();
+      if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA) ) {
+        if( !in_array($OBPhoto->getId(), $ids) ){
+          $ids[] = $OBPhoto->getId();
+        }
+      }
+    }
+    return $ids;
+  }
 } // ObservationPhotoTailMarkPeer
