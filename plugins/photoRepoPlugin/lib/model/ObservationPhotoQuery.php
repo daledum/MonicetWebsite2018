@@ -47,19 +47,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         $query = $query->filterById(99999);
       }
     }
-    
-    
 
-//    // filter photos with same complete characterization
-//    if( $complete ){
-//      $query = self::_completeCharacterizationQuery($observationPhoto, $query);
-//    }
-//    
-//    // filter photos with partial characterization
-//    if( $partial ){
-//      $query = self::_partialCharacterizationQuery($observationPhoto, $query);
-//    }
-//    // only photos marked as best
     if( in_array('best', $choices) ){
       $query = $query->filterByIsBest(true);
     }

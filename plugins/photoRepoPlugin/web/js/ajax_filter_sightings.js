@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    //alert($('#observation_photo_id').val());
     // selecção inicial
     var photoDate = $('#observation_photo_photo_date_year').val() + '-' + $('#observation_photo_photo_date_month').val() + '-' + $('#observation_photo_photo_date_day').val();
     $.ajax({

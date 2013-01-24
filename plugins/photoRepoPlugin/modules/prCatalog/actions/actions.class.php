@@ -12,6 +12,10 @@ class prCatalogActions extends sfActions
     //$this->forward('default', 'module');
     $this->pr_frontend_filter = new frontendFilterForm();
     $this->formSubmitedValues = $request->getParameter('catalog_filter');
+    if( !isset($this->formSubmitedValues['specie_id']) ){
+      // set Pm has default specie
+      $this->formSubmitedValues['specie_id'] = 8;
+    }
     if($this->formSubmitedValues){
       $this->pr_frontend_filter->bind($this->formSubmitedValues);
     }

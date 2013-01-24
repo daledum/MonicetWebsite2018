@@ -170,11 +170,9 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
 //      if( $isNew ) {
 //          $this->redirect(array('sf_route' => 'pr_pendent_photos_list'));
 //      } else {
-//          $this->redirect('@pr_observation_photo_edit?id='.$ObservationPhoto->getId());
+      $this->redirect('@pr_observation_photo_edit?id='.$ObservationPhoto->getId());
 //      }
-    }
-    else
-    {
+    } else {
       $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
     }
   }

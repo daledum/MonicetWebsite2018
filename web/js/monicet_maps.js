@@ -186,7 +186,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         });
         var lat = totalLats/count;
         var lon = totalLons/count;
-        var latlng = new google.maps.LatLng(lat,-lon);
+        //var latlng = new google.maps.LatLng(lat,-lon);
+        var latlng = new google.maps.LatLng(38.4105,-28.4326);
         var myOptions = {
           zoom: 10,
           center: latlng,
@@ -277,9 +278,10 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
                 var lon = totalLons/count;
                 
                 
-                var latlng = new google.maps.LatLng(lat,-lon);
+                //var latlng = new google.maps.LatLng(lat,-lon);
+                var latlng = new google.maps.LatLng(38.4105,-28.4326);
                 var myOptions = {
-                  zoom: 10,
+                  zoom: 7,
                   center: latlng,
                   mapTypeId: google.maps.MapTypeId.SATELLITE
                 };

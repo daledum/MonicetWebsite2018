@@ -4,7 +4,11 @@
   //echo print_r($sightings);
   $options = '';
   foreach($sightings as $key => $value){
-    $options .= '<option value="' . $key . '"'.( ($OBPhoto->getSightingId() == $key)? ' selected="selected"': '' ).'>' . $value. '</option>';
+    if(is_object($OBPhoto)) {
+      $options .= '<option value="' . $key . '"'.( ($OBPhoto->getSightingId() == $key)? ' selected="selected"': '' ).'>' . $value. '</option>';
+    } else {
+      $options .= '<option value="' . $key . '">' . $value. '</option>';
+    }
   }
   echo $options;
 ?>
