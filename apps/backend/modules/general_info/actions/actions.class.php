@@ -414,34 +414,34 @@ class general_infoActions extends autoGeneral_infoActions
   public function executeDownload(sfWebRequest $request){
     $this->forward404Unless( $request->isMethod(sfRequest::POST) );
 
-//    $year = $request->getParameter('year');
-//
-//    if($request->getParameter('month') && $request->getParameter('month') != 0) {
-//      $month = $request->getParameter('month');
-//      // criar o ficheiro excel
-//      $objPHPExcel = $this->generateExportExcelObject($year, $month);
-//      $filename = $year.'_'.$month;
-//    }else {
-//      // criar o ficheiro excel
-//      $objPHPExcel = $this->generateExportExcelObject($year);
-//      $filename = $year;
-//    }
-//
-//    // download do ficheiro sem o guardar
-//    header('Content-Type: application/vnd.ms-excel');
-//    header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
-//    header('Cache-Control: max-age=0');
-//    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
-//    $objWriter->save('php://output');
-//    return sfView::NONE;
+      $query = GeneralInfoQuery::create();
+      if(!is_null($month)){
+        if( $month < 12 ) {
+          $query = $query->filterByDate($year.'-'.$month.'-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-'.($month+1).'-1', Criteria::LESS_THAN );
+        } else {
+          $query = $query->filterByDate($year.'-12-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-12-31', Criteria::LESS_EQUAL );
+        }
+      } else {
+        $query = $query->filterByDate($year.'-1-1', Criteria::GREATER_EQUAL)->filterByDate( ($year+1).'-1-1', Criteria::LESS_THAN );
+        //$query = $query->where('GeneralInfo.Date >= ?', $year.'-1-1')->where('GeneralInfo.Date < ?', ($year+1).'-1-1');
+      }
+      $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
 
     if($request->getParameter('month') && $request->getParameter('month') != 0) {
 
         $year = $request->getParameter('year');
         $month = $request->getParameter('month');
+        
+        $query = GeneralInfoQuery::create();
+          if( $month < 12 ) {
+            $query = $query->filterByDate($year.'-'.$month.'-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-'.($month+1).'-1', Criteria::LESS_THAN );
+          } else {
+            $query = $query->filterByDate($year.'-12-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-12-31', Criteria::LESS_EQUAL );
+          }
+        $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
 
         // criar o ficheiro excel
-        $objPHPExcel = $this->generateExportExcelObject($year, $month);
+        $objPHPExcel = $this->generateExportExcelObject($dados);
 
         $this->filename = $year;
 
@@ -458,9 +458,13 @@ class general_infoActions extends autoGeneral_infoActions
         //set_time_limit(600);
 
         $year = $request->getParameter('year');
+        
+        $query = GeneralInfoQuery::create();
+          $query = $query->filterByDate($year.'-1-1', Criteria::GREATER_EQUAL)->filterByDate( ($year+1).'-1-1', Criteria::LESS_THAN );
+        $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
 
         // criar o ficheiro excel
-        $objPHPExcel = $this->generateExportExcelObject($year);
+        $objPHPExcel = $this->generateExportExcelObject($dados);
 
         $this->filename = $year;
 
@@ -479,37 +483,27 @@ class general_infoActions extends autoGeneral_infoActions
     }
 
   }
+  
+  public function executeDownloadByFilter(sfWebRequest $request){
+    
+    $data = GeneralInfoQuery::create(null, $this->buildCriteria())->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
+    
+    // criar o ficheiro excel
+    $objPHPExcel = $this->generateExportExcelObject($data);
 
+    $this->filename = sprintf("export_%s", date('Ymd_His'));
 
-  public function generateExportExcelObject($year, $month = null) {
+    // download do ficheiro sem o guardar
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
+    header('Cache-Control: max-age=0');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+    $objWriter->save('php://output');
+    return sfView::NONE;
 
-      //ini_set("memory_limit","300M");
+  }
 
-      // buscar os dados
-//      $c = new Criteria();
-//
-//      if(!is_null($month)){
-//        if($month < 10) $month = '0'.$month;
-//        $c->add(GeneralInfoPeer::DATE, $year.'-'.$month.'-%', Criteria::LIKE);
-//
-//      } else {
-//        $c->addAnd(GeneralInfoPeer::DATE, $year.'-1-1', Criteria::GREATER_EQUAL);
-//        $c->addAnd(GeneralInfoPeer::DATE, $year.'-12-31', Criteria::LESS_EQUAL);
-//      }
-//
-//      $dados = GeneralInfoPeer::doSelect($c);
-      $query = GeneralInfoQuery::create();
-      if(!is_null($month)){
-        if( $month < 12 ) {
-          $query = $query->filterByDate($year.'-'.$month.'-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-'.($month+1).'-1', Criteria::LESS_THAN );
-        } else {
-          $query = $query->filterByDate($year.'-12-1', Criteria::GREATER_EQUAL)->filterByDate( $year.'-12-31', Criteria::LESS_EQUAL );
-        }
-      } else {
-        $query = $query->filterByDate($year.'-1-1', Criteria::GREATER_EQUAL)->filterByDate( ($year+1).'-1-1', Criteria::LESS_THAN );
-        //$query = $query->where('GeneralInfo.Date >= ?', $year.'-1-1')->where('GeneralInfo.Date < ?', ($year+1).'-1-1');
-      }
-      $dados = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
+  public function generateExportExcelObject($dados) {
 
       $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
       PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
@@ -609,8 +603,6 @@ class general_infoActions extends autoGeneral_infoActions
       $cena->getStyle('A1:V1')->getFont()->setSize(12);
       $cena->getStyle('A2:V2')->getFont()->setBold(true);
       $cena->getStyle('A2:V2')->getFont()->setSize(12);
-
-
 
       $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V');
       foreach($letras as $letra){
@@ -732,11 +724,6 @@ class general_infoActions extends autoGeneral_infoActions
             $array[0][] = null;
           }
 
-          //if($gi->getCompanyId()) $array[0][] = $gi->getCompany()->getName(); else $array[0][] = null;
-          //if($gi->getVesselId()) $array[0][] = $gi->getVessel()->getName(); else $array[0][] = null;
-          //if($gi->getSkipperId()) $array[0][] = $gi->getSkipper()->getName(); else $array[0][] = null;
-          //if($gi->getGuideId()) $array[0][] = $gi->getGuide()->getName(); else $array[0][] = null;
-
           unset($sighting);
           unset($specie);
           unset($association);
@@ -745,10 +732,7 @@ class general_infoActions extends autoGeneral_infoActions
         }
 
       }
-
       // escrever o array no ficheiro
-
-
       return $objPHPExcel;
   }
 
