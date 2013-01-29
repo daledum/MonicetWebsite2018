@@ -1,12 +1,14 @@
 <?php 
     $allowedFileds = array(
-        '2#120' => 'Caption/Abstract',
-        '2#080' => 'By-line',
-        '2#090' => 'City',
-        '2#095' => 'Province/State',
-        '2#015' => 'Category',
-        '2#115' => 'Category',
-        '2#116' => 'Copyright'
+        '2#005' => 'IPTC.Title', #parte do corpo
+        '2#120' => 'IPTC.Legend',#empresa
+        '2#080' => 'IPTC.By-line',#fotografo
+        '2#090' => 'IPTC.City',#latitude
+        '2#095' => 'IPTC.Province/State',#longitude
+        '2#015' => 'IPTC.Category',#especie
+        '2#115' => 'IPTC.Category',
+        '2#116' => 'IPTC.Copyright',
+        
     ); 
 ?>
 
@@ -14,7 +16,7 @@
 <?php foreach($iptc as $key => $value ): ?>
     <?php if( isset($allowedFileds[$key]) ): ?>
         <b><?php echo $allowedFileds[$key] ?></b>: <?php echo $value[0] ?><br/>
-    <?php else: ?>
+    <?php /*else: ?>
         <b><?php echo $key ?></b>: <?php echo $value[0] ?><br/>
-    <?php endif; ?>
+    <?php */endif; ?>
 <?php endforeach; ?>
