@@ -4,11 +4,17 @@
       'island' => isset($formSubmitedValues['island'])? $formSubmitedValues['island']: '',
       'photographer_id' => isset($formSubmitedValues['photographer_id'])? $formSubmitedValues['photographer_id']: '',
       'company_id' => isset($formSubmitedValues['company_id'])? $formSubmitedValues['company_id']: '',
-      'photo_date' => array(
-          'from' => isset($formSubmitedValues['photo_date']['from'])? $formSubmitedValues['photo_date']['from']: '',
-          'to' => isset($formSubmitedValues['photo_date']['to'])? $formSubmitedValues['photo_date']['to']: ''
-      )
   );
+  
+  if( isset($formSubmitedValues['photo_date']) ) {
+    if( isset($formSubmitedValues['photo_date']['from']) ) {
+      $urlArgs['photo_date']['from'] = $formSubmitedValues['photo_date']['from'];
+    }
+    if( isset($formSubmitedValues['photo_date']['to']) ) {
+      $urlArgs['photo_date']['to'] = $formSubmitedValues['photo_date']['to'];
+    }
+  }
+  
   $urlArgsStr = '';
   foreach ($urlArgs as $key => $value) {
     $urlArgsStr .= '&catalog_filter['.$key.']='.$value;

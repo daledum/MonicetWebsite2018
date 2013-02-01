@@ -484,12 +484,31 @@ class general_infoActions extends autoGeneral_infoActions
 
   }
   
+//  public function executeDownloadByFilter(sfWebRequest $request){
+//    
+//    $this->dataQS = GeneralInfoQuery::create(null, $this->buildCriteria())->setFormatter(ModelCriteria::FORMAT_ON_DEMAND);
+//    sfConfig::set('sf_web_debug', false);
+//    
+//    $this->filename = sprintf("export_%s", date('Ymd_His'));
+//
+//    // download do ficheiro sem o guardar
+//    #header('Content-Type: text/html; charset=utf-8');
+//    header('Content-Type: application/vnd.ms-excel; charset=utf-8');
+//    header("Content-type: application/force-download");
+//    header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
+//    #header('Cache-Control: max-age=0');
+//    header("Pragma: no-cache");
+//    header('Content-language: pt');
+//
+//    #return sfView::NONE;
+//  }
+  
   public function executeDownloadByFilter(sfWebRequest $request){
     
-    $data = GeneralInfoQuery::create(null, $this->buildCriteria())->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
+    $this->dataQS = GeneralInfoQuery::create(null, $this->buildCriteria())->setFormatter(ModelCriteria::FORMAT_ON_DEMAND);
     
     // criar o ficheiro excel
-    $objPHPExcel = $this->generateExportExcelObject($data);
+    $objPHPExcel = $this->generateExportExcelObjectWithQS($this->dataQS);
 
     $this->filename = sprintf("export_%s", date('Ymd_His'));
 
@@ -503,6 +522,208 @@ class general_infoActions extends autoGeneral_infoActions
 
   }
 
+  public function generateExportExcelObjectWithQS($dataQS) {
+
+      $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
+      PHPExcel_Settings::setCacheStorageMethod($cacheMethod);
+
+      // criação do ficheiro Excel (.xls)
+      $objPHPExcel = new PHPExcel();
+      $objPHPExcel->getProperties()
+      ->setCreator("Monicet")
+      ->setLastModifiedBy("Monicet")
+      ->setTitle("Mapa de Saidas")
+      ->setSubject("Mapa de Saidas")
+      ->setDescription("Exportação de saidas do Monicet")
+      ->setKeywords("Mapa Saidas")
+      ->setCategory("Saidas");
+      $objPHPExcel->getDefaultStyle()->getFont()->setName('Arial');
+      $objPHPExcel->getDefaultStyle()->getFont()->setSize(10);
+      $objPHPExcel->getDefaultStyle()->getFont()->setColor(new PHPExcel_Style_Color('33333333'));
+
+      // edição do conteúdo do ficheiro
+        // headers
+
+      $cena = $objPHPExcel->getActiveSheet();
+
+
+      $cena->setCellValueByColumnAndRow(3,1, 'Position /EFF');
+      $cena->setCellValueByColumnAndRow(12,1, 'Sighting');
+      $cena->setCellValueByColumnAndRow(19,1, 'Inf. Geral');
+
+      $cena->getRowDimension(2)->setRowHeight(30);
+      $cena->getStyle('A2:V2')
+          ->getAlignment()->setVertical(PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+
+      $cena->getStyle('A1')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('0000ff');
+
+      //$objPHPExcel->getActiveSheet()->mergeCells('B1:E1');
+      $cena->getStyle('C1:E1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+      $cena->getStyle('B1:E1')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('ffff99');
+
+      //$objPHPExcel->getActiveSheet()->mergeCells('F1:G1');
+      $cena->getStyle('G1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+      $cena->getStyle('F1:G1')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('0000ff');
+
+      //$objPHPExcel->getActiveSheet()->mergeCells('H1:P1');
+      $cena->getStyle('I1:P1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+      $cena->getStyle('H1:P1')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('ff9900');
+
+      //$objPHPExcel->getActiveSheet()->mergeCells('Q1:V1');
+      $cena->getStyle('R1:V1')->getBorders()->getLeft()->setBorderStyle(PHPExcel_Style_Border::BORDER_NONE);
+      $cena->getStyle('Q1:V1')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('0000ff');
+
+
+      $cena->getStyle('A2:V2')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_MEDIUM);
+
+      $headers = array();
+      $headers[0] = array();
+
+      $cena->setCellValueByColumnAndRow(0,2, 'Data');
+      $cena->getStyle('A2')->getFill()
+        ->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setRGB('33cccc');
+
+      $headers[0][] = 'Cod.';
+      $headers[0][] = 'Hora';
+      $headers[0][] = 'Latitude';
+      $headers[0][] = 'Longitude';
+      $headers[0][] = 'Vis.';
+      $headers[0][] = 'Est. Mar';
+      $headers[0][] = 'Sp.';
+      $headers[0][] = 'Total';
+      $headers[0][] = 'A';
+      $headers[0][] = 'J';
+      $headers[0][] = 'C';
+      $headers[0][] = 'Comp';
+      $headers[0][] = 'Asso';
+      $headers[0][] = 'Num. Emb.';
+      $headers[0][] = 'Comentários';
+      $headers[0][] = 'Empresa';
+      $headers[0][] = 'Barco';
+      $headers[0][] = 'Skipper';
+      $headers[0][] = 'Biologist';
+      $headers[0][] = 'Passg';
+      $headers[0][] = 'Dist. Percorrida';
+      $cena->fromArray($headers,null,'B2');
+
+      $cena->getStyle('A1:V1')->getFont()->setBold(true);
+      $cena->getStyle('A1:V1')->getFont()->setSize(12);
+      $cena->getStyle('A2:V2')->getFont()->setBold(true);
+      $cena->getStyle('A2:V2')->getFont()->setSize(12);
+
+      $letras = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V');
+      foreach($letras as $letra){
+        $cena->getColumnDimension($letra)->setAutoSize(true);
+      }
+      unset($letras);
+
+      // conteudo
+      $l = 3;
+      $array = array();
+      
+      $page = 0;
+      $results = $dataQS->offset($page*100)->limit(100);
+      
+      while($results->count()) {
+        foreach($results->find() as $gi){
+          $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
+          $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
+          foreach($records as $record){
+            // buscar sighting correspondente
+            $sighting = SightingPeer::retrieveByRecordId($record->getId());
+            
+            // buscar especie
+            $specie = '';
+            if($sighting->getSpecieId()){
+              $specie = $sighting->getSpecie()->getCode();
+            }
+            
+            // buscar associacao
+            $association = '';
+            if($sighting->getAssociationId()){
+              $association = $sighting->getAssociation()->getCode();
+            }
+            
+            // criar o array para escrever no ficheiro
+            $array[0] = array();
+            $array[0][] = $record->getCode()->getAcronym();
+            $array[0][] = $record->getTime();
+            $array[0][] = $record->getLatitude();
+            $array[0][] = $record->getLongitude();
+            
+            if($record->getVisibilityId()){
+              $array[0][] = $record->getVisibility()->getCode();
+            } else {
+              $array[0][] = null;
+            }
+            
+            if($record->getSeaStateId()){
+              $array[0][] = $record->getSeaState()->getCode();
+            } else {
+              $array[0][] = null;
+            }
+            
+            $array[0][] = $specie;
+            $array[0][] = $sighting->getTotal();
+            $array[0][] = $sighting->getAdults();
+            $array[0][] = $sighting->getJuveniles();
+            $array[0][] = $sighting->getCalves();
+            $array[0][] = $sighting->getBehaviourId();
+            $array[0][] = $association;
+            $array[0][] = $record->getNumVessels();
+            $array[0][] = $sighting->getComments();
+            
+            if($gi->getCompanyId()){
+              $array[0][] = $gi->getCompany()->getName();
+            } else {
+              $array[0][] = null;
+            }
+
+            if($gi->getVesselId()){
+              $array[0][] = $gi->getVessel()->getName();
+            } else {
+              $array[0][] = null;
+            }
+
+            if($gi->getSkipperId()){
+              $array[0][] = $gi->getSkipper()->getName();
+            } else {
+              $array[0][] = null;
+            }
+
+            if($gi->getGuideId()){
+              $array[0][] = $gi->getGuide()->getName();
+            } else {
+              $array[0][] = null;
+            }
+            
+            $cena->fromArray($array, null, 'B'.$l);
+            $l++;
+          }
+          unset($records);
+        }
+        $page++;
+        unset($results);
+        $results = $dataQS->offset($page*100)->limit(100);
+      }
+      return $objPHPExcel;
+  }  
+  
+  
+  
+// método do António  
   public function generateExportExcelObject($dados) {
 
       $cacheMethod = PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;

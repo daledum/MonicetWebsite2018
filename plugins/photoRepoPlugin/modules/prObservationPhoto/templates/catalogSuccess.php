@@ -17,7 +17,6 @@
   <div id="sf_admin_content">
     <?php include_partial('prObservationPhoto/list_catalog', array('pager' => $pager, 'sort' => $sort, 'helper' => $helper)) ?>
     <ul class="sf_admin_actions">
-      <?php include_partial('prObservationPhoto/list_batch_actions', array('helper' => $helper)) ?>
       <?php include_partial('prObservationPhoto/list_actions', array('helper' => $helper)) ?>
     </ul>
   </div>

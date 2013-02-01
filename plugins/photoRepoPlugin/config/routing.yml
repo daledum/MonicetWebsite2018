@@ -38,6 +38,14 @@ pr_process_add_photos_bulk:
   requirements:
     sf_method:  post
     
+pr_delete_pendent_photos_bulk:
+  url:  /reconhecimento-de-cetaceos/delete-photos-bulk
+  params:
+    module:     prMain
+    action:     deletePendentPhotosBulk
+  requirements:
+    sf_method:  post
+    
 pr_pendent_photos_list:
   url:  /reconhecimento-de-cetaceos/fotos/por-processar
   params:
