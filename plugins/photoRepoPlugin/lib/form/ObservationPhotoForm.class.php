@@ -175,8 +175,9 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         } elseif( isset($iptc['2#015'][0])){
           $specieStr = $iptc['2#015'][0];
         }
-        if( isset($specieStr) ){
-          //$specieStr = ucfirst(strtolower($specieStr));
+        if( isset($specieStr) && preg_match('!\S!u', $specieStr) ){ // and test if utf8
+          echo $specieStr;
+          $specieStr = ucfirst(strtolower($specieStr));
           $specie = SpecieQuery::create()->filterByRecCetCode($specieStr)->findOne();
           if( $specie ){
             $this->widgetSchema['specie_id']->setDefault($specie->getId());

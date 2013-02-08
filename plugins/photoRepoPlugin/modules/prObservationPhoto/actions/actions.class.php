@@ -56,12 +56,25 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->redirect('@pr_observation_photo');
   }
   
+  public function _get_positions($querySet){
+    $results = array();
+    foreach($querySet->find() as $OBPhoto ){
+      $results[] = $OBPhoto->getId();
+    }
+    return $results;
+  }
+  
   public function executeIndex(sfWebRequest $request)
   {
     // sorting
     if ($request->getParameter('sort') && $this->isValidSortColumn($request->getParameter('sort'))) {
       $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
     }
+    
+    $dataQS = ObservationPhotoQuery::create(null, $this->buildCriteria());
+    $this->positionArray = $this->_get_positions($dataQS);
+    
+    //print_r($this->positionArray);
 
     // pager
     if ($request->getParameter('page')) {
