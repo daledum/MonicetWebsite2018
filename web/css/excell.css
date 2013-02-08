@@ -1,0 +1,16 @@
+/* 
+    Document   : excell.css
+    Created on : 1/Fev/2013, 17:55:30
+    Author     : vilarinho
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.table-excell { 
+    
+    font-size: 12px;
+}
+
+.table-excell-red {
+    background-color: red;
+}

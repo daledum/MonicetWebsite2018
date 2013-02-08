@@ -1,6 +1,6 @@
 <table>
   <tr>
-    <td>&nbsp;</td>
+    <td class="table-excell-red">&nbsp;</td>
     <td colspan="4">Position /EFF</td>
     <td colspan="2">&nbsp;</td>
     <td colspan="9">Sighting</td>
@@ -65,5 +65,5 @@
         <td><?php ?></td>
       </tr>
     <?php endforeach; ?>
-  <?php endforeach; ?>
+  <?php emfXLS::ndforeach; ?>
 </table>

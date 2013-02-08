@@ -102,20 +102,6 @@ class general_infoActions extends autoGeneral_infoActions
     $dir = opendir($this->current_dir);        // Open the sucker
     $file = readdir($dir);
 
-    /*$parts = explode(".", $file);                    // pull apart the name and dissect by period
-    if (is_array($parts) && count($parts) > 1) {    // does the dissected array have more than one part
-      $extension = end($parts);        // set to we can see last file extension
-      print 'extensão: '.$extension;
-      print $file;
-      if ($extension == "xls") {
-        $this->filename = $file;
-      }else {
-        //$this->redirect('@general_info_collection?action=upload');
-      }
-    } else {
-      //$this->redirect('@general_info_collection?action=upload');
-    }*/
-
     $this->img_valida = '<img src="/mfAdministracaoPlugin/images/icons/tick.png" title="Válido" />';
     $this->img_invalida = '<img src="/mfAdministracaoPlugin/images/icons/delete.png" title="Inválido" />';
 
@@ -492,11 +478,10 @@ class general_infoActions extends autoGeneral_infoActions
 //    $this->filename = sprintf("export_%s", date('Ymd_His'));
 //
 //    // download do ficheiro sem o guardar
-//    #header('Content-Type: text/html; charset=utf-8');
 //    header('Content-Type: application/vnd.ms-excel; charset=utf-8');
 //    header("Content-type: application/force-download");
-//    header('Content-Disposition: attachment;filename="'.$this->filename.'.xls"');
-//    #header('Cache-Control: max-age=0');
+//    header('Content-Disposition: attachment; filename="'.$this->filename.'.xls"');
+//    header('Cache-Control: max-age=0');
 //    header("Pragma: no-cache");
 //    header('Content-language: pt');
 //
@@ -518,8 +503,34 @@ class general_infoActions extends autoGeneral_infoActions
     header('Cache-Control: max-age=0');
     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
     $objWriter->save('php://output');
-    return sfView::NONE;
+    //return sfView::NONE;
 
+  }
+  
+  public function _in_available_memory_limit($percentage_avaliable_limit){
+    $limit = ini_get('memory_limit');
+    $cur = memory_get_usage();
+    $last = strtolower($limit[strlen($limit)-1]);
+    switch($last) {
+      // The 'G' modifier is available since PHP 5.1.0
+      case 'g':
+          $limit = substr($limit,0,(strlen($limit)-1));
+          $limit *= 1024 * 1024 * 1024;
+          break;
+      case 'm':
+          $limit = substr($limit,0,(strlen($limit)-1));
+          $limit *= 1024 * 1024;
+          break;
+      case 'k':
+          $limit = substr($limit,0,(strlen($limit)-1));
+          $limit *= 1024;
+    }
+    $delta = (($limit - $cur) / $limit) * 100;
+    if( $delta >= $percentage_avaliable_limit ){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function generateExportExcelObjectWithQS($dataQS) {
@@ -633,48 +644,48 @@ class general_infoActions extends autoGeneral_infoActions
       $l = 3;
       $array = array();
       
-      $page = 0;
-      $results = $dataQS->offset($page*100)->limit(100);
-      
-      while($results->count()) {
-        foreach($results->find() as $gi){
+      foreach($dataQS->find() as $gi){
+        if (!$this->_in_available_memory_limit(16)) {
+          $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
+          $l++;
+        } else {
           $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
           $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
           foreach($records as $record){
             // buscar sighting correspondente
             $sighting = SightingPeer::retrieveByRecordId($record->getId());
-            
+
             // buscar especie
             $specie = '';
             if($sighting->getSpecieId()){
               $specie = $sighting->getSpecie()->getCode();
             }
-            
+
             // buscar associacao
             $association = '';
             if($sighting->getAssociationId()){
               $association = $sighting->getAssociation()->getCode();
             }
-            
+
             // criar o array para escrever no ficheiro
             $array[0] = array();
             $array[0][] = $record->getCode()->getAcronym();
             $array[0][] = $record->getTime();
             $array[0][] = $record->getLatitude();
             $array[0][] = $record->getLongitude();
-            
+
             if($record->getVisibilityId()){
               $array[0][] = $record->getVisibility()->getCode();
             } else {
               $array[0][] = null;
             }
-            
+
             if($record->getSeaStateId()){
               $array[0][] = $record->getSeaState()->getCode();
             } else {
               $array[0][] = null;
             }
-            
+
             $array[0][] = $specie;
             $array[0][] = $sighting->getTotal();
             $array[0][] = $sighting->getAdults();
@@ -684,7 +695,7 @@ class general_infoActions extends autoGeneral_infoActions
             $array[0][] = $association;
             $array[0][] = $record->getNumVessels();
             $array[0][] = $sighting->getComments();
-            
+
             if($gi->getCompanyId()){
               $array[0][] = $gi->getCompany()->getName();
             } else {
@@ -708,15 +719,12 @@ class general_infoActions extends autoGeneral_infoActions
             } else {
               $array[0][] = null;
             }
-            
+
             $cena->fromArray($array, null, 'B'.$l);
             $l++;
           }
           unset($records);
         }
-        $page++;
-        unset($results);
-        $results = $dataQS->offset($page*100)->limit(100);
       }
       return $objPHPExcel;
   }  
