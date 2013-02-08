@@ -71,7 +71,14 @@
                 <td style="text-align: left;"><?php echo $file_info['motive'] ?></td>
                 <td>
                     <ul class="sf_admin_td_actions">
-                      <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file_info['file'], 0, -4), 'extension' =>substr($file_info['file'], -3)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file_info['file'].'"?')) ?></li>
+                      <?php 
+                        $file_parts = explode('.', $file_info['file']);
+                        $lastIndex = count($file_parts)-1;
+                        $extension = $file_parts[$lastIndex];
+                        unset($file_parts[$lastIndex]);
+                        $filename = implode('.', $file_parts);
+                      ?>
+                      <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => $filename, 'extension' =>$extension), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file_info['file'].'"?')) ?></li>
                     </ul>
                   </td>
               </tr>
@@ -89,48 +96,80 @@
     <h1><?php echo format_number_choice('[1] 1 Resultado|(1,+Inf] %num% Resultados', array('%num%' => count($resultados)), count($resultados), 'messages')?></h1>
   <?php endif; ?>
   <div id="sf_admin_container">
-    <?php if( count($resultados) ): ?>
-      <div class="sf_admin_list" id="sf_admin_content">
-        <table cellspacing="0">
-          <thead>
-            <tr>
-              <th width="300">
-                <?php $ph = $sf_request->getParameterHolder()->get('find_pendent_photos') ?>
-                <?php if($ph['date_type'] == 'shoot' || (strlen($ph['photographer']) && $ph['date_type'] == 'no_date' ) ): ?>
-                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
-                <?php endif; ?>
-                Fotografia
-              </th>
-              <th width="100">
-                <?php if($ph['date_type'] == 'upload'): ?>
-                  <?php $iconName = ($ph['sort'] == 'asc')? 'desc' :'asc'; ?>
-                  <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$iconName.'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
-                <?php endif; ?>
-                Data de upload
-              </th>
-              <th>Acções</th>
-            </tr>
-          </thead>
-          <tbody>
-          <?php foreach( $resultados as $cont => $file ): ?>
-            <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
-              <td style="text-align: left;"><?php echo $file ?></td>
-              <?php $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file; ?>
-              <td><?php echo date("Y-m-d", filemtime( $fileAddress)) ?></td>
-              <td>
-                <ul class="sf_admin_td_actions">
-                  <li class="sf_admin_action_show"><?php echo link_to('Ver fotografia', '/uploads/pr_repo/'.$file, array('target' => '_blank', 'class' => 'preview') ) ?></li>
-                  <li class="sf_admin_action_action"><?php echo link_to('Processar', '@pr_observation_photo_new?file='.$file) ?></li>
-                  <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file, 0, -4), 'extension' =>substr($file, -3)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file.'"?')) ?></li>
-                </ul>
-              </td>
-            </tr>
-          <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
+    <?php  ?><form id="batch_form" action="" method="post"><?php  ?>
+      <?php if( count($resultados) ): ?>
+        <div class="sf_admin_list" id="sf_admin_content">
+          <table cellspacing="0">
+            <thead>
+              <tr>
+                <th width="25" id="sf_admin_list_batch_actions"><input id="sf_admin_list_batch_checkbox" type="checkbox" onclick="checkAll();" /></th>
+                <th width="300">
+                  <?php $ph = $sf_request->getParameterHolder()->get('find_pendent_photos') ?>
+                  <?php if($ph['date_type'] == 'shoot' || (strlen($ph['photographer']) && $ph['date_type'] == 'no_date' ) ): ?>
+                    <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$ph['sort'].'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
+                  <?php endif; ?>
+                  Fotografia
+                </th>
+                <th width="100">
+                  <?php if($ph['date_type'] == 'upload'): ?>
+                    <?php $iconName = ($ph['sort'] == 'asc')? 'desc' :'asc'; ?>
+                    <?php echo image_tag('/mfAdministracaoPlugin/images/icons/'.$iconName.'.png', array('alt' => __($ph['sort'], array(), 'sf_admin'), 'title' => __($ph['sort'], array(), 'sf_admin'))) ?>
+                  <?php endif; ?>
+                  Data de upload
+                </th>
+                <th>Acções</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach( $resultados as $cont => $file ): ?>
+                <tr class="sf_admin_row <?php echo fmod($cont, 2)? 'odd': 'even' ?>">
+                  <td>
+                    <input type="checkbox" name="filenames[]" value="<?php echo $file ?>" class="sf_admin_batch_checkbox" />
+                  </td>
+                  <td style="text-align: left;"><?php echo $file ?></td>
+                  <?php $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo/'.$file; ?>
+                  <td><?php echo date("Y-m-d", filemtime( $fileAddress)) ?></td>
+                  <td>
+                    <ul class="sf_admin_td_actions">
+                      <li class="sf_admin_action_show"><?php echo link_to('Ver fotografia', '/uploads/pr_repo/'.$file, array('target' => '_blank', 'class' => 'preview') ) ?></li>
+                      <li class="sf_admin_action_action"><?php echo link_to('Processar', '@pr_observation_photo_new?file='.$file) ?></li>
+                      <li class="sf_admin_action_delete"><?php echo link_to('Apagar', 'pr_pendent_photo_delete', array('filename' => substr($file, 0, -4), 'extension' =>substr($file, -3)), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende remover definitivamente o ficheiro "'.$file.'"?')) ?></li>
+                    </ul>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+
+          </table>
+        </div>
+      
+        <ul class="sf_admin_actions">
+          <li class="sf_admin_batch_actions_choice">
+            <select name="batch_action" id="action_selector">
+              <option value=""><?php echo __('Choose an action', array(), 'sf_admin') ?></option>
+              <option value="<?php echo url_for('pr_delete_pendent_photos_bulk') ?>"><?php echo __('Delete', array(), 'sf_admin') ?></option>
+            </select>
+            <input type="hidden" name="_csrf_token" value="66544fe3da12ab90f07df556c988a6e8">
+            <input type="submit" value="<?php echo __('Go', array(), 'sf_admin') ?>" />
+          </li>
+        </ul>
+      </form>        
     <?php else: ?>
       <div class="error">Não foram encontrados resultados com os critérios fornecidos</div>
     <?php endif; ?>
   </div>
 <?php endif; ?>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#action_selector').change(function(){
+      $('#batch_form').attr('action', $('#action_selector').val());
+    });
+  });
+  /* <![CDATA[ */
+  function checkAll()
+  {
+    var boxes = document.getElementsByTagName('input'); for(var index = 0; index < boxes.length; index++) { box = boxes[index]; if (box.type == 'checkbox' && box.className == 'sf_admin_batch_checkbox') box.checked = document.getElementById('sf_admin_list_batch_checkbox').checked } return true;
+  }
+  /* ]]> */
+</script>

@@ -33,6 +33,29 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  protected function executeBatchDelete(sfWebRequest $request)
+  {
+    $ids = $request->getParameter('ids');
+
+    $count = 0;
+    foreach (ObservationPhotoPeer::retrieveByPks($ids) as $object) {
+      $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $object)));
+
+      $object->delete();
+      if ($object->isDeleted()){
+        $count++;
+      }
+    }
+
+    if ($count >= count($ids)) {
+      $this->getUser()->setFlash('notice', 'The selected items have been deleted successfully.');
+    } else {
+      $this->getUser()->setFlash('error', 'A problem occurs when deleting the selected items.');
+    }
+
+    $this->redirect('@pr_observation_photo');
+  }
+  
   public function executeIndex(sfWebRequest $request)
   {
     // sorting

@@ -18,7 +18,7 @@ generator:
       list:    
         title: "Listagem de fotografias de observações por analisar"
         actions: {}
-        batch_actions: {}
+        #batch_actions: {}
         display:
           - code
           - _individual_id

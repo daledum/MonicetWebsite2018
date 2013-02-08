@@ -47,7 +47,7 @@ class prMainActions extends sfActions {
         while ($file = readdir($dir)) {
           if( $file != '.' && $file != '..' ){
             if( !$this->validateFilename($file) ) {
-              if( $file != '__MACOSX') {
+              if( $file != '__MACOSX' && $file != '.DS_Store') {
                 $error_str .= 'O ficheiro "'.$file.'" não foi carregado pois tem um nome inválido.<br/>';
                 @system('rm '.$finalTempfileAddress.'/'.$file);
                 $ok = false;
@@ -60,6 +60,7 @@ class prMainActions extends sfActions {
             }
           }
         }
+        @system('rm -Rf '.$finalTempfileAddress.'*');
         if( $ok ) {
           
           $this->getUser()->setFlash('notice', 'A fotografias foram carregadas com sucesso.');
@@ -104,7 +105,7 @@ class prMainActions extends sfActions {
     
     $invalidPhotos = $this->findInvalidNamePhotos();
     foreach( $invalidPhotos as $invalidPhoto) {
-      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto['file'];
+      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto['file'].'.'.$request->getParameter('extension');
       if( file_exists( $filename ) ){
         unlink($filename);
       }
@@ -126,7 +127,27 @@ class prMainActions extends sfActions {
     $this->redirect('@pr_pendent_photos_list');
   }
   
-  
+  public function executeDeletePendentPhotosBulk( sfWebRequest $request ) {
+    $this->forward404Unless($request->isMethod('post'));
+    $filenames = $request->getParameter('filenames');
+    $count = 0;
+    foreach( $filenames as $filename ){
+      $address = sfConfig::get('sf_upload_dir').'/pr_repo/'.$filename;
+      if(file_exists($address) ){
+        unlink($address);
+        $count++;
+      }
+    }
+    
+    if( $count == count($filenames) ){
+      $this->getUser()->setFlash('notice', 'As fotografias selecionadas foram apagadas com sucesso.');
+    } else {
+      $this->getUser()->setFlash('error', 'Algumas fotografias selecionadas <b>não</b> foram apagadas com sucesso.');
+    }
+    
+    $this->redirect('@pr_pendent_photos_list');
+    
+  }
   
   /**
    *

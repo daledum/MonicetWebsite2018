@@ -100,7 +100,7 @@
         
         $(document).ready(function() {
           // google maps initialization
-          initialize("map", gmap_items, 6 );
+          initialize("map", gmap_items, 6 , new google.maps.LatLng(38.4105,-28.4326));
           //carousel initialization
           $('#carousel_individual').liquidcarousel({height:90, duration:800, hidearrows: false});
         });

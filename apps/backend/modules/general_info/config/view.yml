@@ -1,3 +1,7 @@
+downloadByFilterSuccess:
+  layout: excellLayout
+  stylesheets: [ 'excell.css' ]
+
 sheetSuccess:
   stylesheets: [ "jquery-theme/jquery-ui-1.8.6.custom.css", 'datepicker.css' ]
   javascripts: [-*, "jquery-1.4.2.min.js", "jquery-ui-1.8.6.custom.min.js", 'datepicker.js', 'date.js', "jquery.maskedinput-1.2.2.min.js"]

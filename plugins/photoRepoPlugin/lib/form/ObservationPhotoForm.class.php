@@ -38,6 +38,11 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
       
     $this->validatorSchema['file_name'] = new sfValidatorPass(); 
     
+    $years = range(date("Y")+1, date("Y")-20);
+    $this->widgetSchema['photo_date'] = new sfWidgetFormDate(
+      array('years' => array_combine($years, $years))
+    );
+    
     
     
     $species = SpeciePeer::getForSelect(true, '');
