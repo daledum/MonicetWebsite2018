@@ -63,8 +63,9 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
      * inicializa mapa normal
      */
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
+    
     var myOptions = {
-      zoom: 6,
+      zoom: 10,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
@@ -123,7 +124,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
      */
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
     var myOptions = {
-      zoom: 6,
+      zoom: 10,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -146,7 +147,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       data: {
         general_info_id: g_info_id,
         valid: $('#valid').val(),
-        environment: env,
+        environment: env
       },
       success: function( data ) {
         
@@ -189,7 +190,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         //var latlng = new google.maps.LatLng(lat,-lon);
         var latlng = new google.maps.LatLng(38.4105,-28.4326);
         var myOptions = {
-          zoom: 10,
+          zoom: 7,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.SATELLITE
         };
@@ -203,7 +204,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
       url: "/index.php/specieQuery",
       data: {
         specie_id: 8,
-        environment: env,
+        environment: env
       },
       success: function( dat ) {
           
@@ -292,7 +293,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
               
             }
           });
-      },
+      }
     });
   }
   
