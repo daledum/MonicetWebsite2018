@@ -493,7 +493,13 @@ class general_infoActions extends autoGeneral_infoActions
     $this->dataQS = GeneralInfoQuery::create(null, $this->buildCriteria())->setFormatter(ModelCriteria::FORMAT_ON_DEMAND);
     
     // criar o ficheiro excel
-    $objPHPExcel = $this->generateExportExcelObjectWithQS($this->dataQS);
+    try {
+      $objPHPExcel = $this->generateExportExcelObjectWithQS($this->dataQS);
+    } catch (Exception $e){
+      $this->getUser()->setFlash('error', $e->getMessage());
+      $this->redirect('general_info/index');
+    }
+    
 
     $this->filename = sprintf("export_%s", date('Ymd_His'));
 
@@ -525,8 +531,8 @@ class general_infoActions extends autoGeneral_infoActions
           $limit = substr($limit,0,(strlen($limit)-1));
           $limit *= 1024;
     }
-    $delta = (($limit - $cur) / $limit) * 100;
-    if( $delta >= $percentage_avaliable_limit ){
+    $available_perc = (($limit - $cur) / $limit) * 100;
+    if( $available_perc >= (100-$percentage_avaliable_limit) ){
       return true;
     } else {
       return false;
@@ -645,7 +651,8 @@ class general_infoActions extends autoGeneral_infoActions
       $array = array();
       
       foreach($dataQS->find() as $gi){
-        if (!$this->_in_available_memory_limit(16)) {
+        if (!$this->_in_available_memory_limit(98)) {
+          throw new Exception('Atingiu o limite da memória disponivel, por favor refine a pesquisa de modo a obter um conjunto de registos menor.');
           $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
           $l++;
         } else {
