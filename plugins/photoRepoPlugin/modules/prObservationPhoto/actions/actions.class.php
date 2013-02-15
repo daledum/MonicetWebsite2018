@@ -58,8 +58,10 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
   public function _get_positions($querySet){
     $results = array();
+    $i=1;
     foreach($querySet->find() as $OBPhoto ){
-      $results[] = $OBPhoto->getId();
+      $results[$i] = $OBPhoto->getId();
+      $i++;
     }
     return $results;
   }
@@ -71,11 +73,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->setSort(array($request->getParameter('sort'), $request->getParameter('sort_type')));
     }
     
-    $dataQS = ObservationPhotoQuery::create(null, $this->buildCriteria());
-    $this->positionArray = $this->_get_positions($dataQS);
-    
-    //print_r($this->positionArray);
-
     // pager
     if ($request->getParameter('page')) {
       $this->setPage($request->getParameter('page'));
@@ -117,6 +114,20 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->ObservationPhoto = $this->getRoute()->getObject();
     $file_address = sfConfig::get('sf_upload_dir').'/pr_repo_final/'.$this->ObservationPhoto->getFileName();
     $this->forward404Unless(file_exists( $file_address ));
+    
+    $dataQS = ObservationPhotoQuery::create(null, $this->buildCriteria());
+    $positionArray = $this->_get_positions($dataQS);
+    
+    //print_r($positionArray);
+    $position = array_search($this->ObservationPhoto->getId(), $positionArray);
+    if( $position ){
+      if( isset($positionArray[$position-1]) ){
+        $this->prevId = $positionArray[$position-1];
+      }
+      if( isset($positionArray[$position+1]) ){
+        $this->nextId = $positionArray[$position+1];
+      }
+    }
 
     $this->form = $this->configuration->getForm($this->ObservationPhoto);
     
