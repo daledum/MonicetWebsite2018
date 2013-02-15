@@ -138,6 +138,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     $kind_of_photo = kind_of_photo::getForSelect(true, '');
     $this->widgetSchema['kind_of_photo'] = new sfWidgetFormChoice(array(
         'choices' => $kind_of_photo,
+        'default' => kind_of_photo::NORMAL_SIGLA
     ));
     $this->validatorSchema['kind_of_photo'] = new sfValidatorChoice(array(
         'choices' => array_keys($kind_of_photo),
@@ -147,6 +148,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     $photo_quality = photo_quality::getForSelect(true, '');
     $this->widgetSchema['photo_quality'] = new sfWidgetFormChoice(array(
         'choices' => $photo_quality,
+        'default' => photo_quality::NORMAL_SIGLA
     ));
     $this->validatorSchema['photo_quality'] = new sfValidatorChoice(array(
         'choices' => array_keys($photo_quality),
@@ -176,7 +178,6 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
           $specieStr = $iptc['2#015'][0];
         }
         if( isset($specieStr) && preg_match('!\S!u', $specieStr) ){ // and test if utf8
-          echo $specieStr;
           $specieStr = ucfirst(strtolower($specieStr));
           $specie = SpecieQuery::create()->filterByRecCetCode($specieStr)->findOne();
           if( $specie ){

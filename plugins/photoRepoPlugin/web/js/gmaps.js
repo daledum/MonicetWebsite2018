@@ -23,7 +23,7 @@ function info(marker, desc, auto_show_info) {
 }
 
 
-function initialize(container, gmap_items, zoom, override_latlng) {    
+function initialize(container, gmap_items, zoom) {    
     var gmap_arr = [];
     var counter = 0;
     for(var item in gmap_items) {
@@ -34,23 +34,19 @@ function initialize(container, gmap_items, zoom, override_latlng) {
     var map_latlng = null;
     var bounds = new google.maps.LatLngBounds();
 
-    if(override_latlng){
-        map_latlng = override_latlng; 
+    if(gmap_arr.length == 0) {
+        zoom = 5
+        map_latlng = new google.maps.LatLng(37.779398,-25.642089);
     } else {
-        if(gmap_arr.length == 0) {
-            zoom = 5
-            map_latlng = new google.maps.LatLng(38.61687046392973, -17.5341796875);
-        } else {
-            var lat_sum = 0;
-            var lng_sum = 0;
-            for(var i=0; i<gmap_arr.length; i++) {
-                lat_sum += gmap_arr[i].latitude;
-                lng_sum += gmap_arr[i].longitude;
-                bounds.extend(new google.maps.LatLng(gmap_arr[i].latitude, gmap_arr[i].longitude));
-            }
-            map_latlng = new google.maps.LatLng(lat_sum/gmap_arr.length, lng_sum/gmap_arr.length);
+        var lat_sum = 0;
+        var lng_sum = 0;
+        for(var i=0; i<gmap_arr.length; i++) {
+            lat_sum += gmap_arr[i].latitude;
+            lng_sum += gmap_arr[i].longitude;
+            bounds.extend(new google.maps.LatLng(gmap_arr[i].latitude, gmap_arr[i].longitude));
         }
-    }  
+        map_latlng = new google.maps.LatLng(lat_sum/gmap_arr.length, lng_sum/gmap_arr.length);
+    }
 
     var opts = {
         zoom: zoom,
