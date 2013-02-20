@@ -51,7 +51,7 @@
         
       <?php endforeach; ?>
     <?php else: ?>
-      Não existem observações para os critérios seleccionados.
+      <?php echo __('Não existem observações para os critérios seleccionados.', null, 'catalog'); ?>
     <?php endif; ?>
   </div>
 

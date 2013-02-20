@@ -20,9 +20,11 @@ generator:
           label: "Nome"
         specie_id:
           label: "Espécie"
+        photo_count:
+          label: "N. de fotografias"
       list:    
         title:  "Listagem de individuos"
-        display:  [ name, _specie_id ]
+        display:  [ name, _specie_id, _photo_count ]
         object_actions: 
           show: 
             label:   Mostrar
