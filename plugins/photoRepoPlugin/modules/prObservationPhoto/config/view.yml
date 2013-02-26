@@ -1,5 +1,7 @@
 ajaxFilterSightingsSuccess:
   has_layout: false
+ajaxGetSightingSuccess:
+  has_layout: false
 ajaxGetPossibleMatchesSuccess:
   has_layout: false
 identifySuccess:

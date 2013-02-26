@@ -19,6 +19,27 @@ $(document).ready(function() {
                 $('#observation_photo_sighting_id').html(transport);
             }
         });
-    })
+    });
+
+    var empty_notes = true;
+    if($('#observation_photo_notes').val() != '') {
+        empty_notes = false;
+    }
+
+    $('#observation_photo_sighting_id').change(function(){
+        if($('#observation_photo_sighting_id').val()){
+            $.ajax({
+                url: window.location.protocol + '//' + window.location.host+'/admin.php/ajax/sighting/' + $('#observation_photo_sighting_id').val(),
+                type: 'POST',
+                dataType: 'json',
+                success: function(transport, html){
+                    $('#observation_photo_behaviour_id').val(transport.behaviour_id);
+                    if(empty_notes) {
+                        $('#observation_photo_notes').val(transport.comments);
+                    }
+                }
+            });
+        }
+    });
 });
 

@@ -240,8 +240,11 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   }
   
   public function executeAjaxGetSightingsForCompany( sfWebRequest $request ) {
-      
-      $this->sightings = SightingPeer::getSightingsForSelect($request->getParameter('date'), $request->getParameter('company_id'), $with_empty = true, $empty_msg = '', $empty_code = '');
+    $this->sightings = SightingPeer::getSightingsForSelect($request->getParameter('date'), $request->getParameter('company_id'), $with_empty = true, $empty_msg = '', $empty_code = '');
+  }
+  
+  public function executeAjaxGetSighting( sfWebRequest $request ) {
+    $this->forward404Unless($this->sighting = SightingPeer::retrieveByPK($request->getParameter('id')));
   }
   
   public function executeGetSightingsOnDate( sfWebRequest $request ) {
