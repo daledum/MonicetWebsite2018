@@ -249,7 +249,7 @@ class ObservationPhoto extends BaseObservationPhoto {
           }
           if( $action == 'identify' && !$numPatterns ){
             $this->setStatus(self::FA_SIGLA);
-            $this->setLastEditedBy($sessionUser);
+            $this->setLastEditedBy($sessionUser->getId());
             $this->save();
           }
           break;
@@ -257,20 +257,20 @@ class ObservationPhoto extends BaseObservationPhoto {
         case self::C_SIGLA:
           if( $action == 'identify'){
             $this->setStatus(self::FA_SIGLA);
-            $this->setLastEditedBy($sessionUser);
+            $this->setLastEditedBy($sessionUser->getId());
             $this->save();
           }
           break;
           
         case self::FA_SIGLA:
           if( $action == 'identify' || $action == 'edit' || $action == 'characterize' || $action == 'change_marks' ){
-            $this->setLastEditedBy($sessionUser);
+            $this->setLastEditedBy($sessionUser->getId());
             $this->save();
           }
           if( $action == 'validate' ){
             $this->setStatus(self::V_SIGLA);
-            $this->setLastEditedBy($sessionUser);
-            $this->setValidatedBy($sessionUser);
+            $this->setLastEditedBy($sessionUser->getId());
+            $this->setValidatedBy($sessionUser->getId());
             $this->save();
           }
           break;
@@ -278,7 +278,7 @@ class ObservationPhoto extends BaseObservationPhoto {
         case self::V_SIGLA:
           if( $action == 'identify' || $action == 'edit' || $action == 'characterize' || $action == 'change_marks' ){
             $this->setStatus(self::FA_SIGLA);
-            $this->setLastEditedBy($sessionUser);
+            $this->setLastEditedBy($sessionUser->getId());
             $this->save();
           }
           break;

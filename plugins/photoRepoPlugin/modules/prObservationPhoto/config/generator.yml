@@ -18,7 +18,9 @@ generator:
       list:    
         title: "Listagem de fotografias de observações por analisar"
         actions: {}
-        #batch_actions: {}
+        batch_actions: 
+          _delete: ~
+          multiEdit: { label: "Editar em grupo" }
         display:
           - code
           - _individual_id
