@@ -18,7 +18,7 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
       'edit_mode' => false,
       'template' => 'csdfs'
     ));
-    $this->widgetSchema->setHelp('photo', 'Permited filetypes: .jpg and .zip.');
+    $this->widgetSchema->setHelp('photo', 'Permited filetypes: .jpg, .rar and .zip.');
     
     $this->validatorSchema['photo'] = new sfValidatorFile(array(
       'required' => $this->isNew(),
@@ -30,10 +30,11 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
           'image/vnd.swiftview-jpeg', 'image/x-xbitmap',
           'application/zip', 'application/x-zip', 'application/x-zip-compressed', 
           'application/octet-stream', 'application/x-compress', 
-          'application/x-compressed', 'multipart/x-zip'
+          'application/x-compressed', 'multipart/x-zip',
+          'application/x-rar-compressed'
           ),
     ), array(
-      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.'
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg, .rar ou .zip.'
     ));
     
     
