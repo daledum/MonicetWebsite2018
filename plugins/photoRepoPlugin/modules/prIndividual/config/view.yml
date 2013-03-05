@@ -1,3 +1,5 @@
+editSuccess:
+  javascripts: [ /photoRepoPlugin/js/readonly_select.js ]
 all:
   stylesheets: [/photoRepoPlugin/css/pr.css]
   layout: mfAdminLayout

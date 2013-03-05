@@ -4,7 +4,11 @@
     <body>
       <trans-unit>
         <source>Specie</source>
-        <target>Species</target>
+        <target>Specie</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Não existem observações para os critérios seleccionados.</source>
+        <target>No results for selected criteria.</target>
       </trans-unit>
       <trans-unit>
         <source></source>

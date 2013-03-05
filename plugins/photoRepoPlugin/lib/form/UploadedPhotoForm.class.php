@@ -15,8 +15,10 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
     $this->widgetSchema['photo'] = new sfWidgetFormInputFileEditable(array(
       'is_image' => true,
       'file_src' => '/uploads/pr_public/'.$this->getObject()->getPhoto(),
-      'edit_mode' => false
+      'edit_mode' => false,
+      'template' => 'csdfs'
     ));
+    $this->widgetSchema->setHelp('photo', 'Permited filetypes: .jpg, .rar and .zip.');
     
     $this->validatorSchema['photo'] = new sfValidatorFile(array(
       'required' => $this->isNew(),
@@ -28,11 +30,13 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
           'image/vnd.swiftview-jpeg', 'image/x-xbitmap',
           'application/zip', 'application/x-zip', 'application/x-zip-compressed', 
           'application/octet-stream', 'application/x-compress', 
-          'application/x-compressed', 'multipart/x-zip'
+          'application/x-compressed', 'multipart/x-zip',
+          'application/x-rar-compressed'
           ),
     ), array(
-      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.'
+      'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg, .rar ou .zip.'
     ));
+    
     
     $this->widgetSchema['photo_date'] = new sfWidgetFormInput();
     $this->widgetSchema['photo_date']->setAttribute('class', 'date_field_frontend');

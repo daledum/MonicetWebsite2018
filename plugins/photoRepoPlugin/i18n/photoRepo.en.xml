@@ -23,8 +23,8 @@
         <target></target>
       </trans-unit>
       <trans-unit>
-        <source>Tipo de ficheiro inválido, carregue um ficheiro .jpg ou .zip.</source>
-        <target>Invalid file type, upload a .jpg or .zip </target>
+        <source>Tipo de ficheiro inválido, carregue um ficheiro .jpg, .rar ou .zip.</source>
+        <target>Invalid file type, upload a .jpg, .rar or .zip </target>
       </trans-unit>
       <trans-unit>
         <source></source>

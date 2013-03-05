@@ -4,7 +4,7 @@
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?template=catalog') ?>">Catálogo</a></li>
   
   <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
-
+  
 </ul>
 
 <?php $OBPhoto = $form->getObject() ?>

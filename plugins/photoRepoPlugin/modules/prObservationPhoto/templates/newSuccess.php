@@ -3,7 +3,7 @@
 
 <div id="sf_admin_container" class="pendent_photo_container">
   <h1><?php echo __('A processar fotografia pendente', array(), 'messages') ?></h1>
-
+ 
   <?php include_partial('prObservationPhoto/flashes') ?>
 
   <div id="sf_admin_header">

@@ -119,6 +119,20 @@ pr_uploaded_photo:
     prefix_path:          /uploaded-photo
     column:               id
     with_wildcard_routes: true
+
+pr_observation_photo_multi_edit:
+  url:  /observation-photo/multi_edit
+  params:
+    module:     prObservationPhoto
+    action:     multiEdit
+
+pr_observation_photo_multi_edit_update:
+  url:  /observation-photo/multi_edit_update
+  params:
+    module:     prObservationPhoto
+    action:     multiEditUpdate
+  requirements:
+    sf_method: post
     
 pr_observation_photo_validated:
   url:  /observation-photo/catalog-admin
@@ -213,6 +227,14 @@ ajax_get_sightings_by_company:
   requirements:
     sf_method: post
     
+ajax_get_sighting:
+  url:  /ajax/sighting/:id
+  params:
+    module:     prObservationPhoto
+    action:     ajaxGetSighting
+  requirements:
+    sf_method: post
+        
 ajax_get_possible_matches:
   url:  /ajax/observation-photo/possible-matches
   params:

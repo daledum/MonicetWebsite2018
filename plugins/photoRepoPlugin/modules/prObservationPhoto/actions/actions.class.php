@@ -53,8 +53,56 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->getUser()->setFlash('error', 'A problem occurs when deleting the selected items.');
     }
 
-    $this->redirect('@pr_observation_photo');
+    
   }
+  
+  public function executeBatchMultiEdit( sfWebRequest $request) {
+    $ids_encoded = urlencode(serialize($request->getParameter('ids')));
+    $this->redirect('@pr_observation_photo_multi_edit?ids='.$ids_encoded);
+  }
+  
+  public function executeMultiEdit( sfWebRequest $request ){
+    //print_r($request->getParameter('ids'));
+    //print_r(unserialize(urldecode($request->getParameter('ids'))));
+    $this->form = new ObservationPhotoBatchUpdateForm();
+  }
+  
+  public function executeMultiEditUpdate( sfWebRequest $request ) {
+    $ids=unserialize(urldecode($request->getParameter('ids')));
+    //print_r($ids);
+    
+    $OBPhoto = $request->getParameter('observation_photo', '');
+    $island = $OBPhoto['island'];
+    $company_id = $OBPhoto['company_id'];
+    $photographer_id = $OBPhoto['photographer_id'];
+    
+    $objects = ObservationPhotoPeer::retrieveByPKs($ids);
+    foreach($objects as $object){
+      $changed = false;
+      if(strlen($island)){
+        $object->setIsland($island);
+        $changed = true;
+      }
+      if(strlen($company_id)){
+        $object->setCompanyId($company_id);
+        $changed = true;
+      }
+      if(strlen($photographer_id)){
+        $object->setPhotographerId($photographer_id);
+        $changed = true;
+      }
+      if($changed){
+        $object->save();
+        $object->statusUpdate('edit');
+      }
+    }
+    
+    $this->getUser()->setFlash('notice', 'As fotografias seleccionadas foram editadas com sucesso.');
+    $this->redirect('@pr_observation_photo');
+//    $this->form = new ObservationPhotoBatchUpdateForm();
+//    $this->setTemplate('multiEdit');
+  }
+  
   
   public function _get_positions($querySet){
     $results = array();
@@ -214,11 +262,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhoto)));
 
       $this->getUser()->setFlash('notice', $notice);
-//      if( $isNew ) {
-//          $this->redirect(array('sf_route' => 'pr_pendent_photos_list'));
-//      } else {
       $this->redirect('@pr_observation_photo_edit?id='.$ObservationPhoto->getId());
-//      }
     } else {
       $this->getUser()->setFlash('error', 'The item has not been saved due to some errors.', false);
     }
@@ -240,8 +284,11 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   }
   
   public function executeAjaxGetSightingsForCompany( sfWebRequest $request ) {
-      
-      $this->sightings = SightingPeer::getSightingsForSelect($request->getParameter('date'), $request->getParameter('company_id'), $with_empty = true, $empty_msg = '', $empty_code = '');
+    $this->sightings = SightingPeer::getSightingsForSelect($request->getParameter('date'), $request->getParameter('company_id'), $with_empty = true, $empty_msg = '', $empty_code = '');
+  }
+  
+  public function executeAjaxGetSighting( sfWebRequest $request ) {
+    $this->forward404Unless($this->sighting = SightingPeer::retrieveByPK($request->getParameter('id')));
   }
   
   public function executeGetSightingsOnDate( sfWebRequest $request ) {

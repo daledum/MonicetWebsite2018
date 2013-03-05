@@ -47,8 +47,8 @@
         <target>vazio</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>Permited filetypes: .jpg, .rar and .zip.</source>
+        <target>Ficheiro permitidos: .jpg, .rar e .zip.</target>
       </trans-unit>
       <trans-unit>
         <source></source>
