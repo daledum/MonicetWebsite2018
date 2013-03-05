@@ -105,7 +105,7 @@ class prMainActions extends sfActions {
     
     $invalidPhotos = $this->findInvalidNamePhotos();
     foreach( $invalidPhotos as $invalidPhoto) {
-      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto['file'].'.'.$request->getParameter('extension');
+      $filename = sfConfig::get('sf_upload_dir').'/pr_repo/'.$invalidPhoto['file'];
       if( file_exists( $filename ) ){
         unlink($filename);
       }

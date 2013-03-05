@@ -261,3 +261,22 @@
     padding: 3px;
     margin-bottom: 5px;
 }
+
+.mark_notice {
+  margin: 0 0 4px;
+  padding: 4px 4px 4px 30px;
+  background: url('../../mfAdministracaoPlugin/images/icons/tick.png') no-repeat 10px 4px;
+  border: 1px solid #ddd;
+  background-color: #e7eef6;
+  font-size: 14px;
+}
+
+.mark_error {
+  margin: 0 0 4px;
+  padding: 4px 4px 4px 30px;
+  background: url('../../mfAdministracaoPlugin/images/icons/error.png') no-repeat 10px 4px;
+  border: 1px solid #ddd;
+  background-color: #edd5d5;
+  color: #d23333;
+  font-size: 14px;
+}

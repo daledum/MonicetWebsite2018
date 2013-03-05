@@ -36,7 +36,7 @@ class prObservationPhotoTailMarkActions extends autoPrObservationPhotoTailMarkAc
       
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTailMark)));
 
-      $this->getUser()->setFlash('mark_notice', $notice);
+      $this->getUser()->setFlash('mark_notice', 'A marca foi criada com sucesso');
       
       $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhotoTailMark->getObservationPhotoTail()->getPhotoId());
     } else {

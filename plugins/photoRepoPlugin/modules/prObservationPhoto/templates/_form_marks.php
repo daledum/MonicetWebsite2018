@@ -22,10 +22,10 @@
           <?php echo $markForm->renderHiddenFields(true) ?>
           
           <?php if ($sf_user->hasFlash('mark_error')): ?>
-            <div class="error"><?php echo __($sf_user->getFlash('mark_error'), array(), 'sf_admin') ?></div>
+            <div class="mark_error"><?php echo __($sf_user->getFlash('mark_error'), array(), 'sf_admin') ?></div>
           <?php endif; ?>
           <?php if ($sf_user->hasFlash('mark_notice')): ?>
-            <div class="error"><?php echo __($sf_user->getFlash('mark_notice'), array(), 'sf_admin') ?></div>
+            <div class="mark_notice"><?php echo __($sf_user->getFlash('mark_notice'), array(), 'sf_admin') ?></div>
           <?php endif; ?>
             
           <?php foreach( $markForm as $cont => $markFormElement): ?>
