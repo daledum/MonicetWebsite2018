@@ -175,7 +175,8 @@ class mapsActions extends sfActions
       $iframe->save();
     }
     
-    $this->iframe_url = '/en/mapsIframe?hash='.$hash;
+    $this->iframe_url_en = '/en/mapsIframe?hash='.$hash;
+    $this->iframe_url_pt = '/pt/mapsIframe?hash='.$hash;
   }
   
 }

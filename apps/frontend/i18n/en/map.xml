@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xliff PUBLIC "-//XLIFF//DTD XLIFF//EN" "http://www.oasis-open.org/committees/xliff/documents/xliff.dtd">
+<xliff version="1.0">
+  <file source-language="EN" target-language="en" datatype="plaintext" original="messages" date="2010-04-19T07:47:02Z" product-name="messages">
+    <header/>
+    <body>
+      <trans-unit>
+        <source>Mapa</source>
+        <target>Map</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Espécies</source>
+        <target>Species</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Filtros</source>
+        <target>Filters</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Camadas</source>
+        <target>Layers</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Escolha uma espécie</source>
+        <target>Choose a species</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Período</source>
+        <target>Period</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ano</source>
+        <target>Year</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Mês</source>
+        <target>Month</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Associação</source>
+        <target>Association</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Comportamento</source>
+        <target>Behaviour</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Estado do mar</source>
+        <target>Sea conditions</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Visibilidade</source>
+        <target>Visibility</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Validação</source>
+        <target>Validation</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Ambas</source>
+        <target>Both</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Não Válidas</source>
+        <target>Not valid</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Válidas</source>
+        <target>Valid</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Focar na ilha</source>
+        <target>Focus on island</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Todos</source>
+        <target>All</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Batimetria</source>
+        <target>Bathymetry</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Inclinação do Fundo</source>
+        <target>Fund inclination</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Linhas Batimétricas (250m)</source>
+        <target>Bathymetric lines (250m)</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Linhas Batimétricas (1000m)</source>
+        <target>Bathymetric lines (1000m)</target>
+      </trans-unit>
+      <trans-unit>
+        <source></source>
+        <target></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
