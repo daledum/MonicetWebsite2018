@@ -63,9 +63,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
      * inicializa mapa normal
      */
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
-    
     var myOptions = {
-      zoom: 10,
+      zoom: 6,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
@@ -124,7 +123,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
      */
     var latlng = new google.maps.LatLng(38.4105,-28.4326);
     var myOptions = {
-      zoom: 10,
+      zoom: 6,
       center: latlng,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -187,10 +186,9 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         });
         var lat = totalLats/count;
         var lon = totalLons/count;
-        //var latlng = new google.maps.LatLng(lat,-lon);
-        var latlng = new google.maps.LatLng(38.4105,-28.4326);
+        var latlng = new google.maps.LatLng(lat,-lon);
         var myOptions = {
-          zoom: 7,
+          zoom: 10,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.SATELLITE
         };
@@ -279,10 +277,9 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
                 var lon = totalLons/count;
                 
                 
-                //var latlng = new google.maps.LatLng(lat,-lon);
-                var latlng = new google.maps.LatLng(38.4105,-28.4326);
+                var latlng = new google.maps.LatLng(lat,-lon);
                 var myOptions = {
-                  zoom: 7,
+                  zoom: 10,
                   center: latlng,
                   mapTypeId: google.maps.MapTypeId.SATELLITE
                 };
@@ -334,7 +331,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
               
               
               month: $('#month').val(),
-              year: $('#year').val(),
+              year: $('#year').val()
             },
             success: function( data ) {
               
@@ -358,7 +355,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
               
             }
           });
-      },
+      }
     });
   });
   
@@ -778,7 +775,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
           environment: env,
           
           month: $('#month').val(),
-          year: $('#year').val(),
+          year: $('#year').val()
         },
         success: function( data ) {
           if(map_type == 'default'){

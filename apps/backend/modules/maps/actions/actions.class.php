@@ -162,7 +162,7 @@ class mapsActions extends sfActions
     
     $this->company = $request->getPostParameter('company');
     
-    $item = MapIframeInformationPeer::retrieveByCompany($company);
+    $item = MapIframeInformationPeer::retrieveByCompany($this->company);
     if ($item) {
       $hash = $item->getHash();
     }
