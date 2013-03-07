@@ -7,7 +7,7 @@
           <img width="155" id="photo_<?php echo $OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>" title="<?php echo $OBPhoto->completeToString() ?>"/>
           <input class="checkbox_item" type="checkbox" id="checkbox_<?php echo $OBPhoto->getId() ?>" name="<?php echo $OBPhoto->getId() ?>"/>
           <?php if($OBPhoto->getIndividualId()): ?>
-            <?php echo $OBPhoto->getIndividual()->getName() ?>
+            <span style="font-size: 11px;"><?php echo $OBPhoto->getIndividual()->getName() ?></span>
           <?php endif; ?>
 
           <script>
