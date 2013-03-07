@@ -6,11 +6,11 @@
     <br />
     <b>Português</b>
     <br/>
-    <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url_pt.'" width="400" height="400"></iframe>') ?></p>
+    <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url_pt.'" width="500" height="400"></iframe>') ?></p>
     <br />
     <b>Inglês</b>
     <br/>
-    <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url_en.'" width="400" height="400"></iframe>') ?></p>
+    <p><?php print htmlentities('<iframe src="http://www.monicet.net'.$iframe_url_en.'" width="500" height="400"></iframe>') ?></p>
     <br />
     <p>As dimensões do iframe são personalizáveis, sendo o seguinte exemplo apenas demonstrativo da funcionalidade.</p>
     <br />
@@ -20,8 +20,8 @@
         <th>Iframe em inglês</th>
       </tr>
       <tr>
-        <td><iframe src="<?php print $iframe_url_pt; ?>" width="400" height="400"></iframe></td>
-        <td><iframe src="<?php print $iframe_url_en; ?>" width="400" height="400"></iframe></td>
+        <td><iframe src="<?php print $iframe_url_pt; ?>" width="500" height="400"></iframe></td>
+        <td><iframe src="<?php print $iframe_url_en; ?>" width="500" height="400"></iframe></td>
       </tr>
     </table>
     <br />
