@@ -31,7 +31,7 @@ class UploadedPhotoForm extends BaseUploadedPhotoForm
           'application/zip', 'application/x-zip', 'application/x-zip-compressed', 
           'application/octet-stream', 'application/x-compress', 
           'application/x-compressed', 'multipart/x-zip',
-          'application/x-rar-compressed'
+          'application/x-rar-compressed', 'application/x-rar'
           ),
     ), array(
       'mime_types' => 'Tipo de ficheiro inválido, carregue um ficheiro .jpg, .rar ou .zip.'
