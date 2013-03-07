@@ -161,10 +161,7 @@ class prMainActions extends sfActions {
     while ($file = readdir($dir)) {
       $parts = explode(".", $file);
       if (is_array($parts) && count($parts) == 2 && in_array($parts[1], array('png', 'jpg', 'PNG', 'JPG'))){
-        $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
-        if( !$is_processed ){
-          $counter++;
-        }
+        $counter++;
       }
     }
     return $counter;
@@ -178,10 +175,7 @@ class prMainActions extends sfActions {
       $parts = explode(".", $file);
       if (is_array($parts) && count($parts) == 2 && in_array($parts[1], array('png', 'jpg', 'PNG', 'JPG'))){
         // if alredy processed
-        $is_processed = ObservationPhotoQuery::create()->filterByFileName($file)->findOne();
-        if( $is_processed ){
-          $counter++;
-        }
+        $counter++;
       }
     }
     return $counter;
