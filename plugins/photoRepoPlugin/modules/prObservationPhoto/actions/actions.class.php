@@ -150,6 +150,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->form = $this->configuration->getForm();
     $this->ObservationPhoto = $this->form->getObject();
     $this->exif = exif_read_data($file_address, 0, true);
+    $this->xmp_exif = xmp_exif::get_xmp_exif($file_address,$printout=0);
     
     $this->iptc = array();
     $size = getimagesize ( $file_address, $info);        

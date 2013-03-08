@@ -21,6 +21,7 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
       // EXIF reading
       $file_address = sfConfig::get('sf_upload_dir').'/pr_repo/'.$request->getParameter('file');
       $exif = exif_read_data($file_address, 0, true);
+      $xmp_exif = xmp_exif::get_xmp_exif($file_address,$printout=0);
       
       //IPTC reading
       $size = getimagesize ( $file_address, $info);
@@ -165,10 +166,14 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         $date = substr($filenameparts[0], 0, 4).'-'.substr($filenameparts[0], 4, 2).'-'.substr($filenameparts[0], 6, 2);
         $this->widgetSchema['photo_date']->setDefault($date);
         
-        $dateTimeOriginal = $exif['EXIF']['DateTimeOriginal'];
-        $dto_parts = explode(' ', $dateTimeOriginal);
-        if(isset($dto_parts[1]) ) {
-          $this->widgetSchema['photo_time']->setDefault($dto_parts[1]);
+        $dateTimeOriginalEXIF = $exif['EXIF']['DateTimeOriginal'];
+        $dateTimeOriginalXMP = $xmp_exif[8]['value'];
+        $datetimeo = $dateTimeOriginalXMP;
+        $h =  substr($datetimeo,34,2);
+        $m =  substr($datetimeo,37,2);
+        $time = $h.':'.$m;
+        if(isset($time) ) {
+          $this->widgetSchema['photo_time']->setDefault($time);
         }
         
         // specie

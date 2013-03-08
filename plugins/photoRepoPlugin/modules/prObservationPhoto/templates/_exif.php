@@ -11,9 +11,9 @@
             <br/>
         <?php endif; ?>
     <?php endforeach; ?>
-<?php endforeach; ?>
+<?php endforeach;  ?>
 
-<?php /*  ?>
+<?php /* ?>
 <br/>
 <?php foreach ($exif as $key => $section): ?>
     <?php foreach ($section as $name => $val): ?>
