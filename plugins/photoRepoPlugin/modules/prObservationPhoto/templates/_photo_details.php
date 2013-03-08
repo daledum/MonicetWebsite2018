@@ -8,6 +8,13 @@
           <?php include_partial('prObservationPhoto/exif', array( 'exif' => $exif)); ?>
         <?php endif; ?>
     </div>
+  
+    <div class="photo_exif" >
+        <b>XMP-EXIF:</b><br/><br/>
+        <?php if( is_array($xmp_exif) ): ?>
+          <?php include_partial('prObservationPhoto/xmp-exif', array( 'xmp_exif' => $xmp_exif)); ?>
+        <?php endif; ?>
+    </div>
     
     <div class="photo_exif" >
         <b>IPTC:</b><br/><br/>

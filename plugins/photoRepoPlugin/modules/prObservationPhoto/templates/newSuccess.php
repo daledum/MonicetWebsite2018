@@ -23,7 +23,8 @@
     include_partial('prObservationPhoto/photo_details', array( 
         'fileAddress' => '/uploads/pr_repo/'.$sf_request->getParameter('file'), 
         'exif' => $exif, 
-        'iptc' => $iptc
+        'iptc' => $iptc,
+        'xmp_exif' => $xmp_exif
     )); 
 ?>
 
