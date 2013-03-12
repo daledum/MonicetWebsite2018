@@ -12,7 +12,7 @@ body {
 #_div_page {
     width: 974px;
     height: 515px;
-    background-image: url("/images/frontend/bg_monicet_v3.png");
+    background-image: url("/images/frontend/bg_monicet_v4.png");
     margin: 0 auto;
     padding-top: 93px;
 }
@@ -472,10 +472,22 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     background-color: #f00;
 }
 
-.charts a, .maps a {
+.charts a, .maps a , .photo_id a {
   display: inline-block;
   padding: 9px 30px 9px 0px;
   background: transparent url('/images/frontend/icons-monicet.png') no-repeat right top;
+}
+
+.photo_id{
+  margin-top: 10px;
+}
+
+.photo_id a {
+  background-position: right -150px;  
+}
+
+.photo_id a:hover {
+  background-position: right -150px;  
 }
 
 .charts a:hover {
@@ -483,7 +495,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .maps {
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 .maps a {
