@@ -421,8 +421,8 @@
         <target>Capctha inválido.</target>
       </trans-unit>
       <trans-unit id="">
-        <source></source>
-        <target></target>
+        <source>Photo ID</source>
+        <target>Foto ID</target>
       </trans-unit>
       <trans-unit id="">
         <source></source>

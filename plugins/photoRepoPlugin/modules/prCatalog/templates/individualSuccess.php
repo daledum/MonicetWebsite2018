@@ -57,10 +57,11 @@
             <b><?php echo __('Age group', null, 'catalog') ?>:</b> <?php echo __(age_group::getValueForSigla($age_group), null, 'catalog') ?><br/>
           <?php endif; ?>
           
-          <?php $lastTenObservationPhotoDates = $individual->getLastTenObservationPhotoDates() ?> 
-          <?php if( strlen($lastTenObservationPhotoDates) ): ?>
-            <?php $n_sightings = explode(',', $individual->getObservationPhotoDates()); ?>
-            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo count($n_sightings) ?>):</b> <?php echo $lastTenObservationPhotoDates ?><br/>
+          <?php //General Infos ?>
+          <?php $lastTenGIs = $individual->getLastTenGIDates() ?> 
+          <?php $gis_parts = explode(',', $lastTenGIs); ?>
+          <?php if( strlen($lastTenGIs) ): ?>
+            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo count($gis_parts) ?>):</b> <?php echo $lastTenGIs ?><br/>
           <?php endif; ?>
           
           <?php if(strlen($individual->getNotes()) ): ?>
