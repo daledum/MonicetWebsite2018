@@ -26,7 +26,9 @@ class Individual extends BaseIndividual {
     $sightingIds = array();
     foreach($this->getObservationPhotos() as $OPhoto) {
       if( $OPhoto->getSightingId() && $OPhoto->getStatus(ObservationPhoto::V_SIGLA) ) {
-        $sightingIds[] = $OPhoto->getSightingId();
+        if( !in_array($OPhoto->getSightingId(), $sightingIds)){
+          $sightingIds[] = $OPhoto->getSightingId();
+        }
       }
     }
     $query = SightingQuery::create()
@@ -97,6 +99,49 @@ class Individual extends BaseIndividual {
             ->filterByStatus(ObservationPhoto::V_SIGLA)
             ->orderByPhotoDate(Criteria::DESC);
     return $query->findOne();
+  }
+  
+  public function getLastGeneralInfos($limit=null){
+    $ids = array();
+    $OBPhotos = $this->getValidObservationPhotos();
+    foreach( $OBPhotos as $OBPhoto ){
+      if( is_integer($OBPhoto->getSightingId()) ){
+        $gi_id = $OBPhoto->getSighting()->getRecord()->getGeneralInfoId();
+        if( !in_array($gi_id, $ids) ){
+          $ids[] = $gi_id;
+        }
+      }
+    }
+    $query = GeneralInfoQuery::create()
+            ->filterById($ids, Criteria::IN)
+            ->filterByValid(true)
+            ->orderByDate(Criteria::DESC);
+    if( $limit ){
+      $query = $query->limit($limit);
+    }
+    return $query->find();
+  }
+  
+  public function getGIDates($limit = null) {
+    $gis = $this->getLastGeneralInfos($limit);
+    
+    $resultStr = '';
+    foreach( $gis as $gi ){
+      $resultStr .= $gi->getDate(', Y-m-d');
+    }
+    
+    if( !is_null($limit) ) {
+      if(count($gis) == $limit ) {
+        $resultStr .= ', ...';
+      }
+    }
+    
+    return substr($resultStr, 2);
+  }
+  
+  public function getLastTenGIDates() {
+    $limit = 10;
+    return $this->getGIDates($limit);
   }
   
 } // Individual
