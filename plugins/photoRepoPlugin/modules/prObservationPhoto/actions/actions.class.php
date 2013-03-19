@@ -457,11 +457,20 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $individual->save();
     
     $sf_user = SfContext::getInstance()->getUser();
+    $old_individual = $observationPhoto->getIndividual();
     $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
     $observationPhoto->setIsBest(true);
     $observationPhoto->save();
+    
+    if( $old_individual != null ){
+      if( $old_individual->getId() != $individual->getId() ){
+        if( !$old_individual->countObservationPhotos() ){
+          $old_individual->delete();
+        }
+      }
+    }
     $this->redirect('@pr_individual_show?id='.$individual->getId());
   }
   
@@ -471,10 +480,19 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->forward404Unless($observationPhoto->getSpecieId() == $individual->getSpecieId());
     
     $sf_user = SfContext::getInstance()->getUser();
+    $old_individual = $observationPhoto->getIndividual();
     $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
     $observationPhoto->save();
+    
+    if( $old_individual != null ){
+      if( $old_individual->getId() != $individual->getId() ){
+        if( !$old_individual->countObservationPhotos() ){
+          $old_individual->delete();
+        }
+      }
+    }
     $this->redirect('@pr_individual_edit?id='.$individual->getId());
   }
   

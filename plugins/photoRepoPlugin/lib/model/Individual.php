@@ -122,6 +122,18 @@ class Individual extends BaseIndividual {
     return $query->find();
   }
   
+  public function delete(PropelPDO $con = null){
+    $OBPhotos = $this->getObservationPhotos();
+    $sessionUser = sfContext::getInstance()->getUser()->getGuardUser();
+    foreach( $OBPhotos as $OBPhoto ){
+      $OBPhoto->setIndividual(null);
+      $OBPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+      $OBPhoto->setLastEditedBy($sessionUser->getId());
+      $OBPhoto->save();
+    }
+    parent::delete($con);
+  }
+  
   public function getGIDates($limit = null) {
     $gis = $this->getLastGeneralInfos($limit);
     

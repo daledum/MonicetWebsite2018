@@ -204,6 +204,7 @@
           <div class="layers-item" id="layers-toggle-div4">
             <label><?php echo __('Linhas Batimétricas (1000m)', null, 'map') ?>:</label><input id="layers-toggle4" class="layers-toggle" type="checkbox" value="layer4" name="layer4" />
           </div>
+          <br/>
           <input class="update_map" style="width: 275px;" type="button" value="Actualizar mapa">
           <!-- LEGENDS -->
           <div id="layers-legend-bathymetry">
