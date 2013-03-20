@@ -475,15 +475,15 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 .charts a, .maps a , .photo_id a {
   display: inline-block;
   padding: 9px 30px 9px 0px;
-  background: transparent url('/images/frontend/icons-monicet.png') no-repeat right top;
+  background: transparent url('/images/frontend/icons-monicet2.png') no-repeat right top;
 }
 
 .photo_id{
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .photo_id a {
-  background-position: right -150px;  
+  background-position: right -120px;  
 }
 
 .photo_id a:hover {
@@ -495,7 +495,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .maps {
-  margin-top: 0px;
+  margin-top: 10px;
 }
 
 .maps a {

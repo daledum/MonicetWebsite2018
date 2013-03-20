@@ -7,7 +7,7 @@ class frontendFilterForm extends sfForm
     
     $culture = sfContext::getInstance()->getUser()->getCulture();
     
-    $species = SpeciePeer::getForSelect(true, '', null, null, $lang=$culture );
+    $species = SpeciePeer::getForSelectWithIndividuals(true, '', null, null, $lang=$culture );
     $this->widgetSchema['specie_id'] = new sfWidgetFormChoice(array(
         'choices' => $species,
     ));
@@ -20,7 +20,7 @@ class frontendFilterForm extends sfForm
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
       'template' => 'From %from_date% to %to_date%',
-      'with_empty' => false
+      'with_empty' => false,
     ));
     
     $islands = island::getForSelect(true, '');

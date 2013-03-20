@@ -56,9 +56,9 @@
                           <li<?php if($active == "contacts"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('contacts'), '@contacts'); ?></li>
                           <li<?php if($active == "publication"): ?> class="menu-active"<?php endif ?>><?php echo link_to(__('Publications'), '@publication_all'); ?></li>
                             
-	                  <li class="photo_id<?php if($active == "catalog"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Photo ID'), '@pr_catalog'); ?></li>  
 	                  <li class="maps<?php if($active == "maps"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Maps'), '@maps'); ?></li>
                           <li class="charts<?php if($active == "charts"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Charts'), '@charts'); ?></li>
+                          <li class="photo_id<?php if($active == "catalog"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Photo ID'), '@pr_catalog'); ?></li>
                           <li class="sendPictures<?php if($active == "sendPictures"): ?> menu-active<?php endif ?>"><?php echo link_to(__('Send pictures'), '@send_pictures'); ?></li>
 	                </ul>
 	            </div>
