@@ -479,7 +479,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .photo_id{
-  margin-top: 10px;
+  margin-top: 0px;
 }
 
 .photo_id a {
@@ -495,7 +495,7 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 }
 
 .maps {
-  margin-top: 0px;
+  margin-top: 10px;
 }
 
 .maps a {
