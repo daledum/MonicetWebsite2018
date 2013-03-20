@@ -165,8 +165,7 @@ class mapsActions extends sfActions
     $item = MapIframeInformationPeer::retrieveByCompany($this->company);
     if ($item) {
       $hash = $item->getHash();
-    }
-    else {
+    } else {
       $hash = mfUtils::generateIframeHash();
       
       $iframe = new MapIframeInformation();
@@ -175,8 +174,15 @@ class mapsActions extends sfActions
       $iframe->save();
     }
     
-    $this->iframe_url_en = '/en/mapsIframe?hash='.$hash;
-    $this->iframe_url_pt = '/pt/mapsIframe?hash='.$hash;
+    $default_lat = '37.772886'; //smiguel
+    $default_lng = '-25.486908'; //smiguel
+    
+    $company_obj = CompanyPeer::retrieveByPK($this->company);
+    $lat = ($company_obj)? $company_obj->getBaseLatitude(): $default_lat;
+    $lng = ($company_obj)? $company_obj->getBaseLongitude(): $default_lng;
+    
+    $this->iframe_url_en = '/en/mapsIframe?hash='.$hash.'&zoom=9&lat='.$lat.'&lng='.$lng;
+    $this->iframe_url_pt = '/pt/mapsIframe?hash='.$hash.'&zoom=9&lat='.$lat.'&lng='.$lng;
   }
   
 }

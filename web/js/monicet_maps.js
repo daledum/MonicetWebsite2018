@@ -796,12 +796,13 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
   
   
   initLayers();
+  updateMapWithRequest();
   
   $( "#tabs" ).tabs();
   
   
   function initLayers(){
-  
+    
     $('#layers-toggle1').click(function(){
       
       if ($('#layers-toggle1:checked').val() !== undefined) {
@@ -826,7 +827,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         layers[5] = new google.maps.KmlLayer('http://www.monicet.net/js/gmaps_kml/islandskml.kml');
         layers[1].setMap(map);
         layers[5].setMap(map);
-        
+                
         // mostrar a legenda
         $('#layers-legend-bathymetry').attr('style', 'display: block;');
         $('#layers-legend-slope').attr('style', 'display: none;');
@@ -970,5 +971,27 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
     }
   }
   
-
+  function updateMapWithRequest(){
+    // function to get url params
+    $.urlParam = function(name){
+        var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+        if (!results){ 
+            return null; 
+        }
+        return results[1] || 0;
+    }
+    
+    var request_zoom = $.urlParam('zoom');
+    var request_lat = $.urlParam('lat');
+    var request_lng = $.urlParam('lng');
+    
+    //
+    if( request_zoom != null && (request_zoom+"").match(/^\d+$/) ){
+        map.setOptions({zoom: parseInt(request_zoom)});  
+    }
+    if( request_lat != null && request_lng != null ){
+        map.setOptions({center: new google.maps.LatLng(request_lat,request_lng)});  
+    }
+  }
+  
 }
