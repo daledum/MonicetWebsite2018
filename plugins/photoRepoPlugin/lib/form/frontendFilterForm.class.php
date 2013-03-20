@@ -7,7 +7,7 @@ class frontendFilterForm extends sfForm
     
     $culture = sfContext::getInstance()->getUser()->getCulture();
     
-    $species = SpeciePeer::getForSelect(true, '', null, null, $lang=$culture );
+    $species = SpeciePeer::getForSelectWithIndividuals(true, '', null, null, $lang=$culture );
     $this->widgetSchema['specie_id'] = new sfWidgetFormChoice(array(
         'choices' => $species,
     ));

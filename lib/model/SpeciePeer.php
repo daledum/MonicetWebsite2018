@@ -97,6 +97,25 @@ class SpeciePeer extends BaseSpeciePeer {
     return $query->find();
   }
   
+  public static function getForSelectWithIndividuals($with_empty = false, $empty_msg = 'Todas', $empty_code = '', $descLength=null, $lang='pt' ) {
+    $objectos = SpecieQuery::create()
+            ->useIndividualQuery()
+              ->useObservationPhotoQuery()
+                ->filterByStatus(ObservationPhoto::V_SIGLA)
+              ->endUse()
+            ->endUse()
+            ->orderByCode()
+            ->useSpecieI18nQuery()
+              ->orderByName()
+            ->endUse()
+            ->find();
+    
+    if($with_empty) {
+      return self::fromObjectosToArray($objectos, $empty=true, $empty_msg, $empty_code, $descLength, $lang);
+    } 
+    return self::fromObjectosToArray($objectos, $empty=false, $empty_msg, $empty_code, $descLength, $lang);
+  }
+  
   public static function getForSelect($with_empty = false, $empty_msg = 'Todas', $empty_code = '', $descLength=null, $lang='pt' ) {
     $objectos = SpecieQuery::create()->orderByCode()->useSpecieI18nQuery()->orderByName()->endUse()->find();
     
