@@ -20,7 +20,7 @@ class frontendFilterForm extends sfForm
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral')),
       'template' => 'From %from_date% to %to_date%',
-      'with_empty' => false
+      'with_empty' => false,
     ));
     
     $islands = island::getForSelect(true, '');
