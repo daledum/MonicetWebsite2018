@@ -59,6 +59,10 @@ function initialize(container, gmap_items, zoom) {
 
     if(gmap_arr.length > 1) {
        map.fitBounds(bounds);
+       var listener = google.maps.event.addListener(map, "idle", function() { 
+            if (map.getZoom() > 12) map.setZoom(12); 
+            google.maps.event.removeListener(listener); 
+       });
     }
     
     var icon = '/images/backend/icons_gmaps/c25.png'
