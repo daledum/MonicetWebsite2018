@@ -58,10 +58,25 @@
           <?php endif; ?>
           
           <?php //General Infos ?>
-          <?php $lastTenGIs = $individual->getLastTenGIDates() ?> 
-          <?php $gis_parts = explode(',', $lastTenGIs); ?>
-          <?php if( strlen($lastTenGIs) ): ?>
-            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo count($gis_parts) ?>):</b> <?php echo $lastTenGIs ?><br/>
+          <?php //$lastTenGIs = $individual->getLastTenGIDates() ?> 
+          <?php $lastTenObservationDates = $individual->getLastTenObservationDates() ?> 
+          <?php //echo $lastTenObservationDates ?>
+          <?php //$date_parts = explode(',', $lastTenObservationDates); ?>
+          <?php $num_parts = (count($lastTenObservationDates) > 10)? 10: count($lastTenObservationDates); ?>
+          <?php if( $num_parts ): ?>
+            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo $num_parts ?>):</b> <?php //echo $lastTenObservationDates ?>
+            <?php $resultStr = ''; ?>
+            <?php foreach($lastTenObservationDates as $cont => $df): ?>
+              <?php $resultStr .= ', '.$df['date']; ?>
+              <?php if($df['num_photos'] > 1): ?>
+                <?php $resultStr .= ' <b>('.$df['num_photos'].')</b>'; ?>
+              <?php endif; ?>
+              <?php if($cont == 9): ?>
+                <?php $resultStr .= ', ...'; ?>
+              <?php endif; ?>
+            <?php endforeach; ?>
+            <?php echo substr($resultStr, 2) ?>
+            <br/>
           <?php endif; ?>
           
           <?php if(strlen($individual->getNotes()) ): ?>
@@ -86,8 +101,8 @@
             <?php if( strlen($OBPhoto->getLatitude()) && strlen($OBPhoto->getLongitude())): ?>
               <?php $latitude = $OBPhoto->getLatitude() ?>
               <?php $longitude = $OBPhoto->getLongitude() ?>
-              <?php ?>
               <?php $descStr = sprintf("<b>%s</b><br/><b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/><b>%s: </b>%s",$OBPhoto->getCode() , $coordinatesTitle, $latitude, $longitude, $dateTitle, $OBPhoto->getPhotoDate('Y-m-d'), $timeTitle, $OBPhoto->getPhotoTime('H:i')) ?>
+                
                 gmap_items["<?php echo $OBPhoto->getId() ?>"] = {
                     "latitude": <?php echo $latitude  ?>,
                     "longitude": <?php echo $longitude ?>,

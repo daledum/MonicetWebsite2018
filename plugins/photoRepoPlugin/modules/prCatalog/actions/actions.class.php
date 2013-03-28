@@ -89,14 +89,23 @@ class prCatalogActions extends sfActions
         fwrite($index, '<div class="photo-data">' );
           fwrite($index, '<table width="100%">' );
             $specie = $individual->getSpecie();
-            fwrite($index, '<tr class="odd"><th width="120">'.mfText::translate('Name', 'export_individual').':</th><td>'.$individual->getName().'</td></tr>' );
+            fwrite($index, '<tr class="odd"><th width="100">'.mfText::translate('Name', 'export_individual').':</th><td>'.$individual->getName().'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Specie', 'export_individual').':</th><td>'.( (!is_null($specie))? $specie->getCode().' - '. $specie->getName().' - '.$specie->getScientificName() : '').'</td></tr>' );
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Gender', 'export_individual').':</th><td>'.mfText::translate($bestPhoto->getGender(), 'export_individual').'</td></tr>' );
             $lastObservationPhoto = $individual->getLastValidObservationPhoto();
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Age group', 'export_individual').':</th><td>'.mfText::translate(age_group::getValueForSigla($lastObservationPhoto->getAgeGroup()), 'export_individual').'</td></tr>' );
-            $dates = $individual->getGIDates();
-            $dates_part = explode(', ', $dates);
-            fwrite($index, '<tr class="odd"><th>'.mfText::translate('Sightings', 'export_individual').' ('.count($dates_part).'):</th><td>'.$dates.'</td></tr>' );
+            $observationDates = $individual->getObservationDates();
+            $num_dates = count($observationDates);
+            //$dates = $individual->getGIDates();
+            //$dates_part = explode(', ', $observationDates);
+            fwrite($index, '<tr class="odd"><th>'.mfText::translate('Sightings', 'export_individual').' ('.$num_dates.'):</th><td>' );
+            foreach( $observationDates as $cont => $ob_date ){
+              fwrite($index, ( ($cont!=0)? ', ': '' ).$ob_date['date']);
+              if( $ob_date['num_photos'] > 1 ){
+                fwrite($index, ' <b>('.$ob_date['num_photos'].')</b>');
+              }
+            }
+            fwrite($index, '</td></tr>');
             fwrite($index, '<tr class="odd"><th>'.mfText::translate('Notes', 'export_individual').':</th><td>'.$individual->getNotes().'</td></tr>' );
           fwrite($index, '</table>' );
         fwrite($index, '</div>' );
