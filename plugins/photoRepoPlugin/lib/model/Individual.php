@@ -45,42 +45,81 @@ class Individual extends BaseIndividual {
     return $query->find();
   }
   
-  public function getObservationDates($limit = null) {
-    $sightings = $this->getSightings($limit);
-    $resultStr = '';
-    
-    foreach( $sightings as $sighting ){
-      $resultStr .= $sighting->getRecord()->getGeneralInfo()->getDate(', Y-m-d');
-    }
-    
-    if( !is_null($limit) ) {
-      if(count($sightings) == $limit ) {
-        $resultStr .= ', ...';
-      }
-    }
-    
-    return substr($resultStr, 2);
-  }
+//  public function getObservationDates($limit = null) {
+//    $sightings = $this->getSightings($limit);
+//    $resultStr = '';
+//    
+//    foreach( $sightings as $sighting ){
+//      $resultStr .= $sighting->getRecord()->getGeneralInfo()->getDate(', Y-m-d');
+//    }
+//    
+//    if( !is_null($limit) ) {
+//      if(count($sightings) == $limit ) {
+//        $resultStr .= ', ...';
+//      }
+//    }
+//    
+//    return substr($resultStr, 2);
+//  }
   
-  public function getObservationPhotoDates($limit = null) {
+  public function getObservationDates($limit = null) {
     $query = ObservationPhotoQuery::create()
             ->filterByIndividualId($this->getId())
-            ->orderByPhotoDate(Criteria::DESC)
-            ->limit($limit);
+            ->orderByPhotoDate(Criteria::DESC);
     $OBPhotos = $query->find();
+    //echo count($OBPhotos);
     
-    $resultStr = '';
+    $dates = array();
     foreach( $OBPhotos as $OBPhoto ){
-      $resultStr .= $OBPhoto->getPhotoDate(', Y-m-d');
+      if( !array_key_exists($OBPhoto->getPhotoDate('Y-m-d'), $dates) ){
+          $dates[$OBPhoto->getPhotoDate('Y-m-d')] = 1;
+      } else {
+        $dates[$OBPhoto->getPhotoDate('Y-m-d')] = $dates[$OBPhoto->getPhotoDate('Y-m-d')] + 1;
+      }
     }
-    
-    if( !is_null($limit) ) {
-      if(count($OBPhotos) == $limit ) {
-        $resultStr .= ', ...';
+    krsort($dates);
+    //print print_r($dates);
+    //print '<br/>';
+    $dates_final = array();
+    foreach($dates as $date => $num_ob_photos){
+      //echo sprintf("%s|%s<br/>", $date, $num_ob_photos);
+      if( $num_ob_photos > 1 ){
+        //test if photos are from same gi
+        $OBPhotos = ObservationPhotoQuery::create()
+                ->filterByIndividualId($this->getId())
+                ->orderByPhotoDate(Criteria::DESC)
+                ->filterByPhotoDate($date)->find();
+        //echo count($OBPhotos);
+        $gi_counter = array();
+        foreach( $OBPhotos as $OBPhoto ){
+          if( is_integer($OBPhoto->getSightingId()) ){
+            //echo $OBPhoto->getSightingId();
+            $gi_id = $OBPhoto->getSighting()->getRecord()->getGeneralInfoId();
+            //echo $gi_id;
+            if( !array_key_exists($gi_id, $gi_counter) ){
+              $gi_counter[$gi_id] = 1;
+            } else {
+              $gi_counter[$gi_id] = $gi_counter[$gi_id] + 1;
+            }
+          } else {
+            $dates_final[] = array('date' => $date, 'num_photos' => 1);
+          }
+        }
+        //print_r($gi_counter);
+        foreach( $gi_counter as $key => $counter ){
+          $dates_final[] = array('date' => $date, 'num_photos' => $counter);
+        }
+      } else {
+        $dates_final[] = array('date' => $date, 'num_photos' => 1);
       }
     }
     
-    return substr($resultStr, 2);
+    $num_dates = count($dates_final);
+    
+    if( $limit ){
+      $dates_final = array_slice($dates_final, 0, $limit);
+    }
+    return $dates_final;
   }
   
   public function getLastTenObservationDates() {
@@ -88,10 +127,10 @@ class Individual extends BaseIndividual {
     return $this->getObservationDates($limit);
   }
   
-  public function getLastTenObservationPhotoDates() {
-    $limit = 10;
-    return $this->getObservationPhotoDates($limit);
-  }
+//  public function getLastTenObservationPhotoDates() {
+//    $limit = 10;
+//    return $this->getObservationPhotoDates($limit);
+//  }
   
   public function getLastValidObservationPhoto(){
     $query = ObservationPhotoQuery::create()
@@ -104,6 +143,7 @@ class Individual extends BaseIndividual {
   public function getLastGeneralInfos($limit=null){
     $ids = array();
     $OBPhotos = $this->getValidObservationPhotos();
+    echo count($OBPhotos);
     foreach( $OBPhotos as $OBPhoto ){
       if( is_integer($OBPhoto->getSightingId()) ){
         $gi_id = $OBPhoto->getSighting()->getRecord()->getGeneralInfoId();
@@ -136,6 +176,7 @@ class Individual extends BaseIndividual {
   
   public function getGIDates($limit = null) {
     $gis = $this->getLastGeneralInfos($limit);
+    //echo count($gis);
     
     $resultStr = '';
     foreach( $gis as $gi ){
