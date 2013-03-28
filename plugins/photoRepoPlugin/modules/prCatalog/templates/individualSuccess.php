@@ -87,7 +87,7 @@
               <?php $latitude = $OBPhoto->getLatitude() ?>
               <?php $longitude = $OBPhoto->getLongitude() ?>
               <?php ?>
-              <?php $descStr = sprintf("<b>%s</b><br/><b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/>",$OBPhoto->getCode() , $coordinatesTitle, $latitude, $longitude, $dateTitle, $OBPhoto->getPhotoDate('Y-m-d')) ?>
+              <?php $descStr = sprintf("<b>%s</b><br/><b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/><b>%s: </b>%s",$OBPhoto->getCode() , $coordinatesTitle, $latitude, $longitude, $dateTitle, $OBPhoto->getPhotoDate('Y-m-d'), $timeTitle, $OBPhoto->getPhotoTime('H:i')) ?>
                 gmap_items["<?php echo $OBPhoto->getId() ?>"] = {
                     "latitude": <?php echo $latitude  ?>,
                     "longitude": <?php echo $longitude ?>,
@@ -121,9 +121,10 @@
                 <?php if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA)): ?>
                   <?php $author = sprintf("%s", $OBPhoto->getPhotographerId()? $OBPhoto->getPhotographer()->getName().' -': '') ?>
                   <?php $photoDate = sprintf("%s", $OBPhoto->getPhotoDate()? $OBPhoto->getPhotoDate('Y/m/d').' -': '') ?>
+                  <?php $photoTime = sprintf("%s", $OBPhoto->getPhotoTime()? $OBPhoto->getPhotoTime('H:i').' -': '') ?>
                   <?php $photoCompany = sprintf("%s", $OBPhoto->getCompanyId()? $OBPhoto->getCompany()->getName().' -': '') ?>
                   <?php $photoIsland = sprintf("%s", $OBPhoto->getIsland()? island::getDescriptionBySigla($OBPhoto->getIsland()): '') ?>
-                  <?php $photoCaption = sprintf("%s - %s %s %s %s", $OBPhoto->getCode(), $author, $photoDate, $photoCompany, $photoIsland ) ?>
+                  <?php $photoCaption = sprintf("%s - %s %s %s %s %s", $OBPhoto->getCode(), $author, $photoDate, $photoTime, $photoCompany, $photoIsland ) ?>
                   <li>
                     <a class="fancybox" rel="gallery1" href="<?php echo url_for( '/uploads/pr_repo_final/'.$OBPhoto->getFileName() ) ?>" title="<?php echo $photoCaption; ?>">
                       <img width="90" id="photo_<?php $OBPhoto->getId() ?>" src="<?php echo url_for( '/uploads/pr_repo_final/tn_165x150_'.$OBPhoto->getFileName() ) ?>" alt="<?php echo $OBPhoto->getFileName() ?>"/>

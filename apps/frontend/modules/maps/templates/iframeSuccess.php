@@ -80,7 +80,7 @@
       <li><a href="#tabs-1"><?php echo __('Mapa', null, 'map') ?></a></li>
       <li><a href="#tabs-2"><?php echo __('Espécies', null, 'map') ?></a></li>
       <li><a href="#tabs-3"><?php echo __('Filtros', null, 'map') ?></a></li>
-      <li><a href="#tabs-4"><?php echo __('Camadas', null, 'map') ?></a></li>
+      <?php /* ?><li><a href="#tabs-4"><?php echo __('Camadas', null, 'map') ?></a></li><?php */ ?>
     </ul>
     
     <div id="tabs-1" class="left-container">
@@ -184,6 +184,7 @@
       </div>
     </div>
     
+    <?php /* ?>
     <div id="tabs-4" class="right-container">
       <div class="right-side-bar">
         <div class="tabs-content-container">
@@ -216,7 +217,7 @@
         </div>
       </div>
     </div>
-    
+    <?php */ ?>
   </div>
 </div>
 <input type="hidden" id="company" value="<?php print $company; ?>" />

@@ -650,15 +650,23 @@ class general_infoActions extends autoGeneral_infoActions
       $l = 3;
       $array = array();
       
+      $initial_time = date('U');
+      
       foreach($dataQS->find() as $gi){
         if (!$this->_in_available_memory_limit(98)) {
           throw new Exception('Atingiu o limite da memória disponivel, por favor refine a pesquisa de modo a obter um conjunto de registos menor.');
           $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
           $l++;
+        } elseif( date('U') - $initial_time > 3 ) {
+          // test time
+          throw new Exception('Atingiu o limite de tempo disponivel para processar o script, por favor refine a pesquisa de modo a obter um conjunto de registos menor.');
+          $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
+          $l++;
         } else {
-          $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
+          //$cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
           $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
           foreach($records as $record){
+            $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
             // buscar sighting correspondente
             $sighting = SightingPeer::retrieveByRecordId($record->getId());
 
