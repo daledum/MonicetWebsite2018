@@ -657,7 +657,7 @@ class general_infoActions extends autoGeneral_infoActions
           throw new Exception('Atingiu o limite da memória disponivel, por favor refine a pesquisa de modo a obter um conjunto de registos menor.');
           $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
           $l++;
-        } elseif( date('U') - $initial_time > 3 ) {
+        } elseif( date('U') - $initial_time > 100 ) {
           // test time
           throw new Exception('Atingiu o limite de tempo disponivel para processar o script, por favor refine a pesquisa de modo a obter um conjunto de registos menor.');
           $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
