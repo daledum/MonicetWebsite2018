@@ -656,9 +656,10 @@ class general_infoActions extends autoGeneral_infoActions
           $cena->setCellValueByColumnAndRow(0,$l, sprintf("A saída '%s' não foi exportada.", $gi->getCode()));
           $l++;
         } else {
-          $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
+          //$cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
           $records = RecordPeer::doSelectRecordsByGeneralInfoId($gi->getId());
           foreach($records as $record){
+            $cena->setCellValueByColumnAndRow(0,$l, $gi->getDate());
             // buscar sighting correspondente
             $sighting = SightingPeer::retrieveByRecordId($record->getId());
 

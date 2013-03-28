@@ -28,6 +28,13 @@ class GeneralInfoFormFilter extends BaseGeneralInfoFormFilter
     $this->widgetSchema['species'] =  new sfWidgetFormPropelChoice(array('model' => 'Specie', 'add_empty' => true));
     $this->validatorSchema['species'] = new sfValidatorPropelChoice(array('required' => false, 'model' => 'Specie', 'column' => 'id'));
     
+    $this->widgetSchema['date'] = new sfWidgetFormFilterDate(array(
+      'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
+      'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
+      'template' => 'De %from_date% a %to_date%',
+      'with_empty' => false
+    ));
+    
     
   }
   
