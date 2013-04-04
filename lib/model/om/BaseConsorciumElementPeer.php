@@ -26,7 +26,7 @@ abstract class BaseConsorciumElementPeer {
 	const TM_CLASS = 'ConsorciumElementTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 7;
+	const NUM_COLUMNS = 8;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
@@ -45,6 +45,9 @@ abstract class BaseConsorciumElementPeer {
 
 	/** the column name for the SLUG field */
 	const SLUG = 'consorcium_element.SLUG';
+
+	/** the column name for the ORDER field */
+	const ORDER = 'consorcium_element.ORDER';
 
 	/** the column name for the CREATED_AT field */
 	const CREATED_AT = 'consorcium_element.CREATED_AT';
@@ -75,12 +78,12 @@ abstract class BaseConsorciumElementPeer {
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
 	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Logotype', 'Link', 'Slug', 'CreatedAt', 'UpdatedAt', ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'logotype', 'link', 'slug', 'createdAt', 'updatedAt', ),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::LOGOTYPE, self::LINK, self::SLUG, self::CREATED_AT, self::UPDATED_AT, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'LOGOTYPE', 'LINK', 'SLUG', 'CREATED_AT', 'UPDATED_AT', ),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'logotype', 'link', 'slug', 'created_at', 'updated_at', ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'Logotype', 'Link', 'Slug', 'Order', 'CreatedAt', 'UpdatedAt', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'logotype', 'link', 'slug', 'order', 'createdAt', 'updatedAt', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::NAME, self::LOGOTYPE, self::LINK, self::SLUG, self::ORDER, self::CREATED_AT, self::UPDATED_AT, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'LOGOTYPE', 'LINK', 'SLUG', 'ORDER', 'CREATED_AT', 'UPDATED_AT', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'logotype', 'link', 'slug', 'order', 'created_at', 'updated_at', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	/**
@@ -90,12 +93,12 @@ abstract class BaseConsorciumElementPeer {
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
 	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Logotype' => 2, 'Link' => 3, 'Slug' => 4, 'CreatedAt' => 5, 'UpdatedAt' => 6, ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'logotype' => 2, 'link' => 3, 'slug' => 4, 'createdAt' => 5, 'updatedAt' => 6, ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::LOGOTYPE => 2, self::LINK => 3, self::SLUG => 4, self::CREATED_AT => 5, self::UPDATED_AT => 6, ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'LOGOTYPE' => 2, 'LINK' => 3, 'SLUG' => 4, 'CREATED_AT' => 5, 'UPDATED_AT' => 6, ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'logotype' => 2, 'link' => 3, 'slug' => 4, 'created_at' => 5, 'updated_at' => 6, ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'Logotype' => 2, 'Link' => 3, 'Slug' => 4, 'Order' => 5, 'CreatedAt' => 6, 'UpdatedAt' => 7, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'logotype' => 2, 'link' => 3, 'slug' => 4, 'order' => 5, 'createdAt' => 6, 'updatedAt' => 7, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::NAME => 1, self::LOGOTYPE => 2, self::LINK => 3, self::SLUG => 4, self::ORDER => 5, self::CREATED_AT => 6, self::UPDATED_AT => 7, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'LOGOTYPE' => 2, 'LINK' => 3, 'SLUG' => 4, 'ORDER' => 5, 'CREATED_AT' => 6, 'UPDATED_AT' => 7, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'logotype' => 2, 'link' => 3, 'slug' => 4, 'order' => 5, 'created_at' => 6, 'updated_at' => 7, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, )
 	);
 
 	/**
@@ -172,6 +175,7 @@ abstract class BaseConsorciumElementPeer {
 			$criteria->addSelectColumn(ConsorciumElementPeer::LOGOTYPE);
 			$criteria->addSelectColumn(ConsorciumElementPeer::LINK);
 			$criteria->addSelectColumn(ConsorciumElementPeer::SLUG);
+			$criteria->addSelectColumn(ConsorciumElementPeer::ORDER);
 			$criteria->addSelectColumn(ConsorciumElementPeer::CREATED_AT);
 			$criteria->addSelectColumn(ConsorciumElementPeer::UPDATED_AT);
 		} else {
@@ -180,6 +184,7 @@ abstract class BaseConsorciumElementPeer {
 			$criteria->addSelectColumn($alias . '.LOGOTYPE');
 			$criteria->addSelectColumn($alias . '.LINK');
 			$criteria->addSelectColumn($alias . '.SLUG');
+			$criteria->addSelectColumn($alias . '.ORDER');
 			$criteria->addSelectColumn($alias . '.CREATED_AT');
 			$criteria->addSelectColumn($alias . '.UPDATED_AT');
 		}

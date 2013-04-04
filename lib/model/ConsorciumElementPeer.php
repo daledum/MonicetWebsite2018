@@ -19,8 +19,8 @@
 class ConsorciumElementPeer extends BaseConsorciumElementPeer {
   public static function doSelectAll()
   {
-  	$c = new Criteria();
-    $c->addAscendingOrderByColumn(ConsorciumElementPeer::NAME);
+    $c = new Criteria();
+    $c->addAscendingOrderByColumn(ConsorciumElementPeer::ORDER);
     return self::doSelectWithI18n($c);
   }
 } // ConsorciumElementPeer

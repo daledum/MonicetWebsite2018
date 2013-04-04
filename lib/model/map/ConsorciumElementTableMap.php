@@ -42,6 +42,7 @@ class ConsorciumElementTableMap extends TableMap {
 		$this->addColumn('LOGOTYPE', 'Logotype', 'VARCHAR', false, 255, null);
 		$this->addColumn('LINK', 'Link', 'VARCHAR', false, 500, null);
 		$this->addColumn('SLUG', 'Slug', 'VARCHAR', true, 255, null);
+		$this->addColumn('ORDER', 'Order', 'INTEGER', true, null, 1);
 		$this->addColumn('CREATED_AT', 'CreatedAt', 'TIMESTAMP', false, null, null);
 		$this->addColumn('UPDATED_AT', 'UpdatedAt', 'TIMESTAMP', false, null, null);
 		// validators

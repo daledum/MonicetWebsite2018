@@ -55,6 +55,13 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 	protected $slug;
 
 	/**
+	 * The value for the order field.
+	 * Note: this column has a database default value of: 1
+	 * @var        int
+	 */
+	protected $order;
+
+	/**
 	 * The value for the created_at field.
 	 * @var        string
 	 */
@@ -96,6 +103,27 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 	 * @var array Current I18N objects
 	 */
 	protected $current_i18n = array();
+
+	/**
+	 * Applies default values to this object.
+	 * This method should be called from the object's constructor (or
+	 * equivalent initialization method).
+	 * @see        __construct()
+	 */
+	public function applyDefaultValues()
+	{
+		$this->order = 1;
+	}
+
+	/**
+	 * Initializes internal state of BaseConsorciumElement object.
+	 * @see        applyDefaults()
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+		$this->applyDefaultValues();
+	}
 
 	/**
 	 * Get the [id] column value.
@@ -145,6 +173,16 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 	public function getSlug()
 	{
 		return $this->slug;
+	}
+
+	/**
+	 * Get the [order] column value.
+	 * 
+	 * @return     int
+	 */
+	public function getOrder()
+	{
+		return $this->order;
 	}
 
 	/**
@@ -324,6 +362,26 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 	} // setSlug()
 
 	/**
+	 * Set the value of [order] column.
+	 * 
+	 * @param      int $v new value
+	 * @return     ConsorciumElement The current object (for fluent API support)
+	 */
+	public function setOrder($v)
+	{
+		if ($v !== null) {
+			$v = (int) $v;
+		}
+
+		if ($this->order !== $v || $this->isNew()) {
+			$this->order = $v;
+			$this->modifiedColumns[] = ConsorciumElementPeer::ORDER;
+		}
+
+		return $this;
+	} // setOrder()
+
+	/**
 	 * Sets the value of [created_at] column to a normalized version of the date/time value specified.
 	 * 
 	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
@@ -431,6 +489,10 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 	 */
 	public function hasOnlyDefaultValues()
 	{
+			if ($this->order !== 1) {
+				return false;
+			}
+
 		// otherwise, everything was equal, so return TRUE
 		return true;
 	} // hasOnlyDefaultValues()
@@ -458,8 +520,9 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 			$this->logotype = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
 			$this->link = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
 			$this->slug = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
-			$this->created_at = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
-			$this->updated_at = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+			$this->order = ($row[$startcol + 5] !== null) ? (int) $row[$startcol + 5] : null;
+			$this->created_at = ($row[$startcol + 6] !== null) ? (string) $row[$startcol + 6] : null;
+			$this->updated_at = ($row[$startcol + 7] !== null) ? (string) $row[$startcol + 7] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -468,7 +531,7 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 7; // 7 = ConsorciumElementPeer::NUM_COLUMNS - ConsorciumElementPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 8; // 8 = ConsorciumElementPeer::NUM_COLUMNS - ConsorciumElementPeer::NUM_LAZY_LOAD_COLUMNS).
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating ConsorciumElement object", $e);
@@ -845,9 +908,12 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 				return $this->getSlug();
 				break;
 			case 5:
-				return $this->getCreatedAt();
+				return $this->getOrder();
 				break;
 			case 6:
+				return $this->getCreatedAt();
+				break;
+			case 7:
 				return $this->getUpdatedAt();
 				break;
 			default:
@@ -878,8 +944,9 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 			$keys[2] => $this->getLogotype(),
 			$keys[3] => $this->getLink(),
 			$keys[4] => $this->getSlug(),
-			$keys[5] => $this->getCreatedAt(),
-			$keys[6] => $this->getUpdatedAt(),
+			$keys[5] => $this->getOrder(),
+			$keys[6] => $this->getCreatedAt(),
+			$keys[7] => $this->getUpdatedAt(),
 		);
 		return $result;
 	}
@@ -927,9 +994,12 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 				$this->setSlug($value);
 				break;
 			case 5:
-				$this->setCreatedAt($value);
+				$this->setOrder($value);
 				break;
 			case 6:
+				$this->setCreatedAt($value);
+				break;
+			case 7:
 				$this->setUpdatedAt($value);
 				break;
 		} // switch()
@@ -961,8 +1031,9 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 		if (array_key_exists($keys[2], $arr)) $this->setLogotype($arr[$keys[2]]);
 		if (array_key_exists($keys[3], $arr)) $this->setLink($arr[$keys[3]]);
 		if (array_key_exists($keys[4], $arr)) $this->setSlug($arr[$keys[4]]);
-		if (array_key_exists($keys[5], $arr)) $this->setCreatedAt($arr[$keys[5]]);
-		if (array_key_exists($keys[6], $arr)) $this->setUpdatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[5], $arr)) $this->setOrder($arr[$keys[5]]);
+		if (array_key_exists($keys[6], $arr)) $this->setCreatedAt($arr[$keys[6]]);
+		if (array_key_exists($keys[7], $arr)) $this->setUpdatedAt($arr[$keys[7]]);
 	}
 
 	/**
@@ -979,6 +1050,7 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 		if ($this->isColumnModified(ConsorciumElementPeer::LOGOTYPE)) $criteria->add(ConsorciumElementPeer::LOGOTYPE, $this->logotype);
 		if ($this->isColumnModified(ConsorciumElementPeer::LINK)) $criteria->add(ConsorciumElementPeer::LINK, $this->link);
 		if ($this->isColumnModified(ConsorciumElementPeer::SLUG)) $criteria->add(ConsorciumElementPeer::SLUG, $this->slug);
+		if ($this->isColumnModified(ConsorciumElementPeer::ORDER)) $criteria->add(ConsorciumElementPeer::ORDER, $this->order);
 		if ($this->isColumnModified(ConsorciumElementPeer::CREATED_AT)) $criteria->add(ConsorciumElementPeer::CREATED_AT, $this->created_at);
 		if ($this->isColumnModified(ConsorciumElementPeer::UPDATED_AT)) $criteria->add(ConsorciumElementPeer::UPDATED_AT, $this->updated_at);
 
@@ -1046,6 +1118,7 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 		$copyObj->setLogotype($this->logotype);
 		$copyObj->setLink($this->link);
 		$copyObj->setSlug($this->slug);
+		$copyObj->setOrder($this->order);
 		$copyObj->setCreatedAt($this->created_at);
 		$copyObj->setUpdatedAt($this->updated_at);
 
@@ -1224,11 +1297,13 @@ abstract class BaseConsorciumElement extends BaseObject  implements Persistent
 		$this->logotype = null;
 		$this->link = null;
 		$this->slug = null;
+		$this->order = null;
 		$this->created_at = null;
 		$this->updated_at = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
 		$this->clearAllReferences();
+		$this->applyDefaultValues();
 		$this->resetModified();
 		$this->setNew(true);
 		$this->setDeleted(false);
