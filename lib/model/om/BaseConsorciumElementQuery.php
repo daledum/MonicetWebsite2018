@@ -11,6 +11,7 @@
  * @method     ConsorciumElementQuery orderByLogotype($order = Criteria::ASC) Order by the logotype column
  * @method     ConsorciumElementQuery orderByLink($order = Criteria::ASC) Order by the link column
  * @method     ConsorciumElementQuery orderBySlug($order = Criteria::ASC) Order by the slug column
+ * @method     ConsorciumElementQuery orderByOrder($order = Criteria::ASC) Order by the order column
  * @method     ConsorciumElementQuery orderByCreatedAt($order = Criteria::ASC) Order by the created_at column
  * @method     ConsorciumElementQuery orderByUpdatedAt($order = Criteria::ASC) Order by the updated_at column
  *
@@ -19,6 +20,7 @@
  * @method     ConsorciumElementQuery groupByLogotype() Group by the logotype column
  * @method     ConsorciumElementQuery groupByLink() Group by the link column
  * @method     ConsorciumElementQuery groupBySlug() Group by the slug column
+ * @method     ConsorciumElementQuery groupByOrder() Group by the order column
  * @method     ConsorciumElementQuery groupByCreatedAt() Group by the created_at column
  * @method     ConsorciumElementQuery groupByUpdatedAt() Group by the updated_at column
  *
@@ -38,6 +40,7 @@
  * @method     ConsorciumElement findOneByLogotype(string $logotype) Return the first ConsorciumElement filtered by the logotype column
  * @method     ConsorciumElement findOneByLink(string $link) Return the first ConsorciumElement filtered by the link column
  * @method     ConsorciumElement findOneBySlug(string $slug) Return the first ConsorciumElement filtered by the slug column
+ * @method     ConsorciumElement findOneByOrder(int $order) Return the first ConsorciumElement filtered by the order column
  * @method     ConsorciumElement findOneByCreatedAt(string $created_at) Return the first ConsorciumElement filtered by the created_at column
  * @method     ConsorciumElement findOneByUpdatedAt(string $updated_at) Return the first ConsorciumElement filtered by the updated_at column
  *
@@ -46,6 +49,7 @@
  * @method     array findByLogotype(string $logotype) Return ConsorciumElement objects filtered by the logotype column
  * @method     array findByLink(string $link) Return ConsorciumElement objects filtered by the link column
  * @method     array findBySlug(string $slug) Return ConsorciumElement objects filtered by the slug column
+ * @method     array findByOrder(int $order) Return ConsorciumElement objects filtered by the order column
  * @method     array findByCreatedAt(string $created_at) Return ConsorciumElement objects filtered by the created_at column
  * @method     array findByUpdatedAt(string $updated_at) Return ConsorciumElement objects filtered by the updated_at column
  *
@@ -260,6 +264,37 @@ abstract class BaseConsorciumElementQuery extends ModelCriteria
 			}
 		}
 		return $this->addUsingAlias(ConsorciumElementPeer::SLUG, $slug, $comparison);
+	}
+
+	/**
+	 * Filter the query on the order column
+	 * 
+	 * @param     int|array $order The value to use as filter.
+	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+	 *
+	 * @return    ConsorciumElementQuery The current query, for fluid interface
+	 */
+	public function filterByOrder($order = null, $comparison = null)
+	{
+		if (is_array($order)) {
+			$useMinMax = false;
+			if (isset($order['min'])) {
+				$this->addUsingAlias(ConsorciumElementPeer::ORDER, $order['min'], Criteria::GREATER_EQUAL);
+				$useMinMax = true;
+			}
+			if (isset($order['max'])) {
+				$this->addUsingAlias(ConsorciumElementPeer::ORDER, $order['max'], Criteria::LESS_EQUAL);
+				$useMinMax = true;
+			}
+			if ($useMinMax) {
+				return $this;
+			}
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+		}
+		return $this->addUsingAlias(ConsorciumElementPeer::ORDER, $order, $comparison);
 	}
 
 	/**

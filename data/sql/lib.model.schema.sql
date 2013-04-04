@@ -59,6 +59,7 @@ CREATE TABLE `consorcium_element`
 	`logotype` VARCHAR(255),
 	`link` VARCHAR(500),
 	`slug` VARCHAR(255)  NOT NULL,
+	`order` INTEGER default 1 NOT NULL,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),

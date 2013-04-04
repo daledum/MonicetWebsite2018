@@ -22,6 +22,7 @@ propel:
     logotype:      { type: varchar(255), required: false }
     link:          { type: varchar(500), required: false }
     slug:          { type: varchar(255), required: true, index: unique }
+    order:         { type: integer, required: true, default: 1 }
     created_at:    ~
     updated_at:    ~
   consorcium_element_i18n:

@@ -16,7 +16,7 @@ generator:
       actions: ~
       fields:  ~
       list:
-        display:           [name, logotype, link]
+        display:           [name, logotype, order, link]
       filter:  ~
       form:    ~
       edit:    ~

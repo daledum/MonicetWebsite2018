@@ -1,0 +1,1 @@
+alter table `consorcium_element` add `order` INTEGER default 1 NOT NULL after `slug`;
