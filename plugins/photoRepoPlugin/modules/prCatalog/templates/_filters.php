@@ -4,6 +4,7 @@
 <?php end_slot() ?>
 
 
+  
 <div class="filter-item">
     <label class="catalog_label"><?php echo __('Specie', null, 'catalog'); ?>:</label>
     <?php echo $pr_frontend_filter['specie_id']->render() ?>
@@ -25,4 +26,9 @@
 <div class="filter-item">
     <label class="catalog_label"><?php echo __('Company', null, 'catalog'); ?>:</label>
     <?php echo $pr_frontend_filter['company_id']->render() ?>
+</div>
+
+<br/>
+<div style="text-align: center;">
+  <?php echo __('%num_individuals% individuals with %num_photos% observation photos.', array('%num_individuals%' => $filter_stats['num_individuals'], '%num_photos%' => $filter_stats['num_photos']), 'catalog') ?>
 </div>

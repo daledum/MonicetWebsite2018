@@ -21,6 +21,7 @@ class prCatalogActions extends sfActions
     }
     
     $this->pager = IndividualPeer::filter($this->formSubmitedValues);
+    $this->filter_stats = IndividualPeer::get_filter_stats($this->formSubmitedValues);
   }
 
   public function executeIndividual(sfWebRequest $request)
@@ -30,8 +31,9 @@ class prCatalogActions extends sfActions
     if($this->formSubmitedValues){
       $this->pr_frontend_filter->bind($this->formSubmitedValues);
     }
-    
+       
     $this->forward404Unless($this->individual = IndividualPeer::retrieveByPK($request->getParameter('id')));
+    $this->filter_stats = IndividualPeer::get_filter_stats($this->formSubmitedValues);
   }
   
   public function executeExportIndividual( sfWebRequest $request ) {

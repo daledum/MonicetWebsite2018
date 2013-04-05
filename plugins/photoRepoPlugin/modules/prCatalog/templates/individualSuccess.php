@@ -23,7 +23,8 @@
     <div class="left-sidebar-title"><h2><?php echo __('Observations Catalog', null, 'catalog'); ?></h2></div>
     <form id="catalog-filter-form" action="<?php echo url_for('@pr_catalog') ?>" method="get">
       <?php include_partial('prCatalog/filters', array(
-          'pr_frontend_filter' => $pr_frontend_filter
+          'pr_frontend_filter' => $pr_frontend_filter,
+          'filter_stats' => $filter_stats
       )); ?>
     </form>
 </div>
