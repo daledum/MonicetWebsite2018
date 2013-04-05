@@ -21,6 +21,7 @@ generator:
         batch_actions: 
           _delete: ~
           multiEdit: { label: "Editar em grupo" }
+          multiValidate: { label: "Validar em grupo" }
         display:
           - code
           - _individual_id
