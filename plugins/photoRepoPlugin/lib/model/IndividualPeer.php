@@ -26,9 +26,8 @@ class IndividualPeer extends BaseIndividualPeer {
     return sprintf("DBUAC-%s-%s%s", strtoupper($specieCode), $year, sprintf("%03d",$position));
   }
   
-  public static function filter($args) {
-    $request = sfContext::getInstance()->getRequest();
-    
+  public static function prepare_filter_query($args){
+        
     $query = IndividualQuery::create();
     
     if( isset( $args['specie_id'] ) && $args['specie_id'] != '' ) {
@@ -68,6 +67,30 @@ class IndividualPeer extends BaseIndividualPeer {
     
     $query = $query->setDistinct();
     
+    return $query;
+  }
+  
+  
+  public static function filter($args) {
+    
+    $request = sfContext::getInstance()->getRequest();
+    
+    $query = self::prepare_filter_query($args);
+    
     return $query->paginate($request->getParameter('page', 1), 16);
+  }
+  
+  public static function get_filter_stats($args){
+    $query = self::prepare_filter_query($args);
+    $query = $query->setFormatter(ModelCriteria::FORMAT_ON_DEMAND);
+    $individuals = $query->find();
+    $counter = 0;
+    $total = 0;
+    foreach($individuals as $individual){
+      $total += $individual->countValidObservationPhotos();
+      $counter++;
+    }
+    $results = array('num_individuals' => $counter, 'num_photos' => $total);
+    return $results;
   }
 } // IndividualPeer

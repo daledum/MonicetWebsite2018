@@ -99,8 +99,8 @@
         <target>Fotografia(s)</target>
       </trans-unit>
       <trans-unit>
-        <source></source>
-        <target></target>
+        <source>%num_individuals% individuals with %num_photos% observation photos.</source>
+        <target>%num_individuals% indivíduos com %num_photos% fotografias de avistamentos.</target>
       </trans-unit>
       <trans-unit>
         <source></source>
