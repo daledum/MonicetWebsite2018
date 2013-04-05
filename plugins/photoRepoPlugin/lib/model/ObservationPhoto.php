@@ -285,4 +285,12 @@ class ObservationPhoto extends BaseObservationPhoto {
       }
     }
   }
+  
+  public function is_validable_by($userId){
+    if( $this->getStatus() == self::FA_SIGLA /* && $this->getLastEditedBy() != $userId*/ ){
+      return true;
+    } else {
+      return false;
+    }
+  }
 } // ObservationPhoto

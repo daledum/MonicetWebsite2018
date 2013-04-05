@@ -61,6 +61,29 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->redirect('@pr_observation_photo_multi_edit?ids='.$ids_encoded);
   }
   
+  protected function executeBatchMultiValidate(sfWebRequest $request) {
+    $ids = $request->getParameter('ids');
+
+    $count = 0;
+    $error_message = "Não foi possível validar as seguintes fotografias: ";
+    foreach (ObservationPhotoPeer::retrieveByPks($ids) as $object) {
+      $sessionUser = sfContext::getInstance()->getUser()->getGuardUser();
+      if( $object->is_validable_by($sessionUser->getId()) ){
+        $object->statusUpdate('validate');
+        $count++;
+      } else {
+        $error_message .= $object->getCode().', ';
+      }
+    }
+
+    if ($count >= count($ids)) {
+      $this->getUser()->setFlash('notice', 'As Fotografias de observações foram validadas com sucesso.');
+    } else {
+      $this->getUser()->setFlash('error', substr($error_message, 0, -2));
+    }
+
+  }
+  
   public function executeMultiEdit( sfWebRequest $request ){
     //print_r($request->getParameter('ids'));
     //print_r(unserialize(urldecode($request->getParameter('ids'))));
