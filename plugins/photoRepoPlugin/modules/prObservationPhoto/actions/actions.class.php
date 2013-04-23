@@ -371,7 +371,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     //print_r($args);
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($args['observation_photo_id']));
     
-    $this->OBPhotos = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args['choices']);
+    $this->OBPhotos = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
 //    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
 //    
 //    $this->priorityResults = $priorityResults;

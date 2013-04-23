@@ -43,7 +43,7 @@ $(document).ready(function(){
         
     $('.mark_click_listener').each(function(){
         var html = $(this).html()
-        $(this).html('<b>' + html + '</b>');
+        //$(this).html('<b>' + html + '</b>');
         
         $(this).click(function(){
             var id_str_parts = $(this).attr('id').split('_');

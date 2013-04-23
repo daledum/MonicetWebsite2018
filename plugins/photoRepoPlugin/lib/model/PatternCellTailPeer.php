@@ -1,6 +1,10 @@
 <?php
 
 class PatternCellTailPeer extends BasePatternCellTailPeer {
+  
+  public static function retrieveByName($name) {
+    return PatternCellTailQuery::create()->filterByName($name)->findOne();
+  }
 
   public static function getForSelect($specieId = null, $with_empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
     if( !$specieId) {

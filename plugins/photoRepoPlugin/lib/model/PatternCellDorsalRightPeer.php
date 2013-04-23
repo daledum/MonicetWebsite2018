@@ -2,6 +2,9 @@
 
 class PatternCellDorsalRightPeer extends BasePatternCellDorsalRightPeer {
 
+  public static function retrieveByName($name) {
+    return PatternCellDorsalRightQuery::create()->filterByName($name)->findOne();
+  }
   
   public static function getForSelect($specieId = null, $with_empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
     if( !$specieId) {

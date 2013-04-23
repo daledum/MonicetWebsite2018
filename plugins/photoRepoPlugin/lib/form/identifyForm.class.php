@@ -39,7 +39,9 @@ class identifyForm extends sfForm {
         'choices' => array_keys($marks_choices),
         'required' => false
     ));
-    $this->setDefault('marks', array_keys($marks_choices));
+    //$this->setDefault('marks', array_keys($marks_choices));
+    //$this->widgetSchema['marks']->setAttribute('value', '');
+    //$this->setDefault('marks', array());
     
     $this->widgetSchema->setNameFormat('identify_form[%s]');
 
