@@ -167,10 +167,16 @@ class ObservationPhoto extends BaseObservationPhoto {
         if( $nMarks > 0) {
           $result .= ' [ ';
           foreach($OBPhotoDorsalLeft->getObservationPhotoDorsalLeftMarks() as $mark ){
+            if( $hiddenFields ){
+              $result .= '<span><div class="mark_id" hidden>'.$mark->getId().'</div><span style="cursor: hand; cursor: pointer;" class="mark_click_listener" id="to_string_'.$mark->getId().'" >';
+            }
             if( $mark->getIsWide() ) $result .= 'Larga ';
             if( $mark->getIsDeep() ) $result .= 'Estreita ';
             if( $mark->getPatternCellDorsalLeftId() ) $result .= $mark->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId()->getName();
             if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalLeftRelatedByToCellId()->getName();
+            if( $hiddenFields ){
+              $result .= '</span></span>';
+            }
             if( $i != $nMarks ) $result .= ', ';
             $i++;
           }
@@ -196,10 +202,16 @@ class ObservationPhoto extends BaseObservationPhoto {
         if( $nMarks > 0) {
           $result .= ' [ ';
           foreach($OBPhotoDorsalRight->getObservationPhotoDorsalRightMarks() as $mark ){
+            if( $hiddenFields ){
+              $result .= '<span><div class="mark_id" hidden>'.$mark->getId().'</div><span style="cursor: hand; cursor: pointer;" class="mark_click_listener" id="to_string_'.$mark->getId().'" >';
+            }
             if( $mark->getIsWide() ) $result .= 'Larga ';
             if( $mark->getIsDeep() ) $result .= 'Estreita ';
             if( $mark->getPatternCellDorsalRightId() ) $result .= $mark->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId()->getName();
             if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalRightRelatedByToCellId()->getName();
+            if( $hiddenFields ){
+              $result .= '</span></span>';
+            }
             if( $i != $nMarks ) $result .= ', ';
             $i++;
           }
