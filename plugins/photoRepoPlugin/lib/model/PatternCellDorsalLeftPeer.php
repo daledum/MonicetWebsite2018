@@ -3,6 +3,10 @@
 
 class PatternCellDorsalLeftPeer extends BasePatternCellDorsalLeftPeer {
   
+  public static function retrieveByName($name) {
+    return PatternCellDorsalLeftQuery::create()->filterByName($name)->findOne();
+  }
+  
   public static function getForSelect($specieId = null, $with_empty = false, $empty_msg = 'Todas', $empty_code = '' ) {
     if( !$specieId) {
       return array();

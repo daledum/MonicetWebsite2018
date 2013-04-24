@@ -169,6 +169,41 @@ class mfUtils {
 
     return $string;
   }
-
+  
+  public static function powerSet($in, $minLength = 1, $maxLenght=null) { 
+   $count = count($in); 
+   if($maxLenght==null){
+     $maxLenght=$count;
+   }
+   $members = pow(2,$count); 
+   $return = array(); 
+   for ($i = 0; $i < $members; $i++) { 
+      $b = sprintf("%0".$count."b",$i); 
+      $out = array(); 
+      for ($j = 0; $j < $count; $j++) { 
+         if ($b{$j} == '1') $out[] = $in[$j]; 
+      } 
+      if((count($out) >= $minLength) && (count($out) <= $maxLenght)){ 
+         $return[] = $out; 
+      } 
+   } 
+   
+   foreach ($return as $key => $returnElement){
+     if(isset($returnElement[0]) && isset($returnElement[1])){
+       // remove combinations within same letter ex: B1 to B2
+       if ( substr($returnElement[0], 0, 1) == substr($returnElement[1], 0, 1) ){
+         unset($return[$key]);
+       }
+       // switch order in case wrong order, Ex B2 to A1, correct A1 to B2
+       if ( substr($returnElement[0], 0, 1) > substr($returnElement[1], 0, 1) ){
+         $tmp = $returnElement[0];
+         $return[$key][0] = $returnElement[1];
+         $return[$key][1] = $tmp;
+       }
+     }
+     
+   }
+   return $return; 
+}
 }
 ?>

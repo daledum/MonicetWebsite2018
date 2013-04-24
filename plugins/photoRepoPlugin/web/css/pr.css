@@ -241,7 +241,22 @@
     overflow: hidden;
     width: 975px;
 }
-
+#mark_label {
+    max-width: 40px;
+    text-align: right !important;
+    display: block !important;
+    float: left !important;
+    margin: 3px 0 0 0;
+}
+#mark_row {
+    visibility: hidden;
+    text-align: right !important;
+    width: 193px;
+    padding: 0 10px 0 0; 
+}
+#mark_row input {
+    float: left !important;
+}
 
 
 

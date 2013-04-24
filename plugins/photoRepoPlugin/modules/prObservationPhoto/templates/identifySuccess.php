@@ -64,18 +64,18 @@
         
         <?php if( $isTail || $isLeft || $isRight): ?>
           <div class="identify_row">
-            <input name="identify_form[choices][]" type="checkbox" value="all_complete_marks" id="identify_form_choices_all_complete_marks">
-            <label for="identify_form_choices_all_complete_marks">Marcas completas (todas)</label></li>
+            <input name="identify_form[choices][]" type="checkbox" value="complete_marks" id="identify_form_choices_complete_marks">
+            <label for="identify_form_choices_complete_marks">Marcas completas</label></li>
+          </div>
+        
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="depth" id="identify_form_choices_depth">
+            <label for="identify_form_choices_depth">Profundidade</label></li>
           </div>
 
-          <div class="identify_row">
-            <input name="identify_form[choices][]" type="checkbox" value="any_complete_marks" id="identify_form_choices_any_complete_marks">
-            <label for="identify_form_choices_any_complete_marks">Marcas completas (algumas)</label></li>
-          </div>
-
-          <div class="identify_row">
-            <input name="identify_form[choices][]" type="checkbox" value="partial_marks" id="identify_form_choices_partial_marks">
-            <label for="identify_form_choices_partial_marks">Marcas parciais</label></li>
+          <div class="identify_row" id="mark_row">
+            <?php echo $identify_form['marks']->render() ?>
+            <label id="mark_label" for="identify_form_marks">Marcas</label>
           </div>
         <?php endif; ?>
       </form>
@@ -83,7 +83,7 @@
     
     <div id="identify_result_box">
       <div id="identify_description">
-        <b>Fotografia</b>: <?php echo $observationPhoto->completeToString() ?>
+        <b>Fotografia</b>: <?php echo $observationPhoto->completeToString($hiddenFields=true) ?>
       </div>
       <div id="identify_results">
         <form>

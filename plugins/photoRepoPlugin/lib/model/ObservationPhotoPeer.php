@@ -18,5 +18,19 @@
  * @package    propel.generator.plugins.photoRepoPlugin.lib.model
  */
 class ObservationPhotoPeer extends BaseObservationPhotoPeer {
-
+  public static function fromObjectosToArray( $objectos ){
+    $array = array();
+    foreach( $objectos as $objecto ) {
+      $array[$objecto->getId()] = $objecto->getNome();
+    }
+    return $array;
+  }
+  
+  public static function fromMarksToArray( $marks ){
+    $array = array();
+    foreach( $marks as $objecto ) {
+      $array[$objecto->getId()] = $objecto->__toString();
+    }
+    return $array;
+  }
 } // ObservationPhotoPeer

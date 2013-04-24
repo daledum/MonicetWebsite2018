@@ -10,8 +10,9 @@ class ObservationPhoto extends BaseObservationPhoto {
   const FA_DESC   = 'Para validar';
   const V_SIGLA   = 'validated';
   const V_DESC    = 'Validada';
-
-  public static function getForSelect($empty=false, $empty_msg = 'Todas', $empty_code = '' ){
+  
+  
+    public static function getForSelect($empty=false, $empty_msg = 'Todas', $empty_code = '' ){
     $resultados = array();
     if( $empty ) {
         $resultados[$empty_code] = '---'.$empty_msg.'---';
@@ -82,7 +83,33 @@ class ObservationPhoto extends BaseObservationPhoto {
     return $html;
   }
   
-  public function completeToString(){
+  public function getMarks(){
+    $marks = array();
+    
+    if( $this->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
+      foreach($this->getObservationPhotoDorsalLefts() as $OBPhotoDorsalLeft) {
+        foreach($OBPhotoDorsalLeft->getObservationPhotoDorsalLeftMarks() as $mark ){
+          $marks[] = $mark;
+        }
+      }
+    } elseif( $this->getBodyPart() == body_part::R_SIGLA ){ // dorsal right
+      foreach($this->getObservationPhotoDorsalRights() as $OBPhotoDorsalRight) {
+        foreach($OBPhotoDorsalRight->getObservationPhotoDorsalRightMarks() as $mark ){
+          $marks[] = $mark;
+        }
+      }
+    }elseif( $this->getBodyPart() == body_part::F_SIGLA ){ // tail
+      foreach($this->getObservationPhotoTails() as $OBPhotoTail) {
+        foreach($OBPhotoTail->getObservationPhotoTailMarks() as $mark ){
+          $marks[] = $mark;
+        }
+      }
+    }
+    
+    return $marks;
+  }
+  
+  public function completeToString($hiddenFields=false){
     $result = '';
     // for tail observation photos
     if( $this->getBodyPart()->getCode() == body_part::F_SIGLA ) {
@@ -105,10 +132,16 @@ class ObservationPhoto extends BaseObservationPhoto {
         if( $nMarks > 0) {
           $result .= ' [ ';
           foreach($OBPhotoTail->getObservationPhotoTailMarks() as $mark ){
+            if( $hiddenFields ){
+              $result .= '<span><div class="mark_id" hidden>'.$mark->getId().'</div><span style="cursor: hand; cursor: pointer;" class="mark_click_listener" id="to_string_'.$mark->getId().'" >';
+            }
             if( $mark->getIsWide() ) $result .= 'Larga ';
             if( $mark->getIsDeep() ) $result .= 'Estreita ';
             if( $mark->getPatternCellTailId() ) $result .= $mark->getPatternCellTailRelatedByPatternCellTailId()->getName();
             if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellTailRelatedByToCellId()->getName();
+            if( $hiddenFields ){
+              $result .= '</span></span>';
+            }
             if( $i != $nMarks ) $result .= ', ';
             $i++;
           }
@@ -134,10 +167,16 @@ class ObservationPhoto extends BaseObservationPhoto {
         if( $nMarks > 0) {
           $result .= ' [ ';
           foreach($OBPhotoDorsalLeft->getObservationPhotoDorsalLeftMarks() as $mark ){
+            if( $hiddenFields ){
+              $result .= '<span><div class="mark_id" hidden>'.$mark->getId().'</div><span style="cursor: hand; cursor: pointer;" class="mark_click_listener" id="to_string_'.$mark->getId().'" >';
+            }
             if( $mark->getIsWide() ) $result .= 'Larga ';
             if( $mark->getIsDeep() ) $result .= 'Estreita ';
             if( $mark->getPatternCellDorsalLeftId() ) $result .= $mark->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId()->getName();
             if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalLeftRelatedByToCellId()->getName();
+            if( $hiddenFields ){
+              $result .= '</span></span>';
+            }
             if( $i != $nMarks ) $result .= ', ';
             $i++;
           }
@@ -163,10 +202,16 @@ class ObservationPhoto extends BaseObservationPhoto {
         if( $nMarks > 0) {
           $result .= ' [ ';
           foreach($OBPhotoDorsalRight->getObservationPhotoDorsalRightMarks() as $mark ){
+            if( $hiddenFields ){
+              $result .= '<span><div class="mark_id" hidden>'.$mark->getId().'</div><span style="cursor: hand; cursor: pointer;" class="mark_click_listener" id="to_string_'.$mark->getId().'" >';
+            }
             if( $mark->getIsWide() ) $result .= 'Larga ';
             if( $mark->getIsDeep() ) $result .= 'Estreita ';
             if( $mark->getPatternCellDorsalRightId() ) $result .= $mark->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId()->getName();
             if( $mark->getToCellId() ) $result .= '-'.$mark->getPatternCellDorsalRightRelatedByToCellId()->getName();
+            if( $hiddenFields ){
+              $result .= '</span></span>';
+            }
             if( $i != $nMarks ) $result .= ', ';
             $i++;
           }
@@ -177,6 +222,8 @@ class ObservationPhoto extends BaseObservationPhoto {
     
     return $result;
   }
+  
+  
   
   public function isCharacterizable(){
     $specie = $this->getSpecie();
@@ -293,4 +340,11 @@ class ObservationPhoto extends BaseObservationPhoto {
       return false;
     }
   }
+  
+  public function getMarksForSelect(){
+      $marks = $this->getMarks();
+      return ObservationPhotoPeer::fromMarksToArray($marks);
+  }
+
+  
 } // ObservationPhoto
