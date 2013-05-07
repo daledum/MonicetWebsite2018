@@ -164,7 +164,8 @@
                   }
               });
               //return success;
-              $("#progressbar").progressbar({value: (i/n_lines)*100});
+              var barwidth = (i/n_lines)*100;
+              $("#progressbar").progressbar("option", "value", barwidth);
             }
             if( $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val() == 2) fim = true;
           }
