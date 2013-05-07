@@ -55,7 +55,7 @@ class CodePeer extends BaseCodePeer {
     $acronyms = array();
     switch ($code_acronym) {
       case 'I':
-        $acronyms = array('F', 'R', 'IA');
+        $acronyms = array('F', 'R', 'IA', 'RA');
         break;
       case 'IA':
         $acronyms = array('RA', 'FA');
