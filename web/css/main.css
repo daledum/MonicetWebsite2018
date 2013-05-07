@@ -48,3 +48,6 @@ fieldset fieldset legend {
     padding-left: 20px;
 }
 /* fim das acções no backend da general info e gi_list */
+.remove-line-div {
+    width: 30px !important;
+}

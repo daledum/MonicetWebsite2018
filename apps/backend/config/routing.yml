@@ -358,8 +358,24 @@ departure_chart:
   
 delete_watch_line_ajax:
   url:   /deleteWatchLineAjax
-  param: { module: watch_info, action deleteLineAjax }
-
+  param: { module: watch_info, action: deleteLineAjax }
+  
+ajax_g_info_delete_siblings:
+  url: /general-info/:general_info_id/delete-siblings
+  param:
+    module: general_info
+    action: deleteSiblings
+  requirements:
+    sf_method:  post
+    
+ajax_validate_gi_form:
+  url: /general-info/validate-sequence
+  param:
+    module: general_info
+    action: validateSequence
+  requirements:
+    sf_method:  get
+    
 # You can find more information about this file on the symfony website:
 # http://www.symfony-project.org/reference/1_4/en/10-Routing
 

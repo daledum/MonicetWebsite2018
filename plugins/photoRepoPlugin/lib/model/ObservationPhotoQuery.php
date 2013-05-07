@@ -286,6 +286,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $subsets;
   }
   
+  
   public static function _choose_class_by_body_part($query, $observationPhoto){
     if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
       $query = $query->useObservationPhotoDorsalLeftQuery();
