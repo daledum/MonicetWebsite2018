@@ -1,35 +1,33 @@
-<?php if($erro): ?>
-  <p>Foram encontrados os seguintes erros na linha <?php echo $linha ?>:</p>
-  <br />
-  <div style="text-align: left;">
-  <?php //echo '<br />Campos Record: <br />'; ?>
-  <?php foreach($recordForm as $field): ?>
-    <?php if ($field->hasError()): ?>
-      <ul class="error_list" style="font-weight:bold;color:red; border-bottom:1px solid gray; padding-bottom: 20px;"><?php echo $field->renderLabel().':' ?>
-        <?php echo $field->renderError(); ?>
-      </ul>
-      <br />
-    <?php endif; ?>
-  <?php endforeach; ?>
-  <?php //echo '<br /> Campos Sighting: <br />'; ?>
-  <?php foreach($sightingForm as $field): ?>
-    <?php if ($field->hasError()): ?>
-      <ul class="error_list">- <?php echo $field->renderLabel().':' ?>
-        <?php echo $field->renderError(); ?>
-      </ul>
-      <br />
-    <?php endif; ?>
-  <?php endforeach; ?>
-  </div>
-<?php else: ?>
-<?php if($last_record): ?>
-  <h2 style="color: green; font-weight: bold; font-size: 16px; margin-top:50px;">Dados gravados com sucesso!</h2>
-<?php endif; ?>
+  <span style="font-weight: bold; font-size: 14px; float: left;">Linha <?php echo $linha ?>:&nbsp;</span>
+  <?php if($erro): ?>
+    
+    <div style="text-align: left;">
+      <?php foreach($recordForm as $field): ?>
+        <?php if ($field->hasError()): ?>
+          <br />
+          <?php echo '--- '.strip_tags($field->renderLabel()).' --- ' ?> <span style="color: red;font-size: 12px;"><?php echo strip_tags($field->renderError()); ?></span>
+        <?php endif; ?>
+      <?php endforeach; ?>
+      <?php foreach($sightingForm as $field): ?>
+        <?php if ($field->hasError()): ?>
+          <br />
+          <?php echo '--- '.strip_tags($field->renderLabel()).' --- ' ?> <span style="color: red;font-size: 12px;"><?php echo strip_tags($field->renderError()); ?></span>
+        <?php endif; ?>
+      <?php endforeach; ?>
+      <hr style="clear:both;"/>
+    </div>
+  <?php else: ?>
+    <span style="color: green; font-weight: bold; font-size: 14px; float: left;">OK</span>
+    <hr style="clear:both;"/>
 
-<script type="text/javascript">
-  $(function() {
-    $("tr.record_line_<?php echo $linha ?> td.line_id").html("<?php echo $linha ?><input type='hidden' class='record_id' value='<?php echo $record->getId() ?>' /> <input class='sighting_id' type='hidden' value='<?php echo $sighting->getId() ?>' />");
-  });
-</script>
+    <?php if($last_record): ?>
+      <h2 style="color: green; font-weight: bold; font-size: 16px; margin-top:10px;">Dados gravados com sucesso!</h2>
+    <?php endif; ?>
 
-<?php endif; ?>
+    <script type="text/javascript">
+      $(function() {
+        $("tr.record_line_<?php echo $linha ?> td.line_id").html("<?php echo $linha ?><input type='hidden' class='record_id' value='<?php echo $record->getId() ?>' /> <input class='sighting_id' type='hidden' value='<?php echo $sighting->getId() ?>' />");
+      });
+    </script>
+
+  <?php endif; ?>

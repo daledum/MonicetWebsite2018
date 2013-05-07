@@ -1064,6 +1064,7 @@ class general_infoActions extends autoGeneral_infoActions
       $this->processForm($request, $this->form);
       $this->setTemplate('edit');
   }
+  
   public function executeDelete(sfWebRequest $request)
   {
       $request->checkCSRFProtection();
@@ -1080,4 +1081,26 @@ class general_infoActions extends autoGeneral_infoActions
       $this->redirect('@general_info');
   }
 
+  public function executeDeleteSiblings(sfWebRequest $request){
+    $gi = GeneralInfoPeer::retrieveByPK($request->getParameter("general_info_id"));
+    $this->forward404Unless( $gi );
+    foreach( $gi->getRecords() as $record ){
+      foreach( $record->getSightings() as $sightting ){
+        $obphotos = ObservationPhotoQuery::create()
+                ->filterBySightingId($sightting->getId())->find();
+        foreach($obphotos as $obphoto){
+          $obphoto->setSightingId(null);
+          $obphoto->save();
+        }
+        $sightting->delete();
+      }
+      $record->delete();
+    }
+  }
+  
+  public function executeValidateSequence( sfWebRequest $request ){
+    $sequence = $request->getParameter('sequence', '');
+    //print_r($sequence);
+    $this->validity = CodePeer::validateSequence($sequence);
+  }
 }

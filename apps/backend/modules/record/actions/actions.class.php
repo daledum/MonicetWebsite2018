@@ -195,44 +195,45 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
   }
 
   public function executeGuardarLinha(sfWebRequest $request){
+    // variavel que indica se este é o último registo do registo de avistamento
     $this->last_record = false;
     
+    $general_info = $this->request->getParameter('general_info_id');
+    
+    // record and record fields from form
     $this->registo = $request->getParameter('record');
+    $csrfR = $this->registo['_csrf_token'];
     $code = $this->registo['code_id'];
     $visibility = $this->registo['visibility_id'];
     $sea_state = $this->registo['sea_state_id'];
-    $general_info = $this->request->getParameter('general_info_id');
     $time = $this->registo['time'];
     $latitude = mfUtils::convertLatLong($this->registo['latitude']);
     $longitude = mfUtils::convertLatLong($this->registo['longitude']);
     $num_vessels = $this->registo['num_vessels'];
-    $csrfR = $this->registo['_csrf_token'];
     
+    //sighting and sighting fields from form
     $this->sight = $request->getParameter('sighting');
+    $csrfS = $this->sight['_csrf_token'];
     $specie = $this->sight['specie_id'];
-    $total = $this->sight['total'];
+    $behaviour = $this->sight['behaviour_id'];
+    $association = $this->sight['association_id'];
     $adults = $this->sight['adults'];
     $juveniles = $this->sight['juveniles'];
     $calves = $this->sight['calves'];
-    $behaviour = $this->sight['behaviour_id'];
-    $association = $this->sight['association_id'];
+    $total = $this->sight['total'];
     $comments = $this->sight['comments'];
-    $csrfS = $this->sight['_csrf_token'];
     
+    // num da linha no form
     $this->linha = $request->getParameter('linha');
-    
-    
-    
-    
-    
-    
+    $this->initial_n_lines = $request->getParameter('initial_n_lines');
+        
     $this->recordForm = new RecordForm();
     $this->recordForm->bind(array_merge($this->registo,array('general_info_id' => $general_info)));
     
     $this->sightingForm = new SightingForm();
-    //$this->sightingForm->bind(array_merge($this->sight,array('record_id' => $this->linha)));
     
     if($this->recordForm->isValid()){
+      // inicialmente o formulário não tem erros de validação posterior
       $this->erro = false;
       
       if(! $this->record = RecordPeer::retrieveByPk($request->getParameter('record_id'))){
@@ -244,11 +245,11 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->record->setGeneralInfoId($general_info);
       $this->record->setTime($time);
       $gi = GeneralInfoPeer::retrieveByPk($general_info);
+      // se lat igual a Base_latitude e long igual Base_longitude e o codigo de estados em ['I', 'F']
       if ($latitude == $gi->getBaseLatitude() && $longitude == $gi->getBaseLongitude() && ($code == 1 || $code == 2) ) {
         $this->record->setLatitude('BASE');
         $this->record->setLongitude('BASE');
-      }
-      else {
+      } else {
         $this->record->setLatitude($latitude);
         $this->record->setLongitude($longitude);
       }
@@ -256,6 +257,8 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
       $this->record->save();
       
       $this->sightingForm->bind(array_merge($this->sight,array('record_id' => $this->record->getId())));
+      
+      // FIXME:???? porquê aqui? 
       $success = False;
       
       if($this->sightingForm->isValid()){
@@ -271,40 +274,29 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
         $this->sighting->setJuveniles($juveniles);
         $this->sighting->setCalves($calves);
         $this->sighting->setTotal($total);
-        //$this->sighting->setNumberVessels($num_vessels);
         $this->sighting->setComments($comments);
         $this->sighting->save();
         $success = True;
         $this->last_record = ($this->record->getCodeId() == 2);
-      }
-      else{
+      } else {
         $this->erro = true;
       }
-      
+      // Se o avistamento não validado, remover o registo(record)
       if (! $success) {
         $this->record->delete();
       }
-      
-    }else{
+    } else {
       $this->erro = true;
       $success = false;
     }
     
     if($success && $this->last_record){
-      
-      RecordPeer::deleteIgnoredRecordsSightings($this->record->getId(), $general_info);
-      
+      //RecordPeer::deleteIgnoredRecordsSightings($this->record->getId(), $general_info);      
       $gi = GeneralInfoPeer::retrieveByPk($general_info);
-      
       $c = $gi->getComments();
-      $gi->setComments($c.' ');
+      $gi->setComments($c.' '.$comments);
       $gi->save();
-      $gi->setComments($c);
-      $gi->save();
-      
-    }
-    
-    
+    } 
   }
 
 

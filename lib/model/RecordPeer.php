@@ -40,18 +40,20 @@ class RecordPeer extends BaseRecordPeer {
 //    return RecordPeer::doSelect($c);
   }
   
-  public static function deleteIgnoredRecordsSightings($recordId, $giid){
-    $c = new Criteria();
-    $c->add(RecordPeer::GENERAL_INFO_ID, $giid);
-    $c->addAnd(RecordPeer::ID, $recordId, Criteria::GREATER_THAN);
-    $c->addAscendingOrderByColumn(RecordPeer::ID);
-    $items = RecordPeer::doSelect($c);
-    
-    foreach($items as $record){
-      $sighting = SightingPeer::retrieveByRecordId($record->getId());
-      $sighting->delete();
-      $record->delete();
-    }
-  }
+//  public static function deleteIgnoredRecordsSightings($recordId, $giid){
+//    printf("#%s#%s#", $recordId, $giid);
+//    $items = RecordQuery::create()
+//            ->useGeneralInfoQuery()
+//              ->filterById($giid)
+//            ->endUse()
+//            ->filterById($recordId, Criteria::GREATER_THAN)
+//            ->find();
+//        
+//    foreach($items as $record){
+//      $sighting = SightingPeer::retrieveByRecordId($record->getId());
+//      $sighting->delete();
+//      $record->delete();
+//    }
+//  }
   
 } // RecordPeer

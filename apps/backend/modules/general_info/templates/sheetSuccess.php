@@ -43,116 +43,159 @@
     
     
 
-    function saveRecordLine() {
-        var success = false;
-        var n_lines = $('#n-lines').val();
-        $.ajax({
-            type: "GET",   
-            url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineSubmit", 
-            data: {
-                number_of_rows: n_lines, 
-                general_info_id: <?php echo $general_info->getId();?>,
-                
-                "record[_csrf_token]": $("tr.record_line_" + n_lines + " #record__csrf_token").val(),
-                "record[code_id]": $("tr.record_line_" + n_lines + " #record_code_id option:selected").val(),
-                "record[time]": $("tr.record_line_" + n_lines + " #record_time").val(),
-                "record[latitude]": $("tr.record_line_" + n_lines + " #record_latitude").val(),
-                "record[longitude]": $("tr.record_line_" + n_lines + " #record_longitude").val(),
-                "record[sea_state_id]": $("tr.record_line_" + n_lines + " #record_sea_state_id option:selected").val(),
-                "record[visibility_id]": $("tr.record_line_" + n_lines + " #record_visibility_id option:selected").val(),
-                "sighting[specie_id]": $("tr.record_line_" + n_lines + " #sighting_specie_id option:selected").val(),
-                
-                "sighting[_csrf_token]": $("tr.record_line_" + n_lines + " #sighting__csrf_token").val(),
-                "sighting[total]": $("tr.record_line_" + n_lines + " #sighting_total").val(),
-                "sighting[adults]": $("tr.record_line_" + n_lines + " #sighting_adults").val(),
-                "sighting[juveniles]": $("tr.record_line_" + n_lines + " #sighting_juveniles").val(),
-                "sighting[calves]": $("tr.record_line_" + n_lines + " #sighting_calves").val(),
-                "sighting[behaviour_id]": $("tr.record_line_" + n_lines + " #sighting_behaviour_id option:selected").val(),
-                "sighting[association_id]": $("tr.record_line_" + n_lines + " #sighting_association_id option:selected").val(),
-                "record[num_vessels]": $("tr.record_line_" + n_lines + " #record_num_vessels").val(),
-                "sighting[comments]": $("tr.record_line_" + n_lines + " #sighting_comments").val(),
-                '_r': Math.random()*100
-            },
-            async: false,
-            success: function(msg) {
-                         $('#erros').html(msg);
-                         $('#erros').dialog();
-                     }
-        });
-        return success;
-    }
+//    function saveRecordLine() {
+//        var success = false;
+//        var n_lines = $('#n-lines').val();
+//        $.ajax({
+//            type: "GET",   
+//            url: url[0] + "//" + url[2] + "/" + url[3] + "/record/lineSubmit", 
+//            data: {
+//                number_of_rows: n_lines, 
+//                general_info_id: <?php echo $general_info->getId();?>,
+//                
+//                "record[_csrf_token]": $("tr.record_line_" + n_lines + " #record__csrf_token").val(),
+//                "record[code_id]": $("tr.record_line_" + n_lines + " #record_code_id option:selected").val(),
+//                "record[time]": $("tr.record_line_" + n_lines + " #record_time").val(),
+//                "record[latitude]": $("tr.record_line_" + n_lines + " #record_latitude").val(),
+//                "record[longitude]": $("tr.record_line_" + n_lines + " #record_longitude").val(),
+//                "record[sea_state_id]": $("tr.record_line_" + n_lines + " #record_sea_state_id option:selected").val(),
+//                "record[visibility_id]": $("tr.record_line_" + n_lines + " #record_visibility_id option:selected").val(),
+//                "sighting[specie_id]": $("tr.record_line_" + n_lines + " #sighting_specie_id option:selected").val(),
+//                
+//                "sighting[_csrf_token]": $("tr.record_line_" + n_lines + " #sighting__csrf_token").val(),
+//                "sighting[total]": $("tr.record_line_" + n_lines + " #sighting_total").val(),
+//                "sighting[adults]": $("tr.record_line_" + n_lines + " #sighting_adults").val(),
+//                "sighting[juveniles]": $("tr.record_line_" + n_lines + " #sighting_juveniles").val(),
+//                "sighting[calves]": $("tr.record_line_" + n_lines + " #sighting_calves").val(),
+//                "sighting[behaviour_id]": $("tr.record_line_" + n_lines + " #sighting_behaviour_id option:selected").val(),
+//                "sighting[association_id]": $("tr.record_line_" + n_lines + " #sighting_association_id option:selected").val(),
+//                "record[num_vessels]": $("tr.record_line_" + n_lines + " #record_num_vessels").val(),
+//                "sighting[comments]": $("tr.record_line_" + n_lines + " #sighting_comments").val(),
+//                '_r': Math.random()*100
+//            },
+//            async: false,
+//            success: function(msg) {
+//                         $('#erros').html(msg);
+//                         $('#erros').dialog();
+//                     }
+//        });
+//        return success;
+//    }
     
     
     function saveAllLines(){
         var success = false;
-        var n_lines = $('#n-lines').val();
+        var n_lines = $('#n-lines').val(); //n de linhas no formulário
         var fim = false;
         $('#erros').empty();
         $("#progressbar").progressbar({value: 0});
-        for(i = 1 ; i<=n_lines ; i++){
-          if( !fim ){
-            $.ajax({
-                type: "POST",   
-                url: url[0] + "//" + url[2] + "/" + url[3] + "/record/guardarLinha", 
-                data: {
-                    number_of_rows: n_lines, 
-                    general_info_id: <?php echo $general_info->getId();?>,
-                    
-                    "record_id": $("tr.record_line_" + i + " .record_id").val(),
-                    "record[_csrf_token]": $("tr.record_line_" + i + " #record__csrf_token").val(),
-                    "record[code_id]": $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val(),
-                    "record[time]": $("tr.record_line_" + i + " #record_time").val(),
-                    "record[latitude]": $("tr.record_line_" + i + " #record_latitude").val(),
-                    "record[longitude]": $("tr.record_line_" + i + " #record_longitude").val(),
-                    "record[sea_state_id]": $("tr.record_line_" + i + " #record_sea_state_id option:selected").val(),
-                    "record[visibility_id]": $("tr.record_line_" + i + " #record_visibility_id option:selected").val(),
-                    "sighting[specie_id]": $("tr.record_line_" + i + " #sighting_specie_id option:selected").val(),
-                    
-                    "sighting_id": $("tr.record_line_" + i + " .sighting_id").val(),
-                    "sighting[_csrf_token]": $("tr.record_line_" + i + " #sighting__csrf_token").val(),
-                    "sighting[total]": $("tr.record_line_" + i + " #sighting_total").val(),
-                    "sighting[adults]": $("tr.record_line_" + i + " #sighting_adults").val(),
-                    "sighting[juveniles]": $("tr.record_line_" + i + " #sighting_juveniles").val(),
-                    "sighting[calves]": $("tr.record_line_" + i + " #sighting_calves").val(),
-                    "sighting[behaviour_id]": $("tr.record_line_" + i + " #sighting_behaviour_id option:selected").val(),
-                    "sighting[association_id]": $("tr.record_line_" + i + " #sighting_association_id option:selected").val(),
-                    "record[num_vessels]": $("tr.record_line_" + i + " #record_num_vessels").val(),
-                    "sighting[comments]": $("tr.record_line_" + i + " #sighting_comments").val(),
-                    
-                    
-                    "linha" : i,
-                    "_r": Math.random()*100
-                },
-                async: false,
-                success: function(msg) {
-                  $('#erros').append(msg);
-                }
-            });
-            //return success;
-            $("#progressbar").progressbar({value: (i/n_lines)*100});
-          }
-          if( $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val() == 2) fim = true;
-        }
         
+        //Validate form
+        var codes = new Array();
+        for(l=1; l<=n_lines; l++){
+          codes.push($("tr.record_line_" + l + " #record_code_id_" + l + " option:selected").text());
+        }
+        var form_valid = false;
         $.ajax({
-            type: "POST",   
-            url: url[0] + "//" + url[2] + "/" + url[3] + "/general_info/validation", 
-            data: {
-                general_info_id: <?php echo $general_info->getId();?>,
-                
-                "valid":           $("#general_info_valid").attr('checked'),
-                "comments":        $("#general_info_comments").val(),
-                "general_info_id": <?php echo $general_info->getId() ?>,
-                
-                "_r": Math.random()*100
-            },
-            async: false,
-            success: function(msg) {
-              
+          type: "GET",
+          url: url[0] + "//" + url[2] + "/" + url[3] + '/general-info/validate-sequence',
+          data: {
+            sequence: codes
+          },
+          async: false,
+          success: function(msg) {
+            if( msg == 'SUCCESS' ){
+              form_valid = true
             }
+          }
         });
         
+        //alert(form_valid);
+        
+        if( form_valid ){
+          //TODO: Remove all Record and Sightings associated to general_info
+        $.ajax({
+          type: 'POST',
+          url: url[0] + "//" + url[2] + "/" + url[3] + "/general-info/<?php echo $general_info->getId();?>/delete-siblings",
+          data: {},
+          async: false,
+          success: function(msg) {
+            // do nothing
+          }
+        });
+          //TODO: Add all Records and Sightings to general_info
+          for(i = 1 ; i<=n_lines ; i++){ // para cada linha
+            if( !fim ){
+              $.ajax({
+                  type: "POST",   
+                  url: url[0] + "//" + url[2] + "/" + url[3] + "/record/guardarLinha", //envia o pedido para guardar uma linha
+                  data: {
+                      number_of_rows: n_lines, 
+                      general_info_id: <?php echo $general_info->getId();?>,
 
+                      "record_id": $("tr.record_line_" + i + " .record_id").val(),
+                      "record[_csrf_token]": $("tr.record_line_" + i + " #record__csrf_token").val(),
+                      "record[code_id]": $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val(),
+                      "record[time]": $("tr.record_line_" + i + " #record_time").val(),
+                      "record[latitude]": $("tr.record_line_" + i + " #record_latitude").val(),
+                      "record[longitude]": $("tr.record_line_" + i + " #record_longitude").val(),
+                      "record[sea_state_id]": $("tr.record_line_" + i + " #record_sea_state_id option:selected").val(),
+                      "record[visibility_id]": $("tr.record_line_" + i + " #record_visibility_id option:selected").val(),
+                      "sighting[specie_id]": $("tr.record_line_" + i + " #sighting_specie_id option:selected").val(),
+
+                      "sighting_id": $("tr.record_line_" + i + " .sighting_id").val(),
+                      "sighting[_csrf_token]": $("tr.record_line_" + i + " #sighting__csrf_token").val(),
+                      "sighting[total]": $("tr.record_line_" + i + " #sighting_total").val(),
+                      "sighting[adults]": $("tr.record_line_" + i + " #sighting_adults").val(),
+                      "sighting[juveniles]": $("tr.record_line_" + i + " #sighting_juveniles").val(),
+                      "sighting[calves]": $("tr.record_line_" + i + " #sighting_calves").val(),
+                      "sighting[behaviour_id]": $("tr.record_line_" + i + " #sighting_behaviour_id option:selected").val(),
+                      "sighting[association_id]": $("tr.record_line_" + i + " #sighting_association_id option:selected").val(),
+                      "record[num_vessels]": $("tr.record_line_" + i + " #record_num_vessels").val(),
+                      "sighting[comments]": $("tr.record_line_" + i + " #sighting_comments").val(),
+
+                      "linha" : i,
+                      "initial_n_lines" : $('#initial-n-lines').val(),
+                      "_r": Math.random()*100
+                  },
+                  async: false,
+                  success: function(msg) {
+                    $('#erros').append(msg);
+                  }
+              });
+              //return success;
+              $("#progressbar").progressbar({value: (i/n_lines)*100});
+            }
+            if( $("tr.record_line_" + i + " #record_code_id_" + i + " option:selected").val() == 2) fim = true;
+          }
+          
+          $.ajax({
+              type: "POST",   
+              url: url[0] + "//" + url[2] + "/" + url[3] + "/general_info/validation", 
+              data: {
+                  general_info_id: <?php echo $general_info->getId();?>,
+
+                  "valid":           $("#general_info_valid").attr('checked'),
+                  "comments":        $("#general_info_comments").val(),
+                  "general_info_id": <?php echo $general_info->getId() ?>,
+
+                  "_r": Math.random()*100
+              },
+              async: false,
+              success: function(msg) {
+
+              }
+          });
+          
+        } else {
+          $('#erros').append('<div style="text-align: left;">');
+          $('#erros').append('<span style="font-weight: bold; font-size: 14px; float: left;">Sequência de códigos incorrecta:&nbsp;</span>');
+          $('#erros').append('</div>');
+          $('#erros').append('<span style="color: red;font-size: 14px; float: left;">' + codes + '</span><hr style="clear:both;"/></div>');
+          
+        }
+        
+        // mostra popup com mensagens de erro
         $('#erros').dialog('open');
     }
     
@@ -169,10 +212,10 @@
             return false;
         });
         
-        $('a.save-line').click(function() {
-            saveRecordLine();
-            return false;
-        });
+//        $('a.save-line').click(function() {
+//            saveRecordLine();
+//            return false;
+//        });
         
         $('a.remove-line').click(function() {
             removeRecordLine();
@@ -234,6 +277,7 @@
   </table>
   
   <input id="n-lines" type="hidden" value="<?php echo $n_lines; ?>" />
+  <input id="initial-n-lines" type="hidden" value="<?php echo $n_lines; ?>" />
   <input id="general_info_id" type="hidden" value="<?php echo $general_info->getId(); ?>" />
   
   <div class="sf_admin_list">
@@ -320,7 +364,7 @@
             <td class="sf_admin_text association"><?php echo $sighting_form['association_id']; ?></td>
             <td class="sf_admin_text num_vessels"><?php echo $record_form['num_vessels']; ?></td>
             <td class="sf_admin_text comments"><?php echo $sighting_form['comments']; ?></td>
-            <td class="sf_admin_text remove"><?php if($records[$x]->getCodeId() == 2): ?><div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div><?php endif; ?></td>
+            <td class="sf_admin_text remove"><?php if($records[$x]->getCodeId() == 2): ?><div class="remove-line-div" style="margin-top: 10px; width: 20px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div><?php endif; ?></td>
             <?php echo $record_form['_csrf_token']; ?>
             <?php echo $sighting_form['_csrf_token']; ?>
           </tr>
@@ -432,14 +476,13 @@
   </div>
 </div>
 
-<div id="erros" title="Gravar dados" style="display: none;">
-
+<div id="erros" title="Relatório de actualização:" style="display: none;">
 </div>
 
 
 <script>
 $(document).ready(function() {
-    $("#erros").dialog({ autoOpen: false, maxHeight: 400, maxWidth: 400, buttons: {
+    $("#erros").dialog({ autoOpen: false, height: 400, width: 600, buttons: {
         Fechar: function() {
           $(this).dialog("close");
         }
