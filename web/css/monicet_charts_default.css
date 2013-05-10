@@ -96,7 +96,8 @@
 }
 
 #_ul_languages {
-    padding-left: 635px !important;
+    padding-left: 670px !important;
+    width: 70px;
 }
 
 .filter-item input {

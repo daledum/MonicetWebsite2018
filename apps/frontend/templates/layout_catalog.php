@@ -45,6 +45,7 @@
 
                           <!-- LANGUAGE -->
                           <div id="_ul_languages" style="display: inline-block">
+                            <div style="float:left;"><?php echo link_to('Admin','/admin.php') ?></div>
                             <?php if (has_slot('filter_links_language')): ?>
                               <?php include_slot('filter_links_language') ?>
                             <?php else: ?>

@@ -228,7 +228,7 @@ $this->getUser()->setFlash('notice', 'No job to delete.');
     $this->initial_n_lines = $request->getParameter('initial_n_lines');
         
     $this->recordForm = new RecordForm();
-    $this->recordForm->bind(array_merge($this->registo,array('general_info_id' => $general_info)));
+    $this->recordForm->bind(array_merge($this->registo, array('general_info_id' => $general_info)));
     
     $this->sightingForm = new SightingForm();
     

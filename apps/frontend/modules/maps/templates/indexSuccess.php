@@ -15,6 +15,7 @@
   
   <!-- LANGUAGE -->
   <div id="_ul_languages" style="display: inline-block">
+    <div style="float:left;"><?php echo link_to('Admin','/admin.php') ?></div>
     <?php if($sf_user->getCulture() == "pt"): ?> 
        <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
     <?php else: ?>

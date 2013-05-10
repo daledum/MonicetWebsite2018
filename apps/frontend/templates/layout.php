@@ -39,8 +39,10 @@
 	    <div id="_div_page">
 	        <div style="margin: 0 auto;position: relative;top: -22px;width: 955px;"><a href="<?php echo url_for('@homepage') ?>"><img src="/images/frontend/logo_transparent.png" alt="monicet" title="monicet" /></a></div>
 	        <div id="_div_main">
+                    
 	            <div id="_ul_languages">
-		            <?php if($sf_user->getCulture() == "pt"): ?> 
+                        <div style="float:left;"><?php echo link_to('Admin','/admin.php') ?></div>
+		      <?php if($sf_user->getCulture() == "pt"): ?> 
 	                 <div id="_div_en_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=pt', 'sf_culture=en', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
 	              <?php else: ?>
 	                 <div id="_div_pt_language" class="flag"><?php echo link_to(image_tag('frontend/logo_transparent.png', 'alt_title="language" size=20x14'), str_replace('sf_culture=en', 'sf_culture=pt', $sf_context->getRouting()->getCurrentInternalUri(false, ESC_RAW))) ?></div>
@@ -73,7 +75,6 @@
 	            </div>
 	            <?php include_component('consorcium', 'consorciumElements') ?>
 	        </div>
-	        <div style="position: relative; left: 740px; display: inline-block;"><?php echo link_to('Admin','/admin.php') ?></div>
 	    </div>
     </div>
     <?php include_partial('global/footer'); ?>
