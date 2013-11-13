@@ -6,7 +6,11 @@
   <?php include_partial('prObservationPhoto/flashes') ?>
   
   <div id="identify_main_block" >
-    
+    <?php if($observationPhoto->getIndividualId()): ?>
+      <div id="individual_characterization">
+        <b><?php echo $observationPhoto->getIndividual()->getName() ?></b>
+      </div>
+    <?php endif; ?>
     <div id="identify_main_block_image1">
       <div id="identify_viewer_image1" class="identify_viewer_image1"></div>
     </div>
@@ -99,6 +103,10 @@
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
     <li class="sf_admin_action_action" id="associate_individual_li"><?php echo link_to('Associar fotografia a indivíduo', '@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id=9999999', array('method' => 'post', 'confirm' => 'Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?', 'id' => 'associate_individual_link')) ?></li>
     <li class="sf_admin_action_new"><?php echo link_to('Novo individuo', '@pr_new_individual_by_photo?id='.$observationPhoto->getId(), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende criar um novo individuo?')) ?></li>
+    <?php $sessionUser = $sf_user->getGuardUser() ?> 
+    <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $observationPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
+      <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>
+    <?php endif; ?>
   </ul>
 </div>
 
@@ -106,14 +114,27 @@
 <script type="text/javascript">
     var $ = jQuery;
     $(document).ready(function(){
+      <?php 
+        $filename = $observationPhoto->getFileName();
+        $resume = $observationPhoto->getHtmlResume();
+        if( $observationPhoto->getIndividualId()){
+          $best = $observationPhoto->getIndividual()->getBestObservationPhoto();
+          $filename = $best->getFileName();
+          $resume = $best->getHtmlResume();
+        }
+      ?>
       var iv1 = $("#identify_viewer_image1").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>",
         onMouseMove: function(){
           $('#identify_viewer_image1 img').attr('title', '<?php echo $observationPhoto->getHtmlResume(); ?>');
         }
       });
+      
       var iv2 = $("#identify_viewer_image2").iviewer({
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>",
+        onMouseMove: function(){
+          $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>');
+        }
       });
       $("#associate_individual_li").hide();
     });

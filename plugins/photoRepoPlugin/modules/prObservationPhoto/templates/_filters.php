@@ -25,6 +25,12 @@
       </tfoot>
       <tbody>
         <?php foreach ($configuration->getFormFilterFields($form) as $name => $field): ?>
+        <?php 
+          $field_type = $field->getType();
+          if( $name == 'individual_id'){
+            $field_type = 'Text';
+          }
+        ?>
         <?php if ((isset($form[$name]) && $form[$name]->isHidden()) || (!isset($form[$name]) && $field->isReal())) continue ?>
           <?php include_partial('prObservationPhoto/filters_field', array(
             'name'       => $name,
@@ -33,7 +39,7 @@
             'help'       => $field->getConfig('help'),
             'form'       => $form,
             'field'      => $field,
-            'class'      => 'sf_admin_form_row sf_admin_'.strtolower($field->getType()).' sf_admin_filter_field_'.$name,
+            'class'      => 'sf_admin_form_row sf_admin_'.strtolower($field_type).' sf_admin_filter_field_'.$name,
           )) ?>
         <?php endforeach; ?>
       </tbody>

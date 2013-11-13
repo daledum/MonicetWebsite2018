@@ -22,6 +22,9 @@ class ObservationPhotoFormFilter extends BaseObservationPhotoFormFilter
       $this['body_part']
     );
     
+    $this->widgetSchema['individual_id'] = new sfWidgetFormFilterInput(array('with_empty' => false), array('class' => 'sf_admin_filter'));
+    $this->validatorSchema['individual_id'] = new sfValidatorPass(array('required' => false));
+    
     $this->widgetSchema['photo_date'] = new sfWidgetFormFilterDate(array(
       'from_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),
       'to_date' => new sfWidgetFormInput(array(), array('class' => 'date_field data_geral', 'readonly' => 'readonly')),

@@ -426,14 +426,44 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  protected function addSortCriteria($criteria)
+  {
+    if (array(null, null) == ($sort = $this->getSort()))
+    {
+      return;
+    }
+
+    $column = ObservationPhotoPeer::translateFieldName($sort[0], BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_COLNAME);
+    if ($sort[0] == 'individual_id'){
+      $criteria->addJoin(ObservationPhotoPeer::INDIVIDUAL_ID, IndividualPeer::ID, Criteria::LEFT_JOIN);
+      if ('asc' == $sort[1]) {
+        $criteria->addAscendingOrderByColumn(IndividualPeer::NAME);
+      } else {
+        $criteria->addDescendingOrderByColumn(IndividualPeer::NAME);
+      }
+    } else {
+      if ('asc' == $sort[1]) {
+        $criteria->addAscendingOrderByColumn($column);
+      } else {
+        $criteria->addDescendingOrderByColumn($column);
+      }
+    }
+  }
   
   protected function buildCriteria()
   {
     if (null === $this->filters) {
       $this->filters = $this->configuration->getFilterForm($this->getFilters());
     }
-
     $criteria = $this->filters->buildCriteria($this->getFilters());
+    
+    $criteria->remove(ObservationPhotoPeer::INDIVIDUAL_ID);
+    $filter_array = $this->getUser()->getAttribute('prObservationPhoto.filters', array(), 'admin_module');
+    if( isset($filter_array['individual_id']) && strlen($filter_array['individual_id']['text']) > 0 ){
+      $criteria->addJoin(ObservationPhotoPeer::INDIVIDUAL_ID, IndividualPeer::ID, Criteria::LEFT_JOIN);
+      $criteria->add(IndividualPeer::NAME, $filter_array['individual_id']['text']);
+    }
+    
     $request = sfContext::getInstance()->getRequest();
     $template = $request->getParameter('template', 'index');
     $clean = ($request->getParameter('do', null) == 'clean')? true: false;
@@ -507,6 +537,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+    $observationPhoto->setIsBest(false);
     $observationPhoto->save();
     
     if( $old_individual != null ){
