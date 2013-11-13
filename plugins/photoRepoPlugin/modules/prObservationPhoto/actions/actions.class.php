@@ -426,6 +426,29 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  protected function addSortCriteria($criteria)
+  {
+    if (array(null, null) == ($sort = $this->getSort()))
+    {
+      return;
+    }
+
+    $column = ObservationPhotoPeer::translateFieldName($sort[0], BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_COLNAME);
+    if ($sort[0] == 'individual_id'){
+      $criteria->addJoin(ObservationPhotoPeer::INDIVIDUAL_ID, IndividualPeer::ID, Criteria::LEFT_JOIN);
+      if ('asc' == $sort[1]) {
+        $criteria->addAscendingOrderByColumn(IndividualPeer::NAME);
+      } else {
+        $criteria->addDescendingOrderByColumn(IndividualPeer::NAME);
+      }
+    } else {
+      if ('asc' == $sort[1]) {
+        $criteria->addAscendingOrderByColumn($column);
+      } else {
+        $criteria->addDescendingOrderByColumn($column);
+      }
+    }
+  }
   
   protected function buildCriteria()
   {
