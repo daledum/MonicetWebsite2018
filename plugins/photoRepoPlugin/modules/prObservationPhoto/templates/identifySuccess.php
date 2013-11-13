@@ -114,14 +114,27 @@
 <script type="text/javascript">
     var $ = jQuery;
     $(document).ready(function(){
+      <?php 
+        $filename = $observationPhoto->getFileName();
+        $resume = $observationPhoto->getHtmlResume();
+        if( $observationPhoto->getIndividualId()){
+          $best = $observationPhoto->getIndividual()->getBestObservationPhoto();
+          $filename = $best->getFileName();
+          $resume = $best->getHtmlResume();
+        }
+      ?>
       var iv1 = $("#identify_viewer_image1").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>",
         onMouseMove: function(){
           $('#identify_viewer_image1 img').attr('title', '<?php echo $observationPhoto->getHtmlResume(); ?>');
         }
       });
+      
       var iv2 = $("#identify_viewer_image2").iviewer({
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>"
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>",
+        onMouseMove: function(){
+          $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>');
+        }
       });
       $("#associate_individual_li").hide();
     });
