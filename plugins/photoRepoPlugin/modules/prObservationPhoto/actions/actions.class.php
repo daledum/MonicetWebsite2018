@@ -537,6 +537,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+    $observationPhoto->setIsBest(false);
     $observationPhoto->save();
     
     if( $old_individual != null ){
