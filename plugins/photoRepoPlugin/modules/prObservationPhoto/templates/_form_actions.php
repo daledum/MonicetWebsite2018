@@ -26,7 +26,7 @@
     <?php endif; ?>
       
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
-    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) /*&& $OBPhoto->getLastEditedBy() != $sessionUser->getId()*/ ): ?>
+    <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $OBPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$OBPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
       
