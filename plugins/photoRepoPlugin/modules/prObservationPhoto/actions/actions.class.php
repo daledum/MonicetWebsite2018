@@ -455,8 +455,15 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     if (null === $this->filters) {
       $this->filters = $this->configuration->getFilterForm($this->getFilters());
     }
-
     $criteria = $this->filters->buildCriteria($this->getFilters());
+    
+    $criteria->remove(ObservationPhotoPeer::INDIVIDUAL_ID);
+    $filter_array = $this->getUser()->getAttribute('prObservationPhoto.filters', array(), 'admin_module');
+    if( isset($filter_array['individual_id']) && strlen($filter_array['individual_id']['text']) > 0 ){
+      $criteria->addJoin(ObservationPhotoPeer::INDIVIDUAL_ID, IndividualPeer::ID, Criteria::LEFT_JOIN);
+      $criteria->add(IndividualPeer::NAME, $filter_array['individual_id']['text']);
+    }
+    
     $request = sfContext::getInstance()->getRequest();
     $template = $request->getParameter('template', 'index');
     $clean = ($request->getParameter('do', null) == 'clean')? true: false;
