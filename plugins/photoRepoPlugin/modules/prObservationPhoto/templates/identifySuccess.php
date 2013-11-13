@@ -6,7 +6,11 @@
   <?php include_partial('prObservationPhoto/flashes') ?>
   
   <div id="identify_main_block" >
-    
+    <?php if($observationPhoto->getIndividualId()): ?>
+      <div id="individual_characterization">
+        <b><?php echo $observationPhoto->getIndividual()->getName() ?></b>
+      </div>
+    <?php endif; ?>
     <div id="identify_main_block_image1">
       <div id="identify_viewer_image1" class="identify_viewer_image1"></div>
     </div>
