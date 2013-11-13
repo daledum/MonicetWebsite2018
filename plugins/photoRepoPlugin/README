@@ -1,0 +1,16 @@
+photoRepoPlugin
+================================================================================
+
+1 - PROBLEMA
+
+    A ferramenta RC (Reconhecimento de Cetácos), pretente-se que faça as 
+seguintes tarefas: 
+    - Seja um repositório de fotografias de observações que ocorreram durante as
+saídas para observação de cetáceos.
+    - Upload em lotes de fotografias, validado se as mesmas foram nomeadas 
+segundo a regra, AAAAMMDD-codigo_fotografo-none_fotografia.jpg.
+    - Criar registos informáticos dessas mesmas fotografias importando dados dos
+registos EXIF e IPTC.
+    - Caracterizar as marcas dos individos fotografados e guardar essa 
+informação associada à fotografia de observação.
+    - Criar uma Base de dados de indivíduos 

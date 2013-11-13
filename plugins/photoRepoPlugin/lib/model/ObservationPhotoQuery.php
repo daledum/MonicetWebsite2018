@@ -19,7 +19,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     }
     
     if( in_array('same', $choices) ){
-      //filter same caracterization
+      //filter same caracterization by body parts
       if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
         $query = self::_completeCharacterizationDorsalLeftQuery($observationPhoto, $query);
       } elseif( $observationPhoto->getBodyPart() == body_part::R_SIGLA ){ // dorsal right
@@ -28,25 +28,30 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         $query = self::_completeCharacterizationTailQuery($observationPhoto, $query);
       }
     } else {
-      //filter other choices
+      // filter other choices
+      // Smooth
       if( in_array('smooth', $choices) ){
         $query = self::_get_smooth_filter($query, $observationPhoto);
       }
+      // Irregular
       if( in_array('irregular', $choices) ){
         $query = self::_get_irregular_filter($query, $observationPhoto);
       }
+      // Cutted_point
       if( in_array('cutted_point', $choices) ){
         $query = self::_get_cutted_point_filter($query, $observationPhoto);
       }
+      // Cutted point left
       if( in_array('cutted_point_left', $choices) ){
         $query = self::_get_cutted_point_left_filter($query, $observationPhoto);
       }
+      // Cutted point right
       if( in_array('cutted_point_right', $choices) ){
         $query = self::_get_cutted_point_right_filter($query, $observationPhoto);
       }
       $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
     }
-
+    // filter best pictures.
     if( in_array('best', $choices) ){
       $query = $query->filterByIsBest(true);
     }

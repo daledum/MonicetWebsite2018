@@ -17,8 +17,19 @@ $(document).ready(function(){
             $(field_group).attr("disabled", "disabled");
         } else {
             $(field_group).removeAttr("disabled");
-            $('#identify_form_choices_complete_marks').attr('checked', true);
-            $('#identify_form_choices_depth').attr('checked', true);
+            if($('.mark_click_listener').length > 0){
+                $('#identify_form_choices_complete_marks').attr('checked', true);
+                $('#identify_form_choices_depth').attr('checked', true);
+            } else {
+                $('#identify_form_choices_complete_marks').attr("disabled", "disabled");;
+                $('#identify_form_choices_depth').attr("disabled", "disabled");;
+            }
+            var description = $('#identify_description');
+            if( (description.html().indexOf("Lisa") !== -1) ){
+                $(opposite_to_smooth).removeAttr("checked");
+                $(opposite_to_smooth).attr("disabled", "disabled");
+                $('#identify_form_choices_smooth').attr('checked', true);
+            }
         }
     });
     //switch between smooth and irregular
@@ -28,11 +39,17 @@ $(document).ready(function(){
             $(opposite_to_smooth).attr("disabled", "disabled");
         } else {
             $(opposite_to_smooth).removeAttr("disabled");
-            $('#identify_form_choices_complete_marks').attr('checked', true);
-            $('#identify_form_choices_depth').attr('checked', true);
+            if($('.mark_click_listener').length > 0){
+                $('#identify_form_choices_complete_marks').attr('checked', true);
+                $('#identify_form_choices_depth').attr('checked', true);
+            } else {
+                $('#identify_form_choices_complete_marks').attr("disabled", "disabled");;
+                $('#identify_form_choices_depth').attr("disabled", "disabled");;
+            }
         }
     });
     
+        
     // first ajax request
     send_ajax_request();
     
