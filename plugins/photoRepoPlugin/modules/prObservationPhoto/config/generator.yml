@@ -24,6 +24,7 @@ generator:
           multiValidate: { label: "Validar em grupo" }
         display:
           - code
+          - is_best
           - _individual_id
           #- _photo_date
           #- _photo_time
