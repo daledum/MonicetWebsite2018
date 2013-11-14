@@ -13,7 +13,7 @@
       </thead>
       <tfoot>
         <tr>
-          <th colspan="7">
+          <th colspan="8">
             <?php if ($pager->haveToPaginate()): ?>
               <?php include_partial('prObservationPhoto/pagination', array('pager' => $pager)) ?>
             <?php endif; ?>
