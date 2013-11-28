@@ -461,7 +461,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $filter_array = $this->getUser()->getAttribute('prObservationPhoto.filters', array(), 'admin_module');
     if( isset($filter_array['individual_id']) && strlen($filter_array['individual_id']['text']) > 0 ){
       $criteria->addJoin(ObservationPhotoPeer::INDIVIDUAL_ID, IndividualPeer::ID, Criteria::LEFT_JOIN);
-      $criteria->add(IndividualPeer::NAME, $filter_array['individual_id']['text']);
+      $criteria->add(IndividualPeer::NAME, "%".$filter_array['individual_id']['text']."%", Criteria::LIKE);
     }
     
     $request = sfContext::getInstance()->getRequest();
