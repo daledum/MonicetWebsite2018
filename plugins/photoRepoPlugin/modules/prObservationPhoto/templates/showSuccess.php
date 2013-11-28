@@ -84,10 +84,12 @@
       <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$observationPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
       
+    <?php /*?>  
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
     <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $observationPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
+    <?php */ ?>  
       
     <li class="sf_admin_action_edit"><a href="<?php echo url_for('@pr_observation_photo_edit?id='.$observationPhoto->getId()) ?>">Editar</a></li> 
    

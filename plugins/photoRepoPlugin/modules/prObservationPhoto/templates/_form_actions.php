@@ -24,11 +24,13 @@
     <?php if( $OBPhoto->isIdentifyable() ): ?>
       <li class="sf_admin_action_pesquisa"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$OBPhoto->getId()) ?>">Identificar</a></li>
     <?php endif; ?>
-      
+    
+    <?php /* ?>  
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
     <?php if(in_array($OBPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $OBPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$OBPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
+    <?php */ ?>  
       
     <li class="sf_admin_action_show"><a href="<?php echo url_for('@pr_observation_photo_show?id='.$OBPhoto->getId()) ?>">Visualizar</a></li>
   </ul>
