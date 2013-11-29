@@ -6,11 +6,17 @@
   <?php include_partial('prObservationPhoto/flashes') ?>
   
   <div id="identify_main_block" >
-    <?php if($observationPhoto->getIndividualId()): ?>
-      <div id="individual_characterization">
+    
+    <div id="individual_characterization">
+      <?php if($observationPhoto->getIndividualId()): ?>
         <b><?php echo $observationPhoto->getIndividual()->getName() ?></b>
-      </div>
-    <?php endif; ?>
+      <?php endif; ?>
+      <?php if($observationPhoto->getLastEditedBy()): ?>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Última atualização por: <?php echo $observationPhoto->getsfGuardUserRelatedByLastEditedBy() ?> em <?php echo $observationPhoto->getUpdatedAt('Y-m-d'); ?> 
+      <?php endif; ?>
+    </div>
+    
+    
     <div id="identify_main_block_image1">
       <div id="identify_viewer_image1" class="identify_viewer_image1"></div>
     </div>
