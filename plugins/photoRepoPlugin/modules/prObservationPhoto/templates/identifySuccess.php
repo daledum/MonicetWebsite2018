@@ -137,10 +137,7 @@
       });
       
       var iv2 = $("#identify_viewer_image2").iviewer({
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>",
-        onMouseMove: function(){
-          $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>');
-        }
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>"
       });
       $("#associate_individual_li").hide();
     });
