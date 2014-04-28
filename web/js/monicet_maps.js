@@ -59,7 +59,6 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
   
   
   if(map_type == 'default' || map_type == 'ginfo'){
-      
     /*
      * inicializa mapa normal
      */
@@ -281,7 +280,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
                 
                 var latlng = new google.maps.LatLng(lat,-lon);
                 var myOptions = {
-                  zoom: 10,
+                  zoom: 7,
                   center: latlng,
                   mapTypeId: google.maps.MapTypeId.SATELLITE
                 };
