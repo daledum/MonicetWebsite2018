@@ -119,6 +119,14 @@ pr_uploaded_photo:
     prefix_path:          /uploaded-photo
     column:               id
     with_wildcard_routes: true
+    
+pr_observation_photo_export:
+  url:  /observation-photo/export
+  params:
+    module:     prObservationPhoto
+    action:     Export
+  requirements:
+    sf_method: get
 
 pr_observation_photo_multi_edit:
   url:  /observation-photo/multi_edit
