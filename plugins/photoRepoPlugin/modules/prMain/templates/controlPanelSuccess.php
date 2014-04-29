@@ -48,6 +48,7 @@
             <td>
               <ul class="sf_admin_td_actions">
                 <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?template=catalog') ?></li>
+                <li class="sf_admin_action_action"><?php echo link_to('Exportar catálogo', '@pr_observation_photo_export') ?></li>
               </ul>
             </td>
           </tr>

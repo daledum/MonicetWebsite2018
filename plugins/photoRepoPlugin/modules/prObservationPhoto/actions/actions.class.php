@@ -573,4 +573,55 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $sightings = SightingPeer::getSightingsForSelectAjax($ob_date, $specieId, $companyId, $vesselId);
     $this->sightings = $sightings;
   }
+  
+  public function executeExport( sfWebRequest $request ){
+    $this->filename = sprintf("%s/export_%s.csv", sfConfig::get('sf_log_dir'), date('Ymd_His'));
+    
+    // creacte csv file
+    $observations_file = fopen($this->filename, 'w');
+    fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,best,status,last_edited_by,validated_by\n");
+    $obPhotos = ObservationPhotoQuery::create()->orderById(Criteria::ASC)->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
+    foreach($obPhotos as $op){
+      //$str_line = sprintf("%s\n", $op->getId());
+      //$str_line = "bananas\n";
+      $format_string = "%s,\"%s\",%s,%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n";
+      $behaviour = $op->getBehaviourId()? $op->getBehaviour()->getCode(): ''; 
+      $company = $op->getCompanyId()? $op->getCompany()->getAcronym(): '';
+      $vessel = $op->getvesselId()? $op->getVessel()->getRecCetCode(): '';
+      $photographer = $op->getPhotographerId()? $op->getphotographer()->getCode(): '';
+      $best = $op->getIsBest()? 'Y': 'N';
+      $last_edited_by = $op->getLastEditedBy()? $op->getsfGuardUserRelatedByLastEditedBy()->getUsername(): '';
+      $validated_by = $op->getValidatedBy()? $op->getsfGuardUserRelatedByValidatedBy()->getUsername(): '';
+      $args = array(
+          $op->getId(), 
+          $op->getFileName(),
+          $op->getPhotoDate(),
+          $op->getPhotoTime(),
+          $op->getIndividual()->getName(),
+          $op->getSpecie()->getCode(),
+          $op->getIsland(),
+          $op->getBodyPart()->getCode(),
+          $op->getGender(),
+          $op->getAgeGroup(),
+          $behaviour,
+          $op->getLatitude(),
+          $op->getLongitude(),
+          $company,
+          $vessel,
+          $photographer,
+          $op->getKindOfPhoto(),
+          $op->getPhotoQuality(),
+          $op->getSightingId(),
+          $best,
+          $op->getStatus(),
+          $last_edited_by,
+          $validated_by
+      );
+      vfprintf($observations_file, $format_string, $args); 
+    }
+    fclose($observations_file);
+    
+    $this->forward404Unless(file_exists($this->filename));
+  }
+  
 }
