@@ -593,18 +593,26 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
           $limit *= 1024;
     }
     $available = $limit - $cur;
-    //print $available."|".$free_memory_limit.'<br/>';
     if( $available > $free_memory_limit ) {
       return true;
     } else {
       return false;
     }
+  }
+  
+  public function _is_ok_execution_time($time, $margin){
+    $max = ini_get('max_execution_time');
+    if( ($time + $margin) > $max ) {
+      return false;
+    } else {
+      return true;
+    }
     
   }
   
   public function executeExport( sfWebRequest $request ){
+    $start_time = time();
     $errors = '';
-    
     $args = array();
     $from = null;
     $to = null;
@@ -643,7 +651,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $this->filename = sprintf("%s/export_%s.csv", sfConfig::get('sf_log_dir'), date('Ymd_His'));
     $obPhotosQS = ObservationPhotoQuery::create();
-    if($fom){
+    if($from){
       $obPhotosQS = $obPhotosQS->filterById($from, Criteria::GREATER_EQUAL);
     }
     if($to){
@@ -656,41 +664,45 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,best,status,last_edited_by,validated_by\n");
     foreach($obPhotos as $op){
       if ($this->_free_memory_is_above(5000000)) {
-        
-        $format_string = "%s,\"%s\",%s,%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n";
-        $behaviour = $op->getBehaviourId()? $op->getBehaviour()->getCode(): ''; 
-        $company = $op->getCompanyId()? $op->getCompany()->getAcronym(): '';
-        $vessel = $op->getvesselId()? $op->getVessel()->getRecCetCode(): '';
-        $photographer = $op->getPhotographerId()? $op->getphotographer()->getCode(): '';
-        $best = $op->getIsBest()? 'Y': 'N';
-        $last_edited_by = $op->getLastEditedBy()? $op->getsfGuardUserRelatedByLastEditedBy()->getUsername(): '';
-        $validated_by = $op->getValidatedBy()? $op->getsfGuardUserRelatedByValidatedBy()->getUsername(): '';
-        $line_args = array(
-            $op->getId(), 
-            $op->getFileName(),
-            $op->getPhotoDate(),
-            $op->getPhotoTime(),
-            $op->getIndividual()->getName(),
-            $op->getSpecie()->getCode(),
-            $op->getIsland(),
-            $op->getBodyPart()->getCode(),
-            $op->getGender(),
-            $op->getAgeGroup(),
-            $behaviour,
-            $op->getLatitude(),
-            $op->getLongitude(),
-            $company,
-            $vessel,
-            $photographer,
-            $op->getKindOfPhoto(),
-            $op->getPhotoQuality(),
-            $op->getSightingId(),
-            $best,
-            $op->getStatus(),
-            $last_edited_by,
-            $validated_by
-        );
-        vfprintf($observations_file, $format_string, $line_args); 
+        if( $this->_is_ok_execution_time(time() - $start_time, 5) ) {
+          $format_string = "%s,\"%s\",%s,%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n";
+          $behaviour = $op->getBehaviourId()? $op->getBehaviour()->getCode(): ''; 
+          $company = $op->getCompanyId()? $op->getCompany()->getAcronym(): '';
+          $vessel = $op->getvesselId()? $op->getVessel()->getRecCetCode(): '';
+          $photographer = $op->getPhotographerId()? $op->getphotographer()->getCode(): '';
+          $best = $op->getIsBest()? 'Y': 'N';
+          $last_edited_by = $op->getLastEditedBy()? $op->getsfGuardUserRelatedByLastEditedBy()->getUsername(): '';
+          $validated_by = $op->getValidatedBy()? $op->getsfGuardUserRelatedByValidatedBy()->getUsername(): '';
+          $line_args = array(
+              $op->getId(), 
+              $op->getFileName(),
+              $op->getPhotoDate(),
+              $op->getPhotoTime(),
+              $op->getIndividual()->getName(),
+              $op->getSpecie()->getCode(),
+              $op->getIsland(),
+              $op->getBodyPart()->getCode(),
+              $op->getGender(),
+              $op->getAgeGroup(),
+              $behaviour,
+              $op->getLatitude(),
+              $op->getLongitude(),
+              $company,
+              $vessel,
+              $photographer,
+              $op->getKindOfPhoto(),
+              $op->getPhotoQuality(),
+              $op->getSightingId(),
+              $best,
+              $op->getStatus(),
+              $last_edited_by,
+              $validated_by
+          );
+          vfprintf($observations_file, $format_string, $line_args);
+        } else {
+          $this->getUser()->setFlash('error', 'Atingiu o limite de tempo disponível, por favor reduza a quantidade de registos a exportar.', true);
+          $this->redirect('@recognition_of_cetaceans_app?'.http_build_query($args));
+        }
       } else {
         $this->getUser()->setFlash('error', 'Atingiu o limite de memória disponível, por favor reduza a quantidade de registos a exportar.', true);
         $this->redirect('@recognition_of_cetaceans_app?'.http_build_query($args));
