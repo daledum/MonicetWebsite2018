@@ -15,6 +15,11 @@ class prMainActions extends sfActions {
     //$this->num_vessels = VesselQuery::create()->count();
     $this->num_photographers = PhotographerQuery::create()->count();
     $this->num_body_parts = BodyPartQuery::create()->count();
+    $lowest_id = ObservationPhotoQuery::create()->orderById(Criteria::ASC)->findOne();
+    $highest_id = ObservationPhotoQuery::create()->orderById(Criteria::DESC)->findOne();
+    $this->lowest_id =$lowest_id->getId();
+    $this->highest_id = $highest_id->getId();
+    $this->export_form = new ExportCatalogForm();
   }
   
   public function executeUploadPhotosBulk( sfWebRequest $request ){

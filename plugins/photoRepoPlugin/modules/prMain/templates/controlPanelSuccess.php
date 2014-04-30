@@ -48,7 +48,14 @@
             <td>
               <ul class="sf_admin_td_actions">
                 <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?template=catalog') ?></li>
-                <li class="sf_admin_action_action"><?php echo link_to('Exportar catálogo', '@pr_observation_photo_export') ?></li>
+                <li class="sf_admin_action_action">
+                  <form action="<?php echo url_for('@pr_observation_photo_export') ?>" method="POST">
+                    <input type="submit" value="Exportar catálogo" style="padding: 2px 5px;">
+                    De <?php echo $export_form['from']->render() ?> 
+                    a <?php echo $export_form['to']->render() ?> 
+                    - IDs entre <?php echo $lowest_id ?> e <?php echo $highest_id ?>
+                  </form>
+                </li>
               </ul>
             </td>
           </tr>
