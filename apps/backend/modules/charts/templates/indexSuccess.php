@@ -55,7 +55,7 @@
                         <option value="none"><?php print __('Select None', null, 'charts') ?></option>
                     </select>
                 </div>
-                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="all" />
+                <input type="hidden" id="select-all-toggle" name="select-all-toggle" value="custom" />
                 <input type="hidden" id="graph_type" name="graph_type" value="apue" />
                 <div class="filter-item">
                     <input type="submit" value="<?php echo __('Save to iframe', null, 'charts') ?>" />
