@@ -152,7 +152,7 @@ I added the following 5 lines of code, calling an onMouseMove function for image
 ***********/  
         onMouseMove: function(){
           if(carouselImageClicked==false){    
-          $('#identify_viewer_image2 img').attr('title', '<?php echo $best->getHtmlResume(); ?>'); //edited here ($resume), result: it shows info on initial photo all the time    
+          $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>'); //edited here (from $best->getHtmlResume() to $resume...using what was declared and assigned above), result: it shows info on initial photo all the time    
          }   
         }                             
       
