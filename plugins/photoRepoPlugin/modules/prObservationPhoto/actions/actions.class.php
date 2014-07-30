@@ -312,7 +312,9 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   }
   
   public function executeAjaxGetSighting( sfWebRequest $request ) {
-    $this->forward404Unless($this->sighting = SightingPeer::retrieveByPK($request->getParameter('id')));
+    $this->forward404Unless($this->sighting = SightingPeer::retrieveByPK($request->getParameter('id'))); 
+    //Alex: added one line here so I can get the values for the Record table in order to use them in ajaxGetSightingSuccess.php (which is used in ajax_filter_sightings.js)
+    $this->forward404Unless($this->record = RecordPeer::retrieveByPK($this->sighting->getRecordId())); 
   }
   
   public function executeGetSightingsOnDate( sfWebRequest $request ) {
