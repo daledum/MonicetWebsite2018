@@ -193,7 +193,10 @@
           $('#erros').append('<span style="font-weight: bold; font-size: 14px; float: left;">Sequência de códigos incorrecta:&nbsp;</span>');
           $('#erros').append('</div>');
           $('#erros').append('<span style="color: red;font-size: 14px; float: left;">' + codes + '</span><hr style="clear:both;"/></div>');
-          
+          $('#erros').append('<div style="text-align: left;">');
+          $('#erros').append('<span style="font-weight: bold; font-size: 14px; float: left;">Diagrama de estado:&nbsp;</span>');
+          $('#erros').append('<img src="/images/backend/state_diagram.png" height="363" width="661">');
+          $('#erros').append('</div>');
         }
         
         // mostra popup com mensagens de erro
@@ -483,7 +486,7 @@
 
 <script>
 $(document).ready(function() {
-    $("#erros").dialog({ autoOpen: false, height: 400, width: 600, buttons: {
+    $("#erros").dialog({ autoOpen: false, height: 550, width: 750, buttons: {
         Fechar: function() {
           $(this).dialog("close");
         }
