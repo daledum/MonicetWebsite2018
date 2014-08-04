@@ -14,6 +14,6 @@ $(document).ready(function(){
         sH: '100%',
         lW: '200%',
         lH: 1050,
-        lighbox : false
-    }); 
+        lightbox : false
+    });
 });
