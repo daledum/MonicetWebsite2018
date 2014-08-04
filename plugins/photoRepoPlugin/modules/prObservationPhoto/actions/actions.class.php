@@ -313,6 +313,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
   public function executeAjaxGetSighting( sfWebRequest $request ) {
     $this->forward404Unless($this->sighting = SightingPeer::retrieveByPK($request->getParameter('id')));
+    // Retrieve related record to use needed fields.
+    $this->record = RecordPeer::retrieveByPK($this->sighting->getRecordId());
   }
   
   public function executeGetSightingsOnDate( sfWebRequest $request ) {
