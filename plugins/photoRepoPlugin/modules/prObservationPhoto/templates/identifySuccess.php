@@ -119,15 +119,11 @@
 
 <script type="text/javascript">
 
-/***********Alex: edited this on the 25th of July locally with downloaded images (to local web/uploads/) from http://monicet.net/admin.php/observation-photo/3237/identify************************************************************
-I worked on this section in order to fix bug 1 (goo.gl/JnOkYx): the second photo (the one on the right) was not initially showing a mouse over info window (iviewer) - after clicking on a photo from the carousel it works fine, but not before
-I added one line here below to show if an image from the carousel located on the lower section of the page was clicked and loaded into dentify_viewer_image2
-***********/  
     var carouselImageClicked=false;
 
     var $ = jQuery;
     $(document).ready(function(){
-      <?php 
+      <?php
         $filename = $observationPhoto->getFileName();
         $resume = $observationPhoto->getHtmlResume();
         if( $observationPhoto->getIndividualId()){
@@ -145,20 +141,13 @@ I added one line here below to show if an image from the carousel located on the
       });
       
       var iv2 = $("#identify_viewer_image2").iviewer({
-      
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>", //Alex: also added this semicolon
-/***********Alex****************************
-I added the following 5 lines of code, calling an onMouseMove function for image2 only if no images from the carousel have been clicked. See plugins/photoRepoPlugin/modules/prObservationPhoto/templates/ajaxGetPossibleMatchesSuccess.php
-***********/  
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>",
         onMouseMove: function(){
-          if(carouselImageClicked==false){    
-          $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>'); //edited here (from $best->getHtmlResume() to $resume...using what was declared and assigned above), result: it shows info on initial photo all the time    
-         }   
-        }                             
-      
+          if(carouselImageClicked==false){
+            $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>');
+          }
+        }
       });
       $("#associate_individual_li").hide();
     });
-
-
 </script>

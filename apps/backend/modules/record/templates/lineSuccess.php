@@ -53,15 +53,15 @@
           if( $("#record_code_id_<?php echo $n_lines ?>").val() != 2 ){
             $("#record_code_id_<?php echo $n_lines+1 ?>").append(html);
           }
-          else {  
-                  $(".record_line_<?php echo $n_lines ?> #sighting_specie_id").remove();  
-                  $(".record_line_<?php echo $n_lines ?> #sighting_total").remove();
-                  $(".record_line_<?php echo $n_lines ?> #sighting_adults").remove();
-                  $(".record_line_<?php echo $n_lines ?> #sighting_juveniles").remove();
-                  $(".record_line_<?php echo $n_lines ?> #sighting_calves").remove();
-                  $(".record_line_<?php echo $n_lines ?> #sighting_behaviour_id").remove();
-                  $(".record_line_<?php echo $n_lines ?> #sighting_association_id").remove();                
-            }  
+          else {
+            $(".record_line_<?php echo $n_lines ?> #sighting_specie_id").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_total").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_adults").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_juveniles").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_calves").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_behaviour_id").remove();
+            $(".record_line_<?php echo $n_lines ?> #sighting_association_id").remove();
+          }
         },
         error: function(html, text, codigo){
           alert("erro");

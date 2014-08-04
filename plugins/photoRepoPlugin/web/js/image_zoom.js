@@ -15,5 +15,5 @@ $(document).ready(function(){
         lW: '200%',
         lH: 1050,
         lightbox : false
-    }); 
+    });
 });

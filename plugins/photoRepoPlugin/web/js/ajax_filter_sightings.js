@@ -21,12 +21,6 @@ $(document).ready(function() {
         });
     });
 
-    //Alex:commented out code (here and further down -lines 44-46) which wasn't entirely correct, notes are undefined on line 26 
-    //var empty_notes = true;
-    //if($('#observation_photo_notes').val() != '') {
-    //    empty_notes = false;
-    //}
-
     $('#observation_photo_sighting_id').change(function(){
         if($('#observation_photo_sighting_id').val()){
             $.ajax({
@@ -35,15 +29,9 @@ $(document).ready(function() {
                 dataType: 'json',
                 success: function(transport, html){
                     $('#observation_photo_behaviour_id').val(transport.behaviour_id);
-
-                    //Alex: added 3 lines here, in addition to having modified ajaxGetSightingSuccess.php
                     $('#observation_photo_latitude').val(transport.latitude);
                     $('#observation_photo_longitude').val(transport.longitude);
                     $('#observation_photo_notes').val(transport.comments);
-                    
-                    //if(empty_notes) {
-                    //    $('#observation_photo_notes').val(transport.comments);
-                    //} 
                 }
             });
         }

@@ -16,9 +16,7 @@
               //alert($(this).attr('src'));
               $(<?php echo sprintf("'#photo_%s'", $OBPhoto->getId()) ?>).click(function(){
                 //alert($(this)+'clicked');
-/***********Alex****************************
-I added the following line, setting the variable to true for image2 when an image from the carousel has been clicked. See plugins/photoRepoPlugin/modules/prObservationPhoto/templates/identifySuccess.php
-***********/ 
+
                 carouselImageClicked=true;
 
                 $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
