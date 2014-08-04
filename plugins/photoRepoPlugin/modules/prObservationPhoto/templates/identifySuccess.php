@@ -118,9 +118,12 @@
 
 
 <script type="text/javascript">
+
+    var carouselImageClicked=false;
+
     var $ = jQuery;
     $(document).ready(function(){
-      <?php 
+      <?php
         $filename = $observationPhoto->getFileName();
         $resume = $observationPhoto->getHtmlResume();
         if( $observationPhoto->getIndividualId()){
@@ -129,6 +132,7 @@
           $resume = $best->getHtmlResume();
         }
       ?>
+
       var iv1 = $("#identify_viewer_image1").iviewer({
         src: "<?php echo url_for( '/uploads/pr_repo_final/'.$observationPhoto->getFileName() ) ?>",
         onMouseMove: function(){
@@ -137,7 +141,12 @@
       });
       
       var iv2 = $("#identify_viewer_image2").iviewer({
-        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>"
+        src: "<?php echo url_for( '/uploads/pr_repo_final/'.$filename ); ?>",
+        onMouseMove: function(){
+          if(carouselImageClicked==false){
+            $('#identify_viewer_image2 img').attr('title', '<?php echo $resume; ?>');
+          }
+        }
       });
       $("#associate_individual_li").hide();
     });
