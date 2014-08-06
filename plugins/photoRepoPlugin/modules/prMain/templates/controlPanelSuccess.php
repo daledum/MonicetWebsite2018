@@ -37,7 +37,7 @@
             <td width="50" style="text-align: right;"><?php echo $notValidated ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?do=clean') ?></li>
               </ul>
             </td>
           </tr>
@@ -47,7 +47,7 @@
             <td width="50" style="text-align: right;"><?php echo $validated ?></td>
             <td>
               <ul class="sf_admin_td_actions">
-                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?template=catalog') ?></li>
+                <li class="sf_admin_action_list"><?php echo link_to('Listar', '@pr_observation_photo?template=catalog&do=clean') ?></li>
                 <li class="sf_admin_action_action">
                   <form action="<?php echo url_for('@pr_observation_photo_export') ?>" method="POST">
                     <input type="submit" value="Exportar catálogo" style="padding: 2px 5px;">
