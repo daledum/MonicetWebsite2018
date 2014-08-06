@@ -5,6 +5,7 @@
 <div id="pesquisa" class="jqmWindow" style="display: none;" >
 <div class="sf_admin_filter">
   <h2><?php echo __('Search', array(), 'sf_admin') ?></h2>
+  <?php $form->setDefaults(''); ?>
   <?php if ($form->hasGlobalErrors()): ?>
     <?php echo $form->renderGlobalErrors() ?>
   <?php endif; ?>

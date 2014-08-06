@@ -1102,7 +1102,7 @@ $.extend($.ui.rlightbox, {
 			// to fade or not to fade…
 			this.checkButtonsState();		
 
-			// start opening the lighbox
+			// start opening the lightbox
 			$lb.queueContainer.open.dequeue( "lightboxOpen" );
 		},
 

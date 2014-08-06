@@ -76,7 +76,7 @@
 
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
-      <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo') ?>">Fotografias por analisar</a></li>
+      <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_individual') ?>">Listagem de individuos</a></li>
       <li class="sf_admin_action_edit"><?php echo link_to('Editar', '@pr_individual_edit?id='.$individual->getId()) ?></li>
