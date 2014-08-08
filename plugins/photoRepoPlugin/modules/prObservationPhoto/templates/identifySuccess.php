@@ -128,8 +128,10 @@
         $resume = $observationPhoto->getHtmlResume();
         if( $observationPhoto->getIndividualId()){
           $best = $observationPhoto->getIndividual()->getBestObservationPhoto();
+          if($best){
           $filename = $best->getFileName();
           $resume = $best->getHtmlResume();
+         }
         }
       ?>
 
