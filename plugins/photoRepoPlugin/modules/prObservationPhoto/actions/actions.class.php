@@ -266,14 +266,19 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         system('mv '.$fileAddress.' '.sfConfig::get('sf_upload_dir').'/pr_repo_final' );
       } 
 
-      $ObservationPhoto = $form->save();
-      if( $isNew ){
-        $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+      $ObservationPhoto = $form->save(); //alternative to !$ObservationPhoto->isCharacterizable() from _form_marks.php: !count($ObservationPhoto->getSpecie()->getPatterns())
+      if( $isNew && !$ObservationPhoto->isCharacterizable() ){
+        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
       } else {
-        if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA) ) ) {
-          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-          $ObservationPhoto->save();
-        }
+            if( $isNew && $ObservationPhoto->isCharacterizable() ){
+            $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+           }
+           else { 
+               if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA) ) ) {
+               $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+               $ObservationPhoto->save();
+              }
+            }
       }
       
       if(isset($fileAddress)) {
