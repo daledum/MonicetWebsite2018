@@ -267,10 +267,10 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       } 
 
       $ObservationPhoto = $form->save(); //alternative to !$ObservationPhoto->isCharacterizable() from _form_marks.php: !count($ObservationPhoto->getSpecie()->getPatterns())
-      if( $isNew && !$ObservationPhoto->isCharacterizable() ){  
-        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA); 
-      } else {                                                    
-            if( $isNew && $ObservationPhoto->isCharacterizable() ){ 
+      if( $isNew && !$ObservationPhoto->isCharacterizable() ){
+        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+      } else {
+            if( $isNew && $ObservationPhoto->isCharacterizable() ){
             $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
            }
            else { 
