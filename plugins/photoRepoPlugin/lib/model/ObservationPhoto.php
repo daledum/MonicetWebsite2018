@@ -270,8 +270,8 @@ class ObservationPhoto extends BaseObservationPhoto {
     if( $this->getStatus() != ObservationPhoto::V_SIGLA ) {
       $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
       $fileAddresses = array(
-          $locationBegin.'tn_130_120_'.$this->getFileName(),
-          $locationBegin.'tn_165_150_'.$this->getFileName(),
+          $locationBegin.'tn_130x120_'.$this->getFileName(),
+          $locationBegin.'tn_165x150_'.$this->getFileName(),
           $locationBegin.'tn_200_'.$this->getFileName(),
           $locationBegin.$this->getFileName()
       ); 

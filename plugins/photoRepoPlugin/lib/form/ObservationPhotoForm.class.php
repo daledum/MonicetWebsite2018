@@ -243,9 +243,9 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
     parent::doSave($con);
     if ( $filename = $this->getObject()->getFileName() ){
       $file_address = sfConfig::get('sf_upload_dir').'/pr_repo_final';
-      WideImage::load($file_address.'/'.$filename)->resize(165, 150, 'outside')->crop('center', 'center', 165, 150)->saveToFile($file_address.'/tn_165x150_'.$filename);
-      WideImage::load($file_address.'/'.$filename)->resize(130, 120, 'outside')->crop('center', 'center', 130, 120)->saveToFile($file_address.'/tn_130x120_'.$filename);
-      WideImage::load($file_address.'/'.$filename)->resize(200, 200, 'outside')->crop('center', 'center', 200, 200)->saveToFile($file_address.'/tn_200_'.$filename);
+      WideImage::load($file_address.'/'.$filename)->resize(165, 150, 'fill')->saveToFile($file_address.'/tn_165x150_'.$filename);
+      WideImage::load($file_address.'/'.$filename)->resize(130, 120, 'fill')->saveToFile($file_address.'/tn_130x120_'.$filename);
+      WideImage::load($file_address.'/'.$filename)->resize(200, 200, 'fill')->saveToFile($file_address.'/tn_200_'.$filename);
     }
     
   }

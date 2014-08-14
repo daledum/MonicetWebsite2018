@@ -402,7 +402,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
           $mark_counter = 1;
           foreach( $marks as $mark ){
             $conditions = array($mark_counter.'_1', $mark_counter.'_2', $mark_counter.'_3');
-            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalRightMark.PatternCellTailId = ?', $mark->getPatternCellDorsalRightId());
+            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalRightMark.PatternCellDorsalRightId = ?', $mark->getPatternCellDorsalRightId());
             $query = $query->condition($mark_counter.'_2', 'ObservationPhotoDorsalRightMark.IsWide = ?', $mark->getIsWide());
             $query = $query->condition($mark_counter.'_3', 'ObservationPhotoDorsalRightMark.IsDeep = ?', $mark->getIsDeep());
             if( $mark->getToCellId() ){
@@ -433,7 +433,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
           $mark_counter = 1;
           foreach( $marks as $mark ){
             $conditions = array($mark_counter.'_1', $mark_counter.'_2', $mark_counter.'_3');
-            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalLeftMark.PatternCellTailId = ?', $mark->getPatternCellDorsalLeftId());
+            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalLeftMark.PatternCellDorsalLeftId = ?', $mark->getPatternCellDorsalLeftId());
             $query = $query->condition($mark_counter.'_2', 'ObservationPhotoDorsalLeftMark.IsWide = ?', $mark->getIsWide());
             $query = $query->condition($mark_counter.'_3', 'ObservationPhotoDorsalLeftMark.IsDeep = ?', $mark->getIsDeep());
             if( $mark->getToCellId() ){
