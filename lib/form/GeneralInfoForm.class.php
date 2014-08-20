@@ -36,7 +36,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
     
     
     
-    if( $this->isNew() ){
+    if( $this->isNew() || sfContext::getInstance()->getUser()->isSuperAdmin() ){
     $this->widgetSchema['date'] = new sfWidgetFormInput();
     $this->widgetSchema['date']->setAttribute('class', 'date_field');
     $this->widgetSchema['date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","date_field",true)');
