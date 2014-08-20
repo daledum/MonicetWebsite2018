@@ -32,9 +32,11 @@
     
     function removeRecordLine() {
         
+        if( $('#n-lines').val() != 1 ){
         $('tr.record_line_'+$('#n-lines').val()).remove();
         $('#n-lines').val(parseInt($('#n-lines').val()) - 1);
         $('tr.record_line_'+$('#n-lines').val()+' td.remove').append('<div class="remove-line-div" style="margin-top: 10px;"><a href="#" class="remove-line"><img src="/images/backend/icons/garbage.png" width="20"></a></div>');
+        }
         $('a.remove-line').click(function() {
             removeRecordLine();
             return false;
