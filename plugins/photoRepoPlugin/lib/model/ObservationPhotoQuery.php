@@ -267,7 +267,11 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       }
       
       if( !$complete ){
-        $a_z = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        if( $bodyPart == body_part::F_SIGLA ){ //the photo (and the table) used for characterizing the tail is missing "I"
+        $a_z = "abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
+        } else{
+          $a_z = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        }
         $fromPosition = strpos($a_z, substr($beginCellName, 0, 1));
         $toPosition = strpos($a_z, substr($endCellName, 0, 1));
         $letterInterval = substr($a_z, $fromPosition, ($toPosition-$fromPosition+1));
