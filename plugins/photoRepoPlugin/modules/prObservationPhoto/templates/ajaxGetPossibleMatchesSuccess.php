@@ -19,6 +19,18 @@
 
                 carouselImageClicked=true;
 
+                <?php if( ($observationPhoto->getBodyPart() == $OBPhoto->getBodyPart()) &&
+                          ($observationPhoto->getPhotoDate() == $OBPhoto->getPhotoDate()) ){
+                          $sameDateAndBodyPart=1;
+                      }
+                      else{
+                          $sameDateAndBodyPart=0;
+                      }
+               ?>
+               if( '<?php echo $sameDateAndBodyPart; ?>' == '1'){
+                alert('Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia');
+               }
+
                 $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
                 $('#identify_viewer_image2 img').attr('title', '<?php echo $OBPhoto->getHtmlResume(); ?>');
                 $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
