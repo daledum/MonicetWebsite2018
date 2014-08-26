@@ -124,7 +124,7 @@ pr_observation_photo_export:
   url:  /observation-photo/export
   params:
     module:     prObservationPhoto
-    action:     Export
+    action:     export
   requirements:
     sf_method: get
 

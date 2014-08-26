@@ -666,13 +666,14 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
     $obPhotos = $obPhotosQS->orderById(Criteria::ASC)->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
     
-    // creacte csv file
+    // create csv file
     $observations_file = fopen($this->filename, 'w');
-    fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,best,status,last_edited_by,validated_by\n");
+    fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,sighting_id,best,status,last_edited_by,validated_by\n");
     foreach($obPhotos as $op){
       if ($this->_free_memory_is_above(5000000)) {
         if( $this->_is_ok_execution_time(time() - $start_time, 5) ) {
           $format_string = "%s,\"%s\",%s,%s,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\"\n";
+          $individual = $op->getIndividual()? $op->getIndividual()->getName(): '';
           $behaviour = $op->getBehaviourId()? $op->getBehaviour()->getCode(): ''; 
           $company = $op->getCompanyId()? $op->getCompany()->getAcronym(): '';
           $vessel = $op->getvesselId()? $op->getVessel()->getRecCetCode(): '';
@@ -685,7 +686,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
               $op->getFileName(),
               $op->getPhotoDate(),
               $op->getPhotoTime(),
-              $op->getIndividual()->getName(),
+              $individual,
               $op->getSpecie()->getCode(),
               $op->getIsland(),
               $op->getBodyPart()->getCode(),
