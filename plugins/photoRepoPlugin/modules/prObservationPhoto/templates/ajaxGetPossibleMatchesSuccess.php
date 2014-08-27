@@ -19,13 +19,16 @@
 
                 carouselImageClicked=true;
 
-                <?php if( ($observationPhoto->getBodyPart() == $OBPhoto->getBodyPart()) &&
-                          ($observationPhoto->getPhotoDate() == $OBPhoto->getPhotoDate()) ){
-                          $sameDateAndBodyPart=1;
-                      }
-                      else{
-                          $sameDateAndBodyPart=0;
-                      }
+               <?php
+               $sameDateAndBodyPart=0;
+
+               foreach( $OBPhoto->getIndividual()->getObservationPhotos() as $Photo ){
+                if( ($observationPhoto->getBodyPart() == $Photo->getBodyPart()) &&
+                    ($observationPhoto->getPhotoDate() == $Photo->getPhotoDate()) ){
+                    $sameDateAndBodyPart=1;
+                    break;
+                }
+               }
                ?>
                if( '<?php echo $sameDateAndBodyPart; ?>' == '1'){
                 alert('Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia');
