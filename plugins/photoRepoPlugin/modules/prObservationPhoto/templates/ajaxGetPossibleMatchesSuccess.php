@@ -31,7 +31,7 @@
                }
                ?>
                if( '<?php echo $sameDateAndBodyPart; ?>' == '1'){
-                alert('Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia');
+                alert('Este indivíduo (' + '<?php echo $OBPhoto->getIndividual()->getName(); ?>' + ') já tem uma foto da mesma parte do corpo tomada no mesmo dia');
                }
 
                 $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
