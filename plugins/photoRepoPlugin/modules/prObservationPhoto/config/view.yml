@@ -7,7 +7,7 @@ ajaxGetPossibleMatchesSuccess:
 identifySuccess:
   #javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
   javascripts:  [ -*, jquery-1.4.2.min.js, jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js, /photoRepoPlugin/liquidcarousel/js/jquery.liquidcarousel.js, /photoRepoPlugin/js/identify.js ]
-  stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css, /photoRepoPlugin/liquidcarousel/css/liquidcarousel.css ]
+  stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css, /photoRepoPlugin/liquidcarousel/css/liquidcarousel.css, "jquery-theme/jquery-ui-1.8.6.custom.css" ]
 showSuccess:
   javascripts:  [ -*, "jquery-1.4.2.min.js", jquery-ui-1.8.6.custom.min.js, jquery.mousewheel.js, /photoRepoPlugin/js/jquery.iviewer.js ]
   stylesheets:  [ /photoRepoPlugin/css/jquery.iviewer.css ]

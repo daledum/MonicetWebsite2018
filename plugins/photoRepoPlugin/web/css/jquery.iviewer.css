@@ -7,7 +7,7 @@
     bottom:10px;
     border: 1px  solid #000;
     height: 28px;
-    z-index: 5000;
+    z-index: 1000;
 }
 
 .iviewer_cursor {
