@@ -19,22 +19,52 @@
 
                 carouselImageClicked=true;
 
-                <?php if( ($observationPhoto->getBodyPart() == $OBPhoto->getBodyPart()) &&
-                          ($observationPhoto->getPhotoDate() == $OBPhoto->getPhotoDate()) ){
-                          $sameDateAndBodyPart=1;
-                      }
-                      else{
-                          $sameDateAndBodyPart=0;
-                      }
-               ?>
-               if( '<?php echo $sameDateAndBodyPart; ?>' == '1'){
-                alert('Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia');
+              <?php
+              $message = 0;
+
+               foreach( $OBPhoto->getIndividual()->getObservationPhotos() as $Photo ){
+                if( ($observationPhoto->getBodyPart() == $Photo->getBodyPart()) &&
+                    ($observationPhoto->getPhotoDate() == $Photo->getPhotoDate()) ){
+                    $message=1;
+                    break;
+                }
                }
+              ?>
+              sameDateAndBodyPartMessage = '<?php echo $message; ?>';
 
                 $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
                 $('#identify_viewer_image2 img').attr('title', '<?php echo $OBPhoto->getHtmlResume(); ?>');
                 $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
                 $("#associate_individual_li").show();
+              
+                $("#associate_individual_link").click(function(e) {
+                  e.preventDefault();
+                  var link = this;
+                  if( sameDateAndBodyPartMessage == '1' ){
+                  $("#associateIndividualSameBodyPartDate").dialog({
+                        buttons: {
+                            "OK": function() {
+                                window.location = link.href;
+                            },
+                            "Cancel": function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                  }
+                  else{
+                  $("#associate").dialog({
+                        buttons: {
+                            "OK": function() {
+                                window.location = link.href;
+                            },
+                            "Cancel": function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+                  }
+                });
               });
             });
           </script>
