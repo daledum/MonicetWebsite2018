@@ -58,27 +58,37 @@
             <b><?php echo __('Age group', null, 'catalog') ?>:</b> <?php echo __(age_group::getValueForSigla($age_group), null, 'catalog') ?><br/>
           <?php endif; ?>
           
-          <?php //General Infos ?>
-          <?php //$lastTenGIs = $individual->getLastTenGIDates() ?> 
-          <?php $lastTenObservationDates = $individual->getLastTenObservationDates() ?> 
-          <?php //echo $lastTenObservationDates ?>
-          <?php //$date_parts = explode(',', $lastTenObservationDates); ?>
-          <?php $num_parts = (count($lastTenObservationDates) > 10)? 10: count($lastTenObservationDates); ?>
-          <?php if( $num_parts ): ?>
-            <b><?php echo __('Sightings', null, 'catalog') ?> (<?php echo $num_parts ?>):</b> <?php //echo $lastTenObservationDates ?>
-            <?php $resultStr = ''; ?>
-            <?php foreach($lastTenObservationDates as $cont => $df): ?>
-              <?php $resultStr .= ', '.$df['date']; ?>
-              <?php if($df['num_photos'] > 1): ?>
-                <?php $resultStr .= ' <b>('.$df['num_photos'].')</b>'; ?>
-              <?php endif; ?>
-              <?php if($cont == 9): ?>
-                <?php $resultStr .= ', ...'; ?>
-              <?php endif; ?>
-            <?php endforeach; ?>
-            <?php echo substr($resultStr, 2) ?>
-            <br/>
-          <?php endif; ?>
+          <?php
+          echo '<b>';
+          echo __('Sightings', null, 'catalog');
+          echo ' registered on the following date(s): </b>';
+
+          $resultStr = '';
+
+          foreach( $individual->getObservationPhotos() as $OBPhoto ){
+            if( $OBPhoto->getStatus() == ObservationPhoto::V_SIGLA ){
+                $resultStr .= ','.$OBPhoto->getPhotoDate('Y-m-d');
+            }
+          }
+          
+          $uniqueDates = array_values( array_unique(explode(',',substr($resultStr, 1))) );
+          $size = count($uniqueDates);
+          for($i = 0; $i < $size; $i++){
+            if($i > 9){
+              echo '...';
+              break;
+            }
+            else{
+                if($i == ($size-1)){
+                   echo $uniqueDates[$i];
+                }
+                else{
+                     echo $uniqueDates[$i].', ';
+                }
+            }
+          }
+          ?>
+          <br/>
           
           <?php if(strlen($individual->getNotes()) ): ?>
             <b><?php echo __('Notes', null, 'catalog') ?>:</b> <?php echo $individual->getNotes() ?><br/>
@@ -98,8 +108,10 @@
         <?php $timeTitle = __('Time', null, 'catalog') ?>
           
         <?php foreach( $individual->getObservationPhotos() as $OBPhoto ): ?>
-          <?php if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA)): ?>
-            <?php if( strlen($OBPhoto->getLatitude()) && strlen($OBPhoto->getLongitude())): ?>
+          <?php if( $OBPhoto->getStatus() == ObservationPhoto::V_SIGLA ): ?>
+            <?php if( in_array($OBPhoto->getPhotoDate(), $uniqueDates) ): ?>
+              <?php unset( $uniqueDates[key($uniqueDates)] ); ?>//or: unset($uniqueDates[array_search($OBPhoto->getPhotoDate(), $uniqueDates)]);
+              <?php if( strlen($OBPhoto->getLatitude()) && strlen($OBPhoto->getLongitude())): ?>
               <?php $latitude = $OBPhoto->getLatitude() ?>
               <?php $longitude = $OBPhoto->getLongitude() ?>
               <?php $descStr = sprintf("<b>%s</b><br/><b>%s: </b>%s|%s<br/><b>%s: </b>%s<br/><b>%s: </b>%s",$OBPhoto->getCode() , $coordinatesTitle, $latitude, $longitude, $dateTitle, $OBPhoto->getPhotoDate('Y-m-d'), $timeTitle, $OBPhoto->getPhotoTime('H:i')) ?>
@@ -110,6 +122,8 @@
                     "desc": '<div class="popup-content-gmaps"><?php echo $descStr ?></div>',
                     "auto_show_info": false
                 };
+              
+              <?php endif; ?>
             <?php endif; ?>
           <?php endif; ?>
         <?php endforeach; ?>
