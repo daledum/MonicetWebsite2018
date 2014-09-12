@@ -115,6 +115,52 @@
         //alert(form_valid);
         
         if( form_valid ){
+
+        <?php
+        $user = sfContext::getInstance()->getUser()->getGuardUser();
+        $company = CompanyPeer::doSelectUserCompany($user->getId());
+          
+        if( $company ){
+          $base = GeoLocation::fromDegrees( $company->getBaseLatitude(), $company->getBaseLongitude() );
+          $coordinates = $base->boundingCoordinates(100, 'kilometers');
+          $minimum_lat = $coordinates[0]->getLatitudeInDegrees();
+          $maximum_lat = $coordinates[1]->getLatitudeInDegrees();
+          $minimum_long = $coordinates[0]->getLongitudeInDegrees();
+          $maximum_long = $coordinates[1]->getLongitudeInDegrees();
+        }
+        ?>
+
+        var errorMessage = '';
+        var time ='';
+        var isTimeGood = false;
+        var minimum_lat = parseFloat('<?php echo $minimum_lat; ?>');
+        var maximum_lat = parseFloat('<?php echo $maximum_lat; ?>');
+        var minimum_long = parseFloat('<?php echo $minimum_long; ?>');
+        var maximum_long = parseFloat('<?php echo $maximum_long; ?>');
+
+        for(i = 1 ; i<=n_lines ; i++){
+
+         time = String($("tr.record_line_" + i + " #record_time").val());
+         isTimeGood = time.match(/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/);
+
+         if(!isTimeGood){
+           errorMessage += '<br>' + 'Line ' + i +  ': the time format has to be hh:mm:ss ou hh:mm' + '<br>';
+         }
+
+         if( $("tr.record_line_" + i + " #record_latitude").val() && $("tr.record_line_" + i + " #record_latitude").val() != 'BASE' ){
+           if( parseFloat($("tr.record_line_" + i + " #record_latitude").val()) < minimum_lat || parseFloat($("tr.record_line_" + i + " #record_latitude").val()) > maximum_lat ){
+             errorMessage += '<br>' + 'Line ' + i + ': latitude can only take values between ' + minimum_lat + ' and ' + maximum_lat + '<br>';
+           }
+         }
+
+         if( $("tr.record_line_" + i + " #record_longitude").val() && $("tr.record_line_" + i + " #record_longitude").val() != 'BASE' ){
+           if( parseFloat($("tr.record_line_" + i + " #record_longitude").val()) < minimum_long || parseFloat($("tr.record_line_" + i + " #record_longitude").val()) > maximum_long ){
+             errorMessage += '<br>' + 'Line ' + i + ': longitude can only take values between ' + minimum_long + ' and ' + maximum_long + '<br>';
+           }
+         }
+        }
+
+      if(errorMessage == ''){
           //TODO: Remove all Record and Sightings associated to general_info
         $.ajax({
           type: 'POST',
@@ -189,7 +235,10 @@
 
               }
           });
-          
+         }
+          else{
+            $('#erros').append(errorMessage);
+          }
         } else {
           $('#erros').append('<div style="text-align: left;">');
           $('#erros').append('<span style="font-weight: bold; font-size: 14px; float: left;">Sequência de códigos incorrecta:&nbsp;</span>');

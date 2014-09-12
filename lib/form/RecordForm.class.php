@@ -12,15 +12,15 @@ class RecordForm extends BaseRecordForm
     );
     
     $this->widgetSchema['time'] = new sfWidgetFormInput();
-    $this->validatorSchema['time'] = new sfValidatorTime(
-          $options = array(
-              'time_format' => '^(20|21|22|23|[01]\d|\d)(([:.][0-5]\d){1,2})$^',
-              'time_format_error' => 'hh:mm:ss ou hh:mm'
-          ),
-          $messages = array(
-              'bad_format' => 'A data "%value%" não está de acordo com o formato "%time_format%"'
-          )
-        );
+    //$this->validatorSchema['time'] = new sfValidatorTime(
+    //      $options = array(
+    //          'time_format' => '^(20|21|22|23|[01]\d|\d)(([:.][0-5]\d){1,2})$^',
+    //          'time_format_error' => 'hh:mm:ss ou hh:mm'
+    //      ),
+    //      $messages = array(
+    //          'bad_format' => 'A data "%value%" não está de acordo com o formato "%time_format%"'
+    //      )
+    //    );
 
     $codes = CodePeer::doSelectListAll();
     $this->widgetSchema['code_id'] = new sfWidgetFormChoice(array(
