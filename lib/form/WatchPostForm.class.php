@@ -22,6 +22,32 @@ class WatchPostForm extends BaseWatchPostForm
     if ($company) {
         $this->setWidget('company_id', 
                          new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
+
+      $base = GeoLocation::fromDegrees( $company->getBaseLatitude(), $company->getBaseLongitude() );
+      $coordinates = $base->boundingCoordinates(100, 'kilometers');
+
+      $maximum_lat = $coordinates[1]->getLatitudeInDegrees();
+      $minimum_lat = $coordinates[0]->getLatitudeInDegrees();
+      $this->validatorSchema['latitude'] = new sfValidatorNumber(
+        array( 'max' => $maximum_lat,
+               'min' => $minimum_lat
+        ),
+        array( 'max' => 'Latitude can only take values between '. $minimum_lat. ' and '. $maximum_lat,
+               'min' => 'Latitude can only take values between '. $minimum_lat. ' and '. $maximum_lat
+        )
+      );
+    
+      $maximum_long = $coordinates[1]->getLongitudeInDegrees();
+      $minimum_long = $coordinates[0]->getLongitudeInDegrees();
+      $this->validatorSchema['longitude'] = new sfValidatorNumber(
+        array( 'max' => $maximum_long,
+               'min' => $minimum_long
+        ),
+        array( 'max' => 'Longitude can only take values between '. $minimum_long. ' and '. $maximum_long,
+               'min' => 'Longitude can only take values between '. $minimum_long. ' and '. $maximum_long
+        )
+      );
+
     }
   }
 }

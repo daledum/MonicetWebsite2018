@@ -174,8 +174,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         var totalLons = 0;
         $.each(g_info.species, function(index, specie) {
           $.each(specie.spots, function(index, value){
-            latitudes.push(Math.abs(value.lat));
-            longitudes.push(Math.abs(value.lon));
+            latitudes.push(value.lat);
+            longitudes.push(value.lon);
             count++;
           });
         });
@@ -187,7 +187,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
         });
         var lat = totalLats/count;
         var lon = totalLons/count;
-        var latlng = new google.maps.LatLng(lat,-lon);
+        var latlng = new google.maps.LatLng(lat,lon);
         var myOptions = {
           zoom: 10,
           center: latlng,
@@ -261,8 +261,8 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
                 var totalLons = 0;
                 
                 $.each(obj.spots, function(index, value){
-                  latitudes.push(Math.abs(value.lat));
-                  longitudes.push(Math.abs(value.lon));
+                  latitudes.push(value.lat);
+                  longitudes.push(value.lon);
                   count++;
                 });
                 
@@ -278,7 +278,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
                 var lon = totalLons/count;
                 
                 
-                var latlng = new google.maps.LatLng(lat,-lon);
+                var latlng = new google.maps.LatLng(lat,lon);
                 var myOptions = {
                   zoom: 7,
                   center: latlng,
@@ -496,9 +496,9 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
     $.each(obj.spots, function(index, value){
     
       var lat = value.lat;
-      var lon = -value.lon;
+      var lon = value.lon;
     
-      var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
+      var myLatlng = new google.maps.LatLng(lat,value.lon);
       var image = getCircleUrl(specieColor);
       var marker = new google.maps.Marker({
           position: myLatlng,
@@ -575,7 +575,7 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
     $.each(obj.spots, function(index, value){
     
       var lat = value.lat;
-      var lon = -value.lon;
+      var lon = value.lon;
       
       var contentString = 
       '<div class="title-w">'+obj.name+' - '+obj.code+'</div><br />'+
@@ -638,9 +638,9 @@ function initialize(map_type, env, scale1, scale2, g_info_id) {
     $.each(obj.spots, function(index, value){
     
       var lat = value.lat;
-      var lon = -value.lon;
+      var lon = value.lon;
     
-      var myLatlng = new google.maps.LatLng(lat,value.lon * -1);
+      var myLatlng = new google.maps.LatLng(lat,value.lon);
       var image = getCircleUrl(specieColor);
       var marker = new google.maps.Marker({
           position: myLatlng,

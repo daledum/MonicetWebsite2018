@@ -33,11 +33,15 @@ class WatchInfoForm extends BaseWatchInfoForm
       $this['created_at'], $this['updated_at'], $this['code']
     );
     
-    
-
+    if( $this->isNew() || sfContext::getInstance()->getUser()->isSuperAdmin() ){
     $this->widgetSchema['date'] = new sfWidgetFormInput();
     $this->widgetSchema['date']->setAttribute('class', 'date_field');
     $this->widgetSchema['date']->setAttribute('onclick', 'dataInicio("'.date("Y-m-d").'","date_field",true)');
+    }
+    else{
+          $this->widgetSchema['date']  = new sfWidgetFormInputText();
+          $this->widgetSchema['date']->setAttribute('readonly', 'readonly');
+    }
 
     $user = sfContext::getInstance()->getUser()->getGuardUser();
     $company = CompanyPeer::doSelectUserCompany($user->getId());

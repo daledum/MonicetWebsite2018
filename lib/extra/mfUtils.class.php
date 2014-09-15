@@ -17,10 +17,10 @@ class mfUtils {
 
       $negative = false;
       // remove sign in case of negative values
-      if( substr($value,0,1) == '-' ) {
-        $value = substr($value, 1);
-        $negative = true;
-      }
+      //if( substr($value,0,1) == '-' ) {
+        //$value = substr($value, 1);
+        //$negative = true;
+      //}
 
       $rtrnValue = '';
       $valueParts = explode('º', $value);
