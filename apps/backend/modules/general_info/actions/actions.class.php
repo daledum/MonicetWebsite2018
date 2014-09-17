@@ -16,6 +16,25 @@ class general_infoActions extends autoGeneral_infoActions
     $this->redirect('@generalInfoMap?general_info_id=' . $giid);
   }
 
+  protected function buildCriteria()
+  {
+    if (null === $this->filters)
+    {
+      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    }
+
+    $criteria = $this->filters->buildCriteria($this->getFilters());
+
+    $c = $criteria->getNewCriterion(GeneralInfoPeer::COMMENTS, '_new', Criteria::NOT_EQUAL);
+    $criteria->addAnd($c);
+    
+    $this->addSortCriteria($criteria);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+    $criteria = $event->getReturnValue();
+
+    return $criteria;
+  }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
@@ -1014,7 +1033,15 @@ class general_infoActions extends autoGeneral_infoActions
     }else{
       $general_info->setValid(0);
     }
-    $general_info->setComments($this->comments);
+
+    //or if($general_info->getComments() == '_new')
+    if($this->comments == '_new'){
+      $general_info->setComments('');
+    }
+    else{
+      $general_info->setComments($this->comments);
+    }
+    
     $general_info->save();
 
     return sfView::NONE;

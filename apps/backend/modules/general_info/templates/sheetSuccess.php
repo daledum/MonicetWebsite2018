@@ -253,7 +253,9 @@
               },
               async: false,
               success: function(msg) {
-
+                if($("#general_info_comments").val() == '_new'){
+                  $("#general_info_comments").val('');
+                }
               }
           });
          }
