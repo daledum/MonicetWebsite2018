@@ -246,7 +246,7 @@
                   general_info_id: <?php echo $general_info->getId();?>,
 
                   "valid":           $("#general_info_valid").attr('checked'),
-                  "comments":        $("#general_info_comments").val(),
+                  "comments":        $("#general_info_comments").val().substr(0, 140),
                   "general_info_id": <?php echo $general_info->getId() ?>,
 
                   "_r": Math.random()*100
@@ -533,7 +533,7 @@
     </ul>
     <ul>
       <li>
-        <?php echo $gi_form['comments']->renderLabel().' '.$gi_form['comments'] ?>
+        <?php echo $gi_form['comments']->renderLabel().'(140 characters maximum)'.' '.$gi_form['comments'] ?>
       </li>
     </ul>
     
