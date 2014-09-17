@@ -368,6 +368,14 @@ ajax_g_info_delete_siblings:
   requirements:
     sf_method:  post
     
+ajax_g_info_delete_ajax:
+  url: /general-info/delete-ajax
+  param:
+    module: general_info
+    action: deleteAjax
+  requirements:
+    sf_method:  post
+    
 ajax_validate_gi_form:
   url: /general-info/validate-sequence
   param:

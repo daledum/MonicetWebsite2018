@@ -1076,9 +1076,16 @@ class general_infoActions extends autoGeneral_infoActions
         unlink(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls');
       }
 
-      $this->getRoute()->getObject()->delete();
-      $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
-      $this->redirect('@general_info');
+      if( $this->getRoute()->getObject() ){
+        $this->getRoute()->getObject()->delete();
+        $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+        $this->redirect('@general_info');
+      }
+  }
+
+  public function executeDeleteAjax(sfWebRequest $request){
+    $gi = GeneralInfoPeer::retrieveByPK($request->getParameter("general_info_id"));
+    $gi->delete();
   }
 
   public function executeDeleteSiblings(sfWebRequest $request){
