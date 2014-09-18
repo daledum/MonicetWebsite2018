@@ -253,7 +253,7 @@
               },
               async: false,
               success: function(msg) {
-                if($("#general_info_comments").val() == '_new'){
+                if($("#general_info_comments").val() == '_empty'){
                   $("#general_info_comments").val('');
                 }
               }

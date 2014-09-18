@@ -12,7 +12,7 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);
   
   if( $this->values['comments'] == '' ){
-       $this->values['comments'] = '_new';
+       $this->values['comments'] = '_empty';
   }
   
 	if($this->isNew() || !$this->getObject()->getCode() || $this->getObject()->getCompanyId() != $this->values['company_id'] || $this->getObject()->getDate() != $this->values['date'])
