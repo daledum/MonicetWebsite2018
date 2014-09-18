@@ -253,8 +253,8 @@
               },
               async: false,
               success: function(msg) {
-                if($("#general_info_comments").val() == '_empty'){
-                  $("#general_info_comments").val('');
+                if( $("#general_info_comments").val().substring(0, 6) == '_empty' ){
+                  $("#general_info_comments").val($("#general_info_comments").val().substring(6));
                 }
               }
           });
