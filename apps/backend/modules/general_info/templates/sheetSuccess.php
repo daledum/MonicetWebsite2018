@@ -129,23 +129,27 @@
           $maximum_long = $coordinates[1]->getLongitudeInDegrees();
         }
         ?>
-
-        var errorMessage = '';
+        company = '<?php echo $company; ?>';
+ 
+        var errorMessage = '';      
         var time ='';
         var isTimeGood = false;
-        var minimum_lat = parseFloat('<?php echo $minimum_lat; ?>');
-        var maximum_lat = parseFloat('<?php echo $maximum_lat; ?>');
-        var minimum_long = parseFloat('<?php echo $minimum_long; ?>');
-        var maximum_long = parseFloat('<?php echo $maximum_long; ?>');
 
         for(i = 1 ; i<=n_lines ; i++){
-
+        
          time = String($("tr.record_line_" + i + " #record_time").val());
          isTimeGood = time.match(/^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/);
 
          if(!isTimeGood){
-           errorMessage += '<br>' + 'Line ' + i +  ': the time format has to be hh:mm:ss ou hh:mm' + '<br>';
-         }
+           errorMessage += '<br>' + 'Line ' + i +  ': the time format has to be hh:mm:ss ou hh:mm' + '<br>'; //was \n
+         } 
+        
+        if(company != ''){
+
+        var minimum_lat = parseFloat('<?php echo $minimum_lat; ?>');
+        var maximum_lat = parseFloat('<?php echo $maximum_lat; ?>');
+        var minimum_long = parseFloat('<?php echo $minimum_long; ?>');
+        var maximum_long = parseFloat('<?php echo $maximum_long; ?>');
 
          if( $("tr.record_line_" + i + " #record_latitude").val()){
           if( !isNaN($("tr.record_line_" + i + " #record_latitude").val()) ){
@@ -157,24 +161,27 @@
             if( $("tr.record_line_" + i + " #record_latitude").val().toUpperCase() != 'BASE' ){
               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, latitude has to be a number' + '<br>';
             }
-          } 
+          }
          }
 
-         if( $("tr.record_line_" + i + " #record_longitude").val()){
-          if( !isNaN($("tr.record_line_" + i + " #record_longitude").val()) ){
-           if( parseFloat($("tr.record_line_" + i + " #record_longitude").val()) < minimum_long || parseFloat($("tr.record_line_" + i + " #record_longitude").val()) > maximum_long ){
+          if( $("tr.record_line_" + i + " #record_longitude").val()){
+           if( !isNaN($("tr.record_line_" + i + " #record_longitude").val()) ){
+            if( parseFloat($("tr.record_line_" + i + " #record_longitude").val()) < minimum_long || parseFloat($("tr.record_line_" + i + " #record_longitude").val()) > maximum_long ){
              errorMessage += '<br>' + 'Line ' + i + ': longitude can only take values between ' + minimum_long + ' and ' + maximum_long + '<br>';
-           }
-          }
-          else{
-            if( $("tr.record_line_" + i + " #record_longitude").val().toUpperCase() != 'BASE' ){
-              errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number' + '<br>';
             }
+           }
+           else{
+             if( $("tr.record_line_" + i + " #record_longitude").val().toUpperCase() != 'BASE' ){
+               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number' + '<br>';
+             }
+           }
           }
          }
         }
 
+
       if(errorMessage == ''){
+        document.getElementById("generalInfoWasSaved").value = 1;
           //TODO: Remove all Record and Sightings associated to general_info
         $.ajax({
           type: 'POST',
@@ -239,14 +246,16 @@
                   general_info_id: <?php echo $general_info->getId();?>,
 
                   "valid":           $("#general_info_valid").attr('checked'),
-                  "comments":        $("#general_info_comments").val(),
+                  "comments":        $("#general_info_comments").val().substr(0, 140),
                   "general_info_id": <?php echo $general_info->getId() ?>,
 
                   "_r": Math.random()*100
               },
               async: false,
               success: function(msg) {
-
+                if( $("#general_info_comments").val().substring(0, 6) == '_empty' ){
+                  $("#general_info_comments").val($("#general_info_comments").val().substring(6));
+                }
               }
           });
          }
@@ -314,6 +323,7 @@
         margin: 5px auto !important;
     }
 </style>
+<input id="generalInfoWasSaved" type="hidden" value="">
 <div id="sf_admin_container">
   <h1>Saída - <strong><?php if($general_info) { echo $general_info->getCode(); } ?></strong><span id="help-icon"></span></h1>
   <table id="general-info-summary" style="margin-left:10px;border:1px solid #ccc;" border="1">
@@ -525,7 +535,7 @@
     </ul>
     <ul>
       <li>
-        <?php echo $gi_form['comments']->renderLabel().' '.$gi_form['comments'] ?>
+        <?php echo $gi_form['comments']->renderLabel().'(140 characters maximum)'.' '.$gi_form['comments'] ?>
       </li>
     </ul>
     
@@ -557,6 +567,29 @@ $(document).ready(function() {
         }
     }
   });
+
+    window.onunload=function() {
+     var saved = parseInt(document.getElementById("generalInfoWasSaved").value);   
+     
+     if( '<?php echo count($general_info->getRecords()); ?>' == 0){
+       if( saved != 1 ){
+
+            $.ajax({
+                type: "POST",
+                url: url[0] + "//" + url[2] + "/" + url[3] + "/general-info/delete-ajax",
+                data: {
+                  general_info_id: "<?php echo $general_info->getId();?>"
+                },
+                async: false,
+                success: function(msg) {
+                // do nothing
+                }
+            });
+       }
+     }
+        return null;
+    }
+
 });
 </script>
 

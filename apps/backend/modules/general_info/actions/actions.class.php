@@ -16,6 +16,25 @@ class general_infoActions extends autoGeneral_infoActions
     $this->redirect('@generalInfoMap?general_info_id=' . $giid);
   }
 
+  protected function buildCriteria()
+  {
+    if (null === $this->filters)
+    {
+      $this->filters = $this->configuration->getFilterForm($this->getFilters());
+    }
+
+    $criteria = $this->filters->buildCriteria($this->getFilters());
+
+    $c = $criteria->getNewCriterion(GeneralInfoPeer::COMMENTS, '_empty%', Criteria::NOT_LIKE);
+    $criteria->addAnd($c);
+    
+    $this->addSortCriteria($criteria);
+
+    $event = $this->dispatcher->filter(new sfEvent($this, 'admin.build_criteria'), $criteria);
+    $criteria = $event->getReturnValue();
+
+    return $criteria;
+  }
 
   protected function processForm(sfWebRequest $request, sfForm $form)
   {
@@ -1014,7 +1033,15 @@ class general_infoActions extends autoGeneral_infoActions
     }else{
       $general_info->setValid(0);
     }
-    $general_info->setComments($this->comments);
+
+    //or strpos($general_info->setComments(), '_empty') === 0
+    if( strpos($this->comments, '_empty') === 0 ){
+      $general_info->setComments(substr($this->comments, 6));
+    }
+    else{
+      $general_info->setComments($this->comments);
+    }
+    
     $general_info->save();
 
     return sfView::NONE;
@@ -1076,9 +1103,16 @@ class general_infoActions extends autoGeneral_infoActions
         unlink(sfConfig::get('sf_upload_dir').'/export/'.substr($this->GeneralInfo->getDate(),0,4).'.xls');
       }
 
-      $this->getRoute()->getObject()->delete();
-      $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
-      $this->redirect('@general_info');
+      if( $this->getRoute()->getObject() ){
+        $this->getRoute()->getObject()->delete();
+        $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+        $this->redirect('@general_info');
+      }
+  }
+
+  public function executeDeleteAjax(sfWebRequest $request){
+    $gi = GeneralInfoPeer::retrieveByPK($request->getParameter("general_info_id"));
+    $gi->delete();
   }
 
   public function executeDeleteSiblings(sfWebRequest $request){

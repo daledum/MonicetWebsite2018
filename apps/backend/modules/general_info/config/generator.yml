@@ -17,7 +17,7 @@ generator:
         date:
           date_format:     yyyy-MM-dd
       list:
-        display:           [code, date, vessel, base_latitude, base_longitude, valid]
+        display:           [code, date, vessel, base_latitude, base_longitude, valid, comments]
         sort:              [date, desc]
         peer_method:       doSelectByCompany
         peer_count_method: doCountByCompany
