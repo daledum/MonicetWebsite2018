@@ -156,6 +156,10 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         'required' => false,
     ));
     
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorCallback(array('callback' => array($this, 'validateCoordinates')))
+    );
+
     if( $object->isNew() ){
         
         $file = $exif['FILE']['FileName'];
@@ -237,6 +241,46 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
         } 
     }
     
+  }
+
+    public function validateCoordinates($validator, $values){
+    
+    $company_obj = CompanyPeer::retrieveByPk($values['company_id']);
+
+    if($company_obj && $values['latitude'] && $values['longitude']){
+
+      $lat = floatval($values['latitude']);
+      $long = floatval($values['longitude']);
+
+      $base = GeoLocation::fromDegrees( $company_obj->getBaseLatitude(), $company_obj->getBaseLongitude() );
+      $coordinates = $base->boundingCoordinates(100, 'kilometers');
+      $maximum_long = $coordinates[1]->getLongitudeInDegrees();
+      $minimum_long = $coordinates[0]->getLongitudeInDegrees();
+      $maximum_lat = $coordinates[1]->getLatitudeInDegrees();
+      $minimum_lat = $coordinates[0]->getLatitudeInDegrees();
+
+      if( ($lat < $minimum_lat || $lat > $maximum_lat) && ($long < $minimum_long || $long > $maximum_long) ){
+        throw new sfValidatorErrorSchema($validator, array(
+        'latitude' => new sfValidatorError($validator, 'Latitude can only take values between '.$minimum_lat.' and '.$maximum_lat),
+        'longitude' => new sfValidatorError($validator, 'Longitude can only take values between '.$minimum_long.' and '.$maximum_long)
+        ));
+      }
+      else{
+            if( $lat < $minimum_lat || $lat > $maximum_lat ){
+                throw new sfValidatorErrorSchema($validator, array(
+                'latitude' => new sfValidatorError($validator, 'Latitude can only take values between '.$minimum_lat.' and '.$maximum_lat)
+              ));
+            }
+            else{
+                  if( $long < $minimum_long || $long > $maximum_long ){
+                      throw new sfValidatorErrorSchema($validator, array(
+                      'longitude' => new sfValidatorError($validator, 'Longitude can only take values between '.$minimum_long.' and '.$maximum_long)
+                  ));
+                }
+            }
+          }
+    }
+    return $values;
   }
   
   protected function doSave( $con = null ){
