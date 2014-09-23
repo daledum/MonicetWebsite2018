@@ -15,6 +15,9 @@
         <target>A listar as empresas</target>
       </trans-unit>
       <trans-unit>
+        <source>Click on map to set coordinates</source>
+        <target>Clique no mapa para definir coordenadas</target>
+      <trans-unit>
         <source>Edit Company</source>
         <target>A editar uma empresa</target>
       </trans-unit>

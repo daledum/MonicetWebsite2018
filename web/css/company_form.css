@@ -1,0 +1,16 @@
+.pendent_company_container {
+    width: 600px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+#choose_coordinates {
+    float: left;
+    width: 450px;
+    margin-left: 10px;
+}
+
+#map_canvas {
+    width: 400px;
+    height: 400px;
+}

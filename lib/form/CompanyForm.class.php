@@ -25,16 +25,22 @@ class CompanyForm extends BaseCompanyForm
       $this['created_at'], $this['updated_at'], $this['company_user_list']
     );
     
-    $pattern = '/^(\d{2},\d{4}|-\d{2},\d{4}|\d{2}.\d{4}|-\d{2}.\d{4}|\d{2}º\d{2},\d{3}\'|-\d{2}º\d{2},\d{3}\'|\d{2}º\d{2}\'\d{2}"|-\d{2}º\d{2}\'\d{2}")$/';
+    $pattern = '/^(\d{1,3}|-\d{1,3}|\d{1,3},\d{1,}|-\d{1,3},\d{1,}|\d{1,3}.\d{1,}|-\d{1,3}.\d{1,}|\d{1,3}º\d{2},\d{3}\'|-\d{1,3}º\d{2},\d{3}\'|\d{1,3}º\d{1,2}\'\d{1,2}"|-\d{1,3}º\d{1,2}\'\d{1,2}")$/';
     
-    $this->validatorSchema['base_latitude'] = new sfValidatorRegex(array(
-      'required' => true,
-      'pattern' => $pattern
-    ));
+    $this->validatorSchema['base_latitude'] = new sfValidatorRegex(
+      array( 'required' => true,
+             'pattern' => $pattern
+      ),
+      array( 'invalid' => 'Accepted latitude format examples: 37 or -34 or 37.123... or -37,123... or 37º10\'12"'
+      )
+    );
     
-    $this->validatorSchema['base_longitude'] = new sfValidatorRegex(array(
-      'required' => true,
-      'pattern' => $pattern
-    ));
+    $this->validatorSchema['base_longitude'] = new sfValidatorRegex(
+      array( 'required' => true,
+             'pattern' => $pattern
+      ),
+      array( 'invalid' => 'Accepted longitude format examples: 37 or -124 or -38.123... or 39,123... or -127º18\'45"'
+      )
+    );
   }
 }

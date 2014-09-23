@@ -2,7 +2,10 @@
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Foto. p/ processar</a></li>
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Foto. p/ analisar</a></li>
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?template=catalog&do=clean') ?>">Catálogo</a></li>
-  
+  <li class="sf_admin_action_showmap">
+    <a href='javascript: window.open("https://www.google.com/maps/@" + $("#observation_photo_latitude").val() + "," + $("#observation_photo_longitude").val() + ",8z", "Map", "status = 1, height = 600, width = 700, left = 200, top = 100, resizable = yes, scrollbars=yes"); '>Ver em Mapa</a>
+  </li>
+
   <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
   
 </ul>
