@@ -33,6 +33,54 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
   }
   
+  public function executeDelete(sfWebRequest $request)
+  {
+    $request->checkCSRFProtection();
+
+    $obPhoto = $this->getRoute()->getObject();
+
+    $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $obPhoto )));
+
+    $status = $obPhoto->getStatus();
+    $id = $obPhoto->getIndividualId();
+
+    //Deletes the 4 versions of the photo from the upload folder
+    $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
+    $fileName = $obPhoto->getFileName();
+    $fileAddresses = array(
+          $locationBegin.'tn_130x120_'.$fileName,
+          $locationBegin.'tn_165x150_'.$fileName,
+          $locationBegin.'tn_200_'.$fileName,
+          $locationBegin.$fileName
+    );
+    foreach( $fileAddresses as $fileAddress ) {
+        if(file_exists($fileAddress) ) {
+          system('rm '.$fileAddress);
+        }
+    }
+    
+    //Deletes the photo
+    $obPhoto->delete();
+
+    //Deletes individual if the previously deleted photo was his only photo
+    $individual = IndividualPeer::retrieveByPK($id);
+    if( $individual != null ){
+        if( !$individual->countObservationPhotos() ){
+          $individual->delete();
+        }
+    }
+
+    $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
+
+    if($status == ObservationPhoto::V_SIGLA){
+        $this->redirect('@pr_observation_photo?template=catalog');
+    }
+      else{
+          $this->redirect('@pr_observation_photo');
+      }
+
+  }
+
   protected function executeBatchDelete(sfWebRequest $request)
   {
     $ids = $request->getParameter('ids');
