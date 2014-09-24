@@ -267,7 +267,6 @@ class ObservationPhoto extends BaseObservationPhoto {
   }
   
   public function delete(PropelPDO $con = null) {
-    if( $this->getStatus() != ObservationPhoto::V_SIGLA ) {
       $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
       $fileAddresses = array(
           $locationBegin.'tn_130x120_'.$this->getFileName(),
@@ -281,7 +280,6 @@ class ObservationPhoto extends BaseObservationPhoto {
         }
       }
       parent::delete();
-    }
   }
   
   public function statusUpdate($action){

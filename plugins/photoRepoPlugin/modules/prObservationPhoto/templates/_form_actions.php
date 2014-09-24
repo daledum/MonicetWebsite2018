@@ -16,9 +16,7 @@
 <?php if( !$OBPhoto->isNew() ): ?>
   <ul class="sf_admin_actions">
     
-     <?php if( $status != ObservationPhoto::V_SIGLA ): ?>
-        <?php echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
-    <?php endif; ?>
+    <?php echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
     
     <?php if($OBPhoto->isCharacterizable()): ?>
       <li class="sf_admin_action_edit"><?php echo link_to('Caracterizar', '@pr_observation_photo_characterize?id='.$OBPhoto->getId() ) ?></li>
