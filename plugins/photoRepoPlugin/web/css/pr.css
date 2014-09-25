@@ -37,6 +37,14 @@
 .characterize_photo_container_show {
     width: 750px;
 }
+
+#centered_map {
+    float: left;
+    width: 430px;
+    height: 400px;
+    margin-left: 10px;
+}
+
 #photo_details {
     float: left;
     width: 450px;
