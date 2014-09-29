@@ -72,8 +72,20 @@
   
   <ul class="sf_admin_actions">
     
-    <?php echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
-    
+    <?php
+          $deleteBestPhotoMessage = '';
+          
+          if( $observationPhoto->getIsBest() ){
+            if( $observationPhoto->getIndividual() ){
+              if( $observationPhoto->getIndividual()->countObservationPhotos() > 2 ){
+                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
+              }
+            }
+          }
+
+          echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
+    ?>
+
     <?php if($observationPhoto->isCharacterizable()): ?>
       <li class="sf_admin_action_edit"><?php echo link_to('Caracterizar', '@pr_observation_photo_characterize?id='.$observationPhoto->getId() ) ?></li>
     <?php endif; ?>
