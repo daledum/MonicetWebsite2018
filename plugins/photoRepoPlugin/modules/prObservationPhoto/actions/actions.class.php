@@ -648,14 +648,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
               }
           }
 
-        //redirecting
-        //here if old individual never existed, or only had 1 or 2 photos initially - go to new individual
-        if( $old_numberOfPhotos == -1 || $old_numberOfPhotos == 1 || $old_numberOfPhotos == 2){
-         $this->redirect('@pr_individual_edit?id='.$id);
-        }
-        else{//individual is left with at least 2 photos, so go choose a best photo for the old individual (if old ind is left with only 1 photo, there's no point in redirecting to old ind)
-          $this->redirect('@pr_individual_show?id='.$old_id);
-        }
+        //redirecting 
+          if( $wasBest && $old_numberOfPhotos > 2){//if it was the best photo of the old individual, which existed and had more than 2 photos initially
+            $this->redirect('@pr_individual_show?id='.$old_id);//go pick a best photo for the old individual
+          }
+          else{
+            $this->redirect('@pr_individual_edit?id='.$id);
+          }
      }
 
   }
