@@ -55,6 +55,11 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     if( in_array('best', $choices) ){
       $query = $query->filterByIsBest(true);
     }
+
+    //filter out the individual of the photo, if it was already assigned to one
+    if( $observationPhoto->getIndividual() ){
+      $query = $query->filterByIndividualId($observationPhoto->getIndividual()->getId(), Criteria::NOT_EQUAL);
+    }
     
     $query = $query->useIndividualQuery()
               ->orderByName('desc')
