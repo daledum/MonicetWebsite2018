@@ -7,7 +7,7 @@ class identifyForm extends sfForm {
     $choices = array(
         'same', 
         'best', 
-        'smoth', 
+        'smooth', 
         'irregular', 
         'cutted_point', 
         'cutted_point_left', 
