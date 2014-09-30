@@ -405,8 +405,10 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   
   public function executeCharacterize( sfWebRequest $request ) {
     //$this->tailConfiguration = new prObservationPhotoTailGeneratorConfiguration();
-    
-    $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
+    //in case someone calls /characterize manually in the browser address tab
+    $this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
+    $this->forward404Unless( $this->observationPhoto && $this->observationPhoto->isCharacterizable() );
+
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
     if($this->observationPhoto->getBodyPart()) {
      $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
