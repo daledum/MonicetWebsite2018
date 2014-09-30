@@ -167,6 +167,7 @@ class Individual extends BaseIndividual {
     $sessionUser = sfContext::getInstance()->getUser()->getGuardUser();
     foreach( $OBPhotos as $OBPhoto ){
       $OBPhoto->setIndividual(null);
+      $OBPhoto->setIsBest(false);
       $OBPhoto->setStatus(ObservationPhoto::FA_SIGLA);
       $OBPhoto->setLastEditedBy($sessionUser->getId());
       $OBPhoto->save();
