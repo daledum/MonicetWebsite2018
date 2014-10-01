@@ -473,29 +473,26 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
     
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
-    $this->patternImage = false;
+     
     $this->relatedMarks = array();
     $photoId = $this->observationPhoto->getId();
-    $bodyPart = $this->observationPhoto->getBodyPart();
-    $allowedBodyParts = array(body_part::F_SIGLA, body_part::L_SIGLA, body_part::R_SIGLA);
-    if($bodyPart && in_array($bodyPart, $allowedBodyParts)) {
+
+    if($this->observationPhoto->isCharacterizable()) {
+
       $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
-      if( $this->isTail && $this->pattern ) {
-        $this->patternImage = $this->pattern->getImageTail();
+      if($this->isTail) {
         $this->observationPhotoPart = ObservationPhotoTailPeer::get_or_create($photoId);
         $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoTailMarks();
       }
 
       $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
-      if( $this->isLeft && $this->pattern ) {
-        $this->patternImage = $this->pattern->getImageDorsalLeft();
+      if($this->isLeft) {
         $this->observationPhotoPart = ObservationPhotoDorsalLeftPeer::get_or_create($photoId);
         $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoDorsalLeftMarks();
       }
 
       $this->isRight = $this->observationPhoto->getBodyPart()->getCode() == body_part::R_SIGLA;
-      if( $this->isRight && $this->pattern ) {
-        $this->patternImage = $this->pattern->getImageDorsalRight();
+      if($this->isRight) {
         $this->observationPhotoPart = ObservationPhotoDorsalRightPeer::get_or_create($photoId);
         $this->relatedMarks = $this->observationPhotoPart->getObservationPhotoDorsalRightMarks();
       }

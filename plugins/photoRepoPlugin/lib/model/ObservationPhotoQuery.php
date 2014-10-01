@@ -18,6 +18,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $query = $query->filterByBodyPartId($observationPhoto->getBodyPartId());
     }
     
+   if($observationPhoto->isCharacterizable()){ 
     if( in_array('same', $choices) ){
       //filter same caracterization by body parts
       if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
@@ -51,6 +52,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       }
       $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
     }
+   }
     // filter best pictures.
     if( in_array('best', $choices) ){
       $query = $query->filterByIsBest(true);

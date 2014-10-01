@@ -3,16 +3,18 @@ class identifyForm extends sfForm {
   public function configure() {
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
     $request = sfContext::getInstance()->getRequest();
-    
+    $OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
+
     $choices = array(
-        'same', 
-        'best', 
-        'smooth', 
-        'irregular', 
-        'cutted_point', 
-        'cutted_point_left', 
-        'cutted_point_right', 
-        'complete_marks', 
+        'same_body_part',
+        'same',
+        'best',
+        'smooth',
+        'irregular',
+        'cutted_point',
+        'cutted_point_left',
+        'cutted_point_right',
+        'complete_marks',
         'depth'
     );
     $this->widgetSchema['choices'] = new sfWidgetFormChoice(array(
@@ -25,7 +27,6 @@ class identifyForm extends sfForm {
         'required' => false
     ));
     
-    $OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
     $marks = $OBPhoto->getMarks();
     //print count($marks);
     
