@@ -154,12 +154,12 @@
          if( $("tr.record_line_" + i + " #record_latitude").val()){
           if( !isNaN($("tr.record_line_" + i + " #record_latitude").val()) ){
            if( parseFloat($("tr.record_line_" + i + " #record_latitude").val()) < minimum_lat || parseFloat($("tr.record_line_" + i + " #record_latitude").val()) > maximum_lat ){
-             errorMessage += '<br>' + 'Line ' + i + ': latitude can only take values between ' + minimum_lat + ' and ' + maximum_lat + '<br>';
+             errorMessage += '<br>' + 'Line ' + i + ': latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between ' + minimum_lat + ' and ' + maximum_lat + '<br>';
            }
           }
           else{
             if( $("tr.record_line_" + i + " #record_latitude").val().toUpperCase() != 'BASE' ){
-              errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, latitude has to be a number' + '<br>';
+              errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number in the decimal degrees format (no degrees, minutes or seconds symbols, please)' + '<br>';
             }
           }
          }
@@ -167,12 +167,12 @@
           if( $("tr.record_line_" + i + " #record_longitude").val()){
            if( !isNaN($("tr.record_line_" + i + " #record_longitude").val()) ){
             if( parseFloat($("tr.record_line_" + i + " #record_longitude").val()) < minimum_long || parseFloat($("tr.record_line_" + i + " #record_longitude").val()) > maximum_long ){
-             errorMessage += '<br>' + 'Line ' + i + ': longitude can only take values between ' + minimum_long + ' and ' + maximum_long + '<br>';
+             errorMessage += '<br>' + 'Line ' + i + ': longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between ' + minimum_long + ' and ' + maximum_long + '<br>';
             }
            }
            else{
              if( $("tr.record_line_" + i + " #record_longitude").val().toUpperCase() != 'BASE' ){
-               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number' + '<br>';
+               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number in the decimal degrees format (no degrees, minutes or seconds symbols, please)' + '<br>';
              }
            }
           }
@@ -534,11 +534,35 @@
       </li>
     </ul>
     <ul>
-      <li>
-        <?php echo $gi_form['comments']->renderLabel().'(140 characters maximum)'.' '.$gi_form['comments'] ?>
+      <li style="display:inline-block">
+        <?php echo $gi_form['comments']->renderLabel().' '.$gi_form['comments'] ?><!-- renderLabel().'<br>'.'(140 characters maximum)'.' '.$gi_form['comments']-->
+        <br>(140 characters maximum)<br>
+      </li>
+      <li id="convertFromDMStoDD" style="display:inline-block;float:right;width:500px;margin-right:10px;">
+
+          <h2>Converting Degrees-Minutes-Seconds (DMS) To Decimal:<br/></h2>
+          <p>If you remove the N, S, E or W from the end, please put a minus in front of the latitude value, if in the Southern Hemisphere and in front of the longitude value, if in the Western Hemisphere.<br/></p>
+
+     <form name="convert" id="convert">
+     <table class="note">
+        <tr>
+            <td>Latitude</td>
+            <td>Longitude</td>
+        </tr>
+        <tr>
+            <td><input type="text" name="latDMS" id="latDMS" value="52°12′17.0″N" class="note w8"></td>
+            <td><input type="text" name="lonDMS" id="lonDMS" value="000°08′26.0″E" class="note w8"></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="latDec" id="latDec" value="52.20472" class="note w8"></td>
+            <td><input type="text" name="lonDec" id="lonDec" value="0.14056" class="note w8"></td>
+        </tr>
+     </table>
+     <input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Convert" /><br><br><!--was submit-->
+     </form>
       </li>
     </ul>
-    
+
     <?php if($sf_user->isSuperAdmin()): ?>
     <ul class="sf_admin_actions">
       <li class="sf_admin_action_save">
@@ -568,8 +592,16 @@ $(document).ready(function() {
     }
   });
 
+    $('#convert').submit(function () {
+     $('#latDec').val(Geo.parseDMS($('#latDMS').val()).toFixed(5));
+     $('#lonDec').val(Geo.parseDMS($('#lonDMS').val()).toFixed(5));
+     $('#latDMS').val(Geo.toLat($('#latDec').val(),'dms',1));
+     $('#lonDMS').val(Geo.toLon($('#lonDec').val(),'dms',1));
+     return false;
+    });
+
     window.onunload=function() {
-     var saved = parseInt(document.getElementById("generalInfoWasSaved").value);   
+     var saved = parseInt(document.getElementById("generalInfoWasSaved").value); 
      
      if( '<?php echo count($general_info->getRecords()); ?>' == 0){
        if( saved != 1 ){
