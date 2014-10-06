@@ -541,24 +541,15 @@
       <li id="convertFromDMStoDD" style="display:inline-block;float:right;width:500px;margin-right:10px;">
 
           <h2>Converting Degrees-Minutes-Seconds (DMS) To Decimal:<br/></h2>
-          <p>If you remove the N, S, E or W from the end, please put a minus in front of the latitude value, if in the Southern Hemisphere and in front of the longitude value, if in the Western Hemisphere.<br/></p>
-
+          <p>If you remove the N, S, E or W from the end, please put a minus in front of the latitude value, if in the Southern Hemisphere and in front of the longitude value, if in the Western Hemisphere.<br/></p><br>
      <form name="convert" id="convert">
-     <table class="note">
-        <tr>
-            <td>Latitude</td>
-            <td>Longitude</td>
-        </tr>
-        <tr>
-            <td><input type="text" name="latDMS" id="latDMS" value="52°12′17.0″N" class="note w8"></td>
-            <td><input type="text" name="lonDMS" id="lonDMS" value="000°08′26.0″E" class="note w8"></td>
-        </tr>
-        <tr>
-            <td><input type="text" name="latDec" id="latDec" value="52.20472" class="note w8"></td>
-            <td><input type="text" name="lonDec" id="lonDec" value="0.14056" class="note w8"></td>
-        </tr>
-     </table>
-     <input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Convert" /><br><br><!--was submit-->
+        <div style="display:inline;margin-right:150px">Latitude</div>
+        <div style="display:inline">Longitude</div><br>
+        <div style="display:inline;margin-right:38px"><input type="text" name="latDMS" id="latDMS" value="52°12′17.0″N"></div>
+        <div style="display:inline"><input type="text" name="lonDMS" id="lonDMS" value="000°08′26.0″E"></div><br>
+        <div style="display:inline;margin-right:38px"><input type="text" name="latDec" id="latDec" value="52.20472"></div>
+        <div style="display:inline"><input type="text" name="lonDec" id="lonDec" value="0.14056"></div><br><br>
+     <input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Convert" /><br><br>
      </form>
       </li>
     </ul>
