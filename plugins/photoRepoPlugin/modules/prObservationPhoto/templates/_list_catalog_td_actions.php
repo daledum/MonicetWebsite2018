@@ -6,6 +6,22 @@
         <?php echo $helper->linkToEdit($ObservationPhoto, array(  'params' =>   array(  ),  'class_suffix' => 'edit',  'label' => 'Edit',)) ?>
     <?php endif; ?>
     
+    <?php
+        if( $sf_user->hasModuleCredential($sf_context->getModuleName(), '_delete') ){
+          $deleteBestPhotoMessage = '';
+          
+          if( $ObservationPhoto->getIsBest() ){
+            if( $ObservationPhoto->getIndividual() ){
+              if( $ObservationPhoto->getIndividual()->countObservationPhotos() > 2 ){
+                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
+              }
+            }
+          }
+            
+            echo $helper->linkToDelete($ObservationPhoto, array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
+    }
+    ?>
+
     <li class="sf_admin_action_show"><?php echo link_to('Fotografia', '/uploads/pr_repo_final/'.$ObservationPhoto->getFileName(), array('target' => '_blank', 'class' => 'preview') ) ?></li>
     
     <?php if($ObservationPhoto->isCharacterizable()): ?>

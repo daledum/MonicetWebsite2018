@@ -18,6 +18,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $query = $query->filterByBodyPartId($observationPhoto->getBodyPartId());
     }
     
+   if($observationPhoto->isCharacterizable()){ 
     if( in_array('same', $choices) ){
       //filter same caracterization by body parts
       if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
@@ -51,9 +52,15 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       }
       $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
     }
+   }
     // filter best pictures.
     if( in_array('best', $choices) ){
       $query = $query->filterByIsBest(true);
+    }
+
+    //filter out the individual of the photo, if it was already assigned to one
+    if( $observationPhoto->getIndividual() ){
+      $query = $query->filterByIndividualId($observationPhoto->getIndividual()->getId(), Criteria::NOT_EQUAL);
     }
     
     $query = $query->useIndividualQuery()
@@ -244,6 +251,19 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     } elseif( $bodyPart == body_part::F_SIGLA ){ // tail
       $beginCell = $mark->getPatternCellTailRelatedByPatternCellTailId();
       $endCell = $mark->getPatternCellTailRelatedByToCellId();
+    }
+
+    if($endCell){
+      if($beginCell->getId() == $endCell->getId()){//here if we have the same string on both sides, eg A1-A1
+          $endCell = NULL;
+      }
+      else{//I don't compare id's, as we might have new letters added at the end, what we care about are letters - for the algorithm used on line 290
+          if(strcasecmp($beginCell->getName(), $endCell->getName()) > 0){//swap values, if we have beginCell = C2 and endCell = C1, for example
+              $tmp = $endCell;
+              $endCell = $beginCell;
+              $beginCell = $tmp;
+          }
+      }
     }
     
     $beginCellName = $beginCell->getName();

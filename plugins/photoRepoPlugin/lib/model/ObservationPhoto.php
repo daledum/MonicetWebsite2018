@@ -266,24 +266,6 @@ class ObservationPhoto extends BaseObservationPhoto {
     return false;
   }
   
-  public function delete(PropelPDO $con = null) {
-    if( $this->getStatus() != ObservationPhoto::V_SIGLA ) {
-      $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
-      $fileAddresses = array(
-          $locationBegin.'tn_130x120_'.$this->getFileName(),
-          $locationBegin.'tn_165x150_'.$this->getFileName(),
-          $locationBegin.'tn_200_'.$this->getFileName(),
-          $locationBegin.$this->getFileName()
-      ); 
-      foreach( $fileAddresses as $fileAddress ) {
-        if(file_exists($fileAddress) ) {
-          system('rm '.$fileAddress);
-        }
-      }
-      parent::delete();
-    }
-  }
-  
   public function statusUpdate($action){
     if(in_array($action, array('edit', 'characterize', 'identify', 'validate', 'change_marks')) ){
       $sessionUser = sfContext::getInstance()->getUser()->getGuardUser();

@@ -2,9 +2,7 @@
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Foto. p/ processar</a></li>
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Foto. p/ analisar</a></li>
   <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?template=catalog&do=clean') ?>">Catálogo</a></li>
-  <li class="sf_admin_action_showmap">
-    <a href='javascript: window.open("https://www.google.com/maps/@" + $("#observation_photo_latitude").val() + "," + $("#observation_photo_longitude").val() + ",8z", "Map", "status = 1, height = 600, width = 700, left = 200, top = 100, resizable = yes, scrollbars=yes"); '>Ver em Mapa</a>
-  </li>
+  <li class="sf_admin_action_showmap"><a onclick="initialize()">Ver em Mapa</a></li>
 
   <?php echo $helper->linkToSave($form->getObject(), array(  'params' =>   array(  ),  'class_suffix' => 'save',  'label' => 'Save',)) ?>
   
@@ -16,10 +14,20 @@
 <?php if( !$OBPhoto->isNew() ): ?>
   <ul class="sf_admin_actions">
     
-     <?php if( $status != ObservationPhoto::V_SIGLA ): ?>
-        <?php echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => 'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',)) ?>
-    <?php endif; ?>
-    
+     <?php
+          $deleteBestPhotoMessage = '';
+          
+          if( $OBPhoto->getIsBest() ){
+            if( $OBPhoto->getIndividual() ){
+              if( $OBPhoto->getIndividual()->countObservationPhotos() > 2 ){
+                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
+              }
+            }
+          }
+
+         echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
+    ?>
+
     <?php if($OBPhoto->isCharacterizable()): ?>
       <li class="sf_admin_action_edit"><?php echo link_to('Caracterizar', '@pr_observation_photo_characterize?id='.$OBPhoto->getId() ) ?></li>
     <?php endif; ?>
@@ -38,3 +46,22 @@
     <li class="sf_admin_action_show"><a href="<?php echo url_for('@pr_observation_photo_show?id='.$OBPhoto->getId()) ?>">Visualizar</a></li>
   </ul>
 <?php endif; ?>
+
+<script>
+function initialize() {
+ if( $("#observation_photo_latitude").val() && $("#observation_photo_longitude").val() ){
+  var myLatlng = new google.maps.LatLng($("#observation_photo_latitude").val(),$("#observation_photo_longitude").val() );
+  var mapOptions = {
+    zoom: 8,
+    center: myLatlng
+  }
+  var map = new google.maps.Map(document.getElementById('centered_map'), mapOptions);
+
+  var marker = new google.maps.Marker({
+      position: myLatlng,
+      map: map,
+      title: 'This photo was taken here'
+  });
+ }
+}
+</script>

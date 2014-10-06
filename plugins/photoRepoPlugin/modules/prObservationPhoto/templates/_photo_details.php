@@ -22,4 +22,7 @@
           <?php include_partial('prObservationPhoto/iptc', array( 'iptc' => $iptc)); ?>
         <?php endif; ?>
     </div>
+
+    <div id="centered_map"></div>
+    
 </div>

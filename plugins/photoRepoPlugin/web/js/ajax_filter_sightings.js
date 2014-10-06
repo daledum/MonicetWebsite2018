@@ -27,6 +27,12 @@ $(document).ready(function() {
                 url: window.location.protocol + '//' + window.location.host+'/admin.php/ajax/sighting/' + $('#observation_photo_sighting_id').val(),
                 type: 'POST',
                 dataType: 'json',
+                error: function(){
+                    $('#observation_photo_behaviour_id').val('');
+                    $('#observation_photo_latitude').val('');
+                    $('#observation_photo_longitude').val('');
+                    $('#observation_photo_notes').val('');
+                },
                 success: function(transport, html){
                     $('#observation_photo_behaviour_id').val(transport.behaviour_id);
                     $('#observation_photo_latitude').val(transport.latitude);

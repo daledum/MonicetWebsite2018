@@ -21,49 +21,61 @@
 
               <?php
               $message = 0;
+              $bestPhotoMessage = 0;
 
-               foreach( $OBPhoto->getIndividual()->getObservationPhotos() as $Photo ){
-                if( ($observationPhoto->getBodyPart() == $Photo->getBodyPart()) &&
-                    ($observationPhoto->getPhotoDate() == $Photo->getPhotoDate()) ){
-                    $message=1;
-                    break;
+                foreach( $OBPhoto->getIndividual()->getObservationPhotos() as $Photo ){
+                  if( ($observationPhoto->getBodyPart() == $Photo->getBodyPart()) &&
+                      ($observationPhoto->getPhotoDate() == $Photo->getPhotoDate()) ){
+                      $message=1;
+                      break;
+                  }
                 }
-               }
+                 
+                if( $observationPhoto->getIsBest() ){
+                  if( $observationPhoto->getIndividual() ){
+                    if( $observationPhoto->getIndividual()->countObservationPhotos() > 2 ){
+                       $bestPhotoMessage = 1;
+                    }
+                  }
+                }
+                
               ?>
               sameDateAndBodyPartMessage = '<?php echo $message; ?>';
-
-                $("#identify_viewer_image2 img").attr('src', '/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
-                $('#identify_viewer_image2 img').attr('title', '<?php echo $OBPhoto->getHtmlResume(); ?>');
+              isBestPhotoMessage = '<?php echo $bestPhotoMessage; ?>';
+              
+                $("#identify_viewer_image2 img").attr('src', 'http://monicet.net/uploads/pr_repo_final/<?php echo $OBPhoto->getFileName(); ?>');
+                $("#identify_viewer_image2 img").attr('title', '<?php echo $OBPhoto->getHtmlResume(); ?>');
                 $("#associate_individual_link").attr('href', '<?php echo url_for('@pr_associate_individual_by_photo?id='.$observationPhoto->getId().'&individual_id='.$OBPhoto->getIndividualId()) ?>');
                 $("#associate_individual_li").show();
-              
+
                 $("#associate_individual_link").click(function(e) {
                   e.preventDefault();
-                  var link = this;
-                  if( sameDateAndBodyPartMessage == '1' ){
-                  $("#associateIndividualSameBodyPartDate").dialog({
-                        buttons: {
-                            "OK": function() {
-                                window.location = link.href;
-                            },
-                            "Cancel": function() {
-                                $(this).dialog("close");
-                            }
+                    var link = this;
+                    var message = "#associate";
+                    if( sameDateAndBodyPartMessage == '1' && isBestPhotoMessage == '1'){
+                      message = "#sameBodyPartDateAndChooseNewBestPhoto";
+                    }
+                    else{
+                       if( sameDateAndBodyPartMessage == '1' ){
+                          message = "#associateIndividualSameBodyPartDate";
+                       }
+                       else{
+                        if( isBestPhotoMessage == '1' ){
+                            message = "#chooseNewBestPhotoForPreviousIndividual";
                         }
-                    });
-                  }
-                  else{
-                  $("#associate").dialog({
-                        buttons: {
-                            "OK": function() {
-                                window.location = link.href;
-                            },
-                            "Cancel": function() {
-                                $(this).dialog("close");
-                            }
-                        }
-                    });
-                  }
+                       }
+                    }
+
+                      $(message).dialog({
+                          buttons: {
+                              "OK": function() {
+                                  window.location = link.href;
+                              },
+                              "Cancel": function() {
+                                  $(this).dialog("close");
+                              }
+                          }
+                      });
                 });
               });
             });

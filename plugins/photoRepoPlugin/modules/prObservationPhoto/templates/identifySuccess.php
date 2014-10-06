@@ -31,20 +31,21 @@
       <form id="identify_form">
         <div class="identify_row">
           <input name="identify_form[observation_photo_id]" type="hidden" value="<?php echo $observationPhoto->getId() ?>" id="identify_form_observation_photo">
-          <input name="identify_form[choices][]" type="checkbox" value="same" id="identify_form_choices_same">
-          <label for="identify_form_choices_same">Caracterização igual</label>
-        </div>
-        
-        <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="best" id="identify_form_choices_best">
           <label for="identify_form_choices_best">Melhores fotografias</label>
         </div>
-        
+
         <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="same_body_part" id="identify_form_choices_same_body_part">
           <label for="identify_form_choices_same_body_part">Parte do corpo igual</label>
         </div>
         
+        <?php if($observationPhoto->isCharacterizable()): ?>
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="same" id="identify_form_choices_same">
+          <label for="identify_form_choices_same">Caracterização igual</label>
+        </div>
+ 
         <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="smooth" id="identify_form_choices_smooth">
           <label for="identify_form_choices_smooth">Lisa</label>
@@ -88,6 +89,7 @@
             <label id="mark_label" for="identify_form_marks">Marcas</label>
           </div>
         <?php endif; ?>
+       <?php endif; ?>
       </form>
     </div>
     
@@ -117,6 +119,9 @@
 
 <div id="associate" title="Associar fotografia" style="display: none;"><p>Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="associateIndividualSameBodyPartDate" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+<div id="chooseNewBestPhotoForPreviousIndividual" title="Associar fotografia" style="display: none;"><p>Esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+<div id="sameBodyPartDateAndChooseNewBestPhoto" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Em mais, esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+
 </div>
 
 

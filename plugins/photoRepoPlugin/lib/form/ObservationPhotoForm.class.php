@@ -249,8 +249,8 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
 
     if($company_obj && $values['latitude'] && $values['longitude']){
 
-      $lat = floatval($values['latitude']);
-      $long = floatval($values['longitude']);
+      $lat = trim($values['latitude'], " ");
+      $long = trim($values['longitude'], " ");
 
       $base = GeoLocation::fromDegrees( $company_obj->getBaseLatitude(), $company_obj->getBaseLongitude() );
       $coordinates = $base->boundingCoordinates(100, 'kilometers');
@@ -259,22 +259,22 @@ class ObservationPhotoForm extends BaseObservationPhotoForm
       $maximum_lat = $coordinates[1]->getLatitudeInDegrees();
       $minimum_lat = $coordinates[0]->getLatitudeInDegrees();
 
-      if( ($lat < $minimum_lat || $lat > $maximum_lat) && ($long < $minimum_long || $long > $maximum_long) ){
+      if( (!is_numeric($lat) || $lat < $minimum_lat || $lat > $maximum_lat) && (!is_numeric($long) || $long < $minimum_long || $long > $maximum_long) ){
         throw new sfValidatorErrorSchema($validator, array(
-        'latitude' => new sfValidatorError($validator, 'Latitude can only take values between '.$minimum_lat.' and '.$maximum_lat),
-        'longitude' => new sfValidatorError($validator, 'Longitude can only take values between '.$minimum_long.' and '.$maximum_long)
+        'latitude' => new sfValidatorError($validator, 'Latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between '.$minimum_lat.' and '.$maximum_lat),
+        'longitude' => new sfValidatorError($validator, 'Longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between '.$minimum_long.' and '.$maximum_long)
         ));
       }
       else{
-            if( $lat < $minimum_lat || $lat > $maximum_lat ){
+            if( !is_numeric($lat) || $lat < $minimum_lat || $lat > $maximum_lat ){
                 throw new sfValidatorErrorSchema($validator, array(
-                'latitude' => new sfValidatorError($validator, 'Latitude can only take values between '.$minimum_lat.' and '.$maximum_lat)
+                'latitude' => new sfValidatorError($validator, 'Latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between '.$minimum_lat.' and '.$maximum_lat)
               ));
             }
             else{
-                  if( $long < $minimum_long || $long > $maximum_long ){
+                  if( !is_numeric($long) || $long < $minimum_long || $long > $maximum_long ){
                       throw new sfValidatorErrorSchema($validator, array(
-                      'longitude' => new sfValidatorError($validator, 'Longitude can only take values between '.$minimum_long.' and '.$maximum_long)
+                      'longitude' => new sfValidatorError($validator, 'Longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between '.$minimum_long.' and '.$maximum_long)
                   ));
                 }
             }

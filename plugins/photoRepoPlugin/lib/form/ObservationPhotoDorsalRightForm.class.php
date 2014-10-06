@@ -7,32 +7,32 @@ class ObservationPhotoDorsalRightForm extends BaseObservationPhotoDorsalRightFor
     $this->widgetSchema->getFormFormatter()->setTranslationCatalogue('observation_photo');
     $this->widgetSchema['photo_id'] = new sfWidgetFormInputHidden();
     
-    $valIsSmothAndIsIrregular = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmothAndIsIrregular') ));
-    $valIsSmothAndCuttedPoint = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmothAndCuttedPoint') ));
-    $valIsSmothAndMarks = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmothAndHasMarks') ));
+    $valIsSmoothAndIsIrregular = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmoothAndIsIrregular') ));
+    $valIsSmoothAndCuttedPoint = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmoothAndCuttedPoint') ));
+    $valIsSmoothAndMarks = new sfValidatorCallback(array( 'callback' => array($this, 'checkIsSmoothAndHasMarks') ));
     
     $this->validatorSchema->setPostValidator(
       new sfValidatorAnd(array(
-        $valIsSmothAndIsIrregular,
-          $valIsSmothAndCuttedPoint,
-          $valIsSmothAndMarks
+        $valIsSmoothAndIsIrregular,
+          $valIsSmoothAndCuttedPoint,
+          $valIsSmoothAndMarks
       ))
     );
   }
   
-  public function checkIsSmothAndIsIrregular($validator, $values) {
+  public function checkIsSmoothAndIsIrregular($validator, $values) {
     if( $values['is_smooth'] && $values['is_irregular']) {
       throw new sfValidatorError($validator, '<br/> - As opções "Lisa" e "Irregular" não podem estar seleccionads simultaneamente.');
     }
     return $values;
   }
-  public function checkIsSmothAndCuttedPoint($validator, $values) {
+  public function checkIsSmoothAndCuttedPoint($validator, $values) {
     if( $values['is_smooth'] && $values['is_cutted_point']) {
       throw new sfValidatorError($validator, '<br/> - As opções "Lisa" e "Ponta cortada" não podem estar seleccionads simultaneamente.');
     }
     return $values;
   }
-  public function checkIsSmothAndHasMarks($validator, $values) {
+  public function checkIsSmoothAndHasMarks($validator, $values) {
     if( $values['is_smooth'] && $this->getObject()->countObservationPhotoDorsalRightMarks()) {
       throw new sfValidatorError($validator, '<br/> - A opção "Lisa" não pode ser seleccionada de a fotografia já tiver marcas adicionadas.');
     }
