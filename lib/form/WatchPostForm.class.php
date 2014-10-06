@@ -22,11 +22,10 @@ class WatchPostForm extends BaseWatchPostForm
     if ($company) {
         $this->setWidget('company_id', 
                          new sfWidgetFormChoice(array('choices' => array($company->getId() => $company->getName()))));
-
+    }
         $this->validatorSchema->setPostValidator(
         new sfValidatorCallback(array('callback' => array($this, 'validateCoordinates')))
         );
-    }
   }
 
   public function validateCoordinates($validator, $values)
