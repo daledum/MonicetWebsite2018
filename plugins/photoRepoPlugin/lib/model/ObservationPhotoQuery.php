@@ -252,6 +252,19 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $beginCell = $mark->getPatternCellTailRelatedByPatternCellTailId();
       $endCell = $mark->getPatternCellTailRelatedByToCellId();
     }
+
+    if($endCell){
+      if($beginCell->getId() == $endCell->getId()){//here if we have the same string on both sides, eg A1-A1
+          $endCell = NULL;
+      }
+      else{//I don't compare id's, as we might have new letters added at the end, what we care about are letters - for the algorithm used on line 290
+          if(strcasecmp($beginCell->getName(), $endCell->getName()) > 0){//swap values, if we have beginCell = C2 and endCell = C1, for example
+              $tmp = $endCell;
+              $endCell = $beginCell;
+              $beginCell = $tmp;
+          }
+      }
+    }
     
     $beginCellName = $beginCell->getName();
     $letterIntervalArray = array();
