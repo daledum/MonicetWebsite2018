@@ -10,13 +10,14 @@
  */
 class CompanyForm extends BaseCompanyForm
 {
+  /*  //convertLatlong function doesn't work
   public function processValues($values)
   {
   	parent::processValues($values);
     $this->values['base_latitude'] = mfUtils::convertLatLong($this->values['base_latitude']);
     $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);
     return $this->values;
-  }
+  }*/
 	
   public function configure()
   {
@@ -25,7 +26,7 @@ class CompanyForm extends BaseCompanyForm
       $this['created_at'], $this['updated_at'], $this['company_user_list']
     );
     
-    $pattern = '/^(\d{1,3}|-\d{1,3}|\d{1,3},\d{1,}|-\d{1,3},\d{1,}|\d{1,3}.\d{1,}|-\d{1,3}.\d{1,}|\d{1,3}º\d{2},\d{3}\'|-\d{1,3}º\d{2},\d{3}\'|\d{1,3}º\d{1,2}\'\d{1,2}"|-\d{1,3}º\d{1,2}\'\d{1,2}")$/';
+    /*$pattern = '/^(\d{1,3}|-\d{1,3}|\d{1,3},\d{1,}|-\d{1,3},\d{1,}|\d{1,3}.\d{1,}|-\d{1,3}.\d{1,}|\d{1,3}º\d{2},\d{3}\'|-\d{1,3}º\d{2},\d{3}\'|\d{1,3}º\d{1,2}\'\d{1,2}"|-\d{1,3}º\d{1,2}\'\d{1,2}")$/';
     
     $this->validatorSchema['base_latitude'] = new sfValidatorRegex(
       array( 'required' => true,
@@ -41,6 +42,23 @@ class CompanyForm extends BaseCompanyForm
       ),
       array( 'invalid' => 'Accepted longitude format examples: 37 or -124 or -38.123... or 39,123... or -127º18\'45"'
       )
-    );
+    );*/
+      $this->validatorSchema['base_latitude'] = new sfValidatorNumber(
+        array( 'max' => 90,
+               'min' => -90
+        ),
+        array( 'max' => 'Latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between -90 and 90',
+               'min' => 'Latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between -90 and 90'
+        )
+      );
+    
+      $this->validatorSchema['base_longitude'] = new sfValidatorNumber(
+        array( 'max' => 180,
+               'min' => -180
+        ),
+        array( 'max' => 'Longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between -180 and 180',
+               'min' => 'Longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between -180 and 180'
+        )
+      );
   }
 }
