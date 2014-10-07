@@ -372,16 +372,22 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
   public function executeValidate( sfWebRequest $request ) {
       $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
       $userId = $this->getUser()->getGuardUSer()->getId();
-      if( /*$userId != $observationPhoto->getLastEditedBy() &&*/ $observationPhoto->getStatus() == ObservationPhoto::FA_SIGLA ) {
+      $individual = $observationPhoto->getIndividual();
+      if($individual){//just making sure the photo was indeed linked to an individual
+        if( /*$userId != $observationPhoto->getLastEditedBy() &&*/ $observationPhoto->getStatus() == ObservationPhoto::FA_SIGLA ) {
           $observationPhoto->setStatus(observationPhoto::V_SIGLA);
           $observationPhoto->setValidatedBy($userId);
           $observationPhoto->save();
           $this->getUser()->setFlash('notice', 'Fotografia validada com sucesso');
-      } else {
+        } else {
           $this->getUser()->setFlash('error', 'Não tem autoridade para validar as informações desta fotografia.');
+          }
+        
+          $this->redirect('@pr_individual_show?id='.$individual->getId());
       }
-      
-      $this->redirect('@pr_observation_photo_edit?id='.$observationPhoto->getId());
+      else{
+          $this->redirect('@pr_observation_photo_identify?id='.$observationPhoto->getId());
+      }
   }
   
   public function executeAjaxGetSightingsForCompany( sfWebRequest $request ) {

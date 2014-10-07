@@ -151,15 +151,34 @@
         var minimum_long = parseFloat('<?php echo $minimum_long; ?>');
         var maximum_long = parseFloat('<?php echo $maximum_long; ?>');
 
+        //convert max and min values from decimal to DMS format - to use in error messages
+        var min_lat_dms = Geo.toLat(minimum_lat,'dms',1);
+        var max_lat_dms = Geo.toLat(maximum_lat,'dms',1);
+        var min_long_dms = Geo.toLon(minimum_long,'dms',1);
+        var max_long_dms = Geo.toLon(maximum_long,'dms',1);
+
+        //replace ° with º, the parseDMS function doesn't work with °
+        $("tr.record_line_" + i + " #record_latitude").val( ($("tr.record_line_" + i + " #record_latitude").val()).replace('°', 'º') );
+        $("tr.record_line_" + i + " #record_longitude").val( ($("tr.record_line_" + i + " #record_longitude").val()).replace('°', 'º') );
+
+        //in case the coordinates are in DMS format, convert them (to use below, for comparison) to decimal format
+        if( ($("tr.record_line_" + i + " #record_latitude").val()).indexOf('º') > -1 ) {
+         $("tr.record_line_" + i + " #record_latitude").val(Geo.parseDMS($("tr.record_line_" + i + " #record_latitude").val()).toFixed(5));
+        }
+
+        if( ($("tr.record_line_" + i + " #record_longitude").val()).indexOf('º') > -1 ){
+         $("tr.record_line_" + i + " #record_longitude").val(Geo.parseDMS($("tr.record_line_" + i + " #record_longitude").val()).toFixed(5));
+        }
+
          if( $("tr.record_line_" + i + " #record_latitude").val()){
           if( !isNaN($("tr.record_line_" + i + " #record_latitude").val()) ){
            if( parseFloat($("tr.record_line_" + i + " #record_latitude").val()) < minimum_lat || parseFloat($("tr.record_line_" + i + " #record_latitude").val()) > maximum_lat ){
-             errorMessage += '<br>' + 'Line ' + i + ': latitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between ' + minimum_lat + ' and ' + maximum_lat + '<br>';
+             errorMessage += '<br>' + 'Line ' + i + ': latitude can only take values between ' + minimum_lat + ' and ' + maximum_lat + ' or ' + min_lat_dms + ' and ' + max_lat_dms + '<br>';
            }
           }
           else{
             if( $("tr.record_line_" + i + " #record_latitude").val().toUpperCase() != 'BASE' ){
-              errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number in the decimal degrees format (no degrees, minutes or seconds symbols, please)' + '<br>';
+              errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, latitude has to be a value in the decimal format or in the degrees-minutes-seconds format' + '<br>';
             }
           }
          }
@@ -167,12 +186,12 @@
           if( $("tr.record_line_" + i + " #record_longitude").val()){
            if( !isNaN($("tr.record_line_" + i + " #record_longitude").val()) ){
             if( parseFloat($("tr.record_line_" + i + " #record_longitude").val()) < minimum_long || parseFloat($("tr.record_line_" + i + " #record_longitude").val()) > maximum_long ){
-             errorMessage += '<br>' + 'Line ' + i + ': longitude can only take decimal degrees format (no degrees, minutes or seconds symbols, please) values between ' + minimum_long + ' and ' + maximum_long + '<br>';
+             errorMessage += '<br>' + 'Line ' + i + ': longitude can only take values between ' + minimum_long + ' and ' + maximum_long + ' or ' + min_long_dms + ' and ' + max_long_dms +  '<br>';
             }
            }
            else{
              if( $("tr.record_line_" + i + " #record_longitude").val().toUpperCase() != 'BASE' ){
-               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a number in the decimal degrees format (no degrees, minutes or seconds symbols, please)' + '<br>';
+               errorMessage += '<br>' + 'Line ' + i + ': in case it is not BASE, longitude has to be a value in the decimal format or in the degrees-minutes-seconds format' + '<br>';
              }
            }
           }
@@ -534,23 +553,9 @@
       </li>
     </ul>
     <ul>
-      <li style="display:inline-block">
+      <li>
         <?php echo $gi_form['comments']->renderLabel().' '.$gi_form['comments'] ?><!-- renderLabel().'<br>'.'(140 characters maximum)'.' '.$gi_form['comments']-->
         <br>(140 characters maximum)<br>
-      </li>
-      <li id="convertFromDMStoDD" style="display:inline-block;float:right;width:500px;margin-right:10px;">
-
-          <h2>Converting Degrees-Minutes-Seconds (DMS) To Decimal:<br/></h2>
-          <p>If you remove the N, S, E or W from the end, please put a minus in front of the latitude value, if in the Southern Hemisphere and in front of the longitude value, if in the Western Hemisphere.<br/></p><br>
-     <form name="convert" id="convert">
-        <div style="display:inline;margin-right:150px">Latitude</div>
-        <div style="display:inline">Longitude</div><br>
-        <div style="display:inline;margin-right:38px"><input type="text" name="latDMS" id="latDMS" value="52°12′17.0″N"></div>
-        <div style="display:inline"><input type="text" name="lonDMS" id="lonDMS" value="000°08′26.0″E"></div><br>
-        <div style="display:inline;margin-right:38px"><input type="text" name="latDec" id="latDec" value="52.20472"></div>
-        <div style="display:inline"><input type="text" name="lonDec" id="lonDec" value="0.14056"></div><br><br>
-     <input class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" type="submit" value="Convert" /><br><br>
-     </form>
       </li>
     </ul>
 
@@ -582,14 +587,6 @@ $(document).ready(function() {
         }
     }
   });
-
-    $('#convert').submit(function () {
-     $('#latDec').val(Geo.parseDMS($('#latDMS').val()).toFixed(5));
-     $('#lonDec').val(Geo.parseDMS($('#lonDMS').val()).toFixed(5));
-     $('#latDMS').val(Geo.toLat($('#latDec').val(),'dms',1));
-     $('#lonDMS').val(Geo.toLon($('#lonDec').val(),'dms',1));
-     return false;
-    });
 
     window.onunload=function() {
      var saved = parseInt(document.getElementById("generalInfoWasSaved").value); 
