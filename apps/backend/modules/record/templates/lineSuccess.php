@@ -3,6 +3,14 @@
     $record_form->setDefault('latitude',$latitude);
     $record_form->setDefault('longitude',$longitude);
   }
+  else{//I made sure lat and long were numbers in the validator of the GeneralInfoForm
+    if($latitude < -4){
+      $record_form->setDefault('latitude', '-');
+    }
+    if( abs($latitude) < 60 && $longitude < -10 ){
+      $record_form->setDefault('longitude', '-');
+    }
+  }
 ?>
 
 <tr class="sf_admin_row odd record_line_<?php echo $n_lines; ?>">
