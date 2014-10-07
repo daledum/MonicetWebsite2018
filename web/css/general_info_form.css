@@ -1,0 +1,17 @@
+#sf_admin_container {
+    width: 600px;
+    float: left;
+    margin-bottom: 20px;
+}
+
+#converter {
+    float: left;
+    width: 450px;
+    margin-left: 10px;
+}
+
+#convertFromDMStoDD {
+    margin-top: 20px;
+    margin-left: 50px;
+    width: 400px;
+}
