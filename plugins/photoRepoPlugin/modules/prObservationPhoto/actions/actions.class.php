@@ -338,10 +338,12 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         system('mv '.$fileAddress.' '.sfConfig::get('sf_upload_dir').'/pr_repo_final' );
       } 
 
+      if(!$isNew){
       $ObservationPhoto = ObservationPhotoPeer::retrieveByPK($form->getValue('id'));
       $photo_id = $ObservationPhoto->getId();
       $old_specie_id = $ObservationPhoto->getSpecieId();
       $old_body_part = $ObservationPhoto->getBodyPart();
+      }
       $ObservationPhoto = $form->save();
       
       if( $isNew && !$ObservationPhoto->isCharacterizable() ){
