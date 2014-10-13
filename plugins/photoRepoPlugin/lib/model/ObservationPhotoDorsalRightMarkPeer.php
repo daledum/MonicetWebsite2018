@@ -16,10 +16,15 @@ class ObservationPhotoDorsalRightMarkPeer extends BaseObservationPhotoDorsalRigh
     $ids = array();
     foreach( $all_regs as $reg ){
       $OBPhoto = $reg->getObservationPhotoDorsalRight()->getObservationPhoto();
-      if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA) ) {
-        if( !in_array($OBPhoto->getId(), $ids) ){
-          $ids[] = $OBPhoto->getId();
+      if($OBPhoto){
+        if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA) ) {
+          if( !in_array($OBPhoto->getId(), $ids) ){
+            $ids[] = $OBPhoto->getId();
+          }
         }
+      }
+      else{
+        $reg->getObservationPhotoDorsalRight()->delete();
       }
     }
     return $ids;
