@@ -554,9 +554,20 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     //print_r($args);
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($args['observation_photo_id']));
     
-    $this->OBPhotos = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
+    $query_results = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
+    $size = count($query_results);
+    
+    //I used the algorithm below because array_unique does not work on $query_results, which is of type PropelObjectCollection
+    //the algorithm works only if duplicate photos are consecutive (that is the way that _getMarkIDsFromCombinations() called inside getPossibleMatches() populates the query)
+    for($key = 0; $key < $size; $key++){
+      if($query_results[$key] === $query_results[$key+1]){
+        $query_results->remove($key);
+      }
+    }
+    $this->OBPhotos = $query_results;
+
 //    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
-//    
+//
 //    $this->priorityResults = $priorityResults;
   }
   
