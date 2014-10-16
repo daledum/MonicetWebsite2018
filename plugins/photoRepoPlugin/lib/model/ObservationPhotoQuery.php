@@ -97,21 +97,21 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
       $query = $query->useObservationPhotoDorsalLeftQuery();
         $query = $query->useObservationPhotoDorsalLeftMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getBodyPart(), $cellCombinations, $depth);
+          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
           $query = $query->filterById($ids, Criteria::IN);
         $query = $query->endUse();
       $query = $query->endUse();
     } elseif( $observationPhoto->getBodyPart() == body_part::R_SIGLA ){ // dorsal right
       $query = $query->useObservationPhotoDorsalRightQuery();
         $query = $query->useObservationPhotoDorsalRightMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getBodyPart(), $cellCombinations, $depth);
+          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
           $query = $query->filterById($ids, Criteria::IN);
         $query = $query->endUse();
       $query = $query->endUse();
     } elseif( $observationPhoto->getBodyPart() == body_part::F_SIGLA ){ // tail
       $query = $query->useObservationPhotoTailQuery();
         $query = $query->useObservationPhotoTailMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getBodyPart(), $cellCombinations, $depth);
+          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
           $query = $query->filterById($ids, Criteria::IN);
         $query = $query->endUse();
       $query = $query->endUse();
@@ -122,12 +122,16 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $query;
   }
   
-  public static function _getMarkIDsFromCombinations($bodyPart, $combinations=array(), $depth=False){
+  public static function _getMarkIDsFromCombinations($specieId, $bodyPart, $combinations=array(), $depth=False){
     $nCombinations = count($combinations);
     if( $nCombinations == 0 ){
       return array();
     }
     
+    //the names of marks are repeated 4 times in the table, so the code will choose the right id for the right specie (species with ids 2,4,7,8,10 have patterns with ids 6,4,5,1,7)
+    $patternSpecie = PatternQuery::create()->filterBySpecieId($specieId)->findOne();
+    $patternId = $patternSpecie->getId();
+
     if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
       $query = ObservationPhotoDorsalLeftMarkQuery::create();
     } elseif( $bodyPart == body_part::R_SIGLA ){ // dorsal right
@@ -142,17 +146,17 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         $fromId = null;
         if(isset($combination[0])){
           if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
-            $PCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByName($combination[0]);
+            $PCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByNameAndPatternId($combination[0], $patternId);
             if($PCDorsalLeft){
               $fromId = $PCDorsalLeft->getId();
             }
           } elseif( $bodyPart == body_part::R_SIGLA ){ // dorsal right
-            $PCDorsalRight = PatternCellDorsalRightPeer::retrieveByName($combination[0]);
+            $PCDorsalRight = PatternCellDorsalRightPeer::retrieveByNameAndPatternId($combination[0], $patternId);
             if($PCDorsalRight){
               $fromId = $PCDorsalRight->getId();
             }
           } elseif( $bodyPart == body_part::F_SIGLA ){ // tail
-            $PCTail = PatternCellTailPeer::retrieveByName($combination[0]);
+            $PCTail = PatternCellTailPeer::retrieveByNameAndPatternId($combination[0], $patternId);
             if($PCTail){
               $fromId = $PCTail->getId();
             }
@@ -162,7 +166,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         $toId = null;
         if(isset($combination[1])){
           if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
-            $PCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByName($combination[1]);
+            $PCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByNameAndPatternId($combination[1], $patternId);
             if($PCDorsalLeft){
               $toId = $PCDorsalLeft->getId();
 
@@ -175,7 +179,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
               }
             }
           } elseif( $bodyPart == body_part::R_SIGLA ){ // dorsal right
-            $PCDorsalRight = PatternCellDorsalRightPeer::retrieveByName($combination[1]);
+            $PCDorsalRight = PatternCellDorsalRightPeer::retrieveByNameAndPatternId($combination[1], $patternId);
             if($PCDorsalRight){
               $toId = $PCDorsalRight->getId();
 
@@ -188,7 +192,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
               }
             }
           } elseif( $bodyPart == body_part::F_SIGLA ){ // tail
-            $PCTail = PatternCellTailPeer::retrieveByName($combination[1]);
+            $PCTail = PatternCellTailPeer::retrieveByNameAndPatternId($combination[1], $patternId);
             if($PCTail){
               $toId = $PCTail->getId();
 
