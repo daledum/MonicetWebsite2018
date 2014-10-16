@@ -559,7 +559,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     //I used the algorithm below because array_unique does not work on $query_results, which is of type PropelObjectCollection
     //the algorithm works only if duplicate photos are consecutive (that is the way that _getMarkIDsFromCombinations() called inside getPossibleMatches() populates the query)
-    for($key = 0; $key < $size; $key++){
+    for($key = 0; $key < $size-1; $key++){
       if($query_results[$key] === $query_results[$key+1]){
         $query_results->remove($key);
       }
