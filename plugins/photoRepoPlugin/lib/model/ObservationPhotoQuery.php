@@ -366,7 +366,17 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $query = self::_get_smooth_filter($query, $observationPhoto, $OPDorsalLeft->getIsSmooth());
     $query = self::_get_irregular_filter($query, $observationPhoto, $OPDorsalLeft->getIsIrregular());
     $query = self::_get_cutted_point_filter($query, $observationPhoto, $OPDorsalLeft->getIsCuttedPoint());
-    $query = self::_completeCharacterizationDorsalLeftMarkQuery($query, $OPDorsalLeft);
+    
+    $marks = $OPDorsalLeft->getObservationPhotoDorsalLeftMarks();
+    if(count($marks)){
+      foreach( $marks as $mark ){
+          $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds($mark);
+          $query = $query->filterById($observationPhotoIds, Criteria::IN);
+      }
+    } else {
+          $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds();
+          $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
+    }
     return $query;
   }
   
@@ -375,7 +385,17 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $query = self::_get_smooth_filter($query, $observationPhoto, $OPDorsalRight->getIsSmooth());
     $query = self::_get_irregular_filter($query, $observationPhoto, $OPDorsalRight->getIsIrregular());
     $query = self::_get_cutted_point_filter($query, $observationPhoto, $OPDorsalRight->getIsCuttedPoint());
-    $query = self::_completeCharacterizationDorsalRightMarkQuery($query, $OPDorsalRight);
+
+    $marks = $OPDorsalRight->getObservationPhotoDorsalRightMarks();
+    if(count($marks)){
+      foreach( $marks as $mark ){
+          $observationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getObservationPhotoIds($mark);
+          $query = $query->filterById($observationPhotoIds, Criteria::IN);
+      }
+    } else {
+          $observationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getObservationPhotoIds();
+          $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
+    }
     return $query;
   }
   
@@ -385,99 +405,16 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $query = self::_get_irregular_filter($query, $observationPhoto, $OPTail->getIsIrregular());
     $query = self::_get_cutted_point_left_filter($query, $observationPhoto, $OPTail->getIsCuttedPointLeft());
     $query = self::_get_cutted_point_right_filter($query, $observationPhoto, $OPTail->getIsCuttedPointRight());
-    $query = self::_completeCharacterizationTailMarkQuery($query, $OPTail);
-    return $query;
-  }
-  
-  public static function _completeCharacterizationTailMarkQuery($query, $OPTail, $all=true){
+
     $marks = $OPTail->getObservationPhotoTailMarks();
-    //same characterization on observationPhotoTail
-    if( count($marks) ) {
-      $query = $query->useObservationPhotoTailQuery();
-        $conditionNames = array();
-        $query = $query->useObservationPhotoTailMarkQuery();
-          $mark_counter = 1;
-          foreach( $marks as $mark ){
-            $conditions = array($mark_counter.'_1', $mark_counter.'_2', $mark_counter.'_3');
-            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoTailMark.PatternCellTailId = ?', $mark->getPatternCellTailId());
-            $query = $query->condition($mark_counter.'_2', 'ObservationPhotoTailMark.IsWide = ?', $mark->getIsWide());
-            $query = $query->condition($mark_counter.'_3', 'ObservationPhotoTailMark.IsDeep = ?', $mark->getIsDeep());
-            if( $mark->getToCellId() ){
-              $query = $query->condition($mark_counter.'_4', 'ObservationPhotoTailMark.ToCellId = ?', $mark->getToCellId());
-              $conditions[] = $mark_counter.'_4';
-            }
-            $query = $query->combine($conditions, Criteria::LOGICAL_AND, 'cond_'.$mark_counter);
-            $conditionNames[] = 'cond_'.$mark_counter;
-            $mark_counter += 1;
-          }
-          $query = $query->combine($conditionNames, ($all)? Criteria::LOGICAL_AND: Criteria::LOGICAL_OR);
-        $query = $query->endUse();
-      $query = $query->endUse();
+    if(count($marks)){
+      foreach( $marks as $mark ){
+          $observationPhotoIds = ObservationPhotoTailMarkPeer::getObservationPhotoIds($mark);
+          $query = $query->filterById($observationPhotoIds, Criteria::IN);
+      }
     } else {
-      $observationPhotoIds = ObservationPhotoTailMarkPeer::getAllObservationPhotoIds();
-      $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
-    }
-    return $query;
-  }
-  
-  public static function _completeCharacterizationDorsalRightMarkQuery($query, $OPDorsalRight, $all=true){
-    $marks = $OPDorsalRight->getObservationPhotoDorsalRightMarks();
-    //same characterization on observationPhotoDorsalRight
-    if( count($marks) ) {
-      $query = $query->useObservationPhotoDorsalRightQuery();
-        $conditionNames = array();
-        $query = $query->useObservationPhotoDorsalRightMarkQuery();
-          $mark_counter = 1;
-          foreach( $marks as $mark ){
-            $conditions = array($mark_counter.'_1', $mark_counter.'_2', $mark_counter.'_3');
-            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalRightMark.PatternCellDorsalRightId = ?', $mark->getPatternCellDorsalRightId());
-            $query = $query->condition($mark_counter.'_2', 'ObservationPhotoDorsalRightMark.IsWide = ?', $mark->getIsWide());
-            $query = $query->condition($mark_counter.'_3', 'ObservationPhotoDorsalRightMark.IsDeep = ?', $mark->getIsDeep());
-            if( $mark->getToCellId() ){
-              $query = $query->condition($mark_counter.'_4', 'ObservationPhotoDorsalRightMark.ToCellId = ?', $mark->getToCellId());
-              $conditions[] = $mark_counter.'_4';
-            }
-            $query = $query->combine($conditions, Criteria::LOGICAL_AND, 'cond_'.$mark_counter);
-            $conditionNames[] = 'cond_'.$mark_counter;
-            $mark_counter += 1;
-          }
-          $query = $query->combine($conditionNames, ($all)? Criteria::LOGICAL_AND: Criteria::LOGICAL_OR);
-        $query = $query->endUse();
-      $query = $query->endUse();
-    } else {
-      $observationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getAllObservationPhotoIds();
-      $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
-    }
-    return $query;
-  }
-  
-  public static function _completeCharacterizationDorsalLeftMarkQuery($query, $OPDorsalLeft, $all=true){
-    $marks = $OPDorsalLeft->getObservationPhotoDorsalLeftMarks();
-    //same characterization on observationPhotoDorsalLeft
-    if( count($marks) ) {
-      $query = $query->useObservationPhotoDorsalLeftQuery();
-        $conditionNames = array();
-        $query = $query->useObservationPhotoDorsalLeftMarkQuery();
-          $mark_counter = 1;
-          foreach( $marks as $mark ){
-            $conditions = array($mark_counter.'_1', $mark_counter.'_2', $mark_counter.'_3');
-            $query = $query->condition($mark_counter.'_1', 'ObservationPhotoDorsalLeftMark.PatternCellDorsalLeftId = ?', $mark->getPatternCellDorsalLeftId());
-            $query = $query->condition($mark_counter.'_2', 'ObservationPhotoDorsalLeftMark.IsWide = ?', $mark->getIsWide());
-            $query = $query->condition($mark_counter.'_3', 'ObservationPhotoDorsalLeftMark.IsDeep = ?', $mark->getIsDeep());
-            if( $mark->getToCellId() ){
-              $query = $query->condition($mark_counter.'_4', 'ObservationPhotoDorsalLeftMark.ToCellId = ?', $mark->getToCellId());
-              $conditions[] = $mark_counter.'_4';
-            }
-            $query = $query->combine($conditions, Criteria::LOGICAL_AND, 'cond_'.$mark_counter);
-            $conditionNames[] = 'cond_'.$mark_counter;
-            $mark_counter += 1;
-          }
-          $query = $query->combine($conditionNames, ($all)? Criteria::LOGICAL_AND: Criteria::LOGICAL_OR);
-        $query = $query->endUse();
-      $query = $query->endUse();
-    } else {
-      $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getAllObservationPhotoIds();
-      $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
+          $observationPhotoIds = ObservationPhotoTailMarkPeer::getObservationPhotoIds();
+          $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
     }
     return $query;
   }
