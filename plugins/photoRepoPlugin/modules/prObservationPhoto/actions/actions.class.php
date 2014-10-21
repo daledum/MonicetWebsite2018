@@ -338,20 +338,116 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         system('mv '.$fileAddress.' '.sfConfig::get('sf_upload_dir').'/pr_repo_final' );
       } 
 
-      $ObservationPhoto = $form->save(); //alternative to !$ObservationPhoto->isCharacterizable() from _form_marks.php: !count($ObservationPhoto->getSpecie()->getPatterns())
-      if( $isNew && !$ObservationPhoto->isCharacterizable() ){
-        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
-      } else {
-            if( $isNew && $ObservationPhoto->isCharacterizable() ){
-            $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
-           }
-           else { 
-               if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA) ) ) {
-               $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-               $ObservationPhoto->save();
-              }
-            }
+      if(!$isNew){
+      $ObservationPhoto = ObservationPhotoPeer::retrieveByPK($form->getValue('id'));
+      $photo_id = $ObservationPhoto->getId();
+      $old_specie_id = $ObservationPhoto->getSpecieId();
+      $old_body_part = $ObservationPhoto->getBodyPart();
       }
+      $ObservationPhoto = $form->save();
+      
+      if( $isNew && !$ObservationPhoto->isCharacterizable() ){
+        //sets the status to characterized, if the photo is new and non-characterizable
+        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+      }
+      else{
+            if( $isNew && $ObservationPhoto->isCharacterizable() ){
+            //sets it to new if new and characterizable
+            $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+            }
+            else{//the photo is not new
+                //firstly, un-assign individual linked to the photo if the specie was changed (keep it if the body part was changed, but force a re-identification - see below)
+                if( $old_specie_id != $ObservationPhoto->getSpecieId() && $ObservationPhoto->getIndividual() ){
+                  $ObservationPhoto->setIndividual(null);
+                  $ObservationPhoto->setIsBest(false);
+                }
+           
+                //secondly, a) drop the observation_photo_dorsal_left/right, _tail and _marks table rows and b) update status, if required
+                //do this only if specie and/or body part was changed - all other changes are considered minor and no further actions are taken
+                if( $old_specie_id != $ObservationPhoto->getSpecieId() || $old_body_part != $ObservationPhoto->getBodyPart() ){
+
+                      $dropRows = 1;
+                      $old_patternSpecie = PatternQuery::create()->filterBySpecieId($old_specie_id)->findOne();
+                      $patternSpecie = PatternQuery::create()->filterBySpecieId($ObservationPhoto->getSpecieId())->findOne();
+                  
+                  //the status (see status update section below) will be changed to para caracterizar, even when keeping the marks - to make sure it will be characterized properly
+                  if($old_patternSpecie && $patternSpecie){//means: do this only for characterizable species (previous and current)
+                      
+                      //keep the rows if: 1) the unchanged body part is L... (an unchanged body part means that only the specie was changed)
+                      if( $old_body_part == $ObservationPhoto->getBodyPart() && $old_body_part == body_part::L_SIGLA ){
+                        //and if the specie was changed from one which had a characterizable L body part to a new one which has a characterizable L body part
+                        if( strlen($old_patternSpecie->getImageDorsalLeft()) > 0 && strlen($patternSpecie->getImageDorsalLeft()) > 0 ){
+                          $dropRows = 0;
+                        }
+                      }
+                      //2) the unchanged body part is R...
+                      if( $old_body_part == $ObservationPhoto->getBodyPart() && $old_body_part == body_part::R_SIGLA ){
+                        //and if the specie was changed from one which had a characterizable R body part to a new one which has a characterizable R body part
+                        if( strlen($old_patternSpecie->getImageDorsalRight()) > 0 && strlen($patternSpecie->getImageDorsalRight()) > 0 ){
+                          $dropRows = 0;
+                        }
+                      }
+                  }
+                 
+                       //drop the table rows in all other cases
+                       if($dropRows){
+                            //don't call get_or_create because it changes the status, disturbing the whole status change algorithm
+                            if($old_body_part == body_part::L_SIGLA){
+                              $c = new Criteria();
+                              $c->add(ObservationPhotoDorsalLeftPeer::PHOTO_ID, $photo_id, Criteria::EQUAL);
+                              $OBPhotoDorsalLeft = ObservationPhotoDorsalLeftPeer::doSelectOne($c);
+                              if($OBPhotoDorsalLeft){
+                              $OBPhotoDorsalLeft->delete();//this deletes the appropriate rows from the linked _marks table, as well
+                              }
+                            }
+
+                            if($old_body_part == body_part::R_SIGLA){
+                              $c = new Criteria();
+                              $c->add(ObservationPhotoDorsalRightPeer::PHOTO_ID, $photo_id, Criteria::EQUAL);
+                              $OBPhotoDorsalRight = ObservationPhotoDorsalRightPeer::doSelectOne($c);
+                              if($OBPhotoDorsalRight){
+                                $OBPhotoDorsalRight->delete();
+                              }
+                            }
+
+                            if($old_body_part == body_part::F_SIGLA){
+                              $c = new Criteria();
+                              $c->add(ObservationPhotoTailPeer::PHOTO_ID, $photo_id, Criteria::EQUAL);
+                              $OBPhotoTail = ObservationPhotoTailPeer::doSelectOne($c);
+                              if($OBPhotoTail){
+                                $OBPhotoTail->delete();
+                              }
+                            }
+                       }
+
+                           //update status, when the photo is not new and specie and/or body part were changed
+                           //NEW_SIGLA (para caracterizar) changes to C_SIGLA, if the photo is not characterizable
+                           //C_SIGLA (para identificar) changes to NEW_SIGLA, if the photo is characterizable
+                           //FA_SIGLA (para validar) changes to NEW_SIGLA or to C_SIGLA, according to isCharacterizable()
+                           //V_SIGLA (validated) changes to NEW_SIGLA or to C_SIGLA, according to isCharacterizable()
+                           if($ObservationPhoto->isCharacterizable()){
+                            if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::C_SIGLA)) ||
+                                in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) ||
+                                in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA)) ){
+
+                              $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
+                            }
+                           }
+                           else{
+                                if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::NEW_SIGLA)) ||
+                                    in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) ||
+                                    in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA)) ){
+
+                                   $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+                                }
+                           }
+
+                }//end of change of specie and/or body part condition
+            
+              //and finally, save photo
+              $ObservationPhoto->save();
+            }//end of else when the photo is not new
+      }//end of else when the photo either: is not new or is characterizable or is not new and characterizable
       
       if(isset($fileAddress)) {
         $ObservationPhoto->setUploadedAt($dateUpload);
@@ -458,9 +554,20 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     //print_r($args);
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($args['observation_photo_id']));
     
-    $this->OBPhotos = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
+    $query_results = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
+    $size = count($query_results);
+    
+    //I used the algorithm below because array_unique does not work on $query_results, which is of type PropelObjectCollection
+    //the algorithm works only if duplicate photos are consecutive (that is the way that _getMarkIDsFromCombinations() called inside getPossibleMatches() populates the query)
+    for($key = 0; $key < $size-1; $key++){
+      if($query_results[$key] === $query_results[$key+1]){
+        $query_results->remove($key);
+      }
+    }
+    $this->OBPhotos = $query_results;
+
 //    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
-//    
+//
 //    $this->priorityResults = $priorityResults;
   }
   
