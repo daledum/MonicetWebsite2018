@@ -94,35 +94,21 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($mark, $observationPhoto->getBodyPart(), $complete, $depth));  
     }
 
-    if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
-      $query = $query->useObservationPhotoDorsalLeftQuery();
-        $query = $query->useObservationPhotoDorsalLeftMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
-          $query = $query->filterById($ids, Criteria::IN);
-        $query = $query->endUse();
-      $query = $query->endUse();
-    } elseif( $observationPhoto->getBodyPart() == body_part::R_SIGLA ){ // dorsal right
-      $query = $query->useObservationPhotoDorsalRightQuery();
-        $query = $query->useObservationPhotoDorsalRightMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
-          $query = $query->filterById($ids, Criteria::IN);
-        $query = $query->endUse();
-      $query = $query->endUse();
-    } elseif( $observationPhoto->getBodyPart() == body_part::F_SIGLA ){ // tail
-      $query = $query->useObservationPhotoTailQuery();
-        $query = $query->useObservationPhotoTailMarkQuery();
-          $ids = self::_getMarkIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
-          $query = $query->filterById($ids, Criteria::IN);
-        $query = $query->endUse();
-      $query = $query->endUse();
+    $ids = self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
+    //find all the photos with the same mark, irrespective of the body part (R or L, in the case of the species 2,4,7,10) - specie 8 only has one charact. body part (F)
+    if( $observationPhoto->getBodyPart() == body_part::L_SIGLA) {
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::R_SIGLA, $cellCombinations, $depth));
     }
+     elseif ($observationPhoto->getBodyPart() == body_part::R_SIGLA) {
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::L_SIGLA, $cellCombinations, $depth));
+     }
+    $query = $query->filterById($ids, Criteria::IN);
 
     //print_r($cellCombinations);
-
     return $query;
   }
   
-  public static function _getMarkIDsFromCombinations($specieId, $bodyPart, $combinations=array(), $depth=False){
+  public static function _getPhotoIDsFromCombinations($specieId, $bodyPart, $combinations=array(), $depth=False){
     $nCombinations = count($combinations);
     if( $nCombinations == 0 ){
       return array();
@@ -236,9 +222,28 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     
     $ids = array();
     foreach ($marks as $mark ){
-      if( !in_array($mark->getId(), $ids)){
-        $ids[] = $mark->getId();
-      }
+        if( $bodyPart == body_part::L_SIGLA ){
+              $OBPhotoDorsalLeft = ObservationPhotoDorsalLeftPeer::retrieveByPK($mark->getObservationPhotoDorsalLeftId());
+              if($OBPhotoDorsalLeft){
+                if( !in_array($OBPhotoDorsalLeft->getPhotoId(), $ids)){
+                $ids[] = $OBPhotoDorsalLeft->getPhotoId();
+                }
+              }
+        } elseif( $bodyPart == body_part::R_SIGLA ){
+              $OBPhotoDorsalRight = ObservationPhotoDorsalRightPeer::retrieveByPK($mark->getObservationPhotoDorsalRightId());
+              if($OBPhotoDorsalRight){
+                if( !in_array($OBPhotoDorsalRight->getPhotoId(), $ids)){
+                $ids[] = $OBPhotoDorsalRight->getPhotoId();
+                }
+              }
+          } elseif( $bodyPart == body_part::F_SIGLA ){
+              $OBPhotoTail = ObservationPhotoTailPeer::retrieveByPK($mark->getObservationPhotoTailId());
+              if($OBPhotoTail){
+                if( !in_array($OBPhotoTail->getPhotoId(), $ids)){
+                $ids[] = $OBPhotoTail->getPhotoId();
+                }
+              }
+            }
     }
     return $ids;
   }
