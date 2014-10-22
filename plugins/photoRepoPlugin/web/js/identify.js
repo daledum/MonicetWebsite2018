@@ -53,8 +53,8 @@ $(document).ready(function(){
     // first ajax request
     send_ajax_request();
     
-    // every ajax request on form change
-    $('#identify_form input').change(function(){
+    // only send request when button pressed
+    $('#submit_identify_form').click(function(){
         send_ajax_request();
     });
         
