@@ -50,6 +50,27 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       if( in_array('cutted_point_right', $choices) ){
         $query = self::_get_cutted_point_right_filter($query, $observationPhoto);
       }
+
+      //Non-smooth
+      if( in_array('smooth_without', $choices) ){
+        $query = self::_get_smooth_filter($query, $observationPhoto, false);
+      }
+      // Non-irregular
+      if( in_array('irregular_without', $choices) ){
+        $query = self::_get_irregular_filter($query, $observationPhoto, false);
+      }
+      //Non-cutted_point
+      if( in_array('cutted_point_without', $choices) ){
+        $query = self::_get_cutted_point_filter($query, $observationPhoto, false);
+      }
+      //Non-cutted point left
+      if( in_array('cutted_point_left_without', $choices) ){
+        $query = self::_get_cutted_point_left_filter($query, $observationPhoto, false);
+      }
+      //Non-cutted point right
+      if( in_array('cutted_point_right_without', $choices) ){
+        $query = self::_get_cutted_point_right_filter($query, $observationPhoto, false);
+      }
       $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
     }
    }
@@ -73,8 +94,8 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
   
   public static function _filter_marks($query, $observationPhoto, $choices, $formMarks){
     
-    $complete = (in_array('complete_marks', $choices))? True: False;
-    $depth = (in_array('depth', $choices))? True: False;
+    $complete = (in_array('complete_marks', $choices))? True: False;//client asked to remove "complete marks" and "depth" value from the form - we keep them in case they change their mind
+    $depth = (in_array('depth', $choices))? True: False;//both are false, so they won't interfere with the code
     $cellCombinations = array();
 
     //get selected marks

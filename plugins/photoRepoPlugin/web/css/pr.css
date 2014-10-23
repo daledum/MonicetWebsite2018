@@ -189,9 +189,11 @@
 #identify_results_block {
     border: 1px solid #dddddd;
     padding: 5px;
-    height: 230px;
+    height: 275px;
     border-top-width: 0;
-    overflow: hidden;
+    /* this was making #identify_form_box and _result_box to go up and partially hide when clicking a mark in Google Chrome 38.0.2125.104 
+    overflow: hidden; 
+    */
     width: 1187px;
 }
 .carousel_div {
@@ -223,7 +225,7 @@
 #identify_form_box {
     float: left;
     width: 200px;
-    height: 230px;
+    height: 264px;
     padding: 5px;
     background-color: #e0e0e0;
 }
