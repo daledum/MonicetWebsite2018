@@ -556,14 +556,24 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $query_results = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $args);
     $size = count($query_results);
-    
-    //I used the algorithm below because array_unique does not work on $query_results, which is of type PropelObjectCollection
-    //the algorithm works only if duplicate photos are consecutive (see ObservationPhotoQuery class)
-    for($key = 0; $key < $size-1; $key++){
-      if($query_results[$key] === $query_results[$key+1]){
+    $keys = array();
+    //I used the algorithm below to remove duplicate results because array_unique does not work on $query_results, which is of type PropelObjectCollection
+    for ($i=0; $i < $size-1 ; $i++) {
+      for ($j=$i+1; $j < $size ; $j++) {
+        if($query_results[$i] === $query_results[$j]){
+          if(!in_array($j, $keys)){
+            $keys[] = $j;
+          }
+        }
+      }
+    }
+
+    if($keys){
+      foreach($keys as $key){
         $query_results->remove($key);
       }
     }
+
     $this->OBPhotos = $query_results;
 
 //    $priorityResults['priority_6'] = ObservationPhotoQuery::getPossibleMatches($this->observationPhoto, $sameBodyPart=false, $partial=null, $complete=null, $best=null);
