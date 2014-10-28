@@ -32,44 +32,44 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       // filter other choices
       // Smooth
       if( in_array('smooth', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'smooth');
+        $query = self::_get_filter($query, 'smooth');
       }
       // Irregular
       if( in_array('irregular', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'irregular');
+        $query = self::_get_filter($query, 'irregular');
       }
       //Cutted_point
       if( in_array('cutted_point', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point');
+        $query = self::_get_filter($query, 'cutted_point');
       }
       //Cutted point left
       if( in_array('cutted_point_left', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point_left');
+        $query = self::_get_filter($query, 'cutted_point_left');
       }
       //Cutted point right
       if( in_array('cutted_point_right', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point_right');
+        $query = self::_get_filter($query, 'cutted_point_right');
       }
 
       //Non-smooth
       if( in_array('smooth_without', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'smooth', false);
+        $query = self::_get_filter($query, 'smooth', false);
       }
       //Non-irregular
       if( in_array('irregular_without', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'irregular', false);
+        $query = self::_get_filter($query, 'irregular', false);
       }
       //Non-cutted_point
       if( in_array('cutted_point_without', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point', false);
+        $query = self::_get_filter($query, 'cutted_point', false);
       }
       //Non-cutted point left
       if( in_array('cutted_point_left_without', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point_left', false);
+        $query = self::_get_filter($query, 'cutted_point_left', false);
       }
       //Non-cutted point right
       if( in_array('cutted_point_right_without', $choices) ){
-        $query = self::_get_filter($query, $observationPhoto, 'cutted_point_right', false);
+        $query = self::_get_filter($query, 'cutted_point_right', false);
       }
       $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
     }
@@ -346,7 +346,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
   }
   
 
-  public static function _get_filter($query, $observationPhoto, $filterType, $value=true){
+  public static function _get_filter($query, $filterType, $value=true){
 
     $ids = array();
     $OBPhotos = $query->find();//this will return all valid photos from the same specie as the photo being validated, due to queries done at the beginning of getPossibleMatches()
@@ -355,7 +355,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       foreach($OBPhotos as $OBPhoto){
 
         if($OBPhoto->isCharacterizable()){//avoiding errors caused by specie_id-body part combinations such as 2,4,7,10 with F or 8 with R or L
-        //for restricting the results to the same body part as the photo being identified, an if($observationPhoto->getBodyPart() == $OBPhoto->getBodyPart()) can be added here
+        //for restricting the results to the same body part as the photo being identified, an if($observationPhoto->getBodyPart() == $OBPhoto->getBodyPart()) can be added here (if you add $observationPhoto as a function argument)
 
           if( $OBPhoto->getBodyPart() == body_part::L_SIGLA ){
 
@@ -477,7 +477,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
   public static function _completeCharacterizationDorsalLeftQuery($observationPhoto, $query){
     $OPDorsalLeft = ObservationPhotoDorsalLeftPeer::get_or_create($observationPhoto->getId());
     //filter all - send an array containing all the boolean values
-    $query = self::_get_filter( $query, $observationPhoto, array($OPDorsalLeft->getIsSmooth(), $OPDorsalLeft->getIsIrregular(), $OPDorsalLeft->getIsCuttedPoint()) );
+    $query = self::_get_filter( $query, array($OPDorsalLeft->getIsSmooth(), $OPDorsalLeft->getIsIrregular(), $OPDorsalLeft->getIsCuttedPoint()) );
     
     $marks = $OPDorsalLeft->getObservationPhotoDorsalLeftMarks();
     if(count($marks)){
@@ -494,7 +494,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
   
   public static function _completeCharacterizationDorsalRightQuery($observationPhoto, $query){
     $OPDorsalRight = ObservationPhotoDorsalRightPeer::get_or_create($observationPhoto->getId());
-    $query = self::_get_filter( $query, $observationPhoto, array($OPDorsalRight->getIsSmooth(), $OPDorsalRight->getIsIrregular(), $OPDorsalRight->getIsCuttedPoint()) );
+    $query = self::_get_filter( $query, array($OPDorsalRight->getIsSmooth(), $OPDorsalRight->getIsIrregular(), $OPDorsalRight->getIsCuttedPoint()) );
 
     $marks = $OPDorsalRight->getObservationPhotoDorsalRightMarks();
     if(count($marks)){
@@ -512,7 +512,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
   public static function _completeCharacterizationTailQuery($observationPhoto, $query){
     $OPTail = ObservationPhotoTailPeer::get_or_create($observationPhoto->getId());
     //the order is important, first CuttedPointRight then CuttedPointLeft, see last part of _get_filter()
-    $query = self::_get_filter( $query, $observationPhoto, array($OPTail->getIsSmooth(), $OPTail->getIsIrregular(), $OPTail->getIsCuttedPointRight(), $OPTail->getIsCuttedPointLeft()) );
+    $query = self::_get_filter( $query, array($OPTail->getIsSmooth(), $OPTail->getIsIrregular(), $OPTail->getIsCuttedPointRight(), $OPTail->getIsCuttedPointLeft()) );
 
     $marks = $OPTail->getObservationPhotoTailMarks();
     if(count($marks)){
