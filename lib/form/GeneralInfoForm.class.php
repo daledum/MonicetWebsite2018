@@ -11,8 +11,10 @@ class GeneralInfoForm extends BaseGeneralInfoForm
   $this->values['base_latitude'] = mfUtils::convertLatLong($this->values['base_latitude']);
   $this->values['base_longitude'] = mfUtils::convertLatLong($this->values['base_longitude']);
   
-  $this->values['comments'] = '_empty'.$this->values['comments'];
-  
+  if($this->isNew()){
+    $this->values['comments'] = '_empty'.$this->values['comments'];
+  }
+
 	if($this->isNew() || !$this->getObject()->getCode() || $this->getObject()->getCompanyId() != $this->values['company_id'] || $this->getObject()->getDate() != $this->values['date'])
 	{
 	  /*$daily_number = GeneralInfoQuery::create()
