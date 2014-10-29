@@ -11,16 +11,14 @@ class ObservationPhotoDorsalRightMarkPeer extends BaseObservationPhotoDorsalRigh
     return sprintf("%s%s [%s%s]", $isWide, $isDeep, $cell, $to);
   }
   
-  public static function getObservationPhotoIds($mark = NULL){
+  public static function getObservationPhotoIds($markValues = NULL){
     $c = new Criteria();
     
-    if($mark){
-      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::PATTERN_CELL_DORSAL_RIGHT_ID, $mark->getPatternCellDorsalRightId(), Criteria::EQUAL);
-      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::IS_WIDE, $mark->getIsWide(), Criteria::EQUAL);
-      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::IS_DEEP, $mark->getIsDeep(), Criteria::EQUAL);
-      if($mark->getToCellId()){
-      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::TO_CELL_ID, $mark->getToCellId(), Criteria::EQUAL);
-      }
+    if($markValues){
+      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::PATTERN_CELL_DORSAL_RIGHT_ID, $markValues[0], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::IS_WIDE, $markValues[1], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::IS_DEEP, $markValues[2], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoDorsalRightMarkPeer::TO_CELL_ID, $markValues[3], Criteria::EQUAL);
     }
 
     $regs = self::doSelect($c);

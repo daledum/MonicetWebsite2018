@@ -482,7 +482,12 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $marks = $OPDorsalLeft->getObservationPhotoDorsalLeftMarks();
     if(count($marks)){
       foreach( $marks as $mark ){
-          $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds($mark);
+          $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds( array($mark->getPatternCellDorsalLeftId(), $mark->getIsWide(), $mark->getIsDeep(), $mark->getToCellId()) );//was $observationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds($mark);
+          $convertedMarkValues = self::_getConvertedMarkValues($mark);
+          if($convertedMarkValues){
+            $mirroredBodyPartObservationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getObservationPhotoIds($convertedMarkValues);
+            $observationPhotoIds = array_merge($observationPhotoIds, $mirroredBodyPartObservationPhotoIds);
+          }
           $query = $query->filterById($observationPhotoIds, Criteria::IN);
       }
     } else {
@@ -499,7 +504,12 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $marks = $OPDorsalRight->getObservationPhotoDorsalRightMarks();
     if(count($marks)){
       foreach( $marks as $mark ){
-          $observationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getObservationPhotoIds($mark);
+          $observationPhotoIds = ObservationPhotoDorsalRightMarkPeer::getObservationPhotoIds( array($mark->getPatternCellDorsalRightId(), $mark->getIsWide(), $mark->getIsDeep(), $mark->getToCellId()) );
+          $convertedMarkValues = self::_getConvertedMarkValues($mark);
+          if($convertedMarkValues){
+            $mirroredBodyPartObservationPhotoIds = ObservationPhotoDorsalLeftMarkPeer::getObservationPhotoIds($convertedMarkValues);
+            $observationPhotoIds = array_merge($observationPhotoIds, $mirroredBodyPartObservationPhotoIds);
+          }
           $query = $query->filterById($observationPhotoIds, Criteria::IN);
       }
     } else {
@@ -517,7 +527,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $marks = $OPTail->getObservationPhotoTailMarks();
     if(count($marks)){
       foreach( $marks as $mark ){
-          $observationPhotoIds = ObservationPhotoTailMarkPeer::getObservationPhotoIds($mark);
+          $observationPhotoIds = ObservationPhotoTailMarkPeer::getObservationPhotoIds( array($mark->getPatternCellTailId(), $mark->getIsWide(), $mark->getIsDeep(), $mark->getToCellId()) );
           $query = $query->filterById($observationPhotoIds, Criteria::IN);
       }
     } else {
@@ -525,6 +535,77 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
           $query = $query->filterById($observationPhotoIds, Criteria::NOT_IN);
     }
     return $query;
+  }
+
+  public static function _getConvertedMarkValues($mark){
+    if( stripos(get_class($mark), 'DorsalLeft') ) {//this is used in order to avoid passing an extra argument to the function
+      //extract the PatternCellDorsalLeft object tied to the fromCell value of the mark
+      $fromCellPCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByPK($mark->getPatternCellDorsalLeftId());
+      
+      //$fromCellPCDorsalLeft will definitely exist (so will $patternId and $fromCellName), so get its pattern id and its name
+      $patternId = $fromCellPCDorsalLeft->getPatternId();
+      $fromCellName = $fromCellPCDorsalLeft->getName();
+      
+      //find the equivalent PatternCellDorsalRight object using $patternId (common with toCellName) and $fromCellName
+      $fromCellPCDorsalRight = PatternCellDorsalRightPeer::retrieveByNameAndPatternId($fromCellName, $patternId);
+
+      if($fromCellPCDorsalRight){
+        $fromCellId = $fromCellPCDorsalRight->getId();//equivalent fromCellId
+      }
+      else{//could not find an equivalent
+        return NULL;
+      }
+
+      if($mark->getToCellId()){
+        //extract the PatternCellDorsalLeft object tied to the toCell value of the mark - it can't be NULL, if $mark->getToCellId() is not NULL
+        //only get its name, its pattern id should be the same as the one above
+        $toCellPCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByPK($mark->getToCellId());
+        $toCellName = $toCellPCDorsalLeft->getName();
+
+        $toCellPCDorsalRight = PatternCellDorsalRightPeer::retrieveByNameAndPatternId($toCellName, $patternId);
+        if($toCellPCDorsalRight){
+          $toCellId = $toCellPCDorsalRight->getId();//equivalent toCellId
+        }
+        else{//could not find an equivalent
+          return NULL;
+        }
+      }
+      else{
+        $toCellId = $mark->getToCellId();//NULL
+      }
+    }elseif ( stripos(get_class($mark), 'DorsalRight') ) {
+
+      $fromCellPCDorsalRight = PatternCellDorsalRightPeer::retrieveByPK($mark->getPatternCellDorsalRightId());
+      $patternId = $fromCellPCDorsalRight->getPatternId();
+      $fromCellName = $fromCellPCDorsalRight->getName();
+      
+      $fromCellPCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByNameAndPatternId($fromCellName, $patternId);
+      
+      if($fromCellPCDorsalLeft){
+        $fromCellId = $fromCellPCDorsalLeft->getId();
+      }
+      else{
+        return NULL;
+      }
+
+      if($mark->getToCellId()){
+
+        $toCellPCDorsalRight = PatternCellDorsalRightPeer::retrieveByPK($mark->getToCellId());
+        $toCellName = $toCellPCDorsalRight->getName();
+
+        $toCellPCDorsalLeft = PatternCellDorsalLeftPeer::retrieveByNameAndPatternId($toCellName, $patternId);
+        if($toCellPCDorsalLeft){
+          $toCellId = $toCellPCDorsalLeft->getId();
+        }
+        else{
+          return NULL;
+        }
+      }
+      else{
+        $toCellId = $mark->getToCellId();
+      }
+    }
+    return array( $fromCellId, $mark->getIsWide(), $mark->getIsDeep(), $toCellId );
   }
 } // ObservationPhotoQuery
 
