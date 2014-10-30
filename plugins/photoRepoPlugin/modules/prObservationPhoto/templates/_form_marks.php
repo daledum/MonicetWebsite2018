@@ -40,10 +40,25 @@
               </div>
             <?php endif; ?>
           <?php endforeach; ?>
+          
+          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+            <div class="form_line_characterization">
+              <label>Marcas</label>
+              <div class="content" id="mark_content">
+                <?php foreach( $relatedMarks as $mark ): ?>
+                  <?php echo $mark ?> &nbsp;&nbsp;&nbsp;<?php echo link_to('Apagar', $routeDeleteMark, array('id' => $mark->getId()), array( 'method' => 'delete', 'confirm' => 'Tem a certeza que pretende apagar esta marca?')) ?><br/>
+                <?php endforeach; ?>
+                <?php if( !count($relatedMarks)): ?>
+                  Sem marcas adicionadas
+                <?php endif; ?>
+              </div>
+            </div>
+          </div>
+
         </fieldset>
       </div>
       <ul class="sf_admin_actions">
-          <?php echo $helper->linkToSave($markForm->getObject(), array( 'params' => array(  ), 'class_suffix' => 'save', 'label' => 'Adicionar marca',)) ?>
+          <?php echo $helper->linkToSave($markForm->getObject(), array( 'params' => array(  ), 'class_suffix' => 'save', 'label' => 'Save',)) ?>
         
       </ul>
     </form>
@@ -115,20 +130,6 @@
             </div>
           <?php endif; ?>
 
-          <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
-            <div class="form_line_characterization">
-              <label>Marcas</label>
-              <div class="content" id="mark_content">
-                <?php foreach( $relatedMarks as $mark ): ?>
-                  <?php echo $mark ?> &nbsp;&nbsp;&nbsp;<?php echo link_to('Apagar', $routeDeleteMark, array('id' => $mark->getId()), array( 'method' => 'delete', 'confirm' => 'Tem a certeza que pretende apagar esta marca?')) ?><br/>
-                <?php endforeach; ?>
-                <?php if( !count($relatedMarks)): ?>
-                  Sem marcas adicionadas
-                <?php endif; ?>
-              </div>
-            </div>
-          </div>
-    
         </fieldset>
       </div>
       <ul class="sf_admin_actions">
