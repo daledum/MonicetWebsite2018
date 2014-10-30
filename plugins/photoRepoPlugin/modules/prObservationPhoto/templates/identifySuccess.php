@@ -132,7 +132,7 @@
   </div>
   
   <ul class="sf_admin_actions">
-    <li id="submit_identify_form"><input type="submit" value="Filtrer de acordo com suas escolhas" /></li>
+    <li id="submit_identify_form"><input type="submit" value="Filtrar de acordo com suas escolhas" /></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
