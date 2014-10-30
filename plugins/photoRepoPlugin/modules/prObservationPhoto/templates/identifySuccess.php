@@ -52,8 +52,18 @@
         </div>
         
         <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="smooth_without" id="identify_form_choices_smooth_without">
+          <label for="identify_form_choices_smooth_without">Sem Lisa</label>
+        </div>
+              
+        <div class="identify_row">
           <input name="identify_form[choices][]" type="checkbox" value="irregular" id="identify_form_choices_irregular">
           <label for="identify_form_choices_irregular">Irregular</label>
+        </div>
+
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="irregular_without" id="identify_form_choices_irregular_without">
+          <label for="identify_form_choices_irregular_without">Sem Irregular</label>
         </div>
         
         <?php if( $isLeft || $isRight ): ?>
@@ -61,15 +71,31 @@
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
             <label for="identify_form_choices_cutted_point">Ponta cortada</label>
           </div>
+
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point_without" id="identify_form_choices_cutted_point_without">
+            <label for="identify_form_choices_cutted_point_without">Sem Ponta cortada</label>
+          </div>
+
         <?php elseif( $isTail ): ?>
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left" id="identify_form_choices_cutted_point_left">
             <label for="identify_form_choices_cutted_point_left">Ponta esquerda cortada</label>
           </div>
+          
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point_left_without" id="identify_form_choices_cutted_point_left_without">
+            <label for="identify_form_choices_cutted_point_left_without">Sem Ponta esquerda cortada</label>
+          </div>
 
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point_right" id="identify_form_choices_cutted_point_right">
             <label for="identify_form_choices_cutted_point_right">Ponta direita cortada</label>
+          </div>
+
+          <div class="identify_row">
+            <input name="identify_form[choices][]" type="checkbox" value="cutted_point_right_without" id="identify_form_choices_cutted_point_right_without">
+            <label for="identify_form_choices_cutted_point_right_without">Sem Ponta direita cortada</label>
           </div>
         <?php endif; ?>
         
@@ -106,6 +132,7 @@
   </div>
   
   <ul class="sf_admin_actions">
+    <li id="submit_identify_form"><input type="submit" value="Filtrar de acordo com suas escolhas" /></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>

@@ -6,16 +6,19 @@ class identifyForm extends sfForm {
     $OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
 
     $choices = array(
-        'same_body_part',
-        'same',
-        'best',
-        'smooth',
-        'irregular',
-        'cutted_point',
-        'cutted_point_left',
-        'cutted_point_right',
-        'complete_marks',
-        'depth'
+            'same_body_part',
+            'same',
+            'best',
+            'smooth',
+            'irregular',
+            'cutted_point',
+            'cutted_point_left',
+            'cutted_point_right',
+            'smooth_without',
+            'irregular_without',
+            'cutted_point_without',
+            'cutted_point_left_without',
+            'cutted_point_right_without'
     );
     $this->widgetSchema['choices'] = new sfWidgetFormChoice(array(
         'choices' => array_combine($choices, $choices),

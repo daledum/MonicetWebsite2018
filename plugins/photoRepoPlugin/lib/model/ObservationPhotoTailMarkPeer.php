@@ -1,16 +1,14 @@
 <?php
 
 class ObservationPhotoTailMarkPeer extends BaseObservationPhotoTailMarkPeer {
-  public static function getObservationPhotoIds($mark = NULL){
+  public static function getObservationPhotoIds($markValues = NULL){
     $c = new Criteria();
     
-    if($mark){
-      $c->addAnd(ObservationPhotoTailMarkPeer::PATTERN_CELL_TAIL_ID, $mark->getPatternCellTailId(), Criteria::EQUAL);
-      $c->addAnd(ObservationPhotoTailMarkPeer::IS_WIDE, $mark->getIsWide(), Criteria::EQUAL);
-      $c->addAnd(ObservationPhotoTailMarkPeer::IS_DEEP, $mark->getIsDeep(), Criteria::EQUAL);
-      if($mark->getToCellId()){
-      $c->addAnd(ObservationPhotoTailMarkPeer::TO_CELL_ID, $mark->getToCellId(), Criteria::EQUAL);
-      }
+    if($markValues){
+      $c->addAnd(ObservationPhotoTailMarkPeer::PATTERN_CELL_TAIL_ID, $markValues[0], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoTailMarkPeer::IS_WIDE, $markValues[1], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoTailMarkPeer::IS_DEEP, $markValues[2], Criteria::EQUAL);
+      $c->addAnd(ObservationPhotoTailMarkPeer::TO_CELL_ID, $markValues[3], Criteria::EQUAL);
     }
 
     $regs = self::doSelect($c);
