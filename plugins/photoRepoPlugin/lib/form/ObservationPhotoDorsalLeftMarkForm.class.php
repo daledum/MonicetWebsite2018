@@ -15,6 +15,7 @@ class ObservationPhotoDorsalLeftMarkForm extends BaseObservationPhotoDorsalLeftM
     if( $module == 'prObservationPhoto' ){
       $OBPhoto = ObservationPhotoPeer::retrieveByPK( $request->getParameter('id') );
       $cells = PatternCellDorsalLeftPeer::getForSelect($OBPhoto->getSpecieId(), false, '');
+      $toCells = PatternCellDorsalLeftPeer::getForSelect($OBPhoto->getSpecieId(), true, '');//this only has an extra "-----" element
 
       $c = new Criteria();
       $c->add(ObservationPhotoDorsalLeftPeer::PHOTO_ID, $OBPhoto->getId(), Criteria::EQUAL);
@@ -76,6 +77,7 @@ class ObservationPhotoDorsalLeftMarkForm extends BaseObservationPhotoDorsalLeftM
             if(!empty($keys)){//$keys will never contain 0 as an element, as it contains the pattern cell ids, which are > 0
               foreach(array_unique($keys) as $key){
                 unset($cells[$key]);
+                unset($toCells[$key]);
               }
             }
         }
@@ -87,12 +89,12 @@ class ObservationPhotoDorsalLeftMarkForm extends BaseObservationPhotoDorsalLeftM
       $this->validatorSchema['pattern_cell_dorsal_left_id'] = new sfValidatorChoice(array(
           'choices' => array_keys($cells),
       ));
-      $cells = PatternCellDorsalLeftPeer::getForSelect($OBPhoto->getSpecieId(), true, '');
+      
       $this->widgetSchema['to_cell_id'] = new sfWidgetFormChoice(array(
-          'choices' => $cells,
+          'choices' => $toCells,
       ));
       $this->validatorSchema['to_cell_id'] = new sfValidatorChoice(array(
-          'choices' => array_keys($cells),
+          'choices' => array_keys($toCells),
           'required' => false
       ));
     }
