@@ -112,7 +112,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $query->find();
   }
   
-  public static function _filter_marks($query, $observationPhoto, $formMarks){
+  public static function _filter_marks($query, $observationPhoto, $formMarks){//arguments were initially: ($query, $observationPhoto, $choices, $formMarks), in case marcas completas and depth will be reinstated
     
     $bodyPart = $observationPhoto->getBodyPart();
     $complete = False;//$complete = (in_array('complete_marks', $choices))? True: False;//client asked to remove "complete marks" and "depth" value from the form...
@@ -177,18 +177,81 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellName, $endCellName, $complete, $depth));  
     }
     else{
-         //get selected marks
+        $beginCellHorizontal = NULL;
         $marks = array();
 
         if( $bodyPart == body_part::L_SIGLA ){
-          $marks = ObservationPhotoDorsalLeftMarkPeer::retrieveByPKs($formMarks);
+          if(in_array("horizontal", $formMarks)){
+              //get the beginCell from the horizontal user marks, which were added to $formMarks
+              $c = new Criteria();
+              $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);//$userMarkFromHorizontal
+              $beginCellHorizontal = PatternCellDorsalLeftPeer::doSelectOne($c);
+
+              //get the endCell from the horizontal user marks, which were added to $formMarks
+              if($formMarks[count($formMarks)-1]){//$userMarkToHorizontal
+                $c = new Criteria();
+                $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellDorsalLeftPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+              //remove the 3 elements so that the retrieveByPKs below can work
+              array_pop($formMarks);//$userMarkToHorizontal
+              array_pop($formMarks);//$userMarkFromHorizontal
+              array_pop($formMarks);//"horizontal"
+            }
+              //get selected marks
+              $marks = ObservationPhotoDorsalLeftMarkPeer::retrieveByPKs($formMarks);
+
         } elseif( $bodyPart == body_part::R_SIGLA ){
-          $marks = ObservationPhotoDorsalRightMarkPeer::retrieveByPKs($formMarks);
+            if(in_array("horizontal", $formMarks)){
+
+              $c = new Criteria();
+              $c->add(PatternCellDorsalRightPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);
+              $beginCellHorizontal = PatternCellDorsalRightPeer::doSelectOne($c);
+
+              
+              if($formMarks[count($formMarks)-1]){
+                $c = new Criteria();
+                $c->add(PatternCellDorsalRightPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellDorsalRightPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+
+              array_pop($formMarks);
+              array_pop($formMarks);
+              array_pop($formMarks);
+            }
+              $marks = ObservationPhotoDorsalRightMarkPeer::retrieveByPKs($formMarks);
+
         } elseif( $bodyPart == body_part::F_SIGLA ){
-          $marks = ObservationPhotoTailMarkPeer::retrieveByPKs($formMarks);
+            if(in_array("horizontal", $formMarks)){
+
+              $c = new Criteria();
+              $c->add(PatternCellTailPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);
+              $beginCellHorizontal = PatternCellTailPeer::doSelectOne($c);
+
+              
+              if($formMarks[count($formMarks)-1]){
+                $c = new Criteria();
+                $c->add(PatternCellTailPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellTailPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+
+              array_pop($formMarks);
+              array_pop($formMarks);
+              array_pop($formMarks);
+            }
+              $marks = ObservationPhotoTailMarkPeer::retrieveByPKs($formMarks);
         }
         
-        if (count($marks) == 0) {
+        if (count($marks) == 0 && !$beginCellHorizontal) {//did not find any marks and no horizontal user marks were selected
           return $query;
         }
 
@@ -217,6 +280,24 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
             $endCellName = NULL;
           }
           $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellName, $endCellName, $complete, $depth)); 
+        }
+
+        //process the horizontal user marks, in case any were selected
+        if($beginCellHorizontal){
+
+          if($endCellHorizontal){
+            self::_fixEqualOrReversed($beginCellHorizontal, $endCellHorizontal);
+          }
+
+          $beginCellHorizontalName = $beginCellHorizontal->getName();
+          if($endCellHorizontal){
+            $endCellHorizontalName = $endCellHorizontal->getName();
+          }
+          else{
+            $endCellHorizontalName = NULL;
+          }
+          //add the combinations to the already existing combinations array 
+          $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellHorizontalName, $endCellHorizontalName, $complete, $depth));   
         }
     }
 
