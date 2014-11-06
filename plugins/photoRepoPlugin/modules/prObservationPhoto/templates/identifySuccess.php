@@ -201,6 +201,7 @@
 <div id="associateIndividualSameBodyPartDate" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="chooseNewBestPhotoForPreviousIndividual" title="Associar fotografia" style="display: none;"><p>Esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="sameBodyPartDateAndChooseNewBestPhoto" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Em mais, esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+<div id="loader"></div>
 
 </div>
 

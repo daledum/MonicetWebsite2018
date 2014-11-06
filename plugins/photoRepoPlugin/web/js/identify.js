@@ -81,12 +81,15 @@ $(document).ready(function(){
             $(with_group).removeAttr("disabled");
         }
     });
-        
+    
+    //show page loading gif
+    $("#loader").show();
     // first ajax request
     send_ajax_request();
     
     // only send request when button pressed
     $('#submit_identify_form').click(function(){
+        $("#loader").show();
         send_ajax_request();
     });
         
@@ -119,6 +122,8 @@ function send_ajax_request(){
         type: 'POST',
         success: function(transport, html){
             //alert(transport);
+            //hide page loading gif
+            $("#loader").hide();
             $('#carousel_results').html(transport);
             $('#carousel_results').liquidcarousel({height:165, duration:600, hidearrows: false});
         }
