@@ -301,13 +301,13 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         }
     }
 
-    $ids = self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), $bodyPart, $cellCombinations, $depth);
+    $ids = self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), $bodyPart, array_unique($cellCombinations), $depth);
     //find all the photos with the same mark, irrespective of the body part (R or L, in the case of the species 2,4,7,10) - specie 8 only has one charact. body part (F)
     if($bodyPart == body_part::L_SIGLA) {
-      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::R_SIGLA, $cellCombinations, $depth));
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::R_SIGLA, array_unique($cellCombinations), $depth));
     }
      elseif ($bodyPart == body_part::R_SIGLA) {
-      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::L_SIGLA, $cellCombinations, $depth));
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::L_SIGLA, array_unique($cellCombinations), $depth));
      }
     $query = $query->filterById($ids, Criteria::IN);
 
