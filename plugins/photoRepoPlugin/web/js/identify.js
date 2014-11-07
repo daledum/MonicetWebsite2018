@@ -1,8 +1,9 @@
 $(document).ready(function(){
     //initial state
-    var opposite_to_smooth = '#identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right';
+    var opposite_to_smooth = '#identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right, #identify_form_user_mark_from_vertical, #identify_form_user_mark_to_vertical, #identify_form_user_mark_from_horizontal, #identify_form_user_mark_to_horizontal';
     var with_group = '#identify_form_choices_smooth, #identify_form_choices_irregular, #identify_form_choices_cutted_point, #identify_form_choices_cutted_point_left, #identify_form_choices_cutted_point_right';
     var without_group = '#identify_form_choices_smooth_without, #identify_form_choices_irregular_without, #identify_form_choices_cutted_point_without, #identify_form_choices_cutted_point_left_without, #identify_form_choices_cutted_point_right_without';
+    var user_mark_group = '#identify_form_user_mark_from_vertical, #identify_form_user_mark_to_vertical, #identify_form_user_mark_from_horizontal, #identify_form_user_mark_to_horizontal';
 
     //define complete caracterization as default
     $('#identify_form_choices_same').attr('checked','checked');
@@ -12,7 +13,8 @@ $(document).ready(function(){
     $(with_group).attr("disabled", "disabled");
     $(without_group).removeAttr("checked");
     $(without_group).attr("disabled", "disabled");
-    
+    $(user_mark_group).attr("disabled", "disabled");
+
     //switch between complete or partial
     $('#identify_form_choices_same').change(function(){
         if($('#identify_form_choices_same').attr('checked') == true){
@@ -20,9 +22,11 @@ $(document).ready(function(){
             $(with_group).attr("disabled", "disabled");
             $(without_group).removeAttr("checked");
             $(without_group).attr("disabled", "disabled");
+            $(user_mark_group).attr("disabled", "disabled");
         } else {
             $(with_group).removeAttr("disabled");
             $(without_group).removeAttr("disabled");
+            $(user_mark_group).removeAttr("disabled");
 
             var description = $('#identify_description');
             if( (description.html().indexOf("Lisa") !== -1) ){
@@ -30,6 +34,7 @@ $(document).ready(function(){
                 $(opposite_to_smooth).attr("disabled", "disabled");
                 $(without_group).removeAttr("checked");
                 $(without_group).attr("disabled", "disabled");
+                $(user_mark_group).attr("disabled", "disabled");
                 $('#identify_form_choices_smooth').attr('checked', true);
             }
         }
@@ -76,12 +81,15 @@ $(document).ready(function(){
             $(with_group).removeAttr("disabled");
         }
     });
-        
+    
+    //show page loading gif
+    $("#loader").show();
     // first ajax request
     send_ajax_request();
     
     // only send request when button pressed
     $('#submit_identify_form').click(function(){
+        $("#loader").show();
         send_ajax_request();
     });
         
@@ -114,6 +122,8 @@ function send_ajax_request(){
         type: 'POST',
         success: function(transport, html){
             //alert(transport);
+            //hide page loading gif
+            $("#loader").hide();
             $('#carousel_results').html(transport);
             $('#carousel_results').liquidcarousel({height:165, duration:600, hidearrows: false});
         }

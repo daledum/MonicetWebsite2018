@@ -100,7 +100,7 @@
         <?php endif; ?>
         
         <?php if( $isTail || $isLeft || $isRight): ?>
-          <div class="identify_row">
+          <!--<div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="complete_marks" id="identify_form_choices_complete_marks">
             <label for="identify_form_choices_complete_marks">Marcas completas</label></li>
           </div>
@@ -108,7 +108,44 @@
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="depth" id="identify_form_choices_depth">
             <label for="identify_form_choices_depth">Profundidade</label></li>
-          </div>
+          </div>-->
+            <?php
+              if($isLeft) {
+                $withNumberCells = PatternCellDorsalLeftPeer::getForSelect($observationPhoto->getSpecieId(), true, '');//Array with values -----, A1, A2, B1 etc
+              }elseif ($isRight) {
+                $withNumberCells = PatternCellDorsalRightPeer::getForSelect($observationPhoto->getSpecieId(), true, '');
+              }elseif ($isTail) {
+                $withNumberCells = PatternCellTailPeer::getForSelect($observationPhoto->getSpecieId(), true, '');
+              }
+                $cells = array();
+                //taking the numbers out of A1, A2, B1 etc
+                foreach($withNumberCells as $key => $withNumberCell){
+                  if( !in_array( substr($withNumberCell, 0, 1), $cells )){
+                    if(ctype_alpha( substr($withNumberCell, 0, 1) )){//Returns TRUE if every character in text is a letter, FALSE otherwise
+                      $cells[$key] = substr($withNumberCell, 0, 1);
+                    }
+                    else{
+                      $cells[$key] = $withNumberCell; //in order to keep the "-----" element untouched
+                    }
+                  }
+                }
+            ?>
+              <div id="user_mark_row">
+                <span>
+                <label id="user_mark_label" for="user_mark_row">Com marcas</label>
+                  <select id="user_mark_select_from" name="user_mark_from">
+                    <?php foreach($cells as $key => $cell): ?>
+                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <?php endforeach; ?>
+                  </select>
+                  -
+                  <select id="user_mark_select_to" name="user_mark_to">
+                    <?php foreach($cells as $key => $cell): ?>
+                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <?php endforeach; ?>
+                  </select>
+                </span>
+              </div>
 
           <div class="identify_row" id="mark_row">
             <?php echo $identify_form['marks']->render() ?>
@@ -122,6 +159,22 @@
     <div id="identify_result_box">
       <div id="identify_description">
         <b>Fotografia</b>: <?php echo $observationPhoto->completeToString($hiddenFields=true) ?>
+          <?php if(isset($cells)): ?>
+            + Escolha marcas
+              <span>
+                <select id="identify_form_user_mark_from_horizontal" name="identify_form[user_mark_from_horizontal]" form="identify_form">
+                  <?php foreach($cells as $key => $cell): ?>
+                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                  <?php endforeach; ?>
+                </select>
+                -
+                <select id="identify_form_user_mark_to_horizontal" name="identify_form[user_mark_to_horizontal]" form="identify_form">
+                  <?php foreach($cells as $key => $cell): ?>
+                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                  <?php endforeach; ?>
+                </select>
+              </span>
+          <?php endif; ?>
       </div>
       <div id="identify_results">
         <form>
@@ -148,6 +201,7 @@
 <div id="associateIndividualSameBodyPartDate" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="chooseNewBestPhotoForPreviousIndividual" title="Associar fotografia" style="display: none;"><p>Esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="sameBodyPartDateAndChooseNewBestPhoto" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Em mais, esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+<div id="loader"></div>
 
 </div>
 

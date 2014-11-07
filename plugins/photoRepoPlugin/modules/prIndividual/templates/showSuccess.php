@@ -75,6 +75,28 @@
     </table>
 
     <ul class="sf_admin_actions">
+      <?php
+        //get all the photos without individuals and a "characterized" (displayed "para identificar" on the page) status
+        $c = new Criteria();
+        $c->addAnd(ObservationPhotoPeer::INDIVIDUAL_ID, NULL, Criteria::EQUAL);
+        $c->addAnd(ObservationPhotoPeer::STATUS, ObservationPhoto::C_SIGLA, Criteria::EQUAL);
+        $OBPhotos = ObservationPhotoPeer::doSelect($c);
+
+        //find the one with the biggest id (the most recent photo)
+          if($OBPhotos){
+            $maxId = $OBPhotos[0];
+            for($i = 1; $i < count($OBPhotos); $i++){
+              if ($OBPhotos[$i]->getId() > $maxId) {
+                $maxId = $OBPhotos[$i]->getId();
+                $key = $i;
+              }
+            }
+            $nextOBPhoto = $OBPhotos[$key];
+          }
+      ?>
+      <?php if($nextOBPhoto): ?>
+      <li class="sf_admin_action_right"><a href="<?php echo url_for('@pr_observation_photo_identify?id='.$nextOBPhoto->getId()) ?>">A foto seguinte para identificar</a></li>
+      <?php endif; ?>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
       <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>

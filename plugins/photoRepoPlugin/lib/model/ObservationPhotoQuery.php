@@ -6,6 +6,12 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $choices = $args['choices'];
     $formMarks = (isset($args['marks']))? $args['marks']: array();
     
+    $userMarkFromVertical = (isset($args['user_mark_from_vertical']))? $args['user_mark_from_vertical']: array();
+    $userMarkToVertical = (isset($args['user_mark_to_vertical']))? $args['user_mark_to_vertical']: array();
+
+    $userMarkFromHorizontal = (isset($args['user_mark_from_horizontal']))? $args['user_mark_from_horizontal']: array();
+    $userMarkToHorizontal = (isset($args['user_mark_to_horizontal']))? $args['user_mark_to_horizontal']: array();
+
     $query = ObservationPhotoQuery::create();
     // Validated State State
     $query = $query->filterByStatus(ObservationPhoto::V_SIGLA);
@@ -71,7 +77,21 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       if( in_array('cutted_point_right_without', $choices) ){
         $query = self::_get_filter($query, 'cutted_point_right', false);
       }
-      $query = self::_filter_marks($query, $observationPhoto, $choices, $formMarks);
+
+      self::_processUserMarks($userMarkFromVertical, $userMarkToVertical);//changes the value of the arguments
+      self::_processUserMarks($userMarkFromHorizontal, $userMarkToHorizontal);
+
+      if($userMarkFromHorizontal){//attach them to $formMarks only if something was actually selected
+        $formMarks[] = "horizontal";//[] = is much faster than array_push
+        $formMarks[] = $userMarkFromHorizontal;
+        $formMarks[] = $userMarkToHorizontal;
+      }
+
+      if($userMarkFromVertical){//the function below is called only if something was actually selected from the vertical user marks (left side of the page)
+        $query = self::_filter_marks( $query, $observationPhoto, array("vertical", $userMarkFromVertical, $userMarkToVertical) );
+      }
+
+      $query = self::_filter_marks($query, $observationPhoto, $formMarks);
     }
    }
     // filter best pictures.
@@ -92,36 +112,202 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $query->find();
   }
   
-  public static function _filter_marks($query, $observationPhoto, $choices, $formMarks){
+  public static function _filter_marks($query, $observationPhoto, $formMarks){//arguments were initially: ($query, $observationPhoto, $choices, $formMarks), in case marcas completas and depth will be reinstated
     
-    $complete = (in_array('complete_marks', $choices))? True: False;//client asked to remove "complete marks" and "depth" value from the form - we keep them in case they change their mind
-    $depth = (in_array('depth', $choices))? True: False;//both are false, so they won't interfere with the code
+    $bodyPart = $observationPhoto->getBodyPart();
+    $complete = False;//$complete = (in_array('complete_marks', $choices))? True: False;//client asked to remove "complete marks" and "depth" value from the form...
+    $depth = False;//$depth = (in_array('depth', $choices))? True: False;//keep them in case they change their mind
     $cellCombinations = array();
 
-    //get selected marks
-    $marks = array();
-    if( $observationPhoto->getBodyPart() == body_part::L_SIGLA ){ // dorsal left
-      $marks = ObservationPhotoDorsalLeftMarkPeer::retrieveByPKs($formMarks);
-    } elseif( $observationPhoto->getBodyPart() == body_part::R_SIGLA ){ // dorsal right
-      $marks = ObservationPhotoDorsalRightMarkPeer::retrieveByPKs($formMarks);
-    } elseif( $observationPhoto->getBodyPart() == body_part::F_SIGLA ){ // tail
-      $marks = ObservationPhotoTailMarkPeer::retrieveByPKs($formMarks);
+    if(in_array("vertical", $formMarks)){//this means this function is called when the user selected horizontal user marks (from the left hand side of the page)
+
+      if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
+          $c = new Criteria();
+          $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[1], Criteria::EQUAL);//$userMarkFromVertical
+          $beginCell = PatternCellDorsalLeftPeer::doSelectOne($c);
+
+          if($formMarks[2]){//$userMarkToVertical
+            $c = new Criteria();
+            $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[2], Criteria::EQUAL);
+            $endCell = PatternCellDorsalLeftPeer::doSelectOne($c);
+          }
+          else{
+            $endCell = NULL; 
+          }
+      } elseif( $bodyPart == body_part::R_SIGLA ){ // dorsal right
+          $c = new Criteria();
+          $c->add(PatternCellDorsalRightPeer::ID, $formMarks[1], Criteria::EQUAL);
+          $beginCell = PatternCellDorsalRightPeer::doSelectOne($c);
+
+          if($formMarks[2]){
+            $c = new Criteria();
+            $c->add(PatternCellDorsalRightPeer::ID, $formMarks[2], Criteria::EQUAL);
+            $endCell = PatternCellDorsalRightPeer::doSelectOne($c);
+          }
+          else{
+            $endCell = NULL;
+          }
+      } elseif( $bodyPart == body_part::F_SIGLA ){ // tail
+          $c = new Criteria();
+          $c->add(PatternCellTailPeer::ID, $formMarks[1], Criteria::EQUAL);
+          $beginCell = PatternCellTailPeer::doSelectOne($c);
+
+          if($formMarks[2]){
+            $c = new Criteria();
+            $c->add(PatternCellTailPeer::ID, $formMarks[2], Criteria::EQUAL);
+            $endCell = PatternCellTailPeer::doSelectOne($c);
+          }
+          else{
+            $endCell = NULL;
+          }
+      }
+
+        if($endCell){
+          self::_fixEqualOrReversed($beginCell, $endCell);
+        }
+
+        $beginCellName = $beginCell->getName();
+        if($endCell){
+          $endCellName = $endCell->getName();
+        }
+        else{
+          $endCellName = NULL;
+        }
+                
+        $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellName, $endCellName, $complete, $depth));  
     }
-    if (count($marks) == 0) {
-      return $query;
+    else{
+        $beginCellHorizontal = NULL;
+        $marks = array();
+
+        if( $bodyPart == body_part::L_SIGLA ){
+          if(in_array("horizontal", $formMarks)){
+              //get the beginCell from the horizontal user marks, which were added to $formMarks
+              $c = new Criteria();
+              $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);//$userMarkFromHorizontal
+              $beginCellHorizontal = PatternCellDorsalLeftPeer::doSelectOne($c);
+
+              //get the endCell from the horizontal user marks, which were added to $formMarks
+              if($formMarks[count($formMarks)-1]){//$userMarkToHorizontal
+                $c = new Criteria();
+                $c->add(PatternCellDorsalLeftPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellDorsalLeftPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+              //remove the 3 elements so that the retrieveByPKs below can work
+              array_pop($formMarks);//$userMarkToHorizontal
+              array_pop($formMarks);//$userMarkFromHorizontal
+              array_pop($formMarks);//"horizontal"
+            }
+              //get selected marks
+              $marks = ObservationPhotoDorsalLeftMarkPeer::retrieveByPKs($formMarks);
+
+        } elseif( $bodyPart == body_part::R_SIGLA ){
+            if(in_array("horizontal", $formMarks)){
+
+              $c = new Criteria();
+              $c->add(PatternCellDorsalRightPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);
+              $beginCellHorizontal = PatternCellDorsalRightPeer::doSelectOne($c);
+
+              
+              if($formMarks[count($formMarks)-1]){
+                $c = new Criteria();
+                $c->add(PatternCellDorsalRightPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellDorsalRightPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+
+              array_pop($formMarks);
+              array_pop($formMarks);
+              array_pop($formMarks);
+            }
+              $marks = ObservationPhotoDorsalRightMarkPeer::retrieveByPKs($formMarks);
+
+        } elseif( $bodyPart == body_part::F_SIGLA ){
+            if(in_array("horizontal", $formMarks)){
+
+              $c = new Criteria();
+              $c->add(PatternCellTailPeer::ID, $formMarks[count($formMarks)-2], Criteria::EQUAL);
+              $beginCellHorizontal = PatternCellTailPeer::doSelectOne($c);
+
+              
+              if($formMarks[count($formMarks)-1]){
+                $c = new Criteria();
+                $c->add(PatternCellTailPeer::ID, $formMarks[count($formMarks)-1], Criteria::EQUAL);
+                $endCellHorizontal = PatternCellTailPeer::doSelectOne($c);
+              }
+              else{
+                $endCellHorizontal = NULL;
+              }
+
+              array_pop($formMarks);
+              array_pop($formMarks);
+              array_pop($formMarks);
+            }
+              $marks = ObservationPhotoTailMarkPeer::retrieveByPKs($formMarks);
+        }
+        
+        if (count($marks) == 0 && !$beginCellHorizontal) {//did not find any marks and no horizontal user marks were selected
+          return $query;
+        }
+
+        foreach( $marks as $mark ){
+
+          if( $bodyPart == body_part::L_SIGLA ){
+            $beginCell = $mark->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId();
+            $endCell = $mark->getPatternCellDorsalLeftRelatedByToCellId();
+          } elseif( $bodyPart == body_part::R_SIGLA ){
+            $beginCell = $mark->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId();
+            $endCell = $mark->getPatternCellDorsalRightRelatedByToCellId();
+          } elseif( $bodyPart == body_part::F_SIGLA ){
+            $beginCell = $mark->getPatternCellTailRelatedByPatternCellTailId();
+            $endCell = $mark->getPatternCellTailRelatedByToCellId();
+          }
+          
+          if($endCell){
+            self::_fixEqualOrReversed($beginCell, $endCell);//if we have Larga C2-C2 or C2-B2 
+          }
+
+          $beginCellName = $beginCell->getName();
+          if($endCell){
+            $endCellName = $endCell->getName();
+          }
+          else{
+            $endCellName = NULL;
+          }
+          $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellName, $endCellName, $complete, $depth)); 
+        }
+
+        //process the horizontal user marks, in case any were selected
+        if($beginCellHorizontal){
+
+          if($endCellHorizontal){
+            self::_fixEqualOrReversed($beginCellHorizontal, $endCellHorizontal);
+          }
+
+          $beginCellHorizontalName = $beginCellHorizontal->getName();
+          if($endCellHorizontal){
+            $endCellHorizontalName = $endCellHorizontal->getName();
+          }
+          else{
+            $endCellHorizontalName = NULL;
+          }
+          //add the combinations to the already existing combinations array 
+          $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($beginCellHorizontalName, $endCellHorizontalName, $complete, $depth));   
+        }
     }
 
-    foreach( $marks as $mark ){
-      $cellCombinations = array_merge($cellCombinations, self::_getCellNamesCombinations($mark, $observationPhoto->getBodyPart(), $complete, $depth));  
-    }
-
-    $ids = self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), $observationPhoto->getBodyPart(), $cellCombinations, $depth);
+    $ids = self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), $bodyPart, array_unique($cellCombinations), $depth);
     //find all the photos with the same mark, irrespective of the body part (R or L, in the case of the species 2,4,7,10) - specie 8 only has one charact. body part (F)
-    if( $observationPhoto->getBodyPart() == body_part::L_SIGLA) {
-      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::R_SIGLA, $cellCombinations, $depth));
+    if($bodyPart == body_part::L_SIGLA) {
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::R_SIGLA, array_unique($cellCombinations), $depth));
     }
-     elseif ($observationPhoto->getBodyPart() == body_part::R_SIGLA) {
-      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::L_SIGLA, $cellCombinations, $depth));
+     elseif ($bodyPart == body_part::R_SIGLA) {
+      $ids = array_merge($ids, self::_getPhotoIDsFromCombinations($observationPhoto->getSpecieId(), body_part::L_SIGLA, array_unique($cellCombinations), $depth));
      }
     $query = $query->filterById($ids, Criteria::IN);
 
@@ -269,34 +455,9 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $ids;
   }
   
-  public static function _getCellNamesCombinations($mark, $bodyPart, $complete=true, $depth=False){
+  public static function _getCellNamesCombinations($beginCellName, $endCellName, $complete=true, $depth=False){
     $subsets = array();
     
-    if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
-      $beginCell = $mark->getPatternCellDorsalLeftRelatedByPatternCellDorsalLeftId();
-      $endCell = $mark->getPatternCellDorsalLeftRelatedByToCellId();
-    } elseif( $bodyPart == body_part::R_SIGLA ){ // dorsal right
-      $beginCell = $mark->getPatternCellDorsalRightRelatedByPatternCellDorsalRightId();
-      $endCell = $mark->getPatternCellDorsalRightRelatedByToCellId();
-    } elseif( $bodyPart == body_part::F_SIGLA ){ // tail
-      $beginCell = $mark->getPatternCellTailRelatedByPatternCellTailId();
-      $endCell = $mark->getPatternCellTailRelatedByToCellId();
-    }
-
-    if($endCell){
-      if($beginCell->getId() == $endCell->getId()){//here if we have the same string on both sides, eg A1-A1
-          $endCell = NULL;
-      }
-      else{//I don't compare id's, as we might have new letters added at the end, what we care about are letters - for the algorithm used on line 290
-          if(strcasecmp($beginCell->getName(), $endCell->getName()) > 0){//swap values, if we have beginCell = C2 and endCell = C1, for example
-              $tmp = $endCell;
-              $endCell = $beginCell;
-              $beginCell = $tmp;
-          }
-      }
-    }
-    
-    $beginCellName = $beginCell->getName();
     $letterIntervalArray = array();
     if($depth){
       $firstLetter = substr($beginCellName, 0, 1);
@@ -306,8 +467,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $letterIntervalArray[] = $beginCellName;
     }
     
-    if($endCell){
-      $endCellName = $endCell->getName();
+    if($endCellName){
       if($depth){
         $firstLetter = substr($endCellName, 0, 1);
         $letterIntervalArray[] = $firstLetter.'1';
@@ -606,6 +766,39 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       }
     }
     return array( $fromCellId, $mark->getIsWide(), $mark->getIsDeep(), $toCellId );
+  }
+
+  public static function _processUserMarks(&$from, &$to){
+          if( is_string($from) ){//it is an array only when 'user_mark_from_vertical' and 'user_mark_to_vertical' are disabled, otherwise it's a string
+            if( strlen($from) ){//From is set (this means it is not "", which comes from the option "------")
+              if( !strlen($to) ){//To is not set (it's "")
+                $to = NULL;
+              }
+            }
+            else{//From is not set
+              if ( strlen($to) ) {//To is set, so swap From with To and make To NULL
+                $from = $to;
+                $to = NULL;
+              }
+              else{//This means both From and To are not set
+                $from= NULL;
+              }
+            }
+          }
+  }
+
+  public static function _fixEqualOrReversed(&$beginCell, &$endCell){
+
+        if($beginCell->getId() == $endCell->getId()){//here if we have the same string on both sides, eg A1-A1
+            $endCell = NULL;
+        }
+        else{//don't compare id's, as there might be new letters added at the end, what the algorithm cares about are the letters
+            if(strcasecmp($beginCell->getName(), $endCell->getName()) > 0){//swap values, if beginCell = C2 and endCell = C1, for example
+                $tmp = $endCell;
+                $endCell = $beginCell;
+                $beginCell = $tmp;
+            }
+        }
   }
 } // ObservationPhotoQuery
 
