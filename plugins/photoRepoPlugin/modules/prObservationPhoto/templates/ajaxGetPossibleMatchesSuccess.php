@@ -85,6 +85,40 @@
     </ul>
   </div>
   <span class="next"></span>
+  <div style="float: right; color:green; font-weight:bold; margin:3px 3px 3px 3px;">
+    <span id="page_number">1</span>
+    <script>
+
+    var previous = 0;
+    var next = 0;
+    
+    function calculateAndShowPageNumber(back, forward){
+
+      var page_number = forward - back;
+      
+      if(page_number <= 0){
+        previous = next = 0;
+        page_number = 1;
+      }
+      else{
+        page_number++;
+      }
+      $("#page_number").html(page_number);
+    }
+
+    $(".previous").click(function() {
+      previous++;
+      calculateAndShowPageNumber(previous, next);
+    });
+
+    $(".next").click(function() {
+      next++;
+      calculateAndShowPageNumber(previous, next);
+    });
+
+    </script>
+    <?php echo "/ ".ceil(count($OBPhotos)/5);//this 5 depends on how many photos are displayed in one carousel strip, if that is changed, 5 needs to be changed, too ?>
+  </div>
 <?php else: ?>
   Nenhum registo foi devolvido para este filtro.
 <?php endif; ?>
