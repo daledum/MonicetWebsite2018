@@ -135,13 +135,13 @@
                 <label id="user_mark_label" for="user_mark_row">Com marcas</label>
                   <select id="user_mark_select_from" name="user_mark_from">
                     <?php foreach($cells as $key => $cell): ?>
-                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                      <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                     <?php endforeach; ?>
                   </select>
                   -
                   <select id="user_mark_select_to" name="user_mark_to">
                     <?php foreach($cells as $key => $cell): ?>
-                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                      <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                     <?php endforeach; ?>
                   </select>
                 </span>
@@ -164,13 +164,13 @@
               <span>
                 <select id="identify_form_user_mark_from_horizontal" name="identify_form[user_mark_from_horizontal]" form="identify_form">
                   <?php foreach($cells as $key => $cell): ?>
-                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                   <?php endforeach; ?>
                 </select>
                 -
                 <select id="identify_form_user_mark_to_horizontal" name="identify_form[user_mark_to_horizontal]" form="identify_form">
                   <?php foreach($cells as $key => $cell): ?>
-                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                   <?php endforeach; ?>
                 </select>
               </span>
