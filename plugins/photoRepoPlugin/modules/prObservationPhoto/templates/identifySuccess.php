@@ -195,6 +195,11 @@
     <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $observationPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
+    <?php if(  stripos($observationPhoto->getNotes(), "_doubt") === FALSE  ): ?>
+      <li class="sf_admin_action_edit" id="doubt"><a onclick="doubt()">Tenho dúvidas</a></li>
+    <?php else: ?>
+      <li class="sf_admin_action_edit" id="undoubt"><a onclick="doubt()">Não tenho mais dúvidas</a></li>
+    <?php endif; ?>
   </ul>
 
 <div id="associate" title="Associar fotografia" style="display: none;"><p>Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
@@ -207,6 +212,36 @@
 
 
 <script type="text/javascript">
+
+      function doubt(){
+        <?php
+         if(stripos($observationPhoto->getNotes(), "_doubt") === FALSE){
+          $posDoubt = -1;
+        }else{
+          $posDoubt = stripos($observationPhoto->getNotes(), "_doubt");
+        }
+        ?>
+        positionOfDoubt = '<?php echo $posDoubt; ?>';
+        
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + '//' + window.location.host+'/admin.php/ajax/observation-photo/doubt',
+                data: {
+                  observation_photo_id: "<?php echo $observationPhoto->getId();?>"
+                },
+                async: false,
+                success: function(msg) {
+                  if(positionOfDoubt == '-1'){//it did not have "doubt" and "doubt" was added to the notes
+                    alert("A foto foi marcada com dúvidas em suas notas");
+                    $("#doubt").hide();
+                  }
+                  else{//it already had "doubt" and "doubt" was removed from the notes
+                    alert("A foto não tem mais dúvidas.");
+                    $("#undoubt").hide();
+                  }   
+                }
+            });
+      }
 
     var carouselImageClicked=false;
 
