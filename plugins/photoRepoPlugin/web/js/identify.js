@@ -109,7 +109,7 @@ $(document).ready(function(){
                 $("#identify_form_marks option[value='" + id +"']").attr("selected", "selected");
                 $(this).html('<b>' + html + '</b>');
             }
-            send_ajax_request();
+            //send_ajax_request();//no longer using AJAX - will, in turn be sent when $('#submit_identify_form').click
         });
    });
 });
