@@ -7,6 +7,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $formMarks = (isset($args['marks']))? $args['marks']: array();
     
     $userMarkFromVertical = (isset($args['user_mark_from_vertical']))? $args['user_mark_from_vertical']: array();
+    $userMarkVerticalStrict = (isset($args['user_mark_strict_vertical']))? "_strict": "_loose";
     $userMarkToVertical = (isset($args['user_mark_to_vertical']))? $args['user_mark_to_vertical']: array();
 
     $userMarkFromHorizontal = (isset($args['user_mark_from_horizontal']))? $args['user_mark_from_horizontal']: array();
@@ -88,7 +89,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       }
 
       if($userMarkFromVertical){//the function below is called only if something was actually selected from the vertical user marks (left side of the page)
-        $query = self::_filter_marks( $query, $observationPhoto, array("vertical", $userMarkFromVertical, $userMarkToVertical) );
+        $query = self::_filter_marks( $query, $observationPhoto, array("vertical".$userMarkVerticalStrict, $userMarkFromVertical, $userMarkToVertical) );
       }
 
       $query = self::_filter_marks($query, $observationPhoto, $formMarks);
@@ -119,7 +120,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     $depth = False;//$depth = (in_array('depth', $choices))? True: False;//keep them in case they change their mind
     $cellCombinations = array();
 
-    if(in_array("vertical", $formMarks)){//this means this function is called when the user selected horizontal user marks (from the left hand side of the page)
+    if( in_array("vertical_strict", $formMarks) || in_array("vertical_loose", $formMarks) ){//this means this function is called when the user selected horizontal user marks (from the left hand side of the page)
 
       if( $bodyPart == body_part::L_SIGLA ){ // dorsal left
           $c = new Criteria();
@@ -167,24 +168,41 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         }
 
         $beginCellName = $beginCell->getName();
-        if($endCell){
-          $endCellName = $endCell->getName();
+
+        if( in_array("vertical_strict", $formMarks) ){
+          if($endCell){
+            $endCellName = $endCell->getName();
+
+            //first pair of from-to
+            $cellCombinations = array(array($beginCellName, $endCellName));//eg A1-B1
+            //add the other 3 possible pairs - the first was assigned before this if (eg A1-B1), the remaining 3 are A1-B2, A2-B1 and A2-B2
+            $cellCombinations = array_merge( $cellCombinations, array(array( $beginCellName, self::_getLetterWithOtherNumber($endCellName) )) );
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), $endCellName )) );
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), self::_getLetterWithOtherNumber($endCellName) )) );
+          }
+          else{
+            $endCellName = NULL;
+
+            $cellCombinations = array(array($beginCellName, '-1'));//eg A1 - -1 (-1 instead of NULL, in order to use the 3rd if statement at the beginning of _getPhotoIDsFromCombinations())
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), '-1' )) );//add A2 - -1
+          }
         }
-        else{
-          $endCellName = NULL;
-        }
-        
-        if($endCellName){
-          //first pair of from-to
-          $cellCombinations = array(array($beginCellName, $endCellName));//eg A1-B1
-           //add the other 3 possible pairs - the first was assigned before this if (eg A1-B1), the remaining 3 are A1-B2, A2-B1 and A2-B2
-          $cellCombinations = array_merge( $cellCombinations, array(array( $beginCellName, self::_getLetterWithOtherNumber($endCellName) )) );
-          $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), $endCellName )) );
-          $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), self::_getLetterWithOtherNumber($endCellName) )) );
-        }
-        else{//$endCellName is NULL
-          $cellCombinations = array(array($beginCellName, '-1'));//eg A1 - -1 (-1 instead of NULL, in order to use the 3rd if statement at the beginning of _getPhotoIDsFromCombinations())
-          $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), '-1' )) );//add A2 - -1
+        else{//it's "loose", so now add the cells, for a mark A1-B1: add A1, B1, A2, B2 for later use in _getPhotoIDsFromCombinations() and get all photos with marks containing A1 or A2 or B1 or B2
+            //add $beginCellName, eg A1
+            $cellCombinations = array_merge( $cellCombinations, array(array($beginCellName)) );
+            //add A2
+            $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($beginCellName))) );
+
+            if($endCell){
+              $endCellName = $endCell->getName();
+              //add $endCellName, eg B1
+              $cellCombinations = array_merge( $cellCombinations, array(array($endCellName)) );
+              //add B2
+              $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($endCellName))) );
+            }
+            else{
+              $endCellName = NULL;
+            }
         }
     }
     else{

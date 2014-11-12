@@ -132,7 +132,8 @@
             ?>
               <div id="user_mark_row">
                 <span>
-                <label id="user_mark_label" for="user_mark_row">Com marcas</label>
+                <label id="user_mark_label" for="user_mark_row">Estrito</label>
+                <input id="identify_form_user_mark_strict_vertical" name="identify_form[user_mark_strict_vertical]" type="checkbox" value="user_mark_strict_vertical">
                   <select id="identify_form_user_mark_from_vertical" name="identify_form[user_mark_from_vertical]">
                     <?php foreach($cells as $key => $cell): ?>
                       <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
