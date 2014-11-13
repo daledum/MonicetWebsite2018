@@ -845,7 +845,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter("observation_photo_id"));
 
      if(stripos($OBPhoto->getNotes(), "_doubt") === FALSE){
-        $OBPhoto->setNotes($OBPhoto->getNotes()."_doubt");//add "doubt" at the end
+        $OBPhoto->setNotes("_doubt".$OBPhoto->getNotes());//add "doubt" at the beginning
         $OBPhoto->save();
      }
      else{

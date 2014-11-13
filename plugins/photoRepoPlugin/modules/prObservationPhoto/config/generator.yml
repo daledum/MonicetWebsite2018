@@ -35,6 +35,7 @@ generator:
           #- _is_featured
           #- _is_validated
           - _status
+          - _doubt
       filter:  ~
       form:    
         display:
