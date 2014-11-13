@@ -166,44 +166,9 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
         if($endCell){
           self::_fixEqualOrReversed($beginCell, $endCell);
         }
-
-        $beginCellName = $beginCell->getName();
-
-        if( in_array("vertical_strict", $formMarks) ){
-          if($endCell){
-            $endCellName = $endCell->getName();
-
-            //first pair of from-to
-            $cellCombinations = array(array($beginCellName, $endCellName));//eg A1-B1
-            //add the other 3 possible pairs - the first was assigned before this if (eg A1-B1), the remaining 3 are A1-B2, A2-B1 and A2-B2
-            $cellCombinations = array_merge( $cellCombinations, array(array( $beginCellName, self::_getLetterWithOtherNumber($endCellName) )) );
-            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), $endCellName )) );
-            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), self::_getLetterWithOtherNumber($endCellName) )) );
-          }
-          else{
-            $endCellName = NULL;
-
-            $cellCombinations = array(array($beginCellName, '-1'));//eg A1 - -1 (-1 instead of NULL, in order to use the 3rd if statement at the beginning of _getPhotoIDsFromCombinations())
-            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), '-1' )) );//add A2 - -1
-          }
-        }
-        else{//it's "loose", so now add the cells, for a mark A1-B1: add A1, B1, A2, B2 for later use in _getPhotoIDsFromCombinations() and get all photos with marks containing A1 or A2 or B1 or B2
-            //add $beginCellName, eg A1
-            $cellCombinations = array_merge( $cellCombinations, array(array($beginCellName)) );
-            //add A2
-            $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($beginCellName))) );
-
-            if($endCell){
-              $endCellName = $endCell->getName();
-              //add $endCellName, eg B1
-              $cellCombinations = array_merge( $cellCombinations, array(array($endCellName)) );
-              //add B2
-              $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($endCellName))) );
-            }
-            else{
-              $endCellName = NULL;
-            }
-        }
+        
+        //calculate the cell name combinations - function changes one argument ($cellCombinations)
+        self::_getCellNamesCombinations( $beginCell, $endCell, $cellCombinations, in_array("vertical_strict", $formMarks) );
     }
     else{
         $beginCellHorizontal = NULL;
@@ -301,23 +266,7 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
             self::_fixEqualOrReversed($beginCell, $endCell);//if we have Larga C2-C2 or C2-B2 
           }
 
-          $beginCellName = $beginCell->getName();
-          //here add the cells, for an A1-B1 mark, add A1, B1, A2, B2 for later use in _getPhotoIDsFromCombinations() and get all photos with marks containing A1 or A2 or B1 or B2
-          //add $beginCellName, eg A1
-          $cellCombinations = array_merge( $cellCombinations, array(array($beginCellName)) );
-          //add A2
-          $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($beginCellName))) );
-
-          if($endCell){
-            $endCellName = $endCell->getName();
-            //add $endCellName, eg B1
-            $cellCombinations = array_merge( $cellCombinations, array(array($endCellName)) );
-            //add B2
-            $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($endCellName))) );
-          }
-          else{
-            $endCellName = NULL;
-          }
+          self::_getCellNamesCombinations($beginCell, $endCell, $cellCombinations);
         }
 
         //process the horizontal user marks, in case any were selected
@@ -326,20 +275,8 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
           if($endCellHorizontal){
             self::_fixEqualOrReversed($beginCellHorizontal, $endCellHorizontal);
           }
-
-          $beginCellHorizontalName = $beginCellHorizontal->getName();
-          //add the combinations to the already existing combinations array 
-          $cellCombinations = array_merge( $cellCombinations, array(array($beginCellHorizontalName)) );
-          $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($beginCellHorizontalName))) );
-
-          if($endCellHorizontal){
-            $endCellHorizontalName = $endCellHorizontal->getName();
-            $cellCombinations = array_merge( $cellCombinations, array(array($endCellHorizontalName)) );
-            $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($endCellHorizontalName))) );
-          }
-          else{
-            $endCellHorizontalName = NULL;
-          }
+          
+          self::_getCellNamesCombinations($beginCellHorizontal, $endCellHorizontal, $cellCombinations);
         }
     }
 
@@ -634,7 +571,42 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
     return $ids;
   }
   
-  /*public static function _getCellNamesCombinations($beginCellName, $endCellName, $complete=true, $depth=False){
+  public static function _getCellNamesCombinations($beginCell, $endCell, &$cellCombinations, $strict = FALSE){//($beginCellName, $endCellName, $complete=true, $depth=False)
+    
+        $beginCellName = $beginCell->getName();
+        
+        if($strict){
+          if($endCell){
+            $endCellName = $endCell->getName();
+
+            //first pair of from-to
+            $cellCombinations = array(array($beginCellName, $endCellName));//eg A1-B1
+            //add the other 3 possible pairs - the first was assigned before this if (eg A1-B1), the remaining 3 are A1-B2, A2-B1 and A2-B2
+            $cellCombinations = array_merge( $cellCombinations, array(array( $beginCellName, self::_getLetterWithOtherNumber($endCellName) )) );
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), $endCellName )) );
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), self::_getLetterWithOtherNumber($endCellName) )) );
+          }
+          else{
+            $cellCombinations = array(array($beginCellName, '-1'));//eg A1 - -1 (-1 instead of NULL, in order to use the 3rd if statement at the beginning of _getPhotoIDsFromCombinations())
+            $cellCombinations = array_merge( $cellCombinations, array(array( self::_getLetterWithOtherNumber($beginCellName), '-1' )) );//add A2 - -1
+          }
+        }
+        else{//it's "loose"
+            //here add the cells, for a mark A1-B1, add A1, B1, A2, B2 for later use in _getPhotoIDsFromCombinations() and get all photos with marks containing A1 or A2 or B1 or B2
+            //add $beginCellName, eg A1
+            $cellCombinations = array_merge( $cellCombinations, array(array($beginCellName)) );
+            //add A2
+            $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($beginCellName))) );
+
+            if($endCell){
+              $endCellName = $endCell->getName();
+              //add $endCellName, eg B1
+              $cellCombinations = array_merge( $cellCombinations, array(array($endCellName)) );
+              //add B2
+              $cellCombinations = array_merge( $cellCombinations, array(array(self::_getLetterWithOtherNumber($endCellName))) );
+            }
+        }
+    /*
     $subsets = array();
     
     $letterIntervalArray = array();
@@ -682,7 +654,8 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       $subsets = mfUtils::powerSet($letterIntervalArray, 1, 2);
     } 
     return $subsets;
-  }*/
+    */
+  }
   
 
   public static function _get_filter($query, $filterType, $value=true){
