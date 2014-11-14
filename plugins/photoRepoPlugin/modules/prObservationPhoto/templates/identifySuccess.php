@@ -66,6 +66,11 @@
           <label for="identify_form_choices_irregular_without">Sem Irregular</label>
         </div>
         
+        <div class="identify_row">
+          <input name="identify_form[choices][]" type="checkbox" value="few_marks" id="identify_form_choices_few_marks">
+          <label for="identify_form_choices_few_marks">Poucas marcas</label>
+        </div>
+        
         <?php if( $isLeft || $isRight ): ?>
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
