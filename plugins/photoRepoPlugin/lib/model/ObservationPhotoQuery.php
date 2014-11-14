@@ -45,10 +45,6 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
       if( in_array('irregular', $choices) ){
         $query = self::_get_filter($query, 'irregular');
       }
-      // Few marks
-      if( in_array('few_marks', $choices) ){
-        $query = self::_get_filter($query, 'few_marks');
-      }
       //Cutted_point
       if( in_array('cutted_point', $choices) ){
         $query = self::_get_filter($query, 'cutted_point');
@@ -692,11 +688,6 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
                       $ids[] = $OBPhoto->getId();
                     }
               }
-              elseif ($filterType == 'few_marks') {
-                    if( !$OBPhotoDorsalLeft->getIsSmooth() && count($OBPhoto->getMarks()) < 2 ) {
-                      $ids[] = $OBPhoto->getId();
-                    }
-              }
               elseif ($filterType == 'cutted_point') {
                     if($OBPhotoDorsalLeft->getIsCuttedPoint()) {
                       $ids[] = $OBPhoto->getId();
@@ -728,11 +719,6 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
                       $ids[] = $OBPhoto->getId();
                     }
               }
-              elseif ($filterType == 'few_marks') {
-                    if( !$OBPhotoDorsalRight->getIsSmooth() && count($OBPhoto->getMarks()) < 2 ) {
-                      $ids[] = $OBPhoto->getId();
-                    }
-              }
               elseif ($filterType == 'cutted_point') {
                     if($OBPhotoDorsalRight->getIsCuttedPoint()) {
                       $ids[] = $OBPhoto->getId();
@@ -761,11 +747,6 @@ class ObservationPhotoQuery extends BaseObservationPhotoQuery {
               }
               elseif ($filterType == 'irregular') {
                     if($OBPhotoTail->getIsIrregular()) {
-                      $ids[] = $OBPhoto->getId();
-                    }
-              }
-              elseif ($filterType == 'few_marks') {
-                    if( !$OBPhotoTail->getIsSmooth() && count($OBPhoto->getMarks()) < 2 ) {
                       $ids[] = $OBPhoto->getId();
                     }
               }

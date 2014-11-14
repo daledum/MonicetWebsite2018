@@ -11,7 +11,6 @@ class identifyForm extends sfForm {
             'best',
             'smooth',
             'irregular',
-            'few_marks',
             'cutted_point',
             'cutted_point_left',
             'cutted_point_right',
