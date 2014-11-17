@@ -38,6 +38,8 @@
 			$('> .wrapper > ul > li', divobj).css('display', 'block');
 			$('> .wrapper > ul > li', divobj).css('float', 'left');
 
+			//client asked for keyboard navigation
+			$('> .wrapper > ul > li', divobj).attr("tabindex", "1");
 
 			var originalmarginright = parseInt($('> .wrapper > ul > li', divobj).css('marginRight'));
 			var originalmarginleft = parseInt($('> .wrapper > ul > li', divobj).css('marginLeft'));

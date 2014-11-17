@@ -840,6 +840,19 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     }
     
   }
+
+  public function executeAjaxDoubt(sfWebRequest $request){
+    $OBPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter("observation_photo_id"));
+
+     if(stripos($OBPhoto->getNotes(), "_doubt") === FALSE){
+        $OBPhoto->setNotes("_doubt".$OBPhoto->getNotes());//add "doubt" at the beginning
+        $OBPhoto->save();
+     }
+     else{
+        $OBPhoto->setNotes( str_ireplace("_doubt", "", $OBPhoto->getNotes()) );//remove "doubt"
+        $OBPhoto->save();
+     }
+  }
   
   public function executeExport( sfWebRequest $request ){
     $start_time = time();

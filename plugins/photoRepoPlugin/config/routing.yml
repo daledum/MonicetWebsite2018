@@ -226,6 +226,14 @@ observation_photo_dorsal_left:
     prefix_path:          /prObservationPhotoDorsalLeft
     column:               id
     with_wildcard_routes: true
+
+ajax_doubt:
+  url:  /ajax/observation-photo/doubt
+  params:
+    module:     prObservationPhoto
+    action:     ajaxDoubt
+  requirements:
+    sf_method: post
     
 ajax_get_sightings_by_company:
   url:  /ajax/company/:company_id/sightings/on/:date

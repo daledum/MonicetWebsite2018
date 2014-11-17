@@ -1,0 +1,1 @@
+<?php if(  stripos($ObservationPhoto->getNotes(), "_doubt") !== FALSE  ){ echo 'Dúvidas'; } ?>

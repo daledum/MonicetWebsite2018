@@ -65,7 +65,7 @@
           <input name="identify_form[choices][]" type="checkbox" value="irregular_without" id="identify_form_choices_irregular_without">
           <label for="identify_form_choices_irregular_without">Sem Irregular</label>
         </div>
-        
+       
         <?php if( $isLeft || $isRight ): ?>
           <div class="identify_row">
             <input name="identify_form[choices][]" type="checkbox" value="cutted_point" id="identify_form_choices_cutted_point">
@@ -132,16 +132,17 @@
             ?>
               <div id="user_mark_row">
                 <span>
-                <label id="user_mark_label" for="user_mark_row">Com marcas</label>
-                  <select id="user_mark_select_from" name="user_mark_from">
+                <label id="user_mark_label" for="user_mark_row">Estrito</label>
+                <input id="identify_form_user_mark_strict_vertical" name="identify_form[user_mark_strict_vertical]" type="checkbox" value="user_mark_strict_vertical">
+                  <select id="identify_form_user_mark_from_vertical" name="identify_form[user_mark_from_vertical]">
                     <?php foreach($cells as $key => $cell): ?>
-                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                      <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                     <?php endforeach; ?>
                   </select>
                   -
-                  <select id="user_mark_select_to" name="user_mark_to">
+                  <select id="identify_form_user_mark_to_vertical" name="identify_form[user_mark_to_vertical]">
                     <?php foreach($cells as $key => $cell): ?>
-                      <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                      <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                     <?php endforeach; ?>
                   </select>
                 </span>
@@ -164,13 +165,13 @@
               <span>
                 <select id="identify_form_user_mark_from_horizontal" name="identify_form[user_mark_from_horizontal]" form="identify_form">
                   <?php foreach($cells as $key => $cell): ?>
-                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                   <?php endforeach; ?>
                 </select>
                 -
                 <select id="identify_form_user_mark_to_horizontal" name="identify_form[user_mark_to_horizontal]" form="identify_form">
                   <?php foreach($cells as $key => $cell): ?>
-                    <option value=<?php echo $key; ?> > <?php echo $cell; ?> </option>
+                    <option value="<?php echo $key; ?>" > <?php echo $cell; ?> </option>
                   <?php endforeach; ?>
                 </select>
               </span>
@@ -195,6 +196,11 @@
     <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $observationPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>
     <?php endif; ?>
+    <?php if(  stripos($observationPhoto->getNotes(), "_doubt") === FALSE  ): ?>
+      <li class="sf_admin_action_edit" id="doubt"><a onclick="doubt()">Tenho dúvidas</a></li>
+    <?php else: ?>
+      <li class="sf_admin_action_edit" id="undoubt"><a onclick="doubt()">Não tenho mais dúvidas</a></li>
+    <?php endif; ?>
   </ul>
 
 <div id="associate" title="Associar fotografia" style="display: none;"><p>Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
@@ -207,6 +213,36 @@
 
 
 <script type="text/javascript">
+
+      function doubt(){
+        <?php
+         if(stripos($observationPhoto->getNotes(), "_doubt") === FALSE){
+          $posDoubt = -1;
+        }else{
+          $posDoubt = stripos($observationPhoto->getNotes(), "_doubt");
+        }
+        ?>
+        positionOfDoubt = '<?php echo $posDoubt; ?>';
+        
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + '//' + window.location.host+'/admin.php/ajax/observation-photo/doubt',
+                data: {
+                  observation_photo_id: "<?php echo $observationPhoto->getId();?>"
+                },
+                async: false,
+                success: function(msg) {
+                  if(positionOfDoubt == '-1'){//it did not have "doubt" and "doubt" was added to the notes
+                    alert("A foto foi marcada com dúvidas em suas notas");
+                    $("#doubt").hide();
+                  }
+                  else{//it already had "doubt" and "doubt" was removed from the notes
+                    alert("A foto não tem mais dúvidas.");
+                    $("#undoubt").hide();
+                  }   
+                }
+            });
+      }
 
     var carouselImageClicked=false;
 
