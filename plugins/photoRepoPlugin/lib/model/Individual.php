@@ -258,27 +258,27 @@ class Individual extends BaseIndividual {
             
             if( $patternSpecie &&
                 ( strlen($patternSpecie->getImageDorsalLeft()) > 0 || strlen($patternSpecie->getImageDorsalRight()) > 0 )
-              ) {//this means that its specie has one of the following ids: 2, 4, 7, 10 and so, its default dominant body part is R first and L second (in case none of its photos has R as a body part)
+              ) {//this means that its specie has one of the following ids: 2, 4, 7, 10 and so, its default dominant body part is L first and R second (in case none of its photos has L as a body part)
 
                 if($OBPhotos){//the individual has at least one photo
                     
                     foreach($OBPhotos as $OBPhoto){//only do one loop, not 3
-                      if( $OBPhoto->getBodyPart()->getCode() == body_part::R_SIGLA ){
-                        $dorsal_right++;
+                      if( $OBPhoto->getBodyPart()->getCode() == body_part::L_SIGLA ){
+                        $dorsal_left++;
                         break;//found one with the dominant body part, no need to go further
                       }
-                      elseif ( $OBPhoto->getBodyPart()->getCode() == body_part::L_SIGLA ) {
-                        $dorsal_left++;
+                      elseif ( $OBPhoto->getBodyPart()->getCode() == body_part::R_SIGLA ) {
+                        $dorsal_right++;
                       }
                       elseif ( $OBPhoto->getBodyPart()->getCode() == body_part::F_SIGLA ) {
                         $tail++;
                       }
                     }
                     
-                    if($dorsal_right > 0){
-                      $body_part_code = body_part::R_SIGLA;
-                    }elseif ($dorsal_left > 0) {
+                    if($dorsal_left > 0){
                       $body_part_code = body_part::L_SIGLA;
+                    }elseif ($dorsal_right > 0) {
+                      $body_part_code = body_part::R_SIGLA;
                     }elseif ($tail > 0) {
                       $body_part_code = body_part::F_SIGLA;
                     }else{
@@ -286,8 +286,8 @@ class Individual extends BaseIndividual {
                     }
 
                 }
-                else{//the individual has no photos and no "__RL" or "__whatever" in its notes, so set its dominant body part as "R"
-                    return body_part::R_SIGLA;
+                else{//the individual has no photos and no "__RL" or "__whatever" in its notes, so set its dominant body part as "L"
+                    return body_part::L_SIGLA;
                 }
             }
             else{//all other species have "F" as dominant body part; if no photo has an "F" body part, the dominant one will be the body part of the first photo (will apply the same for species 2,4,7,10)
