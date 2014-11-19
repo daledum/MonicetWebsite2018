@@ -75,4 +75,10 @@ class prIndividualActions extends autoPrIndividualActions {
     $this->fotografias = $this->individual->getObservationPhotos();
     $this->numFotografias = count($this->fotografias);
   }
+
+  public function executeAjaxChangeDominantBodyPart(sfWebRequest $request){
+    $individual = IndividualPeer::retrieveByPK( $request->getParameter("individual_id") );
+    $individual->setDominantBodyPart( $request->getParameter("body_part_code") );
+  }
+
 }
