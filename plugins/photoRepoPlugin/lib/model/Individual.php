@@ -198,7 +198,7 @@ class Individual extends BaseIndividual {
     return $this->getGIDates($limit);
   }
 
-  public function setDominantBodyPart($body_part_code) {
+  public function setDominantBodyPartCode($body_part_code) {
 
 
     //test this for newly created individuals
@@ -239,7 +239,7 @@ class Individual extends BaseIndividual {
     }
   }
 
-  public function getDominantBodyPart() {
+  public function getDominantBodyPartCode() {
     
     //the correct way would be do go through each i18n individual connected to this individual, read its notes and stop at the first "__F" encountered, otherwise conclude that no dominant body part was previously set by the user
     $notes = $this->getNotes();//this could cause an error, it only returns notes for currentIndividuali18n, what happens when the language is changed?

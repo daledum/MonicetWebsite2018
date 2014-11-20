@@ -127,7 +127,7 @@
                  name="dominant_body_part"
                  value="<?php echo $body_part_Id; ?>"
                  onclick="changeDominant('<?php echo $individual->getId(); ?>', '<?php echo $body_part->getCode(); ?>' )"
-                 <?php if( $individual->getDominantBodyPart() === $body_part->getCode() ): ?>checked<?php endif; ?>
+                 <?php if( $individual->getDominantBodyPartCode() === $body_part->getCode() ): ?>checked<?php endif; ?>
           >
           </div>
           <?php endforeach; ?>

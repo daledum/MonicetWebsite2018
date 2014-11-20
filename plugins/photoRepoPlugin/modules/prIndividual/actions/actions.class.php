@@ -78,7 +78,7 @@ class prIndividualActions extends autoPrIndividualActions {
 
   public function executeAjaxChangeDominantBodyPart(sfWebRequest $request){
     $individual = IndividualPeer::retrieveByPK( $request->getParameter("individual_id") );
-    $individual->setDominantBodyPart( $request->getParameter("body_part_code") );
+    $individual->setDominantBodyPartCode( $request->getParameter("body_part_code") );
   }
 
 }
