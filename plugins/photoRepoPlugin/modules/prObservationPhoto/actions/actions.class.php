@@ -881,24 +881,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     //temporary fixes to "multiple isBest photos (per body part)" issue - please update this file on the next commit, which needs doing immediately afterwards
     //firstly: for the 99 photos which are attached to individuals and whose best photo doesn't have the dominant body part assigned to that particular specie
-     foreach($obPhotos as $op){
+    // DONE
 
-          $individual = $op->getIndividual();
-          if($individual){
-            $dominant_body_part_code = $individual->getDominantBodyPartCode();
-          }
-          else{
-            $dominant_body_part_code = NULL;
-          }
-
-          if( $op->getIsBest() &&
-              ( $dominant_body_part_code && $op->getBodyPart()->getCode() != $dominant_body_part_code )
-             ) {
-                $individual->setDominantBodyPartCode( $op->getBodyPart()->getCode() );//$individual exists because $dominant_body_part_code is not NULL
-                $individual->save();
-          }
-      }//end of foreach
-      
       //secondly: set a best photo per body part for each individual, in case that body part doesn't already have a best photo
       foreach($obPhotos as $op){
           
