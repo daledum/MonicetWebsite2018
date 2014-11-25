@@ -328,5 +328,55 @@ class ObservationPhoto extends BaseObservationPhoto {
       return ObservationPhotoPeer::fromMarksToArray($marks);
   }
 
+  public function haveToChooseBestPhotoAgain($caller = 'ask'){
+  
+  //call this function before deleting or re-associating (to a new or already existing individual) the photo
+  //this function will tell you if you have to redirect to the individual's page in order to have the option of choosing a new best photo
+  //'ask' for just asking if, in case this photo is deleted or re-associated, the user will be redirected to the individual's page
+  //'ask and change' for asking and getting rid of the old individual (in case it's left without photos) or setting a new best photo or clearing the dominant body part code (if necessary)
+      
+    $individual = $this->getIndividual();
+    
+    if($this->getIsBest() && $individual){//the photo needs to be the best and be linked to an individual
+      
+      $photos = $individual->getObservationPhotos();
+      
+      if($individual->countObservationPhotos() >= 2){//the individual has at least 2 photos and will be left with at least 1
+        $numberOfPhotosWithSameBodyPart = 0;
+          
+          foreach($photos as $photo){
+            if($photo){
+              if( $this->getId() != $photo->getId() && $this->getBodyPartId() == $photo->getBodyPartId() ){//the other photo(s) have the same body part
+
+                  $numberOfPhotosWithSameBodyPart++;
+                  if($numberOfPhotosWithSameBodyPart == 2){//found at least 2 OTHER photos with the same body part, therefore user needs to choose a new BEST photo
+                    return 'The photograph you are deleting is the best photo of the individual with that body part ('.$this->getBodyPart()->getDescription('pt').') - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
+                  }
+                  
+                  if($caller == 'ask and change'){
+                    $photo->setIsBest(true);//this will be called a maximum of one time
+                    $photo->save();
+                  }
+              }
+            }//end of if($photo)
+          }//end of foreach()
+
+          //here still in the case where the individual has at least 2 photos and will be left with at least 1
+          //small sidenote: because of the return above, this will not be called if the individual has at least 2 OTHER photos with the same body part (in this case, we don't need to clear the body part code from the notes)
+          if( $caller == 'ask and change' &&
+              !$numberOfPhotosWithSameBodyPart && //it couldn't find any OTHER photos with the same body part
+              $this->getBodyPart()->getCode() == $individual->getDominantBodyPartCode() //this photo is the only photo with the dominant body part of its associated individual (and it's on the verge of being deleted or re-associated)
+            ){
+              $individual->setDominantBodyPartCode(); //clear the body part code from the notes of the individual
+          }
+      }
+      else{//has 1 photo (the individual has at least one photo): the photo on which this function is being called - therefore (deleting or re-associating), the individual will be left with 0 photos, thus return NULL
+              if($caller == 'ask and change'){
+                $individual->delete();//delete individual if it's left without any photos (this will also set this photo's is_best to 0)
+              }
+      }
+    }//else: is neither not best or is not linked to an individual so, go to next instruction
+    return NULL;
+  }
   
 } // ObservationPhoto

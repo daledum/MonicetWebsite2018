@@ -14,18 +14,9 @@
 <?php if( !$OBPhoto->isNew() ): ?>
   <ul class="sf_admin_actions">
     
-     <?php
-          $deleteBestPhotoMessage = '';
-          
-          if( $OBPhoto->getIsBest() ){
-            if( $OBPhoto->getIndividual() ){
-              if( $OBPhoto->getIndividual()->countObservationPhotos() > 2 ){
-                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
-              }
-            }
-          }
-
-         echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
+    <?php
+        $deleteBestPhotoMessage = ( $OBPhoto->haveToChooseBestPhotoAgain('ask') ) ? $OBPhoto->haveToChooseBestPhotoAgain('ask') : '';
+        echo $helper->linkToDelete($form->getObject(), array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
     ?>
 
     <?php if($OBPhoto->isCharacterizable()): ?>

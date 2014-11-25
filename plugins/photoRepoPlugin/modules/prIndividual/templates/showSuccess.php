@@ -41,36 +41,126 @@
           </tr>
         <?php endforeach; ?>
         
+        <?php
+        //order the photos according to body part
+        $body_parts = array();
+        $keys = array();
+        $photos = array();
+        $body_part_lines = array();
+        $newLineElemPos = array();
+
+        foreach ($fotografias as $key => $fotografia) {
+            $body_parts[$key] = $fotografia->getBodyPartId();
+        }
+
+        asort($body_parts);
+        $keys = array_keys($body_parts);
+        
+        foreach($keys as $key){
+          $photos[] = $fotografias[$key];
+        }
+
+        //calculate the number of lines required per body part
+        $no_photos = count($photos);
+        if( $no_photos > 1){//at least 2 photos
+          $j = 0;
+            for($i=1; $i <= $no_photos-2; $i++){
+              if( $photos[$i]->getBodyPartId() != $photos[$i-1]->getBodyPartId() ){
+                $body_part_lines[ $photos[$i-1]->getBodyPartId() ] = ceil( ($i-$j)/5 );
+                $j = $i;
+              }
+            }
+          
+          //special consideration for the last element, $photos[$no_photos-1]
+            //a) record the body part Id and no of lines for the second to last photo
+            $body_part_lines[ $photos[$no_photos-2]->getBodyPartId() ] = ceil( (($no_photos-1)-$j)/5 );//here $j has the last recorded value from the for above
+            //b) record the body part Id and no of lines for the last photo, in case it has a different body part than the second to last photo
+            if ( $photos[$no_photos-1]->getBodyPartId() != $photos[$no_photos-2]->getBodyPartId() ) {
+              $body_part_lines[ $photos[$no_photos-1]->getBodyPartId() ] = 1; //one photo, one line
+            }
+            else{//this means the second to last photo and the last photo share the same body part...
+                if( (($no_photos-1)-$j) % 5 == 0 ){//and before the last photo there were a multiple of 5 photos with the same body part as the last photo
+                  $body_part_lines[ $photos[$no_photos-2]->getBodyPartId() ]++;//add an extra line for the last photo
+                }
+            }
+            
+          //store keys of photo elements where a new line is required
+          $j = 0;
+            for($i=1; $i < $no_photos; $i++){
+
+              if( $photos[$i]->getBodyPartId() != $photos[$i-1]->getBodyPartId() ){//if the body part of a photo is not the same as the body part of the previous photo
+                $newLineElemPos[]= $i;
+                $j = 0;
+              }
+              else{
+                $j++;
+                if ($j % 5 == 0) {//allow a maximum of 5 photos per line
+                  $newLineElemPos[]= $i;
+                  $j = 0;
+                }
+              }
+            }
+        }
+        elseif( $no_photos == 1){
+             $body_part_lines[ $photos[0]->getBodyPartId() ] = 1;//one line for the single photo
+        }//else: works fine as it is with 0 photos, even though it can't be 0, because when the last photo of an individual has been deleted/re-associated, the individual was deleted)
+        
+        $positions = array_keys($photos);
+        $row = 'even';
+        ?>
         <tr class="sf_admin_row even">
-          <th>Fotografias:</th>
+          <th>Parte do corpo:
+          <br>
+          <br>
+          <form id="dominant_body_part_form">
+          <?php foreach ($body_part_lines as $body_part_Id => $body_part_line): ?>
+          <div style="height:<?php echo $body_part_line*185; ?>px;">
+          <?php $exploded_description = array();
+                $body_part = BodyPartPeer::retrieveByPK($body_part_Id);
+                $description = $body_part->getDescription('pt');
+                $exploded_description = explode(" ", $description);
+                foreach($exploded_description as $one_line_description){
+                  echo $one_line_description."<br>";
+                }
+          ?>
+          <input type="radio"
+                 name="dominant_body_part"
+                 value="<?php echo $body_part_Id; ?>"
+                 onclick="changeDominant('<?php echo $individual->getId(); ?>', '<?php echo $body_part->getCode(); ?>' )"
+                 <?php if( $individual->getDominantBodyPartCode() === $body_part->getCode() ): ?>checked<?php endif; ?>
+          >
+          </div>
+          <?php endforeach; ?>
+          </form>
+          </th>
           <td>
-            <table cellspacing="0" class="show_table" style="width: 880px;">
+            Fotografias:
+            <table cellspacing="0" class="show_table" style="width: auto;">
               <tbody>
-                <?php $position = 0;?>
-                <?php for( $line = 0; $line <= ($numFotografias/5); $line++ ): ?>
-                  <tr class="sf_admin_row <?php echo fmod($position, 2)? 'odd': 'even'; ?>">
-                    <?php for( $col = 0; $col <= 4; $col++ ): ?>
-                      <?php $position = $line*5+$col;?>
-                      <td width="170">
-                        <?php if(isset($fotografias[$position])): ?>
-                          <a target="blank" href="<?php echo url_for('/uploads/pr_repo_final/'.$fotografias[$position]->getFileName()) ?>">
-                            <img width="165" id ="<?php echo $fotografias[$position]->getFileName() ?>" src="/uploads/pr_repo_final/tn_165x150_<?php echo $fotografias[$position]->getFileName() ?>" alt="<?php echo $fotografias[$position]->getFileName() ?>" class="<?php echo $fotografias[$position]->getIsBest()? 'best': 'not_best' ?>"/>
+                  <tr class="sf_admin_row even">
+                      <?php foreach($positions as $position): ?>
+                        <?php if( in_array($position, $newLineElemPos) ): ?>
+                            </tr>
+                            <tr class="sf_admin_row <?php $row = ($row == 'even')? 'odd': 'even'; echo $row; ?>">
+                        <?php endif;?>
+                      <?php if(isset($photos[$position])): ?>
+                        <td width="170" <?php if( $photos[$position]->getStatus() != ObservationPhoto::V_SIGLA ): ?>style="background-color:LightCoral;"<?php endif;?> >
+                          <a target="blank" href="<?php echo url_for('/uploads/pr_repo_final/'.$photos[$position]->getFileName()) ?>">
+                            <img width="165" id ="<?php echo $photos[$position]->getFileName() ?>" src="/uploads/pr_repo_final/tn_165x150_<?php echo $photos[$position]->getFileName() ?>" alt="<?php echo $photos[$position]->getFileName() ?>" class="<?php echo $photos[$position]->getIsBest()? 'best': 'not_best' ?>"/>
                           </a>
-                          <?php if($fotografias[$position]->getIsBest()): ?>
-                            A melhor
+                          <?php if($photos[$position]->getIsBest()): ?>
+                             <h1>A melhor</h1>
                           <?php else: ?>
-                            <?php echo link_to('Marcar como "A Melhor"', '@pr_define_as_best?id='.$fotografias[$position]->getId(), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende definir esta fotografia como "A melhor"?')) ?>
+                            <?php echo link_to('Marcar como "A Melhor"', '@pr_define_as_best?id='.$photos[$position]->getId(), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende definir esta fotografia como "A melhor"?')) ?>
                           <?php endif; ?>
-                        <?php endif; ?>
-                      </td>
-                    <?php endfor; ?>
+                        </td>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
                   </tr>
-                <?php endfor; ?>
               </tbody>
             </table>
           </td>
         </tr>
-        
       </tbody>
     </table>
 

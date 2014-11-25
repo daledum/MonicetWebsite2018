@@ -31,12 +31,8 @@
                   }
                 }
                  
-                if( $observationPhoto->getIsBest() ){
-                  if( $observationPhoto->getIndividual() ){
-                    if( $observationPhoto->getIndividual()->countObservationPhotos() > 2 ){
-                       $bestPhotoMessage = 1;
-                    }
-                  }
+                if( $observationPhoto->haveToChooseBestPhotoAgain('ask') ){
+                  $bestPhotoMessage = 1;
                 }
                 
               ?>

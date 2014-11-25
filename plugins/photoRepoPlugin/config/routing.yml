@@ -234,6 +234,14 @@ ajax_doubt:
     action:     ajaxDoubt
   requirements:
     sf_method: post
+
+ajax_dominant:
+  url:  /ajax/individuo/dominant
+  params:
+    module:     prIndividual
+    action:     ajaxChangeDominantBodyPart
+  requirements:
+    sf_method: post
     
 ajax_get_sightings_by_company:
   url:  /ajax/company/:company_id/sightings/on/:date

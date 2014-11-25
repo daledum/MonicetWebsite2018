@@ -73,16 +73,7 @@
   <ul class="sf_admin_actions">
     
     <?php
-          $deleteBestPhotoMessage = '';
-          
-          if( $observationPhoto->getIsBest() ){
-            if( $observationPhoto->getIndividual() ){
-              if( $observationPhoto->getIndividual()->countObservationPhotos() > 2 ){
-                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
-              }
-            }
-          }
-
+          $deleteBestPhotoMessage = ( $observationPhoto->haveToChooseBestPhotoAgain('ask') ) ? $observationPhoto->haveToChooseBestPhotoAgain('ask') : '';
           echo $helper->linkToDelete($observationPhoto, array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
     ?>
 
