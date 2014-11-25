@@ -878,31 +878,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     // create csv file
     $observations_file = fopen($this->filename, 'w');
     fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,sighting_id,best,status,last_edited_by,validated_by\n");
-    
-    //temporary fixes to "multiple isBest photos (per body part)" issue - please update this file on the next commit, which needs doing immediately afterwards
-    //firstly: for the 99 photos which are attached to individuals and whose best photo doesn't have the dominant body part assigned to that particular specie
-    // DONE
 
-      //secondly: set a best photo per body part for each individual, in case that body part doesn't already have a best photo
-      foreach($obPhotos as $op){
-          
-          $individual = $op->getIndividual();
-          if($individual){
-              $query = ObservationPhotoQuery::create()
-                      ->filterByIsBest(true)
-                      ->filterByIndividualId( $individual->getId() )
-                      ->filterByBodyPartId( $op->getBodyPart()->getId() );
-              $bestPhoto = $query->findOne();
 
-              if(!$bestPhoto){//individual doesn't have a best photo with the same body part
-                $op->setIsBest(true);
-                $op->save();
-              }
-          }
-      }//end of foreach
-
-    //this was here before - Alex
-    /*
     foreach($obPhotos as $op){
       if ($this->_free_memory_is_above(5000000)) {
         if( $this->_is_ok_execution_time(time() - $start_time, 5) ) {
@@ -949,8 +926,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         $this->getUser()->setFlash('error', 'Atingiu o limite de memória disponível, por favor reduza a quantidade de registos a exportar.', true);
         $this->redirect('@recognition_of_cetaceans_app?'.http_build_query($args));
       }
-    }//end of foreach
-    */
+    }
     fclose($observations_file);
     
     $this->forward404Unless(file_exists($this->filename));
