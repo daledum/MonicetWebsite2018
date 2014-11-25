@@ -6,10 +6,36 @@ class Individual extends BaseIndividual {
   }
   
   public function getBestObservationPhoto() {
-    $query = ObservationPhotoQuery::create()
-            ->filterByIsBest(true)
-            ->filterByIndividualId($this->getId());
-    return $query->findOne();
+  
+      $dominant_body_part_code = $this->getDominantBodyPartCode();
+
+      $query = ObservationPhotoQuery::create()
+              ->filterByIsBest(true)
+              ->filterByIndividualId($this->getId());
+      $bestPhotos = $query->find();
+
+      //return $query->findOne(); in conjuction with an extra (called as the 3rd filter) ->filterByBodyPartId( $dominant_body_part_id ) was tried, but did not work
+      //$c = new Criteria();
+      //$c->add(BodyPartPeer::CODE, $dominant_body_part_code);
+      //$dominant_body_part = BodyPartPeer::doSelect($c);
+      //$dominant_body_part_id = $dominant_body_part->getId();//this was giving an error, saying it can't call getId() on $dominant_body_part, although it was confirmed to be of the BodyPart type
+
+      if($bestPhotos){
+        foreach($bestPhotos as $bestPhoto){
+          if( (string)$bestPhoto->getBodyPart() == $dominant_body_part_code ){//->getBodyPart returns a Body Part object whose __toString() returns ->getCode()
+            return $bestPhoto;
+            break;
+          }
+        }
+        return $bestPhotos[0];//defence 1 (return the first encountered best photo): this means it has no photos with the dominant body part and with is_best == 1, not possible according to the way the code is written
+      }
+      else{//defence 2 (return the first photo of the individual): this means it has no photos with is_best == 1, again, not possible
+        $OBPhotos = $this->getObservationPhotos();//returns a PropelCollection (never NULL)
+        if( !$OBPhotos->isEmpty() ){
+          return $OBPhotos[0];
+        }
+      }
+      //defence 3: nothing here in the case the individual has 0 photos (again, not possible) - this will have ->getFileName() called on it, so, an object linked to a photo saying "HAS NO PHOTOS" would be nice
   }
   
   public function getValidObservationPhotos(){
@@ -168,7 +194,7 @@ class Individual extends BaseIndividual {
     foreach( $OBPhotos as $OBPhoto ){
       $OBPhoto->setIndividual(null);
       $OBPhoto->setIsBest(false);
-      $OBPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+      $OBPhoto->setStatus(ObservationPhoto::C_SIGLA);
       $OBPhoto->setLastEditedBy($sessionUser->getId());
       $OBPhoto->save();
     }
@@ -224,31 +250,77 @@ class Individual extends BaseIndividual {
     //$this->save;//?
     */
 
+    $specie = $this->getSpecie();
+    $patternSpecie = PatternQuery::create()
+            ->filterBySpecieId($specie->getId())
+            ->findOne();
+
+    if( $patternSpecie &&
+        ( strlen($patternSpecie->getImageDorsalLeft()) > 0 || strlen($patternSpecie->getImageDorsalRight()) > 0 )
+      ) {//if the specie id is 2,4,7 or 10
+      if($body_part_code == body_part::L_SIGLA){//and the body part code is L
+        $body_part_code = NULL;//clear the old body part code (if there is one)- see below and add nothing, as L is the default body part code
+      }
+    }
+    else{//for all other species
+      if($body_part_code == body_part::F_SIGLA){//and the body part code is F
+        $body_part_code = NULL;//clear the old body part code (if there is one) and add nothing, as F is the default body part code
+      }
+    }
+    
     //get the notes of the individual
     $notes = $this->getNotes();//this could cause an error, it only returns notes for currentIndividuali18n, what happens when the language is changed?
     $position_of_underscore = stripos($notes, "__");
     
     //add the body part code at the end of the individual's notes (eg. add "_F")
     if($position_of_underscore === FALSE){//case a) it never had _BodyPart at the end, so add it
-        $this->setNotes( $notes."__".$body_part_code );//or just dominant_body_part//was $dominant_body_part->getCode()
+        
+      if($body_part_code){
+        $this->setNotes( $notes."__".$body_part_code );
         $this->save();
+      }
     }
     else{//case b) it already had _BodyPart, so, just replace the old one with the new one
+        
+      if($body_part_code){
         $this->setNotes( substr($notes,0,$position_of_underscore)."__".$body_part_code );//remove "__F" and replace with "__L"
+      }
+      else{
+        $this->setNotes( substr($notes,0,$position_of_underscore) );//remove "__F"
+      }
         $this->save();
     }
   }
 
   public function getDominantBodyPartCode() {
     
+    $OBPhotos = $this->getObservationPhotos();
+
     //the correct way would be do go through each i18n individual connected to this individual, read its notes and stop at the first "__F" encountered, otherwise conclude that no dominant body part was previously set by the user
     $notes = $this->getNotes();//this could cause an error, it only returns notes for currentIndividuali18n, what happens when the language is changed?
     $position_of_underscore = stripos($notes, "__");//this works even if $notes is NULL
-    if($position_of_underscore !== FALSE){
-        $body_part_code =  substr($notes,$position_of_underscore+2);//+2 because "__" is made up of two "_"
+
+    if($position_of_underscore !== FALSE){//there is a double underscore there
+
+        //check to see if there is at least one photo with the dominant body part written in the notes
+        if( !$OBPhotos->isEmpty() ){//the individual has at least one photo
+
+          foreach($OBPhotos as $OBPhoto){
+            if( $OBPhoto->getBodyPart()->getCode() == substr($notes,$position_of_underscore+2) ){//photo with the same body part code as the one written in the notes
+                return substr($notes,$position_of_underscore+2);//+2 because "__" is made up of two "_"
+            }
+          }
+          
+          //because of the return above, code below will be run only if it couldn't find a photo with the dominant body part written in the notes
+          $this->setDominantBodyPartCode();//get rid of the dominant body part written in the notes
+          $this->getDominantBodyPartCode();//call it again, this time it won't have a body part written in the notes
+        }
+        else{//individual has no photos (normally not possible), writing this case as a back-up
+            $this->setDominantBodyPartCode();
+            $this->getDominantBodyPartCode();
+        }
     }
     else{
-            $OBPhotos = $this->getObservationPhotos();
             $dorsal_right = $dorsal_left = $tail = 0;
 
             $specie = $this->getSpecie();
@@ -260,7 +332,7 @@ class Individual extends BaseIndividual {
                 ( strlen($patternSpecie->getImageDorsalLeft()) > 0 || strlen($patternSpecie->getImageDorsalRight()) > 0 )
               ) {//this means that its specie has one of the following ids: 2, 4, 7, 10 and so, its default dominant body part is L first and R second (in case none of its photos has L as a body part)
 
-                if($OBPhotos){//the individual has at least one photo
+                if( !$OBPhotos->isEmpty() ){//the individual has at least one photo
                     
                     foreach($OBPhotos as $OBPhoto){//only do one loop, not 3
                       if( $OBPhoto->getBodyPart()->getCode() == body_part::L_SIGLA ){
@@ -291,7 +363,7 @@ class Individual extends BaseIndividual {
                 }
             }
             else{//all other species have "F" as dominant body part; if no photo has an "F" body part, the dominant one will be the body part of the first photo (will apply the same for species 2,4,7,10)
-                  if($OBPhotos){//the individual has at least one photo
+                  if( !$OBPhotos->isEmpty() ){//the individual has at least one photo
                     
                     foreach($OBPhotos as $OBPhoto){
                       if( $OBPhoto->getBodyPart()->getCode() == body_part::F_SIGLA ){

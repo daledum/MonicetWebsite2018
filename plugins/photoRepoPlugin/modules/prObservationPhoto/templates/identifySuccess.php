@@ -191,7 +191,17 @@
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
     <li class="sf_admin_action_action" id="associate_individual_li"><a id="associate_individual_link" href="">Associar fotografia a indivíduo</a></li>
-    <li class="sf_admin_action_new"><?php echo link_to('Novo individuo', '@pr_new_individual_by_photo?id='.$observationPhoto->getId(), array('method' => 'post', 'confirm' => 'Tem a certeza que pretende criar um novo individuo?')) ?></li>
+    <li class="sf_admin_action_new">
+      <?php
+          if( $observationPhoto->haveToChooseBestPhotoAgain('ask') ){
+            $choosing_best_photo_details = 'Esta foto é a melhor foto do indivíduo inicial (nome: '.$observationPhoto->getIndividual()->getName().', id: '.$observationPhoto->getIndividualId().') com esta parte do corpo ('.$observationPhoto->getBodyPart()->getDescription('pt').') - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você pode escolher uma nova melhor foto mais tarde.';
+          }
+          else{
+            $choosing_best_photo_details = '';
+          }
+          echo link_to( 'Novo individuo', '@pr_new_individual_by_photo?id='.$observationPhoto->getId(), array('method' => 'post', 'confirm' => "$choosing_best_photo_details Tem a certeza que pretende criar um novo individuo?") );
+      ?>
+    </li>
     <?php $sessionUser = $sf_user->getGuardUser() ?> 
     <?php if(in_array($observationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) && $observationPhoto->getLastEditedBy() != $sessionUser->getId() ): ?>
       <li class="sf_admin_action_action"><a href="<?php echo url_for('@pr_observation_photo_validate?id='.$observationPhoto->getId()) ?>">Validar</a></li>
@@ -205,8 +215,8 @@
 
 <div id="associate" title="Associar fotografia" style="display: none;"><p>Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
 <div id="associateIndividualSameBodyPartDate" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
-<div id="chooseNewBestPhotoForPreviousIndividual" title="Associar fotografia" style="display: none;"><p>Esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
-<div id="sameBodyPartDateAndChooseNewBestPhoto" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Em mais, esta foto é a melhor foto do indivíduo inicial - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado?</p></div>
+<div id="chooseNewBestPhotoForPreviousIndividual" title="Associar fotografia" style="display: none;"><p>Esta foto é a melhor foto do indivíduo inicial com esta parte do corpo - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado? <?php echo ' A parte do corpo é: '.$observationPhoto->getBodyPart()->getDescription('pt'); ?></p></div>
+<div id="sameBodyPartDateAndChooseNewBestPhoto" title="Associar fotografia" style="display: none;"><p>Este indivíduo já tem uma foto da mesma parte do corpo tomada no mesmo dia. Em mais, esta foto é a melhor foto do indivíduo inicial com esta parte do corpo - que tem mais de duas fotos. Uma deles será escolhida de forma aleatória como melhor foto. Você será redirecionado para a página do indivíduo, onde pode escolher uma nova melhor foto. Tem a certeza que pretende associar esta fotografia ao individuo seleccionado? <?php echo ' A parte do corpo é: '.$observationPhoto->getBodyPart()->getDescription('pt'); ?></p></div>
 <div id="loader"></div>
 
 </div>

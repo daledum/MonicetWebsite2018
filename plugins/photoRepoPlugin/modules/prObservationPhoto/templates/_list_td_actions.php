@@ -8,16 +8,7 @@
 
     <?php
       if( $sf_user->hasModuleCredential($sf_context->getModuleName(), '_delete') ){
-          $deleteBestPhotoMessage = '';
-          
-          if( $ObservationPhoto->getIsBest() ){
-            if( $ObservationPhoto->getIndividual() ){
-              if( $ObservationPhoto->getIndividual()->countObservationPhotos() > 2 ){
-                $deleteBestPhotoMessage = 'The photograph you are deleting is the best photo of the individual - which now has more than 2 photos. One of them will be randomly chosen as its best photo. You will be redirected to the page of the individual to choose a new best photo. ';
-              }
-            }
-          }
-
+          $deleteBestPhotoMessage = ( $ObservationPhoto->haveToChooseBestPhotoAgain('ask') ) ? $ObservationPhoto->haveToChooseBestPhotoAgain('ask') : '';
           echo $helper->linkToDelete($ObservationPhoto, array(  'params' =>   array(  ),  'confirm' => $deleteBestPhotoMessage.'Are you sure?',  'class_suffix' => 'delete',  'label' => 'Delete',));
       }
     ?>

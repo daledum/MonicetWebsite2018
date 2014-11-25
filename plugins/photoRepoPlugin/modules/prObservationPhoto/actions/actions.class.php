@@ -42,13 +42,16 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->dispatcher->notify(new sfEvent($this, 'admin.delete_object', array('object' => $obPhoto )));
 
     $status = $obPhoto->getStatus();
-    $isBest = $obPhoto->getIsBest();
+    
+    //this is used for redirecting, for getting rid of the previous individual, setting a default best photo and clearing the dominant body part code from the individual's notes (if necessary)
+    $choose_best_again = $obPhoto->haveToChooseBestPhotoAgain('ask and change');
+    
     $id = $obPhoto->getIndividualId();
-
+    
     //Deletes the 4 versions of the photo from the upload folder
     $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
     $fileName = $obPhoto->getFileName();
-    $fileAddresses = array(
+    $fileAddresses = array(//Alex: deleting tiny versions, error here, x instead of _
           $locationBegin.'tn_130x120_'.$fileName,
           $locationBegin.'tn_165x150_'.$fileName,
           $locationBegin.'tn_200_'.$fileName,
@@ -62,40 +65,14 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
 
     //Deletes the photo
     $obPhoto->delete();
-
-    //Deletes individual if the previously deleted photo was his only photo
-    $individual = IndividualPeer::retrieveByPK($id);
-
-    if( $individual != null ){
-        $numberOfPhotos = $individual->countObservationPhotos();
-        
-        if( !$numberOfPhotos ){
-          $individual->delete();
-        }
-         else{//here, he has photo(s) left, therefore, if deleted photo was best, I randomly assign best to one of the remaining photo(s)
-              if($isBest){
-                foreach ($individual->getObservationPhotos() as $photo){
-                  if($photo){
-                    $photo->setIsBest(true);
-                    $photo->save();
-                    break;
-                  }
-                } 
-              }
-         }
-    }
-     else{
-      $numberOfPhotos = -1;//in case the photo isn't linked to any individuals - to use below
-     }
-
     $this->getUser()->setFlash('notice', 'The item was deleted successfully.');
 
     //redirecting
-    if( $isBest && $numberOfPhotos > 1 ){//photo above was best and individual is left (after deleting the photo above) with more than one photos
+    if($choose_best_again){//photo above was best and individual is left (after deleting the photo above) with more than one photos with the same body part
        $this->redirect('@pr_individual_show?id='.$id);
     }
      else{
-      if($status == ObservationPhoto::V_SIGLA){
+      if($status == ObservationPhoto::V_SIGLA){//ask if it's valid - to know where to redirect after the delete process
           $this->redirect('@pr_observation_photo?template=catalog');
       }
        else{
@@ -710,21 +687,17 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $individual->setSpecie($observationPhoto->getSpecie());
     $individual->save();
     
+    //deal with the previous individual
+    //will not use the return value to redirect, because the redirecting will always be done to the new individual
+    $observationPhoto->haveToChooseBestPhotoAgain('ask and change');
+
     $sf_user = SfContext::getInstance()->getUser();
-    $old_individual = $observationPhoto->getIndividual();
     $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
     $observationPhoto->setIndividual($individual);
     $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
     $observationPhoto->setIsBest(true);
     $observationPhoto->save();
-    
-    if( $old_individual != null ){
-      if( $old_individual->getId() != $individual->getId() ){
-        if( !$old_individual->countObservationPhotos() ){
-          $old_individual->delete();
-        }
-      }
-    }
+
     $this->redirect('@pr_individual_show?id='.$individual->getId());
   }
   
@@ -735,48 +708,44 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     
     $id = $individual->getId();
     $old_individual = $observationPhoto->getIndividual();
-    if( $old_individual != null ){
-      $old_id = $old_individual->getId();
-      $old_numberOfPhotos = $old_individual->countObservationPhotos();//this number will be > 0 - it's not possible to have individuals without photos
-    }
-    else{
-      $old_id = -1;
-      $old_numberOfPhotos = -1;//line above + this one: the photo wasn't previously assigned to an individual
-    }
 
-    //the line below is redundant, as the carousel results will never include the same individual, due to my changing ObservationPhotoQuery.php
-     if( $old_id != $id ){//everything below is done if the photo wasn't previously assigned to an individual or if it's a different individual
-      $wasBest = $observationPhoto->getIsBest();
+    $old_id = ( $old_individual ) ? $old_individual->getId() : -1;//old_id will get, in case it existed the previous individual's id (if not: -1, all ids start from 1)
+      if($old_id != $id){//this means either that the two individuals are different or just that the photo wasn't previously assigned to an individual
 
-      $sf_user = SfContext::getInstance()->getUser();
-      $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
-      $observationPhoto->setIndividual($individual);
-      $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-      $observationPhoto->setIsBest(false);
-      $observationPhoto->save();
-    
-         if( $old_numberOfPhotos == 1){//had only one photo prior to reassignment of the photo above, that means that it no longer has photos
-           $old_individual->delete();
-         }
-          else{//here, he has photo(s) left, therefore, if re-assigned photo was best, I assign best to one of the remaining photo(s)
-              if( $old_numberOfPhotos != -1 && $wasBest ){
-                foreach ($old_individual->getObservationPhotos() as $photo){
-                  if($photo){
-                    $photo->setIsBest(true);
-                    $photo->save();
-                    break;
-                  }
-                }
-              }
-          }
+        //a) deal with previous individual
+        $choose_best_again = $observationPhoto->haveToChooseBestPhotoAgain('ask and change');
 
-        //redirecting 
-          if( $wasBest && $old_numberOfPhotos > 2){//if it was the best photo of the old individual, which existed and had more than 2 photos initially
-            $this->redirect('@pr_individual_show?id='.$old_id);//go pick a best photo for the old individual
+        //b)newly assigned individual, get all the photos of the "new" individual before assigning the photo to it (it has at least one photo, displayed in the carousel on the identify page)
+        $photos = $individual->getObservationPhotos();
+        $hasBestPhotoWithThatBodyPart = FALSE;
+        foreach($photos as $photo){
+          if( $photo->getBodyPartId() == $observationPhoto->getBodyPartId() ){//check to see if the "new" individual already had photos with the same body part
+            if($photo->getIsBest()){//this is just a back-up (normally one of them should definitely be BEST)
+              $hasBestPhotoWithThatBodyPart = TRUE;
+              break;
+            }
           }
-          else{
-            $this->redirect('@pr_individual_edit?id='.$id);
-          }
+        }
+
+        $sf_user = SfContext::getInstance()->getUser();
+        $observationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
+        $observationPhoto->setIndividual($individual);
+        $observationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+        if($hasBestPhotoWithThatBodyPart){
+          $observationPhoto->setIsBest(false);
+        }
+        else{
+          $observationPhoto->setIsBest(true);
+        }
+        $observationPhoto->save();
+
+        //the photo was already the best photo of an existing individual, which had initially more than 2 photos
+        if($choose_best_again){
+          $this->redirect('@pr_individual_show?id='.$old_id);//go pick a best photo for the old individual
+        }
+        else{
+          $this->redirect('@pr_individual_edit?id='.$id);
+        }
      }
 
   }
@@ -785,10 +754,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->forward404Unless($observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
     $this->forward404Unless($observationPhoto->getIndividualId());
     
-    $relatedPhotos = $observationPhoto->getIndividual()->getObservationPhotos();
+    $bodyPartId = $observationPhoto->getBodyPartId();
+    $relatedPhotos = $observationPhoto->getIndividual()->getObservationPhotos();//it has at least one - the "clicked" one
     foreach( $relatedPhotos as $relatedPhoto ) {
-      $relatedPhoto->setIsBest(false);
-      $relatedPhoto->save();
+      if( $relatedPhoto->getBodyPartId() == $bodyPartId ){//set all the photos (including the "clicked" one) with the same body part as the "clicked" one as non best
+        $relatedPhoto->setIsBest(false);
+        $relatedPhoto->save();
+      }
     }
     $observationPhoto->setIsBest(true);
     $observationPhoto->save();
@@ -906,6 +878,47 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     // create csv file
     $observations_file = fopen($this->filename, 'w');
     fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,sighting_id,best,status,last_edited_by,validated_by\n");
+    
+    //temporary fixes to "multiple isBest photos (per body part)" issue - please update this file on the next commit, which needs doing immediately afterwards
+    //firstly: for the 99 photos which are attached to individuals and whose best photo doesn't have the dominant body part assigned to that particular specie
+     foreach($obPhotos as $op){
+
+          $individual = $op->getIndividual();
+          if($individual){
+            $dominant_body_part_code = $individual->getDominantBodyPartCode();
+          }
+          else{
+            $dominant_body_part_code = NULL;
+          }
+
+          if( $op->getIsBest() &&
+              ( $dominant_body_part_code && $op->getBodyPart()->getCode() != $dominant_body_part_code )
+             ) {
+                $individual->setDominantBodyPartCode( $op->getBodyPart()->getCode() );//$individual exists because $dominant_body_part_code is not NULL
+                $individual->save();
+          }
+      }//end of foreach
+      
+      //secondly: set a best photo per body part for each individual, in case that body part doesn't already have a best photo
+      foreach($obPhotos as $op){
+          
+          $individual = $op->getIndividual();
+          if($individual){
+              $query = ObservationPhotoQuery::create()
+                      ->filterByIsBest(true)
+                      ->filterByIndividualId( $individual->getId() )
+                      ->filterByBodyPartId( $op->getBodyPart()->getId() );
+              $bestPhoto = $query->findOne();
+
+              if(!$bestPhoto){//individual doesn't have a best photo with the same body part
+                $op->setIsBest(true);
+                $op->save();
+              }
+          }
+      }//end of foreach
+
+    //this was here before - Alex
+    /*
     foreach($obPhotos as $op){
       if ($this->_free_memory_is_above(5000000)) {
         if( $this->_is_ok_execution_time(time() - $start_time, 5) ) {
@@ -952,7 +965,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         $this->getUser()->setFlash('error', 'Atingiu o limite de memória disponível, por favor reduza a quantidade de registos a exportar.', true);
         $this->redirect('@recognition_of_cetaceans_app?'.http_build_query($args));
       }
-    }
+    }//end of foreach
+    */
     fclose($observations_file);
     
     $this->forward404Unless(file_exists($this->filename));
