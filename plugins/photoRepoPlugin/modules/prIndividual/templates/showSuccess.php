@@ -203,3 +203,21 @@
     </ul>
   </div>
 </div>
+<script>
+
+  function changeDominant(individual_id, body_part_code){
+            $.ajax({
+                type: "POST",
+                url: window.location.protocol + '//' + window.location.host+'/admin.php/ajax/individuo/dominant',
+                data: {
+                  individual_id: individual_id,
+                  body_part_code: body_part_code
+                },
+                async: false,
+                success: function(msg) {
+                    alert('A parte de corpo específica deste indivíduo foi modificada na base de dados');
+                  }
+            });
+  }
+
+</script>
