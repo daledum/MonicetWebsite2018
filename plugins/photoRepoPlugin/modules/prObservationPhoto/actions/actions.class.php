@@ -414,8 +414,13 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
                                 if( in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::NEW_SIGLA)) ||
                                     in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::FA_SIGLA)) ||
                                     in_array($ObservationPhoto->getStatus(), array(ObservationPhoto::V_SIGLA)) ){
-
-                                   $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+                                    
+                                    if($ObservationPhoto->getIndividual()){//it was edited and now the photo is uncharacterizable, but it kept it's individual, so no need to re-identify it
+                                      $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+                                    }
+                                    else{
+                                      $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+                                    }
                                 }
                            }
 
