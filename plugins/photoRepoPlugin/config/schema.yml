@@ -19,12 +19,13 @@ propel:
     created_at:       ~
     
   individual:
-    _attributes:      { phpName: Individual, idMethod: native, isI18N: true, i18nTable: individual_i18n }
-    id:               ~
-    name:             { type: VARCHAR, size: 255 }
-    specie_id:        { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
-    created_at:       ~
-    updated_at:       ~
+    _attributes:             { phpName: Individual, idMethod: native, isI18N: true, i18nTable: individual_i18n }
+    id:                      ~
+    name:                    { type: VARCHAR, size: 255 }
+    dominant_body_part_code: { type: VARCHAR, size: 255 }
+    specie_id:               { type: INTEGER, foreignTable: specie, foreignReference: id, required: false, onDelete: cascade, index: true }
+    created_at:              ~
+    updated_at:              ~
     
   individual_i18n:
     id:               { type: INTEGER, required: true, primaryKey: true, foreignTable: individual, foreignReference: id, index: true }

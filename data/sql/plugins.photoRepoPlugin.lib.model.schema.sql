@@ -54,6 +54,7 @@ CREATE TABLE `individual`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255),
+	`dominant_body_part_code` VARCHAR(255),
 	`specie_id` INTEGER,
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
