@@ -19,8 +19,14 @@ class prObservationPhotoTailActions extends autoPrObservationPhotoTailActions
       $ObservationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
       
       if( $ObservationPhoto->getStatus() == ObservationPhoto::NEW_SIGLA) {
-        $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
-        $ObservationPhoto->save();
+        if($ObservationPhoto->getIndividual()){
+          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
+          $ObservationPhoto->save();
+        }
+        else{
+          $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
+          $ObservationPhoto->save();
+        }
       }
       if( $ObservationPhoto->getStatus() == ObservationPhoto::V_SIGLA) {
         $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
