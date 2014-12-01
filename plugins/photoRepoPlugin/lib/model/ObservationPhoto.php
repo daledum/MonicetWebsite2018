@@ -367,7 +367,8 @@ class ObservationPhoto extends BaseObservationPhoto {
               !$numberOfPhotosWithSameBodyPart && //it couldn't find any OTHER photos with the same body part
               $this->getBodyPart()->getCode() == $individual->getDominantBodyPartCode() //this photo is the only photo with the dominant body part of its associated individual (and it's on the verge of being deleted or re-associated)
             ){
-              $individual->setDominantBodyPartCode(); //clear the body part code from the notes of the individual
+              $individual->setDominantBodyPartCode(); //clear the user-set body part code of the individual
+              $individual->save();
           }
       }
       else{//has 1 photo (the individual has at least one photo): the photo on which this function is being called - therefore (deleting or re-associating), the individual will be left with 0 photos, thus return NULL
