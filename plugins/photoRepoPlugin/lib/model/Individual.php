@@ -224,31 +224,7 @@ class Individual extends BaseIndividual {
     return $this->getGIDates($limit);
   }
 
-  public function setDominantBodyPartCode($body_part_code) {
-
-
-    //test this for newly created individuals
-    //get all i18n individuals linked to this individual and add the dominant body part code at the end of each one's notes
-    //this solution doesn't work - will use only the current i18n individual - prone to errors, when switching from "pt" to "en" backend
-    /*
-    $i18n_individuals = $this->getIndividualI18ns;
-    foreach( $i18n_individuals as $i18n_individual){
-        //get the notes of the i18nindividual
-        $notes = $i18n_individual->getNotes();
-        $position_of_underscore = stripos($notes, "__");
-        
-        //add the body part code at the end of the individual's notes (eg. add "__F")
-        if($position_of_underscore === FALSE){//case a) it never had __BodyPart at the end, so add it
-            $i18n_individual->setNotes( $notes."__".$body_part_code );//or just dominant_body_part
-            $i18n_individual->save();
-        }
-        else{//case b) it already had _BodyPart, so, just replace the old one with the new one
-            $i18n_individual->setNotes( substr($notes,0,$position_of_underscore)."__".$body_part_code );//remove "__F" and replace with "__L"
-            $i18n_individual->save();
-        }
-    }
-    //$this->save;//?
-    */
+  public function setDominantBodyPartCode($v = null) {
 
     $specie = $this->getSpecie();
     $patternSpecie = PatternQuery::create()
@@ -258,65 +234,43 @@ class Individual extends BaseIndividual {
     if( $patternSpecie &&
         ( strlen($patternSpecie->getImageDorsalLeft()) > 0 || strlen($patternSpecie->getImageDorsalRight()) > 0 )
       ) {//if the specie id is 2,4,7 or 10
-      if($body_part_code == body_part::L_SIGLA){//and the body part code is L
-        $body_part_code = NULL;//clear the old body part code (if there is one)- see below and add nothing, as L is the default body part code
+      if($v == body_part::L_SIGLA){//and the body part code is L
+        $v = null;//clear the old body part code (if there is one)- see below and add nothing, as L is the default body part code
       }
     }
     else{//for all other species
-      if($body_part_code == body_part::F_SIGLA){//and the body part code is F
-        $body_part_code = NULL;//clear the old body part code (if there is one) and add nothing, as F is the default body part code
+      if($v == body_part::F_SIGLA){//and the body part code is F
+        $v = null;//clear the old body part code (if there is one) and add nothing, as F is the default body part code
       }
     }
     
-    //get the notes of the individual
-    $notes = $this->getNotes();//this could cause an error, it only returns notes for currentIndividuali18n, what happens when the language is changed?
-    $position_of_underscore = stripos($notes, "__");
-    
-    //add the body part code at the end of the individual's notes (eg. add "_F")
-    if($position_of_underscore === FALSE){//case a) it never had _BodyPart at the end, so add it
-        
-      if($body_part_code){
-        $this->setNotes( $notes."__".$body_part_code );
-        $this->save();
-      }
-    }
-    else{//case b) it already had _BodyPart, so, just replace the old one with the new one
-        
-      if($body_part_code){
-        $this->setNotes( substr($notes,0,$position_of_underscore)."__".$body_part_code );//remove "__F" and replace with "__L"
-      }
-      else{
-        $this->setNotes( substr($notes,0,$position_of_underscore) );//remove "__F"
-      }
-        $this->save();
-    }
+    parent::setDominantBodyPartCode($v);
   }
 
   public function getDominantBodyPartCode() {
     
     $OBPhotos = $this->getObservationPhotos();
+    $body_part_code = parent::getDominantBodyPartCode();
 
-    //the correct way would be do go through each i18n individual connected to this individual, read its notes and stop at the first "__F" encountered, otherwise conclude that no dominant body part was previously set by the user
-    $notes = $this->getNotes();//this could cause an error, it only returns notes for currentIndividuali18n, what happens when the language is changed?
-    $position_of_underscore = stripos($notes, "__");//this works even if $notes is NULL
+    if($body_part_code){//there is a user-set body part code
 
-    if($position_of_underscore !== FALSE){//there is a double underscore there
-
-        //check to see if there is at least one photo with the dominant body part written in the notes
+        //check to see if there is at least one photo with that dominant body part
         if( !$OBPhotos->isEmpty() ){//the individual has at least one photo
 
           foreach($OBPhotos as $OBPhoto){
-            if( $OBPhoto->getBodyPart()->getCode() == substr($notes,$position_of_underscore+2) ){//photo with the same body part code as the one written in the notes
-                return substr($notes,$position_of_underscore+2);//+2 because "__" is made up of two "_"
+            if( $OBPhoto->getBodyPart()->getCode() == $body_part_code ){//photo with the same body part code as the one written in dominant_body_part_code field
+                return $body_part_code;
             }
           }
           
-          //because of the return above, code below will be run only if it couldn't find a photo with the dominant body part written in the notes
-          $this->setDominantBodyPartCode();//get rid of the dominant body part written in the notes
-          $this->getDominantBodyPartCode();//call it again, this time it won't have a body part written in the notes
+          //because of the return above, code below will be run only if it couldn't find a photo with the dominant body part code written in the field
+          $this->setDominantBodyPartCode();//get rid of that dominant body part
+          $this->save();
+          $this->getDominantBodyPartCode();//call it again, this time it won't have a body part there
         }
         else{//individual has no photos (normally not possible), writing this case as a back-up
             $this->setDominantBodyPartCode();
+            $this->save();
             $this->getDominantBodyPartCode();
         }
     }
@@ -358,7 +312,7 @@ class Individual extends BaseIndividual {
                     }
 
                 }
-                else{//the individual has no photos and no "__RL" or "__whatever" in its notes, so set its dominant body part as "L"
+                else{//the individual has no photos and nothing in its dominant body part code field, so its returned dominant body part is "L"
                     return body_part::L_SIGLA;
                 }
             }
@@ -379,11 +333,11 @@ class Individual extends BaseIndividual {
                     }
 
                   }
-                  else{//the individual has no photos and no "__F" in its notes, so set its dominant body part as "R"
+                  else{//the individual has no photos and no user-set body part code, so return its dominant body part code as "F"
                       return body_part::F_SIGLA;
                   }
             }
-    }//end of else ($position_of_underscore is FALSE)
+    }//end of else (there isn't a user-set dominant body part code)
 
     return $body_part_code;
   }
