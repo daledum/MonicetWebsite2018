@@ -888,8 +888,8 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
         $notes = $individual->getNotes();
         $position_of_underscore = stripos($notes, "__");
         if($position_of_underscore !== FALSE){
-          //$individual->setDominantBodyPartCode( substr($notes,$position_of_underscore+2) );
-          $individual->setNotes( substr($notes,0,$position_of_underscore) );//remove "__R"
+          $individual->setDominantBodyPartCode( substr($notes,$position_of_underscore+2) );//set the dominant body part code according to the notes
+          $individual->setNotes( substr($notes,0,$position_of_underscore) );//remove "__R" from notes
           $individual->save();
         }
       }
