@@ -879,24 +879,7 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
       $obPhotosQS = $obPhotosQS->filterById($to, Criteria::LESS_EQUAL);
     }
     $obPhotos = $obPhotosQS->orderById(Criteria::ASC)->setFormatter(ModelCriteria::FORMAT_ON_DEMAND)->find();
-    
-  //remove from here...
-  foreach($obPhotos as $op){
-      $individual = $op->getIndividual();
 
-      if($individual){
-        $notes = $individual->getNotes();
-        $position_of_underscore = stripos($notes, "__");
-        if($position_of_underscore !== FALSE){
-          $individual->setDominantBodyPartCode( substr($notes,$position_of_underscore+2) );//set the dominant body part code according to the notes
-          $individual->setNotes( substr($notes,0,$position_of_underscore) );//remove "__R" from notes
-          $individual->save();
-        }
-      }
-   }
-   //...to here
-
-    /*
     // create csv file
     $observations_file = fopen($this->filename, 'w');
     fwrite($observations_file, "id,filename,date,time,individual,specie,island,body_part,gender,age_group,behaviour,latitude,longitude,company,vessel,photographer,kind_of_photo,photo_quality,sighting_id,best,status,last_edited_by,validated_by\n");
@@ -952,7 +935,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     fclose($observations_file);
     
     $this->forward404Unless(file_exists($this->filename));
-    */
   }
   
 }
