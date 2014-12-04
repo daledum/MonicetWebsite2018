@@ -14,16 +14,7 @@ class prObservationPhotoDorsalLeftActions extends autoPrObservationPhotoDorsalLe
 
       $ObservationPhotoDorsalLeft = $form->save();
       $ObservationPhoto = $ObservationPhotoDorsalLeft->getObservationPhoto();
-      if( $ObservationPhoto->getStatus() == ObservationPhoto::NEW_SIGLA) {
-        if($ObservationPhoto->getIndividual()){//in case the photo was downgraded to NEW from a 'higher' status (when changing its body part, for example), but the photo was already associated to an indvidual
-          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);//no need to identify it again, so jump to 'para validar'
-          $ObservationPhoto->save();
-        }
-        else{
-          $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
-          $ObservationPhoto->save();
-        }
-      }
+      $ObservationPhoto->statusUpdate($action='change_marks');
 
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoDorsalLeft)));
 
