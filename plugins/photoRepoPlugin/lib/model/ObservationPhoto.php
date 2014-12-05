@@ -281,6 +281,19 @@ class ObservationPhoto extends BaseObservationPhoto {
             $this->setLastEditedBy($sessionUser->getId());
             $this->save();
           }
+          //the action is 'change_marks' which is called when characterizing a photo (an action which is run only when the photo is characterizable, see executeCharacterize())
+          if( $action == 'change_marks' ){
+            if($this->getIndividual()){
+              $this->setStatus(self::FA_SIGLA);//if the photo already had an individual, change its status to 'para validar'
+              $this->setLastEditedBy($sessionUser->getId());
+              $this->save();
+            }
+            else{
+              $this->setStatus(self::C_SIGLA);//else, change it to 'para identificar'
+              $this->setLastEditedBy($sessionUser->getId());
+              $this->save();
+            }
+          }
           break;
           
         case self::C_SIGLA:
@@ -288,6 +301,18 @@ class ObservationPhoto extends BaseObservationPhoto {
             $this->setStatus(self::FA_SIGLA);
             $this->setLastEditedBy($sessionUser->getId());
             $this->save();
+          }
+          //the action is 'change_marks' which is called when characterizing a photo (an action which is run only when the photo is characterizable, see executeCharacterize())
+          if( $action == 'change_marks' ){
+            if($this->getIndividual()){
+              $this->setStatus(self::FA_SIGLA);//if the photo already had an individual, change its status to 'para validar'
+              $this->setLastEditedBy($sessionUser->getId());
+              $this->save();
+            }
+            else{
+              $this->setLastEditedBy($sessionUser->getId());
+              $this->save();
+            }
           }
           break;
           

@@ -14,25 +14,8 @@ class prObservationPhotoTailActions extends autoPrObservationPhotoTailActions
 
       $ObservationPhotoTail = $form->save();
       $ObservationPhoto = $ObservationPhotoTail->getObservationPhoto();
+      $ObservationPhoto->statusUpdate($action='change_marks');
       
-      $sf_user = SfContext::getInstance()->getUser();
-      $ObservationPhoto->setLastEditedBy($sf_user->getGuardUser()->getId());
-      
-      if( $ObservationPhoto->getStatus() == ObservationPhoto::NEW_SIGLA) {
-        if($ObservationPhoto->getIndividual()){
-          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-          $ObservationPhoto->save();
-        }
-        else{
-          $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
-          $ObservationPhoto->save();
-        }
-      }
-      if( $ObservationPhoto->getStatus() == ObservationPhoto::V_SIGLA) {
-        $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-        $ObservationPhoto->save();
-      }
-
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoTail)));
 
       $this->getUser()->setFlash('notice', $notice);

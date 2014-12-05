@@ -14,16 +14,8 @@ class prObservationPhotoDorsalRightActions extends autoPrObservationPhotoDorsalR
 
       $ObservationPhotoDorsalRight = $form->save();
       $ObservationPhoto = $ObservationPhotoDorsalRight->getObservationPhoto();
-      if( $ObservationPhoto->getStatus() == ObservationPhoto::NEW_SIGLA) {
-        if($ObservationPhoto->getIndividual()){
-          $ObservationPhoto->setStatus(ObservationPhoto::FA_SIGLA);
-          $ObservationPhoto->save();
-        }
-        else{
-          $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);
-          $ObservationPhoto->save();
-        }
-      }
+      $ObservationPhoto->statusUpdate($action='change_marks');
+
       $this->dispatcher->notify(new sfEvent($this, 'admin.save_object', array('object' => $ObservationPhotoDorsalRight)));
 
       $this->getUser()->setFlash('notice', $notice);

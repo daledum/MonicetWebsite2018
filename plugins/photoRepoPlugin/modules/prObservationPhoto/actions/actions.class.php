@@ -333,8 +333,11 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
             $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);
             }
             else{//the photo is not new
-                //firstly, un-assign individual linked to the photo if the specie was changed (keep it if the body part was changed, but force a re-identification - see below)
+                //firstly, un-assign individual linked to the photo if the specie was changed (keep it if the body part was changed, but force a re-characterization - see below)
                 if( $old_specie_id != $ObservationPhoto->getSpecieId() && $ObservationPhoto->getIndividual() ){
+                  //the photo might have been the last photo of the individual (and BEST at the same time, according to the rules for BEST)
+                  //deal with that individual: delete it if this was its last photo - this will set the status to C_SIGLA + set a new BEST photo/dominant body part etc
+                  $ObservationPhoto->haveToChooseBestPhotoAgain('ask and change');
                   $ObservationPhoto->setIndividual(null);
                   $ObservationPhoto->setIsBest(false);
                 }
