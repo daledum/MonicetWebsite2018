@@ -37,6 +37,14 @@ pr_process_add_photos_bulk:
     action:     processUploadPhotosBulk
   requirements:
     sf_method:  post
+
+pr_process_user_photo:
+  url:   /:sf_culture/catalog/user-photo
+  params:
+    module:     prCatalog
+    action:     processUserPhoto
+  requirements:
+    sf_method:  post
     
 pr_delete_pendent_photos_bulk:
   url:  /reconhecimento-de-cetaceos/delete-photos-bulk

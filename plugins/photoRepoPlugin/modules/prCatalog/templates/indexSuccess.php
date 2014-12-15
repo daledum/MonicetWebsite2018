@@ -33,6 +33,23 @@
           'filter_stats' => $filter_stats
       )); ?>
     </form>
+      
+      <br><br>
+      <div id="user_photo_form_box" >
+        <div class="left-sidebar-title"><h2><?php echo __('Compare my photo', null, 'catalog'); ?></h2></div> <!-- make the translations: /var/www/html/project/monicet/plugins/photoRepoPlugin/i18n/catalog.pt.xml: -->
+        <form id="user_photo_form" method="post" action="<?php echo url_for('@pr_process_user_photo') ?>" enctype="multipart/form-data">
+              <fieldset id="sf_fieldset_none">
+                <?php if ($userPhotoForm->isCSRFProtected()) : ?>
+                  <?php echo $userPhotoForm['_csrf_token']->render(); ?>
+                <?php endif; ?>
+                <div class="sf_admin_form_row sf_admin_text sf_admin_form_field_creditos errors">
+                  <?php echo $userPhotoForm['photo']->renderError() ?><!-- it doesn't throw any errors - must fix -->
+                  <?php echo $userPhotoForm ?>
+                </div>
+              </fieldset>
+              <button type="submit" value="<?php echo __("Send photo"); ?>"><?php echo __("Send photo"); ?></button>
+        </form>
+    </div>
 </div>
 
 <div class="right-content">

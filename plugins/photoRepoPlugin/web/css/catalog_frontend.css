@@ -669,3 +669,16 @@ a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
     padding-bottom: 5px;
     padding-top: 10px;
 }
+
+#user_photo_form input {
+    margin: 0px;
+    width: 295px;
+}
+
+#user_photo_form label {
+    width: 150px !important;
+}
+
+#user_photo_form select {
+    width: 305px;
+}

@@ -22,6 +22,112 @@ class prCatalogActions extends sfActions
     
     $this->pager = IndividualPeer::filter($this->formSubmitedValues);
     $this->filter_stats = IndividualPeer::get_filter_stats($this->formSubmitedValues);
+
+    $this->userPhotoForm = new frontendUserPhotoForm();
+  }
+
+  public function executeProcessUserPhoto(sfWebRequest $request)
+  {
+    $this->forward404Unless($request->isMethod('post'));
+    $this->form = new frontendUserPhotoForm();
+    $this->form->bind($request->getParameter('user_photo_form'), $request->getFiles('user_photo_form'));
+    if($this->form->isValid()) {
+
+      $values = $this->form->getValues();
+      $file = $this->form->getValue('photo');
+
+        if( in_array($values['photo']->getOriginalExtension(), array('.jpg', '.JPG'))){
+
+             $photo_counter = 0;
+             $delete_keys = array();
+
+
+             //find all other user photos (which have USER in the code) - the code of a user photo is of type YYYYMMDD-USER-IMG_n, where n is a number and YYYYMMDD is today's date
+             $c = new Criteria();
+             $c->add(ObservationPhotoPeer::CODE, '%USER%', Criteria::LIKE);
+             $userPhotos = ObservationPhotoPeer::doSelect($c);
+
+             foreach ($userPhotos as $key => $userPhoto) {
+               
+               //calculate the daily counter for those photos that have the same date as today's date in the code in order to add it at the end of the file name
+               if( $userPhoto->getPhotoDate() == date("Y-m-d") ){//or strpos( $userPhoto->getCode, date("Ymd") ) !== FALSE
+                
+                //get the largest number after IMG_
+                if( (int)substr($userPhoto->getCode(), 18) > $photo_counter ){
+                  $photo_counter = (int)substr($userPhoto->getCode(), 18);
+                }
+
+                //for pictures from the same day, but older than aprox 2 hours - get rid of them (NB this isn't optimum, time varies across the Globe )
+                if( (int)date("H") - (int)strstr($userPhoto->getPhotoTime(), ':', TRUE) >= 2  ){//uploaded_at and created_at can be used too
+                  $delete_keys[] = $key;
+                }
+               }
+               else{//the other photos with a previous date - get rid of them
+                  $delete_keys[] = $key;
+               }
+             }
+
+             //delete the old user photos
+             foreach ($delete_keys as $delete_key) {
+
+                //a) deletes the file from the upload folder
+                $locationBegin = sfConfig::get('sf_upload_dir').'/pr_repo_final/';
+                $deletedFileName = $userPhotos[$delete_key]->getFileName();
+                $deletedFileAddress = $locationBegin.$deletedFileName;
+                
+                    if( file_exists($deletedFileAddress) ) {
+                      system('rm '.$deletedFileAddress);
+                    }
+                
+                //b) deletes it from the database
+                $userPhotos[$delete_key]->delete();
+             }
+             
+            $photo_counter = $photo_counter + 1;
+            $code = date("Ymd").'-USER-'.'IMG_'.$photo_counter;
+
+            $fileAddress = sfConfig::get('sf_upload_dir').'/pr_repo_final/'.$code.'.jpg';
+            $file->save($fileAddress);
+
+            $dateUpload = date("Y-m-d H:i:s", filemtime($fileAddress));
+
+            //create the line in the observation_photo table
+            $ObservationPhoto = new ObservationPhoto();
+            //set its code
+            $ObservationPhoto->setCode($code);
+            //set its file name
+            $ObservationPhoto->setFileName($code.'.jpg');
+            //set the date
+            $ObservationPhoto->setPhotoDate( date("Y-m-d", filemtime($fileAddress)) );
+            //set the time
+            $ObservationPhoto->setPhotoTime( date("H:i:s", filemtime($fileAddress)) );
+            //set the specie id
+            $ObservationPhoto->setSpecieId($values["specie_id"]);
+            //set the body part id
+            $ObservationPhoto->setBodyPartId($values["body_part_id"]);
+            //set an extra marker in its notes: _user for visibility
+            $ObservationPhoto->setNotes('_user');
+            //set uploaded at
+            $ObservationPhoto->setUploadedAt($dateUpload);
+            //set its status, save and redirect to characterize or identify page
+            if( $ObservationPhoto->isCharacterizable() ){
+              $ObservationPhoto->setStatus(ObservationPhoto::NEW_SIGLA);//sets it to new if characterizable
+              $ObservationPhoto->save();
+              $this->redirect('@pr_observation_photo_characterize?id='.$ObservationPhoto->getId());//redirect to characterize
+            }
+            else{
+              $ObservationPhoto->setStatus(ObservationPhoto::C_SIGLA);//sets it to characterized, if non-characterizable
+              $ObservationPhoto->save();
+              $this->redirect('@pr_observation_photo_identify?id='.$ObservationPhoto->getId());//redirect to identify
+            }
+        } else {
+          $this->getUser()->setFlash('error', 'A fotografia enviada contém uma extensão inválida.');
+        }
+    }
+    else{//form is not throwing any error messages... why? PLUS, it only likes files <2MB even if max size is not set in the form widget validator
+      $this->redirect('@pr_catalog');
+    }
+    $this->setTemplate('processUserPhoto'); //Sets an alternate template for this sfAction - is this really necessary?
   }
 
   public function executeIndividual(sfWebRequest $request)
