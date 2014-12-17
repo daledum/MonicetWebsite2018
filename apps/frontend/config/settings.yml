@@ -44,3 +44,10 @@ all:
     enabled_modules:
       - mfLog
       - prCatalog
+      - prObservationPhoto
+      - prObservationPhotoTail
+      - prObservationPhotoTailMark
+      - prObservationPhotoDorsalLeft
+      - prObservationPhotoDorsalLeftMark
+      - prObservationPhotoDorsalRight
+      - prObservationPhotoDorsalRightMark

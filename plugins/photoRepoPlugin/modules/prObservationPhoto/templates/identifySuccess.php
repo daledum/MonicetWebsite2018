@@ -187,6 +187,9 @@
   
   <ul class="sf_admin_actions">
     <li id="submit_identify_form"><input type="submit" value="Filtrar de acordo com suas escolhas" /></li>
+
+    <?php if( strpos( $observationPhoto->getCode(), 'USER' ) === FALSE ): ?>
+
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_pendent_photos_list') ?>">Fotografias por processar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo?do=clean') ?>">Fotografias por analisar</a></li>
     <li class="sf_admin_action_list"><a href="<?php echo url_for('@pr_observation_photo_validated') ?>">Catálogo</a></li>
@@ -210,6 +213,8 @@
       <li class="sf_admin_action_edit" id="doubt"><a onclick="doubt()">Tenho dúvidas</a></li>
     <?php else: ?>
       <li class="sf_admin_action_edit" id="undoubt"><a onclick="doubt()">Não tenho mais dúvidas</a></li>
+    <?php endif; ?>
+
     <?php endif; ?>
   </ul>
 
