@@ -496,11 +496,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id'));
     $this->forward404Unless( $this->observationPhoto && $this->observationPhoto->isCharacterizable() );
 
-    if( strpos( $this->observationPhoto->getCode(), 'USER' ) !== FALSE ){
-      $this->setLayout('userPhotoLayout');
-      $this->getResponse()->addStylesheet('user_frontend');
-    }
-
     $this->pattern = PatternQuery::create()->filterBySpecieId($this->observationPhoto->getSpecieId())->findOne();
     if($this->observationPhoto->getBodyPart()) {
      $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
@@ -532,12 +527,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     $this->identify_form = new identifyForm();
     
     $this->forward404Unless($this->observationPhoto = ObservationPhotoPeer::retrieveByPK($request->getParameter('id')));
-
-    if( strpos( $this->observationPhoto->getCode(), 'USER' ) !== FALSE ){
-      $this->setLayout('userPhotoLayout');//.php extension is automatic
-      //removing the regular frontend stylesheet was attempted without success, therefore !important will be used in the /photoRepoPlugin/css/user_frontend sylesheet
-      $this->getResponse()->addStylesheet('user_frontend');//takes the file from /monicet/web/css. If a different path is desired, just write $this->getResponse()->addStylesheet('/photoRepoPlugin/css/user_frontend') for example
-    }
     
     $this->isTail = $this->observationPhoto->getBodyPart()->getCode() == body_part::F_SIGLA;
     $this->isLeft = $this->observationPhoto->getBodyPart()->getCode() == body_part::L_SIGLA;
@@ -673,7 +662,6 @@ class prObservationPhotoActions extends autoPrObservationPhotoActions {
     } else {
       $c = $criteria->getNewCriterion(ObservationPhotoPeer::STATUS, ObservationPhoto::V_SIGLA, Criteria::NOT_EQUAL);
       $criteria->addAnd($c);
-      $criteria->addAnd(ObservationPhotoPeer::CODE, '%USER%', Criteria::NOT_LIKE);
     }
 
     $this->addSortCriteria($criteria);
