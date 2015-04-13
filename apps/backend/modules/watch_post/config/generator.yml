@@ -24,7 +24,8 @@ generator:
       list:
         title:             A listar postos
         display:           [company, latitude, longitude, height]
-      filter:              
+        object_actions:    { _edit: ~ }
+      filter:
         display:           [ company_id, name ]
       form:    ~
       edit:

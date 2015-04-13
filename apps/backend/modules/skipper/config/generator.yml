@@ -21,8 +21,9 @@ generator:
       list:
         title:             A listar skippers
         display:           [company, name]
+        object_actions:    { _edit: ~ }
         #peer_method:       doSelectByCompany
-      filter:              
+      filter:
         display:           [ company_id, name ]
       form:    ~
       edit:

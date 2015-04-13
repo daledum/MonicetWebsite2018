@@ -21,7 +21,8 @@ generator:
       list:
         title:             A listar vigias
         display:           [company, name]
-      filter:              
+        object_actions:    { _edit: ~ }
+      filter:
         display:           [ company_id, name ]
       form:    ~
       edit:
