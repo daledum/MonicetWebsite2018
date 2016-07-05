@@ -1,0 +1,41 @@
+version: '2'
+services:
+  web:
+    image: helder/nginx
+    ports:
+      - 80
+    volumes_from:
+      - php
+    environment:
+      - CONF_APP=symfony1
+      - CONF_UPSTREAM=php:9000
+
+  php:
+    image: helder/php:5.3
+    depends_on:
+      - db
+      - mail
+    volumes_from:
+      - syslog
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - ENVIRONMENT=dev
+      - USE_XDEBUG=false
+    working_dir: /usr/src/app
+
+  db:
+    image: mysql:5.5
+    ports:
+      - 3306
+    environment:
+      - MYSQL_DATABASE=monicet
+      - MYSQL_ROOT_PASSWORD=root
+
+  syslog:
+    image: helder/rsyslog
+
+  mail:
+    image: helder/mailcatcher
+    ports:
+      - 80
