@@ -11,14 +11,12 @@ services:
       - CONF_UPSTREAM=php:9000
 
   php:
-    image: helder/php:5.3
+    build: docker/php
     depends_on:
       - db
       - mail
-    volumes_from:
-      - syslog
     volumes:
-      - .:/usr/src/app
+      - ./:/usr/src/app
     environment:
       - ENVIRONMENT=dev
       - USE_XDEBUG=false
@@ -32,10 +30,19 @@ services:
       - MYSQL_DATABASE=monicet
       - MYSQL_ROOT_PASSWORD=root
 
-  syslog:
-    image: helder/rsyslog
-
   mail:
     image: helder/mailcatcher
     ports:
       - 80
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    ports:
+      - 80
+    volumes:
+      - /sessions

@@ -38,10 +38,8 @@ class prCatalogActions extends sfActions
   
   public function executeExportIndividual( sfWebRequest $request ) {
     $this->forward404Unless($individual = IndividualPeer::retrieveByName($request->getParameter('name')));
-    
     //process zip file
     $this->_createFile($individual);
-    
     // redirect for download
     $this->redirect('@pr_catalog_download_individual?name='.$individual->getName());
   }
@@ -50,7 +48,6 @@ class prCatalogActions extends sfActions
     $this->forward404Unless($this->individual = IndividualPeer::retrieveByName($request->getParameter('name')));
     $filename = sfConfig::get('sf_plugins_dir').'/photoRepoPlugin/web/export_individual/'.$this->individual->getName().'.zip';
     $this->forward404Unless(file_exists($filename));
-    
     //$this->redirect('http://'.$request->getHost().'/photoRepoPlugin/export_individual/teste.zip');
     $this->redirect('http://'.$request->getHost().'/photoRepoPlugin/export_individual/'.$this->individual->getName().'.zip');
   }
@@ -61,7 +58,6 @@ class prCatalogActions extends sfActions
     $skeletonFolder = $finalFolder.'_skeleton';
     $individualFolder = $tmpFolder.'/'.$individual->getName();
     $repoFolder = sfConfig::get('sf_upload_dir').'/pr_repo_final';
-    
     // build structure
     system('mkdir '.$individualFolder);
     system('mkdir '.$individualFolder.'/css');
@@ -71,7 +67,6 @@ class prCatalogActions extends sfActions
     system('cp '.$skeletonFolder.'/logo_monicet.png '.$individualFolder.'/images');
     system('mkdir '.$individualFolder.'/individual_photos');
     system('mkdir '.$individualFolder.'/ob_photo_page');
-    
     // index file
     $index = fopen( $individualFolder.'/index.html', 'w');
     
@@ -114,12 +109,11 @@ class prCatalogActions extends sfActions
         
       fwrite($index, '</div>' );
       fwrite($index, '<h2>'.mfText::translate('Observation photos', 'export_individual').'</h2>' );
-      
+
       fwrite($index, '<div>' );
       foreach( $individual->getObservationPhotos() as $OBPhoto ) {
         if( $OBPhoto->getStatus(ObservationPhoto::V_SIGLA)) {
           $this->_makeOBPhotoPage($OBPhoto, $repoFolder, $individualFolder);
-          
           fwrite($index, '<a href="ob_photo_page/'.$OBPhoto->getId().'.html">');
             fwrite($index, '<img class="index-thumbnail" height="120" width="130" title="'.$OBPhoto->getFilename().'" alt="'.$OBPhoto->getFilename().'" src="individual_photos/tn_130x120_'.$OBPhoto->getFilename().'">');
           fwrite($index, '</a>');
@@ -131,7 +125,6 @@ class prCatalogActions extends sfActions
           
     $this->_makeHtmlFooter($index);
     fclose($index);
-    
     // process zip fie
     chdir($finalFolder);
     system('rm -Rf '.$individual->getName().'.zip');
@@ -139,7 +132,7 @@ class prCatalogActions extends sfActions
     system('zip -9 -y -r -q '.$individual->getName().'.zip *');
     system('mv '.$individual->getName().'.zip '.$finalFolder);
     system('rm -Rf '.$tmpFolder.'/*');
-  }
+    }
   
   protected function _makeHtmlHeadHeader($htmlFile, $level = ''){
     fwrite($htmlFile, '<!DOCTYPE html>' );
@@ -183,7 +176,6 @@ class prCatalogActions extends sfActions
     $OBPhotoindex = fopen( $individualFolder.'/ob_photo_page/'.$OBPhoto->getId().'.html', 'w');
     
     $this->_makeHtmlHeadHeader($OBPhotoindex, $level = "../");
-    
     system('cp '.$repoFolder.'/'.$OBPhoto->getFilename().' '.$individualFolder.'/individual_photos');
     system('cp '.$repoFolder.'/tn_130x120_'.$OBPhoto->getFilename().' '.$individualFolder.'/individual_photos');
     fwrite($OBPhotoindex, '<div class="content">' );
@@ -215,44 +207,49 @@ class prCatalogActions extends sfActions
           fwrite($OBPhotoindex, '</table>' );
         fwrite($OBPhotoindex, '</div>' );
         fwrite($OBPhotoindex, '<div class="clear"></div>');
+        fwrite($OBPhotoindex, '<div class="photo-container">' );
 
+        //EXIF
         $exif = exif_read_data($repoFolder.'/'.$OBPhoto->getFilename(), 0, true);
-
-        $iptc = array();
-        $size = getimagesize ( $repoFolder.'/'.$OBPhoto->getFilename(), $info);        
-        if(is_array($info)) {    
-            $iptc = iptcparse($info["APP13"]);
+        if($exif!==false) {
+            fwrite($OBPhotoindex, '<div class="photo-exif">' );
+              fwrite($OBPhotoindex, '<b>EXIF</b><br/>' );
+              fwrite($OBPhotoindex, '<ul>' );
+                foreach ($exif as $key => $section) {
+                  foreach ($section as $name => $val) {
+                    fwrite($OBPhotoindex, '<li><b>'.$key.'.'.$name.'</b>: ' );
+                    if (is_array($val)){
+                      fwrite($OBPhotoindex, print_r($val) );
+                    } else {
+                      fwrite($OBPhotoindex, $val );
+                    }
+                    fwrite($OBPhotoindex, '</li>' );
+                  }
+                }
+              fwrite($OBPhotoindex, '</ul>' );
+            fwrite($OBPhotoindex, '</div>' );
         }
 
-        fwrite($OBPhotoindex, '<div class="photo-container">' );
-          fwrite($OBPhotoindex, '<div class="photo-exif">' );
-            fwrite($OBPhotoindex, '<b>EXIF</b><br/>' );
-            fwrite($OBPhotoindex, '<ul>' );
-              foreach ($exif as $key => $section) {
-                foreach ($section as $name => $val) {
-                  fwrite($OBPhotoindex, '<li><b>'.$key.'.'.$name.'</b>: ' );
-                  if (is_array($val)){
-                    fwrite($OBPhotoindex, print_r($val) );
-                  } else {
-                    fwrite($OBPhotoindex, $val );
-                  }
-                  fwrite($OBPhotoindex, '</li>' );
+          //IPTC
+          $iptc = array();
+          $size = getimagesize ( $repoFolder.'/'.$OBPhoto->getFilename(), $info);
+          if( is_array($info) && isset($info['APP13']) ) {
+            $iptc = iptcparse($info["APP13"]);
+
+            fwrite($OBPhotoindex, '<div class="photo-iptc">' );
+              fwrite($OBPhotoindex, '<b>IPTC</b><br/>' );
+              fwrite($OBPhotoindex, '<ul>' );
+                foreach($iptc as $key => $value ) {
+                  fwrite($OBPhotoindex, '<li><b>'.$key.'</b>:'.$value[0].'</li>' );
                 }
-              }
-            fwrite($OBPhotoindex, '</ul>' );
-          fwrite($OBPhotoindex, '</div>' );
-          fwrite($OBPhotoindex, '<div class="photo-iptc">' );
-            fwrite($OBPhotoindex, '<b>IPTC</b><br/>' );
-            fwrite($OBPhotoindex, '<ul>' );
-              foreach($iptc as $key => $value ) {
-                fwrite($OBPhotoindex, '<li><b>'.$key.'</b>:'.$value[0].'</li>' );
-              }
-            fwrite($OBPhotoindex, '</ul>' );
-          fwrite($OBPhotoindex, '</div>' );
+              fwrite($OBPhotoindex, '</ul>' );
+            fwrite($OBPhotoindex, '</div>' );
+          }
+
         fwrite($OBPhotoindex, '</div>' );
       fwrite($OBPhotoindex, '</div>' );
     fwrite($OBPhotoindex, '</div>' );
-    
+
     $this->_makeHtmlFooter($OBPhotoindex);
     
     fclose($OBPhotoindex);
