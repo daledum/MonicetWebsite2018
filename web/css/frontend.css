@@ -267,6 +267,7 @@ em {
 #_ul_consorcium li {
     display: inline;
     list-style: none;
+    white-space: nowrap;
 }
 
 #_ul_consorcium a {
