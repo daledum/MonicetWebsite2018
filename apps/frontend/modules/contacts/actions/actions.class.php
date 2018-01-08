@@ -26,33 +26,5 @@ class contactsActions extends sfActions
     $this->from = sfConfig::get('app_mail_webmaster');
     $this->to = sfConfig::get('app_mail_to_contacts');
     $this->content = ContentPeer::getContent('Contacts');
-
-    if ($request->isMethod('post'))
-    {
-      $data = $request->getPostParameter('contact', false);
-      $captcha = array();
-      $captcha['recaptcha_challenge_field'] = $this->getRequestParameter('recaptcha_challenge_field');
-      $captcha['recaptcha_response_field'] = $this->getRequestParameter('recaptcha_response_field');
-      $data['captcha'] = $captcha;
-
-      $this->form->bind($data);
-
-      if ($this->form->isValid())
-      {
-        $message = $this->getMailer()->compose(
-          $this->from,
-          $this->to,
-          "[Sítio Web Monicet] " . $this->form->getValue('subject'),
-          $this->form->getValue('message') . "\n\nEnviado em: " . date("Y-m-d H:i") . " por " . $this->form->getValue('email') 
-        );
-        $message->addCc($this->form->getValue('email'));
-      	//$message->addBcc('titomiguelcosta@morfose.net');
-        
-        $this->getMailer()->send($message);
-        
-        $this->getUser()->setFlash('success', true);
-        $this->redirect('@contacts');
-      }
-    }
   }
 }

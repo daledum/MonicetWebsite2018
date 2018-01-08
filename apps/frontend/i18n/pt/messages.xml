@@ -173,8 +173,8 @@
         <target>a/c</target>
       </trans-unit>
       <trans-unit id="45">
-        <source>The easiest way to reach us is by e-mail. Just write to %1% or use the form below</source>
-        <target>A maneira mais fácil de nos contactar é por correio electrónico. Escreva para %1% ou use o formulário abaixo.</target>
+        <source>The easiest way to reach us is by e-mail. Just write to %1%.</source>
+        <target>A maneira mais fácil de nos contactar é por correio electrónico. Pode escrever para %1%.</target>
       </trans-unit>
       <trans-unit id="46">
         <source>album</source>
